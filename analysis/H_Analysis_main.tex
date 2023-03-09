@@ -1,0 +1,263 @@
+\input{header}
+
+\usepackage{subfiles}
+%\graphicspath{ {Bilder/} {../Bilder/} }
+
+
+\makeindex
+
+\begin{document}
+\pagenumbering{Roman}
+\pagestyle{plain.scrheadings}
+
+\begin{titlepage}
+\centering
+\title{Zusammenfassung}
+
+\subtitle{Höhere Analysis
+%
+\includegraphics[width=0.76\textwidth]{Bilder/Titelbild_MF_V4.pdf}%V1
+%
+\vspace{-2cm}
+}
+
+\author{Max Melching}
+\date{Stand: \today}
+\maketitle
+\end{titlepage}
+
+%\newpage
+%\pagestyle{scrheadings}
+\setcounter{page}{1}
+
+\begin{abstract}
+\section*{Vorwort}
+Die aktuellste Version dieser Datei ist unter \url{https://github.com/MaxMelching/physics_notes} zu finden.\\
+
+Diese Zusammenfassung wurde von auf Basis von Skripten meiner Dozenten an der Leibniz Universität Hannover geschrieben (besonders zu erwähnen sind dort Dr.~Sebastian Heller, Prof.~Dr.~Knut Smoczyk). Sehr hilfreich war außerdem das Buch $"$The Road to Reality$"$ von Sir Roger Penrose.
+
+Natürlich übernehme ich keine Garantie für die Richtigkeit aller Ausführungen, auch wenn ich mir größte Mühe dabei gegeben habe.\\
+
+
+Thematisch werden hier vor allem fortgeschrittene Konzepte der Analysis sowie Geometrie behandelt. Das umfasst insbesondere Mannigfaltigkeiten, Lie-Gruppen, Vektorbündel und Differentialformen. Zu Anfang erfolgt eine Wiederholung besonders relevanter Grundlagen, die immer wieder benötigt werden, Vorkenntnisse in Analysis und (Linearer) Algebra sind jedoch unabdingbar.\\
+% ergänzen, wenn Riemannsche drin
+
+%Inhalt (laut Modulkatalog):
+%\begin{itemize}
+%\item Topologische und differenzierbare Manigfaltigkeiten
+%\item Tangential- und Kotangentialräume und - bündel
+%\item Differentialformen und Vektorfelder
+%\item Lie-Ableitungen, -Gruppen und -Algebren
+%\item Integration auf Mannigfaltigkeiten, der Satz von Stokes
+%\item Vektorbündel und Tensorfelder
+%\item Zusammenhänge auf Vektorbündeln, Paralleltransport, kovariante Ableitung und Holonomie\\
+%\end{itemize}
+
+Zum Schluss soll noch die Bedeutung einiger Begriffe erläutert werden:
+\begin{itemize}
+\item \textbf{Definition}: selbsterklärend
+\item \textbf{Satz}: für das Thema wichtige Aussage (Beweise hierzu werden nur aufgeführt, wenn sie zum Verständnis des Themas beitragen und nicht zu technisch sind)
+\item \textbf{Lemma} (hier zusätzlich noch äquivalent zu Proposition verwendet): Aussagen, die eher zum Beweis eines Satzes wichtig sind als allgemein (für Beweise gilt das Gleiche wie bei Sätzen)
+\item \textbf{Korollar}: (mehr oder weniger) offensichtliche Folgerungen aus Sätzen (Beweise sind meist recht kurz und werden daher nicht immer voll ausformuliert)
+\item \textbf{Beispiel}: selbsterklärend
+
+\item Überschriften mit \textbf{*} bedeuten, dass Abschnitt noch nicht vollständig sind
+\end{itemize}
+\end{abstract}
+
+
+\newpage
+
+
+
+\tableofcontents
+
+\newpage
+
+\listoffigures
+
+\newpage
+
+%\listoftables
+
+%\newpage
+
+\pagestyle{scrheadings}
+\pagenumbering{arabic}
+
+
+
+\subfile{chapters/H_Analysis_chapter1}
+
+\subfile{chapters/H_Analysis_chapter2}
+
+\subfile{chapters/H_Analysis_chapter3}
+
+\subfile{chapters/H_Analysis_chapter4}
+
+\subfile{chapters/H_Analysis_chapter5}
+
+\subfile{chapters/H_Analysis_chapter6}
+
+\subfile{chapters/H_Analysis_chapter7}
+
+
+
+\chapter{Restlicher Stuff}
+
+
+	\section{Aus Fragestunde/ Sonstige Ergänzungen}
+		\subsection*{Zu Grundlagen (Anfang)}
+zur Notation: $\subset$ bedeutet hier auch immer, dass Gleichheit möglich ! Und oft werden $=$ und $\cong$ vermischt (aber aus verständlichen Gründen, man kann die Sachen dann halt immer als äquivalent behandeln)
+
+Sinn der Vorlesung: lernen, möglichst einfach zu rechnen und gleichzeitig wohldefiniert bleiben; wollen das aber auch irgendwie konkret machen können (statt nur abstrakt auf der MF), um mit vorherigen Erkenntnissen vergleichen zu können
+
+
+wichtig: Mengen können offen und abgeschlossen sein (sind dann halt zusammenhängend; Namen sind dann auch eher verwirrend, es geht ja nur Menge in Topologie und Komplement in Topologie, beides zusammen ist natürlich denkbar); das ist insbesondere wichtig bei Abbildungen von beispielsweise kompakten (also abgeschlossenen) Mannigfaltigkeiten $M$, weil dann $f: M \rightarrow \mathbb{R}$ eine Abbildung auf die Menge $f(M)$ ist und man hat dann halt auch $M$ offen (weil gesamter Raum, liegt also per Definition in der Topologie !) und damit $f(M)$ offen (insgesamt dann $f(M)$ kompakt, aber das hier nebensächlich; geht darum, dass man hier Abbildung zwischen offenen Mengen hat, was ja immer wichtig ist)
+
+
+jede MF ist lokal homöomorph zu euklidischem Raum (aber wie man diese lokalen Dinger zusammenpackt bestimmt ob Diffeomorphie oder so existiert, sonst sind das ja nur Karten !)
+
+
+bei Existenz eines Diffeo zwischen MF hat man dann topologische Äquivalenz der beiden (ne, das wohl sogar nur bei homöomorph, das heißt also wohl anders)
+
+
+differenzierbare Struktur ist nicht unbedingt gleichzusetzen mit Atlas, dabei handelt es sich (siehe Seite 3 im Forster zu Riemannsche Flächen, im Reellen sollte das ja analog sein) um eine Äquivalenzklasse von Karten (bezüglich der Äquivalenzrelation, dass der Kartenübergang ein Diffeomorphismus ist) und eine solche Struktur kann durch Angabe eines Atlas definiert/ angegeben werden (jede dfb Struktur enthält nämlich einen maximalen AtlasL; jeder Atlas ist damit ein Repräsentant der Struktur anscheinend)
+
+
+Funktionen heißen glatt, wenn sie eine glatte Fortsetzung haben (also eine Funktion, die eingeschränkt auf das Definitionsgebiet die gleichen Werte annimmt und von der man weiß, dass sie glatt ist); analog geht das ganze für glatte Abbildungen und Diffeomorphismen
+
+
+Glaube gute Diskussion: \url{https://matheplanet.com/default3.html?call=viewtopic.php?topic=161282\&ref=https\%3A\%2F\%2Fwww.qwant.com\%2F}
+
+dazu, dass erst auf MF der Unterschied von Punkten als Elemente von $M$ und Vektoren als Element von $T_p M$ klar wird, ist noch zu ergänzen, dass das Ganze bei der Betrachtung in Karten/ Trivialisierungen wegen $\dim(M) = \dim(T_p M)$ wieder verschwimmt und nicht mehr wirklich der Fall ist (weil dann Punkte und Vektoren wieder im $\mathbb{R}^n$ dargestellt werden)
+
+
+man nennt das bei Funktionen wohl auch Pushforward $f_{*p} := d_p f$; gut diskutiert in \url{https://matheplanet.com/default3.html?call=viewtopic.php?topic=213693\&ref=https\%3A\%2F\%2Fwww.qwant.com\%2F}; ! lol, mit Verknüpfung der Form $f \circ \phi$ (mit Karte $\phi$ z.B.) machen wir die ganze Zeit Pullbacks von $f$ (wirkt ja per Verknüpfung auf Funktionen) !
+
+
+
+Man kann stetig dfb. Sachen mit glatten beliebig genau glatte approximieren !
+
+
+Lifehack: zeige dass Abbildung eine Einbettung ist, weil dann eine UMF von der MF vorliegt (glatte wenn Abb. glatt) und bei gleicher Dimension folgt dann Gleichheit mit der MF an sich !
+
+injektive, immersierte (? muss man dann injektiv dazu sagen ?) Abbildung muss Differential ungleich 0 haben (weil darauf bereits die 0 geht, darf dann kein anderer Vektor; entspricht dann Kern zu Kern von linearen Abbildungen oder ?)
+
+
+
+
+allgemeine Definition der dualen Basis ist im Prinzip wie beim Bildmaß oder so über die normale Basis
+
+im Skript wird auch teilweise verwendet: $\hat{\lambda}_j = \lambda_j \circ x^{-1}$, die dann eben von der MF ausgeht und nicht aus dem $\mathbb{R}^n$; man kann dann eben genau analog zu $\pdv{x_k} \cdot \lambda_j = \pdv{x_j} \cdot \lambda_k$ schreiben als $\pdv{\lambda_j}{x_k} = \pdv{\lambda_k}{x_j}$ mit den partiellen Ableitungen auf dem $\mathbb{R}^n$ (man beachte, dass dort auch genau das gleiche steht, weil bei der Definition der Gauß'schen Basis auch die Funkion immer verknüpft wird mit der inversen Karte) ! Gauß'sche Basisfelder entsprechen den Koordinatenkurven; zudem kommutieren sie noch und haben generell tolle Eigenschaften; können das auch umkehren, weil kommutierende Vektorfelder immer zu solchen Koordinatenkurven gehören
+
+
+zu Punkt vs. Vektor: können bei affiner Ebene gut im Raum rechnen (obwohl kein Fußpunkt iwie da erstmal, weil der ja variiert); der zugehörige Vektor ist aber kein Punkt aus der affinen Ebene, nur wenn Fußpunkt Ursprung wäre, weil der ja nur eine Richtung im Raum vorgibt (also: sind unterschiedlich !!!); Bedeutung Vektorfeld und Abbildung sind komplett unterschiedlich; gute Unterscheidung beim Differential, betrachten z.B. $D_p X$ allgemein eher als Bilinearform oder so, weil gucken wollen ob Gradientenvektorfeld
+
+Derivation heißt Vektor darüber charakterisieren, welche Richtungsableitung er macht
+
+
+lol, Verknüpfen durch Karten iwie gleich Verklebung (also da ist dann $y \circ f \circ x^{-1}$ für Abbildung) ??? dude aus Uni-Frankfurt sagt das auf Seite 10
+
+
+
+		\subsection*{Zu Anwendungen (später)}
+$v \otimes w$ erzeugt den Tensorproduktraum (aber eben Linearkombis, nicht nur reine; geht, weil Tensorprodukte linear) -> wie Zusammenhang von reinen zu gemischten Zuständen
+
+eigene Überlegung: Tensoren (und damit z.B. auch $k$-Formen) arbeiten nicht mit Punkten $p \in M$, daher operieren sie auf einem Tangentialraum (? -> ja, sie bilden von einem festen Tangentialraum ab), aber Tensorfelder (z.B. $k$-Differentialformen) ordnen beliebigen Punkten (einer gewissen Teilmenge $U \subset M$) Werte zu, daher operieren sie auf dem Tangentialbündel
+
+
+Differentialformen sind die alternierenden $(k, 0)$-Tensoren (? evtl Index an andere Stelle ?)
+
+wichtig bei Differentialformen ist die Möglichkeit der Zurückholung/ des Pullbacks (Übertragung auf andere Mannigfaltigkeiten) und man hat eine natürliche Ableitung (ohne dass zusätzliche Struktur nötig; geht bei Vektorfeldern z.B. nicht, sondern nur mit Zusammenhängen oder so), außerdem können wir integrieren !
+
+
+versuchen längs der Kurve, den Tangentialvektor an jedem Punkt zu kriegen (so kommt da ein Vektorfeld rein; Lösungen existieren lokal), das sind die Integralkurven; hatten ja sonst immer nur einen Tangentialvektor mit Kurvenkeim
+
+erhalten aus Umschreiben der DGL in Koordinaten dann gerade eine normale DGL; die Lösung sieht überall gleich aus, müssen nur Kartenwechsel dazwischen machen (Lösung in Koordinaten ist wohldefiniert auf der MF); finden immer Lösung, die dem Vektorfeld folgt; können uns sogar fragen, was bei kleiner Variation des Startpunkts passiert, dabei erhalten wir eine dfb Abhängigkeit des Endpunkts vom Anfangswert; packt man die Integralkurven zu verschiedenen Anfangswerten zusammen, erhalten wir einen Fluss; Integralkurven sind meist nur auf Intervallen definiert, weil man eben manchmal die Ränder trifft und dort ja nicht mehr weitergehen kann (diese Endzeiten ändern sich in infinitesimaler Nähe auch nur infinitesimal bzw. nicht viel); Flüsse (sind iwie Gruppe, weil verknüpfbar) als Lie-Algebra der Vektorfelder mit Lie-Klammer Kommutator (ergibt sich wohl später); Vektorfelder ohne Nullstellen sind in den richtigen Koordinatensystemen sehr einfach (die KS findet man aber leider nicht), können Fluss dann sehr einfach ausrechnen und müssen im Prinzip gar keine DGL mehr lösen !
+
+
+Fluss vorstellen wie Verschiebung eines Punktes entlang einer Kurve in Mathematica (genau das ist es ja eigentlich !!!)
+
+kennen Flüsse, wenn wir wissen wie Punkte bewegt werden und Punkte kriegen wir durch Anwenden auf Funktionen (also wie bei 1-Formen, die man kennt wenn Wirkung auf Vektorfeld bekannt)
+
+
+zu Orientierung: MF mit Zusatzstruktur, nämlich der Orientierung; wählen dann nur Karten, die die Orientierung erhalten (Determinante des Differentials des Kartenwechsels ist größer als 0); das hilft bei schönerer Integration, weil man dann $n$-Formen auf natürliche Weise integrieren kann; dann geht nämlich der Betrag in der Trafo-Formel weg, der oft stört (da steht ja gerade det des Kartenwechsels) ! Haben dann ja eine Normale und die packt man in det mit rein, wenn man z.B. Flächeninhalt im $\mathbb{R}^3$ berechnen will (packen dann halt Einheitsnormale rein), so berechnet man $"$orientierte Flächeninhalte
+
+er hat wohl Fehler im Skript bei Beweis Stokes auf unberandeten, da muss weiter vol stehen statt $\omega$; dürfen da unter Integral differenzieren und vertauschen, wenn Schranke vorhanden, aber wir sind auf kompakten Mannigfaltigkeiten (daher passt das); können dann mit Trafo-Formel Unabhängigkeit von $t$ zeigen, aber davor steht Ableitung davon (wird 0); können das bestimmt auch auf berandete übertragen, aber da muss man vorsichtiger sein, weil bei Trafo sich dann wohl was ändert
+
+
+Träger/ support kann auch auf Vektorbündeln definiert werden -> bei kompaktem Träger ist das Tolle nicht die Abgeschlossenheit, sondern die endliche Überdeckung !
+
+
+
+Zu De-Rham:
+
+-> für geschlossene k-Form, die nicht im Bild liegt, findet man natürlich auch viele andere, die das nicht sind (weil der Shit ja immer unendlich-dimensional sind); nehmen stattdessen $\omega$, die so eine Klasse repräsentieren, man identifiziert $\omega$ mit $\omega + d\eta$, damit man Dimension einschränkt; können uns dann topologisch vorstellen (De-Rham-Theorem), beruht auf Betrachtung kompakte k-dim UMF, können dann quasi damit UMF messen (die müssen aber auch klassifiziert werden, müssen daher zu Simplizialkomplex gehen); definieren dann Homologie mit diesen Tetraedern z.B. und diese Simplizes kann man paaren, die De-Rhams sind dann Dualräume modulo Rand; man sieht also, dass das misst wieviele nicht-triviale UMF es in einer MF gibt; Einheitskreis als Kurve in Kreisscheibe ist dann iwie 1-Simplex, Annulus (mit Loch in Mitte) z.B. nicht (weil da ja quasi zwei Ränder oder so); eingebettet Homologieklassen bis auf Rand oder sowas
+
+-> zu Hodge-Theorie: die haben häufig diskretes Spektrum oder so (wichtig in QM); haben dann Dirac-Operator wie $\laplacian = \qty(d + d^*)^2$ mit formal dualem Operator $d^*: \Omega^k(M) \rightarrow \Omega^{k - 1}(M)$; Schnitt der Kerne ist endlich-dimensional (gibt nicht so viele), können dann sogar zeigen dass nur einer; das ist einfachstes Beispiel einer Eichtheorie, das hier könnte sowas wie Wirkungsfunktional sein, messen Länge mit $\int \omega \wedge *\omega$ und das sind dann Euler-Lagrange; wenn omega nicht-trivial sind auch Kohomologie-Klassen nicht-trivial
+
+-> für $k = 1$: für geschlossene Form $\omega$ kann man dann geschlossene Kurven $\gamma: \mathbb{S}^1 \rightarrow M$ betrachten und den Pullback da aufintegrieren, das gibt $\int_{\mathbb{S}^1} \gamma^*\omega = 0$; Beweis geht recht simpel, Idee ist Periodizität, weil dann da $f(\gamma(0)) - f(\gamma(0))$ steht; bei Rückrichtung ist dann eigentlich nicht wohldefiniert, aber das folgt aus Wegunabhängigkeit (weil die ja alle null sind dann iwie); De-Rham misst, wieviele Kurven es gibt, sodass Integral ungleich 0; De-Rham ist quasi Dualraum zu Klasse homotoper kurven, müssen aber aufpassen mit Torsionen, müssen daher Äquivalenzrelation leicht ändern noch (zu homologen Kurven); wenn für geschlossene Kurven null, hat man Exaktheit
+
+
+zu Grad: Hitchin beweist damit Fundamentalsatz der Algebra!!!
+
+
+
+		\subsection*{Weiterführende Sachen aus Fragestunde}
+Exkurs zu ART und Zusammenhängen: Unterschied Lie-Ableitung und kovariante Ableitung (die ja allgemein eine Abbildung von Vektorfeldern $Y$ auf 1-Formen $\nabla Y$ ist; bzw. mit eingesetztem Vektorfeld $\nabla_X Y$, dann also auch Abbildung auf Vektorfeld): $\mathcal{L}_X Y$ erfüllt nur in Richtung $Y$ (bzw. im Argument $Y$) die Leibniz-Regel, in Richtung $X$ aber nicht, dort ist es $C^\infty$-linear; kovariante verhält sich normaler wie Ableitung, Lie-Ableitung wirkt iwie nur auf das eine Vektorfeld so richtig (o.Ä. hat er es gesagt); haben aber auch Verbindung zwischen den beiden, nämlich bei Torsionsfreiheit (da steht ja Kommutator drin, das ist schließlich Lie-Ableitung), Aussage dann: wenn zwei Vektorfelder kommutieren, dann auch die kovarianten Ableitungen !; Ricci-Krümmung misst, wie sich Abstände entwickeln im Vergleich zum euklidischen; Lorentz-Metrik ordnet im Wesentlichen jedem Tangentialraum ein Skalarprodukt zu (es gibt negative Richtungen und 0-Richtungen, die heißen dann ja lichtartig etc. !); wollen Verträglichkeit von Metrik und Ableitung, nämlich $\nabla g = 0$, was Sinn macht weil $g(X, Y)$ ja glatte Funktion ist und die kann abgeleitet werden, man schreibt dann $X \cdot \qty(g(X, Y)) = g\qty(\nabla_X Y, Z) + g\qty(Y, \nabla_X Z)$, was einfach Produktregel entspricht (setze normale Metrik und normale Ableitung ein um das zu sehen); diese Forderungen bestimmen einen eindeutigen Ableitungsoperator $\nabla$ auf dieser Mannigfaltigkeit, den Levi-Civita-Zusammenhang (wir haben das gemacht über Ausschreiben von Christoffel-Symbolen, die sich dann als symmetrisch in den unteren Indizes und als verträglich mit $g_{ij} = g\qty(\pdv{x_i}, \pdv{x_j})$); die Bedeutung der zu $\nabla g = 0$ analogen Aussage mit der Lie-Ableitung $\mathcal{L}_X g = 0$ bedeutet dann wegen $\dv{t} \Phi_t^* g = 0$, dass die Metrik invariant bleibt und daher dieser Diffeo eine Isometrie ist !!!; Raum der Isometrien von $\mathbb{S}^2$ ist O(3) und damit 3-dimensional (das ist dann der Erzeuger dieser Vektorfelder im Index von $\mathcal{L}$), obwohl Raum der Diffeos unendlich-dimensional (weil jedes Vektorfeld einen Fluss erzeugt); Lie-Ableitungen haben also ganz andere Eigenschaften als $"$normale$"$ Ableitungen, weil dort noch dieses $X$ im Index steht (daher werden Sachen oft lieber mit kovarianten ausgedrückt und nur bei spezielleren Symmetrien nimmt man oft Lie-Ableitung) !
+
+können dann von $\Omega^k(M)$ mit Zusammenhang nach $T^*M \otimes \Lambda^k T^*M$ gehen (aber das Tensorprodukt ist etwas störend, haben ja dort sonst überall Dachprodukte !) und zu $T^*M \wedge \Lambda^k T^*M = \Omega^{k + 1}(M)$ mit Alternierungsoperator, indem man das auf so einen Zusammenhang anwendet (der Zusammenhang ist aber nicht automatisch da, dafür Metrik nötig und es gibt theoretisch auch mehrere torsionsfreie; für $d$ brauchen wir das halt aber nicht, der ist eindeutig und existiert immer !); daher kommt dann $d = \text{Alt}(\nabla)$
+
+
+Vorteil Schnitt (erklärt mit ART): für $g \in \Gamma(M; T^* M \otimes T^* M)$ (beschreibt mit Zusatzbedingungen dann Lorentz-Metrik z.B.) kann man direkt sagen, dass bei Hereinstecken zweier Vektorfelder eine glatte Funktion herauskommt und auch Unabhängigkeit von der Basis (muss sonst nachgerechnet werden !!!) ist direkt gegeben
+
+
+Beispiel Tensor ist Riemann-Tensor, der ja durch geeignete Kombinationen von Ableitungsoperatoren entsteht (den Zusammenhängen)
+
+
+integrable Systeme: Werte bleiben entlang der Integralkurven konstant ($"$Konstanten der Bewegung$"$), mathematisch entspricht das Untersuchung von Flüssen; die Gradienten erzeugen (wenn sie keine Nullstellen haben) einen neuen $\mathbb{R}^n$ bzw. oft einen $n$-dimensionalen Torus; Flüsse kommutieren, daher sind Lösungskurven dann gewisse Gerade in dem Urbildraum oder so
+
+integrable Systeme in Physik sind toll, weil man dort fast globale KS hat (geht nur, weil Zusatzinfo da), wo man Flüsse linear machen kann
+
+Lie-Algebra-wertige 1-Formen sind wohl iwie Beispiele kovariante Ableitungen; hat gewisse andere Eigenschaften als Lie-Ableitung, ist halt andere Form der Ableitung als Lie-Ableitung; die passt sich der Lorentz-Metrik an, ist sehr nützlich zum Verständnis da
+
+
+
+		\subsection*{Organisatorisches und Empfehlungen}
+Auf MF aufbauende VL: geometrische partielle DGL (Klasse von DGL auf MF, normalerweise nicht-linear und wohldefiniert folgt dann aus Beschreibung gewisser geometrischer Objekte), gibt wohl VL geometric evolution equations; Riemannsche Geometrie als dominierender Zweig der Mathematik, unter Anderem auch wegen ART (auch Grundlage für viele weiteren Konstruktionen), aber eigentlich nur noch Grundlagen-VL eigentlich, weil nicht mehr Teil aktueller Forschung; integrable geometrische DGL dann als drittes Feld, haben hier mehr algebraische Struktur (Fluss eher analytisch), dort viel Arbeit mit Ungleichungen, dass die konvergieren und so ein Shit; interessante VL ist wohl evtl Fortsetzung komplexe DiffGeo
+
+
+%zu Prüfung:
+
+%Anfang bildet Ausarbeitung mit paar Nachfragen; es wird schon iwie der ganze Stoff abgefragt werden, zu MF, warum 2-Sphäre eine ist, Tangentialvektoren wissen, Tangentialbündel Konstruktion und dass MF, Lie-Ableitung und Flüsse bisschen machen (vlt. einfaches Beispiel Fluss angeben), Umgehen mit Differentialformen, Äußeres Differential -> er will sich nicht einschränken, dass was nicht dran kommt; sollen Objekte kennen und bisschen drüber reden (wenn einem eins nicht liegt, wird aber auch gewechselt) -> er wird nicht nur ein Thema sehr detailliert abfragen
+
+%-> keine Beweisdetails wie Nachrechnen bei Lie-Ableitung, eher Verständnis (Ehre)
+
+%vom zweiten mal Stellen der Frage: erzählen zu Projekten, dann Fragen zu anderen Sachen (einfach Verständnis zeigen); Vektorbündel scheint ihm wichtig zu sein, Beispiel geben z.B. auch; behandelte Objekte kennen und wissen was gemeint ist (bisschen umgehen können damit, besser als Details aus Beweisen und Rechnungen)
+
+
+\newpage
+
+
+	\section{Literatur}
+		\subsection{Links}
+\url{https://matheplanet.com/default3.html?call=article.php?sid=1195\&ref=https\%3A\%2F\%2Fwww.qwant.com\%2F}
+
+		\subsection{Bücher}
+toll für uns Physiker sollten Nakahara (DiffGeo und Topologie), Scherer (Symmetrien und Gruppen) und Fecko (DiffGeo and Lie-Groups) sein
+
+
+Tipp von Heller: Riemann Surfaces von Simon Donaldson
+
+
+
+		\subsection{Quellen}
+Skript Heller (für alles); Bücher und Skript Smoczyk (für Bücher und tlw auch DiffGeo Anteil bei Riemannschen); Skript Carroll ART (für Krümmung und auch Mannigfaltigkeiten); Skript Eckert (Differentialgeometrie für ART); Skript Kriegl (in Teilen genutzt)
+
+
+\newpage
+\addcontentsline{toc}{chapter}{Index}
+\printindex
+
+\end{document} 
