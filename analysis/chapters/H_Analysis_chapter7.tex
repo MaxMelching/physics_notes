@@ -1,0 +1,1115 @@
+\documentclass[../H_Analysis_main.tex]{subfiles}
+%\input{../header} \graphicspath{ {../} }
+
+
+\begin{document}
+
+\setcounter{chapter}{6}
+
+\chapter{Riemannsche Geometrie}
+\begin{center}
+Die nun erworbenen Hilfsmitteln erlauben es sogar, Geometrie auf Mannigfaltigkeiten zu betreiben, also Längen, Abstände und Winkel zu messen. Dazu benötigt man ein Skalarprodukt bzw. eine Metrik (z.B. die vom Skalarprodukt induzierte) als Messinstrument. Skalarprodukte werden hier auch Riemannsche Metrik genannt und die sich daraus ableitende Geometrie dann auch Riemannsche Geometrie.
+
+Basierend darauf lassen sich dann Begriffe wie die Krümmung einer Mannigfaltigkeit sinnvoll definieren, also Differentialgeometrie betreiben.
+\end{center}
+
+%tolle Quellen für Ergänzungen: Patil Introduction to Information Geometry Week 2; Skript Eckert Differentialgeometrie; Skript Kriegl Differentialgeometrie; Skript Carroll
+
+
+\newpage
+
+
+	\section{Längen und Abstände}%und Winkel?%{Riemannsche Metrik}%{Skalarprodukte und Metriken}
+		\subsection{Auf Untermannigfaltigkeiten}% wirklich so machen oder einfach als Einleitung?
+Im vertrauten $\mathbb{R}^n$ ist es intuitiv, wie man die Länge zwischen zwei Punkten $p, q$ misst. Man nimmt die Verbindungsgerade $\gamma: [0, 1] \rightarrow \mathbb{R}^n, \; t \mapsto p + t (q - p)$ und misst den Abstand zwischen Anfangs- und Endpunkt:
+\begin{equation}
+d(p, q) = \norm{\gamma(1) - \gamma(0)} = \norm{p + (q - p) - p} = \norm{q - p} \, .
+\end{equation}
+
+Statt einer Geraden könnte man auch andere (glatte) Verbindungskurven nehmen, diese hätten jedoch immer eine größere Länge $L(\gamma)$ (folgt aus Anwenden der Dreiecksungleichung $\norm{x - y} \leq \norm{x} + \norm{y}$ auf \eqref{eq:kurvenlaenge}). Äquivalent ist also:
+\begin{equation}\label{eq:metrik_kurve}
+d(p, q) = \inf_{\gamma: [0, 1] \rightarrow \mathbb{R}^n \text{ glatt mit } \gamma(0) = p, \gamma(1) = q} \, L(\gamma) \, .
+\end{equation}
+
+
+Daher ist es lohnenswert, sich die Längenmessung für Kurven genauer anzusehen. Zunächst gilt es, die Länge einer allgemeinen Kurve $\gamma: I = [a, b] \rightarrow \mathbb{R}^n$ sinnvoll zu definieren. Eine sehr einfache Idee wäre, sich Punkte auf der Kurve zu nehmen, durch Geraden zu verbinden und dann die Länge dieser Geraden aufzuaddieren (Abb. \ref{fig:kurve_unterteilt}). Verfeinert man diese Aufteilung des Intervalls $I \subset \mathbb{R}$ weiter, führt dies zu einer immer besseren Approximation und im Grenzfall unendlich vieler Punkte erhält man so:
+\begin{satz}[Länge einer Kurve]
+Für eine glatte Kurve $\gamma: I = [a, b] \rightarrow \mathbb{R}^n$ und eine Unterteilung $T_k = \qty{t_i}_{i = 0}^k$ mit $t_0 = a < t_1 < \dots < t_k = b$ sei
+\begin{equation}\label{eq:kurvenlaenge}
+L(\gamma, T_k) = \sum_{j = 1}^k \norm{\gamma(t_j) - \gamma(t_{j - 1})} \, .
+\end{equation}
+
+Dann gilt für jede Folge $T_k$ mit $\displaystyle \lim_{k \rightarrow \infty} \; \max_{j = 1, \dots, k} \abs{t_j - t_{j - 1}} = 0$
+\begin{equation}
+\lim_{k \rightarrow \infty} L(\gamma, T_k) = \int_I \norm{\gamma'(t)} \, dt = \int_a^b \sqrt{\langle \gamma'(t), \gamma'(t) \rangle} \, dt =: L(\gamma)
+\end{equation}
+mit dem euklidischen/ Standardskalarprodukt $\langle \cdot, \cdot \rangle$ des $\mathbb{R}^n$.
+% Beweis sollte irgendwo bei Smoczyk sein, ist aber wohl eher in grundlegenden VL zur Analysis dran
+\end{satz}
+
+%Dieser Satz lässt sich sogar auf stetige Kurven erweitern, wenn sie \Def{rektifizierbar} sind, also $\displaystyle \sup_T L(\gamma, T) < \infty$ erfüllen.
+Dieser Satz ist auf stetige Kurven mit $ \sup_T L(\gamma, T) < \infty$ (\Def{rektifizierbar}) erweiterbar.
+
+
+\begin{figure}[ht]
+\centering
+\subfloat[Unterteilung mit $k = 3$]{\includegraphics[width=0.45\textwidth]{Bilder/kurve_unterteilt_n=3.pdf}}\hspace*{0.04\textwidth}
+\subfloat[Unterteilung mit $k = 6$]{\includegraphics[width=0.45\textwidth]{Bilder/kurve_unterteilt_n=6.pdf}}
+
+\caption[Unterteilung einer Kurve]{Hier wird die Idee der Unterteilung anhand der Kurve $\gamma(t) = t^3$ gezeigt, die für $n = 6$ bereits sehr gut approximiert wird.}
+\label{fig:kurve_unterteilt}
+\end{figure}
+
+
+
+		\subsection{Skalarprodukte und Riemannsche Metriken}%{Verallgemeinerung}
+Um die vorgestellte Idee eines Abstandsbegriffes umsetzen zu können, benötigt man also ein Skalarprodukt. Weil dies eine Abbildung von Vektoren auf reelle Zahlen ist und Vektoren auf Mannigfaltigkeiten über den Tangentialraum $T_p M$ punktweise definiert sind, muss auch das Skalarprodukt an jedem Punkt definiert werden. Auf Untermannigfaltigkeiten kann man dazu wegen $T_p \mathbb{R}^n \cong \mathbb{R}^n$ einfach an jedem Punkt das Skalarprodukt des unterliegenden $\mathbb{R}^n$ verwenden, allgemeiner fordert man:
+\begin{defi}[Riemannsche Metrik]
+Ein Tensorfeld $g \in \Gamma(M, T^{(0, 2)} M)$ über einer Mannigfaltigkeit $M$, für das
+\begin{equation}
+g_p \in T_p^* M \otimes T_p^* M = \text{BiLi}(T_p M, T_p M; \mathbb{R})
+\end{equation}
+an jedem Punkt $p \in M$ die Eigenschaften eines Skalarprodukts erfüllt, heißt \Def[Riemannsche! Metrik]{Riemannsche Metrik auf $M$} (\Def{Metrischer Tensor}) oder \Def[Fundamentalform! Erste]{Erste Fundamentalform auf $M$} und das Tupel $(M, g)$ \Def[Riemannsche! Mannigfaltigkeit]{Riemannsche Mannigfaltigkeit}.
+
+
+Die Länge einer glatten Kurve $\gamma: I \rightarrow M$ auf $I \subset \mathbb{R}$ ist
+\begin{equation}
+L(\gamma) = \int_I \sqrt{g_{\gamma(t)}(\gamma'(t), \gamma'(t)} \, dt = \int_I \norm{\gamma'(t)} \, dt =: \int_I d\gamma
+\end{equation}
+wobei $\norm{\cdot}$ die von $g$ induzierte Norm und $d\gamma$ das Linienelement der Kurve ist.
+\end{defi}
+	\anm{auch wenn sich hier auf glatte Kurven beschränkt wird, gelten analoge Aussagen für stückweise glatte Kurven (auch für noch folgende Eigenschaften).\\
+	Außerdem ist die Riemannsche Metrik keine Metrik im mathematischen Sinne, sondern ein Skalarprodukt (etwas unglückliche Doppelbenennung)!}
+
+% merke: Schnitte sind nichts komisches; die ordnen einfach jedem Punkt $p$ auf der MF eindeutig ein Element $E_p$ zu (die Vereinigung $\cup_p E_p = E$ wird dann halt auch Bündel genannt); das eindeutig ist dann hier der springende Punkt, das drückt das \enquote{Verknüpfung mit $\pi$ ist Identität} aus
+
+\iffalse
+{
+Auch für Riemannsche Metriken lässt sich eine lokale Darstellung berechnen. Mit einer Karte $x = (x_1, \dots, x_n): U \rightarrow \mathbb{R}^n$ auf der offenen Teilmenge $U \subset M$ sowie zwei Vektorfeldern $X, Y$ mit $v, w$ als lokalen Darstellungen an $p \in M$ gilt
+%\begin{equation}
+%\begin{split}
+%\eval{g(X, Y)}_p &= \eval{g}_p(X_p, Y_p) = \eval{g \circ x^{-1}}_{x(p)}(v, w)
+%\\
+%&= \langle v, w \rangle = \langle D_{x(p)} x^{-1}(X_p), D_{x(p)} x^{-1}(Y_p) \rangle
+%\end{split}
+%\end{equation}
+\begin{equation}
+%\begin{split}
+g_U = \sum_{i, j} g_{ij} \, dx_i \otimes dx_j
+%\eval{g_U}_{x(p)} &= \sum_{i, j} g_{ij} \, dx_i \otimes dx_j
+%\\
+\; \text{ mit } \; g_{ij} = g_U\qty(\pdv{x_i}, \pdv{x_j}): U \rightarrow \mathbb{R}
+%\end{split}
+\end{equation}
+Die Komponenten $g_{ij}$ werden dabei oft in eine Matrix geschrieben, um so eine praktische Darstellung des metrischen Tensors zu erhalten.
+}
+\fi
+
+% besser: aus Kriegl-Skript, Anfang 37.
+
+Bevor gleich weiter auf den Längenbegriff eingegangen wird, soll der Metrische Tensor ein wenig näher betrachtet werden. Dieser ist das zentrale Objekt der Geometrie auf Mannigfaltigkeiten, da er als Abbildung $g: TM \otimes TM \rightarrow \mathbb{R}$ das Skalarprodukt bildet. Eine andere wichtige, nach dem Tensorkalkül äquivalente, Interpretation ist $g: TM \rightarrow T^*M$ -- die Metrik bildet einen Isomorphismus zwischen Vektoren und Kovektoren, der explizit gegeben ist durch
+\begin{equation}
+g = g_X = g(X, \cdot): TM \rightarrow T^*M, \; Y \mapsto g_X(X, Y) \, .
+\end{equation}
+Das heißt auch, dass für jede 1-Form $\omega$ ein eindeutiges Vektorfeld $Y$ existiert mit\footnote{Ist das der Satz von Riesz?}
+\begin{equation}
+\omega(X) = g(Y, X) \, .
+\end{equation}
+
+Die lokale Darstellung auf einer offenen Menge $U \subset M$ ist
+\begin{align}
+g_U(X, Y) &= g_U\qty(\sum_i \lambda_i \pdv{x_i}, \sum_j \mu_j \pdv{x_j}) = \sum_{i, j} \lambda_i \mu_j \, g_U\qty(\pdv{x_i}, \pdv{x_j})
+\notag\\
+&= \sum_{i, j} g_U\qty(\pdv{x_i}, \pdv{x_j}) \, dx_i(X) dx_j(Y)
+\notag\\
+\Leftrightarrow g_U &= \sum_{i, j} g_{ij} \, dx_i \otimes dx_j \, ,
+\end{align}
+weshalb Metriken oft über die $g_{ij}$ als Matrizen dargestellt werden (in Karten).
+
+
+Dass der so definierte Längenbegriff nicht nur im $\mathbb{R}^n$, sondern auch auf Mannigfaltigkeiten Sinn ergibt (wohldefiniert ist), zeigt folgende Eigenschaft:
+\begin{satz}[Invarianz von $L(\gamma)$ unter Diffeomorphismen]
+Für eine glatte Kurve $\gamma: I \rightarrow M$ in eine Riemannsche Mannigfaltigkeit $(M, g)$ und einen Diffeomorphismus $\varphi: J \rightarrow I$ gilt
+\begin{equation}
+L(\gamma) = L(\gamma \circ \varphi) \, .
+\end{equation}
+% Beweis ist bei proposition 6.3 bei Heller
+\end{satz}
+Da Kartenwechsel auf glatten Mannigfaltigkeiten Diffeomorphismen sind, folgt dass $L(\gamma)$ unabhängig von der gewählten Parametrisierung (wohldefiniert) ist.
+
+\begin{satz}[Bogenlänge]
+Für eine glatte, immersierte Kurve $\gamma: I \rightarrow M$ in eine Riemannsche Mannigfaltigkeit $(M, g)$ existiert ein Diffeomorphismus $\varphi: J \rightarrow I$, sodass für $\tilde{\gamma} = \varphi \circ \gamma$
+\begin{equation}
+g_{\tilde{\gamma}(t)}\qty(\tilde{\gamma}'(t), \tilde{\gamma}'(t)) = 1, \quad \forall t \in J \, .
+\end{equation}
+
+Man sagt $\tilde{\gamma}$ hat \Def{Einheitsgeschwindigkeit}/ist \Def{auf Bogenlänge parametrisiert}.
+\end{satz}
+
+Dieser Satz ist ein Korollar aus dem vorherigen Satz, hat aber eine wichtige Bedeutung. Er vereinfacht Rechnungen (explizit oder symbolisch, wie oft in Beweisen), da man nun die Länge einer Kurve einfach berechnen kann als
+\begin{equation*}
+L\qty(\tilde{\gamma}) = \int_J dt = \int_c^d dt = d - c \, .
+\end{equation*}
+Dabei kann es natürlich schwierig sein, den expliziten Diffeomorphismus zu finden, aber in Beweisen kann man nun oBdA Kurven nutzen, die auf Bogenlänge parametrisiert sind. Man muss dabei annehmen, dass $\gamma$ immersiert ist, weil das $\gamma' \neq 0$ und damit auch $\tilde{\gamma}' \neq 0$ garantiert. Nur dann ist sicher, dass die Reskalierung zu $1$ in jedem $t \in [c, d]$ funktioniert.
+
+
+\begin{bsp}[Untermannigfaltigkeit]
+Für eine UMF $M \subset \mathbb{R}^n$ ist eine Riemannsche Metrik punktweise definierbar als (hierbei behalte man $T_p M = T_p \mathbb{R}^n \cong \mathbb{R}^n$ im Kopf)
+\begin{equation}
+p \mapsto g_p = \langle \cdot, \cdot \rangle: T_p M \cross T_p M \rightarrow \mathbb{R} \, ,
+\end{equation}
+man schränkt also einfach das euklidische Skalarprodukt auf $M$ ein und nutzt das unabhängig vom Punkt $p$. Analog ist es für UMF $N \subset M$. 
+\end{bsp}
+
+
+\begin{bsp}[Sphäre]
+Die Metrik auf $\mathbb{S}^2$ bezüglich der stereographischen Projektion ist
+\begin{equation}
+g = \frac{4}{\qty(1 + x^2 + y^2)^2} \, \langle \cdot, \cdot \rangle \, .
+\end{equation}
+\end{bsp}
+
+
+Mithilfe dieses Skalarprodukts lässt sich nun auch eine \enquote{richtige} Metrik definieren:
+\begin{satz}[Abstand]
+Für eine zusammenhängende Riemannsche Mannigfaltigkeit $(M, g)$ definiert
+\begin{equation}\label{eq:distance_curve}
+d: M \cross M \rightarrow \mathbb{R}^{\geq 0}, \; (p, q) \mapsto d(p, q) = \inf_{\gamma: [0, 1] \rightarrow M \text{ glatt mit } \gamma(0) = p, \gamma(1) = q} \, L(\gamma)
+\end{equation}
+eine Metrik.
+
+Zudem ist die durch $d$ induzierte Topologie die Mannigfaltigkeitentopologie.
+% Korollar nach Proposition 6.6 bei Heller
+\end{satz}
+Diese Definition verallgemeinert \eqref{eq:metrik_kurve} und ermöglicht nun das Betreiben von Geometrie auf Mannigfaltigkeiten. Hierbei wurde angenommen, dass $M$ zusammenhängend ist, weil $M$ dann insbesondere wegzusammenhängend ist und damit die Existenz einer Verbindungskurve zwischen beliebigen Punkten $p, q \in M$ garantiert ist.
+
+Die zweite Aussage zeigt, dass die Definition der Metrik $d$ und damit auch des Metrischen Tensors $g$ auf sehr natürliche Weise geschehen ist, die verträglich ist mit der ganz allgemeinen topologischen Struktur der Mannigfaltigkeit. Diese Eigenschaft zeigt auch, welche Riemannsche Metrik zu Koordinatengebieten gehört. Dort wird mit der Standardtopologie des $\mathbb{R}^n$ gearbeitet und die ist vom Standardskalarprodukt induziert (die offenen Bälle sind ja sogar mithilfe der induzierten Norm definiert).\\
+
+
+Im Allgemeinen sind Metriken nicht konstant. Ist das jedoch der Fall, sei es lokal oder global, ist das eine besondere Eigenschaft.
+
+\begin{defi}[Isometrie]
+Eine \Def[Isometrie]{(lokale) Isometrie} ist ein (lokaler) Diffeomorphismus $\phi: U \rightarrow V$, $U \subset M, V \subset N$ offen, zwischen Riemannschen Mannigfaltigkeiten $(M, g), (N, \tilde{g})$, sodass
+\begin{equation}
+\phi^* \tilde{g} = g \, .
+\end{equation}
+\end{defi}
+
+Bei Existenz einer Isometrie zwischen Mannigfaltigkeiten kennt man also die Metrik $\tilde{g}$ bereits, wenn $g$ und der Diffeomorphismus zwischen $M, N$ bekannt sind -- im gewissen Sinne messen die Metriken also analoge/voraussagbare Ergebnisse.
+
+
+Insbesondere erlaubt das Aussagen für den Fall $(N, \tilde{g}) = (M, g)$, wo es um Änderungen der Metrik auf der Mannigfaltigkeit selbst geht. So lässt sich das Verhalten der Metrik auf $M$ untersuchen, beispielsweise entlang eines Vektorfelds. Der passende Diffeomorphismus um das zu tun ist der zugehörige Fluss.
+
+\begin{defi}[Killing-Vektor]
+Ein Vektorfeld $X$ mit Fluss $\Phi$ heißt \Def{Killing-Vektorfeld} falls
+\begin{equation}
+\Phi^* g = g \quad \Leftrightarrow \quad \eval{\dv{\Phi_t^* g}{t}}_{t = 0} = \mathcal{L}_X g = 0 \, .
+\end{equation}
+\end{defi}
+
+Killing-Vektoren sind also besonders, weil sie einem Kurven vorgeben, entlang denen die Metrik konstant ist.\\
+
+
+
+Zum Abschluss der Behandlung von Metriken soll zudem die Definition von Winkeln gegeben werden.
+\begin{defi}[Winkel]
+Der \Def{Schnittwinkel} zwischen zwei Tangentialvektoren $X_p, Y_p$ ist
+\begin{equation}
+\theta = \arccos\qty(\frac{g_p(X_p, Y_p)}{\sqrt{g_p(X_p, X_p) g_p(Y_p, Y_p)}}) \, .
+\end{equation}
+\end{defi}
+
+Diese Definition ist analog zum $\mathbb{R}^n$.
+
+
+
+		\subsection{Notizen}
+also zuerst wieder als Spezialfall UMF machen (dort erste Fundamentalform) und dann abstrahieren (zweite Fundamentalform) -> wobei, die gibt es ja auch nur auf UMF?! Iwie ist das halt cool (vor allem cool bei Smoczyk), weil man daran Zerlegungen in tangentialen und normalen Anteil sieht, aber sonst iwie unnötig oder? Bzw nicht hilfreich für Anfang, eventuell später (zeitlich gemeint, soll schon hier hin in subsection zu UMF z.B.) ergänzen -> metrischer Tensor ist die erste Fundamentalform, die brauchen wir hier eigentlich nur erstmal (jo, Heller führt zweite zwar ein, aber nutzt die nicht weiter)
+
+-> Heller hat das besser gemacht; auch zuerst auf UMF, aber direkt ne (Riemannsche) Metrik und die wird dann verallgemeinert
+
+
+dann als wichtige Anwendung davon die Längenmessung von Kurven einführen (damit definiert man erst die eigentliche Metrik! Das davor ist streng genommen nur der metrische Tensor); Motivation/ Idee zeigt Abbildung \ref{fig:kurve_unterteilt}; ahhh und das zeigt auch generelle Motivation, in gekrümmten Räumen (wie z.B. auf der Kurve) kann man nicht einfach Abstand messen indem man die Punkte gerade verbindet und die Länge der Geraden misst, damit bewegt man sich außerhalb der Mannigfaltigkeit (wie man auch an einer Kugel sehr gut sehen kann)
+
+
+
+Smoczyk zeigt dann (zwar nur auf UMF des $\mathbb{R}^n$, aber darum geht es hier ja eh noch) in Satz 2.2.4, dass diese anschauliche Längendefinition einer Kurve $\gamma$ gleich $\int_a^b \norm{\dot{\gamma}(t)} \, dt = \int_a^b \sqrt{\langle \dot{\gamma}, \dot{\gamma} \rangle} \, dt$ ist (nice ist dann auch die Definition des Linienelements darüber) -> das ist dann die Motivation (nachdem man ein Skalarprodukt hat mit dem metrischen Tensor; ein Skalarprodukt ist ja auch einfach eine Abbildung $\langle \cdot, \cdot \rangle: V \cross V \rightarrow \mathbb{R}$!!!), die Länge auf allgemeinen MF genau so zu definieren
+
+
+
+noch Gleichung 2.3.1 von Smoczyk aufnehmen? Zeigt wie man das Integral auf MF auch anders ausdrücken kann (mit lokaler Darstellung der 1. Fundamentalform -> kann man die nicht einfach ausrechnen?); ahhh, 3.1.3 ist auch sehr geil, glaube noch allgemeiner -> ok, scheint doch alles für UMF sein und es ist nicht das erhoffte mit Darstellung allgemeiner Metrik über Standardskalarprodukt (geht da nur, weil UMF des $\mathbb{R}^n$)
+
+
+
+-> man braucht bald bestimmt auch Normalenbündel (doch nicht oder? Nur für zweite Fundamentalform), das hat Ferus gut definiert im Topologieskript (Satz 120); dazu braucht man aber sogar umgebenden Raum, also UMF
+
+-> Normalenshit und Zweite Fundamentalform in einem Beispiel machen (also wie bei Heller?)
+
+
+-> mega nice intuitive Einführung von Metriken etc in Hitchin-Skript, auch von Killing-Vektoren z.B. (die einparametrige Gruppe von Diffeos, die ein Vektorfeld bestimmt, ist btw der Fluss); Folge/ Deutung müsste sein: entlang von Killing-Vektorfeldern ist die Metrik also konstant. Das heißt das ja mit Lie-Ableitung Null)
+
+
+grob: ein Killing-Vektorfeld ist dann eins, für das $\mathcal{L}_X g = 0$ (die Metrik kann man dabei ableiten, weil es ja Tensorfeld ist); das entspricht dann der Konstantheit $\phi^* g = g$ mit $\phi$ als Fluss zu $X$, der zugehörige Fluss (Diffeo) soll also eine Isometrie sein
+
+
+\newpage
+
+
+	\section{Kovariante Ableitung, Paralleltransport und Krümmung}
+Nach der Definition des Längenbegriffs kann man nun damit arbeiten und beispielsweise die Variation davon betrachten, um minimale Längen und damit Abstände zu finden. Dafür muss man allerdings Vektoren ableiten können und das ist noch nicht möglich (tatsächlich ist das etwas wie eine zweite Ableitung, $DF$ als Differential von Abbildungen ist sinnvoll definiert). Ein Problem dabei ist, dass der Begriff von parallelen Vektoren noch nicht sinnvoll und koordinatenunabhängig definiert werden kann, da man dafür Vektoren an verschiedenen Punkten $p, q$ vergleichen muss. % (wie z.B. Abbildung \ref{fig:drehvektfeldplot} zeigt, ist für ein Vektorfeld $X$ mitnichten $X_p \parallel X_q$ garantiert -> \anm{tut es das? Oder ist das nicht sogar parallel da?}).
+Partielle Ableitungen sind dazu nicht geeignet, es ist Zusatzstruktur nötig: ein neuer Ableitungsoperator $\nabla$, der auch Änderungen der Koordinaten mitberücksichtigt und damit am Ende auch die Definition von Parallelität erlauben wird.
+
+% Nach der Definition des Längenbegriffs kann man nun damit arbeiten und beispielsweise die Variation davon betrachten, um minimale Längen und damit Abstände zu finden. Ein Problem dabei ist, dass die bis jetzt genutzten Richtungsableitungen $\pdv{x_i}$ kartenabhängig sind. Ein erster Schritt ist also, einen globalen Ableitungsoperator $\nabla$ von dieser Art als Verallgemeinerung zu finden und dafür muss die Änderung der Koordinaten mitberücksichtigt werden (in Zusammenhangskoeffizienten, die oft mit $\Gamma$ bezeichnet sowie mit einigen Indizes versehen werden).
+
+% Motivation für Zusammenhang sind bei Heller drei Eigenschaften, die er aber nicht weiter benennt (tensoriell safe dabei plus so ne Art Produktregel dann noch oder? Er motiviert es auf jeden Fall mit Variation der Länge, dürfte am Ende zu Geodätengleichung führen) 
+
+% Interpretation mit besserem Verhalten bei Kartenwechseln auch von Einführung \href{https://en.wikipedia.org/wiki/Connection_(mathematics)}{hier})
+
+
+\begin{defi}[Zusammenhang]\label{defi:zsmhang}
+Für eine Mannigfaltigkeit $M$ und ein Vektorbündel $\pi: E \rightarrow M$ heißt ein linearer Operator
+\begin{equation}
+\nabla: \Gamma(M; E) \rightarrow \Gamma(M; T^* M \otimes E) \; \text{ mit } \nabla(fs) = df \otimes s + f \nabla s
+\end{equation}
+\Def[Zusammenhang]{Zusammenhang (auf $E$)}. Zudem bezeichnet man abkürzend für $X \in \mathcal{X}(M)$
+\begin{equation}
+\nabla_X: \Gamma(M; E) \rightarrow \Gamma(M; E), \; s \mapsto \nabla_X s := \tr_{1, 1}(X \otimes \nabla s) \, .
+\end{equation}
+
+Zusammenhänge auf $E = TM$ heißen auch \Def[Zusammenhang! Linearer-]{Lineare Zusammenhänge}.
+\end{defi}
+%äquivalent (weil wegen Tensorprodukt): Zusammenhang als Abbildung $\nabla: \Gamma(TM \otimes E) \rightarrow \Gamma(E)$ -> hmm, hatte es zuerst mit $T^*M$ in zweitem, aber das ist doch Definition? Aber halt nicht sicher, ob das hier stimmt -> haha yes, stimmt (aus Eckert; können auch schreiben: $\Gamma(TM \otimes E) = \Gamma(TM) \otimes \Gamma(E) = \Gamma(TM) \cross \Gamma(E)$, was das Ganze noch etwas offensichtlicher macht wie man es sehen sollte); Erinnerung: $X$ einsetzen macht %T^*M \otimes E$ zu $\mathbb{R} \otimes E = E$
+
+
+Somit erfüllen $\nabla, \nabla_X$ die tensorielle Eigenschaft. Äquivalente Schreibweisen sind
+\begin{equation*}
+\nabla: \Gamma(M; TM \otimes E) = \Gamma(M; TM) \otimes \Gamma(M; E) = \Gamma(M; TM) \cross \Gamma(M; E) \rightarrow \Gamma(M; E)
+\end{equation*}
+und $\nabla \in \Gamma(M; E^* \otimes T^*M \otimes E), \nabla_X \in \Gamma(M; E^* \otimes E)$. Aufgrund der Eigenschaften der Spur folgen sofort Linearität und $C^\infty$-Linearität von $\nabla_X$:
+\begin{equation}
+\nabla_{f X + g Y} s = f \nabla_X s + g \nabla_Y s \, .
+\end{equation}
+
+Eine interessante Eigenschaft von Zusammenhängen ist, dass sie ebenso gut lokal definierbar sind. Für offene Teilmengen $U \subset M$ lassen sich, wie bereits erläutert wurde, problemlos Schnitte $s \in \Gamma(U; E)$ erklären und damit ist auch
+\begin{equation}
+\nabla s \in \Gamma(U; T^*U \otimes E) = \Gamma(U; T^*M \otimes E)
+\end{equation}
+wohldefiniert. Es gilt zusätzlich aber auch die Umkehrung: aus lokalen Zusammenhängen $\nabla^i$ auf $U_i \subset M$ erhält man einen wohldefinierten Zusammenhang $\nabla$ auf $\cup_i U_i$ wenn die Verträglichkeitsbedingung
+\begin{equation}
+\nabla^i = \nabla^j \text{ auf } U_i \cap U_j, \; \forall i, j
+\end{equation}
+erfüllt ist. Das entspricht einer glatten Zusammensetzung der Operatoren. Für eine Überdeckung $M = \cup_i U_i$ reproduziert das Definition \ref{defi:zsmhang}.
+
+
+
+\begin{bsp}[Zusammenhang auf trivialem Vektorbündel, Lie-Ableitung]
+Das einfachste Beispiel für ein Vektorbündel ist das triviale, also $E = M \cross \mathbb{R}$. Für ein beliebiges $\omega \in \Omega(M, \mathbb{R})$ ist wegen $\Gamma(M; E) = C^\infty(M), \Omega(M) = \Gamma(M; T^* M \otimes E)$ ein einfaches Beispiel für einen Zusammenhang die Abbildung
+\begin{equation*}
+\nabla: C^\infty(M) \rightarrow \Omega(M), \; f \mapsto df + \omega f \, .
+\end{equation*}
+In diesem Fall erhält man für Vektorfeld $X$
+\begin{equation*}
+\nabla_X: C^\infty(M) \rightarrow C^\infty(M), \; f \mapsto df(X) + \omega(X) f
+\end{equation*}
+und dieser Operator ordnet jeder Funktion $f$ die folgende Funktion zu:
+\begin{equation*}
+\nabla_X(f): M \rightarrow \mathbb{R}, \; p \mapsto d_p f(X_p) + \omega_p(X_p) f(p) \, .
+\end{equation*}
+
+Im Gegensatz dazu ist die Lie-Ableitung/ -Klammer $\mathcal{L}_X Y = [X, Y]$ kein Zusammenhang auf dem Tangentialbündel $TM$, da sie nicht tensoriell in $X$ ist.
+\end{bsp}
+
+
+
+Bisher wirkt ein Zusammenhang nur auf einem Vektorbündel, aber man kann die Definition auch auf Tensorbündel beliebigen Rangs verallgemeinern (wobei hier nur Bündel $T^{(r, s)}M$ betrachtet werden).
+
+\begin{satz}[Zusammenhang auf Tensorbündel]
+Ein linearer Zusammenhang $\nabla$ auf $TM$ induziert eindeutige Zusammenhänge $\nabla$ auf allen Tensorbündeln $T^{(r, s)}M$ mit
+\begin{enumerate}
+\item $\nabla f = df, \; \forall f \in C^\infty(M)$
+
+\item $\nabla \qty(S \otimes T) = \qty(\nabla S) \otimes T + S \otimes \qty(\nabla T), \; \forall S \in \Gamma(M; T^{(r, s)} M), T \in \Gamma(M; T^{(k, l)} M)$
+
+\item $\nabla \circ \tr_{k, l} = \tr_{k, l} \circ \nabla$
+\end{enumerate}
+\end{satz}
+Der induzierte Zusammenhang auf Tensorbündeln ist damit sogar eindeutig für einen festen Zusammenhang $\nabla$ (analoge Aussagen gelten für allgemeine Tensorbündel $\otimes_i E_i$). Es handelt sich somit um eine Verallgemeinerung der Definition des Zusammenhangs, die auch \Def{Kovariante Ableitung} genannt wird. 
+Streng genommen sind $\nabla$ auf $TM$ und $\nabla$ auf $T^{(r, s)}M$ zwar verschiedene Objekte, aber aufgrund der analogen Eigenschaften und der Verbindung wird kein neues Symbol eingeführt.
+
+
+Damit wurde der neue Ableitungsoperator gefunden, der die Motivation für diesen Abschnitt bildete. Der Name \enquote{Kovariante Ableitung} betont dabei die Koordinatenunabhängigkeit, aber es handelt sich nicht um eine völlig neue Idee. Stattdessen lässt sich $\nabla_X$ als verallgemeinerte Richtungsableitung entlang\footnote{\enquote{Entlang $X$} meint hier nicht \enquote{parallel zu $X$}, sondern \enquote{wenn in Richtung von $X$ bewegt}.} $X$ interpretieren, siehe 1., die auf beliebige Tensorfelder aus $\Gamma(M; \qty(T^{(r, s)} M)^* \otimes \qty(T^{(v, w)} M))$ oder $\Gamma(M; E^* \otimes E)$ wirken kann. Genau wie das Differential einer Abbildung $F$ Vektorfelder $X$ auf neue Vektorfelder $DF(X)$ abbildet, werden hier (punktweise) Tensoren $T^{(r, s)} M$ auf Tensoren $T^{(r, s)} M$ abgebildet. Das Ergebnis erfasst dabei die Änderung des Tensors in Richtung des eingesetzten Vektorfeldes. Dabei gelten die altbekannte Eigenschaften für Abbildungen: Produktregel und Linearität in beiden Argumenten. Diese legen den Operator dann eindeutiger fest als die rein phänomenologische Erklärung.
+
+%-> \href{https://de.wikipedia.org/wiki/Zusammenhang_(Differentialgeometrie)}{Wikipedia} dazu
+
+
+Die geforderten Eigenschaften, die zur Eindeutigkeit führen, kann man dabei wie folgt zusammenfassen: $\nabla$ soll für Funktionen der Richtungsableitung entsprechen, es soll eine Art Produktregel gelten (wobei das Produkt hier das Tensorprodukt ist, nicht Multiplikation) und zuletzt soll die Wirkung mit der Kontraktion verträglich sein (mit ihr vertauschen). Die Produktregel lässt sich induktiv fortsetzen, sodass sie für beliebig lange Tensorprodukte gilt (da im Ergebnis wieder Tensoren stehen, bei denen die Produktregel genutzt werden kann). Es lässt sich zudem ausschreiben, was die Forderungen 2.~+ 3.~bei eingesetzten Argumenten bedeuten:
+\begin{align*}
+\nabla_X(S \otimes T) &= (\nabla_X S) \otimes T + S \otimes \nabla_X T 
+\\
+\nabla_X \circ \tr_{k, l}(S) &= \tr_{k, l} \circ \nabla_X S \, ,
+\end{align*}
+jeweils $\forall X \in \mathcal{X}(M), S \in \Gamma(M; T^{(r, s)}M), T \in \Gamma(M; T^{(k, l)}M)$. Da $\nabla_X$ dadurch wie in Definition \ref{defi:zsmhang} auf einzelne Tensoren wirkt, wird die Linearität in $X$ vererbt:
+\begin{equation}
+\nabla_{f X + g Y} S = f \nabla_X S + g \nabla_Y S \, .
+\end{equation}
+
+
+Zusammenhänge lassen sich auf viele verschiedene Weisen motivieren. Ein anderer Ansatz ist die Tatsache, dass partielle Ableitungen nicht tensoriell sind. Die Suche nach einem geeigneten, tensoriellen Analogon führt dann ebenso zu Zusammenhängen, indem man lokal und komponentenweise definiert:
+\begin{equation}
+\nabla_{\pdv{x_i}} s = \pdv{x_i} s + \Gamma_i s = \mqty(\pdv{x_i} s^0 \\ \vdots \\ \pdv{x_i} s^{n - 1}) + \Gamma_{ij}^k \mqty(s^0 \\ \vdots \\ s^{n - 1}) \, .
+\end{equation}
+Hier sieht man auch, warum $\nabla$ Tensoren auf Tensoren gleicher Art abbildet: in jeder Komponente des neuen Objekts ist die Änderung dieser jeweiligen Komponente des Arguments enthalten.
+
+Dieser zweite Ansatz ist also, lineare Funktionen (die \Def{Zusammenhangskoeffizienten} $\Gamma_{ij}^k$; \emph{nicht} selber tensoriell) zu ergänzen, um die tensorielle Eigenschaft zu erfüllen. Die Äquivalenz dieses Ansatzes zu dem vorher gewählten wird in der lokalen Darstellung klar, die nun beispielhaft für die Wirkung auf Vektorfelder berechnet wird. Der Zusammenhang bildet unter Anderem Vektorfelder auf Vektorfelder ab. Für die Gauß'schen Basisfelder gilt daher per Definition
+\begin{equation}
+\nabla_{\pdv{x_i}} \pdv{x_j} = \sum_k \lambda_k \pdv{x_k}
+\end{equation}
+mit geeigneten Koeffizienten $\lambda_k: M \rightarrow \mathbb{R}$. Für die lokale Darstellung ergibt sich:
+\begin{align}
+\nabla_X Y &= \nabla_{\sum_i \mu_i \pdv{x_i}} \sum_j \nu_j \pdv{x_j} = \sum_i \mu_i \nabla_{\pdv{x_i}} \sum_j \nu_j \pdv{x_j}
+\notag\\
+&= \sum_{i, j} \mu_i \qty(\nabla_{\pdv{x_i}} \nu_j) \pdv{x_j} + \mu_i \nu_j \nabla_{\pdv{x_i}} \pdv{x_j}
+\notag\\
+&= \sum_{i, j} \mu_i \pdv{\nu_j}{x_i} \pdv{x_j} + \sum_{i, j, k} \mu_i \nu_j \lambda_k \pdv{x_k}
+\notag\\
+&= \sum_{i, j, k} \mu_k \qty(\pdv{\nu_j}{x_k} \pdv{x_j} + \mu_i \nu_j \lambda_k) \pdv{x_k} \, .
+\end{align}
+Hierbei wurden viele Eigenschaften von $\nabla$ genutzt und im letzten Schritt ein Index im linken Summanden umbenannt. Die allgemeine Idee bei der Rechnung ist, $\nabla$ auf Funktionen wirken zu lassen, wo $\nabla f = df$. Insgesamt ist damit klar, dass
+\begin{equation}
+\lambda_k = \Gamma_{ij}^k \, .
+\end{equation}
+Die Indizes $i, j$ werden dabei ergänzt, damit auch klar ist zu welchen Basisvektoren der Koeffizient gehört. Diese Idee der lokalen Definition reicht dann bereits aus für einen wohldefinierten Zusammenhangsbegriff. Es ist also so, dass die Zusammenhangskoeffizienten den Zusammenhang bereits vollständig bestimmen, da sie die zusätzlich zur partiellen Ableitung auftretende Wirkung enthalten. Analog lässt sich die Wirkung auf andere Tensoren ausschreiben, es muss lediglich die partielle Ableitung durch die jeweiligen Basisvektoren ersetzt werden.
+
+
+\begin{bsp}[Zusammenhang auf dem $\mathbb{R}^n$]
+Im flachen $\mathbb{R}^n$ ist
+\begin{equation}
+\Gamma_{ij}^k = 0, \; \forall i, j, k \quad \Rightarrow \quad \nabla_{\pdv{x_i}} = \pdv{x_i} \, .
+\end{equation}
+Wie gewollt verallgemeinern Zusammenhänge partieller Ableitungen.
+\end{bsp}
+
+
+\iffalse
+{
+Für die Gauß'schen Basisfelder gilt
+\begin{equation}
+\nabla_{\pdv{x_i}} \pdv{x_j} = \sum_{i, j, k} \Gamma_{ij}^k \pdv{x_k}
+\end{equation}
+für Funktionen $\Gamma_{ij}^k: U \rightarrow \mathbb{R}, U \subset M$, die \Def{Christoffelsymbole}. Diese bestimmen $\nabla$ bereits eindeutig, sind aber kein Tensor. Mithilfe dieser Zusammenhangskoeffizienten lässt sich dann die Wirkung von $\nabla_X$ auf ein weiteres Vektorfeld $Y$ lokal ausschreiben zu
+\begin{equation}
+\nabla_X Y = \sum_k X \cdot \mu_k \, \pdv{x_k} + \sum_{i, j, k} \lambda_i \mu_j \Gamma_{ij}^k \pdv{x_k} = \sum_{i, j, k} \qty(\lambda_i \pdv{\mu_j}{x_i} + \lambda_i \mu_j \Gamma_{ij}^k) \pdv{x_k}
+\end{equation}
+wobei $\lambda_i, \mu_j$ die Komponenten der lokalen Darstellungen von $X, Y$ sind. Der erste Term ist dabei die eigentliche Wirkung von $X$ auf $Y$ (Ableitung in Richtung von $X$) und der zweite Term mit den Christoffelsymbolen ist ein Beitrag der die Invarianz unter Koordinatenwechseln sicherstellt. Das ist daran zu erkennen, dass dieser Term nur die Koordinatendarstellungen $\lambda_i, \mu_j$ und keine Ableitungen davon enthält.\\
+
+%-> sehr schön gemacht im Eckert-Skript (habe das auch daher)
+}
+\fi
+
+
+Mithilfe von Zusammenhängen kann man nun viele interessante Eigenschaften der unterliegenden Mannigfaltigkeit $M$ untersuchen. Beispiele davon sind die folgenden:
+\begin{defi}[Eigenschaften von Zusammenhängen]
+Für eine Riemmansche Mannigfaltigkeit $(M, g)$ heißt ein linearer Zusammenhang $\nabla$ \Def[Zusammenhang! torsionsfreier-]{torsionsfrei} falls
+\begin{equation}
+\nabla_X Y - \nabla_Y X = \qty[X, Y], \quad \forall X, Y \in \mathcal{X}(M)
+\end{equation}
+und \Def[Zusammenhang! metrischer-]{metrisch} falls
+\begin{equation}
+\nabla g = 0 \, .
+\end{equation}
+\end{defi}
+
+Beiden Bedingungen haben sehr anschauliche Interpretationen:
+\begin{itemize}
+\item Torsionsfreiheit bedeutet, dass sich Parallelogramme schließen (für kommutierende $X, Y$) bzw.~nur um Terme unterscheiden, die von einer \enquote{Unverträglichkeit} der Vektorfelder kommt (genauer: vom Nicht-Kommutieren). Es treten also keine zusätzlichen Unterschiede bei der Bewegung von $X$ entlang $Y$ mithilfe des Zusammenhangs auf.% Darüber hinaus stellt diese Eigenschaft eine Verbindung zwischen $\nabla$ und der Lie-Klammer $\mathcal{L}_X Y = [X, Y]$ her.
+
+\item Bei Verschiebung mittels eines metrischen Zusammenhangs $\nabla$ entlang beliebiger Vektorfelder ändert sich nicht, was die Metrik misst. Es handelt sich um eine durchaus besondere Verträglichkeitsforderung mit der intrinsischen Struktur einer Riemannschen Mannigfaltigkeit.
+\end{itemize}
+
+%Intuition dazu: torsionsfrei heißt, dass der Unterschied wenn wir die Änderung der Vektorfelder entlang einander untersuchen nur von den Vektorfeldern selber kommt (dass die nicht kommutieren); insbesondere kann das im Falle eines verschwindenden Kommutators als die Forderung nach schließenden Parallelogrammen interpretiert werden
+
+
+Durch cleveres Ausnutzen der Eigenschaften eines Zusammenhangs lässt sich die Bedingung für die metrische Eigenschaft auch umschreiben. Zunächst gilt:
+\begin{align*}
+\nabla_X \qty(g(Y, Z)) &= \nabla_X \circ \tr_{1, 1} \circ \tr_{2, 2} \qty(g \otimes Y \otimes Z) = \tr_{1, 1} \circ \tr_{2, 2} \circ \nabla_X \qty(g \otimes Y \otimes Z) 
+\\
+&= \tr_{1, 1} \circ \tr_{2, 2} \circ \qty(\qty(\nabla_X g) \otimes Y \otimes Z + g \otimes \qty(\nabla_X Y) \otimes Z + g \otimes Y \otimes \qty(\nabla_X Z))
+%\nabla \qty(g(Y, Z)) &= \nabla \circ \tr_{1, 1} \circ \tr_{2, 2} \qty(g \otimes Y \otimes Z) = \tr_{1, 1} \circ \tr_{2, 2} \circ \nabla \qty(g \otimes Y \otimes Z) 
+%\\
+%&= \tr_{1, 1} \circ \tr_{2, 2} \circ \qty(\qty(\nabla g) \otimes Y \otimes Z + g \otimes \qty(\nabla Y) \otimes Z + g \otimes Y \otimes \qty(\nabla Z))
+\end{align*}
+und umgestellt kann das genutzt werden, um zu zeigen:
+\begin{align}
+0 &= \qty(\nabla_X g)(Y, Z) = \tr_{1, 1} \circ \tr_{2, 2} \qty(\qty(\nabla_X g) \otimes Y \otimes Z)
+\notag\\
+&= \tr_{1, 1} \circ \tr_{2, 2} \circ \qty(g \otimes \qty(\nabla_X Y) \otimes Z + g \otimes Y \otimes \qty(\nabla_X Z)) - \nabla_X \qty(g(Y, Z))
+\notag\\
+&= g\qty(\nabla_X Y, Z) + g\qty(Y, \nabla_X Z) - d \qty(g(Y, Z))(X)
+\notag\\
+&= g\qty(\nabla_X Y, Z) + g\qty(Y, \nabla_X Z) - X \cdot \qty(g(Y, Z))
+\notag\\
+\Leftrightarrow \quad & X \cdot \qty(g(Y, Z)) = g\qty(\nabla_X Y, Z) + g\qty(Y, \nabla_X Z) \, .
+\end{align}
+Das ist eine etwas explizitere Formel für die metrische Eigenschaft eines Zusammenhangs. Für die Torsionsfreiheit kann man nun eine interessante Eigenschaft zeigen:
+\begin{lemma}[Torsionstensor]
+Für eine Mannigfaltigkeit $M$ und einen linearen Zusammenhang $\nabla$ ist
+\begin{equation}
+T^\nabla: \mathcal{X}(M) \cross \mathcal{X}(M) \rightarrow \mathcal{X}(M), \; T^\nabla(X, Y) = \nabla_X - \nabla_Y - \qty[X, Y]
+\end{equation}
+für Vektorfelder $X, Y \in \mathcal{X}(M)$ ein Tensor.
+\end{lemma}
+$T^\nabla$ wird auch \Def{Torsionstensor} genannt und mit ihm kann man die Bedingung für einen torsionsfreien Zusammenhang umschreiben zu $T^\nabla(X, Y) = 0, \; \forall X, Y \in \mathcal{X}(M)$ oder einfach $T^\nabla = 0$. Eine interessante Beobachtung ist, dass der Torsionstensor und damit auch die Eigenschaft der Torsionsfreiheit eine Verbindung zwischen Zusammenhängen und der Lie-Klammer $\mathcal{L}_X Y = \qty[X, Y]$ herstellt. Außerdem impliziert Torsionsfreiheit die Symmetrie der Zusammenhangskoeffizienten $\Gamma_{ij}^k$.\\
+
+
+Es stellt sich nun heraus, dass diese zwei Eigenschaften starke Forderungen sind, die bei Weitem nicht alle Zusammenhänge erfüllen. Auf der anderen Seite sind sie gerade nicht zu stark, dass kein Zusammenhang sie erfüllen kann, es gilt:
+\begin{satz}
+Für eine Riemannsche Mannigfaltigkeit $(M, g)$ existiert genau ein linearer Zusammenhang $\nabla$, der torsionsfrei und metrisch ist.
+
+Dieser Zusammenhang $\nabla$ erfüllt zudem $\forall X, Y, Z \in \mathcal{X}(M)$:
+\begin{equation}\label{eq:koszul}
+\begin{split}
+& \quad X \cdot g(Y, Z) + Y \cdot g(X, Z) + g\qty([X, Y], Z) 
+\\
+&= Z \cdot g(X, Y) + 2 g\qty(\nabla_X Y, Z) + g\qty(X, [Y, Z]) + g\qty(Y, [X, Z]) \, .
+%2 g\qty(\nabla_X Y, Z) = X \cdot g(Y, Z) + Y \cdot g(X, Z) - Z \cdot g(X, Y) - g\qty(X, [Y, Z]) + g\qty([X, Y], Z) - g\qty(Y, [X, Z]) \, .
+\end{split}
+\end{equation}
+\end{satz}
+
+\begin{defi}[Levi-Civita-Zusammenhang]
+Für eine Riemannsche Mannigfaltigkeit $(M, g)$ heißt der eindeutige torsionsfreie und metrische Zusammenhang $\nabla$ \Def[Zusammenhang! Levi-Civita-]{Levi-Civita-Zusammenhang}. Die Zusammenhangskoeffizienten $\Gamma_{ij}^k$ heißen hier dann auch \Def[Christoffelsymbole]{Christoffelsymbole (zweiter Art)}. Gleichung \eqref{eq:koszul} heißt auch \Def{Formel von Koszul}.
+\end{defi}
+Dieser bestimmte Zusammenhang spielt eine immense Rolle in der Riemannschen Geometrie und ganz allgemein Differentialgeometrie, auch wenn er nicht auf allgemeinen Vektorbündeln oder Mannigfaltigkeiten definiert ist, sondern speziell auf $TM$ und einer Riemannschen Mannigfaltigkeit (nur dann ergibt z.B.~die Forderung nach einem metrischen Zusammenhang Sinn). Das kommt daher, dass er im besonders kompatibel ist der Struktur der Mannigfaltigkeit auf der er definiert ist (insbesondere mit der Metrik). Im gewissen Sinne beeinflußt er die Objekte nicht, auf die er wirkt (Parallelogramme schließen sich weiterhin, Metrik ist konstant).
+
+Nur Levi-Civita-Zusammenhänge erfüllen die Formel von Koszul. Gleichsam definiert die Formel von Koszul aber auch Levi-Civita-Zusammenhänge eindeutig (die nötigen Umformungen klappen nur für torsionsfreie, metrische Zusammenhänge).
+
+
+%-> \href{https://de.wikipedia.org/wiki/Levi-Civita-Zusammenhang}{Wikipedia} dazu
+
+
+\begin{bsp}[Levi-Civita-Zusammenhang des $\mathbb{R}^n$]
+Für $M = \mathbb{R}^n$ zusammen mit dem Standardskalarprodukt $g = \langle \cdot, \cdot \rangle$ ist der Levi-Civita-Zusammenhang einfach das normale Differential, das definiert ist über $\nabla_X Y = dY(X)$ für Vektorfelder $X, Y \in \mathcal{X}(M)$. Das Differential kann dabei auf Vektorfelder wirken, da es sich dabei ja auch einfach um Funktionen handelt, die ein $p \in M$ abbilden (nur eben auf einen Vektor statt eine Zahl).
+\end{bsp}
+
+
+\iffalse
+% passt später besser
+\begin{bsp}[Zweite Fundamentalform]
+machen?
+\end{bsp}
+\fi
+
+
+Eine natürliche Frage ist nun, ob ein Zusammenhang $\nabla$ auf einer Mannigfaltigkeit $M$ auch einen Zusammenhang auf einer anderen Mannigfaltigkeit $N$ liefern kann, beispielsweise mittels Abbildungen $\phi: N \rightarrow M$. Um überhaupt darüber nachdenken zu können, muss man sich zunächst mit der unterliegenden Menge beschäftigen, dem zugehörigen Vektorbündel $E$.
+
+\begin{satz}[Pullback von Vektorbündeln]
+Für ein Vektorbündel $\pi: E \rightarrow M$ und $\phi: N \rightarrow M$ glatt ist die Menge
+\begin{equation}
+\phi^* E := \qty{(q, v): \; q \in N, v \in E_{\phi(q)}, \pi(v) = \phi(q)}
+\end{equation}
+eine Untermannigfaltigkeit von $N \cross E$. Außerdem ist die natürliche Projektion
+\begin{equation}
+\pi^N: \phi^* E \rightarrow N, \; (q, v) \mapsto q
+\end{equation}
+glatt und
+\begin{equation}
+\qty(\pi^N)^{-1}(q) = E_{\phi(q)}
+\end{equation}
+sind Vektorräume. Insgesamt ist $(\phi^* E, N, \pi^N)$ ein Vektorbündel mit Fasern $E_{\phi(q)}$.
+
+Für einen Schnitt $s \in \Gamma(M; E)$ ist zudem
+\begin{equation}
+\tilde{s}: N \rightarrow \phi^* E, \; q \mapsto \qty(q, s\qty(\phi(q)))
+\end{equation}
+ein Schnitt $\phi^* \tilde{s} \in \Gamma(N; \phi^* E)$.
+\end{satz}
+
+Die Idee ist also wie bei Pullbacks allgemein, man baut eine Verknüpfung ein und ändert so den Definitionsbereich, ohne jedoch die wesentlichen Eigenschaften des Objekts zu ändern (was hauptsächlich an der Glattheit von $\phi$ liegt). Hier bedeutet das, dass man die gleichen Vektorräume $E_p$ nimmt, aber die zugehörigen Fußpunkte als $p = \phi(q)$ ausdrückt. Daraus erhält man Vektorbündel $\phi^* E$ über und Schnitte $\phi^* s$ in $N = \phi^* M$ aus $E$ über und $s$ in $M$.
+
+Man beachte, dass $\phi$ kein Diffeomorphismus sein muss, also nicht bijektiv. Insbesondere kann man das Ganze also mit Kurven machen, wo $N = [a, b]$ (wird sehr wichtig werden). In diesem Fall bzw.~allgemeiner für den Fall $E = TM$ nennt man Schnitte dann auch Vektorfelder längs/entlang $\phi$.\\
+
+
+Nachdem der Pullback eines Vektorbündels erklärt ist, lässt sich nun auch nach dem Pullback eines Zusammenhangs fragen.
+
+\begin{satz}[Pullback von Zusammenhängen]
+Für ein Vektorbündel $\pi: E \rightarrow M$ und $\phi: N \rightarrow M$ glatt existiert auf dem Vektorbündel $\pi^N: \phi^* E \rightarrow N$ genau ein Zusammenhang $\tilde{\nabla}$, sodass
+\begin{equation}
+\phi^* \qty(\nabla s) = \tilde{\nabla} \phi^* s =: \qty(\phi^* \nabla) \qty(\phi^* s), \quad \forall s \in \Gamma(M; E) \, .
+\end{equation}
+\end{satz}
+
+$\tilde{\nabla}$ ist, was natürlicherweise als Pullback von $\nabla$ zu sehen ist -- $\phi^* \nabla$ beschreibt also einfach einen (eindeutig bestimmten) Zusammenhang auf $\phi^* E$. Er wirkt auf die gepullten Schnitte so, dass das Ergebnis genau der Pullback des Objekts $\nabla s$ ist (ähnlich zu \eqref{eq:pullpushv2}). Mit eingesetztem Vektorfeld $X \in \mathcal{X}(M)$ wird die definierende Gleichung zu:
+\begin{equation}
+\phi^* \qty(\nabla_X s) = \qty(\phi^* \nabla)_{\tilde{X}} \qty(\phi^* s) = \qty(\phi^* \nabla)_{\phi^* X} \qty(\phi^* s) \, ,
+\end{equation}
+wobei $X, \tilde{X}$ $\phi$-verwandt sind (also $\tilde{X} = \phi^* X$). Das zeigt weiterhin, wie viel Sinn die Bezeichnung $\phi^* \nabla$ ergibt, man hat so eine komplette Verträglichkeitsgleichung.
+
+Für diese Eigenschaft gilt weiter eine Art Kettenregel:
+\begin{satz}
+Für ein Vektorbündel $\pi: E \rightarrow M$ mit Zusammenhang $\nabla$ und Abbildungen $f: N \rightarrow M, g: O \rightarrow N$ gilt auf $\qty(f \circ g)^* E = g^* \qty(f^* E)$ über $O$:
+\begin{equation}
+\qty(f \circ g)^* \nabla = g^* \qty(f^* \nabla) \, .
+\end{equation}
+\end{satz}
+
+
+Man mag sich nun fragen, ob die Eigenschaften eines Levi-Civita-Zusammenhangs sich unter Pullbacks ändern. Es stellt sich heraus, dass das nicht der Fall ist:
+\begin{satz}[Torsionsfrei, metrisch unter Pullback]
+Sei $\phi: N \rightarrow M$ und $\nabla$ ein Zusammenhang auf $TM$.
+
+Ist $\nabla$ torsionsfrei, so gilt für $X, Y \in \mathcal{X}(M) = \Gamma(M; TM)$ und $\tilde{X} = \phi^* X = D \phi(X), \tilde{Y} = \phi^* Y = D\phi(Y) \in \Gamma(N; \gamma^* TM)$ längs $\phi$:
+\begin{equation}
+\qty(\phi^* \nabla)_X \tilde{Y} - \qty(\phi^* \nabla)_Y \tilde{X} = D\phi\qty([X, Y]) \, .
+\end{equation}
+
+Ist $\nabla$ metrisch, so gilt für $X \in \mathcal{X}(M)$ und $Y, Z \in \Gamma(N; \gamma^* TM)$ längs $\phi$:
+\begin{equation}
+X \cdot g(Y, Z) = g\qty(\phi^* \nabla_X Y, Z) + g\qty(Y, \phi^* \nabla_X Z) \, .
+\end{equation}
+\end{satz}
+
+
+
+
+
+
+-> viele nice Formeln vor Korollar 6.16 (zu Verhalten bei Pullback etc);
+
+
+-> uh ja, 6.12 ist sehr wichtig; zeigt, was die Notation $\gamma^*$ bedeutet: $\qty(\gamma^* \nabla) \tilde{s} = \qty(\gamma^* \nabla) \qty(\gamma^* s) =  \gamma^* \nabla \qty(s \circ \gamma) = \gamma^*\qty(\nabla s)$; das erklärt unter Anderem die Herleitung bei Parallelitätsbedingung; ist sowas wie Kettenregel oder? -> ok, glaube $\gamma^* s = s \circ \gamma$ gilt nicht, aber bei Funktionen ja auf jeden Fall (von daher kann man es in Rechnung so machen; man sollte über Pullback ja auch auf jeden Fall so nachdenken)
+
+
+
+
+		\subsection{Geodäten}
+Die erste Anwendung bei der ein Levi-Civita-Zusammenhang benutzt wird, ist die Bestimmung des Abstands von Punkten auf Mannigfaltigkeiten. Dieser konnte über \eqref{eq:distance_curve} bereits zwar sinnvoll definiert werden, jedoch muss zur tatsächlichen Berechnung die Kurve $\gamma$ bekannt sein, die $L(\gamma)$ minimiert. Das Ziel dieses Abschnitts ist es daher, einen systematischen Weg zum Aufstellen dieser Kurve $\gamma$ zu finden. Im $\mathbb{R}^n$ mag das trivial sein, auf allgemeinen Mannigfaltigkeiten ist es bisher noch nicht möglich!
+
+\begin{satz}
+Für eine Riemannsche Mannigfaltigkeit $(M, g)$ mit Zusammenhang $\nabla$ und eine glatte, auf Bogenlänge parametrisierte Kurve $\gamma: [a, b] \rightarrow M$ mit $L(\gamma) = d\qty(\gamma(a), \gamma(b))$ gilt für das Vektorfeld $\gamma' \in \Gamma([a, b]; \gamma^* TM)$ längs $\gamma$
+\begin{equation}\label{eq:geodgl}
+\nabla_{\gamma'} \gamma' := \nabla_{\dv{t}} \gamma' := \qty(\gamma^* \nabla)_{\dv{t}} \gamma' = 0 \, .
+\end{equation}
+\end{satz}
+
+\begin{proof}
+Erste Variation der Länge $L(\gamma)$, hier nicht explizit berechnet.
+\end{proof}
+
+\begin{defi}[Geodäte]
+Eine glatte Kurve $\gamma: I \rightarrow M$, die \eqref{eq:geodgl} erfüllt, heißt \Def{Geodäte}.
+\end{defi}
+%\href{https://de.wikipedia.org/wiki/Geod%C3%A4te}{Wikipedia}
+
+Geodäten sind also nichts als Kürzeste, die $L(\gamma) = d\qty(\gamma(a), \gamma(b))$ erfüllen. \eqref{eq:geodgl} heißt auch \Def{Geodätengleichung} und das ist der angekündigte systematische Weg, den Abstand zwischen Punkten zu finden. Da $\gamma$ nur von einem Parameter $t$ abhängt, wird hier $\dv{t}$ statt wie eigentlich üblich $\pdv{t}$ geschrieben.
+
+Die Bedeutung dieser Gleichung ist zudem sehr intuititv: die Richtung der Kurve bleibt konstant wenn man sie entlanggeht -- was so etwas wie das Verschwinden der zweiten Ableitung der Kurve bedeutet, dass sie also ungekrümmt ist. Der Pullback Zusammenhang $\gamma^*\nabla$ als Operator auf $\gamma^* TM$ statt $\nabla$ auf $M$ wird dabei benutzt, damit man nur Punkte $\gamma(t) \in M$ statt beliebiger $p$ einsetzt. So ist garantiert, dass man wirklich nur der Kurve folgt und sich nicht an anderer Stelle auf der Mannigfaltigkeit bewegt. Weil das jedoch eher ein Detail ist, wird es in der Schreibweise oft unterschlagen.\\
+
+
+Im $\mathbb{R}^n$ werden Abstände einfach über die Differenz der enstprechenden Ortsvektoren gemessen, also die Gerade zwischen diesen beiden. Wie das nächste Beispiel zeigt, reproduziert die Geodätengleichung dieses Ergebnis.
+
+\begin{bsp}[Geraden]
+Umschreiben der Geodätengleichung mit $\nabla$ als Differential $d$ ergibt
+\begin{equation}
+d_{\gamma'} \gamma' = d\gamma'\qty(\dv{t}) = \dv{\gamma'}{t} = \gamma'' = 0 \quad \Leftrightarrow \quad \gamma' = \text{const} \quad \Leftrightarrow \quad \gamma(t) = v t + p
+\end{equation}
+mit $p, v \in \mathbb{R}^n$ als Orts- und Richtungsvektoren. Geodäten im $\mathbb{R}^n$ sind also Geraden.
+
+Im Gegensatz dazu zeigt Abbildung \ref{fig:drehvektfeldplot} einen Kreisbogen mit dem zugehörigen Tangentialvektorfeld. Betrachtet man das Vektorfeld auf $M = \mathbb{R}^2$, so ist es keine Geodäte, weil sich offenbar die Richtung des Vektorfeldes ändert; die schwarzen Pfeile sind nicht parallel, was gleichbedeutend ist mit einer Richtungsänderung und damit auch einer Änderung der Vektoren $\gamma'$. Das umfasst insbesondere eine Änderung in Richtung von $\gamma'$, weshalb $\nabla_{\gamma'} \gamma' \neq 0$. Auf dem Kreisbogen $\mathbb{S}^1$ hingegen ändert sich die Richtung der Vektoren nicht.
+% einfach \ref{fig:drehvektfeldplot} zitieren? Oder halt auf \ref{fig:keine_geodaete} verweisen, aber nimmt schon hart viel Platz weg
+\end{bsp}
+
+
+\iffalse
+\begin{figure}
+\centering
+
+\includegraphics[width=0.6\textwidth]{Bilder/vectorfield_example_circle.pdf}
+
+\caption{Tangentialvektorfeld am Kreisbogen}
+\label{fig:keine_geodaete}
+\end{figure}
+\fi
+
+
+Nach diesem ersten Beispiel, die unterstreicht dass die Definition sinnvoll ist, stellt sich nun wieder einmal die Frage, was bei anderen Darstellungen passiert. Das entspricht der Frage, wie sich die Geodätengleichung unter einem Pullback $\phi^* \gamma$ verhält.
+\begin{lemma}[Umparametrisierung Geodätengleichung]
+Für eine Riemannsche Mannigfaltigkeit $(M, g)$ mit Levi-Civita-Zusammenhang $\nabla$, eine glatte Kurve $\gamma: I \rightarrow M$ und einen Diffeomproshimus $\phi: J \rightarrow I$ gilt für $\tilde{\gamma} = \gamma \circ \phi: J \rightarrow M$:
+\begin{equation}
+%\tilde{\gamma}^* \nabla_{\dv{s}} \tilde{\gamma}' = \phi''(s) \gamma'\qty(\phi(s)) + \qty(\phi'(s))^2 \eval{\gamma^* \nabla_{\dv{t}} \gamma'}_{\phi(s)} \, .
+\tilde{\gamma}^* \nabla_{\dv{s}} \tilde{\gamma}' = \phi''(s) \gamma'\qty(\phi(s)) + \qty(\phi'(s))^2 \gamma^* \nabla_{\dv{t}} \gamma'\qty(\phi(s)) \, .
+\end{equation}
+\end{lemma}
+% hm, sicher die Pullbacks? Sollte stimmen, weil wir ja ne Gleichung auf $J$ haben hier, nicht auf $M$ (brauchen also auch Zusammenhang darauf); aber ist vlt $\gamma^* \nabla = \tilde{\gamma}^* \nabla$? Sind ja beide auf Intervallen... Sieht tbh auch bei Beweis Heller so aus
+Wird dieses Ergebnis $= 0$ gesetzt, ergibt sich die Geodätengleichung auf $J$.\\
+
+
+\iffalse % weil ich es noch nicht ganz verstehe, wie im Beweis da irgendwie die Parallelität einfließt
+nützliche Eigenschaft, wie man Geodäten erkennen kann:
+\begin{lemma}
+Für eine Riemannsche Mannigfaltigkeit $(M, g)$ mit Levi-Civita-Zusammenhang $\nabla$ und eine glatte, immersierte Kurve $\gamma: I \rightarrow M$ mit
+\begin{equation}
+\nabla_{\dv{t}} \gamma' \parallel \gamma', \, \forall t \in I
+\end{equation}
+ist die auf Bogenlänge parametrisierte Kurve $\gamma \circ \phi$ eine Geodäte.
+\end{lemma}
+\begin{proof}
+wir wollen $\nabla_{\dv{t}} \gamma' = 0$ zeigen (im Wesentlichen); zeigen dazu dass die neue Bedingung hier äquivalent ist zu was mit Metrik null, was dann wegen $\gamma' \neq 0$ (bestimmt Voraussetzung, sonst haben wir ja keine richtige Kurve I guess; ja sollte genau so sein, könnten ja auch Länge etc gar nicht umparametrisieren) genau das bedeuten muss
+\end{proof}
+
+immersiert sollte Intuition nicht groß stören oder? Heißt ja eher, dass nichts schief gehen kann bezüglich Singularitäten der Ableitung oder so; geometrischer Interpretation dieser Bedingung: Änderung der Ableitung ist immer parallel, also in Richtung, der Ableitung selber (das ist bei Geraden der Fall, wo der Richtungsvektor immer gleich ist; bei Kreisen ändert sich die Richtung der Tangenten immer, das heißt diese Bedingung ist nicht erfüllt) -> ah, immersiert heißt insbesondere Ableitung nicht null, nur deshalb können wir von Metrik null immer auf Geodätengleichung erfüllt schließen
+
+-> ah, haben hier Begriff von Parallelität weil wir uns die immer am selben Punkt angucken
+\fi
+
+
+
+Bezüglich einer Trivialisierung gilt nun mit $\tilde{\gamma} = x \circ \gamma: I \rightarrow \mathbb{R}^n$ (per Definition)
+\begin{equation*}
+\gamma'(t) = \sum_i \tilde{\gamma}_i'(t) \eval{\pdv{x_i}}_{\gamma(t)}
+\end{equation*}
+und damit erhält man die folgende lokale Darstellung der Geodätengleichung:
+\begin{align}
+0 &= \nabla_{\gamma'} \gamma'(t) = \nabla_{\dv{t}} \gamma'(t) = \sum_i \dv{\tilde{\gamma}_i'(t)}{t} \eval{\pdv{x_j}}_{\gamma(t)} + \tilde{\gamma}_i'(t) \nabla_{\dv{t}} \eval{\pdv{x_i}}_{\gamma(t)}
+\notag\\
+&= \sum_i \tilde{\gamma}_i''(t) \eval{\pdv{x_j}}_{\gamma(t)} + \sum_{i, j} \tilde{\gamma}_i'(t) \tilde{\gamma}_j'(t) \nabla_{\pdv{x_j}} \eval{\pdv{x_i}}_{\gamma(t)}
+\notag\\
+&= \sum_i \tilde{\gamma}_i''(t) \eval{\pdv{x_j}}_{\gamma(t)} + \sum_{i, j, k} \tilde{\gamma}_i'(t) \tilde{\gamma}_j'(t) \Gamma_{ji}^k \eval{\pdv{x_k}}_{\gamma(t)}
+\notag\\
+&= \sum_k \qty(\tilde{\gamma}_k''(t) + \sum_{i, j} \tilde{\gamma}_i'(t) \tilde{\gamma}_j'(t) \, \Gamma_{ji}^k(\gamma(t))) \eval{\pdv{x_k}}_{\gamma(t)}
+\notag\\
+%\Leftrightarrow \quad 0 &= \tilde{\gamma}_k''(t) + \sum_{i, j} \tilde{\gamma}_i'(t) \tilde{\gamma}_j'(t) \, \Gamma_{ij}^k(\gamma(t)) \, .
+\Leftrightarrow \quad 0 &= \eval{\dv[2]{\tilde{\gamma}_k}{t}}_t + \sum_{i, j} \eval{\dv{\gamma_i}{t}}_t \eval{\dv{\gamma_j}{t}}_t \, \Gamma_{ij}^k(\gamma(t)) \, .
+\end{align}
+	\anm{im letzten Schritt wurde dabei nicht die Symmetrie der Christoffelsymbole angenommen, sondern lediglich Indizes umbenannt.}
+
+Nach Variablensubstitution lässt sich diese DGL 2.~Ordnung in eine DGL 1.~Ordnung (auf $T \mathbb{R}^n$) umschreiben. Das hat die wichtige Folgerung, dass Geodäten durch Anfangspunkt und -richtung bereits eindeutig bestimmt sind (gilt bei Geraden ganz offensichtlich, aber somit allgemein).\\
+
+
+
+		\subsection{*Exponentialabbildung und Geodätischer Spray*}
+
+%outline für stuff der nur potentiell spannend ist (muss nicht unbedingt alles rein oder? Der Stuff zu Spray etc ist zwar interessant, aber scheint iwie zu viel auf den ersten Blick; ist 2.5 bei Heller):
+
+%sehr interessante Motivation Geodätischer Spray
+
+
+% hier dann auch Horizontalanteil machen des Differentials am besten -> aber keine Priorität darauf, weil man dazu ne UMF braucht und deshalb sozusagen eingebettete MF (ART nimmt das nicht an aber)
+
+
+Die eben vorgestellte Eigenschaft motiviert die Suche nach einer Abbildung, die Startpunkt und -richtung als Argumente nimmt und daraus Geodäten \enquote{baut}.
+
+\begin{satz}
+Für eine Riemannsche Mannigfaltigkeit $(M, g)$ existiert eine offene Menge $\mathcal{U} \subset TM$ sodass $\forall p$ die Menge $\mathcal{U}_p := \mathcal{U} \cap T_p M$ sternförmig bezüglich $0 \in \mathcal{U}_p$ ist und eine glatte Abbildung $\text{Exp}: \mathcal{U} \rightarrow M$, sodass für $X_p \in \mathcal{U}_p$ die Kurve
+\begin{equation}
+\gamma: [0, 1] \rightarrow M, \; t \mapsto \text{Exp}(t X_p)
+\end{equation}
+eine Geodäte mit $\gamma(0) = p = \pi(X_p)$ und $\gamma'(0) = X_p$.
+
+Zudem gilt $\text{Exp}(0_p) = p$ und $D_{0_p} \text{Exp}_{\mathcal{U}_p} = \text{id}_{T_p M}$ $\forall p \in M$.
+\end{satz}
+
+\begin{defi}[Exponentialabbildung]\label{defi:exp_abb}
+Die Abbildung $\text{Exp}$ heißt \Def{Exponentialabbildung}.
+\end{defi}
+
+Interpretation: $\text{Exp}(X_p)$ ist der Endpunkt $\gamma(1)$ der (eindeutig bestimmten) Geodäten $\gamma: [0, 1] \rightarrow M$ mit $\gamma(0) = p$ und $\gamma'(0) = X_p$; denke so sollte man über Exp nachdenken, nicht als tatsächliche e-Funktion (ah, wobei Name halt daher kommt, dass es sowas wie die Definition der Exponentialabbildung erfüllt, wir haben ja $\gamma'(0) = \eval{\dv{\text{Exp}(t X_p)}{t}}_{t = 0} = X_p \eval{\text{Exp}(t X_p)}_{t = 0} = X_p$ bzw. allgemeiner $\gamma'(t) = \dv{\text{Exp}(t X_p)}{t} = X_p \text{Exp}(t X_p) = X_p \gamma(t)$; das heißt immer noch nicht, dass es zwangsweise ne e-Funktion ist, aber es erfüllt halt die Definition, die wir von $\mathbb{R}$ her kennen und wo es halt eine e-Funktion ist)
+
+
+
+
+\begin{bsp}[Matrix-Lie-Gruppe]
+nach Beispiel 6.22
+
+Metrik ist punktweise definiert als $g_h(X^\xi_h, X^\mu_h) = - \tr(\xi \mu^T)$, also insgesamt auch $g(X^\xi, X^\mu) = - \tr(\xi \mu^T)$; ist bi-invariant (in beiden Argumenten also?)
+
+Levi-Civita-Zusammenhang wirkt als $\nabla_{X^\xi} X^\mu = \frac{1}{2} X^{[\xi, \mu]}$; weil das $\nabla_{X^\xi} X^\xi = 0$ impliziert, sind Integralkurven von $X^\xi$ auch Geodätische; wie bereits gezeigt wurde, sind die Integralkurven Exponentialfunktionen und daher hat die Exponentialabbildung von Matrix-Lie-Gruppen tatsächlich die Form einer Exponentialabbildung (nicht unbedingt der Fall für Exponentialabbildung nach Definition \ref{defi:exp_abb})
+
+Exponentialabbildung von Matrix-Lie-Gruppe ist Exp von Matrix-Lie-Gruppe betrachtet als Riemannsche MF (mit geeigneter Metrix, im Wesentlichen Spur)
+\end{bsp}
+
+
+\begin{defi}[(Riemannsche) Normalkoordinaten]
+Für eine Riemannsche Mannigfaltigkeit $(M, g)$ und eine ONB $v_1, \dots, v_n$ von $T_p M$ heißen die Koordinaten $x: \text{Exp}(U_p) \rightarrow \mathbb{R}^n$ mit
+\begin{equation}
+x(\text{Exp}(x_1 v_1 + \dots + x_n v_n)) = \qty(x_1, \dots, x_n)
+\end{equation}
+\Def[Normalkoordinaten]{(Riemannsche) Normalkoordinaten (um $p$)}.
+\end{defi}
+
+-> hm, ist Proposition 6.25 cool? Und daher intuitiv oder mehr so: gilt echt?
+
+
+nützliche Eigenschaft:
+\begin{lemma}
+Für eine Riemannsche Mannigfaltigkeit $(M, g)$, $p \in M$, $v, w \in T_p M$ sodass $\text{Exp}_p (v)$ existiert, gilt
+\begin{equation}
+g_p(r v, w) = g_{\text{Exp}_p(v)} \qty(D_v \text{Exp}_p (r v), D_v \text{Exp}_p (w)), \, \forall r \in \mathbb{R} \, .
+\end{equation}
+\end{lemma}
+zeigt auch, wie praktisch Exponentialabbildung (damit kann man potentiell halt Eigenschaften ausnutzen, right?); stellt sich halt raus, dass man die noch etwas erweitern kann auf allgemeine $r \in \mathbb{R}$, nicht nur $r = 1$, deswegen schreiben wir hier die allgemeine Version hin
+
+
+Theorem 6.27 ist zwar cool (Satz von Hopf-Rinow), aber braucht halt ganze Vorarbeit; das folgende Korollar am Ende ist aber sehr nützlich:
+
+
+
+\begin{cor}[Geodäten auch kompakten Mannigfaltigkeiten]
+Auf einer kompakten Riemannschen Mannigfaltigkeit existieren alle Geodäten für alle Zeiten.
+\end{cor}
+Geodäten können in diesem Fall also global definiert werden.
+
+
+
+		\subsection{Krümmung}
+Eine natürliche Frage ist, ob und wie man Riemannsche Metriken unterscheiden kann (und damit auch die zugehörigen Riemannschen Mannigfaltigkeiten, als Kriterium neben der Dimension). Die Antwort lautet ja und aus den vielen Möglichkeiten, das zu sehen, wird hier die Motivation mittels Paralleltransport gewählt. Um zu verstehen, worum es sich dabei handelt, sind zunächst einige Definitionen nötig (eine Veranschaulichung gibt es in Abbildung \ref{fig:paralleltransport}).
+
+\begin{defi}[Paralleler Schnitt]
+Ein Schnitt $s \in \Gamma(M; E)$ heißt \Def{parallel} (auch: \Def{konstant}) wenn $\nabla s = 0$.
+\end{defi}
+Hm, irgendwie fehlt mir hier ein eingesetztes Vektorfeld... Soll das wirklich global sein? Oder ist das ohne eingesetzt und mit äquivalent (Verschwinden entlang eines impliziert entlang aller?) Hmm, sieht sogar aus Beweis Paralleltransport so aus, dass das äquivalent ist zu entlang einer Kurve (wobei das halt auch an Benutzen von $\gamma^* \nabla$ liegen kann, ist dann nicht $\gamma^* TM$ eindimensional? Und dann können wir den Basisvektor halt auch einfach einsetzen)
+
+\iffalse % führt zu nichts das Beispiel, lieber in einem Satz vorher sagen dass man sich bei Vektoren parallel vorstellen kann und sonst halt konstant auf dem Weg da
+\begin{bsp}
+
+paralleler Schnitt für Linearen Zusammenhang ist Vektorfeld $\nabla_Y X = 0 \in \Gamma(M; T^*M \otimes TM)$ für ein beliebiges $Y \in \mathcal{X}(M)$, man schreibt oft auch einfach $\nabla X = 0$ in diesem Fall
+
+paralleler Schnitt für Zusammenhang auf $E = TM^*$ ist 1-Form $\nabla_Y \omega = 0 \in \Gamma(M; TM \otimes T^*M)$ für ein beliebiges $Y \in \mathcal{X}(M)$
+
+
+für Vektorfelder heißt das: $X$ ändert sich nicht wenn wir uns die Werte entlang eines Vektorfeldes $Y$ angucken, das nennt man dann parallel; allgemeiner, z.B.~eben für 1-Formen, ist da das Wort konstant vermutlich passender
+\end{bsp}
+\fi
+
+
+\begin{satz}
+Für eine glatte Kurve $\gamma: [a, b] \rightarrow M$ und ein Vektorbündel $\pi^E: E \rightarrow M$ mit Zusammenhang $\nabla$ existiert ein eindeutiger Schnitt $s \in \Gamma([a, b]; \gamma^* E)$ mit
+$s(a) \in E_{\gamma(0)}$ und $\gamma^* \nabla s = 0$. Außerdem ist
+\begin{equation}
+\mathcal{P}^\nabla(\gamma): E_{\gamma(a)} \rightarrow E_{\gamma(b)}, \; s(a) \mapsto s(b)
+\end{equation}
+für diesen Schnitt $s$ eine lineare, bijektive Abbildung.
+\end{satz}
+
+\begin{proof}
+Wegen $\dim(\gamma^* E) = \dim(\mathbb{R}) = 1$ sind alle Elemente von $\Gamma([a, b]; \gamma^* E)$ proportional zu $\pdv{t}$. Da weiter $\nabla_{f X} s = f \nabla_X s = 0 \Leftrightarrow \nabla_X s = 0$, folgt
+\begin{equation*}
+\gamma^* \nabla s = 0 \quad \Leftrightarrow \quad \gamma^* \nabla_{\pdv{t}} s = 0 \, .
+\end{equation*}
+Lokal ist das (wie noch explizit gezeigt wird) aber einfach eine lineare, gewöhnliche DGL 1.~Ordnung. Daher existiert eine eindeutige Lösung $s$.
+\end{proof}
+
+\begin{defi}[Paralleltransport]
+$\mathcal{P}^\nabla(\gamma)$ heißt \Def[Paralleltransport]{Paralleltransport (bezüglich $\nabla$) entlang $\gamma$}.
+\end{defi}
+%https://en.wikipedia.org/wiki/Parallel_transport
+
+Damit ist das anfangs formulierte Ziel, Parallelität zu definieren, erreicht. Unabhängig von einer vielleicht komplizierten Definition kann man sich Paralleltransport sehr anschaulich vorstellen, vor allem im Falle von Vektoren (also $E = TM$): ein Vektor ist parallel transportiert/verschoben/verlängert, wenn sich seine Orientierung relativ zur Kurve, entlang der transportiert wird, nicht ändert (siehe wiederum Abbildung \ref{fig:paralleltransport}). Da $\mathcal{P}$ zudem bijektiv und linear ist, erhält man somit auch einen (fast kanonischen) Isomorphismus zwischen den verschiedenen Fasern $E_p$ eines Vektorbündels. Diese Verbindung stellt einen \emph{Zusammenhang} zwischen den Fasern her, was durch $\nabla$ ermöglicht wird und damit auch die Namensgebung erklärt.\\
+
+
+Zur Notation ist zu sagen, dass $\gamma^* \nabla s = 0$ der Forderung $\nabla s = 0$ längs $\gamma$ entspricht, also exakt der Intuition. Das wird jedoch nicht als $\gamma^*\qty(\nabla s) = 0$ ausgedrückt, weil $s$ bereits ein Schnitt in $\gamma^* E$ und nicht $E$ ist, während $\nabla$ zu $E$ gehört. Die Interpretation bleibt jedoch gleich, es handelt sich also nur um eine notationelle Nickeligkeit.
+
+
+
+Zudem ist auch die Notation $\mathcal{P}$ eher symbolisch, da es keine allgemeinen, expliziten Ausdruck für $s$ gibt. Stattdessen muss jedes Mal die definierende Gleichung $\gamma^* \nabla = 0$ gelöst werden und das wird zumeist bezüglich einer Trivialisierung (also lokal) gemacht. Mit $\tilde{s} = \sum_i \tilde{s}_i \tilde{e}_i$ nimmt die Bedingung dann folgende Form an:
+\iffalse
+Für $\tilde{s} = \sum_i \tilde{s}_i \tilde{e}_i$ ergibt sich folgende lokale Darstellung der Parallelitätsbedingung:
+\begin{align*}
+0 &= \gamma^* \nabla \tilde{s} = \sum_i \gamma^* \nabla \qty(\tilde{s}_i \tilde{e}_i) = \sum_i \gamma^* \nabla \qty(\tilde{s}_i) \tilde{e}_i + \tilde{s}_i \gamma^* \nabla \tilde{e}_i \, .
+\end{align*}
+Wird nun speziell in Richtung $\pdv{t}$ abgeleitet, so ergibt sich für $\tilde{s} = \gamma^* s$:
+\fi
+\begin{align}
+0 &= \sum_i \gamma^* \nabla_{\pdv{t}} \qty(\tilde{s}_i \tilde{e}_i) = \sum_i \gamma^* \nabla_{\pdv{t}} \qty(\tilde{s}_i) \tilde{e}_i + \tilde{s}_i \gamma^* \nabla_{\pdv{t}} \tilde{e}_i
+\notag\\
+&= \gamma^* \nabla_{\pdv{t}} \qty(s \circ \gamma) = \sum_i \eval{\nabla_{\pdv{t}} \qty(s_i \circ \gamma)}_t \qty(e_i \circ \gamma)(t) + \qty(s_i \circ \gamma)(t) \eval{\nabla_{\pdv{t}} e_i \circ \gamma}_t
+\notag\\
+&= \sum_i \eval{\pdv{s_i \circ \gamma}{t}}_t \qty(e_i \circ \gamma)(t) + \qty(s_i \circ \gamma)(t) \eval{\pdv{\gamma}{t}}_t \sum_k \Gamma_{ij}^k(\gamma(t)) \qty(e_k \circ \gamma)(t)
+\notag\\
+&= \sum_k \qty(\eval{\pdv{s_k \circ \gamma}{t}}_t + \sum_i \qty(s_i \circ \gamma)(t) \eval{\pdv{\gamma}{t}}_t \Gamma_{ij}^k(\gamma(t))) \qty(e_k \circ \gamma)(t)
+\notag\\
+\Leftrightarrow \quad 0 &= \eval{\pdv{s_k \circ \gamma}{t}}_t + \sum_i \qty(s_i \circ \gamma)(t) \eval{\pdv{\gamma}{t}}_t \Gamma_{ij}^k(\gamma(t)) \, .
+\label{eq:par_tr_lokal}
+\end{align}
+Zur Klarstellung: $s \in \Gamma(M; E), \, \gamma: [a, b] \rightarrow M, \, \tilde{s} = \gamma^* s \in \Gamma([a, b]; \gamma^* E)$. Per Definition des Pullbacks gilt dann für die Komponentenfunktionen: $\gamma^* s_i = s_i \circ \gamma$.
+
+
+Das parallel transportierte Objekt zum Startobjekt $\tilde{s}(a)$ erhält man dann durch Einsetzen des Punktes $b$ in $\tilde{s}$ als Lösung von \eqref{eq:par_tr_lokal}.
+
+
+
+\begin{bsp}[Paralleltransport für parallelen Schnitt]
+Für einen parallelen Schnitt $s \in \Gamma(M; E)$ und eine Kurve $\gamma: [a, b] \rightarrow M$ mit $\gamma(a) = p, \gamma(b) = q$ ist $\mathcal{P}^\nabla(\gamma)\qty(s(p) = s(q))$ unabhängig von der gewählten Kurve zwischen $p, q$. Das Besondere an dieser Aussage ist, dass hier $\nabla s = 0$ entlang jeder Kurve $\gamma$ gilt (daher wird hier auch ein Schnitt in $E$ statt $\gamma^* E$ abgeleitet).
+\end{bsp}
+
+
+
+
+
+
+\begin{lemma}[Paralleltransport als Isometrie]
+6.30
+\end{lemma}
+
+-> Eckert schreibt dazu auch was, remark 2. nach Definition metrischer Zusammenhang
+
+Bündelmetrik ist doch einfach nur Metrik oder? Halt Tensorfeld, das punktweise Skalarprodukt ist (wir sagen hier faserweise) -> vielleicht nicht genau das Gleiche, aber sehr ähnliche Idee
+
+
+
+Von nun an wird hauptsächlich der Paralleltransport bezüglich eines Levi-Civita-Zusammenhangs auf dem Tangentialbündel einer Riemannschen Mannigfaltigkeit relevant sein. Ganz allgemein lässt sich jedoch zeigen (und definieren):
+
+\begin{satz}
+Für ein Vektorbündel $\pi^E: E \rightarrow M$ mit Zusammenhang $\nabla$ ist
+\begin{equation}
+\begin{split}
+F^\nabla&: \mathcal{X}(M) \otimes \mathcal{X}(M) \otimes \Gamma(M; E) \rightarrow \Gamma(M; E),
+\\
+(X, Y, s) &\mapsto F^\nabla(X, Y)(s) = \nabla_X \nabla_Y s - \nabla_Y \nabla_X s - \nabla_{[X, Y]} s
+\end{split}
+\end{equation}
+ein Tensorfeld $F^\nabla \in \Gamma(M; T^* M \otimes T^* M \otimes E^* \otimes E)$.
+\end{satz}
+
+\begin{defi}[(Riemannscher) Krümmungstensor]
+$F^\nabla$ heißt \Def{Krümmungstensor} des Zusammenhangs $\nabla$. Falls $\nabla$ der Levi-Civita-Zusammenhang einer Riemannschen Mannigfaltigkeit $(M, g)$ ist, heißt
+\begin{equation}
+R := F^\nabla \in \Gamma(M; T^* M \otimes T^* M \otimes T^* M \otimes TM)
+\end{equation}
+auch \Def[Krümmungstensor! (Riemannscher)]{Riemannscher Krümmungstensor}.
+\end{defi}
+
+$F^\nabla$ misst also inwiefern Bewegungen in verschiedene Richtungen auf $M$ kommutieren (in gewisser Weise infinitesimal, es handelt sich ja um ein Tensorfeld). Eine Möglichkeit, diesen Effekt ganz explizit mess- und sichtbar zu machen ist, den Paralleltransport eines Vektors entlang verschiedener Wege zu betrachten, wie es Abbildung \ref{fig:paralleltransport} tut.
+
+
+punktweise $R(X, Y) \in \text{BiLi}(T_p M, T_p M; \mathbb{R})$ (?ganz sage? Idee von Eckert)
+
+
+
+Riemann Tensor ist so etwas wie Feldstärke (aus Patil), das hat wohl sogar Einstein zu ART motiviert! Ahhh, siehe auch Eckert dazu (mega nice, er macht das iwie über Cartan Kalkül)
+
+\href{https://de.wikipedia.org/wiki/Riemannscher_Kr%C3%BCmmungstensor}{Wikipedia} dazu
+
+-> erhalten so Integrabilitätsbedingung für Existenz paralleler Schnitte, nämlich $F^\nabla = 0$ (wie das folgende Lemma zeigt)
+
+
+ahhh ok, Idee (vielleicht): sagen wir nun, wir haben einen parallelen Schnitt zu $v = \gamma'(0) = \pdv{t}$ (und kommutierende Vektorfelder); dann untersucht $F^\nabla$, ob das Ding nach Verschieben um ein anderes Vektorfeld immer noch ein paralleler Schnitt ist, richtig? Bzw. das ist der Fall für flache MF, allgemein untersucht das Ding wie groß der Unterschied ist -> das sollte Verbindung zwischen Krümmung Paralleltransport sein (ist jetzt nicht explizit in der Formel drin, aber die Idee ist ziemlich analog bzw. die sind eng verbunden von der Art wie man darüber denken sollte)
+
+
+ok, wie ich es verstehe interessiert uns die explizite Wirkung auf Zusammenhänge gar nicht, eher wie $R$ "aussieht" (und insbesondere ob null oder nicht)
+
+der Kommutatorterm ist wieder dazu da, um sicherzustellen dass das alles nicht eigentlich von den Vektorfeldern herkommt, dass die nicht kompatibel sind und daher komische Sachen verursachen (so wissen wir, dass es von $\nabla$ und damit wegen der Eindeutigkeit am Ende von $M$ kommen muss)
+
+
+\begin{bsp}[Krümmungstensor und Gauß'sche Basisvektoren]
+Auswerten der Abbildung $R(X, Y, s)$ in den Vektorfeldern $\pdv{x_i}, \pdv{x_j}$ ergibt
+\begin{equation*}
+R\qty(\pdv{x_i}, \pdv{x_j}, s) = \nabla_{\pdv{x_i}} \nabla_{\pdv{x_j}} s - \nabla_{\pdv{x_j}} \nabla_{\pdv{x_i}} s = \qty[\nabla_{\pdv{x_i}}, \nabla_{\pdv{x_j}}] s \, .
+\end{equation*}
+
+Flachheit bedeutet hier also genau, dass das Ergebnis des Verschiebens nicht von der Reihenfolge abhängt. So sollte man sich das Ganze auch im allgemeinen Fall vorstellen, hier stellt der Kommutatorterm aber zusätzlich sicher, dass das Verhalten von $F^\nabla$ nicht von der expliziten Wahl der Vektorfelder im Argument abhängt.
+\end{bsp}
+
+
+\iffalse
+\begin{figure}
+\centering
+
+\subfloat[Parallelogram im $\mathbb{R}^2$]{\includegraphics[width=0.5\textwidth]{Bilder/parallelogram_geschlossen.pdf}}
+\subfloat[Parallelogram auf der 2-Sphäre]{\includegraphics[width=0.5\textwidth]{Bilder/parallelogram_ungeschlossen.pdf}}
+
+\caption[Parallelogramme]{Im Gegensatz zum flachen $\mathbb{R}^n$ ist es in gekrümmten Räumen ist es nicht mehr so, dass sich Parallelogramme gleicher Vektoren schließen.}
+\label{fig:parallelograme}
+\end{figure}
+% hm, die haben doch eher was mit Torsion zu tun als mit Krümmung oder?
+\fi
+
+
+\begin{figure}
+\centering
+
+\subfloat[Paralleltransport im $\mathbb{R}^2$]{\includegraphics[width=0.45\textwidth]{Bilder/paralleltransport_r2.pdf}}\hspace{0.06\textwidth}%
+\subfloat[Paralleltransport auf der 2-Sphäre]{\includegraphics[width=0.45\textwidth]{Bilder/paralleltransport_sphere.pdf}}
+
+\caption[Paralleltransport]{Im Gegensatz zum flachen $\mathbb{R}^n$ hängt das Ergebnis des Paralleltransports eines Vektors in gekrümmten Räumen wie der Sphäre vom Weg ab. In (a) sind roter, grüner Vektor an Start- und Endpunkt parallel, in (b) nur am Startpunkt.}
+\label{fig:paralleltransport}
+\end{figure}
+
+
+Rechnungen mit dem Krümmungstensor sind oft sehr kompliziert, es gibt aber immerhin einige Eigenschaften, die dabei sehr nützlich sind:
+
+\begin{satz}[Eigenschaften des Krümmungstensors]
+Für den Levi-Civita-Zusammenhang $\nabla$ einer Riemannschen Mannigfaltigkeit $(M, g)$ mit Krümmungstensor $R$ gilt $\forall p \in M$ und $X, Y, Z, W \in T_p M$:
+\begin{enumerate}
+\item $R(X, Y) Z = - R(Y, X) Z$
+
+\item $g(R(X, Y) Z, W) = - g(R(X, Y) W, Z)$
+
+\item $R(X, Y) Z + R(Y, Z) X + R(Z, X) Y = 0$
+
+\item $g(R(X, Y) Z, W) = g(R(Z, W) X, Y)$
+\end{enumerate}
+\end{satz}
+
+
+Eine wichtige Frage ist, ob überhaupt Krümmung vorliegt oder ob man die damit einhergehenden Effekte nicht berücksichtigen muss.
+
+\begin{defi}[Flachheit]
+Ein Zusammenhang $\nabla$ auf einem Vektorbündel $\pi^E: E \rightarrow M$ heißt \Def[flach! -er Zusammenhang]{flach} falls $F^\nabla = 0$ und eine Riemannsche Mannigfaltigkeit $(M, g)$ heißt \Def[flach! -e Mannigfaltigkeit]{flach} falls $R = 0$.
+\end{defi}
+
+äquivalente Definition:
+\begin{satz}[Flachheit]
+Ein Zusammenhang $\nabla$ auf einem Vektorbündel $\pi^E: E \rightarrow M$ vom Rang $r$ ist genau dann flach wenn $\forall p$ eine Umgebung $U \subset M$ und $r$ parallele, linear abhängige Schnitte $s_1, \dots, s_r \in \Gamma(U; E)$ existieren.
+\end{satz}
+
+Flache Riemannsche Mannigfaltigkeiten erlauben oftmals einfachere Definitionen bzw.~Ausdrücke. Am Naheliegendsten ist die Suche danach vermutlich für die Metrik selber und tatsächlich lässt sich in diesem Fall zeigen:
+
+\begin{cor}[Satz von Riemann]
+Für eine flache Riemannsche Mannigfaltigkeit existiert um jeden Punkt $p \in M$ eine offene Umgebung $U \subset M$ und eine Karte $x: U \rightarrow \mathbb{R}^n$ mit
+\begin{equation}
+g_U: x^* \langle \cdot, \cdot \rangle = \sum_i dx_i \otimes dx_i \quad \Leftrightarrow \quad g_{ii} = 1, g_{ij} = 0, \; \forall i, j \, .
+\end{equation}
+\end{cor}
+Das umfasst natürlich insbesondere im $\mathbb{R}^n$ und Teilmengen davon.
+
+
+Der Begriff der Krümmung ist sehr hilfreich und hilft beispielsweise auch, Antworten auf ganz alltägliche Fragen zu finden - unter Anderem warum es keine maßstabs-/ längengetreuen Karten von der Erdoberfläche gibt. Diese Themen werden in den nächsten Abschnitten behandelt und dort wird sich auch eine Verbindung zwischen der Krümmung der Mannigfaltigkeit und der intrinsischen, topologischen Struktur zeigen (dies wird sich auch als Antwort auf die Frage nach Karten der Erdoberfläche erweisen, zwischen Räumen mit verschiedenen topologischen Eigenschaften, die sich als eng mit der Krümmung verbunden herausstellen, kann es keine Isometrien geben).
+
+
+
+
+		\subsection{Notes}
+
+geile Motivation von kovarianter Ableitung (von Carroll): partielle Ableitung ist nicht tensoriell, aber wir wollen das; man sucht eine Ableitung, die invariant unter Basiswechseln ist und damit diese Eigenschaft der Kovarianz erfüllt (das hier etwas frei geschrieben, sollte aber Idee ungefähr treffen); es stellt sich dann eben heraus, dass man partielle Ableitung mit Korrekturfaktoren (eher: -summanden, bzw. einfach -termen; das sind die connection-coefficients, ein Spezialfall davon sind die Christoffel-Symbole) nehmen kann
+
+
+
+ist Proposition 6.25 krass? Also ist das nur für Beweis cool (vlt ja, weil Proposition) oder generell?
+
+
+Ah, glaube man macht den ganzen Shit mit geodätischem Spray etc wegen Theorem 6.27
+
+
+\newpage
+
+
+	\section{Anderer Stuff}
+hier halt evtl den weirden, sehr mathematischen Shit machen -> oder den stark abkürzen und in vorherigen Abschnitt. Spray braucht man nicht, aber Exponentialabbildung und Normalkoordinaten sind cool
+
+Exponentialabbildung lässt sich auch allgemeiner als bei Lie-Gruppen definieren, die bei Lie-Gruppen ergibt sich dann wiederum als Spezialfall (hat Bielawski auch so geschrieben)
+
+
+\newpage
+
+
+	\section{*Satz von Gauß-Bonnet*}
+Nachdem nun sehr lange die Theorie von Mannigfaltigkeiten erforscht wurde, soll es nun um ein wichtiges Anwendungsgebiet solcher gehen, die (Differential-)Geometrie und dort einer der wichtigsten Sätze gezeigt werden, der Satz von Gauß-Bonnet.
+
+
+an betrachtet dort eine spezielle Klasse von Mannigfaltigkeiten, die sogenannten Flächen (Dimension 2) und dort insbesondere, kompakte, orientierbare und meist noch zusammenhängende -> werden meist mit $\Sigma$ bezeichnet
+
+können die disjunkte Vereinigung von Flächen sinnvoll betrachten/ vorstellen (halt zwei Flächen, die irgendwo im Raum liegen und dann als eine Menge betrachtet werden) und um Widersprüche damit auszuschließen, werden hier zusammenhängende genommen
+
+Beispiele für solche Flächen sind die 2-Sphäre, der 2-Torus und dann erhält man immer ähnlich aussehende Flächen mit mehr Löchern (indem man also Henkel an den Torus heranklebt, der im Prinzip genau so aus der 2-Sphäre entsteht)
+
+Löcherzahl $g$ heißt \Def{Geschlecht} und es ist dann eine natürliche Frage, wie viele Flächen gleichen Geschlechts es gibt (eignet sich das eventuell zur einfachen Klassifikation von Mannigfaltigkeiten ?)
+
+\begin{satz}
+Je zwei kompakte, orientierte Flächen gleichen Geschlechts $g$ sind diffeomorph.
+\end{satz}
+Man hat also mit dem Geschlecht $g$ eine sogenannte \Def{topologische Invariante} gefunden. Jede solche Fläche ist also aus also äquivalent zu einer Sphäre mit $g$ angeklebten Henkeln ! Mathematisch kann man sich das Ankleben eines Henkels aber vorstellen über das Herausnehmen zweier disjunkter Kreisscheiben und dann Verkleben der so entstehenden Löcher (dabei bleiben Eigenschaften wie die Orientierbarkeit erhalten).
+
+Es bleibt nun jedoch die Frage, wie man das Geschlecht einer abstrakten Mannigfaltigkeit bestimmen kann (wo das Ganze nicht so anschaulich klar ist wie z.B. bei einem Torus). Dabei hilft der folgende Satz enorm:
+\begin{satz}[Berechnung des Geschlechts]
+Für eine kompakte, orientierte Fläche $\Sigma$ gilt
+\begin{equation}
+\chi(\Sigma) = 2 - 2g \, .
+\end{equation}
+\end{satz}
+Man muss also \enquote{nur} die Euler-Charakteristik bestimmen (hier wird die De-Rham-Kohomologie auch interessant). Der Beweis ist sehr aufwendig und wird daher hier nicht ausgeführt.
+
+-> man nutzt wohl Mayer-Vietoris (erste und zweite De-Rham sind eindimensional)
+
+
+betrachte nun Endomorphismenfeld $\mathcal{J} \in \Gamma(\Sigma, \text{End}(T\Sigma))$ mit $\mathcal{J}^2 = \text{id}$ (punktweise) als komplexer Struktur
+
+
+Beispiel: drehe Tangentialvektoren um 90 Grad oder etwas abstrakter mit einer Riemann'schen Metrik $g$: wenn $\mathcal{J}X = Y$, wobei das Bild $Y$ die Eigenschaften $g(X, Y) = 0, g(X, X) = g(Y, Y)$ sowie $X, Y$ positiv orientiert (das heißt sie stehen senkrecht, haben die gleiche Länge und gleiche Orientierung) hat und dann ist die Wirkung eindeutig
+
+wichtig dazu zu wissen: auf jeder orientierten Fläche existiert eine Riemann'sche Metrik und damit auch eine komplexe Struktur (umgekehrt ist jede Fläche, auf der eine komplexe Struktur existiert, auch orientiert, indem man $X, \mathcal{J}X$ als positiv orientiert fordert)
+
+je zwei komplexe Strukturen mit derselben Orientierung sind homotop 
+
+
+hat man nun ein Tupel $(\Sigma, \mathcal{J})$, so ist das Tangentialbündel $T\Sigma$ ein komplexes Linienbündel, das heißt die Übergangsabbildungen ? Trivialisierungen ? sind komplex lineare Abbildungen von $\mathbb{C}$ nach $\mathbb{C}$ ? nicht von $\Sigma$ nach $\mathbb{C}$ ? bzw. können zumindest so gewählt werden, weil man folgendes setzen kann: $(a + i \, b) X = a X + b \mathcal{J} X$ (ist sinnvoll, weil eine Multiplikation mit $i$ ja in der komplexen Zahlenebene wie eine Drehung um 90 Grad wirkt und genau das macht ja $\mathcal{J}$); hmmm ok, das heißt $\mathcal{J}^2 = - \text{id}$, also Spiegelung, richtig?
+
+
+ein komplexer Zusammenhang auf $T\Sigma$ ist ein komplex linearer Differentialoperator, also eine Abbildung $\nabla: \Gamma(\Sigma, T\Sigma) \rightarrow \Omega^1(\Sigma, T\Sigma)$, der die Leibniz-Regel $\nabla\qty(f X) = df \otimes X + f \nabla X$ und zwar für alle $X \in \mathcal{X}(\Sigma)$ und auch glatte Funktionen $f: \Sigma \rightarrow \mathbb{C}$ in die komplexen Zahlen (beachte, dass man bei den Multiplikationen hier etwas aufpassen muss, es gilt z.B. $df \otimes X = dg \otimes X + dh \otimes \mathcal{J} X$)
+
+
+weil $X, \mathcal{J}X$ punktweise linear unabhängig sind (also Basis von $T\Sigma$), existiert für eine offene Menge $U \subset \Sigma$ und $X \in \Gamma(U, T\Sigma)$ (man muss nicht $TU$ schreiben, weil ja $TU = T\Sigma$) genau ein $\eta^X \in \Omega^1(U, \mathbb{C})$ mit $\nabla X = X \otimes \eta^X$
+
+für  $Y = f X$ mit einer glatten Funktion $f: U \rightarrow \mathbb{C}$ gilt $\nabla Y = \nabla(f X) = X \otimes df + f \nabla X = \qty(f X) \otimes \frac{df}{f} + f \nabla X = Y \otimes \frac{df}{f} + f X \otimes \eta^X = Y \otimes \qty(\frac{df}{f} + \eta^X)$ (hier wird tensorielle Eigenschaft genutzt, man kann Funktionen am Tensorprodukt vorbeiziehen, sowie die Definition von $\eta^X$ eingesetzt) und das heißt $\eta^Y = \eta^X + \frac{df}{f}$ (bemerke: das $\frac{df}{f}$ sieht aus wie die logarithmische Ableitung, also $d\ln(f)$ !); insbesondere gilt (lokal auf jeden Fall, wähle dazu Zweig des Logarithmus) $d\eta^Y = d\qty(\eta^X + \frac{df}{f}) = d\eta^X + d\qty(d\ln(f)) = d\eta^X$ nach den Rechenregeln des Äußeren Differentials (übertragen sich auf die komplexen Zahlen)
+
+das liefert eine Krümmungs-2-Form auf $\Sigma$ mit Werten in $\mathbb{C}$, also $F^\nabla \in \Omega^2(\Sigma, \mathbb{C})$, indem man lokal auf einer solchen offenen Menge $U \subset \Sigma$ mit einem Vektorfeld $X \in \mathcal{X}(\Sigma)$ ohne Nullstellen setzt: $F^\nabla_U = d\eta^X$ (das ist wohldefiniert, also unabhängig vom gewählten Vektorfeld, wie ja nachgerechnet wurde); man nennt das eben auch einfach Krümmung von $\nabla$
+
+
+man braucht dann noch einen weiterführenden Begriff, die Totalkrümmung längs eingebetteter Kurven; betrachte dazu $\gamma: \mathbb{S}^1 = \mathbb{R}/ \mathbb{Z} \rightarrow \Sigma$ injektiv und immersiert, dann hat man UMF Bild$(\gamma)$ von $\Sigma$; dann existiert auch eine offene Menge $U \subset \Sigma$ mit Bild$(\gamma) \subset U$ und es existiert ein Vektorfeld $X \in \mathcal{X}(U)$ ohne Nullstellen und mit $X_{\gamma(t)} = \gamma'(t), \, \forall t \in \mathbb{R}/ \mathbb{Z}$
+
+?! Idee für Existenz des $X$ auf $U$ statt nur dem Bild: setze das VF iwie fort mittels induzierter Karten, verklebe das mittels Zerlegung der 1 und das ergibt dann glattes Vektorfeld ?! -> WTF
+
+für das $\eta^X \in \Omega^1(U, \mathbb{C})$ zu diesem $X$ kann man dann die Totalkrümmung von $\nabla$ entlang $\gamma$ definieren als $\tau(\nabla, \gamma) = \int_{\mathbb{S}^1} \eta^X = \int_{\mathbb{S}^1} \gamma^*\eta^X$ (ist komplexe Zahl) -> können die beiden Gleichzeichen so stimmen ?
+
+die Totalkrümmung ist dabei unabhängig von der Wahl des Vektorfelds $X$ mit diesen gewissen Eigenschaften und man kann das Ganze zudem auf endliche Vereinigungen disjunkter Kurven verallgemeinern
+
+nützlich: bei orientierungserhaltender Umparametrisierung bleibt die Totalkrümmung erhalten, also für einen Diffeomorphismus $\varphi: \mathbb{S}^1 \rightarrow \mathbb{S}^1$ und $\tilde{\gamma} = \gamma \circ \varphi$ gilt $\tau(\nabla, \tilde{\gamma}) = \tau(\nabla, \gamma)$ wenn $\varphi$ orientierungserhaltend ist (sonst steht da ein minus dabei noch, weil eben andere Umlaufrichtung) -> wurde das nicht bereits in MfP II gemacht und gezeigt ? -> hier geht das wohl darüber, einfach auch das Vektorfeld umzuparametrisieren und dann Hauptsatz der Integral- und Differentialrechnung zu benutzen
+
+
+er berechnet dann einmal als Beispiel die Totalkrümmung eines Annulus; cooles Ding: erste De-Rham ist eindimensional, weil man Annulus zu $\mathbb{S}^1$ zusammenziehen kann, nullte De-Rham ist eindimensional, zweite De-Rham ist nulldimensional -> hilft dann wohl, weil dann so die Euler-Charakteristik reinkommt, Totalkrümmung sollte null werden (weil Euler-Charakteristik 0)
+
+Unabhängigkeit von Wahl des Zusammenhangs: die Differenz $\nabla - \tilde{\nabla} = \omega \in \Omega^1(D, \mathbb{C})$ zweier Zusammenhänge auf der Kreisscheibe $D$ ist also tensoriell und daher ist $F^\nabla - F^{\tilde{\nabla}} = d\omega$ und ? das hat nach Stokes keinen Beitrag zur Totalkrümmung (die ist also unabhängig vom gewählten Zusammenhang) ? -> scheint so nicht zu stimmen, es ist wohl $\int_D F^\nabla - \tau(\nabla, \partial D)$ unabhängig von der Wahl des Zusammenhangs
+
+daher kann man einfach mit einem speziellen Zusammenhang rechnen, der über $\nabla\qty(f D + g \mathcal{J} X) = X \otimes df + \mathcal{J}X \otimes dg$ definiert wird; bei geeigneter Parametrisierung existiert dann eine glatte Funktion $\varphi: \mathbb{R} \rightarrow \mathbb{R}$, die den Drehwinkel beschreibt, für die also $\gamma'(t) = e^{i \varphi(t)} \cdot X$ (nutze dabei iwie die Abbildung $\mathbb{R} \rightarrow \mathbb{S}^1, \; t \mapsto e^{2 \pi i t}$; analog zur Umlaufzahl erhält man dann $\varphi(t + 2\pi) = \varphi(t) + 2\pi, \, \forall t$ und damit gilt $\nabla \gamma' = i \, d\varphi$ (zumindest nach Zurückziehen); daher folgt $\tau(\nabla, \gamma) = \int_{\mathbb{S}^1} i \, d\varphi = 2\pi i$; wegen $F^\nabla = 0$ (gilt weil $\nabla X = 0$) wird dann $\int_D F^\nabla - \tau(\nabla, \partial D) = - \tau(\nabla, \partial D) = -2\pi i = -2\pi i \chi(0)$
+
+für Hosen $H$ (fülle dazu z.B. mit Kreisscheibe auf einmal, ist dann unabhängig davon, wie man das konkret macht) ist dann $\int_D F^\nabla - \tau(\nabla, \partial D) = 2\pi i = -2\pi i \chi(H)$
+
+
+\begin{satz}[Gauß-Bonnet]
+Für eine kompakte, orientierte Fläche $\Sigma$ mit komplexer Struktur $\mathcal{J}$ und komplexem Zusammenhang $\nabla$ gilt
+\begin{equation}
+\int_\Sigma F^\nabla = 2 \pi i \qty(2 g - 2) = - 2\pi i \chi(\Sigma) \, .
+\end{equation}
+\end{satz}
+\begin{proof}
+Beweis jetzt easy, weil ja bekannt ist wie die Flächen vom Geschlecht $g$ aussehen (bzw. wie dazu diffeomorphe Dinger aussehen, aber Euler-Charakteristik ändert sich unter denen ja nicht und daher auch dieses Integral nicht): zerlege den Shit in viele Hosen, von denen kennen wir das Integral und es gibt genau $g$ Löcher, also braucht man $2g$ Hosenstücke und hat damit $2g$ mal den Beitrag $2 \pi i$, aber man muss bedenken, dass am Rand nur zwei Kreisschreiben vorliegen, die jeweils einen Beitrag $-2 \pi i$ geben; Totalkrümmung der Randkurven fällt wegen unterschiedlicher Orientierungen weg (gehen zweimal lang, in unterschiedliche Richtung dabei)
+\end{proof}
+das ist eben unabhängig von der Wahl von $\mathcal{J}, \nabla$ und man kann es nur über eine topologische Größe bestimmen; sick ! liefert nämlich Verbindung zwischen dem, was lokal vorgeht mit Drehung um 90 Grad in Tangentialräumen, lokalen Differentialoperatoren oder so und der globalen Gestalt/ Topologie der Fläche; hilft bei theorema egregium von Gauß, sagt halt im Prinzip sowas wie man kann Erde nicht auf Landkarte kriegen ohne Verzerrung oder Ball nicht einpacken ohne Knicke/ Risse (alleine aus Krümmung kann man sowas sagen, was halt krass ist !)
+
+
+wird insbesondere interessant für Flächen mit Riemannscher Metrik, weil man dann Levi-Civita-Zusammenhang kriegt, der einen komplexen Zusammenhang auf $T\Sigma$ gibt; dann bestimmt nämlich die lokale Geometrie auf der Fläche (die ja durch die Krümmung beschrieben wird) welchen globalen Typ die Fläche hat und damit die globale Gestalt der kompakten Fläche
+
+
+Krümmung = geometrisch, aber Euler-Charakteristik = topologisch und kriegen da dann halt Zusammenhang rein; hmm, gilt wohl nur ohne Rand ? Gauß-Krümmung ist dann halt die Abweichung bei infinitesimaler Bewegung auf der MF im Vergleich zur Ebene oder so
+
+Zusammenhang definiert uns halt sinnvollen Differentenquotienten, normal hat man an verschiedenen Punkten verschiedene Basen und kann daher nicht sinnvoll subtrahieren !
+
+
+sat wos it wis se officiel pard ! everissing from nau on is not prüfungsrelevant enimoar
+
+
+
+
+aus Antworten:
+
+komplexer Zsmhang ist z.B. Levi-Civita bzgl. Riemannscher Metrik; dann ist $F^\nabla = i k \, dA$ mit Gauß-Krümmung $k$; haben dann Zwei-Form $g(\mathcal{J}, \cdot) = dA$, $dA(X, Y) = g(\mathcal{J}X, Y)$ (bei positiv orientierter ONB $X, Y$ ist $\mathcal{J}X = Y$) -> Gauß-Krümmung ist hier ja nur Funktion !
+
+Totalkrümmung hat was mit $\kappa$ zu tun, wie schnell ändert sich Tangentialrichtung; er hat das noch expliziter gemacht für auf Bogenlänge parametrisierte Kurven; können geodätische Krümmung berechnen, das ist dann wohl $\kappa$; Totalkrümmung misst dann halt, wie doll die Kurve gekrümmt ist; wird $2\pi$ bei geschlossenen (oder mit minus bei Durchlauf in anderer Richtung) in einer Ebene (flachem Raum); bei gekrümmten Räumen $\int_D k \, dA \pm \int_{\partial D} \kappa = 2\pi$; Äquator ist Geodäte (lokal kürzeste Verbindung) und hat daher Totalkrümmung 0 und Gauß-Krümmung ist konstant 1, daher ist Flächeninhalt der oberen Halbsphäre gerade $2\pi$
+
+
+zu Beweis Flächen diffeomorph: haben glatte Funktion von Fläche in reelle Zahlen, das ist quasi Höhenfunktion (deshalb Name $h$)
+
+
+-> Verkleben von Wurst gibt Torus
+
+
+\end{document} 

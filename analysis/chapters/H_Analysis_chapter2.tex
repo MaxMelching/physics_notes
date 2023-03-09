@@ -1,0 +1,833 @@
+\documentclass[../H_Analysis_main.tex]{subfiles}
+%\input{../header} \graphicspath{ {../} }
+
+
+\begin{document}
+
+\setcounter{chapter}{1}
+
+\chapter{Grundlegende Definitionen}
+\begin{center}
+In Vorlesungen wie Analysis I und II wurde sehr ausführlich das Rechnen (also Integrieren, Differenzieren etc.) auf dem euklidischen Vektorraum $\mathbb{R}^n$ diskutiert. Bereits in Kursen zu Linearer Algebra wurde jedoch klar, dass es viel mehr Vektorräume oder allgemeiner Mengen gibt, die man mathematisch untersuchen kann. Wie darauf aber gerechnet werden soll, ist nicht immer klar und deshalb wird hier der Versuch unternommen, das Rechnen auf/ mit diesen Mengen zurückzuführen auf Rechnungen im bereits bekannten $\mathbb{R}^n$. Das muss jedoch auf eine Weise geschehen, die wohldefiniert ist (kann Verschiedenes meinen, wird aber immer erläutert/ klar), sodass man den Blick auf \enquote{hinterstehende/richtige} Eigenschaften der Menge beibehält, die nicht nur wegen der gewählten Veranschaulichung auftreten.
+
+Bei der Entwicklung dieses neuen Formalismus der Mannigfaltigkeiten werden natürlich viele neue Begriffe benötigt, die in diesem Anfangskapitel eingeführt werden.
+\end{center}
+
+
+\newpage
+
+
+	\section{Karten, Atlanten}
+Es sei nun eine beliebige Menge $M$ gegeben. Der erste Schritt auf dem Weg, diese Menge mithilfe des eben angedeuteten Formalismus' zu beschreiben, muss natürlich die Identifizierung von $M$ mit dem $\mathbb{R}^n$ sein. Das kann man über bestimmte Abbildungen schaffen, die in Anlehnung an die Geographie Karten genannt werden, da sie eine Art Navigation auf Mengen wie $M$ ermöglichen.
+\begin{defi}[Karte]
+Eine bijektive Abbildung
+\begin{equation}
+x: U \rightarrow V ,
+\end{equation}
+von $U \subset M$ auf eine (in der Standardtopologie) offene Menge $V \subset \mathbb{R}^n$ heißt \Def{Karte} (äquivalent schreibt man manchmal auch $(U, x)$ oder $(U, x, V)$). Der Definitionsbereich $U$ wird \Def[Karte! -ngebiet]{Kartengebiet}, die Bildmenge $V$ \Def{Koordinatengebiet} und die Grundmenge $M$ auch \Def{lokal euklidisch} genannt.
+\end{defi}
+	\anm{man fordert hier keine Offenheit von $U$, weil $M$ im Allgemeinen (bisher) gar keine weitere Struktur hat und daher insbesondere keine Topologie.
+
+	Manchmal wird zudem statt $V$ einfach der $\mathbb{R}^n$ als Wertebereich geschrieben (auch wenn gar nicht alle Punkte darin als Bild angenommen werden), um so allgemein wie möglich zu bleiben (analog wie bei Funktionen $f: \mathbb{R} \rightarrow \mathbb{R}$ o.Ä., hier muss ja auch nicht ganz $\mathbb{R}$ angenommen werden, man denke nur an konstante Funktionen).}%, dann ist noch zu prüfen, ob $V = x(U)$ offen darin ist.}
+
+Das Ziel ist, Teilmengen von $M$ oder Punkte $p \in M$ in den $\mathbb{R}^n$ übersetzen (ganz $M$ ist in den meisten Fällen nicht möglich). Das kann man auch so interpretieren, dass $U$ bzw. $M$ mit Koordinaten versehen wird, die ja charakteristisch für den $\mathbb{R}^n$ sind. Das ist wichtig, weil wir Menschen nur den euklidischen Raum und damit nur in Koordinaten sehen können - eine solche Übersetzung ist daher zum Beispiel auch für die Veranschaulichung abstrakter Mengen und Sachverhalte sehr relevant !
+
+
+Die Offenheit der Koordinatengebiete wird dabei natürlich gefordert, damit Punkte, die in $M$ nahe beeinander liegen, auch im $\mathbb{R}^n$ nahe beieinander liegen (entspricht also im Prinzip Stetigkeit, nur dass der Begriff hier wegen des Fehlens einer Topologie nicht benutzt wird). Nur dann können Begriffe wie Nähe/ Konvergenz sinnvoll vom $\mathbb{R}^n$ (wo das alles bereits bekannt ist) auf die abstrakte Menge $M$ übertragen werden. \enquote{Nähe} ist im $\mathbb{R}^n$ tatsächlich auch sehr wörtlich zu verstehen (die nicht-mathematische Intuition stimmt), weil die Standardtopologie im $\mathbb{R}^n$ ja über offene Bälle mit gewissen Radien definiert ist (muss nicht immer sein).
+
+
+\begin{bsp}
+zum ersten Beispiel 1.2 in Skript: ? wirklich machen ?
+wählen Koordinaten durch Angabe einer Karte; Rechnung zeigt, dass die Mathematik dann unabhängig von der gewählten Karte bzw. den gewählten Koordinaten ist (Einschränkung auf x- und y-Koordinate gibt jeweils gleiches Ergebnis für kritischen Punkt)
+\end{bsp}
+
+Natürlich gibt es auf $M$ im Allgemeinen nicht nur eine Karte und es ist auch nicht garantiert, dass verschiedene Karten immer verschiedene Kartengebiete haben. Ein Punkt $p \in M$ kann dann also auf zwei Weisen in den $\mathbb{R}^n$ abgebildet werden. Das muss aber kein Problem sein, wenn man auf eine gewisse Verträglichkeit achtet:
+\begin{defi}[Kartenwechsel]
+Ist das gemeinsame Koordinatengebiet $U_ \alpha \cap U_\beta$ zweier Karten $x_\alpha, \, x_\beta$ abgebildet unter diesen Karten offen ($x_\alpha\qty(U_ \alpha \cap U_\beta), x_\beta\qty(U_ \alpha \cap U_\beta) \subset M$ offen), so heißen
+\begin{equation}
+\begin{split}
+x_\alpha \circ \qty(x_\beta)^{-1}&: x_\beta\qty(U_ \alpha \cap U_\beta) \rightarrow x_\alpha\qty(U_ \alpha \cap U_\beta)
+\\
+x_\beta \circ \qty(x_\alpha)^{-1} = \qty(x_\alpha \circ \qty(x_\beta)^{-1})^{-1}&: x_\alpha\qty(U_ \alpha \cap U_\beta) \rightarrow x_\beta\qty(U_ \alpha \cap U_\beta)
+\end{split}
+\end{equation}
+\Def[Karte! -nübergangsabbildungen]{Kartenübergangsabbildungen} oder auch \Def[Karte! -nwechsel]{Kartenwechsel}. Man nennt zwei Karten $x_\alpha, \, x_\beta$ \Def{kompatibel} oder \Def{verträglich}, wenn die beiden Kartenwechsel existieren.
+\end{defi}
+	\anm{über die Glattheit o.Ä.~muss hier keine allgemeiner Aussage getroffen werden, wichtig ist die Offenheit des Definitionsbereichs und Zielgebiets. Diese Offenheit ist zudem nicht direkt aus der von $x_\alpha(U_\alpha), x_\beta(U_\beta)$ klar !}
+
+Die Idee hinter diesen Forderungen ist, dass verschiedene Karten in Bereichen, die von beiden abgebildet werden, in gewisser Weise das Gleiche machen sollen (hier berücksichtigt in der Forderung nach einem Übergang). Das entspricht damit wieder einer Art Übersetzung, diesmal zwischen verschiedenen Karten. Die Idee bei der Reihenfolge der Verknüpfung zeigt das folgende Kommutationsdiagramm:
+
+$$
+\begin{tikzcd}[row sep=42pt]
+ & \ar{dl}[swap]{x_1} U_1 \cap U_2 \ar{dr}{x_2} & \\
+V_1 \cap V_2 \subset V_1 \ar{rr}[swap]{x_2 \circ \qty(x_1)^{-1}} & & V_1 \cap V_2  \subset V_2 %\ar{ll}{x_1 \circ \qty(x_2)^{-1}} V_2
+\end{tikzcd}
+$$
+
+Offenbar ist also z.B. jede Karte mit sich selber kompatibel mithilfe $\varphi \circ \varphi^{-1} = \text{id}$.
+
+\begin{bsp}
+sein Beispiel zu Kartenwechsel (nutzt das von vorher, 1.2 in seinem Skript) ist gut
+\end{bsp}
+
+\begin{defi}[Atlas]
+Eine Sammlung/ Familie
+\begin{equation}
+\mathcal{A} = \qty{\qty(U_\alpha, x_\alpha): \; \alpha \in I}
+\end{equation}
+von Tupeln $\qty(U_\alpha, x_\alpha)$, bestehend aus kompatiblen Karten $x_\alpha: U_\alpha \rightarrow V_\alpha \subset \mathbb{R}^n$ und den zugehörigen Kartengebieten $U_\alpha \subset M$, die zusammen
+\begin{equation}
+M \subset \bigcup_\alpha U_\alpha ,
+\end{equation}
+erfüllen, heißt \Def[Atlas]{Atlas der Dimension $n$ auf $M$} (bei differenzierbaren Kartenwechseln auch differenzierbarer Atlas oder \Def[differenzierbar! -e Struktur]{differenzierbare Struktur (der Klasse $C^k$)}).
+\end{defi}
+	\anm{der Begriff \enquote{Dimension} ergibt hier Sinn, weil alle Karten in den $\mathbb{R}^n$ gleicher Dimension $n$ abbilden und man diesen Raum ja gerade mit $M$ identifiziert.}
+
+Die Notwendigkeit wird aus der Geographie klar. Eine Karte deckt schließlich in den meisten Fällen nur einen Teil eines bestimmten Gebiets ab, anstatt das gesamte Gebiet (mathematisch wäre dann $U = M$ und es läge eine \Def{globale Karte} vor) - also zum Beispiel nur Norddeutschland ($\equiv U$) statt ganz Deutschland/ Europa/ die Welt (das wären Beispiele für $M$). Dazu braucht man mehrere Karten, die eben in einem Atlas gesammelt/ zusammengefasst werden. Dieser Atlas enthält dann Karten für alle Gebiete, also ganz Deutschland/ ganz Europa/ die ganze Welt (mathematisch erfasst in der Überdeckung von $M$ mit den $U_\alpha$, so wird jeder Punkt $p \in M$ kartiert).
+
+
+Man kann nun einen weiteren großen Schritt machen und die durch den Atlas hinzugefügte Struktur noch erweitern. Jeder Atlas induziert nämlich in natürlicher Weise über die in ihm enthaltenen Karten eine (Quotienten-)Topologie:
+\begin{lemma}[Induzierte Topologie]\label{lemma:ind_top_mf}
+Für einen Atlas $\mathcal{A}$ auf einer Menge $M$ bildet die Menge
+\begin{equation}
+\tau = \tau_{\mathcal{A}} = \qty{U \subset M: \; x_\alpha(U \cap U_\alpha) \subset \mathbb{R}^n \, \text{ offen}, \, \forall x_\alpha \in \mathcal{A}}
+\end{equation}
+eine Topologie auf $M$. Das Tupel $(M, \tau)$ bildet dann einen topologischen Raum.
+\end{lemma}
+\begin{proof}
+Sofort verifiziert man wegen $x_\alpha(\emptyset \cap U_\alpha) = x_\alpha(\emptyset) = \emptyset$ und $x_\alpha(M \cap U_\alpha) = x_\alpha(U_\alpha) = V_\alpha$ die Offenheit von $\emptyset, M$. Außerdem folgen für $U_i \in \tau$ wegen $x_\alpha\qty(\cup_i U_i \cap U_\alpha) = \bigcup_i x_\alpha\qty(U_i \cap U_\alpha)$ und analog bei $U, V \in \tau$ wegen $x_\alpha(U \cap V \cap U_\alpha) = x_\alpha(U \cap U_\alpha) \cap x_\alpha(V \cap U_\alpha)$ aus der Abgeschlossenheit der Standardtopologie des $\mathbb{R}^n$ unter beliebigen Vereinigungen, endlichen Schnitten auch die restlichen Forderungen.
+%
+%Damit folgt auch direkt, dass die Offenheit einer Menge kartenunabhängig ist. Für die in der Karte $x_\alpha: U_\alpha \rightarrow V_\alpha$ offene Menge $U$ gilt nämlich nach den Eigenschaften der Topologie in einer anderen Karte $y_\beta(U_\alpha \cap U_\beta \cap U) = y_\beta(U_\beta) \cap y_\beta(U_\alpha U)$ und aus der Offenheit von $U_\beta$ als Kartengebiet (damit $y_\beta$
+%
+%aus dem Beweis wird sofort klar, dass diese Offenheit kartenunabhängig ist. Aus der Abgeschlossenheit unter Durchschnitten folgt aus der Offenheit von $U$ unter der Karte . Weil nämlich die Offenheit von $U$ unter der Karte $x_1$, wenn also $x_1(U \cap U_1$ offen im $\mathbb{R}^n$ ist, ?? Offenheit ist kartenunabhängig: klar, weil offene Mengen und damit die gesamte Topologie über offene Mengen im $\mathbb{R}^n$ definiert sind; weil aber per Definition $U_\alpha \cap U_\beta$ (Definitionsbereich bei Kartenwechsel) offen ist, folgt bei Offenheit von $U$ aufgrund der Abgeschlossenheit unter Durchschnitten sofort die Offenheit von ? -> könnte so gehen, analog zu vorher einfach ?
+\end{proof}
+Wegen $U_\alpha \cap U_\alpha = U_\alpha$ ist sofort klar, dass damit jedes Kartengebiet offen ist (die Koordinatengebiete $V_\alpha = x_\alpha(U_\alpha)$ sind nämlich per Definition einer Karte offen). Zudem wird so jede Karte per Definition ein Homöomorphismus (eine solche Klassifizierung hätte vorher, ohne Topologie, überhaupt keinen Sinn gemacht) !
+
+Analog zu Karten kann auch die Kompatibilität verschiedener Atlanten untersucht werden (über die Kompatibilität der enthaltenen Karten).
+
+\begin{defi}[Kompatibilität]
+Eine Karte $\qty(U, x)$ heißt \Def{kompatibel} mit einem Atlas $\mathcal{A} = \qty{\qty(U_\alpha, x_\alpha): \; \alpha \in I}$, wenn $x$ mit allen Karten $x_\alpha$ aus $\mathcal{A}$ kompatibel ist. Das ist äquivalent zu der Forderung, dass die Menge $\qty{\qty(U, x)} \cup \mathcal{A}$ wieder ein Atlas auf $M$ ist.
+
+Weiter heißen zwei Atlanten $\mathcal{A}, \mathcal{B}$ \Def{kompatibel}, wenn $\mathcal{A} \cup \mathcal{B}$ wieder ein Atlas ist und damit alle Karten der beiden Atlanten kompatibel sind.
+
+Auf dieser Basis definiert man einen \Def{maximalen Atlas} $\mathcal{A}_{max}$ als die Vereinigung eines Atlas $\mathcal{A}$ mit allen möglichen verträglichen Karten oder äquivalent mit allen möglichen verträglichen Atlanten (jeder Atlas $\mathcal{A}$ induziert also ein $\mathcal{A}_{max}$).
+\end{defi}
+
+%Der Begriff des maximalen Atlas ist dabei vor allem wichtig für die Arbeit mit Atlanten. Wichtig ist noch die Feststellung, dass jeder maximale Atlas sehr viele Karten enthält.
+Der Begriff des maximalen Atlas ist dabei vor allem wichtig für die mathematische Stringenz, wie noch klar werden wird. In vielen Fällen reicht es aber aus, mit zum maximalen Atlas kompatiblen Atlanten zu arbeiten, wie z.B. $\tau_{\mathcal{A}_{max}} = \tau_\mathcal{A}$ zeigt. Einer der Hauptvorteile ist aber die sehr flexible Kartenwahl. Oft kann man Karten mit sehr speziellen Eigenschaften verwenden, weil sich deren Verträglichkeit mit beliebigen anderen Karten zeigt und sie daher bereits im maximalen Atlas liegen müssen.
+
+
+\begin{defi}[Parametrisierung]
+die Umkehrung/das Inverse einer Karte ist die \Def{Parametrisierung}, ? die eine abstrakte Menge $U \subset M$ im $\mathbb{R}^n$ veranschaulicht (das heißt von dort abbildet und in der abstrakten ankommt, gut für Veranschaulichung) und daher eine Abbildung ?
+\begin{equation}
+\pi: \mathbb{R}^n \rightarrow U
+\end{equation}
+\end{defi}
+
+Offensichtlich ist z.B. jede Umkehrabbildung einer Karte eine Parametrisierung und jede Umkehrabbildung einer Parametrisierung eine Karte.
+
+Gute Quelle glaub ich: \url{https://www.math.uni-kiel.de/geometrie/klein/phyws12/di1311.pdf}
+
+\begin{bsp}[Euklidischer Raum $\mathbb{R}^n$]
+Kartenwechsel mittels $r = \sqrt{x^2 + y^2}, \phi = \arctan\qty(\frac{y}{x})$ bzw. der Umkehrung $x = r \cos(\phi), y = r \sin(\phi)$
+
+
+hier nur den Aspekt der Erklärung aufnehmen, wie die Idee ist (KS irgendwo hin etc.; auch Punkt über Ortsvektor aufnehmen):
+
+der euklidische Raum und seine Vektoren sind als eigenständige Objekte zu sehen, ein Punkt ist NICHT gleich $(1, 1)$ oder so, sondern das ist unsere Beschreibung in Standardkoordinaten (als Ortsvektor, also wie man vom Ursprung sich bewegen muss um zu dem Punkt zu kommen); das heißt bezüglich des Koordinatensystems, das halt aus Achsen = Geraden (eigentlich auch einfach nur Vektoren) besteht, die sich in einem Ursprung schneiden (dessen Ort wir halt festlegen müssen, der aber auch beliebig gewählt werden kann) -> das ist also auch einfach nur Beschreibung in einer Karte! Halt die anschaulichste, aber brauchen eben auch eine (sonst ist der Ort eines Punktes nicht präzise beschreibbar, sondern nur mit \enquote{das liegt über dem und dem und neben dem und dem})
+\end{bsp}
+
+\begin{figure}[ht]
+\centering
+
+\includegraphics[width=0.96\textwidth]{Bilder/vergleich_koordinaten.pdf}
+
+\captionof{figure}[Kartesische Koordinaten vs. Polarkoordinaten]{gestrichelte = Ortsvektor}
+\label{fig:koordinaten_rn}
+\end{figure}
+
+
+\begin{bsp}[2-Sphäre]
+dann zum Standardbeispiel (wird sich auch hier durchziehen): Längengrad gibt Position von oben nach unten an und Breitengrad von links nach rechts; müssen die Einschränkung betrachten, da sonst Sprung des Breitengrades an eben jener Grenze, die herausgenommen wurde und zudem kein eindeutig definierter Breitengrad an den Polen (die aber gerade auch rausgenommen); man nennt dann das Tupel $(l, b)$ Koordinaten auf $\mathbb{S}^2 \backslash K$
+
+mache hier Standardkarten, also stereographische oder (ist gut bei HÜ 2 in ART gemacht)
+
+Ergebnis (vor allem für die hiernach genutzte Benennung wichtig):
+\begin{align*}
+\phi&: U = \mathbb{S}^2 \backslash \qty{S} \rightarrow \mathbb{R}^2, \; (x, y, z) \mapsto \frac{1}{1 + z} (x, y) =: (\phi_1, \phi_2)
+\\
+\psi&: V = \mathbb{S}^2 \backslash \qty{N} \rightarrow \mathbb{R}^2, \; (x, y, z) \mapsto \frac{1}{1 - z} (x, y) =: (\psi_1,\psi_2)
+\\
+\phi^{-1}&: \mathbb{R}^2 \rightarrow \mathbb{S}^2 \backslash \qty{S}, \; (\phi_1, \phi_2) \mapsto (x, y, z) = \qty(\frac{2 \phi_1}{1 + \phi_1^2 + \phi_2^2}, \frac{2 \phi_2}{1+ \phi_1^2 + \phi_2^2}, \frac{1 - \phi_1^2 - \phi_2^2}{1 + \phi_1^2 + \phi_2^2})
+\\
+\psi^{-1}&: \mathbb{R}^2 \rightarrow \mathbb{S}^2 \backslash \qty{N}, \; (\psi_1, \psi_2) \mapsto (x, y, z) = \qty(\frac{2 \psi_1}{1 + \psi_1^2 + \psi_2^2}, \frac{2 \psi_2}{1+ \psi_1^2 + \psi_2^2}, \frac{\psi_1^2 + \psi_2^2 - 1}{1 + \psi_1^2 + \psi_2^2})
+\\
+\psi \circ \varphi^{-1}&: \mathbb{R}^2 \backslash \qty{N, S} \rightarrow \mathbb{R}^2 \backslash \qty{N, S}, \;  \qty(\psi \circ \varphi^{-1})(\varphi_1, \varphi_2) = \frac{1}{\varphi_1^2 + \varphi_2^2} (\varphi_1, \varphi_2)
+\end{align*}
+oof, musst noch umbenennen alles...
+
+Kartenwechsel bei stereographische ist gerade Reskalierung (von außen nach innen geht man; wenn man jetzt in dem Plot der Karte redet, den hier dann auch zeigen !!!);  Punkte nahe bei $N$ werden im einen Fall in Richtung $\infty$ und im anderen Fall in Richtung $0$ geschickt
+
+Punkte nahe dem Nordpol werden Richtung unendlich geschickt/ gestreckt
+
+obere Hälfte wird nach unten gedrückt (aber dabei auch aufgeklappt) und die untere Hälfte wird nach oben gedrückt (deshalb muss die obere aufgeklappt werden, sonst nicht bijektiv; bei $\phi_S$ wäre es umgekehrt, da würde hier ausgeklappt werden)
+
+Das Bild unter der Stereographischen Projektion $\phi_N$ ist in Abbildung \ref{fig:stereoplot} gezeigt.
+\end{bsp}
+
+
+\begin{figure}[ht]
+\centering
+\subfloat[Zeit $t = 0$]{\includegraphics[width=0.45\textwidth]{Bilder/sphere_t=0.pdf}}\hspace*{0.04\textwidth}
+\subfloat[Zeit $t = 0.5$ mit etwas Zoom]{\includegraphics[width=0.45\textwidth]{Bilder/sphere_t=05_zoom.pdf}}
+\\
+\subfloat[Zeit $t = 1$ ohne Zoom]{\includegraphics[width=0.45\textwidth]{Bilder/sphere_t=1_nozoom.pdf}}
+%\\
+%\subfloat[Zeit $t = 1$ etwas Zoom]{\includegraphics[width=0.45\textwidth]{Bilder/sphere_t=1_zoom_2.pdf}}\hspace*{0.04\textwidth}
+\subfloat[Zeit $t = 1$ mit Zoom]{\includegraphics[width=0.45\textwidth]{Bilder/sphere_t=1_zoom_3.pdf}}
+
+\caption[Stereographische Projektion]{Veranschaulichung der Transformation der Sphäre und zweier Gebiete (das dunkelblaue unten liegt bei den selben $(x, y)$-Werten wie das obere) unter der Stereographischen Projektion $\phi_N$ (ist fertig bei $t = 1$).}
+\label{fig:stereoplot}
+\end{figure}
+
+
+	\anm{im gesamten Abschnitt muss man überhaupt keine Forderungen an $M$ stellen, Karten/ Atlanten existieren also nicht nur für Mannigfaltigkeiten !}
+
+
+\newpage
+
+
+	\section{Mannigfaltigkeiten}
+Mit der Vorarbeit aus dem vorherigen Abschnitt, wo die Menge $M$ mit mehr Struktur (genauer: einer Topologie) ausgestattet wurde, kann man nun nicht immer arbeiten. Man muss daher noch mehr fordern, um Mannigfaltigkeiten definieren zu können.
+
+\begin{defi}[Mannigfaltigkeit]\label{defi:mf}
+Das Tripel $\qty(M, \mathcal{A}, \tau_\mathcal{A})$ heißt \Def[Mannigfaltigkeit]{$n$-dimensionale Mannigfaltigkeit}, wenn die vom Atlas $\mathcal{A}$ induzierte Topologie $\tau_\mathcal{A}$ Hausdorffsch und zweitabzählbar ist.
+
+Abhängig von der $C^k$-Klasse der Kartenwechsel und damit des Atlas spricht man teilweise auch von \Def[Mannigfaltigkeit]{$n$-dimensionalen $C^k$-Mannigfaltigkeiten} oder für die Spezialfälle $k = 0, \infty$ von \Def[Mannigfaltigkeit! topologische, glatte]{topologischen, glatten Mannigfaltigkeiten}.
+\end{defi}
+	\anm{es geht hier tatsächlich nur um die Kartenwechsel, nicht die Karten selber ! Bei denen reicht es weiterhin, nur einen Homöomorphismus zu fordern und es folgt dann, dass sie die gleiche $C^k$-Klasse haben (gezeigt in Korollar \ref{cor:kartendfb}).}
+
+Analog zu den Gründen, aus denen man diese Eigenschaften bei topologischen Räumen forderte, will man so sicherstellen, dass Punkte sinnvoll (also topologisch) trennbar sind und damit keine Probleme mit Überabzählbarkeit auftreten (z.B. beim Atlas). Auch hier ist es zum Glück der Fall, dass man nicht immer beide Eigenschaften prüfen muss (was wiederum recht aufwendig wäre), wie der folgende Satz zeigt:
+
+\begin{satz}\label{satz:zweitabz}
+Jede Menge $M$ zusammen mit einem Atlas $\mathcal{A}$ aus abzählbar vielen Karten und einer induzierten Topologie, die Hausdorffsch ist, bildet mit dem von $\mathcal{A}$ induzierten maximalen Atlas $\mathcal{A}_{max}$ eine Mannigfaltigkeit.
+\end{satz}
+Man kann sich also die Arbeit wieder deutlich vereinfachen, weil nur die Hausdorff-Eigenschaft gezeigt werden muss und das noch nicht einmal auf dem maximalen Atlas (wichtig ist dabei natürlich, dass $\tau_{\mathcal{A}_{max}} = \tau_\mathcal{A}$ gilt) !\\
+
+
+Bevor nun einige Beispiele für ein besseres Verständnis dieses neuen Begriffs gezeigt werden, soll eine Motivation für die Wahl des maximalen Atlas gegeben werden: wie bereits im Vorwort zu diesem Kapitel erwähnt, sind Mannigfaltigkeiten abstrakte Mengen, auf denen nun Mathematik (oder auch Physik) betrieben werden soll, weshalb man Karten zur Rückführung der Probleme auf den $\mathbb{R}^n$ benutzt. Die Aussagekraft eines Sachverhalts hängt dann aber nachvollziehbarerweise maßgeblich davon ab, ob dieser Sachverhalt nur in einer Karte und damit in gewissen gewählten Koordinaten oder allgemeiner beobachtbar ist (aus der Physik ist das zum Beispiel als Forderung nach Unabhängigkeit einer Beobachtung vom Bezugssystem aus der SRT bekannt). Es darf also keine besonderen/ ausgezeichneten Karten geben und deshalb wählt man den maximalen Atlas, der alle möglichen Karten enthält und zudem auch immer einen Wechsel zwischen Karten (und damit den geforderten Vergleich) ermöglicht.
+
+\begin{bsp}[Euklidischer Raum $\mathbb{R}^n$]
+Etwas trivial mag dieses erste Beispiel erscheinen, da der $\mathbb{R}^n$ mittels der Karte
+\begin{equation}
+\text{id}: \mathbb{R}^n \rightarrow \mathbb{R}^n, \; v \mapsto v
+\end{equation}
+ganz offensichtlich eine Mannigfaltigkeit bildet. Es ist jedoch von Vorteil, anhand dieses eigentlich trivial erscheinenden Beispiels einmal zu erläutern, was am $\mathbb{R}^n$ nun überhaupt die Mannigfaltigkeit ist.
+
+Den euklidischen Raum lernt man in grundlegenderen Vorlesungen meist einfach nur als Koordinatensystem kennen, dessen Elemente sich als $(x_1, \dots, x_n)$ schreiben lassen. Das ist jedoch nicht die ganze Wahrheit, denn wie nun klar sein sollte, sind diese Standardkoordinaten $(x_1, \dots, x_n)$ lediglich eine spezielle Karte. Nichts hält einen aber davon ab, andere Karten/ Koordinaten wie Polar-/ Kugelkoordinaten oder ein höherdimensionales Analogon zu wählen (siehe Abb. \ref{fig:koordinaten_rn}; die wesentliche Idee ist, eine Achse entlang zu gehen und dann mehrfach zu rotieren).
+
+Der Punkt dabei ist, dass ein Punkt oder Vektor im euklidischen Raum $\mathbb{R}^n$ nicht gleich seinen Standardkoordinaten ist! Das ist lediglich der Weg, den Menschen sich ausgedacht haben, um eine mathematisch präzisere Fassung des Lagebegriffs zu haben. Den $\mathbb{R}^n$ gibt es auch ohne Koordinatensysteme, aber dann ist er mathematisch eben kaum sinnvoll zu fassen/ beschreiben.
+
+Nichtsdestotrotz kann man sich den $\mathbb{R}^n$ zunächst gedanklich als aus diesen Koordinaten aufgebaut vorstellen, solange man die Unterscheidung zwischen Koordinaten und dem eigentlichen, eigenständigen Objekt im Kopf behält (man kann das so formulieren, dass man nach dem Aufbau die genutzten Koordinaten vergisst).
+\end{bsp}
+
+\begin{bsp}[Bereits bekannte Beispiele]
+Das vorherige Beispiel des $\mathbb{R}^n$ lässt sich problemlos auf eine größere Klasse von Objekten übertragen die Vektorräume.
+
+
+jeder Vektorraum $V$, der hat nämlich eine sogenannte globale Karte (die also überall funktioniert und bijektiv ist), die durch die Basis gegeben ist; man kann nämlich die Entwicklungskoeffizienten des Vektors vor den jeweiligen Basisvektoren als Vektor im $\mathbb{R}^n$ auffassen; andere Karten erhält man dann mit anderen Basen, aber die sind alle verträglich (es existieren ja Basiswechsel !)
+
+
+ganz wichtig: jede offene Teilmenge $U$ einer Mannigfaltigkeit $M$ ist ebenfalls eine Mannigfaltigkeit (hat gleiche Dimension); dazu muss man einfach nur die Karten einschränken auf $U$, die Eigenschaften für die induzierte Topologie folgen direkt, weil die von $M$ induzierte Topologie ja bereits alles erfüllt und wir nur Teilmengen herausgreifen (also weniger und daher Zweites Abzählbarkeitsaxiom erfüllt; Hausdorffsch auch sofort klar)
+
+damit ist insbesondere jede offene Teilmenge des $\mathbb{R}^n$ eine Mannigfaltigkeit (der $\mathbb{R}^n$ selber ist ja auch, siehe vorheriges Beispiel)
+\end{bsp}
+
+Diese Beispiele mögen teilweise erst einmal trivial wirken, aber das ist bei genauerem Nachdenken sogar gut so! Es zeigt nämlich, dass die hier neu angefangene Theorie altbekannte Objekte als Spezialfälle enthält und man daher offenbar auf dem richtigen Weg zu einer Verallgemeinerung ist.
+
+\begin{bsp}[Sphäre]
+man sieht nun, warum es DAS Standardbeispiel schlechthin werden wird: es ist eben eine MF und weil Kreise und Kugeln immer eingebettet in den euklidischen Raum dargestellt werden können, ist es halt ein mega anschauliches Beispiel (genau wie ja Kartendarstellung und -wechsel schon sehr anschaulich waren)
+
+einfach noch sagen, dass mit bereits vorgestellten Karten und vom $\mathbb{R}^n$ vererbter Struktur sofort klar oder sowas in die Richtung
+\end{bsp}
+
+
+\begin{bsp}[Torus]
+nun zu einem weiteren Standard-Beispiel beim Thema Mannigfaltigkeiten, dem Torus $T^n = \frac{\mathbb{R}^n}{\mathbb{Z}^n}$ (man teilt also in 2D z.B. ein Gitter aus)
+
+können auch Torus in 1D definieren (? das als eigenes Beispiel ?), da ist es der Kreis; Parametrisierung des Torus mit Sinus/ Cosinus macht Sinn, weil die ja auch periodisch sind und durch geeignete Wahl der Frequenzen da drin (mit $\pi$ wahrscheinlich) kann man die Periodizität in $\mathbb{Z}$ übertragen auf Periodizität in der Parametrisierung
+
+2-Torus, der durch \enquote{Zusammenknicken} der verschiedenen Seiten eines Quadrats entsteht (der $\mathbb{R}^2$ ist ja im Wesentlichen ein Quadrat), wobei das Zusammenziehen dann als Äquivalenzrelation ausgedrückt wird (sieht man leicht, da die verschiedene Punkte auf gegenüberliegenden Seiten des Quadrats, verbunden durch eine zum Rand senkrechte Gerade, immer den gleichen Abstand haben und dann zusammengefasst werden; der Plot dieser Menge eingebettet in den $\mathbb{R}^3$ ergibt dann gerade den Torus); man kann dafür dann auch einen expliziten Atlas finden (Kartenwechsel sind in den Schnitten der Kartengebiete gerade die Identität und sonst die Identität mit einer Verschiebung), für den das Zweite Abzählbarkeitsaxiom offensichtlich gilt (haben ja nur vier Karten) und auch Hausdorffsch ist gut nachweisbar (weil in Kartengebieten immer auf den metrischen und damit insbesondere Hausdorffschen $\mathbb{R}^2$ abgebildet wird, wegen Diffeo überträgt sich das, oder außerhalb davon eben immer wegen Äquivalenzrelation und daher Abstand $1/2$ in einer Komponente); man kann nicht die ganze Mannigfaltigkeit bijektiv überdecken, weil man ja gewisse Zahlen gerade miteinander identifiziert (daher muss man immer Sachen mit Abstand $< 1$ nehmen, also Intervalle mit Länge $< 1$) und ja immer auch offene Mengen braucht (daher ist ein Kartengebiet $[0, 1)$ nicht möglich und man braucht stattdessen mindestens zwei Karten); bilden mit jeder Karte verschiedene Teilgebiete/ Intervalle (in 1D) auf den Kreis ab, der Kartenwechsel ist dann wieder nur auf den Schnittgebieten definiert; im Schnitt liegen noch mehr Intervalle als die offensichtlichen, weil man die Sachen miteinander identifiziert und daher $y \in [y]$ ist, aber ja auch $y+1 \in [y]$ und $y-1 \in [y]$; müssen nicht so viel überdecken mit den Karten, weil wir ja (in 1D, Verallgemeinerung easy) die meisten Punkte über das Intervall $[0, 1]$ bereits abdecken und dann nur mehr dazu nehmen für gute Kartenwechsel (bzw. auch weil wir Bijektivität brauchen; aber man wählt dann so viel, dass man gut wechseln kann)
+
+es gilt $T^2 = S^1 \cross S^1$, das kann man sich auch sehr gut bildlich veranschaulichen (siehe Abb. \ref{fig:torus})
+\end{bsp}
+
+\begin{figure}[ht]
+\centering
+\subfloat[Torus eingebettet]{\includegraphics[width=0.45\textwidth]{Bilder/torus.pdf}}\hspace*{0.04\textwidth}
+\subfloat[Torus als $\mathbb{S}^1 \cross \mathbb{S}^1$]{\includegraphics[width=0.45\textwidth]{Bilder/torus_circle.pdf}}
+
+\caption[Torus]{bewege orangen Kreis entlang des blauen, das ergibt dann genau Torus (der ist ja nicht ausgefüllt)}
+\label{fig:torus}
+\end{figure}
+
+
+
+Wie inzwischen klar geworden sein sollte, sind Karten toll. Das einzige Problem ist, dass man eigentlich keine allgemeine Aussagen über die Koordinatengebiete hat. Jedoch wäre es natürlich sehr nützlich, wenn man von Anfang an wüsste, mit welchem Teil des $\mathbb{R}^n$ man es bei Benutzung einer gewissen Karte am Ende zu tun hat. Glücklicherweise kann man (wenn nötig) genau das machen, wie der folgende Satz zeigt:
+
+\begin{satz}[Zentrierte Karte]
+Für einen beliebigen Punkt $p$ auf einer Mannigfaltigkeit $M$ existiert eine in $p$ zentrierte Karte $\varphi = \varphi_p: U_p \rightarrow \mathbb{R}^n$, für die gilt:
+\begin{equation}
+\varphi_p(p) = 0 \qquad \qquad V_p = \varphi_p(U_p) = B(0; 1) \, .
+\end{equation}
+\end{satz}
+
+	\anm{man beachte, dass $B(0; 1) = \qty{x \in \mathbb{R}^n: \; \norm{x} < 1}$, nur daher hat man eine offene Menge. Den abgeschlossenen Ball bezeichnet man mit $\overline{B(0; 1)}$.}
+
+\begin{proof}
+Zu zeigen ist die Existenz einer solchen Karte und dass sie auch im maximalen Atlas enthalten ist (sonst wäre sie nicht benutzbar auf $M$). Für Letzteres reicht es aber, die Verträglichkeit mit Karten aus dem maximalen Atlas zu zeigen, weil sie dann bereits in ihm enthalten sein muss.
+
+Man nehme eine beliebige Karte $\tilde{\varphi}: U \rightarrow V$. Daraus lässt sich ganz einfach eine in $p \in U$ zentrierte Karte $\hat{\varphi}: U \rightarrow V_2$ definieren, indem man $\tilde{\varphi}(p) \in \mathbb{R}^n$ abzieht, es gilt also $\hat{\varphi}(q) = \tilde{\varphi}(q) - \tilde{\varphi}(p)$. Wegen $\tilde{\varphi} \in \mathcal{A}_{max}$ folgt sofort auch $\hat{\varphi} \in \mathcal{A}_{max}$, da der Kartenwechsel nur einer Translation entspricht und damit insbesondere diffeomorph ist (daraus folgt auch sofort die Kompatibilität mit allen Karten in $\mathcal{A}_{max}$, weil $\tilde{\varphi}$ ja mit allen kompatibel ist). Im Urbild dieser neuen Karte liegt nun per Definition der Nullpunkt (nämlich in $\hat{\varphi}(p)$) und aufgrund der Stetigkeit von Karten (Abbildung auf offene Mengen $V_2 \in \mathbb{R}^n$; dort liegt per Definition ein kleiner Ball um $x \in V_2$ immer noch in $V_2$) folgt sofort, dass es ein $r \in \mathbb{R}$ gibt mit $B(0; r) \subset V_2$. Durch Definition von $\varphi: \hat{\varphi}^{-1}\qty(B(0; r)) \rightarrow V_3, \, q \mapsto \frac{\hat{\varphi}(q)}{r}$ hat man die gesuchte Karte gefunden (die Skalierung erfolgt, weil bei der Bildmenge Radius 1 statt $r$ gefordert ist).
+\end{proof}
+
+Das heißt, dass die Karte aus der Umgebung $U_p$ des Punktes $p$ in den Einheitsball $B(0; 1) \subset \mathbb{R}^n$ mit Radius 1 sowie Mittelpunkt = Ursprung abbildet und zwar so, dass $p$ gerade dem Ursprung $0 \in \mathbb{R}^n$ zugeordnet wird. Hier wird der große Vorteil von maximalen Atlanten klar, denn weil sie alle möglichen kompatiblen Karten enthalten, sind insbesondere diese \Def[Karte! (nützliche)]{nützlichen Karten} dort drin. Auch wenn man bei einer gewissen Anwendung nicht die Forderung braucht, dass nur auf den Einheitsball abgebildet wird, finden diese um $p$ zentrierten Karten häufig Verwendung und es wird auch klar, dass Karten häufig in Abhängigkeit von Punkten $p$ betrachtet (z.B. ist das Kartengebiet dann durch die Umgebung des Punktes gegeben).
+
+Allgemeiner erlaubt der maximale Atlas ja eine beliebige Wahl der Koordinaten (durch Wahl einer Karte) und damit eine bestmögliche Anpassung an das geometrische/ analytische/ physikalische Problem (man hat also z.B. die Wahl zwischen kartesischen oder Kugelkoordinaten, wie es bis jetzt immer intuitiv einfach so gemacht wurde).
+
+
+\begin{bsp}[Projektiver Raum]
+Man kann nun auch den sogenannten \Def[Projektiver Raum]{Projektiven Raum $\mathbb{RP}^n$} betrachten, der formal als Menge aller eindimensionalen Unterräume des $\mathbb{R}^{n + 1}$ definiert ist (analog für andere Körper wie $\mathbb{C}$). Anschaulich handelt es sich dabei einfach um die Menge aller Ursprungsgeraden im $\mathbb{R}^{n + 1}$ (ohne Ursprung würde man affine Unterräume untersuchen, die nicht die 0 enthalten). Die Beweisideen beim Zeigen der Eigenschaften einer Mannigfaltigkeit sind besonders gut für $n = 1$ zu verstehen und werden daher zunächst für diesen Fall vorgestellt.
+
+Eine Ursprungsgerade im $\mathbb{R}^2$ ist gegeben durch eine Gleichung wie $y = m \, x$ und entspricht damit der Menge/ dem Untervektorraum $l = \qty{(x, y): \; y = m \, x}$. Nimmt man sich nun einen Vektor $v \in \mathbb{R}^2$ (Richtung nur eindeutig bis auf Vielfache !), so liegt dieser nun auf genau einer solchen Geraden ($\exists! l: \, v \in l$), daher findet man die ebenfalls äquivalente Form $l = \mathbb{R} v$. Insgesamt kann man also schreiben:
+\begin{equation}
+\begin{split}
+\mathbb{RP}^1 &= \qty{l \subset \mathbb{R}^{n + 1}: \; l \text{ ist 1D-UVR}}
+\\
+&= \qty{l = \qty{(x, y): \; y = m \, y}: \; m \in \mathbb{R}}
+\\
+&= \qty{\mathbb{R} v: \; v \in l} \, .
+\end{split}
+\end{equation}
+Man führt nun zur Vereinfachung der Notation eine Äquivalenzrelation ein:
+\begin{equation}
+(x, y) \sim (v, w) \quad \Leftrightarrow \quad \exists! \lambda \in \mathbb{R} \backslash \qty{0}: \, (v, w) = \lambda (x, y) \, .
+\end{equation}
+Die daraus entstehenden Äquivalenzklassen heißen auch \Def{homogene Koordinaten} und werden als $[x:y]$ notiert. Hier wird auch noch einmal klar, warum der Raum eindimensional ist. Die Fixierung von beispielsweise $y = 1$ entspricht nun lediglich der Wahl des Repräsentanten mit diesem $y$-Wert und dann ist jede Gerade $l$ bereits durch den $x$-Wert aus $[x:1]$ bestimmt, man hat also nur einen Freiheitsgrad (zudem kann man sich überlegen, dass nach $m \, x = y = 1$ gerade $x = 1/m$ gilt).
+
+Im nächsten Schritt sollen Karten für den Projektiven Raum gesucht werden. Aus den eben gefundenen Darstellungen ist das aber nicht mehr schwer, weil jedes Element des Projektiven Raums eindeutig durch die Steigung $m$ und damit eine reelle Zahl festgelegt ist (eindimensional, also passend zur 1 in $\mathbb{RP}^1$ !). Man muss nun aber vor der Definition der Karte aufpassen, weil der Fall $l =\equiv y$-Achse so nicht erfasst werden kann (dort ist ja überall $x = 0 \Leftrightarrow m = \infty$ !). Somit erhält man
+\begin{equation}
+\varphi_x: U_x = \qty{\mathbb{R} v: \; v = (x, y) \text{ mit } x \neq 0} \rightarrow \mathbb{R}, \; [x : y] = \qty[1 : \frac{y}{x}] \mapsto m = \frac{y}{x}
+\end{equation}
+und man erkennt direkt in der Vorschrift, warum $x \neq 0$ gefordert werden muss. Wichtig ist nun, zu überprüfen ob das Ganze wohldefiniert ist, was hier einfach bedeutet, dass verschiedene Elemente einer Äquivalenzklasse auf das gleiche Bild abgebildet werden sollen (sonst würde die Abbildung keinen Sinn ergeben, weil man verschiedene Repräsentanten ja gerade gleich abbilden möchte). Das ist aber klar, weil zwei Repräsentanten $(x, y), (v, w)$ per Definition eines Unterraums Vielfache sind und daher gilt: $m = \frac{v}{w} = \frac{\lambda x}{\lambda y} = \frac{x}{y} = m$.
+
+Auch wenn sie eigentlich nicht wirklich relevant ist, kann man nun sehr einfach die zugehörige inverse Abbildung angeben:
+\begin{equation}
+\varphi_x^{-1}: \mathbb{R} \rightarrow U_x, \; m \mapsto [1 : m]
+\end{equation}
+und das erfasst wegen $y = m \, x$ bereits alle Punkte $(x, y)$ auf der jeweiligen Ursprungsgeraden mit Steigung $m$.
+
+
+Mit $U_x$ hat man nun fast ganz $\mathbb{RP}^1$ überdeckt (also fast jede Gerade erfasst), nur die $x$-Achse fehlt noch. Die Idee zur Lösung versteht man nun besser bei der Betrachtung von $\frac{y}{x}$ statt $m$. Die problematische Stelle war dort die $y$-Achse mit $x = 0$, aber der Quotient $\frac{x}{y}$ ist in diesem Punkt ohne Probleme zu bilden. Man muss also lediglich das Reziproke bilden (kaum Änderungen zu $\varphi_x$) und dementsprechend hier aber bei der $x$-Achse mit $y = 0$ aufpassen. Das führt zu
+\begin{equation}
+\varphi_y: U_y = \qty{\mathbb{R} v: \; v = (x, y) \text{ mit } y \neq 0} \rightarrow \mathbb{R}, \; [x : y] = \qty[\frac{x}{y} : 1] \mapsto n = \frac{x}{y} \, .
+\end{equation}
+Nun gilt offenbar $U_x \cup U_y = \mathbb{RP}^1, U_x \cap U_y = \qty{[x : y]: \; x \neq 0 \text{ und } y \neq 0} = \mathbb{RP}^1 \backslash \qty{[0 : y], [x : 0]}$ und daher $\varphi_x(U_x \cap U_y) = \mathbb{R} \backslash \qty{0} = \varphi_y(U_x \cap U_y)$ (offen, weil die Achsen abgeschlossen sind), sodass die Kartenwechsel sich wegen $n \equiv 1/ m$ (vergleiche einfach die Quotienten) ergeben zu:
+\begin{equation}
+\begin{split}
+\varphi_x \circ \varphi_y^{-1}&: \mathbb{R} \backslash \qty{0} \rightarrow \mathbb{R} \backslash \qty{0}, \; n = \frac{x}{y} \mapsto m = \frac{1}{n} = \frac{y}{x}
+\\
+\varphi_y \circ \varphi_x^{-1}&: \mathbb{R} \backslash \qty{0} \rightarrow \mathbb{R} \backslash \qty{0}, \; m = \frac{y}{x} \mapsto n = \frac{1}{m} = \frac{x}{y}
+\end{split}
+\end{equation}
+und das ist jeweils ein Diffeomorphismus, weil die kritischen Punkte gerade herausgenommen wurden. Somit hat man einen abzählbaren (weil zweidimensionalen) Atlas $\mathcal{A} = \qty{(U_x, \varphi_x), (U_y, \varphi_y)}$ gefunden und es fehlt wegen Satz \ref{satz:zweitabz} nur noch die Hausdorff-Eigenschaft. Diese folgt aber einfach daraus, dass man für Punkte aus dem gleichen Kartengebiet aufgrund der Bijektivität die Bilder im $\mathbb{R}^n$ trennen kann.\\
+
+
+Für beliebige $n$ sind nun einfach mehr Karten zu konstruieren, die aber alle die gleiche, allgemeine Form haben:
+\begin{equation}
+\begin{split}
+U_k &= \qty{[v_1 : \dots : v_{n + 1}] \text{ mit } v_k \neq 0} %\qty{\mathbb{R} v: \; v = (v_1, \dots, v_{n + 1}) \text{ mit } v_k \neq 0} = \qty{[v_1 : \dots : v_{n + 1}] \text{ mit } v_k \neq 0}
+\\
+\varphi_k&: U_k \rightarrow \mathbb{R}^n, \; [v_1 : \dots : v_{n + 1}] \mapsto \frac{1}{v_k} (v_1, \dots, v_{k - 1}, v_{k + 1}, \dots, v_{n + 1}) %(w_1, \dots, w_n) = \frac{1}{v_k} (v_1, \dots, v_{k - 1}, v_{k + 1}, \dots, v_{n + 1})
+\\
+\varphi_k^{-1}&: \mathbb{R}^n \rightarrow U_k, \; (w_1, \dots, w_n) \mapsto [v_1 : \dots : v_{k - 1} : 1 : v_{k + 1} : \dots : v_{n + 1}] \, . %[v_1 : \dots : v_{n + 1}] = [v_1 : \dots : v_{k - 1} : 1 : v_{k + 1} : \dots : v_{n + 1}] \, .
+\end{split}
+\end{equation}
+
+Weil nun von jeder Karte eine Koordinate gestrichen wird, muss man bei den Kartenwechseln mit der Nummerierung der Indizes aufpassen (bei $\varphi_2(U_1 \cap U_3)$ fällt ja beispielsweise der zweite Index weg und daher wird ein Index 3 bei einem reingesteckten Vektor zu einer 2 im Ergebnis), am Ende ergibt sich:
+\begin{equation*}
+\begin{split}
+l < k&: \; \varphi_k(U_k \cap U_l) = \qty{(x_1, \dots, x_n) \in \mathbb{R}^n: \; x_k \neq 0, x_l \neq 0}
+\\
+& \quad \varphi_l \circ \varphi_k^{-1}(x_1, \dots, x_n) = \frac{1}{x_l} (x_1, \dots, x_{l - 1}, x_{l + 1}, \dots, x_{k - 1}, 1, x_{k + 1}, \dots, x_n)
+\\
+l > k&: \; \varphi_k(U_k \cap U_l) = \qty{(x_1, \dots, x_n) \in \mathbb{R}^n: \; x_k \neq 0, x_{l - 1} \neq 0}
+\\
+& \quad \varphi_l \circ \varphi_k^{-1}(x_1, \dots, x_n) = \frac{1}{x_{l - 1}} (x_1, \dots, x_{k - 1}, 1, x_{k + 1}, \dots, x_{l - 2}, x_l, \dots, x_n)
+\end{split}
+\end{equation*}
+\end{bsp}
+
+
+Man kann Mannigfaltigkeiten aber auch gezielter konstruieren und zwar durch das sogenannte \Def{Verkleben}. Dabei kann man sich nicht (1D-Fall, wo also zwei Punkte auf verschiedenen Gerade $\equiv$ Koordinatenachsen liegen) ein verschlängeltes Übereinanderlegen vorstellen, weil man dann wegen der Schnittpunkte keinen Hausdorffraum mehr hätte. Stattdessen verklebt man sie umgekehrt, was mathematisch die Identifikation verschiedener Punkte bedeutet (je weiter weg der Punkt auf der einen Geraden, desto näher der damit identifizierte Punkt auf der anderen Geraden; immer bezogen auf die betrachteten Punkte $x_1, x_2$); das heißt wenn man weiter zu diesem einen offenen Punkt geht, geht man eigentlich auf der anderen Mannigfaltigkeit weiter weg von dem Punkt
+
+
+$x/\langle x, x \rangle$ bildet innere Kreisringe Torus auf äußere ab (skaliert ja nur !); das auch Idee bei Verkleben !
+
+
+keine Ahnung wohin: wichtiger Satz (wenn auch hier egal): MF immer als UMF eines höherdimensionalen Raums gegeben ! Bei Riemannscher Geometrie gibt es Nash-Einbettungs-Satz (gilt nur bei glatten oder topologischen; bei komplexen oder so, generell bei mehr Struktur, geht das nicht mehr so allgemein); daher allgemeines Kalkül besser, der das auch bei Räumen mit Metrik macht; diese Interpretation wird aber nicht immer genutzt, weil man sonst immer gucken muss, ob Rechnungen von der MF abhängen oder nur von der (gewählten) Einbettung; wird zudem oft angenehmer für Vorstellung in abstrakt, weil sonst in $\mathbb{R}^4$ das schwieriger wird; das Ganze ist oft halt viel natürlicher, wenn man es nicht im Umgebungsraum betrachtet
+
+
+	\anm{wenn nicht explizit anders vermerkt, werden von nun an immer glatte Mannigfaltigkeiten verwendet und diese mit $M$ sowie manchmal $N$ bezeichnet.}
+
+
+Mannigfaltigkeiten für Kinder erklärt: \url{https://www.matheplanet.com/default3.html?call=viewtopic.php?topic=23874\&ref=https\%3A\%2F\%2Fwww.qwant.com\%2F}
+
+
+\newpage
+
+
+	\section{Differenzierbare Abbildungen}
+Nach der Definition von Mannigfaltigkeiten $M, N$ kann man nun auch Funktionen der Form $f: M \rightarrow N$ zwischen diesen Objekten betrachten. Da Mannigfaltigkeiten insbesondere eine Topologie besitzen (die durch die Karten induzierte), verhalten sich diese Abbildungen erst einmal analog zu solchen zwischen topologischen Räumen und man kann bereits von Begriffen wie Stetigkeit sprechen. Das ist äußerst wichtig, weil erst dadurch Begriffe wie Nähe/ Konvergenz Sinn ergeben und damit Grenzwerte erklärt werden können (für stetige Abbildungen sind ja für Punkte $q$ nahe einem $p$ auch die Punkte $f(q)$ nahe $f(p)$).
+
+Man kann jedoch noch einen Schritt weiter gehen und auch die Differenzierbarkeit von Abbildungen (entspricht ja ebenfalls einem Grenzwert) diskutieren.
+
+
+\begin{defi}[Differenzierbarkeit]
+Für eine stetige Funktion $f: M \rightarrow N$ zwischen den differenzierbaren Mannigfaltigkeiten $M$ der Dimension $m$ mit Karten $\qty(U_\alpha, x_\alpha)$ und $N$ der Dimension $n$ mit Karten $\qty(V_\beta, y_\beta)$ heißt $f$ \Def{differenzierbar}, wenn für alle Karten $x_\alpha, y_\beta$ die Funktion
+\begin{equation}\label{eq:fktdiffb}
+y_\beta \circ f \circ \qty(x_\alpha)^{-1}: x_\alpha\qty(f^{-1}\qty(V_\beta) \cap U_\alpha) \rightarrow y_\beta\qty(V_\beta)
+\end{equation}
+differenzierbar ist. Damit bekommen auch die Begriffe \Def{Glattheit} ($\infty$ oft differenzierbar) und \Def{Diffeomorphismus} (bijektiv, glatt, glatte Inverse) einen Sinn.
+\end{defi}
+
+Diese Definition sieht sehr kompliziert aus und wird daher noch einmal erklärt: die grundlegende Idee ist (wie im gesamten Kapitel), den Begriff der Differenzierbarkeit auf Mannigfaltigkeiten zurückzuführen auf den $\mathbb{R}^m / \mathbb{R}^n$, wo man das ohne Probleme machen kann. Schön veranschaulicht wird das Ganze im folgenden Kommutationsdiagramm:
+
+$$
+\begin{tikzcd}[row sep=42pt]
+U_\alpha \subset M \ar{rr}{f} \ar{d}[swap]{x_\alpha} & & V_\beta \subset N \ar{d}{x_\beta} \\
+x_\alpha(U_\alpha) \subset \mathbb{R}^m \ar{rr}[swap]{y_\beta \circ f \circ \qty(x_\alpha)^{-1}} & & y_\beta(V_\beta) \subset \mathbb{R}^n
+\end{tikzcd}
+$$
+
+Dazu muss man natürlich die Karten benutzen, um zwischen den Mannigfaltigkeiten und dem euklidischen Raum zu wechseln. Weil diese aber im Allgemeinen nur lokal definiert sind, liegen recht komplizierte/ unübersichtliche Definitionsbereiche vor, die hier noch einmal genau aufgedröselt werden:
+\begin{itemize}
+\item Beim Zielbereich ist alles noch relativ klar: man möchte am Ende statt in $N$ (wo $f$ hinführt) im $\mathbb{R}^n$ landen und das geht, indem man mit $y_\beta$ abbildet. Man landet dann im Koordinatengebiet $y_\beta\qty(V_\beta) \subset \mathbb{R}^n$ des Kartengebiets $V_\beta$ und das ist ja gerade, was gewollt ist. Sehr wichtig ist dabei die Tatsache, dass $y_\beta\qty(V_\beta)$ offen bezüglich der von $N$ induzierten Topologie ist und das ganze Konstrukt in \eqref{eq:fktdiffb} damit stetig (was ja nötig ist für Differenzierbarkeit).
+
+\item Beim Startbereich ist etwas mehr Denkarbeit nötig. Man kann hier nicht beliebige Punkte aus $M$ nehmen, auch wenn diese von $f$ abgebildet werden könnten. Das Problem ist, dass man (siehe erster Stichpunkt) im Kartengebiet von $y_\beta$ und damit in $V_\beta$ landen muss und um das sicherzustellen, werden einfach Punkte aus dem Urbild von $V_\beta$ unter $f$ genommen.
+
+Nun muss aber weiterhin beachtet werden, dass man mit dem Konstrukt in \eqref{eq:fktdiffb} aus dem $\mathbb{R}^m$ abbilden möchte und nicht von $M$ aus, weshalb wieder die Karte $x_\alpha$ genutzt wird. Diese hat aber nur ein bestimmtes Kartengebiet $U_\alpha$, auf dem sie definiert ist, man muss also auch daraus abbilden !
+
+Um diese beiden Forderungen gleichzeitig zu erfüllen, schneidet man die nötigen Bereiche und kommt so auf ein Gebiet $f^{-1}\qty(V_\beta) \cap U_\alpha$, das von $x_\alpha$ abgebildet wird. Man hat übrigens auch hier immer offene Mengen stehen, weil sowohl Karten- als auch Koordinatengebiete per Definition offen bezüglich der von $M$ induzierten Topologie sind (die ja gerade über die Karten definiert ist), wegen der Stetigkeit von $f$ (offene Mengen werden auf offene Mengen abgebildet) und weil der (endliche, offensichtlich erfüllt) Schnitt offener Mengen wieder offen ist.
+\end{itemize}
+%	\anm{hierin begründet sich die Tatsache, dass Differenzierbarkeit lokal ist, der Begriff ist nun ja immer an gewisse Karten gebunden ! Eine Funktion kann also insbesondere in einer Karte differenzierbar sein und in einer anderen nicht (das kann am Definitionsbereich der Karte liegen oder eben der Kartenfunktion).}\\
+Das Ganze ist dabei unabhängig von den gewählten Karten (wohldefiniert), weil
+\begin{equation}
+y_\beta \circ f \circ x_\alpha^{-1} = y_\beta \circ \tilde{y}_\beta^{-1} \circ \tilde{y}_\beta \circ f \circ \tilde{x}_\alpha^{-1} \circ \tilde{x}_\alpha \circ x_\alpha^{-1} = \qty(y_\beta \circ \tilde{y}_\beta^{-1}) \circ \qty(\tilde{y}_\beta \circ f \circ \tilde{x}_\alpha^{-1}) \circ \qty(\tilde{x}_\alpha \circ x_\alpha^{-1})
+\end{equation}
+gilt und die Kartenwechsel $y_\beta \circ \tilde{y}_\beta^{-1}, \, \tilde{x}_\alpha x_\alpha^{-1}$ auf einer differenzierbaren Mannigfaltigkeit immer selber glatt sind. Weil aber links eine glatte Abbildung steht, folgt automatisch die Glattheit von $\tilde{y}_\beta \circ f \circ \tilde{x}_\alpha^{-1}$ (zumindest auf dem Schnitt der Kartengebiete).
+
+
+%Idee ist: führe die Dfb. einer stetigen Funktion auf den Mannigfaltigkeiten (mit induzierter Topologie) durch entsprechende Verknüpfungen mit Karten auf Dfb. auf dem $\mathbb{R}^n$ zurück (dort kann man das ja ohne Probleme machen), dort fordert man dann Glattheit bei allen Karten; man muss dabei durch geeignete Schnitte zudem einen geeigneten Kartenbereich schaffen
+
+
+Diese Definition ergibt Sinn, ist aber sehr unhandlich im Gebrauch, wenn wirklich gerechnet werden muss. Schließlich muss man das Ganze für alle Karten in den maximalen Atlanten $\mathcal{A}_M, \mathcal{B}_M$ prüfen, was sehr viel Arbeit ist (dazu müssen diese zudem explizit gegeben sein, was schon eine Herausforderung ist). Glücklicherweise ist jedoch keine neue, bessere Definition nötig (da wäre die Frage, wie/ ob das sinnvoll überhaupt möglich wäre), sondern man kann einige hilfreiche Eigenschaften zeigen.
+
+Man fängt dabei schon beim Begriff der Stetigkeit an, der wegen der analogen Definition offener Mengen über alle Karten (die ja die Topologie auf $M$ und definieren damit den Begriff der offenen Menge) ähnlich kompliziert zu zeigen ist.
+
+\begin{satz}[Stetigkeit von Abbildungen]
+Findet man für eine Abbildung $f: M \rightarrow N$ für alle Punkte $p \in M$ Karten $x: U \rightarrow \mathbb{R}^m$ mit $p \in U$ und $y: V \rightarrow \mathbb{R}^n$ mit $f(p) \in V$ und erfüllt sie
+\begin{equation}
+f(U) \subset V \qquad \qquad y \circ f \circ x^{-1}: x(U) \rightarrow y(V) \; \text{ ist stetig} \, ,
+\end{equation}
+so ist $f$ bereits stetig.
+\end{satz}
+Analog zur Differenzierbarkeit kann also (in den meisten Fällen) auch Stetigkeit auf Mannigfaltigkeiten zurückgeführt werden auf Stetigkeit im $\mathbb{R}^n$ und damit in Koordinaten. Die Vereinfachung bei der Differenzierbarkeit bringt folgender Satz:
+\begin{satz}[Differenzierbarkeit von Abbildungen]
+Für ein paar von mit den induzierten maximalen Atlanten $\mathcal{A}_{max}, \mathcal{B}_{max}$ verträglichen Atlanten $\mathcal{A}, \mathcal{B}$ auf $M, N$ ist eine stetige Abbildung $f: M \rightarrow N$ bereits dann glatt, wenn $y_\beta \circ f \circ x_\alpha$ für alle Karten $x_\alpha \in \mathcal{A}, y_\beta \in \mathcal{B}$ glatt ist.% Dabei sind $\mathcal{A}, \mathcal{B}$  Atlanten auf $M, N$, die jeweils verträglich sind mit den induzierten maximalen Atlanten $\mathcal{A}_{max}, \mathcal{B}_{max}$.
+\end{satz}
+Das verringert den Aufwand bei guter Wahl von $\mathcal{A}, \mathcal{B}$ natürlich ganz erheblich. Auch der Beweis ist nicht schwer, daher werden hier kurz die wesentlichen Ideen geschildert:
+\begin{proof}[Beweisidee]
+im Wesentlichen Ausnutzen der Glattheit von Kartenwechseln, sodass man dort eine Verknüpfung von glatten Abbildungen stehen hat und durch Wahl geeigneter Definitionsbereiche (schneide clever) auch offene Mengen als Bilder.
+\end{proof}
+
+\begin{cor}[Differenzierbarkeit von Abbildungen V2]
+Findet man für eine Abbildung $f: M \rightarrow N$ die für alle Punkte $p \in M$ Karten $x: U \rightarrow \mathbb{R}^m$ mit $p \in U$ und $y: V \rightarrow \mathbb{R}^n$ mit $f(p) \in V$ und erfüllt sie
+\begin{equation}
+f(U) \subset V \qquad \qquad y \circ f \circ x^{-1}: x(U) \rightarrow y(V) \; \text{ ist glatt} \, ,
+\end{equation}
+so ist $f$ glatt.
+\end{cor}
+Das folgt natürlich sofort als Kombination der beiden vorherigen Sätze (weil glatt $\Rightarrow$ stetig). Diese Aussage kann eben je nach Anwendungsfall besser zu prüfen sein (außer wenn z.B. stetig bereits gegeben). Man muss so tatsächlich nur die Bedingung $f(U) \subset V$ zusätzlich überprüfen im Vergleich zu Differenzierbarkeit auf dem $\mathbb{R}^n$. Die grundlegende Idee ist dabei also, die Glattheit von $\eval{f}_U$ für die Umgebung $U$ eines beliebigen Punktes $p \in U \subset M$ zu zeigen und das letztendlich mit Karten auf den $\mathbb{R}^n$ zurückzuführen. Offenbar ist Differenzierbarkeit also eine erst einmal lokale Eigenschaft (ist sie aber lokal, also für $f\mid_U$, überall auf $M$ erfüllt, spricht man von der globalen Eigenschaft \enquote{Differenzierbarkeit} und nennt $f$ glatt).
+
+%	\anm{können so auch Differenzierbarkeit in Punkten definieren, indem wir Karten um Punkte betrachten.}
+
+Man hat nun also sinnvolle Definitionen für Stetigkeit und Differenzierbarkeit auf Mannigfaltigkeiten, mit denen sich auch praktisch rechnen lässt. Das ist ein wichtiger Schritt auf dem Weg dahin, ihre Struktur besser kennenzulernen und zu verstehen. Insbesondere wird es interessant sein, wann zwei glatte Mannigfaltigkeiten $M, N$ \Def[diffeomorphe Mannigfaltigkeiten]{diffeomorph} sind, ob also ein Diffeomorphismus $\Phi: M \rightarrow N$ existiert. Diese sind dann nämlich im Prinzip gleich (wenn auch rein mathematisch natürlich nicht, aber zur Vorstellung; man kann sie dann miteinander identifizieren), weil man dann etwas wie Kartenwechsel zwischen den beiden angeben kann (es liegt ja schließlich gerade ein Diffeomorphismus vor !). Die Strukturen sind also bei Betrachtung im $\mathbb{R}^n$ (dahin gehen Karten, $M, N$ müssen nämlich gleichdimensional sein für die Existenz einer bijektiven Abbildung, zudem ist nur dann die später auftretende Jacobi-Matrix quadratisch, die Invertierbarkeit also überhaupt denkbar) faktisch nicht zu unterscheiden, was oft auch mit $M = N$ notiert wird (obwohl $M \cong N$ o.Ä. passender wäre).
+
+	\anm{für allgemeinere $C^k$-Mannigfaltigkeiten ist diese Äquivalenz bei Existenz einer Abbildung $f \in C^k$ zwischen diesen gegeben, im Falle von topologischen also beispielsweise durch einen Homöomorphismus.}
+
+
+\begin{bsp}
+eine doppelt periodische (= elliptische) Funktion ist glatt ! Er hat in der VL aber paar Hüte vergessen
+\end{bsp}
+
+Ein wichtiges Korollar daraus ist:
+\begin{cor}[Differenzierbarkeit von Karten]\label{cor:kartendfb}
+Für glatte Mannigfaltigkeiten sind Karten Diffeomorphismen. Allgemeiner haben Karten die gleiche $C^k$-Klasse wie die Mannigfaltigkeit.
+\end{cor}
+\begin{proof}
+Die Stetigkeit einer beliebigen Karte $x: U \rightarrow \mathbb{R}^n$ ist gegeben, daher muss nur noch die $k$-fache Differenzierbarkeit in jeder Karte überprüft werden. Zu untersuchen ist also $z \circ x \circ y^{-1}$. Weil $x$ aber bereits auf die offene Menge $x(U) \subset \mathbb{R}^n$ abbildet, kann man $z$ weglassen (bzw. als Identität setzen) und damit muss nur die Abbildung $x \circ y^{-1} \in C^k$ sein. Das ist aber nichts anderes als der Kartenwechsel zwischen $x, y$ und dieser ist nach Definition von der Klasse $C^k$.
+\end{proof}
+
+Auch wichtige Sätze zur Differenzierbarkeit aus der Analysis lassen sich nun übertragen:
+\begin{cor}[Verknüpfung]
+Die Komposition $g \circ f$ glatter Abbildungen $f, g$ ist glatt.
+\end{cor}
+
+\begin{proof}
+Die Verknüpfung stetiger Abbildungen ist wieder stetig. Nutze dann analog zur Unabhängigkeit der Differenzierbarkeit von der Karte geschickte Verknüpfungen und nutze zum Schluss, dass auf dem $\mathbb{R}^n$ die Verknüpfung glatter Abbildungen wieder glatt ist (das reicht nach der Definition von Differenzierbarkeit).
+\end{proof}
+
+
+Als Abschluss dieses Abschnitts sollen \Def[Funktion]{Funktionen} (seltener: \Def[Funktion! -al]{Funktionale}) betrachtet werden, wo $N = \mathbb{R}$ gesetzt wird und es folglich um Abbildungen $f: M \rightarrow \mathbb{R}$ geht.
+
+\begin{cor}[Funktionenraum]
+Die Menge $C^\infty(M) = C^\infty(M, \mathbb{R})$ aller glatten Funktionale auf einer Mannigfaltigkeit $M$ bildet zusammen mit den punktweise definierten Operationen
+\begin{equation}
+(f + \lambda g)(p) = f(p) + \lambda g(p) \qquad \qquad (fg)(p) = f(p) g(p)
+\end{equation}
+einen Vektorraum und wegen der Existenz des Produkts sogar eine Algebra (natürlich gilt dabei $f, g \in C^\infty(M, \mathbb{R}), \lambda \in \mathbb{R}$).
+%\begin{align}
+%+&: M \cross C^\infty \cross C^\infty \rightarrow \mathbb{R}, \; (p, f, g) \mapsto (f + g)(p) := f(p) + g(p) 
+%\\
+%\cdot&: M \cross \mathbb{R} \cross C^\infty \rightarrow \mathbb{R}, \; (p, \lambda, f) \mapsto (\lambda \cdot f)(p) := \lambda \cdot f(p)
+%\end{align}
+%einen Vektorraum. bzw. nur Algebra ?
+\end{cor}
+Das heißt, dass im Allgemeinen kein Inverses vorliegt, aber sonst eben vieles analog zu Gruppen gilt. Der Beweis basiert wiederum auf Ausnutzen der Eigenschaften in $\mathbb{R}$.
+
+
+\begin{cor}[Dimension $C^\infty$]\label{cor:dimcinfty}
+Für $\dim(M) \geq 1$ gilt $\dim\qty(C^\infty(M, \mathbb{R})) = \infty$.
+\end{cor}
+
+\begin{proof}
+Die Idee basiert darauf, dass sich sogenannte Buckelfunktionen $b$ von offenen Mengen $U \subset M$ konstruieren lassen, die den charakteristischen Funktionen aus der Maßtheorie entsprechen und von denen existieren bereits unendlich viele. Explizit fordert man dort, dass $b$ nur auf $U$ Werte $\neq 0$ annimmt und außerdem in einem gewissen Punkt $p \in M$ $b(p) = 1$ gilt (dazwischen glatter Übergang, also $b$ glatt).
+\end{proof}
+Die Forderung $\dim(M) \geq 1$ rührt daher, dass man nicht bloß eine Sammlung von Punkten betrachten möchte, sondern eine \enquote{richtige} Mannigfaltigkeit. Man findet darauf eben unendlich viele linear unabhängige Funktionen (das bedeutet Dimension unendlich ja gerade), weil man gezielt Funktionen konstruieren kann, deren Nicht-Nullstellenmengen (wo sie nicht den Funktionswert 0 annehmen) disjunkt sind. Weil die lineare Unabhängigkeit aber punktweise gemessen wird und wegen $0 \cdot x = 0, \, \forall x \in \mathbb{R}$ für den Fall $f(p) = 0, \tilde{f}(p) \neq 0$ kein $c \in \mathbb{R}$ existieren kann mit $c f(p) = \tilde{f}(p)$, folgt die lineare Unabhängigkeit der so konstruierten Funktionen (diese Nicht-Nullstellenmengen kann man aber beliebig klein machen und so unendlich viele finden).
+
+%? alternativ: Das sieht man direkt daran, dass bereits die Funktionen $f$ und $f + c$ für $c \in \mathbb{R}$ linear unabhängig sind, weil sie sich nicht um ein Skalar unterscheiden. So lassen sich offenbar unendlich viele, linear unabhängige Elemente von $C^\infty(M; \mathbb{R})$ konstruieren.
+
+
+%man nennt Plot dann eben auch Graph (nicht mehr nur: das ist die Funktion bzw. eher Funktional; das ist ja nur Darstellung auf rellen Zahlen $\mathbb{R}$)
+
+
+\newpage
+
+
+	\section{Untermannigfaltigkeiten}
+Im $\mathbb{R}^n$ werden oft Untervektorräume $U \subset \mathbb{R}^n$ betrachtet, das heißt Mengen, für die
+\begin{equation*}
+\Psi: \mathbb{R}^n \rightarrow \mathbb{R}^n \text{ mit } \Psi(U) = \mathbb{R}^k \cross \qty{0}^{n - k} = \qty{(x_1, \dots, x_k, 0, \dots, 0): \; (x_1, \dots, x_k) \in \mathbb{R}^k}
+\end{equation*}
+mit einem Isomorphismus $\Psi$ (mit $\qty{0}^{n - k}$ ist der Ursprung des $\mathbb{R}^{n - k}$ gemeint). Das bedeutet nämlich automatisch, dass für die Projektion
+\begin{equation*}
+\pi_k: \mathbb{R}^n \rightarrow \mathbb{R}^k, \; 
+\end{equation*}
+auch die Abbildung $\pi_k \circ \Psi_U: U \rightarrow \mathbb{R}^k$ ein Isomorphismus ist (man nimmt hier die Einschränkung von $\Psi$ auf $U$ !) und $U$ daher ein $k$-dimensionaler (Unter-)Vektorraum.
+
+
+Dieser Begriff soll nun auf glatte Art und Weise verallgemeinert werden, also in den neuen Formalismus der Mannigfaltigkeiten eingebunden (man schränkt sich dabei zunächst auf Teilmengen des $\mathbb{R}^n$ ein und erst später auf allgemeine Mannigfaltigkeiten).
+\begin{satz}[Existenz von Plattmachern]
+Existieren für eine Menge $M \subset \mathbb{R}^n$ um alle Punkte $p \in M$ offene Umgebungen $U_p =: \hat{U} \subset \mathbb{R}^n$ und Diffeomorphismen $\Phi: \hat{U} \rightarrow \hat{V}$ in offene $\hat{V} \subset \mathbb{R}^n$ mit
+\begin{equation}
+\hat{\Phi}(\hat{U} \cap M) = \hat{V} \cap \qty(\mathbb{R}^k \cross \qty{0}^{n - k}) \quad (k < n \in \mathbb{N}) \, ,
+\end{equation}
+so trägt $M$ eine natürliche Mannigfaltigkeitenstruktur der Dimension $k$ mittels
+\begin{equation}
+\qty{\qty(U, \Phi)} = \qty{\qty(\hat{U} \cap M, \pi_k \circ \hat{\Phi})} \, .
+\end{equation}
+\end{satz}
+
+\begin{defi}[Plattmacher, Untermannigfaltigkeit]
+Eine solche Abbildung $\Phi$ heißt auch \Def[Plattmacher]{Plattmacher von $M$}, die Tupel $(U, \Phi)$ heißen \Def{induzierte Karten} und $M$ wird \Def[Untermannigfaltigkeit! des $\mathbb{R}^n$]{$k$-dimensionale Untermannigfaltigkeit (des $\mathbb{R}^n$)} genannt. Die Zahl $n - k$ heißt \Def[Kodimension]{Kodimension von $M$ (im $\mathbb{R}^n$)}.
+\end{defi}
+In Worten heißt das einfach, dass man Koordinaten (also Karten) findet, in denen die Menge $M$ (bzw. der Teil von $M$, der im Definitionsbereich des Diffeomorphismus liegt), nur $k$ relevante Komponenten hat, weil die restlichen immer 0 sind. Ohne Beschränkung der Allgemeinheit (oBdA) werden diese dabei als die ersten $k$ Komponenten gesetzt (man könnte sonst einfach immer umordnen), sodass die restlichen $n - k$ Komponenten lediglich mit Nullen aufgefüllt werden und man durch Projektion auf die ersten $k$ Komponenten (was natürlich glatt geht) einen Diffeomorphismus zwischen $M$ und offenen Teilmengen des $\mathbb{R}^k$ erhält. Das genügt aber die Definition einer Karte und somit lässt sich die nötige differenzierbare Struktur in Form eines Atlas aus diesen Karten aufbauen, die direkt alle nötigen Eigenschaften erfüllt (die topologischen Forderungen passen, weil der $\mathbb{R}^n$ sie an Teilmengen überträgt).
+
+	\anm{die Projektion mittels $\pi_k$ ist dabei unbedingt nötig und nicht nur für einfachere/ kürzere Ausdrücke, weil das Bild nur offen im $\mathbb{R}^k$ ist, aber nicht im $\mathbb{R}^n$ (ist klar, weil das Bild $\Phi(\hat{U} \cap M)$ im Prinzip nur eine Koordinatenebene ist, die insbesondere einen Rand hat bei Betrachtung im $\mathbb{R}^n$ und daher abgeschlossen ist).}
+
+
+Untermannigfaltigkeiten liefern eine große Klasse neuer Mannigfaltigkeiten und zudem einige der wichtigsten Beispiele (ein großer Vorteil ist, dass man sie sich immer eingebettet vorstellen kann, weil es eben Teilmengen des $\mathbb{R}^n$ sind). Die Konstruktion von Plattmachern ist in der Praxis auch meist nicht so kompliziert, wie die Definition zunächst vermuten lässt, wie nun anhand eines Beispiels gezeigt werden soll:
+\begin{bsp}[Geraden]
+Eines der einfachsten Beispiele für 1D-Untermannigfaltigkeiten sind Geraden. Diese sind im Allgemeinen als Gleichung wie $y = a \cdot x + b$ gegeben, was man äquivalent ausdrücken kann als Menge
+\begin{equation}\label{eq:geradedarst}
+g = \qty{\mqty(x \\ y) \in \mathbb{R}^2: \; y = a \cdot x + b} = \qty{\mqty(x \\ a \cdot x + b): \; x \in \mathbb{R}} \, .
+\end{equation}
+Dann findet man aber schnell die Abbildung
+\begin{equation}
+\hat{\Phi}: \mathbb{R}^2 \rightarrow \mathbb{R}^2, \; (x, y) \mapsto (x, y - a \cdot x - b) \, ,
+\end{equation}
+die offenbar Punkte $(x, y) \in g$ auf $(x, 0)$ abbildet und damit einen Plattmacher für die über $y = a \cdot x + b$ gegebene Gerade $g$ liefert. Damit bildet jede solche Gerade $g$ eine Untermannigfaltigkeit des $\mathbb{R}^2$, die die Dimension 1 hat und daher über die Koordinate $x$ beschrieben werden kann (das war übrigens bereits in der zweiten Schreibweise in \eqref{eq:geradedarst} zu erkennen). Bei $\hat{\Phi}$ handelt es sich für $a \neq 0$ nun ganz offenbar um einen Diffeomorphismus, weil das Differential
+\begin{equation}
+D_{p = (x, y)} \hat{\Phi} = \mqty(1 & 0 \\ 0 & -a) \mqty(v_1 \\ v_2) = \mqty(v_1 \\ -a \cdot v_2)
+\end{equation}
+bijektiv ist und die Umkehrabbildung
+\begin{equation}
+\hat{\Phi}^{-1}: \mathbb{R}^2 \rightarrow \mathbb{R}^2, \; (z, w) \mapsto (x, y) = (z, \frac{w - b}{a})
+\end{equation}
+(glatt und bijektiv, wenn $a \neq 0$) ebenfalls ein für $a \neq 0$ bijektives Differential
+\begin{equation}
+D_{p = (z, w)} \Phi^{-1}(v) = \mqty(1 & 0 \\ 0 & \frac{1}{a}) \mqty(v_1 \\ v_2) = \mqty(v_1 \\ \frac{v_2}{a}) \, ,
+\end{equation}
+besitzt.
+
+? müsste die Umkehrabbildung nicht in der zweiten Komponente $w + a \cdot z + b$ sein ? Dann halt auch ganz andere Jacobi, aber häää
+
+	\anm{ein anderer Plattmacher wäre $\hat{\Phi}: \mathbb{R}^2 \rightarrow \mathbb{R}^2, \; (x, y) \mapsto (x, \frac{y - b}{a} - x)$ und dort wird auch direkt klar, warum $a \neq 0$ nötig ist (nicht erst beim Differential.}
+\end{bsp}
+
+
+Der fundamentale Satz zu Untermannigfaltigkeiten kommt aber erst jetzt:
+\begin{satz}[Satz vom regulären Wert]\label{satz:satzregwert}
+Ist für $k < n \in \mathbb{N}$, eine glatte Abbildung $F: \mathbb{R}^n \rightarrow \mathbb{R}^{n - k}$ und $M = F^{-1}(\qty{q})$ nicht-leer das Differential $D_p F: \mathbb{R}^n \rightarrow \mathbb{R}^{n - k}$ surjektiv für alle $p \in M$, so ist $M$ eine $k$-dimensionale Untermannigfaltigkeit des $\mathbb{R}^n$. In diesem Fall heißt $q \in \mathbb{R}^{n - k}$ \Def{regulärer Wert} und Punkte $p \in M$ heißen \Def{reguläre Punkte}.
+\end{satz}
+\begin{proof}
+Kriegen halt direkt Plattmacher bei surjektivem Differential oder
+
+haben nach Umkehrsatz lokalen Diffeo; nutzen iwie Satz über implizite Funktion
+\end{proof}
+	\anm{der Satz vom regulären Wert und der Umkehrsatz sind im Wesentlichen äquivalent, der eine folgt leicht aus dem jeweils anderen. Die Aussage des Umkehrsatzes (auch lokales Diffeomorphiekriterium genannt) ist, dass man für eine Abbildung $f$ mit in einem Punkt invertierbarer Jacobi-Matrix offene Umgebungen um den Punkt und sein Bild findet, zwischen denen $f$ diffeomorph abbildet.}
+
+Man betrachtet hier also die Urbildmenge $M$ eines gewissen Punktes $q$ (was der \Def{Niveaumenge} der Abbildung zu $q$ entspricht) und wenn das Differential an jedem Punkt in dieser Menge maximalen Rang hat (was hier wegen $n - k < n$ gerade Surjektivität bedeutet), dann bildet das Urbild eine Untermannigfaltigkeit. Dieser Satz vereinfacht das Finden von Untermannigfaltigkeiten natürlich ganz massiv, auch wenn diese erst einmal nur implizit gegeben sind als
+\begin{equation}
+M = F^{-1}(q) = \qty{x \in \mathbb{R}^n: \; F(x) = q} \, .
+\end{equation}
+
+
+Eine sehr interessante Folgerung erhält man dann, wenn oBdA der Fall des regulären Wertes $q = 0$ und damit $M = F^{-1}(0)$ betrachtet wird (für $q \neq 0$ mit $M = F^{-1}(q)$ setze einfach $\tilde{F}(p) = F(p) - F(q)$, sodass $M = \tilde{F}^{-1}(0)$). Dann erhält man als allgemein mögliche Form von Plattmachern $\hat{\Phi} = (\Phi, F)$ mit den induzierten Karten $\Phi$, weil das für Punkte $p \in M$ offenbar die Form $\hat{\Phi}(p) = (\Phi(p), 0)$ annimmt (die Dimensionen passen, $F$ bildet ja nach $\mathbb{R}^{n - k}$ ab). Das bildet auf geeigneten Mengen einen Diffeomorphismus, weil die Karten auf glatten Mannigfaltigkeiten per Definition solche sind und $D_p F$ nach dem Satz vom regulären Wert für alle Punkte aus $M$ surjektiv ist, sodass es auf geeigneten Mengen bijektiv abbildet. Mit der Linearität des Differentials ist $D_p F$ sogar ein Isomorphismus, $F$ also ein Diffeomorphismus und damit $\hat{\Phi}$ auch einer.\\
+
+
+Liegt also eine Mannigfaltigkeit als Urbild eines regulären Wertes vor, bekommt man die differenzierbare Struktur sofort dazu (Topologie wird einfach vom $\mathbb{R}^n$ vererbt, hier geht es ja nur um Teilmengen davon), sodass sich das Zeigen der Mannigfaltigkeiten-Eigenschaften stark vereinfacht. Das hat viele Anwendungen, unter Anderem bei sehr anschaulichen bzw. sogar Standardbeispielen:
+\begin{bsp}[Sphäre]\label{bsp:kugelumf}
+Auch die bereits als Standardbeispiel eingeführte $n$-Sphäre stellt sich als Untermannigfaltigkeit heraus, was aber auch nicht überraschen sollte (man hat dort ja gerade die schöne Visualisierung als Teilmenge des $\mathbb{R}^{n + 1}$). Aus der definierenden Gleichung $\norm{x}^2 = \langle x, x \rangle = 1$ kann man sich dann leicht überlegen, dass
+\begin{equation}
+\mathbb{S}^n = F^{-1}(1) \,  \text{ für } \, F: \mathbb{R}^{n+1} \rightarrow \mathbb{R}, \, p \mapsto \langle p, p \rangle \, .
+\end{equation}
+
+Damit ist aber nichts bewiesen, es muss noch das Differential berechnet werden:
+\begin{equation}
+D_p F(v) = \mqty(2 p_1 & 0 & \dots & 2 p_{n + 1}) \mqty(v_1 \\ \vdots \\ v_{n + 1}) = 2 \langle p, v \rangle \, .
+%\mqty(2 p_1 & 0 & \dots & 0 \\ \vdots & & \ddots & \vdots \\ 0 & \dots & 0 & 2 p_n) \mqty(v_1 \\ \vdots \\ v_n) = 2 \langle p, v \rangle
+\end{equation}
+Das ist als Abbildung $D_p F: \mathbb{R}^{n + 1} \rightarrow \mathbb{R}, \; v \mapsto D_p F(v)$ surjektiv. Um zu sehen, dass jedes $x \in \mathbb{R}$ angenommen wird, reicht es dabei aus, Vektoren der Form $v = \qty(0, \dots, \frac{x}{p_j}, 0, \dots, 0)$ mit nur einem Eintrag an der Stelle $j$ zu betrachten (Surjektivität forderte ja keine Eindeutigkeit des Urbilds). Dabei findet man immer mindestens ein $j \in \qty{1, \dots, n}$ mit $p_j \neq 0$ (wichtig für Existenz $v$, durch 0 teilen sollte vermieden werden), weil nur Punkte auf der Sphäre betrachtet werden und diese müssen ja Länge 1 haben (es gibt also keine kritischen Punkte auf der Sphäre und für alle Punkte im Urbild des damit regulären Wertes 1 ist $D_p F$ surjektiv).\\
+
+
+Man kann sich aber auch recht einfach Plattmacher überlegen, weil diese hier im wahrsten Sinne des Wortes die Sphäre plattdrücken. Einer für die Teilmenge $U_{> 0} = \qty{x \in \mathbb{S}^2: \; z > 0}$ (man beachte: nicht $z \geq 0$ !) wäre
+\begin{equation}
+\begin{split}
+\hat{\Phi}: U_{> 0} \rightarrow \mathbb{R}^3, \; \hat{\Phi}(x, y, z) &= (x, y, 1 - x^2 - y^2) 
+\\
+\Rightarrow \quad \eval{\hat{\Phi}(x, y, z)}_{\mathbb{S}^2} = (x, y, 0) \quad &\Rightarrow \quad \Phi(x, y, z) = (x, y)
+\end{split}
+\end{equation}
+und diese Vorschrift funktioniert auch für $U_{< 0} = \qty{x \in \mathbb{S}^2: \; z < 0}$ (die Idee ist, den Punkt von der Sphäre in die $xy$-Ebene zu projizieren). Weil nun aber der Kreisring mit $z = 0$ fehlt, braucht man analoge Plattmacher in die $xz$- und $yz$-Ebene, sodass man am Ende eine Familie von induzierten Karten $\hat{\Phi}$ erhält, die einfach Projektionen sind und sich in folgender allgemeine Form bringen lassen:
+\begin{equation}
+\begin{split}
+\hat{\Phi}_{ij}&: \mathbb{S}^n \cap U_{ij} \rightarrow \mathbb{R}^n \cross \qty{0}, \; x \mapsto (x_1, \dots, x_{j - 1}, x_{j + 1}, \dots, x_n, 0)
+\\
+\Phi_{ij}&: \mathbb{S}^n \cap U_{ij} \rightarrow \mathbb{R}^n, \; x \mapsto (x_1, \dots, x_{j - 1}, x_{j + 1}, \dots, x_n) \, .
+\end{split}
+\end{equation}
+wobei man die speziellen offenen Mengen $U_{ij}$ betrachtet. Der Index $i$ nimmt dabei nur die Werte $1, 2$ an und kennzeichnet im Prinzip, in welcher Hemisphäre man sich befindet, $j$ hingegen läuft $1, \dots, n$ durch und damit jede mögliche Koordinatenebene, in die man hineinprojizieren kann. Damit wird einfach
+\begin{equation}
+U_{1j} = \qty{x \in \mathbb{S}^n: \; x_j > 0} \qquad U_{2j} = \qty{x \in \mathbb{S}^n: \; x_j < 0} \, .
+\end{equation}
+\end{bsp}
+
+Auch das eben behandelte Beispiel mit den Geraden wird so noch einfacher:
+\begin{bsp}[Geraden V2]
+Man kann für die Gerade $y = a \cdot x + b$ auch sehr einfach über den Satz vom regulären Wert zeigen, dass es sich um eine Untermannigfaltigkeit handelt. Betrachtet man nämlich das oben bereits berechnete Differential
+\begin{equation*}
+D_{p = (x, y)} \Phi = \mqty(1 & 0 \\ 0 & -a) \mqty(v_1 \\ v_2) = \mqty(v_1 \\ -a \cdot v_2) \, ,
+\end{equation*}
+so kann jeder Wert $(x, y) \in \mathbb{R}^2$ angenommen werden, indem $(v_1, v_2) = (x, -\frac{y}{a})$ gesetzt wird, und das zeigt die Surjektivität.
+\end{bsp}
+
+
+Zur Topologie von Untermannigfaltigkeiten gibt es folgende allgemeine Aussage:
+\begin{lemma}[Topologie einer Untermannigfaltigkeit]
+Die Teilraumtopologie einer Untermannigfaltigkeit $M$ aufgefasst als Untervektorraum des $\mathbb{R}^n$ entspricht der von $M$ als Mannigfaltigkeit induzierten Toplogie.
+\end{lemma}
+\begin{proof}
+Idee ist, zwei Implikationen zeigen: offene Menge $U \subset \mathbb{R}^k$, dann gilt für alle $p \in U \exists \epsilon > 0: B^k(p, \epsilon) \subset U$; definiere nun $V := U \cross \mathbb{R}^{n-k}$. Definiere dann $q = (p, y) \in V$ mit $y \in \mathbb{R}^{n-k}$ und messe dann Abstand (haben dann per Definition Abstand klein genug)
+
+andere Richtung: nehme $V \subset \mathbb{R}^n$ offen und wähle einen Punkt $p \in V \cap \mathbb{R}^k \cross \qty{0} =: U$
+
+-> aus Fragestunde, siehe Screenshots
+\end{proof}
+
+
+Anwendungsbeispiele von Untermannigfaltigkeiten in der Physik sind Teilchen, die sich nur in bestimmten Gebieten aufhalten dürfen, wo man deshalb nur auf gewissen Teilmengen des $\mathbb{R}^n$ rechnen möchte, die trotzdem noch genug Struktur haben sollen.\\
+
+
+%können das anscheinend immer über die Niveaumenge einer Funktion angeben (steht auch hier so: \url{https://de.wikipedia.org/wiki/Untermannigfaltigkeit_des_\%E2\%84\%9Dn}) -> nur für Menge mit Nebenbedingungen steht es so da
+
+%bei Proposition 1.11 (letzte zu UMF) hat man doch einfach Identität des $\mathbb{R}^n$ eingeschränkt auf die UMF oder (nur dass man Wertebereich nicht geändert hat) ?
+
+Nach dieser Vorarbeit ist die Verallgemeinerung des Begriffs der Untermannigfaltigkeit als Teilmenge anderer Mannigfaltigkeiten $M \neq \mathbb{R}^n$ wenig problematisch:
+\begin{defi}[Untermannigfaltigkeit V2]
+Für eine Mannigfaltigkeit $M$ der Dimension $m$ heißt eine Teilmenge $N \subset M$ \Def[Untermannigfaltigkeit! einer Mannigfaltigkeit]{$k$-dimensionale Untermannigfaltigkeit von $M$}, wenn für jeden Punkt $q \in N$ eine offene Umgebung $U \subset N$ und eine bijektive Abbildung $\Psi: U \rightarrow V$ in die offene Menge $V \subset \mathbb{R}^m$ existiert, sodass
+\begin{equation}
+\Psi\qty(U \cap N) =V \cap \qty(\mathbb{R}^k \cross \qty{0}) \, .
+\end{equation}
+\end{defi}
+
+
+\newpage
+
+
+	\section{Lie-Gruppen}
+Untermannigfaltigkeiten sind ein sehr ergiebiges Thema und man kann viele Klassen von ihnen studieren. Einige von ihnen haben auch eine (mit der Mannigfaltigkeitenstruktur verträgliche) Zusatzstruktur. In diesem Abschnitt soll es um die Betrachtung zusätzlicher Gruppeneigenschaften gehen, also das Vorliegen einer Verknüpfung sowie einer Menge, die zusammen die Gruppenaxiome erfüllen - das ist das Feld der \Def[Lie-Gruppe]{Lie-Gruppen}. Spezieller wird sich hier auf den sehr anschaulichen Fall von sogenannten Matrix-Lie-Gruppen konzentriert, wo man den Vektorraum $\text{GL}(n, \mathbb{R})$ und Untergruppen davon mit der natürlichen Matrixmultiplikation als Verknüpfung betrachtet.
+
+Das ist zwar nicht der allgemeine Fall von Lie-Gruppen, aber es ist durchaus sinnvoll, zunächst diesen Spezialfall zu betrachten. Matrizen sind als Objekte nämlich bereits recht gut bekannt und außerdem sehr anschaulich darstellbar, Rechnungen können also so gut wie immer explizit ausgeführt werden. Außerdem haben sie ein weites Feld an Anwendungen, beispielsweise in der Physik, wo sie die Beschreibung von Symmetrien ermöglichen, und der Großteil der Erkenntnisse überträgt sich ohnehin ziemlich analog auf allgemeine Lie-Gruppen.\\
+
+
+Es werden hier jedoch keine allgemeinen Aussagen zu (Matrix-)Lie-Gruppen gezeigt, diese folgen immer mal wieder zwischendurch in einem Beispiel oder wenn allgemein neue Objekte eingeführt wurden. Stattdessen werden die wichtigsten Beispiele vorgestellt und der Beweis geführt, dass es sich um eine Mannigfaltigkeit handelt (die Gruppeneigenschaften hingegen werden nicht alle gezeigt und sollten zumindest teilweise in Kursen der Linearen Algebra behandelt worden sein). Sehr angenehm ist dabei, dass so gut wie alle Matrix-Lie-Gruppen gleichungsdefiniert sind und das Schema/ die Idee deshalb nur ist, den Satz vom regulären Wert anzuwenden.
+
+\begin{bsp}[GL$(n, \mathbb{R})$]
+Das erste und allgemeinste Beispiel ist die allgemeine lineare Gruppe GL$(n, \mathbb{R})$, in der alle invertierbaren $n \cross n$-Matrizen gesammelt werden (es handelt sich also um eine Teilmenge der quadratischen Matrizen Mat$(n, \mathbb{R}) =: \mathfrak{gl}(n, \mathbb{R})$). Diese Teilmenge kann aber auch präziser beschrieben werden, weil es die Determinante
+\begin{equation}
+\det: \text{Mat}(n, \mathbb{R}) \rightarrow \mathbb{R}, \; A \mapsto \det(A)
+\end{equation}
+gibt. Diese sollte aus grundlegenden Mathe-Kursen bekannt sein, genau wie ihre Eigenschaften (z.B. Basisunabhängigkeit). Besonders wichtig ist hier der Determinantenproduktsatz $\det(AB) = \det(A) \det(B)$, weil daraus insbesondere folgt:
+\begin{equation*}
+1 = \det(\mathds{1}) = \det(A A^{-1}) = \det(A) \det(A^{-1}) \quad \Leftrightarrow \quad \det(A^{-1}) = \frac{1}{\det(A)} \, .
+\end{equation*}
+Sofort ist damit aber klar, dass Matrizen mit Determinante 0 nicht invertierbar sind, weil das Reziproke in diesem Fall nicht existiert. Dass umgekehrt sogar jede nicht invertierbare Matrix Determinante 0 hat, erkennt man bei Interpretation der Matrix als Lineare Abbildung (wirkt auf Vektoren über Multiplikation). Eine solche lineare Abbildung hat ein Inverses, wenn die Darstellungsmatrix vollen Rang hat, also die maximal mögliche Anzahl an linear unabhängigen Zeilen/ Spalten. Ist sie nicht invertierbar, dann gibt es eben linear abhängige Zeilen/ Spalten und in diesem Fall wird auch die Determinante 0 (Rechenregel aus Linearer Algebra).
+
+Weil das insgesamt der Aussage $A$ nicht invertierbar $\Leftrightarrow \det(A) = 0$ entspricht, ist die Determinante ein sehr kompaktes Kriterium für die Invertierbarkeit einer Matrix und die Menge der invertierbaren Matrizen kann beschrieben werden als:
+\begin{equation}
+\text{GL}(n, \mathbb{R}) = \qty{g \in \text{Mat}(n, \mathbb{R}): \; \det(g) \neq 0} \, .
+\end{equation}
+
+%-> hmm, ist hier irgendwas mit $\dim(V) = \dim(Bild(f)) + \dim(Kern(f))$ ?
+
+
+Es ist jedoch nicht klar (und zunächst auch nicht intuitiv), dass GL eine Mannigfaltigkeit ist, auch wenn das relativ leicht folgt. Die Isomorphie der Menge Mat$(n, \mathbb{R})$ zum $\mathbb{R}^{n^2}$ ist wegen der Anzahl der Einträge einer $n \cross n$-Matrix klar (Idee: ordne alle Spaltenvektoren übereinander an, das ergibt quasi eine Karte). Weil aber mit der Determinante nun eine stetige Abbildung existiert, die GL auf die offene Menge $\mathbb{R} \backslash \qty{0}$ abbildet, ist auch GL offen und damit als offene Menge des euklidischen Raums eine (Unter-)Mannigfaltigkeit.
+
+
+Für eine Lie-Gruppe muss es aber zusätzlich eine Gruppe sein, wobei die Verknüpfung Matrixmultiplikation wichtig wird. Beispielhaft wird hier die Abgeschlossenheit unter der Multiplikation gezeigt (der Rest funktioniert analog): das Produkt zweier $n \cross n$-Matrizen ergibt zunächst offenbar wieder eine Matrix dieser Größe und weil für $A, B \in \text{GL}(n, \mathbb{R})$ in jedem Fall $\det(A) \neq 0, \det(B) \neq 0$ gilt, ist die Invertierbarkeit des Produkts wegen $\det(AB) = \det(A) \det(B) \neq 0$ garantiert (explizit ist das Inverse über $\qty(AB)^{-1} = B^{-1} A^{-1}$ gegeben).
+\end{bsp}
+
+Das ermöglicht auch die formale Definition:
+\begin{defi}[Matrix-Lie-Gruppe]
+Eine Untermannigfaltigkeit von Mat$(n, \mathbb{R})$, die zusätzlich eine Untergruppe von GL$(n, \mathbb{R})$ bezüglich der Matrix-Multiplikation ist, heißt \Def{Matrix-Lie-Gruppe}.
+\end{defi}
+Hier wurde also einfach nur festgehalten, was bereits vorher klar war. Die Dimension dieser Untergruppen ist meist kleiner als $n^2$, weil sie ja spezielle Eigenschaften erfüllen und daher weniger linear unabhängige Komponenten haben.
+
+	\anm{hier werden eigentlich ausschließlich reelle Lie-Gruppen betrachtet, daher wird das $\mathbb{R}$ in der Benennung einer Gruppe von nun an weggelassen.}
+
+\begin{bsp}[Spezielle lineare Gruppe SL$(n)$]
+Statt $\det(A) \neq 0$ zu fordern, kann man auch ganz spezielle Niveaumengen der Determinante betrachten, z.B. die Urbilder zur 1 und damit die Menge
+\begin{equation}
+\text{SL}(n) = \qty{g \in \text{Mat}(n, \mathbb{R}): \; \det(g) = 1} \, .
+\end{equation}
+Diese sogenannte \Def{Spezielle lineare Gruppe} hat per Definition invertierbare Elemente und bildet damit offensichtlich eine Teilmenge von GL$(n)$, zu zeigen sind jedoch noch die Gruppeneigenschaften und dass es sich um einen Mannigfaltigkeit handelt.
+
+Ersteres geht mit den bekannten Eigenschaften der Determinante relativ einfach:
+\begin{align*}
+\det(AB) &= \det(A) \cdot \det(B) = 1 \cdot 1 = 1
+\\
+\det(A^{-1}) &= 1/ \det(A) = 1/ 1 = 1 \, .
+\end{align*}
+Da die $\mathds{1}$ als neutrales Element ebenfalls enthalten ist, handelt es sich bei SL um eine Gruppe mit der Verknüpfung.
+
+
+Das Zeigen der Mannigfaltigkeit-Eigenschaften erfordert hauptsächlich die Berechnung des Differentials, da die Beweisidee das Anwenden des Satzes vom regulären Wert ist. Dabei wird speziell das Differential an der Identität relevant: 
+
+\begin{align}
+D_e \det(A) (h) &= \lim_{t \rightarrow 0} \eval{\frac{\det(A + t h) - \det(A)}{t}}_{A = e = \mathds{1}} = \lim_{t \rightarrow 0} \frac{\det(\mathds{1} + t h) - \det(\mathds{1})}{t}
+\notag\\
+&= \lim_{t \rightarrow 0} \frac{1 + t \tr(h) + \mathcal{O}(t^2) - 1}{t} = \lim_{t \rightarrow 0} \tr(h) + \mathcal{O}(t) = \tr(h) \, .
+\end{align}
+
+Die Formel $\det(\mathds{1} + t B) = 1 + t \tr(B) + \mathcal{O}(t^2)$ folgt dabei durch Aus- und Umschreiben mithilfe der Leibniz-Formel (das $\mathcal{O}$ ist dabei ein sogenanntes Landau-Symbol, das einfach kennzeichnet, dass dort nur noch Terme $\sim t^2$ und höherer Potenzen vorkommen). Dieses Zwischenergebnis hilft nun, da
+\begin{align}
+D_g \det(A) (h) &= D_g \det(g g^{-1} A) (h) = \det(g) \, D_g \det(g^{-1} A) (h)
+\notag\\
+&= \det(g) \, D_g \qty(\det \circ L_{g^{-1}} A) (h) = \det(g) \, D_e \det \circ D_g L_{g^{-1}} A (h)
+\notag\\
+&= \det(g) \, \tr \circ D_g L_{g^{-1}} A (h) = \det(g) \, \tr \circ D_g g^{-1} A (h)
+\notag\\
+&= \det(g) \, \tr \qty(\lim_{t \rightarrow 0} \frac{g^{-1} (A + th) - g^{-1} A}{t})
+\notag\\
+&= \det(g) \tr(g^{-1} h) \, .
+\end{align}
+
+Man darf dabei $\det(g)$ vorbeiziehen, weil nach der Variablen $A$ differenziert wird, $g$ aber nur ein fester Punkt ist und der Faktor damit bezüglich $A$ konstant.
+
+Mit diesem Ergebnis kann man nun den Satz vom regulären Wert anwenden. Da die Determinante eine Abbildung in die reellen Zahlen ist, muss $\det(g) \tr(g^{-1} h)$ alle möglichen Werte in $\mathbb{R}$ annehmen können, was ja gerade der Surjektivität entspricht. Da per Definition $\det(g) = 1$ für $g \in \text{SL}(n)$ ist, entspricht das der Surjektivität von $\tr(g^{-1} h)$. Da $h$ aber beliebig ist und $\tr$ nicht die Nullabbildung, findet man immer ein $h$, sodass $\tr(g^{-1} h) \neq 0$ ist und das reicht bereits, weil man dann durch Skalieren dieses $h$ mit $k \in \mathbb{R}$ jeden Wert annehmen kann:
+\begin{equation*}
+\tr(k h) = \sum_{j = 1}^n k h_{jj} = k \sum_{j = 1}^n h_{jj} = k \tr(h) \, .
+\end{equation*}
+
+Damit folgt außerdem direkt als Dimension
+\begin{equation}
+\dim\qty(\text{SL}(n)) = \dim\qty(\text{GL}(n)) - \dim(\mathbb{R}) = n^2 - 1 \, .
+\end{equation}
+%evtl nutzen: \url{https://de.wikipedia.org/wiki/Spezielle_lineare_Gruppe}
+\end{bsp}
+
+
+\begin{bsp}[Orthogonale Gruppe O$(n)$]
+Das zweite wichtige Beispiel für eine Matrix-Lie-Gruppe ist die \Def{Orthogonale Gruppe}
+\begin{equation}
+\text{O}(n) = \qty{g \in \text{Mat}(n, \mathbb{R}): \; g g^T = \mathds{1}} \, .
+\end{equation}
+
+Hier ist das Transponierte also bereits das Inverse. Die Gruppeneigenschaften zeigt man wiederum mit zwei schnellen Rechnungen ($\mathds{1}$ wieder als neutrales Element):
+\begin{align*}
+gh \qty(gh)^T &= gh h^T g^T = g g^T = \text{id}
+\\
+g^{-1} \qty(g^{-1})^T &= \qty(g^T g)^{-1} = \qty(\qty(g g^T)^T)^{-1} = \qty(\mathds{1}^T){-1} = \mathds{1}^{-1} = \mathds{1} \, .
+\end{align*}
+
+Auch bei O$(n)$ ist nun zu erwarten, dass es sich um eine UMF von GL$(n)$ handelt, daher wird zunächst das Differential der Funktion $g g^T = \mathds{1}$ bestimmt:
+\begin{align}
+D_g \qty(g^T g)(h) &= \lim_{t \rightarrow 0} \frac{(g + t h)^T (g + t h) - g^T g}{t} = \lim_{t \rightarrow 0} \frac{(g^T + t h^T) (g + t h) - g^T g}{t}
+\notag\\
+&= \lim_{t \rightarrow 0} \frac{g^T g + t g^T h + t h^T g + t^2 h^T h - g^T g}{t} = \lim_{t \rightarrow 0} g^T h + h^T g + t h^T h
+\notag\\
+&= g^T h + h^T g \, . \label{eq:ablggtrans}
+\end{align}
+
+Die Surjektivität ist hier nicht sofort ersichtlich, wird aber mit der Substitution $A = g^{-1} h$ klar. Wegen der Orthogonalität von $g$ wird das Bild dann nämlich zu $D_g \qty(g^T g)(h) = A + A^T$ und bildet damit wegen $\qty(A + A^T)^T = A^T + A = A + A^T$ eine symmetrische Matrix (wird auch rund um \ref{bsp:symmalttens} behandelt). Dass man auch alle symmetrische Matrizen $B \in \text{Sym}(n)$ trifft ist dann direkt klar, weil ohne Probleme $A = B/ 2$ gewählt werden kann.
+
+Als Dimension erhält man hier wegen des unterschiedlichen Wertebereichs der Definition etwas kleineres als $n^2 - 1$ bei SL, nämlich:
+\begin{equation}
+\dim\qty(\text{O}(n)) = \dim\qty(\text{GL}(n)) - \dim(\text{Sym}(n)) = n^2 - \frac{n (n + 1)}{2} = \frac{n (n - 1)}{2} \, .
+\end{equation}
+Die Dimension der symmetrischen Matrizen kann man sich dabei so erklären, dass die Diagonale frei wählbar ist (ändert sich bei Transposition nicht, gibt daher $n$ freie Komponenten), aber nur eine Hälfte darunter/ darüber ($\frac{n^2 - n}{2}$ mehr).\\
+
+
+Die orthogonale Gruppe hat interessante, noch nicht ersichtliche Anwendungen, ihre Elemente fungieren in reellen Räumen als Basiswechsel. Diese noch sehr mathematische Aussage kann man auch anschaulicher formulieren, indem man die Struktur weiter untersucht. Wegen
+\begin{equation*}
+1 = \det(\mathds{1}) = \det(g^T g) = \det(g^T) \det(g) = \det(g) \det(g) \quad \Leftrightarrow \quad \det(g) = \pm 1
+\end{equation*}
+hat O$(n)$ offenbar genau zwei Zusammenhangskomponenten und diese haben jeweils sehr anschauliche Bedeutungen. Die Untergruppe zur $+ 1$ ist die \Def{Spezielle orthogonale Gruppe}, die mit SO$(n)$ abgekürzt wird und auch als Drehgruppe bezeichnet wird, weil ihre Elemente gerade als Raumdrehungen wirken. Der restlichen Anteil zur $- 1$ wirkt ebenfalls als Drehung, jedoch noch verbunden mit einer Raumspiegelung, es handelt sich also um Drehspiegelungen. Diese Menge bildet jedoch keine Gruppe, da sie wegen $\qty(- 1) \cdot \qty(- 1) = + 1$ nicht unter der Multiplikation abgeschlossen ist (anschaulich: doppeltes Spiegeln ergibt wieder die Anfangslage).
+
+Auf den ersten Blick mag es nun überraschen, dass
+\begin{equation}
+\dim\qty(\text{SO}(n)) = \dim\qty(\text{O}(n)) = \frac{n (n - 1)}{2} = \dim\qty(\text{O}(n)\backslash \text{SO}(n)) \, ,
+\end{equation}
+aber das ist bei offenen Teilmengen immer der Fall (ein ausgefüllter Ball im $\mathbb{R}^3$ ist z.B. auch ein dreidimensionales Objekt). Dass Matrix-Lie-Gruppen als Teilmengen von GL eine kleinere Dimension als $\dim\qty(\text{GL}(n)) = n^2$ haben liegt einfach daran, dass es UMF sind und daher keine offenen Mengen (man denke hier an die Kugelschale im $\mathbb{R}^3$, die wegen der \enquote{unendlich dünnen} Schale nur ein zweidimensionales Objekt bildet, sodass kein offener Ball als Charakterisierung offener Mengen in der Standardtopologie vollständig in ihr liegt).
+%	\anm{das Analogon zu SO in $\mathbb{C}$ ist die Spezielle unitäre Gruppe SU, die genau wie SO in der Physik eine prominente Rolle spielt.}
+%gute Quelle: \url{https://de.wikipedia.org/wiki/Orthogonale_Gruppe#Die_Lie-Algebra_zur_O(n)_und_SO(n)}
+\end{bsp}
+
+
+
+\newpage
+
+
+
+\end{document} 

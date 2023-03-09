@@ -1,0 +1,483 @@
+\documentclass[../H_Analysis_main.tex]{subfiles}
+%\input{../header} \graphicspath{ {../} }
+
+
+\begin{document}
+
+
+\chapter{*Wiederholung Grundlagen*}
+
+\begin{center}
+Vor der Behandlung der eigentlichen Themen dieser Ausarbeitung werden noch die wichtigsten und dafür nötigen Grundlagen (vor allem aus der Analysis, aber auch ausgewählte Themen der Linearen Algebra) wiederholt.
+
+Das Meiste wird dabei ohne expliziten Beweis angegeben, der Fokus liegt eher auf dem Vermitteln eines intuitiven Verständnisses, warum manche Dinge nützlich sind und wofür man sie brauchen wird. Da auch die Fülle der Beispiele sich in Grenzen hält, sind jedoch Vorkenntnisse unbedingt empfehlenswert.
+\end{center}
+
+
+\newpage
+
+%Glaube gute Quelle: \url{https://www.uni-regensburg.de/Fakultaeten/nat_Fak_I/Mat4/waldi/skriptlinalg/kapVI_para1.pdf}
+
+	\section{*Mengenlehre*}
+In der Mathematik arbeitet man ganz allgemein immer mit gewissen Objekten, die untersucht werden. Im Allgemeinen handelt es sich zudem um Ansammlungen von solchen Objekten und diese lassen sich in unterschiedliche Kategorien einteilen.
+
+\begin{defi}[Menge, Tupel]
+Eine ungeordnete Ansammlung von paarweise verschiedenen Objekten $o_i, \; i = 1, \dots, m$ heißt \Def{Menge} und wird notiert mit $M = \qty{o_1, \dots, o_m}$. Die Objekte $o_i$ heißen dann auch \Def[Element]{Elemente von $M$} und $m = \abs{M}$ ist die \Def[Mächtigkeit]{Mächtigkeit von $M$}.
+
+Eine geordnete Ansammlung heißt \Def{Tupel} und wird notiert mit $T = \qty(o_1, \dots, o_m)$, Elemente werden hier meist als \Def[Komponente]{Komponenten} bezeichnet.
+\end{defi}
+
+Der Unterschied zwischen Menge und Tupel ist also, dass
+\begin{equation*}
+M = \qty{o_1, o_2} = \qty{o_2, o_1} = \tilde{M} \qquad \quad \qquad T = \qty(o_1, o_2) \neq \qty(o_2, o_1) = \tilde{T}
+\end{equation*}
+und dass bei $M$ noch $o_1 \neq o_2$ gilt (Einfügen eines bereits enthaltenen Objekts ändert Mengen nicht). Beide Begriffe haben große Anwendungen. Die Mächtigkeit ist hierbei einfach als Anzahl der Elemente einer Menge zu deuten, zumindest für $n < \infty$. In diesem Fall verliert die Mächtigkeit etwas an Aussagekraft, mit unendlich kann man zunächst nicht so viel anfangen. Immerhin lässt sich aber immer noch die \enquote{Stärke} der Unendlichkeit messen (hier aber noch nicht möglich, siehe dazu \ref{defi:}).
+
+\begin{defi}[Teilmenge, Mengensystem, Potenzmenge, Familie]
+Eine Auswahl von Objekten $o_j \in M, \; \forall j = 1, \dots, n \leq m$ aus $M = \qty{o_1, \dots, o_m}$ heißt \Def[Teilmenge]{Teilmenge von $M$}, man schreibt $N \subset M$.
+
+Eine Menge, deren Elemente wiederum Mengen sind, wird auch als \Def{Mengensystem} bezeichnet. Das spezielle Mengensystem, das alle Teilmengen einer Menge $M$ enthält, ist die \Def[Potenzmenge]{Potenzmenge von $M$} und mit $\mathcal{P}(M)$ notiert.
+\end{defi}
+
+
+\begin{bsp}[Euklidischer Raum $\mathbb{R}^n$]
+hier werden Elemente meist als Punkte bezeichnet (entsprechen quasi einelementigen Teilmengen)
+
+Beispiel für Teilmenge neben Punkten wäre eine Achse oder Ebene
+
+Mächtigkeit unendlich, da ja $1, 1.1, 1.11, 1.111, \dots$ enthalten (das kann man beliebig weit weiter machen)
+\end{bsp}
+
+
+\begin{defi}[Mengenoperationen]
+Vereinigung, Durchschnitt, Differenz, Komplement
+\end{defi}
+
+hiernach dann Familie oder? Als Vereinigung zusammenhängender (schlechter Begriff hier; vlt einfach von Verbindung zwischen denen sprechen?) Mengen
+
+
+
+Gleichmächtigkeit, Abzählbarkeit und so noch erklären (\url{https://de.wikipedia.org/wiki/M%C3%A4chtigkeit_(Mathematik)}) -> aber erst nach Abbildungen möglich
+
+
+
+
+eine \Def[Äquivalenzrelation]{Äquivalenzrelation $\mathcal{R}$} ist eine Teilmenge einer Menge $M \cross M$, deren Elemente gewisse Relationen erfüllen (Symmetrie, Reflexivität, Transitivität); die Menge von Elementen $x \in M$, die äquivalent sind, bilden eine sogenannte \Def{Äquivalenzklasse} oder auch \Def{Restklasse} $[x] = [x]_\sim := \qty{y \in M: \; x \sim y}$ (nicht gleich der Relation, da die Elemente von $\mathcal{R}$ und $[x]$ aus unterschiedlichen Räumen kommen, $\mathcal{R} \subset M \cross M, \, [x] \in M/ \mathcal{R}$ !)
+
+
+zwischendurch: eine \Def{Familie} von Mengen ist eine Menge von gewissen in irgendeiner Weise zusammenhängenden Elementen, was meist durch einen Index der Form $U_i$ angedeutet wird; der Index $i$ läuft dabei über eine gewisse Indexmenge $I$, die aber eigentlich eher formal so notiert wird und selten wirklich relevant wird (wenn dann ist meist $I = \mathbb{N}$)
+
+
+auf jeden Fall auch \Def{Gruppe} und \Def{Vektorraum} einführen als Mengen mit ganz spezieller Struktur -> Struktur heißt, dass man damit noch was machen kann (z.B. Operationen mit Elementen ausführen und zwar sinnvolle bzw. man sagt dann wohldefinierte)
+
+
+Abbildungen zwischen Mengen sind Zuordnungen von Elementen zueinander
+
+zu linearen Abbildungen auf Vektorräumen (von \url{https://de.wikipedia.org/wiki/Lineare_Abbildung#Bild_und_Kern}): der Nullvektor $0_V \in V$ wird von einer linearen Abbildung $f: V \rightarrow W$ auf den Nullvektor $0_W \in W$ abgebildet, weil: $f(0_V) = f(0 \cdot 0_V) = 0 \cdot f(0_V) = 0_W$; der Kern einer Abbildung ist ja definiert als $\text{Kern}(f) = \qty{v \in V: \; f(v) = 0_W}$, das heißt für die Injektivität von $f$ (und damit insbesondere bei bijektiven Abbildungen wie Isomorphismen oder Diffeomorphismen) muss $\text{Kern}(f) = \qty{0_V}$ gelten; interessant ist zudem der Homomorphiesatz, der $W/ \text{Kern}(f) \cong f(V) \subset W$ besagt (etwas ausführlicher hier: \url{https://de.wikipedia.org/wiki/Faktorraum#Eigenschaften})
+
+gutes Beispiel Quotientenvektorraum $V/ U$ ist mit Vektorraum $V = \mathbb{R}^n$ und Untervektorraum $U_k = \qty{v \in \mathbb{R}^n: \; v_j = \delta_{j k}}$ (also einfach die $k$-te Achse des Koordinatensystems); dann ist $\mathbb{R}^n/ U_k \ni [v] = v + U_k = \qty{v + u: \; u \in U_k} = \qty{v + c \, e_k: \; c \in \mathbb{R}}$, also die zur $k$-Achse parallele Gerade durch $v$ (hat $e_k$ als Richtungsvektor) -> die Elemente dieses QVR sind dann also immer noch Vektoren/ Punkte, aber die auf einer Geraden werden eben nicht mehr als unterschiedlichen Elemente behandelt (es würde eine Dimension weniger ausreichen zur Veranschaulichung; also in 3D dann z.B. eine Ebene und zwar genau die senkrecht zur Achse $e_k$, weil alle Punkte nicht auf dieser Ebene mit irgendeinem Punkt darauf identifiziert werden und zwar genau dem, der mittels $e_k$ erreichbar ist)
+
+
+\newpage
+
+
+	\section{*Topologie*}
+Für viele Anwendungen erlauben Mengen aber keine \enquote{tollen} Aussagen und damit keine reichhaltige Theorie, weil sie einfach zu allgemein sind. Um das zu ändern, schränkt man diese allgemeinen Mengen auf gewisse Weisen ein und erhält so speziellere Mengensysteme, beispielsweise die hier vor allem relevanten Topologien:
+
+\begin{defi}[Topologie]
+Für eine Menge $M$ heißt ein Mengensystem $\tau \subset \mathcal{P}(M)$ \Def{Topologie}, wenn
+\begin{enumerate}
+\item $\emptyset, M \in \tau$
+
+\item $U_1, U_2 \in \tau \quad \Rightarrow \quad U_1 \cap U_2 \in \tau, \quad \forall U_i$
+
+\item $\displaystyle \bigcup_{U \in \, \mathcal{U}} U \in \tau, \quad \forall \, \mathcal{U} \subset \tau$.
+\end{enumerate}
+
+Man nennt eine Menge $U \in M$ \Def[offene Menge]{offen bezüglich $\tau$}, wenn $U \in \tau$, und \Def[abgeschlossene Menge]{abgeschlossen bezüglich $\tau$}, wenn $M \backslash U \in \tau$. Das Tupel $(M, \tau)$ heißt \Def[topologischer Raum]{topologischer Raum}.
+\end{defi}
+
+Diese Eigenschaften ermöglichen dann (quasi per Definition) einige grundlegende Operationen mit Elementen einer Topologie, z.B. eben Schnitt und Vereinigung. Die dadurch gegebene Struktur offener Mengen stellt sich bereits als ausreichend für den Aufbau einer reichhaltigen Theorie heraus.
+
+
+\begin{bsp}[Standardtopologie (des $\mathbb{R}^n$)]
+wird standardmäßig auf $\mathbb{R}^n$ genutzt werden, also insbesondere wenn einfach von offenen Mengen darauf gesprochen wird; definiert über offene Bälle und den hier noch sehr intuitiven Nähebegriff
+
+gilt allgemeiner so in jedem metrischen Raum -> das einfach nach der Einführung metrischer Räume sagen?
+
+hier sagt man oft auch nur offen/ abgeschlossen und lässt das \enquote{bezüglich} weg
+\end{bsp}
+
+\begin{bsp}[Teilraumtopologie]
+eine Topologie $\tau$ auf einer Menge $M$ definiert (man sagt auch: induziert) sofort auch eine Topologie auf Teilmengen $A \subset M$ (man schneidet einfach jedes Element von $\tau$ mit $A$; dabei hilft, dass $\emptyset \in \tau$), die Teilraumtopologie $\tau_A$; es werden hier dann viele Eigenschaften von $\tau$ geerbt (wie Hausdorffsch oder Zweites Abzählbarkeitsaxiom, beides mal klar warum)
+
+Teilraumtopologie des $\mathbb{R}^k$ im $\mathbb{R}^n$ ist gerade Standardtopologie des $\mathbb{R}^k$
+\end{bsp}
+
+Eine Topologie gibt also nun eine ausreichende Struktur, ist aber immer noch sehr allgemein. Es gibt daher einige weitere Klassifikationen topologischer Räume, die nun vorgestellt werden. Zunächst ist bis jetzt nichts allgemein über die Mächtigkeit der Topologie auszusagen, jedoch spielt genau diese Eigenschaft in vielen Fällen eine wichtige Rolle. Ein wichtiges Kriterium ist beispielsweise, wie viele Mengen aus der Topologie zur Überdeckung der Grundmenge erforderlich sind:
+
+\begin{defi}[Zweites Abzählbarkeitsaxiom]
+Man sagt, dass ein topologischer Raum $(M, \tau)$ das \Def[Zweites Abzählbarkeitsaxiom]{Zweite Abzählbarkeitsaxiom} erfüllt (kürzer sagt man auch: $(M, \tau)$ ist \Def[Zweite Abzählbarkeitsaxiom]{zweitabzählbar}), wenn man abzählbar viele offene Mengen $U_i \in \tau$ findet, die jede offene Menge $U \in \tau$ überdecken.
+\end{defi}
+%haben dann sogar nur abzählbar viele Mengen ? -> sollte rein aus Logik so stimmen
+
+Da $M$ insbesondere offen ist, wird es im Falle eines zweitabzählbaren topologischen Raumes ebenfalls bereits von abzählbar vielen offenen Mengen überdeckt.\\
+
+Dass der Schnitt offener Mengen wiederum eine offene Menge bildet, ermöglicht dann eine weitere Klassifikation von Mengen und deshalb sogar Punkten in topologischen Räumen. Dass zwei Mengen disjunkt sind bzw. zwei Punkte in disjunkten Mengen liegen, lässt sich nämlich offenbar so deuten, dass diese Mengen auseinanderliegen (im geometrischen Sinne). Eine Topologie ermöglicht also die Abstrahierung/ Verallgemeinerung des intuitiven Abstandsbegriffs und auch hier handelt es sich um eine wertvolle, oft verwendete/ geforderte Eigenschaft.
+
+\begin{defi}[Hausdorffraum]
+Ein topologischer Raum $(M, \tau)$ heißt \Def{Hausdorffraum} oder auch \Def[Hausdorffraum]{hausdorffsch}, wenn zu allen Punkten $p, q \in M$ mit $p \neq q$ zwei Mengen $U, V \in \tau$ existieren, sodass
+\begin{equation*}
+p \in U \qquad \qquad q \in V \qquad \qquad U \cap V = \emptyset \, .
+\end{equation*}
+\end{defi}
+
+Das bedeutet, dass sich zwei Punkte $p, q$ in Hausdorffräumen immer topologisch trennen lassen. Offenbar handelt es sich also um eine Art Abstandsbegriff, man kann jedoch nur die Aussagen \enquote{Abstand 0}/ \enquote{Abstand $\neq 0$} treffen (also kein sehr guter Begriff, aber immerhin). Glücklicherweise ist eine Verbesserung auf \enquote{in der Nähe von} möglich, auch wenn es immer noch nicht die genaue Messung ermöglicht:
+
+\begin{defi}[Umgebung]
+Für einen topologischen Raum $(M, \tau)$ und $A \subset M$ heißt $U \subset M$ \Def[Umgebung! offene]{offene Umgebung von $A$}, wenn $A \subset U$ und $U \in \tau$. Allgemeiner nennt man $B \subset M$ \Def[Umgebung]{Umgebung von $A$}, wenn $A \subset U \subset B$ für ein $U \in \tau$.
+
+Spezieller heißt für einen Punkt $p \in M$ die Menge $\dot{U} \subset M$ \Def[Umgebung! punktierte]{punktierte Umgebung von $p$}, wenn $p \notin \dot{U}$ und $U := \dot{U} \cup \qty{p}$ eine Umgebung von $p$ ist. Das \Def[Umgebung! -ssystem]{Umgebungssystem von $p$} ist $\mathcal{U}(p) := \qty{U \subset M: \; U \text{ ist bezüglich } \tau \text{ eine Umgebung von } p}$.
+\end{defi}
+%Offenheit der punktierten Umgebung kann man sich vlt. so erklären, dass dieses Komplement $\backslash$ als Kombination von Schnitten und Vereinigungen darstellbar ist (dann hat man da nur die Kombi der offenen Mengen $U, \qty{p}$ stehen, was nach Definition wieder offene Mengen bildet; ne, geht so nicht leider, Ansatz ist vlt eher dass $\qty(U \backslash \qty{p}) \cup \qty{p} = U$ und weil $U$ offen ist dann iwie über Abgeschlossenheit unter Vereinigung auf Offenheit von $U \backslash \qty{p}$ schließen ?) -> ja, sollte so gehen; aus der Abgeschlossenheit unter Vereinigungen folgt dann nämlich aus der Offenheit von $U$ und $p$ (ist ja nur Punktmenge), weil ich ja gerade eine offene Menge wieder erhalte, dass auch die punktierte Umgebung offen sein muss -> ne, funktioniert so leider nicht (Argumentationsstruktur funktioniert so nicht); auch Teil des Problems bei offene Umgebung mit Vereinigung etc: Hmmm Punkte sind gar keine offenen Mengen oder? Smoczyk hat sogar Satz, dass (zwar in metrischen Räumen, aber damit insbesondere im $\mathbb{R}^n$) endliche Mengen immer abgeschlossen sind
+
+Eine einfache Folgerung ist, dass offene Mengen ihre eigenen offenen Umgebungen sind. Für das Finden einer Umgebung muss man zudem offenbar eine offene Umgebung parat haben, diese also im besten Falle zuerst finden und dann \enquote{erweitern} (in welchem Sinne das möglich ist, wird z.B.~bei der Definition des Randbegriffs gleich klar). Der Umgebungsbegriff ist dabei zwar allgemein für Mengen definiert, der primäre Einsatz wird in (zumindest hier) jedoch für Punkte sein.
+
+Interessant ist, dass der Umgebungsbegriff sogar als Grundlage für die Definition von Topologien genutzt werden kann, es gilt der folgende Satz:
+\begin{satz}
+Eine nicht leere Teilmenge $U \subset M$ eines topologischen Raumes $(M, \tau)$ ist genau dann offen, wenn sie eine Umgebung eines jeden Punktes $p \in U$ ist.
+\end{satz}
+
+Diese Herangehensweise mag etwas anschaulicher sein und das zeigt sich auch in der angekündigten Erweiterung des Nähebegriffs mithilfe von Umgebungen. Der meint hier, dass eine Menge $A$ in einer offenen Menge $U$ liegt und innerhalb der Topologie erlaubt die Operation Durchschnitt mit Ergebnis $\emptyset$/ $\neq \emptyset$ die Aussage \enquote{irgendwie nahe}/\enquote{irgendwie nicht nahe} (wobei die Güte der Aussage natürlich von der \enquote{Größe} der Menge $U$ abhängt; ein Maß dafür könnte z.B. sein, für wie viele Mengen $U$ eine Umgebung, wie viele Punkte also enthalten sind).
+%Nähe bedeutet hier also, dass eine Menge in einem Element der Topologie liegt, wodurch man die \enquote{Position} bzw. eher das Verhältnis dieser Menge zu anderen Mengen bestimmen kann (die ebenfalls Element der Topologie sein können oder selbst eine Umgebung haben können).{
+
+Auch die folgenden Definitionen sind die Erweiterung intuitiver Begriffe:
+\begin{defi}[Rand, Inneres, Abschluss]
+$(M, \tau)$ sei ein topologischer Raum und $A \subset M$.
+
+\begin{enumerate}
+\item $p \in M$ heißt \Def[Rand! -punkt]{Randpunkt von $A$}, wenn
+\begin{equation*}
+A \cap U \neq \emptyset \qquad \qquad \qty(M \backslash A) \cap U \neq \emptyset
+\end{equation*}
+für alle offenen Umgebungen $U$ von $p$ gilt. Die Menge $\partial A$ aller Randpunkte wird als \Def[Rand]{Rand von $A$} bezeichnet.
+
+\item $\overline{A} := A \cup \partial A$ heißt \Def[Abschluss]{Abschluss von $A$}.
+
+\item $A^\circ := A \backslash \partial A$ heißt \Def[Inneres]{Inneres von $A$}.
+
+\item $M \backslash \overline{A}$ heißt \Def[Äußeres]{Äußeres von $A$}.
+\end{enumerate}
+\end{defi}
+
+Ganz wichtig ist, dass Randpunkte nicht immer zur eigentlichen Menge gehören müssen, sie können auch einfach sehr nahe an ihr dran liegen. Das beste Beispiel ist dort ein offenes Intervall der Form $A = (0, 1) \subset \mathbb{R}$, dessen Rand genau die Menge $\partial A = \qty{0, 1}$ ist. Das Intervall geht nämlich genau bis an die $0, 1$ heran, enthält diese aber nicht mehr. Offenbar ist der Abschluss von $A$ genau $\overline{A} = [0, 1]$ und $A = A^\circ$ (das Äußere ist hier nicht eindeutig anzugeben, sondern hängt von der gewählten Übermenge $M$ ab; $M = \mathbb{R}$ ist möglich, aber auch andere Teilmengen, die $A$ enthalten, sind denkbar). Von Aussagen wie $A = A^\circ$ lassen sich indes auch allgemeine Versionen angeben: %Einige etwas allgemeinere Versionen von Schlussfolgerungen in dieser Art werden nun in einem Korollar zusammengefasst:
+\begin{cor}
+$(M, \tau)$ sei ein topologischer Raum und $A \subset M$.
+
+\begin{enumerate}
+\item $A^\circ$ ist offen und $\overline{A}, \, \partial A$ sind abgeschlossen.
+
+%\item Für $A$ offen ist $\partial A = \emptyset \; \Leftrightarrow \; A = A^\circ$.%$A \cap \partial A = \emptyset \; \Leftrightarrow \; \partial A = \emptyset \; \Leftrightarrow \; A = A^\circ$.
+
+%\item Für $A$ abgeschlossen ist $\overline{A} = A$.
+
+\item $A$ offen $\Leftrightarrow \; A = A^\circ \; \Leftrightarrow \; \partial A \subset M \backslash A$.
+
+\item $A$ abgeschlossen $\Leftrightarrow \; \overline{A} = A \; \Leftrightarrow \; \partial A \subset A$.
+
+\item $A$ ist offen und abgeschlossen $\Leftrightarrow \; \partial A = \emptyset$.
+\end{enumerate}
+\end{cor}
+Es handelt sich jeweils Schlussfolgerungen aus topologischen Argumenten in Widerspruchsbeweisen und man sieht z.B. direkt, dass 2., 3. $\Rightarrow$ 4..
+
+
+
+%		\subsection{Kompakte, zusammenhängende Mengen}
+Nachdem primär allgemeinere offene Mengen diskutiert wurden, sollen kurz etwas speziellere Mengen mit ebenso interessanten Eigenschaften besprochen werden.
+
+\begin{defi}[Kompaktheit]
+
+\end{defi}
+
+$K \subset M$ heißt kompakt, wenn man eine endliche Überdeckung findet (also endlich viele offene Teilmengen von $M$, in deren Vereinigung $K$ liegt) -> beachte, dass endlich eine noch stärkere Einschränkung ist als abzählbar!; abgeschlossene Teilmengen von kompakten Mengen sind wieder kompakt (aber nicht jede kompakte Menge muss abgeschlossen sein! Also allgemein kann man das in topologischen Räumen nicht so sagen!)
+
+
+
+\begin{defi}[Zusammenhang]%klingt weird, aber dass eine Menge zusammenhängend ist, sollte genau den Zusammenhang von ihr beschreiben
+
+\end{defi}
+
+\Def[Zusammenhangskomponente]{Zusammenhangskomponenten} sind maximale (also größtmögliche) zusammenhängende Mengen eines topologischen Raumes; \Def{zusammenhängend} heißt bei einem topologischen Raum $M$, dass es nicht zwei disjunkte Mengen geben kann, die zusammen wieder $M$ ergeben (formal: existieren offene Mengen $U_1, U_2$ mit $U_1 \cap U_2 = \emptyset, U_1 \cup U_2 = M$, so muss $U_1 = \emptyset, U_2 = M$ oder $U_1 = M, U_2 = \emptyset$ folgen); man verallgemeinert das sinnvollerweise auf Teilmengen eines topologischen Raumes, indem man das Ganze bezüglich der Teilraumtopologie untersucht, dann darf die Teilmenge also nicht aus solchen disjunkten Mengen bestehen
+
+? Hausdorffraum hat nur zwei Zusammenhangskomponenten (ist also zusammenhängend) ? Sehe jetzt nicht direkt, warum das so sein sollte ehrlich gesagt...
+
+
+
+		\subsection{Metrische Räume}
+%In topologischen Räumen kann man also bereits sehr viel Mathematik betreiben, aber nicht alles ist dort. Eine Beschränkung ist beispielsweise, dass Hausdorffräume zwar einen gewissen Nähebegriff liefern und damit prinzipiell auch einen Grenzwertbegriff - dieser hängt jedoch maßgeblich von der gewählten Topologie auf der jeweiligen Menge ab. Er ist also nicht eindeutig und damit auch nicht brauchbar. Die Definition eines sinnvollen Grenzwertbegriffs und damit auch von Folgen funktioniert nur bei einer gewissen Klasse topologischer Räume, die noch etwas mehr Struktur besitzen.
+In topologischen Räumen lässt sich bereits sehr viel Mathematik betreiben, aber nicht alles ist dort möglich. Eine Beschränkung ist beispielsweise, dass Hausdorffräume, offene Mengen zwar einen Nähebegriff liefern und damit auch einen Grenzwertbegriff -- dieser hängt jedoch maßgeblich von der gewählten Topologie auf der jeweiligen Menge ab. Außerdem ist er in Nicht-Hausdorffräumen nicht eindeutig und damit auch nicht wirklich brauchbar. Einen alternativen und besseren Nähe-, Grenzwertbegriff erhält man in einer ganz speziellen Klasse topologischer Räume, die noch etwas mehr Struktur besitzen:
+
+\begin{defi}[Metrik]
+Metrischer Raum ist Menge $M$ mit Abbildung $d: M \cross M \rightarrow \mathbb{R}$ (die Metrik) mit folgenden Eigenschaften:
+
+(i) $d(x, y) \geq 0, \quad \forall x, y \in M$ und $d(x, y) = 0 \Leftrightarrow x = y$ (positive Definitheit)
+
+(ii) $d(x, y) = d(y, x), \quad \forall x, y$ (Symmetrie)
+
+(iii) $d(x, y) \leq d(x, z) + d(z, y), \quad \forall x, y, z \in M$ (Dreiecksungleichung)
+\end{defi}
+
+können so also abstände messen und damit sehr ähnlich zum $\mathbb{R}^n$ argumentieren; das ist nun auch quantitativ und nicht qualitativ
+
+
+dass metrische Räume eine Teilmenge der topologischen Räume ist, sieht man am folgenden Beispiel
+
+\begin{bsp}[Abstandstopologie]
+kriegen also immer eine Topologie auf metrischen Räumen (natürlich können auch noch andere existieren, nicht jede von Metrik induziert), die Umkehrung gilt hingegen nicht
+\end{bsp}
+
+wichtige Beispiele sind
+
+\begin{bsp}[Normierte Vektorräume]
+hierzu gehört insbesondere $\mathbb{R}^n$
+\end{bsp}
+
+
+\begin{satz}
+jede endliche Teilmenge eines metrischen Raumes ist abgeschlossen (und damit kompakt)
+\end{satz}
+damit insbesondere Punkte abgeschlossen
+
+Heine-Borel machen? Vor allem wegen Folgerungen daraus: abgeschlossen als Komplement offen, aber daher gilt natürlich auch offen als Komplement abgeschlossen ! die zweite Aussage kann besser zu zeigen sein, z.B. wegen Folgenabgeschlossenheit
+
+\begin{satz}
+im $\mathbb{R}^n$ mit der Standardmetrik ist ein $K \subset \mathbb{R}^n$ genau dann kompakt, wenn es abgeschlossen und beschränkt ist
+\end{satz}
+
+metrische Räume scheinen immer hausdorffsch zu sein (seems irgendwie legit, können ja Abstände gut messen) -> ne, aber dann folgt trotzdem was tolles (steht bei Heller)
+
+jetzt schon zu MF: deren Topologie ist immer metrisierbar (das Wort Abstandstopologie fiel, weil man mit einer Metrik genau das definieren kann); das ist dann Teil der Riemann'schen Geometrie, aber bei UMF als Teilmengen des $\mathbb{R}^n$ schon besser vorstellbar (übernimm einfach die Metrik vom $\mathbb{R}^n$, die über Standardskalarprodukt definiert ist und sonst konstruieren wir uns halt ein solches)
+
+
+\newpage
+
+
+	\section{*Stetige Abbildungen*}
+%Ein weiterer großer Vorteil am speziellen Mengensystem Topologie ergibt sich bei der Betrachtung von Abbildungen zwischen topologischen Räumen. Für diese lässt sich nämlich der im $\mathbb{R}^n$ meist eher anschaulich (\enquote{man muss den Stift beim Zeichnen nicht absetzen}) motivierte Begriff der Stetigkeit und darauf aufbauend später auch der der Differenzierbarkeit erweitern.
+Ein weiterer großer Vorteil des Mengensystems Topologie ergibt sich bei der Betrachtung von Abbildungen zwischen topologischen Räumen. Auch dort betrachtet man nicht unbedingt beliebige, sondern gewisse Klassen. Wichtig ist unter Anderem der Begriff der Stetigkeit, den man aus dem $\mathbb{R}^n$ eher anschaulich motiviert kennt (\enquote{man muss den Stift beim Zeichnen nicht absetzen}) und der die Basis für weitere Klassifikationen wie Differenzierbarkeit oder auch Integrierbarkeit bildet.
+
+\begin{defi}[Stetigkeit]
+Eine Abbildung $f: M \rightarrow N$ zwischen topologischen Räumen $(M, \tau_M), \, (N, \tau_N)$ heißt \Def{stetig}, wenn
+\begin{equation}
+f^{-1}(U) \in \tau_M, \quad \forall U \in \tau_N \, .
+\end{equation}
+
+Ist $f$ zusätzlich bijektiv und auch die Umkehrabbildung $f^{-1}$ stetig, so nennt man es auch \Def{Homöomorphismus} und die topologischen Räume \Def[Homöomorphismus]{homöomorph}.
+\end{defi}
+
+	\anm{daraus lässt sich die Definition punktweiser Stetigkeit ableiten, dass für $x_0 \in M$ jede offene Umgebung von $f(x_0)$ auf eine Umgebung von $x_0$ abgebildet werden soll (nicht unbedingt eine offene).}
+
+Die Stetigkeit einer Abbildung bedeutet in topologischen Räumen also einfach nur, dass diese Abbildung die tollen Eigenschaften offener Mengen in gewisser Weise erhält. Dabei ist es jedoch nicht so, dass offene Mengen auf offene Mengen abgebildet werden (das wäre schön, da besser zu merken/ intuitiver; Abbildungen mit dieser Eigenschaft werden manchmal auch \Def{offen} genannt), sondern \enquote{lediglich} die Offenheit von Urbildern offener Mengen wird gefordert. Bei Homöomorphismen ist diese Aussage hingegen möglich, weil ja auch die Umkehrabbildung stetig ist (auch die Struktur anderer topologischer Begriffe wie zusammenhängender Mengen bleibt unter ihnen erhalten).
+
+Als direkte Folgerung ergibt sich das folgende Korollar.
+\begin{cor}
+Die Verkettung stetiger Abbildungen ist stetig.
+\end{cor}
+
+Man mag sich nun fragen, inwiefern das eine Verallgemeinerung des intuitiven Stetigkeitsbegriffes ist. Im folgenden Beispiel wird zu diesem Zweck die Definition offener Mengen in der Standardtopologie untersucht:
+
+\begin{bsp}[$\epsilon$-$\delta$-Kriterium]
+Die neben Grenzwertbildung wohl bekannteste Methode, um die Stetigkeit einer Abbildung im $\mathbb{R}^n$ zu zeigen, ist das \Def{$\epsilon$-$\delta$-Kriterium}. Im Spezialfall einer Funktion $f: U \rightarrow V$ mit $U, V \subset \mathbb{R}$ lautet es (aus Wikipedia zu Stetigkeit): 
+\begin{center}
+\enquote{$f$ heißt stetig in $x_0$, wenn zu jeden $\epsilon > 0$ ein $\delta > 0$ existiert, sodass für alle $x \in U$ mit $\abs{x - x_0} < \delta$ gilt: $\abs{f(x) - f(x_0)} < \epsilon$.}
+\end{center}
+In kurz also: für $x$ nahe $x_0$ soll auch $f(x)$ nahe $f(x_0)$ sein.
+
+Übersetzt man das aber ein wenig in die Sprache von Mengen und Topologien, so heißt das einfach nur, dass eine offene Menge $U$ (das Intervall $(x_0 - \delta, x_0 + \delta)$) abgebildet wird auf die Menge $f(U)$ und diese soll ebenfalls offen sein (hier ist das $f((x_0 - \delta, x_0 + \delta)) = (f(x_0 - \delta), f(x_0 + \delta))$). Intervalle sind ja nichts anderes als eindimensionale Bälle und deshalb entsprechen offene Intervalle den offenen Mengen bezüglich der Standardtopologie.
+
+Auch dieses Beispiel zeigt also, dass die Definition einer Topologie bestens geeignet ist, um intuitive Begriffe aus dem $\mathbb{R}^n$ aus allgemeinere Mengen zu übertragen. Außerdem sieht man auch, dass ein $\delta(\epsilon)$ gesucht wird und das $\epsilon$ beschränkt den Bildbereich (es geht also um offene Mengen im Bildbereich und abhängig davon schaut man sich den Definitionsbereich an), also genau wie in der Definition zuvor.
+\end{bsp}
+
+Probleme beim Akzeptieren dieses Stetigkeitsbegriffes kommen vermutlich zumindest in Teilen daher, dass man in topologischen Räumen nicht von der Existenz gewisser Grenzwerte sprechen kann (diese lassen sich erst mit einer Metrik in metrischen Räumen messen), für die das Nicht-Absetzen eines Stiftes sonst ein sehr gutes Symbol ist. Es ist sogar so, dass Stetigkeit eigentlich zunächst auf metrischen Räumen definiert wird und dann nach Zeigen einiger äquivalenter Definitionen übertragen wird, weil diese eben auch auf topologischen Räumen gelten (hier sind topologische Räume aber zunächst wichtiger, daher wird dieser Schritt übersprungen).
+
+Einen weiteren direkten zwischen stetigen Abbildungen und Topologien zeigt das folgende Beispiel auf.
+
+\begin{bsp}[Quotiententopologie]
+man kann Abbildungen hiermit quasi per Definition zu Homöomorphismen machen, indem man die von ihnen induzierte Quotiententopologie betrachtet
+\end{bsp}
+
+Dieser Begriff wird sich im weiteren Laufe dieser Zusammenfassung noch als sehr nützlich erweisen (siehe Lemma \ref{lemma:ind_top_mf}).
+
+
+Auch wenn stetige Abbildungen im Allgemeinen keine analogen Aussagen über abgeschlossene Mengen erlauben, da man nicht davon ausgehen kann, dass überhaupt alle Punkte im jeweiligen Komplement getroffen werden (an der Formulierung des Problems ist zu erkennen, dass diese Aussage für Homöomorphismen gilt), ist das immerhin auf kompakten Mengen möglich, dort gilt der folgende Satz.
+
+\begin{satz}
+Eine stetige Abbildung bildet kompakte Mengen auf kompakte Mengen ab.
+\end{satz}
+
+Interessant ist, dass es sich hier um entgegengesetzte Richtung im Vergleich zur Definition von Stetigkeit handelt, also von Definitions- in Wertebereich. Dieser Satz ermöglicht dann schon fast als Korollar den Beweis des folgenden, sehr wichtigen Satzes (auch wenn dieser hier nicht explizit ausgeführt wird).
+
+\begin{satz}
+Eine stetige Abbildung $f: M \rightarrow N$ ist auf jeder kompakten Teilmenge $K \subset M$ beschränkt und nimmt dort Infimum sowie Supremum an.
+\end{satz}
+
+Da Infimum und Supremum tatsächlich angenommen werden, handelt es sich dann sogar um Minimum und Maximum der Funktion $f$. Kompakte Mengen schränken die Allgemeinheit also genug ein, um solche recht speziellen Aussagen zu erlauben und sind (wenn auch bei weitem nicht nur deswegen) beliebte Objekte. Dieser Satz erinnert jedoch vermutlich eher an Extrempunkte/ Differenzierbarkeit als an Stetigkeit und genau diesen Themen ist der nächste Abschnitt gewidmet.
+
+
+\newpage
+
+
+	\section{*Differenzierbarkeit*}
+ja, stetige Funktionen nehmen auf einem Kompaktum Minimum/ Maximum an, aber für Differenzierbarkeit braucht man dann doch noch etwas mehr (die Existenz einer linearen Abbildung in jedem Punkt ist wichtig, nicht nur in den Extrema quasi)
+
+werden uns hier auf reelle, endlichdimensionale VR einschränken (müssen nicht, das geht auch in Banachräumen, aber eben nicht in den bis jetzt behandelten topologischen und von daher wäre das nur verwirrend)
+
+bei differenzierbar auch direkt Diffeomorphismus definieren
+
+hier wird nicht mehr Verhalten auf $\mathbb{R}^n$ betrachtet, sondern die auf topologischen Räumen (allgemeiner als vorher)
+
+bedenke: Differential $D_p f$ ist eine Approximation an die Funktion $f$ am Punkt $p$ und zwar nur die erster Ordnung, damit man eine lineare Abbildung hat (wertvolle Eigenschaft); man kriegt also Tangente an $f$ in $p$
+
+hier genutzte Notation: $D_p f(v)$ ist die Ableitung von $f$ (sonst eher geschrieben als $f(x)$ und $x$ wird variiert; $p$ ist dann ein spezieller Punkt $x$, an dem das Ding ausgewertet werden soll, man könnte aber vlt auch $f(p)$ setzen und $p$ als beliebigen Punkt ansehen) an der Stelle $p$ und in Richtung des Vektors $v$ -> der Vektor wird da ja als Argument reingesteckt und es kommt ein neuer raus ! Die Jacobi-Matrix ist dann halt die Darstellungsmatrix des Differentials $D_p f$ und die Richtungsableitung entlang $v$ entspricht der Multiplikation mit $v$ von rechts an die Jacobi-Matrix
+
+\begin{satz}[Kettenregel]
+Sind $f: \Omega \rightarrow \mathbb{R}^m$ mit $\Omega \subset \mathbb{R}^n, \, f(\Omega) \subset \Lambda \subset \mathbb{R}^m$ (beide offen) in $x_0 \in \Omega$ differenzierbar und $g: \Lambda \rightarrow \mathbb{R}^l$ in $f(x_0) \in \Lambda$ differenzierbar, so ist auch $g \circ f: \Omega \rightarrow \mathbb{R}^l$ in $x_0$ differenzierbar und es gilt
+\begin{equation}
+D_{x_0}\qty(g \circ f) = D_{f(x_0)} g \circ D_{x_0} f \, .
+\end{equation}
+\end{satz}
+? Bild als Teilmenge wird wegen Stetigkeit gefordert ? jo scheint so
+
+Dabei bedeutet $D_{f(x)} g \circ D_x f (v)$, dass man $f$ am Punkt $p$ in Richtung $v$ ableitet und danach (daher das $\circ$) das Ergebnis davon als Richtung einsetzt, in die $g$ am Punkt $f(p)$ abgeleitet wird, also eher: $D_{f(x)} g \circ D_x f (v) = D_{f(x)} g \qty(D_x f (v))$; nur für Abbildungen $f: \mathbb{R} \rightarrow \mathbb{R}, g: \mathbb{R} \rightarrow \mathbb{R}$ wird das Ganze zur Multiplikation der Ableitungen !!! Bzw. auch im Spezialfall einer linearen Abbildung der Form $f: \mathbb{R}^n \rightarrow \mathbb{R}^n, \; x \mapsto \lambda x$, weil dann die Linearität des Differentials nutzbar ist: $D_{f(x)} g \qty(D_x f (v)) = D_{f(x)} g \qty(\lambda \mathds{1} \cdot v) = D_{f(x)} g \qty(\lambda v) = \lambda \, D_{f(x)} g \qty(v) = \dv{f(x)}{x} \, D_{f(x)} g \qty(v) = D_x f \, D_{f(x)} g \qty(v)$ (weil ja $\lambda = \dv{\lambda x}{x} = \dv{f(x)}{x}$; $\lambda$ muss jedoch im Allgemeinen keine reelle Zahl sein, kann auch Matrix z.B. sein, wobei das dann natürlich nicht mehr so klappen würde); man beachte, dass das Auswerten des Differentials von $g$ im Punkt $f(x_0)$ heißt, dass die Verknüpfung mit der Funktion da bleibt, aber dass man halt dazu die (in der Schule so genannte, hier aus später zu erläuterten Gründen eher irreführend) äußere Ableitung machen muss, während $D_x f(v)$ der inneren Ableitung entspricht
+
+äquivalente Notationen für die Ableitung von $\psi \circ \phi^{-1}$ am Punkt $\varphi(p)$ in Richtung $v$ sind:
+\begin{equation}
+\qty(D_{\varphi(p)} \psi \circ \varphi^{-1})(v) \; \equiv \; D_{\varphi(p)} \qty(\psi \circ \varphi^{-1})(v) \; \equiv \; D_{\varphi(p)} \psi \circ \varphi^{-1}(v) \, .
+\end{equation}
+
+
+
+Zudem mega wichtig (von \url{https://de.wikibooks.org/wiki/Analysis_II:_Ableitungen:_Diffeomorphismen}):
+\begin{satz}
+Für eine diffeomorphe Abbildung $\phi: U \rightarrow V$ zwischen Teilmengen $U \subset X, V \subset Y$ zweier Vektorräume $X, Y$ sind für jedes $x \in U$ die Differentiale $D_x \phi, \, D_{\phi(x)} \phi^{-1}$ Isomorphismen und es gilt
+\begin{equation}
+\qty(D_x \phi)^{-1} = D_{\phi(x)} \phi^{-1} \, .
+\end{equation}
+\end{satz}
+Insbesondere folgt Bijektivität des Differentials (das ist auch eigentlich nur zu zeigen, weil die Linearität ja per Definition erfüllt ist) ! Dabei müssen $X, Y$ gleiche Dimension haben (bzw. folgt das bereits aus der Existenz eines Diffeomorphismus zwischen ihnen). Beweis wurde für Mannigfaltigkeiten auf den Übungszetteln einmal gemacht
+
+-> wichtig: das heißt nicht, dass man die inversen (also reziproken) Komponenten nimmt ! Gemeint sind die von der Umkehrfunktion
+
+
+\begin{satz}[Lokales Diffeomorphie-Kriterium]
+
+\end{satz}
+Bei Existenz des Diffeomorphismus in einem Punkt erhält man hier also die Existenz in einer ganzen offenen Umgebung.
+
+
+
+auch was zu Extremstellen mit Nebenbedingung machen, das hier von Whatsapp dazu (Kommentar zu Abschnitt Smoczyk dazu): Auf jeden Fall auch Extremwerte unter Nebenbedingungen reinhauen, nach (oder als subsection in) Differenzierbarkeit. Idee ist da einfach, dass nicht das Minimum in einem Intervall bzw auf dem gesamten Definitionsbereich gesucht wird, sondern das Minimum auf einer speziellen Menge, die eine gewisse Nebenbedingung erfüllt. Dort ist nicht garantiert (bzw auch eigentlich fast nie so), dass das Minimum auf dieser Menge dann wirklich 0 wird im Differential, sondern man muss sich echt alle Punkte angucken und dann die Werte des Differentials an diesen Punkten vergleichen, aber es gibt glücklicherweise die eine Formel mit den Lagrange Multiplikatoren
+
+
+\newpage
+
+
+	\section{*Gewöhnliche Differentialgleichungen*}\label{sec:gdgl}
+schauen uns hier jetzt neue Objekte an und nutzen dabei den neuen Begriff der Differenzierbarkeit; Objekt kann man anschaulich daran sehen, dass uns das Ding ne Lösungskurve gibt, die halt darin nur versteckt ist quasi (nicht direkt ersichtlich)
+
+hier Beschränkung auf 1. Ordnung (also keine zweiten oder höhere Ableitungen)
+
+hier dann Wiederholung \Def[Differentialgleichung! auf dem $\mathbb{R}^n$]{Gewöhnlicher Differentialgleichungen (GDGL)}
+
+man braucht dann immer ein Intervall (offen oder geschlossen egal, meist wird $0 \in I$ angenommen, weil dann die verallgemeinerte Behandlung oft besser geht, beispielsweise bei Anfangswertproblemen) vor, eine offene Menge $U \subset \mathbb{R}^n$ und ein zeitabhängiges Vektorfeld $X: I \cross U \rightarrow \mathbb{R}^n$ auf $U$, das zu jeder Zeit $t \in I$ und an jedem Punkt $p \in U$ einen Vektor und damit eine Richtung vorgibt
+
+eine \Def{Lösung} (allgemeiner oft auch als \Def{Integralkurve} bezeichnet) der Gleichung (das ist die GDGL)
+\begin{equation}
+\gamma'(t) = X(t, \gamma(t))
+\end{equation}
+ist dann eine Kurve $\gamma: J \subset I \rightarrow U$ ($J$ muss dabei nicht-trivial sein, also mindestens zwei Punkte enthalten), sodass die DGL für alle Zeiten $t \in J$ gilt (natürlich muss dann $\gamma$ differenzierbar sein)
+
+man nennt anscheinend auch GDGL glatt (und zwar wenn das Vektorfeld $X$ glatt ist, die Kurve müsste auch glatt sein dann)
+
+ein \Def[Anfangswertproblem! auf dem $\mathbb{R}^n$]{Anfangswertproblem (AWP)} ist das Suchen einer Lösung der DGL mit fest vorgegebenem Startwert $p = \gamma(0) \in U$
+
+
+anschauliche Erklärung: die Lösungskurve $\gamma(t)$ gibt zwar immer nur Punkte aus, schickt uns aber gerade auf so einem Weg zu diesen Punkten, dass die Bewegung immer in die Richtung des Vektorfeldes erfolgt und damit die Ableitung der Kurve (Richtungsableitung ist hier ja überflüssig zu sagen beim skalaren Parameter $t$, weil man in $\mathbb{R}$ eh nur Vielfache von $1, -1$ als Richtungen hat und daher meist oBdA 1 dafür einsetzt) in Richtung des Vektorfelds zeigt
+
+
+\begin{bsp}
+betrachte das Vektorfeld mit der zugehörigen DGL
+\begin{equation}
+X: \mathbb{R} \cross \mathbb{R}^2 \rightarrow \mathbb{R}^2, \; \qty(t, \mqty(x \\ y)) \mapsto \mqty(-y \\ x) \quad \Rightarrow \quad \mqty(\gamma_1(t) \\ \gamma_2(t)) = \mqty(- \gamma_2(t) \\ \gamma_1(t))
+\end{equation}
+-> da fehlen dots oder?
+
+dann ist für $p = (x_0, y_0)$ die Kurve
+\begin{equation}
+\gamma: \mathbb{R} \rightarrow \mathbb{R}^2, \; t \mapsto \mqty(\cos(t) & -\sin(t) \\ \sin(t) & \cos(t)) \cdot \mqty(x_0 \\ y_0)
+\end{equation}
+eine Lösung für das Anfangswertproblem $\gamma' = X(\cdot, \gamma(\cdot))$ mit $\gamma(0) = p$
+\end{bsp}
+
+\begin{bsp}
+betrachte das AWP und die zugehörige DGL
+\begin{equation}
+X: \mathbb{R} \cross \mathbb{R} \rightarrow \mathbb{R}, \; (t, x) \mapsto x^2 \quad \Rightarrow \quad \gamma'(t) = \gamma(t)^2
+\end{equation}
+mit $\gamma(0) = 1$
+
+eine Lösung ist dann gegeben durch
+\begin{equation}
+\gamma: \mathbb{R}^{< 1} \rightarrow \mathbb{R}, \; t \mapsto \frac{1}{1 - t}
+\end{equation}
+beachte: das entspricht dem $x$ (wird ja gerade eingesetzt ins Vektorfeld) !
+
+man kann nun nämlich leicht berechnen, dass $\gamma'(t) = \frac{1}{(1 - t)^2} = (\gamma(t))^2$ und zudem lässt sich die Lösung nicht über $t = 1$ hinaus fortsetzen
+\end{bsp}
+
+
+neben dem Finden von Lösungen (wozu sie erst einmal existieren müssen) war es ja auch immer wichtig, dass diese eindeutig sind; unter gewissen Voraussetzungen an die Vektorfelder kann man das nun allgemein untersuchen
+
+nehmen nun an: $X: I \cross U \rightarrow \mathbb{R}$ glatt und $I = [-1, 1]$; warum geht das ? naja, können einfach reskalieren (geht nur bei symmetrischem Intervall der Kurve oder ? sonst aber bestimmt auch Translation möglich) und die äquivalente DGL auf $[-1, 1]$ benutzen, das sieht man für $\tilde{\gamma}(t) := \gamma(ct), 0 < c \in \mathbb{R}$, weil dann nach der Kettenregel $\tilde{\gamma}'(t) = c \gamma'(c t) = c \, X(ct, \gamma(ct))$
+
+nehmen dann Banachräume der stetigen Abbildungen auf $I$ (nach $\mathbb{R}^n$) und der stetig dfb Abbildungen auf $I$ -> ab hier reicht es dann auch, was sollen denn die Banachräume da jetzt...
+
+beide Normen sind vollständig, das heißt im induzierten metrischen Raum konvergieren alle Cauchy-Folgen
+
+wollen stetige Abhängigkeit vom Punkt (der eingesetzt wird, also wie immer bei Differenzierbarkeit)
+
+\begin{satz}[Existenz und Eindeutigkeit einer Lösung]\label{satz:loesgdglreell}
+Für $X: I \cross U \rightarrow \mathbb{R}^n$ glatt und $x_0 \in \mathbb{R}^n$ existiert ein $V \subset U$ offen mit $x_0 \in V$ und ein $\delta > 0$, sodass $\forall x \in V: \exists \gamma^x$ sodass $\gamma'(t) = X(t, \gamma(t))$ sich eindeutig auf $J = (-\delta, \delta)$ lösen lässt und zudem $\gamma^x(0) = x_0$ erfüllt. Darüber hinaus ist die Abbildung
+\begin{equation}
+J \cross V \rightarrow \mathbb{R}^n, \; (t, x) \mapsto \gamma^x(t)
+\end{equation}
+glatt.
+\end{satz}
+? ist das Picard-Lindelöf ? Hatte das eigentlich im Kopf, dass da was mit Iteration rauskam...
+
+haben also Existenz (vorher nicht garantiert !) einer eindeutigen Lösung für das AWP (der Anfangswert gibt also eindeutig die Lösung der DGL vor !) und auch glatte Abhängigkeit der Lösung vom Anfangswert (weil die Abbildung auf die Lösung für alle Punkte und alle Zeiten glatt ist -> das ist doch sogar schon ein Fluss oder ?), folgt im Wesentlichen durch Anwenden des Satzes über implizite Funktionen
+
+sagen glatte DGL, wenn das Vektorfeld glatt ist -> Lösung sollte eigentlich immer Integralkurve heißen (weil man ja im Prinzip integriert weil man ne Ableitung wegmacht und dann eine Kurve erhält)
+
+zudem folgt aufgrund der Beweisführung sofort, dass für ein Vektorfeld $X_y: I \cross U \cross W \rightarrow \mathbb{R}^n$, das glatt von einem zusätzlichen Parameter $y \in W \subset \mathbb{R}^k$ ($W$ offen) abhängt, auch die Lösung des AWP $\gamma'(t) = X_y(t, \gamma(t))$ glatt von $y$ abhängt
+
+
+Man nennt $\gamma: J \rightarrow U$ \Def{maximale Lösung} eines AWP und $J$ \Def{maximales Definitionsintervall}, wenn für jedes andere Intervall $J \subset \tilde{J} \subset I$ und jede Lösung $\tilde{\gamma}: \tilde{J} \rightarrow U$ mit $\eval{\tilde{\gamma}}_J = \gamma$ gilt: $\tilde{J} = J$.
+
+\begin{satz}
+Ein maximales Definitionsintervall $J$ ist offen in $I$.
+
+Falls $b := \sup_{t \in J} t < \sup_{t \in I} t$ oder $a := \inf_{t \in J} t > \inf_{t \in I} t$, dann existiert für jede kompakte Teilmenge $K \subset U$ ein $\epsilon > 0$ mit
+\begin{equation}
+\gamma(t) \notin K, \; \forall t \in J \text{ mit } t > b - \epsilon \text{ oder } t < a + \epsilon \, ,
+\end{equation}
+insbesondere existieren
+\begin{equation}
+\lim_{t \rightarrow b,  t < b} \gamma(t) \qquad \qquad \lim_{t \rightarrow a, t > a} \gamma(t)
+\end{equation}
+nicht in $U$.
+\end{satz}
+
+Die Lösung verlässt also irgendwann das eigentlich betrachtete Gebiet $U$, wenn das maximale Definitionsintervall $J$ kleiner als $I$ ist (weil man ja sonst eine Fortsetzung außerhalb von $J$ finden würde, aber dann wäre $J$ nicht maximal und daher findet man keine solche Fortsetzung).
+
+\end{document} 

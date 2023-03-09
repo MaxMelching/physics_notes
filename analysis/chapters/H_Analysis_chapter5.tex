@@ -1,0 +1,1360 @@
+\documentclass[../H_Analysis_main.tex]{subfiles}
+%\input{../header} \graphicspath{ {../} }
+
+
+\begin{document}
+
+\setcounter{chapter}{4}
+
+\chapter{Multilineare Abbildungen}
+\begin{center}
+In diesem Abschnitt folgt die nächste Abstraktionsstufe/ Verallgemeinerung bei Abbildungen. Diese betrifft den Definitionsbereich, der nun das kartesischen Produkt von Tangentialräumen ist und ganz speziell wird es um die Unterklasse der in jedem Argument linearen (Multilinearen) Abbildungen gehen. Das Standardbeispiel dafür ist die Determinante, die schon in der Linearen Algebra eine wichtige Rolle spielte.
+
+Solche Konstrukte sind wohl besser unter dem Namen eines Tensors bekannt und spielen in weiten Teilen der Physik eine herausragende Rolle bei der invarianten (also basisunabhängigen) Formulierung von Sachverhalten und Gleichungen oder auch der Messung von Flüssen durch Flächen/ Volumina.
+\end{center}
+
+
+\newpage
+
+
+	\section{Tensoren}
+%vlt hilfreich: \url{https://youtu.be/gTyXwjMqejU}, \url{https://www.youtube.com/watch?v=f5liqUk0ZTw}, \url{https://www.youtube.com/watch?v=bpG3gqDM80w&t=617s}
+Mit zunehmender Anzahl an Argumenten, von denen Linearität gefordert wird, steigt auch die Komplexität der Mathematik (was zu großen Teilen an der Basisdarstellung liegt). Um das zu vermeiden, kann man etwas konstruieren, das diese multilineare Algebra auf lineare Algebra zurückführt, das sogenannte \Def{Tensorprodukt} auf dem \Def[Tensorprodukt! -raum]{Tensorproduktraum} (das sich auch unabhängig von Basen aufziehen lässt).
+
+	\anm{hier wird immer von endlich-dimensionalen Vektorräumen ausgegangen, auch wenn es von nun an nicht mehr explizit erwähnt wird.}
+
+
+Bevor nun aber die neue Konstruktion eingeführt wird, muss an einen Satz aus der Linearen Algebra erinnert werden, der ungemein bei der Veranschaulichung helfen wird (und am Anfang sogar zur Definition selbiger genutzt wird):
+\begin{satz}[Dualität]\label{satz:dualitaet}
+Für einen endlich-dimensionalen Vektorraum $V$ gilt:
+\begin{equation}
+\qty(V^*)^* \cong V \, .
+\end{equation}
+\end{satz}
+
+\begin{proof}
+Aus der linearen Algebra ist bekannt, dass $\dim(V) = \dim(V^*)$. Daher muss nur ein injektiver Homomorphismus (lineare Abbildung) zwischen $V$ und $\qty(V^*)^*$ angegeben werden, weil dann aus Dimensionsgründen sofort die Bijektivität folgt und damit ein Isomorphismus gefunden wurde. Für $v \in V$ kann man aber einfach die Abbildung
+\begin{equation*}
+v: V^*_1 \rightarrow \mathbb{K}, \; \omega \mapsto \omega(v)
+\end{equation*}
+angeben, die eine Linearform auf $V^*_1$ und damit ein Element von $(V^*)^*$ ist und in der das Argument einer beliebigen Linearform fest bleibt. Die Linearität folgt dabei aus der von $\omega$ und ganz offenbar kann jedem Vektor $v \in V$ eine solche Abbildung zugeordnet werden. Es bleibt nun noch die Injektvität zu zeigen:
+\begin{align*}
+v_1(\omega) = v_2(\omega) \quad \Leftrightarrow \quad \omega(v_1) &= \omega(v_2)
+\\
+\Leftrightarrow \quad 0 = \omega(v_1) - \omega(v_2) = \omega(v_1 - v_2) &= \qty(v_1 - v_2) \, \omega(1)
+\end{align*}
+und weil das für alle Linearformen $\omega \in V^*$ gelten muss, folgt bereits $v_1 = v_2$.
+
+Die konstruierte Abbildung $v$ ist damit ein (sogar kanonischer) Isomorphismus.
+\end{proof}
+
+Diese Interpretation als Linearform auf dem Dualraum wird dabei helfen, Vektoren in einem Zuge mit Abbildungen zu behandeln (die ja auch nur Vektoren im Dualraum sind).\\
+
+Zunächst wird nun der Formalismus rund um Tensoren für zwei Vektorräume entwickelt, die Verallgemeinerung auf mehr Faktoren ist jedoch unproblematisch.
+
+\begin{defi}[Tensorprodukt von (Ko-)Vektoren]\label{defi:tpkov}
+Für endlich-dimensionale $\mathbb{K}$-Vektorräume $V_1, V_2$ ist die Menge der \Def{Bilinearformen}
+\begin{equation}
+\text{BiLi}(V_1, V_2; \mathbb{K}) = \qty{\beta: V_1 \cross V_2 \rightarrow \mathbb{K}:  \beta(v_1, \cdot) \in V_2^* \; \wedge \; \beta(\cdot, v_2) \in V_1^*}
+%\qty{\beta: V_1 \cross V_2 \rightarrow \mathbb{K}:  \beta(v_1, \cdot) \in V_2^*, \forall v_1 \in V_1 \; \wedge \; \beta(\cdot, v_2) \in V_1^*, \forall v_2 \in V_2}
+\end{equation}
+ein ebenfalls endlich-dimensionaler $\mathbb{K}$-Vektorraum.
+
+Das \Def[Tensorprodukt! von Vektoren]{Tensorprodukt zweier Vektoren aus $V$} ist dann definiert als
+\begin{equation}
+\text{BiLi}(V^*_1, V^*_2; \mathbb{K}) \ni v_1 \otimes v_2: V^*_1 \cross V^*_2 \rightarrow \mathbb{K}, \; (\omega, \eta) \mapsto \omega(v_1) \eta(v_2) \, .
+\end{equation}
+Übertragen der Konstruktion liefert das \Def[Tensorprodukt! von Kovektoren]{Tensorprodukt zweier Kovektoren aus $V^*$}
+\begin{equation}
+\text{BiLi}(V_1, V_2; \mathbb{K}) \ni \omega \otimes \eta: V_1 \cross V_2 \rightarrow \mathbb{K}, \; (v_1, v_2) \mapsto \omega(v_1) \eta(v_2) \, .
+\end{equation}
+\end{defi}
+	\anm{man beachte in Klammer hinter BiLi: alles was mit einem Komma abgetrennt wird, bezieht sich auf ein Argument und das nach dem Semikolon auf den Wertebereich. Bei z.B. Homomorphismen ist das anders, weil man dort immer nur zwei Eingänge hat (erster $\equiv$ Definitionsbereich und zweiter $\equiv$ Wertebereich).}
+
+Das Tensorprodukt zweier Vektoren entspricht also einer Bilinearform auf dem dualen Raum (hier wurde direkt die Dualität $V \cong \qty(V^*)^*$ genutzt), die als Ergebnis ein Produkt im zugehörigen Körper liefert (die Definition für Kovektoren ergibt sich daraus bereits für $V_1 = \tilde{V}^*$, wurde aber noch einmal aufgeführt). Der Name Bilinearform kommt daher, dass man eine in zwei Argumenten lineare Abbildung hat und das bedeutet einfach, dass $\beta$ bei Festhalten eines Arguments eine Linearform im anderen Argument bildet, also ein Element des Dualraums (je $\forall v_1 \in V_1, \forall v_2 \in V_2$).
+
+Folgender Satz hilft beim tieferen Verständnis der Vorteile von $\otimes$:
+\begin{satz}[Universelle Eigenschaft]
+Für $V_1, V_2, W$ als endlich-dimensionale $\mathbb{K}$-Vektorräume und $B: V_1 \cross V_2 \rightarrow W$ bilinear existiert genau eine lineare Abbildung
+\begin{equation*}
+\text{Hom}\qty(\text{BiLi}(V_1^*, V_2^*; \mathbb{K}), W) \ni \mathcal{B}: \text{BiLi}(V_1^*, V_2^*; \mathbb{K}) \rightarrow W
+\end{equation*}
+mit
+\begin{equation}
+B(v_1, v_2) = \mathcal{B}(v_1 \otimes v_2), \quad v_1 \in V_1, v_2 \in V_2
+\end{equation}
+Man sagt dann auch, dass $B$ \Def[Faktorisierung]{faktorisiert}.
+\end{satz}
+\begin{proof}
+man beobachte zunächst, dass
+\begin{equation*}
+\dim\qty(\text{BiLi}(V_1, V_2; W)) = \dim(V_1) \dim(V_2) \dim(W) = \dim\qty(\text{Hom}\qty(\text{BiLi}(V_1^*, V_2^*; \mathbb{K}), W)) \, ,
+\end{equation*}
+die Dimensionen passen also schonmal; nun wird noch eine injektive Abbildung von BiLi zu Hom benötigt, das klappt aber tatsächlich einfach mit $B \mapsto \mathcal{B}$
+\end{proof}
+
+Man macht hier den anfangs angedeuteten Übergang von der bilinearen Abbildung $B$ zur linearen (ein Argument !) Abbildung $\mathcal{B}$, wobei der Definitionsbereich von $V_1 \cross V_2$ zu $V_1 \otimes V_2 = \text{BiLi}(V_1^*, V_2^*)$ gewechselt wird. Das macht zwar die Notation bei $\mathcal{B}$ etwas unübersichtlicher, hat jedoch die eben erläuterte und damit recht einfache Deutung. Faktorisierung kann man sich also wie folgt veranschaulichen:
+
+%$$
+%\begin{tikzcd}[row sep = 42, column sep = 24]
+%V_1 \cross V_2 \arrow{rr}{B} \arrow[swap]{dr}{\otimes} & & W  \\
+% & V_1 \otimes V_2 \arrow[swap]{ur}{\mathcal{B}} & 
+%\end{tikzcd}
+%$$
+
+$$
+\begin{tikzcd}[column sep = 42]
+V_1 \cross V_2 \arrow[swap, bend right = 20]{rr}{B} \arrow{r}{\otimes} & V_1 \otimes V_2 \arrow{r}{\mathcal{B}} & W
+\end{tikzcd}
+$$
+
+Weil dieses Ersetzen von Bilinearität durch Linearität am Anfang des Abschnitts als Ziel ausgegeben wurde, ist die Wichtigkeit dieser Aussage direkt klar und daher kommt auch die Bezeichnung als \enquote{Universelle Eigenschaft}. Darüber hinaus motiviert sie eine alternative Definition des Tensorprodukts, die weniger anschaulich sein mag, aber mathematisch besser greifbar ist (und übersichtlicher):
+\begin{defi}[Tensorprodukt von Vektorräumen]%vorher war Tensorprodukt (formal)
+Das \Def[Tensorprodukt! von Vektorräumen]{Tensorprodukt zweier Vektorräume $V_1, V_2$} ist der Vektorraum $V_1 \otimes V_2$, für den eine bilineare Abbildung
+\begin{equation}
+\otimes: V_1 \cross V_2, \rightarrow V_1 \otimes V_2, \; (v_1, v_2) \mapsto v_1 \otimes v_2
+\end{equation}
+existiert, sodass jede bilineare Abbildung $B: V_1 \cross V_2 \rightarrow W$ faktorisiert und damit eine eindeutige lineare Abbildung $\mathcal{B}: V_1 \otimes V_2 \rightarrow W$ existiert, sodass $B = \mathcal{B} \circ \otimes$.
+\end{defi}
+
+Die universelle Eigenschaft wurde nun also sogar zur definierenden Eigenschaft des Tensorprodukts gemacht. Man kann dann zeigen, dass das Tensorprodukt von Vektorräumen tatsächlich auch existiert, also bilineare Abbildungen auch über Studium der zugehörigen Abbildung auf dem Tensorproduktraum untersucht werden können. Aufgrund der Bilinearität von $\otimes$ folgen sofort nützliche Eigenschaften:
+\begin{equation}\label{eq:eigschtensprod}
+(a v_1 + b v_2) \otimes (c w_1 + d w_2) = ac (v_1 \otimes w_1) + ad (v_1 \otimes w_2) + bc (v_2 \otimes w_1) + bd (v_2 \otimes w_2) \, .
+\end{equation}
+
+In dieser Form ist die Definition übrigens nur in endlich-dimensionalen Räumen möglich, daher wurde anfangs diese  Annahme getroffen. Dort erhält man aber die Eindeutigkeit von $\otimes$ bis auf natürliche Isomorphie (da müsste also nicht einmal künstlich etwas konstruiert werden, folgt aus der Faktorisierung). Offenbar kann man nun auch nicht mehr die Gleichheit zum Raum der Bilinearformen schreiben, jedoch gilt noch
+\begin{equation}
+V_1 \otimes V_2 \cong \text{BiLi}(V_1^*, V_2^*; \mathbb{K}) \, ,
+\end{equation}
+was ja mehr oder weniger äquivalent zu einer echten Gleichheit ist. Es wird sich aber als wichtiger Teil dieser formalen Definition herausstellen, dass man sich das Tensorprodukt nicht immer als Multilinearform vorstellt, sondern auch ein Verständnis für das Objekt $v_1 \otimes v_2$ entwickelt (alles andere wäre etwas umständlich).
+
+	\anm{weil das Tensorprodukt zweier Vektorräume insbesondere wieder ein Vektorraum ist, lässt sich diese Definition problemlos auf Tensorprodukte mit mehreren Faktoren erweitern, die dann multilineare Abbildungen beschreiben.}\\
+
+
+Der bis jetzt gewählte Ansatz wird meist als \enquote{dualer Zugang} zu Tensoren bezeichnet, es gibt jedoch auch andere. Einer davon soll hier noch vorgestellt werden und dieser wird motiviert von der in Gleichung \eqref{eq:eigschtensprod} festgehaltenen Eigenschaft. Die grundlegende Idee ist in diesem Abschnitt ja, möglichst klug mit mehreren Vektorräumen zu arbeiten. Das kann man auch machen, indem man das Produkt $V \cross W$ der Räume mit gewissen Relationen ausstattet, angefangen wird dabei mit dem \Def{Freien Vektorraum}
+\begin{equation}
+F(V \cross W) = \qty{\sum_{\text{endlich}} \lambda_i \, (v_i, w_i): \; \lambda_i \in \mathbb{R}, v_i \in V, w_i \in W} \, .
+\end{equation}
+
+Was ist nun der Vorteil von $F(V \cross W)$ gegenüber $V \cross W$ -- eigentlich wird alles erst einmal komplizierter, weil nun auch Linearkombinationen von Elementen des kartesischen Produkts erlaubt sind. Interessant ist jedoch der Unterraum
+\begin{equation}
+R(V, W) = \qty{\mqty{(v_1 + v_2, w) - (v_1, w) - (v_2, w) = 0 \\ (v, w_1 + w_2) - (v, w_1) - (v, w_2) = 0 \\ c(v, w) - (c v, w) \\ c(v, w) - (v, c w) = 0}} \subset F(V \cross W)
+\end{equation}
+von Elementen $v_j \in V, \, w_j \in W$ ($c \in \mathbb{R}$), weil der damit definierbare Quotientenvektorraum (wo dann $R(V, W) \equiv \qty{0}$) genau dem Tensorprodukt entspricht:
+\begin{equation}
+V \otimes W = \frac{F(V \cross W)}{R(V, W)} \, .
+\end{equation}
+
+Jeder \Def{Tensor} als Element von $V \otimes W$ erfüllt also
+\begin{equation*}
+\mqty{(v_1 + v_2) \otimes w = v_1 \otimes w + v_2 \otimes w \\ v \otimes (w_1 + w_2) = v \otimes w_1 + v \otimes w_2 \\ c(v \otimes w) = (c v) \otimes w = v \otimes (c w)}
+\end{equation*}
+und ist damit von Natur aus schon ein multilineares Objekt. Dass man hier auch Linearkombinationen zulässt, führt übrigens dazu, dass sich nicht jeder Tensor $T \in V \otimes W$ als sogenannter reiner Tensor der Form $v \otimes w, \, v \in V, w \in W$ schreiben lässt (in der Physik entstehen so verschränkte Zustände). Die Weg ist hier also
+$$
+\begin{tikzcd}[column sep = 42]
+V \cross W \arrow{r}{F} \arrow[swap, bend right = 20]{rr}{\otimes} & F(V \cross W) \arrow{r}{1/ R(V, W)} & V \otimes W% = \frac{F(V \cross W)}{R(V, W)}
+\end{tikzcd}
+$$
+wobei natürlich das Inverse von $R$ symbolisch gemeint ist und meint, dass man den Quotientenvektorraum bildet. Man erhält hier denselben Raum wie den, über dem alle bilinearen Abbildungen $B: V_1 \cross V_2 \rightarrow W$ faktorisieren.\\
+
+%nice Quellen: \url{https://de.wikipedia.org/wiki/Tensoranalysis}, \url{https://de.wikipedia.org/wiki/Tensor}, \url{https://en.wikipedia.org/wiki/Tensor}; außerdem \url{https://de.wikipedia.org/wiki/Vektorb\%C3\%BCndel}, \url{https://de.wikipedia.org/wiki/Schnitt_(Faserb\%C3\%BCndel)}
+
+Tensoren sind ein sehr mächtiges Werkzeug, jedoch an sich sehr abstrakte Objekte und daher soll es nun an die Interpretation von ihnen gehen. Vorstellen kann man sie sich zum Einen als Elemente eines Tensorproduktraums als modifiziertes kartesisches Produkt, bei dem $(1, 2) \neq 2 (1, 1) \neq (2, 1)$ aufgehoben ist. Zum Anderen sind sie nach dem anfangs gewählten, dualen Ansatz multilineare Abbildungen auf dem zugehörigen Dualraum. Diese Deutung ist jedoch noch nicht ganz vollständig:
+
+\begin{satz}[Duale Interpretation des Tensorprodukts]\label{satz:tensproddual}
+Für endlich-dimensionale Vektorräume $V, W$ gilt:
+\begin{equation}
+\qty(V \otimes W)^* \cong V^* \otimes W^* \qquad \qquad V^* \otimes W \cong \text{Hom}(V, W) \, .
+\end{equation}
+\end{satz}
+\begin{proof}
+bei Beweis wieder Trick mit: zeige injektiv, nutze dann Dimension um Bijektivität zu verargumentieren
+
+erstes sollte dann im Wesentlichen eine Folgerung aus der universellen Eigenschaft sein; es ist ja $V_1^* \otimes V_2^* \cong \text{BiLi}(V_1, V_2; \mathbb{K})$ und nach der universellen Eigenschaft existiert dann eine eindeutige Abbildung $\mathcal{B} \in \text{Hom}(V_1 \otimes V_2, \mathbb{R}) = \qty(V_1 \otimes V_2)^*$ (Hom statt BiLi, weil nur ein Argument in dem es linear ist), die ein Element des Dualraums ist
+
+nutze bei Beweis: $V^* \otimes W = \text{BiLi}(V, W^*; \mathbb{K}) = \text{Hom}(V, W)$; beobachte dann, dass man für $\alpha \otimes w V^* \otimes W \in $ auch die Abbildung $\text{Hom}(V, W) \ni \alpha \otimes w: V \rightarrow W, \; \alpha \otimes w (v) = \alpha(v) \cdot w$ betrachten kann
+\end{proof}
+%Tensorprodukte von Dualräumen haben damit nun ebenso wie gemischte Produkte von Vektor-, Dualräumen eine sehr anschauliche Deutung über multilineare Abbildungen.
+
+Die Äquivalenz von Tensoren und Abbildungen auf dem jeweiligen Dualraum kann man sich zum Beispiel anhand eines Kovektors $\alpha \in V^*$ klarmachen. Bis jetzt wurde bei einem solchen Objekt so gut wie immer an die Abbildung/ Funktion
+\begin{equation*}
+V^* \ni \alpha: V \rightarrow \mathbb{R}, \; v \mapsto \alpha(v)
+\end{equation*}
+auf dem Dualraum $V^*$ gedacht. An sich ist $\alpha$ jedoch einfach \enquote{nur} ein Vektor als Element des Vektorraums $V^*$ (das Duale zu $V$ ist im Prinzip lediglich eine Zusatzeigenschaft). Ganz analog kann man bei Vektoren $v \in V$, die man bisher ganz klar \enquote{nur} als Vektoren aufgefasst hat, nach Satz \ref{satz:dualitaet} auch an eine Abbildung
+\begin{equation*}
+\qty(V^*)^* \ni v: V^* \rightarrow \mathbb{R}, \; \alpha \mapsto v(\alpha) = \alpha(v)
+\end{equation*}
+auf dem Dualraum $\qty(V^*)^* \cong V$ denken ! Satz \ref{satz:tensproddual} bildet damit einfach die Erweiterung/ Vervollständigung dieser Interpretation.
+
+	\anm{wie bereits in weiten Teilen vor diesem Abschnitt wird hier Isomorphie $\cong$ oft wie Gleichheit $=$ behandelt, weil der Unterschied lediglich Interpretationssache ist. Man macht also einen fließenden Übergang bzw. unterscheidet im Allgemeinen nicht mehr zwischen den Interpretationen.}
+
+
+Auch bei Tensorprodukten gibt es Spezialfälle bei Notation, die beachtet werden müssen und ein wichtiger folgt aus dieser dualen Interpretation. Diese zeigt
+\begin{equation*}
+\qty(V_1 \otimes V_2)^* \otimes W \cong V_1^* \otimes V_2^* \otimes W \cong \text{Hom}(V_1 \otimes V_2; W) \, .
+\end{equation*}
+Setzt man nun $W = \mathbb{K}$, so wird das aber zu
+\begin{equation*}
+V_1^* \otimes V_2^* \otimes \mathbb{R} \cong \text{Hom}(V_1 \otimes V_2; \mathbb{K}) \cong \text{BiLi}(V_1, V_2; \mathbb{K}) \cong V_1^* \otimes V_2^* \, ,
+\end{equation*}
+wobei beim vorletzten $\cong$ die Universelle Eigenschaft genutzt wurde. Damit gilt
+\begin{equation}
+V_1 \otimes V_2 \otimes \mathbb{K} \cong V_1 \otimes V_2 \, .
+\end{equation}
+Oftmals wird daher die zweite, kürzere Notation genutzt (man denke an $\cong \, \leftrightarrow \, =$).
+
+Im Prinzip kann man sich für die duale Interpretation auch nur $V^* \otimes W \cong \text{Hom}(V, W)$ merken, da mit $V = V_1 \otimes V_2, \, W = \mathbb{K}$ daraus $\qty(V_1 \otimes V_2)^* \cong \text{BiLi}(V_1, V_2; \mathbb{K})$ folgt.\\
+
+
+Nach dieser Aussage und den zugehörigen Erläuterungen sollte endgültig der große Vorteil von Tensoren klar sein: man kann so gut wie alle Objekte auf Mannigfaltigkeiten formalisieren. Dass sich nämlich Vektoren, Multilinearformen und multilineare Abbildungen zwischen Vektorräumen gleichermaßen (in der gleichen Notation) sinnvoll beschreiben lassen, ist schon sehr außergewöhnlich. Außerdem hat das Tensorprodukt die interessante Zusatzeigenschaft der Linearität in jedem Faktor.
+
+	\anm{eine weitere alternative Konstruktion des Tensorprodukts beruht auf der Frage, wie man sinnvoll das Produkt zweier Vektoren bilden kann. Natürlich ist dort das kartesische Produkt möglich, aber betrachtet man den Fall zweier Kovektoren $\alpha, \beta$, so ist die vermutlich einfachste (und auch intuitive) Wahl $(\alpha \cdot \beta)(v, w) = \alpha(v) \beta(w)$. Diese Wirkung sei nun definierend für das Produkt $\alpha \cdot \beta$, das wegen der Linearität der einzelnen Faktoren auch linear ist. Wie man leicht durch Vergleich mit \ref{defi:tpkov} sehen kann, entspricht diese Vorschrift genau dem Tensorprodukt und dass dabei $\cdot$ ein $\otimes$ ersetzt wird, ist nur eine kleine Makulatur bei der Notation, die die eigentliche Idee nicht ändert.\vspace{0.5em}\\
+	Mittels der dualen Interpretation von Vektoren lässt sich ein analoges Produkt $v \cdot w$ von Vektoren mittels $(v \cdot w)(\alpha, \beta) = \alpha(v) \beta(w)$ definieren und auch hier folgt sofort die Linearität. Weil beide Produkte nun genau die gleiche Form haben, bietet sich das Zusammenfassen in einer einzigen Definition an und so ergibt sich das allgemeine Tensorprodukt von vorher. Auch das gemischte Tensorprodukt ist hierbei enthalten (da Kovektoren ja auch im Wesentlichen Vektoren sind, das Produkt Vektor $\cdot$ Kovektor ist also nur Vektor $\cdot$ Vektor auf gewissen Räumen).}\\
+
+Um nach sehr langer Einführung und allgemeinen Erläuterungen die Definition etwas besser verdauen zu können, folgen nun Beispiele rund um das Thema Tensoren:
+\begin{bsp}[Basis des Tensorproduktraums, Abbildungen]
+Wegen der Linearität in Tensorprodukträumen (hier wird der Einfachheit halber $V \otimes W$ betrachtet) ist sofort klar, dass
+\begin{equation}
+\qty{v_i \otimes w_j: \; 1 \leq i \leq \dim(V), \, 1 \leq j \leq \dim(W)}
+\end{equation}
+mit Basen $v_i \in V, \, w_j \in W$ eine Basis des Tensorproduktraums bildet. Man kann nämlich einfach einen Vektor $v \in V$ darstellen in den $v_i$, alle Koeffizienten vorziehen (mit $w \in W$ das Gleiche machen) und das ergibt am Ende eine Linearkombination von Elementen der Form $v_i \otimes w_j$. Insbesondere gilt damit
+\begin{equation}
+\dim(V \otimes W) = \dim(V) \dim(W) \, .
+\end{equation}
+
+Bei einer solchen Darstellung in einer gewissen Basis kommen nun äquivalente Ergebnisse heraus, wenn diese Basen sich um eine orthogonale Transformation unterscheiden ($A^T = A^{-1}$). Dann bleibt nämlich beispielsweise die Norm invariant:
+\begin{equation*}
+\langle Av, Av \rangle = (Av)^T (Av) = v^T A^T A v = v^T v = \langle v, v \rangle \, .
+\end{equation*}
+Etwas wie $\sum_{j = 1}^n v_j \otimes v_j$ wäre gerade nicht basisunabhängig.\\
+
+
+Man betrachte nun die Vektorräume $V, W$ mit Basen $v_i, w_j$ und $\alpha_k$ als Basis des Dualraums $V^*$. Eine lineare Abbildung $f: V \rightarrow W$ ist dann durch den folgenden Tensor darstellbar ($\dim(V) = n$):
+\begin{equation}
+V^* \otimes W \ni \sum_{j = 1}^n \alpha_j \otimes f(v_j) \, .
+\end{equation}
+Das kann man wie folgt sehen:
+\begin{equation*}
+f(a) = f\qty(\sum_{j = 1}^n a_j v_j) = \sum_{j = 1} a_j f(v_j) = \sum_{j = 1}^n \alpha_j(a) \otimes f(v_j) = \qty(\sum_{j = 1}^n \alpha_j \otimes f(v_j))(a) \, ,
+\end{equation*}
+man bedenke dabei wieder das Weglassen reeller Faktoren bei $\otimes$.
+
+Besonders interessant ist dann, dass der Tensor
+\begin{equation}
+V^* \otimes V \ni \sum_{j = 1}^n \alpha_j \otimes v_j
+\end{equation}
+offenbar eine Darstellung der Identität $\text{id} = \mathds{1} \in \text{Hom}(V, V)$ ist !\\
+
+
+Betrachtet man noch spezieller $n = 1$, so existiert ein kanonischer Isomorphismus
+\begin{equation}
+V^* \otimes V \cong \mathbb{K}
+\end{equation}
+mittels $\alpha \otimes v \mapsto \alpha(v)$ (Injektivität folgt aus der Linearität des Tensorprodukts und dann dem Dimensionsargment $\dim(V^* \otimes V) = 1 \cdot 1 = 1 = \dim(\mathbb{K})$). Das lässt sich tatsächlich auch verallgemeinern auf höherdimensionale Vektorräume, dort ist der Isomorphismus gegeben durch
+\begin{equation}
+V^* \otimes V \rightarrow \mathbb{K}, \; \sum_{j = 1}^n \alpha_j \otimes v_j \mapsto \sum_{j = 1}^n \alpha_j(v_j) \, .
+\end{equation}
+Bedenkt man nun noch die duale Identifikation, erhält man insgesamt
+\begin{equation*}
+\text{Hom}(V, V) \cong V^* \otimes V \cong \mathbb{K}
+\end{equation*}
+und diese Abbildung von Endomorphismen ($\text{End}(V) = \text{Hom}(V, V)$, haben Darstellungsmatrizen) auf den Körper wird von der Spur vermittelt, schließlich entspricht $\alpha_j(v_j)$ am Ende dem Aufsummieren der Diagonalelemente.
+%
+%-> sieht man doch auch bei Darstellung der Matrix da oder ? würde man da einen Vektor und einen Kovektor einsetzen, dann würden die Komponenten da nur übrig bleiben und damit reelle Zahlen ? sure, dass das da 1D ist ?
+\end{bsp}
+
+\begin{bsp}[Matrix, Skalarprodukt, Kreuzprodukt]
+In diesem Beispiel werden einige bekannte Objekte als Tensor umgeschrieben.\\
+
+Aus der Linearen Algebra ist bekannt, dass jede Matrix $A$ allgemeiner als Darstellungsmatrix eines Homomorphismus von Vektorräumen
+\begin{equation}
+f_A: V \rightarrow W, \; v \mapsto A \cdot v
+\end{equation}
+gedeutet werden kann (in einer gewissen Basis). Die Wirkung ist also die Matrixmultiplikation mit der Darstellungsmatrix $A$ und man sieht, dass $A \in \mathbb{K}^{(\dim(V), \dim(W))}$. Wegen $f_A \in \text{Hom}(V, W) = V^* \otimes W$ ist die Matrix bzw. die dazugehörige Abbildung aber auch ein Tensor ! Diesen Tensor kann man auch in einer Basis darstellen und dazu wird $V = W = \mathbb{R}^2$ zusammen mit der Standardbasis $e_j$ und dualer Basis $dx_j$ gewählt. Man kennt hier dann vor allem die Darstellung
+\begin{equation}
+\text{Hom}(\mathbb{R}^2, \mathbb{R}^2) \ni A: \mathbb{R}^2 \rightarrow \mathbb{R}^2, \; (x, y) \mapsto \mqty(a & b \\ c & d) \cdot \mqty(x \\ y) = \mqty(a \, x + b \, y \\ c \, x + d \, y)
+\end{equation}
+mit den Koeffizienten in der Standardbasis. Basisunabhängig geht das Ganze als
+\begin{equation}
+\qty(\mathbb{R}^2)^* \otimes \mathbb{R}^2 \ni A= a \, dx \otimes e_1 + b \, dy \otimes e_1 + c \, dx \otimes e_2 + d \, dy \otimes dz \otimes e_2 \, ,
+\end{equation}
+was einfach der Darstellung von $A$ in der Basis des Tensorproduktraums $\qty(\mathbb{R}^2)^* \otimes \mathbb{R}^2 = \mathbb{R}^2 \otimes \mathbb{R}^2$ entspricht. Hier steht die Basis aber direkt dabei und man kann auch Vektoren aus anderen Basen einsetzen, weshalb das Ganze so besser ist.
+
+Man muss dabei Produkte der Form $dx_i \otimes e_j$ nutzen, da $\text{Hom}(V, V) = V^* \otimes V \neq V \otimes V^*$. Für das in diesem Spezialfall auch als \Def{dyadisches Produkt} bekannte Tensorprodukt der Standardbasisvektoren erhält man allgemeiner die Darstellung
+\begin{equation}
+dx_i \otimes e_j = \mqty(\delta_{ij})_{i, j = 1}^n \, .
+\end{equation}
+Der Koeffizient $c$ gehört beispielsweise zu $dx \otimes e_2$, weil es mit der ersten/$x$-Komponente des hereingesteckten Vektors multipliziert wird und in der zweiten/$y$-Komponente des Ergebnisses auftaucht. Allgemeiner hat das Produkt hinter einer Komponente also die Form Spalte $\otimes$ Zeile ($dx \equiv$ Spalte 1, $e_2 \equiv$ Zeile 2).\\
+
+
+Das Standard-Skalarprodukt $\langle \cdot, \cdot \rangle \in \text{BiLi}(\mathbb{R}^n, \mathbb{R}^n; \mathbb{R}$ auf dem $\mathbb{R}^n$ hatte ja die Form $\langle v, w \rangle = \sum_{j = 1}^n v_j w_j$ und als Tensor wird das zu
+\begin{equation}
+\langle \cdot, \cdot \rangle = \sum_{j = 1}^n dx_j \otimes dx_j \, .
+\end{equation}
+Allgemeine Bilinearformen haben in dieser Schreibweise die Form
+\begin{equation}
+\begin{split}
+\mathbb{R}^3 \otimes \mathbb{R}^3 \ni B &= b_{11} \, dx \otimes dx + b_{12} \, dx \otimes dy + b_{13} \, dxx \otimes dz
+\\
+&= b_{21} \, dy \otimes dx + b_{22} \, dy \otimes dy + b_{32} \, dy \otimes dz
+\\
+&= b_{31} \, dz \otimes dx + b_{23} \, dz \otimes dy + b_{33} \, dz \otimes dz
+\end{split}
+\end{equation}
+und die Wirkung in einer Basis kann geschrieben werden als $\langle B \cdot, \cdot \rangle \in \text{BiLi}(\mathbb{R}^3, \mathbb{R}^3; \mathbb{R}$ mit der Darstellungsmatrix $B = \qty(b_{ij})_{i, j = 1}^n = \qty(B(e_i, e_j))_{i, j = 1}^n$. Für das Standardskalarprodukt ist also offenbar $B = \mathds{1}$ (bei symmetrischen Bilinearformen muss $B$ immer symmetrisch sein), bei einer Lorentz-Metrik mit anderer Signatur hingegen liegt teilweise noch ein anderes Vorzeichen auf der Diagonalen vor.\\
+
+
+Ein Tensor mit mehr als drei Faktoren ist dann das Kreuzprodukt:
+\begin{equation}
+\begin{split}
+\text{BiLi}(\mathbb{R}^3 \cross \mathbb{R}^3; \mathbb{R}) \ni \cross&: \mathbb{R}^3 \cross \mathbb{R}^3 \rightarrow \mathbb{R}, \; (a, b) \mapsto a \cross b
+\\
+\qty(\mathbb{R}^3)^* \otimes \qty(\mathbb{R}^3)^* \otimes  \mathbb{R} \ni \cross&= dy \otimes dz \otimes e_1 - dz \otimes dy \otimes e_1 + dz \otimes dx \otimes e_2
+\\
+&- dx \otimes dz \otimes e_2 + dx \otimes dy \otimes e_3 - dy \otimes dx \otimes e_3
+\end{split}
+\end{equation}
+Eigentlich würden hier sogar 27 Summanden vorkommen, aber weil $v \cross w = - w \cross v$ gilt, sind viele Koeffizienten null. Nach Einsetzen zweier Vektoren erhält man dann wiederum einen Vektor, weil das reelle Zahlen gibt und daher z.B. $dx(v) \otimes dy(w) \otimes e_1 = dx(v) dy(w) e_1 = v_1 w_2 e_1$.
+%-> falls es noch nicht drin steht: können natürlich dann ein Element von $V^* \otimes V$ auch als lineare Abbildung von $V$ nach $V$ auffassen, indem man nur einen Vektor reinpackt (zweiter Input ist uns hier erstmal egal) in den ersten Term des Tensorprodukts und dann da quasi $\mathbb{R} \otimes V = V$ stehen hat und damit Vektoren erhält !
+\end{bsp}
+
+
+Es wurde nun bereits festgehalten, dass sich Tensorprodukte mit mehreren Faktoren problemlos bilden lassen (Universeller Eigenschaft auch da). Dort gilt Assoziativität, es ist also $\qty(V_1 \otimes V_2) \otimes V_3 = V_1 \otimes \qty(V_2 \otimes V_3)$ und deshalb lässt man die Klammern meist weg. Die Reihenfolge der Faktoren ist hingegen sehr wichtig, da im Allgemeinen
+\begin{equation}
+V \otimes W \neq W \otimes V
+\end{equation}
+gilt. Als einfaches Gegenbeispiel taugt
+\begin{equation*}
+1 = (dx_1 \otimes dx_2)(e_1, e_2) \neq (dx_2 \otimes dx_1)(e_1, e_2) = 0 \, .
+\end{equation*}
+%ok, $v_1 \otimes v_2 \neq v_2 \otimes v_1$, weil ja im Allgemeinen $(v_1 \otimes v_2)(w_1, w_2) \neq (v_2 \otimes v_1)(w_1, w_2)$; aber es müsste doch $(v_1 \otimes v_2)(w_1, w_2) = (v_2 \otimes v_1)(w_2, w_1)$, weil so ja effektiv nur das Produkt in den reellen Zahlen getauscht wird oder (das geht natürlich) ?
+
+Auch wenn die Vertauschung von Räumen nicht funktioniert, gibt es Unterräume, deren Elemente ein spezielles Verhalten unter der Vertauschung von Faktoren haben:
+\begin{defi}[Symmetrie, Schiefsymmetrie]
+Ein Tensor $T \in V \otimes V$ heißt \Def{symmetrisch}, falls
+\begin{equation}
+T = \sum_{j = 1}^n v_j \otimes v_j, \quad v_j \in V \quad \Leftrightarrow \quad F(T) = T \, .
+\end{equation}
+unter Verwendung des Vertauschungsoperators $F: V \otimes V \rightarrow V \otimes V, \; v \otimes w \mapsto w \otimes v$.
+
+Ein \Def[alternierend]{schiefsymmetrischer/ alternierender} Tensor liegt vor, wenn
+\begin{equation}
+F(T) = -T \, .
+\end{equation}
+\end{defi}
+Das ist wohldefiniert (basisunabhängig) wegen der Formulierung mit dem sehr allgemeinen Vertauschungsoperator $F$ (bei mehr Faktoren gibt es mehrere davon, die jeweils paarweise Vertauschungen durchführen). Dass dabei in der Basisdarstellung keine Koeffizienten auftreten liegt daran, dass die $v_j$ keine Basisvektoren sind und die Koeffizienten damit quasi schon in ihnen enthalten sind.
+
+$F$ bringt einige interessante Eigenschaften mit sich. Da offenbar
+\begin{equation}
+F \qty(F(v \otimes w)) = F(w \otimes v) = v \otimes w \quad \Leftrightarrow \quad F^2 = \mathds{1}
+\end{equation}
+gilt, kann $F$ nur Eigenwerte $\pm 1$ haben (bei reellen Vektorräumen, sonst zuzüglich einer komplexen Phase der Form $e^{i \varphi}$). Die Eigenvektoren sind also gerade die symmetrischen und alternierenden Tensoren (beide bilden jeweils gesammelt als Menge einen Unterraum im Tensorprodukt, dieser Unterraum ist offenbar der Eigenraum zum jeweiligen Eigenwert). Diese etwas formalere Klassifizierung von symmetrischen und alternierenden Tensoren ist jedoch nicht die interessanteste Folgerung aus $F^2 = \mathds{1}$. Jeder Operator mit Eigenwerten induziert auch eine Basis, die zugehörige Eigenbasis, in der alle Vektoren des Raums, auf dem er wirkt, darstellbar sind. Weil es hier nur zwei Eigenwerte gibt, folgt sofort, dass sich jeder Tensor in einen symmetrischen und einen alternierenden Anteil zerlegen lässt,
+\begin{equation}
+A = \text{Sym}(A) + \text{Alt}(A) \, .
+\end{equation}
+
+	\anm{es folgt daraus nicht, dass $\dim(V \otimes W) = 2$, weil die Eigenräume jeweils stark entartet sind und insbesondere Dimension $> 1$ haben (z.B. gibt es $n = \dim(V)$ viele linear unabhängige Tensoren der Form $v_j \otimes v_j$). Die Basisdarstellung erfolgt also nicht immer mit den gleichen Eigenvektoren aus dem symmetrischen/ schiefsymmetrischen Unterraum, es reicht aber immer jeweils einer.}
+
+\begin{bsp}[Symmetrische, alternierende Tensoren]\label{bsp:symmalttens}
+Das einfachste Beispiel für symmetrische Tensoren sind natürlich symmetrische Matrizen. Die Wirkung des Vertauschungsoperators ist dort die Transposition und für $A$ symmetrisch muss dann folgendes gelten:
+\begin{equation}
+A ^T= A \quad \Leftrightarrow \quad a_{ij} = a_{ji} \, ,
+\end{equation}
+weil die Vertauschung der zugehörigen Basiselemente $A$ nicht ändern darf. Da schiefsymmetrische Matrizen gerade $A^T = -A$ erfüllen, kann man hier sogar den symmetrischen und schiefsymmetrischen Anteil einer Matrix direkt angeben als
+\begin{equation}
+\text{Sym}(A) = \frac{A + A^T}{2} \qquad \qquad \text{Alt}(A) = \frac{A - A^T}{2} \, .
+\end{equation}
+Bei symmetrischen Matrizen ist dann gerade $\text{Sym}(A) = A$ und analog $\text{Alt}(A) = A$ bei alternierenden. Das reproduziert
+\begin{equation*}
+A = \text{Sym}(A) + \text{Alt}(A) \, .
+\end{equation*}
+
+Ein anderes Beispiel wäre ein Skalarprodukt als symmetrische Bilinearform
+\begin{equation}
+\langle \cdot, \cdot \rangle \in V^* \otimes V^* \, .
+\end{equation}
+Ein in den ersten beiden Faktoren alternierender Tensor ist das Kreuzprodukt.
+\end{bsp}
+
+
+
+nun: Tensorprodukt von linearen Abbildungen; nimm dazu $f: V \rightarrow \tilde{V}, g: W \rightarrow \tilde{W}$, nun ist die Existenz von $f \otimes g: V \otimes W \rightarrow \tilde{V} \otimes \tilde{W}$ zu zeigen und dazu kann man einfach die Zuordnung $(v, w) \mapsto f(v) \otimes g(w)$ wählen, die eine bilineare Abbildung ist, weil dann mit der Faktorisierung die eindeutige Existenz einer Abbildung $f \otimes g: V \otimes W \rightarrow \tilde{V} \otimes \tilde{W}, \; v \otimes w \mapsto f(v) \otimes g(w)$ folgt
+
+können auch Verknüpfung von solchen Tensorprodukten von Funktionen angeben, nehme dazu $\tilde{f}: \tilde{V} \rightarrow \hat{V}$ und $\tilde{g}: \tilde{W} \rightarrow \hat{W}$; dann gilt $\qty(\tilde{f} \otimes \tilde{g}) \circ \qty(f \otimes g) = \qty(\tilde{f} \circ f) \otimes \qty(\tilde{g} \circ g)$, was man wieder über Existenz der Abbildung $V \cross W \rightarrow \hat{V} \otimes \hat{W}, \; (v, w) \mapsto \tilde{f}(f(v)) \otimes \tilde{g}(g(w))$ und dann der Überlegung $(\tilde{f} \circ f) \otimes (\tilde{g} \circ g) (v \otimes w) = \tilde{f}(f(v)) \otimes \tilde{g}(g(w))$ zeigt
+
+
+
+
+\newpage
+
+
+	\section{Vektorbündel}
+Nachdem man mit Tensoren nun neue Objekte kennengelernt hat, stellt sich die Frage nach konkreten Anwendungen. Als spannend wird sich das Tensorprodukt von Tangentialbündeln herausstellen, aber die zugehörige Theorie kann noch etwas allgemeiner gehalten werden. Man kann nämlich statt Tangentialräumen bei $TM$ auch allgemeine Vektorräume an die Mannigfaltigkeit \enquote{anheften}, solange dies unter gewissen Regularitätsbedingungen wie Glattheit der Zuordnung geschieht:
+
+\begin{defi}[Vektorbündel]
+Gilt für eine glatte Abbildung $\pi: E \rightarrow M$ zwischen Mannigfaltigkeiten $E, M$
+\begin{itemize}
+\item[1.] das Urbild $E_p = \pi^{-1}(p)$ ist ein reeller, $r$-dimensionaler Vektorraum, $\forall p \in M$
+
+\item[2.] $\forall p \in M$ existiert eine offene Umgebung $U \subset M$ und ein Diffeomorphismus
+\begin{equation}
+\Psi: E_U = \pi^{-1}(U) \rightarrow U \cross \mathbb{R}^r
+\end{equation}
+mit
+\begin{equation}
+\Psi(E_p) = \qty{p} \cross \mathbb{R}^r
+\end{equation}
+und $\Psi$ ist linear auf dieser Menge $E_p$
+\end{itemize}
+dann heißt das Tripel $(E, M, \pi)$ \Def[Vektorbündel vom Rang $r$]{Vektorbündel vom Rang $r$ über $M$} (manchmal wird auch nur $\pi: E \rightarrow M$ oder nur $E$ als Vektorbündel bezeichnet).
+\end{defi}
+	\anm{man könnte problemlos $\mathbb{R}^r$ durch $\mathbb{K}^r$ ersetzen.}
+
+Die Idee ist hier also bildlich gesprochen, an jeden Punkt $p \in M$ einen Vektorraum anzukleben (das macht $\pi$, dort sind also bereits alle Informationen zur Charakterisierung des Vektorbündels enthalten) und das noch auf glatte Art und Weise. $\pi$ ist jedoch nicht nur glatt, sondern sogar eine Submersion ? really?, was jede Faser $E_p = \pi^{-1}(p)$ zu einer Untermannigfaltigkeit von $E$ macht. Man muss hier keine Injektivität fordern, es wird also nicht unbedingt jedes Element aus $E$ angehängt (Surjektivität ist klar, weil man immer die Eigenschaften $\forall p \in M$ fordert) !
+
+
+Zusätzlich zu diesen Vektorraum-Eigenschaften fordert man die Existenz einer Art lokaler Trivialisierung $\Psi$ für das Vektorbündel, es gibt also wiederum die Möglichkeit, den euklidischen Raum zu benutzen (beispielsweise für explizite Rechnungen). Die Zusammenhänge von $\Psi$ zu den anderen Größen zeigt das folgende Diagramm:
+$$
+\begin{tikzcd}[column sep = 42]
+E_U \arrow{r}{\pi} \arrow[swap, bend right = 20]{rr}{\Psi} & U & \arrow[swap]{l}{\pi_1} U \cross \mathbb{R}^r % = \frac{F(V \cross W)}{R(V, W)}
+\end{tikzcd}
+$$
+Man kann hier erkennen, dass $\pi_1 \circ \Psi = \pi$. Das ist so zu deuten, dass $\Psi$ in der ersten Komponente die Information speichert, zu welchem Punkt $\pi$ das jeweilige Element von $E$ zuordnet, und in der zweiten, wie das Element im $\mathbb{R}^r$ dargestellt wird.
+
+
+Bisher wurde bei so gut wie allen neuen Objekten das zugehörige Duale untersucht, man muss sich also überlegen: was ist das Duale zu einem Vektorbündel ?
+
+\begin{satz}[Duales Vektorbündel]
+Für ein Vektorbündel $\pi: E \rightarrow M$ vom Rang $r$ ist
+\begin{equation}
+E^* := \qty{(p, \alpha): \; p \in M \text{ und } \alpha: E_p \rightarrow \mathbb{R} \text{ linear}} % statt "und" war vorher "\, \wedge \,", aber das doch dumm ?
+\end{equation}
+zusammen mit
+\begin{equation}
+\pi: E^* \rightarrow M, \; (p, \alpha) \mapsto p
+\end{equation}
+ebenfalls ein Vektorbündel vom Rang $r$ über $M$, das \Def[Vektorbündel! (duales)]{duale Vektorbündel}.
+\end{satz}
+%aus Beweis: nehmen dann als Art Trivialisierung (ist wohl einfach Karte für induzierte MF-Struktur, wenn man $p$ dann auch noch abbildet) die $p$ in erster Komponente und dem Spaltenvektor aus $\alpha\qty(\Psi^{-1}(p, e_k))$ in der zweiten ($e_k$ ist Element der Standardbasis des $\mathbb{R}^r$); muss dann wohl alle Einträge auf Glattheit testen, eigentlich auf alle, reicht aber Anwendung auf die lokalen auf $U$ mit den $e_k$ wegen Abschneiden mit Buckelfunktionen; sonst ist das ähnlich zum Beweis bei $T^*M$, nur eben etwas verallgemeinert
+
+Man definiert die Bündelstruktur also etwas expliziter und analoger zu einer Trivialisierung des Vektorbündels (Tupel aus und angehängtem Objekt), weshalb $\pi$ hier wieder der Projektion $\pi_1$ auf die erste Komponente entspricht. Das erste und einfachste Beispiel ist nun sofort klar (von dort aus wurde ja verallgemeinert):
+\begin{bsp}[Tangentialbündel]
+Das Tangentialbündel $TM$ einer Mannigfaltigkeit $M$ liefert ein Vektorbündel vom Rang $r = \dim(T_p M) = \dim(M)$. Das ist sofort klar, weil man dort ja eine analoge Abbildung $\pi: TM \rightarrow M$ sowie Trivialisierungen genutzt hat.%, daher ist für eine Karte $\varphi: U \rightarrow \mathbb{R}^n$ der benötigte Diffeomorphismus gegeben durch $\Psi = \qty(\pi, D_{\pi} \varphi)$  ? und bildet dann wir folgt ab: $[(U, \varphi, v)]_p \mapsto (p, v)$
+
+Auf analoge Weise ist das Kotangentialbündel ein Vektorbündel vom Rang $r = \dim(T_p^*M) = \dim(T_p M) = \dim(M)$ und weil ja $T_p^*M = (T_pM)^*$ galt, handelt es sich hierbei direkt um das erste Beispiel eines dualen Vektorbündels !
+\end{bsp}
+
+
+Nach dem dualen Vektorbündel stehen nun Abbildungen rund um Vektorbündel an. Die wohl wichtigsten (und zudem nach $\pi$ einfachsten) nehmen einen Punkt aus $M$ und bilden ihn auf ein Element von $E$ ab.
+
+\begin{defi}[Schnitt]
+Für ein Vektorbündel $\pi: E \rightarrow M$ heißt die glatte Abbildung $s: M \rightarrow E$ mit
+\begin{equation}
+\pi \circ s = \text{id}_M
+\end{equation}
+\Def[glatter Schnitt]{Schnitt von/ in $E$}. Die Menge aller Schnitte wird mit $\Gamma(M; E)$ bezeichnet.% Analog lassen sich lokale Schnitte auf offenen Teilmengen $U \subset M$ definieren. 
+\end{defi}
+
+
+\begin{figure}
+\centering
+
+\includegraphics[width=0.6\textwidth]{Bilder/Vector_bundle_with_section.png}
+
+\caption[Veranschaulichung eines Schnittes]{Veranschaulichung eines Schnittes $s \in \Gamma(M; E)$, der Punkten $m_i \in M$ eindeutig Elemente $E_{m_i} \in E$ zuordnet. Dieses Bild stammt von Wikipedia, \url{https://en.wikipedia.org/wiki/Section_(fiber_bundle)}.}
+\end{figure}
+
+
+Schnitte sind also etwas wie Inverse von $\pi$ (es gibt mehrere, da $\pi$ nicht bijektiv ist), die jedem Punkt $p \in M$ ein eindeutiges Element aus $E_p$ (nicht einfach $E$) zuordnen. Auch hier handelt es sich um eine Verallgemeinerung bereits behandelter Objekte:
+
+\begin{bsp}[Bekannte Schnitte]\label{bsp:bekschnitt}
+Auch Schnitte wurden bei der Diskussion des (Ko-)Tangentialbündels bereits behandelt, dort nannte man sie Vektorfelder und 1-Differentialformen. Es gilt also:
+\begin{equation}\label{eq:schnittbsp}
+\Gamma(M; TM) = \mathcal{X}(M) \qquad  \qquad \Gamma(M; T^*M) = \Omega^1(M) \, .
+\end{equation}
+
+Diese ordneten jedem Punkt $p \in M$ einen Tangentialvektor bzw. Kotangentialvektor ($\equiv$ 1-Form) an diesem Punkt zu, geben also punktweise genau ein Element der zugehörigen Faser $T_p M = \pi^{-1}(p)$ bzw. $T_p^* M = \pi^{-1}(p)$ aus.
+\end{bsp}
+
+Analog dazu, dass für $\pi \circ \omega = \pi \circ X$ die Funktion
+\begin{equation}
+\omega(X): M \rightarrow \mathbb{R}, \; p \mapsto \omega_p(X_p)
+\end{equation}
+glatt war, kann man nun sagen: eine Abbildung $\alpha: M \rightarrow E^*$ (noch kein Schnitt $\Gamma(M; E^*)$) mit $\pi \circ \alpha = \text{id}_M$ ist genau dann glatt, wenn
+\begin{equation}
+\alpha_p: M \rightarrow \mathbb{R}, \; p \mapsto \alpha_p(s_p)
+\end{equation}
+glatt ist $\forall s \in \Gamma(M; E)$. Es stellt sich sogar heraus, dass durch diese Aussage die differenzierbare Struktur des Kotangentialbündels bereits bestimmt ist.
+
+
+Die Definition des Schnitt-Begriffs ist jedoch noch nicht vollständig. Es wurde schließlich bereits klar, dass man nur selten auf der gesamten Mannigfaltigkeit arbeitet und stattdessen meist nur lokal (siehe auch $\Psi$). Die Erweiterung der Definition eines Schnitts ist glücklicherweise unproblematisch, man kann daraus $\eval{\pi}_U \circ s_U = \text{id}_U$ machen und erhält so Anforderungen an lokale Schnitte $s_U \in \Gamma(U; E)$.
+
+
+\begin{bsp}[Lokaler Schnitt]
+Für eine Trivialisierung $\Psi: E_U \rightarrow U \cross \mathbb{R}^r$ und einen festen Vektor $v \in \mathbb{R}^r$ ist
+\begin{equation*}
+s_v: U \rightarrow E, \; p \mapsto s_v(p) = \Psi^{-1}(p, v)
+\end{equation*}
+eine Art lokaler Schnitt. Man sucht sich dabei zu jedem Punkt $p \in U$ den Vektor aus $E_U$ heraus, den $\Psi$ an diesem Punkt auf $v \in \mathbb{R}^r$ abbildet.
+
+Allgemeiner ist für eine glatte Funktion $f: U \rightarrow \mathbb{R}^r$ die Abbildung mit Vorschrift $s(p) = \Psi^{-1}(p, f(p))$ ein Schnitt.
+\end{bsp}
+
+%Offenbar sind allgemeiner sogar für eine Trivialisierung $\Psi: E_U \rightarrow U \cross \mathbb{R}^r$, dass alle Schnitte $s \in \Gamma(U; E)$ durch Abbildungen $f: U \rightarrow \mathbb{R}^r$ als $\pi_2 \circ \Psi(s(p)) =: f(p)$ (natürlich glatt) gegeben sind (schaue dazu die Definition an). -> heißt das, dass jeder Schnitt so eine Abbildung definiert oder dass jede Abbildung auf diese Weise einen Schnitt definiert ?
+
+Sowohl $\Gamma(M; E)$ als auch $\Gamma(U; E)$ können mittels der punktweisen Addition und Skalarmultiplikation zu Vektorräumen gemacht werden. Auch die Multiplikation mit glatten Funktionen ist jedoch wohldefiniert, sodass die Menge der Schnitte sogar ein Modul über $C^\infty(M; \mathbb{R})$ bildet. Die Operationen sind genauer:
+\begin{equation}
+\qty(f s + \lambda t)(p) = f(p) \, s_p + \lambda \, t_p , \qquad s, t \in \Gamma(M; E), f \in C^\infty(M; \mathbb{R}), \lambda \in \mathbb{R}
+\end{equation}
+und damit gleichermaßen für globale und lokale Schnitte definiert. 
+
+
+
+		\subsection{Tensorbündel und -felder}
+Der Grund warum dieser Abschnitt erst nach Tensoren kommt ist der, dass man auch das Tensorprodukt von Vektorbündeln betrachten kann. Diese Konstruktion wird die Grundlage für die Behandlung multilinearer Objekte auf Mannigfaltigkeiten bilden, das Thema, das den restlichen Teil dieser Zusammenfassung ausmacht.
+
+Welche grundlegenden Eigenschaften dieses Produkt hat, zeigt der folgende Satz:
+\begin{satz}%[Tensorbündel]
+Für zwei Vektorbündel $\pi^E: E \rightarrow M$ vom Rang $r$ über $M$ und $\pi^V: V \rightarrow M$ vom Rang $k$ über $M$ ist
+\begin{equation}
+E \otimes V := \qty{(p, T): \; p \in M, \, T \in E_p \otimes V_p}
+\end{equation}
+zusammen mit der Projektion $\pi: E \otimes V \rightarrow M, \; (p, T) \mapsto p$ auf die erste Komponente ein Vektorbündel über $M$ vom Rang $r \cdot k$.
+
+
+Für $s \in \Gamma(M; E), t \in \Gamma(M; V)$ ist zudem $s \otimes t \in \Gamma(M; E \otimes V)$.
+\end{satz}
+\begin{proof}
+nimm Trivialisierungen $\Psi^E: E_U \rightarrow U \cross \mathbb{R}^r$ von $E$ und $\Psi^V: E_V \rightarrow V \cross \mathbb{R}^k$ von $V$, dann ist $\Psi\qty(p, \sum_{i = 1}^N s_i \otimes t_i) = (p, \sum_i \qty(\pi_2 \circ \Psi^E(p, s_i)) \otimes \qty(\pi_2 \circ \Psi^V(p, t_i))$, was in der zweiten Komponente ein Element von $\mathbb{R}^r \otimes \mathbb{R}^k$ gibt, aber das ist mittels $e_ i \otimes e_j \mapsto e_{k (i - 1) + j}$ isomorph zu $\mathbb{R}^{ r k}$; ist wohl alles Atlas (wenn man erste Komponente noch mit Karten von $M$ auf den $\mathbb{R}^n$ abbildet), weil glatte Abhängigkeit, Linearität
+
+Projektion ist natürlich glatt und die Fasern sind $(E \otimes V)_p = E_p \otimes V_p$, also insbesondere auch Vektorräume (das passt also auch)
+
+falls $s \in \Gamma(M; E), t \in \Gamma(M; V)$, so entsprechen die Einschränkungen $s_U, t_U$ wegen der Existenz der Trivialisierungen Funktionen $f: U \rightarrow \mathbb{R}^r, g: U \rightarrow \mathbb{R}^k$ und daher ist $s \otimes t$ (? hier ohne Index $U$ ?) eine Funktion $f \otimes g: U \rightarrow \mathbb{R}^r \otimes \mathbb{R}^k \cong \mathbb{R}^{r k}$ (was wegen der Einträge der Form $f_i g_j$ glatt ist)
+\end{proof}
+
+Um das Tensorprodukt von Vektorbündeln zu definieren, nutzt man hier also, dass Tensorprodukte von Vektorräumen bereits möglich sind, und definiert daher die Fasern als $\qty(E \otimes V)_p = E_p \otimes V_p$. Weil das insbesondere wieder ein Vektorraum über jedem Punkt $p$ ist (nur Terme wie $E_p \otimes V_q$ würde Probleme machen bei $\pi^{-1}$, für $q = p$ nicht), muss man sich \enquote{nur} noch die zugehörigen Trivialisierungen konstruieren und das wurde im Beweis getan. Bei Schnitten macht man exakt das Gleiche und definiert das Tensorprodukt punktweise über $\qty(s \otimes t)(p) = \qty(s \otimes t)_p = s_p \otimes t_p$.%die sind also/ lassen sich interpretieren als Abbildungen $s \otimes t: M \rightarrow E \otimes V, \; p \mapsto \sum_j s_j(p) \otimes t_j(p)$, wobei $s, t$ beliebige Tensorfelder auf $E, V$ sind
+
+Weil diese Objekte eine große Rolle spielen (die gesamte Allgemeine Relativitätstheorie ist in der Sprache von Tensorprodukten formuliert !), bekommen sie eigene Namen:
+\begin{defi}[Tensorbündel, -feld]
+Für Vektorbündel $E, V$ heißt $E \otimes V$ \Def[Tensor!-bündel]{Tensorbündel} und $s \in \Gamma(M; E \otimes V)$ \Def[Tensor!-feld]{Tensorfeld}.
+\end{defi}
+
+
+Weil Tensorbündel ja insbesondere Vektorbündel sind, kann man auf diese Weise sind rekursiv auch Tensorprodukte mit mehr Faktoren definieren. Teilweise kommen dabei im interessanten Fall mit den Bündeln $TM, T^*M$ sehr viele Faktoren vor, weshalb folgende Notation für Tensorbündel eingeführt wird:
+\begin{equation}
+T^{(r, s)}M := TM \otimes \dots \otimes TM \otimes T^*M \otimes \dots \otimes T^*M \, ,
+\end{equation}
+der erste Faktor $TM$ taucht also $r$-mal auf und der zweite $T^*M$ $s$-mal. Offenbar gilt
+\begin{equation*}
+T^{(1, 0)}M = TM, \; T^{(0, 1)}M = T^*M, \; T^{(1, 1)}M = TM \otimes T^*M \cong \text{Hom}(TM, TM)
+\end{equation*}
+und weil man Faktoren $\otimes \mathbb{R}$ ja nicht mitschreibt, ist zudem $T^{(0, 0)}M = \mathbb{R}$ sinnvoll.\\
+
+
+Nach dieser Definition folgt nun der vielleicht wichtigste Satz der Tensorrechnung, der viele Objekte auf die gleiche Weise formalisiert (wie Tensoren es bereits tun) und daher eine ungemein allgemeine Arbeit ermöglicht:
+\begin{satz}[Tensorielle Eigenschaft]\label{satz:tenseigsch}
+Für zwei Vektorbündel $\pi^E: E \rightarrow M$ vom Rang $r$ über $M$ und $\pi^V: V \rightarrow M$ vom Rang $k$ über $M$ und eine $\mathbb{R}$-lineare Abbildung
+\begin{equation*}
+\Phi: \Gamma(M; E) \rightarrow \Gamma(M; V) \, ,
+\end{equation*}
+die zudem $C^\infty$-linear ist und damit
+\begin{equation}
+\Phi(f s) = f \Phi(s), \quad \forall f \in C^\infty(M; \mathbb{R}, s \in \Gamma(M ;E)
+\end{equation}
+erfüllt, existiert ein eindeutiger Schnitt $\hat{\Phi} \in \Gamma(M; E^* \otimes V)$ mit
+\begin{equation}
+\qty(\Phi(s))(p) = \hat{\Phi}_p(s_p), \quad \forall s \in \Gamma(M; E) \, .
+\end{equation}
+\end{satz}
+
+Die erst einmal gar nicht so wichtig erscheinende Aussage ist also, dass man Abbildungen zwischen Schnitträumen in verschiedene Vektorbündel wiederum durch einen Schnitt beschreibbar sind (diesmal im Tensorbündel), wenn sie $C^\infty$-linear sind (was zuvor auch \Def{tensorielle Eigenschaft} genannt wurde, nun ist klar warum).
+
+Die Beweisidee kann man sich dabei darüber merken, dass $\Phi$ punktweise die Form $\Phi_p: E \rightarrow V$ annimmt (bei äquivalenter Deutung als $\Phi: p \mapsto \Phi_p$) und daher $\Phi_p \in \text{Hom}(E, V) \cong E^* \otimes V$ gilt. Deshalb kann man es auch mit Elementen von $\Gamma(M; E^* \otimes V)$ identifizieren und zwar eindeutig, wenn $\Phi$ tensoriell ist.
+
+	\anm{dass eine Abbildung ein Schnitt ist, heißt jedoch nicht automatisch, dass sie tensoriell ist! Ein Gegenbeispiel sind Vektorfelder.}
+
+Die Wichtigkeit dieser Aussage wird sich im Rest dieses Abschnitts zeigen und angefangen wird wie immer mit Beispielen dazu:
+
+\begin{bsp}[Vektorwertige 1-Differentialform, Kommutator]
+Ein sehr gutes Beispiel, wo dieser Satz enorm hilft, sind vektorwertige 1-Formen  $\omega \in \Omega^1(M; V)$. Diese wurden eingeführt als $\omega = \sum_k \omega_k \, v_k$ mit $\omega_k \in \Omega^1(M) = \Gamma(M; T^*M)$ und $v \in V$. Da das punktweise eine Abbildung auf $TM$ bildet, die Werte in $V$ annimmt, erhält man schnell die äquivalente Form
+\begin{equation}
+\omega \in \Gamma(M; T^*M \otimes V) \, ,
+\end{equation}
+was für $V = \mathbb{R}$ wegen $T^*M \otimes \mathbb{R} = T^*M$ in \eqref{eq:schnittbsp} übergeht.
+
+
+%betrachte eine vektorwertige 1-Form $\omega \in \Omega^1(M; \mathfrak{g})$ mit Werten in der Lie-Algebra $\mathfrak{g}$ und das Vektorbündel $M \cross \mathfrak{g} =: \underline{\mathfrak{g}}$ (zur Unterscheidung von normaler Lie-Algebra der Unterstrich)
+%
+%-> ok, das scheint das Pullback-Bündel $f^* TG$ einer Funktion $f: M \rightarrow G$ iwie zu sein, daher $M \cross \mathfrak{g}$ statt $G \cross \mathfrak{g}$ ! Dann ist auch $Df \in \Gamma(M; T^*M \otimes f^* TG)$
+%
+%dann bildet
+%\begin{equation}
+%d \omega: \mathcal{X}(M) \cross \mathcal{X}(M) = \Gamma(M; TM) \cross \Gamma(M; TM) \rightarrow \underline{\mathfrak{g}}
+%\end{equation}
+%zwei Vektorfelder auf das triviale Vektorbündel ab ($C^\infty$-Linearität ist bekannt), ist also ein Element von $\Gamma(M; T^* M \otimes T^* M \otimes \underline{\mathfrak{g}})$; haben also eine natürliche Bedingung an Ableitungen durch ein lineares Objekt ausgedrückt (ist tatsächlich oft in DiffGeo oder Physik so, dass Gleichungen als Schnitte in Tensorbündeln geschrieben werden)
+%
+%ok, kleinschrittiger: zuerst wird die Identifikation mit $d\omega: \Gamma(M; TM \otimes TM) \rightarrow \mathfrak{g}$ gemacht und dann die Interpretation mit den Homomorphismen genutzt
+%
+%Motivation für Vektor- und insbesondere Tensorbündel kommt von Maurer-Cartan-Form (sei dazu $G$ Matrix-Lie-Gruppe und $\mathfrak{g} = T_e G$, sowie $\omega \in \Omega^1(M; \mathfrak{g})$); dort musste ja $d_p \omega: T_p M \cross T_p M \rightarrow \mathfrak{g}$ benutzt werden, was aber eine bilineare Abbildung ist und daher als Tensor ausgedrückt werden kann ! Ist dann Element $d_p \omega \in T^*_p M \otimes T^*_p M \otimes \mathfrak{g}$ und um das schön auffassen/ interpretieren zu können (ist Teil von Tensorbündel nehme ich an), sind Vektorbündel eben sehr nützlich.
+
+
+Man kann nun auch den Kommutator als Abbildung $\qty[\cdot, \cdot]: \mathcal{X}(M) \cross \mathcal{X}(M) \rightarrow \mathcal{X}(M)$ betrachten. Dieser ist jedoch nicht durch einen Schnitt aus $\Gamma(M; \mathcal{X}(M)^* \otimes \mathcal{X}(M)^* \otimes \mathcal{X}(M))$ gegeben, da er nicht tensoriell ist (wurde als Eigenschaft gezeigt):
+\begin{equation*}
+[f X, g Y] = fg [X, Y] + f (X \cdot g) Y - g (Y \cdot f) X \, .
+\end{equation*}
+\end{bsp}
+
+
+%er hat sehr viele Beispiele noch gemacht, sehr schön war das mit der Eindeutigkeit zwischen normaler Darstellung 1-Form und Tensordarstellung
+
+Schon bei wenigen Faktoren erkennt man also den großen Vorteil dieses Satzes und der Schreibweise mit Schnitten allgemein. Statt basisabhängigen Definitionen wie $\omega = \sum_{i = 1}^r \omega_i v_i$ bei vektorwertigen 1-Formen schreibt man einfach  $\omega \in \Gamma(M; T^*M \otimes V)$. Die Wohldefiniertheit war auch vorher klar, aber genau so wie die Glattheit der Zuordnung $p \mapsto \omega_p$ ($\equiv$ glatte Abhängigkeit vom Punkt) musste diese Äquivalenz der Ergebnisse in verschiedenen Basen erst noch gesondert gezeigt werden - hier sind sie bereits mit der Definition klar und das spart natürlich enorm Arbeit (daher lohnt sich das Gewöhnen an diese abstrakte Definition) !
+
+Auch diese Eigenschaft lässt sich jedoch problemlos auf mehrere Faktoren übertragen, im Beispiel von 2 Argumenten gehört zu $\Phi: \Gamma(M; E_1) \cross \Gamma(M; E_2) \rightarrow \Gamma(M; V)$ $\mathbb{R}$- und $C^\infty$-linear ein eindeutiger Tensor $\hat{\Phi} \in \Gamma(M; E^*_1 \otimes E^*_2 \otimes V)$. Betrachtet man dabei wieder die in den meisten Fällen relevanten Bündel $TM, T^*M$, so ist also die Untersuchung von Tensorfeldern als Schnitte im Tensorbündel $T^{(r, s)}M$ relevant und genau darum soll es nun gehen. Punktweise ergeben diese immer einen Tensor, der lokal (auf offenen Mengen $U \subset M$) immer eine Linearkombination zerlegbarer Tensoren ist:
+\begin{equation}\label{eq:tensorfeldallg}
+T_U = \sum X_1 \otimes \dots \otimes X_r \otimes \omega_1 \otimes \dots \otimes \omega_s, \quad X_j \in \mathcal{X}(M), \, \omega_j \in \Omega^1(M) \, . 
+\end{equation}
+Es ist direkt klar, dass jeder der vorkommenden Faktoren als Schnitt wiederum Punkte abbilden kann. Auch wenn es anfangs zu Verwirrungen führen mag, werden zudem Tensoren und Tensorfelder im Allgemeinen nicht mehr unterschieden, da die Auswertung in den Punkten so offensichtlich möglich ist und man so eine etwas übersichtlichere Notation erhält (in \eqref{eq:tensorfeldallg} müsste sonst auch überall ${}_p$ dabei stehen, was ein relativ unnötiger Aufwand wäre und zudem nur verwirren würde).
+
+	\anm{weil ein Faktor $\otimes \mathbb{R}$ ja immer wegfällt, gilt $C^\infty(M; \mathbb{R}) = \Gamma(M, T^{(0, 0)}M)$.}
+
+Eine erste und sehr wichtige Operation auf/ mit Tensorfeldern ist dann die verallgemeinerte Operation zur Spurbildung bei Matrizen.
+
+\begin{defi}[Kontraktion/ Verjüngung]
+Für ein Tensorfeld $T \in \Gamma(M, T^{(r, s)}M)$ in der lokalen Darstellung $T_U$ heißt die tensorielle, lineare Abbildung
+\begin{align}
+&\tr_{k, l}: T^{(r, s)}M \rightarrow T^{(r - 1, s - 1)}M, \; T \mapsto \tr_{k, l}(T) = \sum \omega_l(X_k) \cdot
+\\
+& \quad X_1 \otimes \dots \otimes X_{k -1 } \otimes X_{k + 1} \otimes \dots \otimes X_r \otimes \omega_1 \otimes \dots \otimes \omega_{l - 1} \otimes \omega_{l + 1} \otimes \dots \otimes \omega_s \, .\notag
+\end{align}
+mit $1 \leq k \leq r, 1 \leq l \leq s$ \Def{Kontraktion} oder \Def{Verjüngung}.
+\end{defi}
+Die Wohldefiniertheit folgt aus der punktweisen Betrachtung, da $\tr_{k, l}$ streng genommen auf Tensorfelder und nicht Tensoren wirkt (auch wenn die Begriffe ja verschwimmen, ist das für die Sinnhaftigkeit einiger Gleichungen wichtig).
+
+\anm{ergibt es nicht total Sinn, dass diese Operation den Tensorrang um jeweils genau eins verringert? Und auch, dass ein Tensorprodukt mit $\mathbb{R}$ einfach weggelassen werden kann? Weil man das Tensorprodukt ja im Endeffekt genau so definiert, dass es das Produkt reeller Zahlen ist (wenn man also fest einsetzt einmal, dann bleibt die Wirkung der restlichen tensoriellen Elemente trotzdem genau gleich)}
+
+\begin{bsp}[Spur]
+Punktweise ergibt ein Tensorfeld $T \in \Gamma(M, T^{(1, 1)}M) = \Gamma(M, T^*M \otimes TM)$ offenbar einen Endomorphismus $T_p \in \text{End}(T_p M) = \text{Hom}(T_p M, T_p M)$ und daher gilt
+\begin{equation}
+\tr_{1, 1}(T)_p = \tr(T_p)
+\end{equation}
+mit der Spur des Endomorphismus, die über die zugehörige Darstellungsmatrix in einer gewissen Basis berechnet werden kann. Hier zeigt sich, was mit Verallgemeinerung der Spurbildung gemeint war und außerdem wird hier klar, warum die Spur von Matrizen basisunabhängig ist: eine Matrix ist ein Tensor.
+\end{bsp}
+Dieses Beispiel ist der Grund, warum die Kontraktion eines allgemeinen Tensors oft ebenfalls als \Def[Spur]{Spur des Tensors} bezeichnet wird.
+
+
+
+		\subsection{*Distributionen und der Satz von Frobenius*}
+statt Vektorräumen in einem Punkt anzuhängen (was man bei Vektorbündeln gemacht hat), kann man auch ganze MF anhängen (ist laut Balazs die Idee bei Distributionen)
+
+Wdh.: Für den Tangentialraum $T_p N$ von $k$-dimensionalen Untermannigfaltigkeiten $N$ in Mannigfaltigkeiten $M$ galt ja die Aussage, dass $T_p N \subset T_p M$ ein $k$-dimensionaler Untervektorraum ist.
+
+Frage: wann Umkehrung der letzten Aussage, nimm also Untervektorraum von $T_p M$ (oder mehrere) und gucke, für welche glatte Familie von solchen UVR eine UMF existiert, die an den ganzen jeweiligen Punkten genau diesen Tangentialraum hat (diese UMF heißt dann \Def[Integralmannigfaltigkeit]{Integralmannigfaltigkeit von $\mathcal{D}$ durch $p$}; nochmal Bedingungen dafür: $p \in N$ und $\mathcal{D}_q = T_q N, \, \forall q \in N$); wird eben beantwortet von Satz von Frobenius
+
+Beispiel: ein VF ohne Nullstellen auf einer Menge $U$ gibt Linien vor (also 1D-UVR) und dann sind die Integralkurven genau solche UMF (also Integralmannigfaltigkeiten); machen da lokal Vektoren ungleich 0 durch Forderung $X_p \neq 0$; haben Plattmacherkarten (die induziert ist von einem Plattmacher) für Integralkurven aus diesem Satz mit Vektorfeld als erster Gauß'scher Basisvektor
+
+
+\begin{defi}[Distribution]
+Eine glatte Zuordnung $p \mapsto \mathcal{D}_p \subset T_p M$ auf $k$-dimensionale Untervektorräume $\mathcal{D}_p$, sodass für jeden Punkt $p \in M$ eine offene Umgebung $U \subset M$ und Vektorfelder $X_1, \dots, X_k \in \mathcal{X}(U)$ existieren mit
+\begin{equation}
+\text{span} \qty(X_1(q), \dots, X_k(q)) = T_q M, \quad \forall q \in N \, ,
+\end{equation}
+heißt \Def[Distribution]{$k$-dimensionale Distribution auf $M$}.
+\end{defi}
+ok, das ist glaub ich so Bullshit
+
+glattes Untervektorbündel des Tangentialbündels, $\mathcal{D} \subset TM$ (logisch oder ? Fassen ja das Ding zu verschiedenen Punkten zusammen)
+
+Hmm also ist das die Analogie zu einem Vektorfeld? 
+
+trivialisieren die Vektorkomponente also
+
+im Skript hat er es anders definiert, da wurde Äquivalenz dazu nur gezeigt (übernehme dann Definition aus Skript und schreibe danach, dass das viel anschaulicher wird mit diesem Satz)
+
+\begin{defi}[Integrabilität einer Distribution]
+Eine Distribution $\mathcal{D}$ auf einer Mannigfaltigkeit $M$ heißt \Def[integrable Distribution]{integrabel/involutiv}, falls
+\begin{equation}
+\qty[X, Y] \in \Gamma(M, \mathcal{D}) = \mathcal{X}(\mathcal{D})
+\end{equation}
+für die Vektorfelder aus $\Gamma(M, \mathcal{D})$, also die Elemente $X, Y \in \mathcal{X}(M)$ mit $X_q, Y_q \in \mathcal{D}_q, \, \forall q \in M$.
+\end{defi}
+wollen also, dass Kommutator immer auch wieder Vektorfeld gibt; dabei reicht es aus, diese Bedingung für Vektorfelder $X_1, \dots, X_k \in \Gamma(U, \mathcal{D})$ zu zeigen, die die Distribution punktweise aufspannen, die also $\text{span} \qty(X_1(q), \dots, X_k(q)) = T_q M, \quad \forall q \in U$ erfüllen (weil anderer Shit ja Linearkombi davon ist; muss auf offener Umgebung $U$ jedes Punktes $p \in M$ gezeigt werden, da reicht wegen Eigenschaften Lie-Klammer)
+
+
+\begin{satz}[Satz von Frobenius]
+Eine $k$-dimensionale Distribution $\mathcal{D}$ aus $M$ ist genau dann integrabel, wenn für jeden Punkt $p \in M$ eine Integralmannigfaltigkeit $N$ von $\mathcal{D}$ durch $p$ existiert.
+\end{satz}
+
+nutzen hier gefühlt alles: Flüsse, eindeutige Vektorfelder mit den Gauß'schen; eine Richtung easy, andere ist Ziel das mit dem Span zu zeigen
+
+
+\begin{bsp}[Maurer-Cartan-Gleichungen]
+definiere $\dim(M)$-dimensionale Distribution
+\begin{equation}
+\mathcal{D}^\omega := \qty{\qty(X_p, g \cdot \omega(X_p)) \in T_p M \cross T_g G: \; (p, q) \in M \cross G, X_p \in T_p M}
+\end{equation}
+
+für $X, Y \in \mathcal{X}(M)$ sind $\hat{X}, \hat{Y} \in \Gamma(M \cross G, \mathcal{D}^\omega)$ mit $\hat{X}_{(p, q)} = \qty(X_p, g \omega(X_p))$ und $\hat{Y}$ analog
+
+Kommutator kennen wir (auf HÜ gezeigt), ist ...; daher muss Maurer-Cartan-Gleichung erfüllt sein, damit Distribution integrabel; wollen ja Vektorfeld aus $\mathcal{D}$ haben und nur der erste Term ist iwie da drin (weil beim zweiten in erster Komponente 0 steht; wollen aber Isomorphismus bei Projektion darauf, daher muss dann zweite auch immer 0 sein, sonst halt Probleme damit)
+
+anders rum kann man bei Annahme der Integrabilität von $\mathcal{D}^\omega$ zeigen, dass das da was rauskommt, was Maurer-Cartan erfüllt (habe also anderen Weg, Mauer-Cartan-Gleichungen zu lösen)
+\end{bsp}
+das zeigt: Frobenius ist Maurer-Cartan in nicht-linear (oder iwie so)
+
+
+Ergänzungen aus Übung (schaue dazu Notizen von Balazs noch an !): Ziel bei diesem Abschnitt zu Frobenius etc ist Verallgemeinern von VF; können k Richtungen angeben, die glatt voneinander abhängen oder sowas (Beispiel zu Rang 1 sind zwei Vektoren in einem Punkt wohl iwie; geben also nicht nur einen Vektor an sondern mehrere, also wie VF); Integrabilität bedeutet dann, dass ein F existiert, das die UMF in die MF immergiert (das heißt wir wollen immergiert UMF N, deren Tangentialraum durch die Distribution gegeben ist, den wir eben über Push-Forward berechnen können, wobei wir aber eigentlich in M bleiben und uns vorher nur eingeschränkt haben auf N; N heißt dann Integral-MF und für $\dim(N) = 1$ ist das einfach nur Integralkurve !); kann man für jeden Punkt eine Integralmannigfaltigkeit finden kann, heißt die Distribution integrabel; haben also zwei Eigenschaften von Distributionen, nämlich involutiv (eher algebraisch) und integrabel (geometrisch); sick für Frobenius: können Integrabilität nun einfach über Berechnung von Lie-Klammern überprüfen ! Hier kommt dann auch Blätterung rein iwie, siehe sein Beispiel da. ? Können dann wie bei Bild von Integralkurven nicht safe wissen von welchem das kommt ?
+
+
+\newpage
+
+
+	\section{Differentialgleichungen und Flüsse}\label{sec:gdgl2}
+In diesem Abschnitt soll es um die Einführung von \Def[Differentialgleichung! auf einer Mannigfaltigkeit]{Gewöhnlichen Differentialgleichungen (GDGL)} sowie \Def[Anfangswertprobleme! auf einer Mannigfaltigkeit]{Anfangswertprobleme (AWP)} gehen und wie man mit diesen auf Mannigfaltigkeiten umgeht. Eine Wiederholung von GDGL auf dem $\mathbb{R}^n$, wie sie aus Kursen zu Analysis bekannt sein sollten, ist in Abschnitt \ref{sec:gdgl} nachzulesen.
+
+
+Das Setting ist ziemlich analog zum Fall $M = \mathbb{R}^n$, man hat ein Vektorfeld $X \in \mathcal{X}(M)$ und sucht dazu Kurven $\gamma: I \rightarrow M$ auf einem Intervall $I \subset \mathbb{R}$ wie z.B. $(-\epsilon, \epsilon)$ mit
+\begin{equation*}
+X_{\gamma(t)} = \gamma'(t) \in T_{\gamma(t)} M, \quad \forall t \in I \, .
+\end{equation*}
+In Worten bedeutet das, dass die Ableitung $\gamma'(t) = \dv{\gamma}{t}$ ein Repräsentant des Tangentialvektors sein soll, den $X_{\gamma(t)} = X_p = X(p)$ ergibt und das für alle Zeiten $t \in I$ (man beachte dabei, dass $\gamma(t) \in M$, aber $\gamma'(t) \in T_{\gamma(t)} M$). Die Kurve soll sich also anschaulich gesprochen entlang des Vektorfelds $X$ bewegen.
+
+\begin{defi}[Integralkurve]
+Eine glatte Kurve $\gamma: I \rightarrow M$ mit
+\begin{equation}
+X_{\gamma(t)} = \gamma'(t) \in T_{\gamma(t)} M, \quad \forall t \in I \, .
+\end{equation}
+heißt \Def[Integralkurve]{Integralkurve von $X$}, falls das Intervall $I$ mindestens zwei Punkte enthält.
+
+Für $0 \in I$ und $p = \gamma(0) \in M$ heißt $\gamma = \gamma_p$ auch \Def[Integralkurve! durch $p$]{Integralkurve von $X$ durch $p$}.
+
+Man nennt $\gamma$ \Def{maximale Integralkurve}, falls der Definitionsbereich maximal ist.
+\end{defi}
+
+Die Lösungen von GDGL und AWP werden also auch auf Mannigfaltigkeiten durch Integralkurven beschrieben. Zudem kann man sich den Zusammenhang hier auch sehr anschaulich vorstellen: die Lösungskurve gibt zwar immer Punkte aus $M$, schickt einen aber gerade auf so einem Weg zu diesen Punkten, dass man sich dabei immer in die Richtung des Vektorfeldes bewegt und damit die Ableitung der Kurve (entspricht hier Richtungsableitung wegen Definitionsbereich $\mathbb{R}$) in Richtung des Vektorfelds zeigt. Das zeigt auch folgendes Beispiel einer in den $\mathbb{R}^n$ eingebetteten Mannigfaltigkeit:
+\begin{bsp}[AWP auf der Sphäre]\label{bsp:awpsphere}
+Für $M = \mathbb{S}^2 \subset \mathbb{R}^3$ und das Vektorfeld $X \in \mathcal{X}(\mathbb{S}^2), \, X_p = e_3 \cross p$ ($\cross$ bezeichnet hier das Kreuzprodukt, nicht das kartesische !) bzw. die Darstellung $X_{(x, y, z)} = (-y, x, 0)$ in Standardkoordinaten (dort ist $e_3 = (0, 0, 1)$) ist eine Integralkurve von $X$ durch $p = (x, y, z)$ gegeben durch
+\begin{equation}\label{eq:sphvektfeld}
+\gamma(t) = \mqty(\cos(t) & - \sin(t) & 0 \\ \sin(t) & \cos(t) & 0 \\ 0 & 0 & 1) \cdot \mqty(x \\ y \\ z) \, ,
+\end{equation}
+wobei die Darstellungsmatrix ein Element von $\text{SO}(3)$ ist (orthogonal und Determinante 1). Diese beschreiben bekannterweise Drehungen und in der Definition des Vektorfelds trat ja auch das Kreuzprodukt auf, das ja einen zu beiden Argumenten (hier $e_3, p$) orthogonalen Vektor ergibt. Weil zudem $e_3$ ein Einheitsvektor ist, kann die Wirkung als Drehung (keine Drehstreckung) interpretiert werden, damit ist das Ergebnis auch logisch nachvollziehbar.
+\end{bsp}
+
+Natürlich wäre es nun interessant zu wissen, wann das zu einer Differentialgleichung gehörige AWP für jeden Punkt auf der Mannigfaltigkeit eine Lösung hat, deshalb sollen nun Bedingungen dafür gefunden werden.
+
+\begin{defi}[Vollständiges Vektorfeld]
+Ein Vektorfeld $X \in \mathcal{X}(M)$ heißt \Def{vollständig}, falls durch jeden Punkt $p \in M$ eine Integralkurve von $X$ geht, die auf $I = \mathbb{R}$ definiert ist.
+\end{defi}
+Der Knackpunkt bei dieser Definition ist nun nicht, dass $X$ auf ganz $M$ definiert sein soll (das könnte man für lokal definierte Vektorfelder beispielsweise durch Buckelfunktionen erreichen, die glatt mit dem Nullvektor fortsetzen), sondern dass man für jeden Punkt $p \in M$ eine Integralkurve $\gamma$ mit $\gamma(0) = p$ findet und dass diese zusätzlich auf ganz $\mathbb{R}$ definiert sind. Das ist keineswegs eine leichte Aufgabe, weil die Kurve ja für beliebige Anfangswerte $p \in M$ und zu jeder Zeit $t$ tangential am Vektorfeld $X$ liegen soll (man muss also beim Entlanggehen der Feldlinien von $X$ nie abbrechen, egal wo man startet) und zusätzlich noch glatt sein muss (ohne \enquote{Knicke}).
+
+\begin{bsp}[(Gegen-)Beispiel für ein vollständiges Vektorfeld]
+Das in Beispiel \ref{bsp:awpsphere} vorgestellte Vektorfeld auf der 2-Sphäre ist vollständig.
+
+Für $X \in \mathcal{X}(\mathbb{R}), \, X_x = x^2 \pdv{x}$ hingegen wurde ja bereits die Integralkurve $\gamma(t) = \frac{1}{1 - t}$ durch den Punkt $x = 1$ gefunden, die sich aber nicht beliebig weit fortsetzen lässt ($t = 1$ ist problematisch) und daher nicht vollständig ist.
+\end{bsp}
+
+\begin{bsp}[Verkleben von Integralkurven]
+Eine Möglichkeit, den Definitionsbereich einer Integralkurve zu vergrößern (z.B.~auf dem Weg zu einer maximalen Integralkurve) ist das \enquote{Zusammenbasteln} bzw. Verkleben zweier Integralkurven mit geeigneten Definitionsbereichen. Geeignet heißt, dass Endpunkt der einen Kurve und Startpunkt der anderen gleich sein müssen, das Ganze soll anhand der Integralkurven $\gamma: [0, 1] \rightarrow M, \hat{\gamma}: [1, 2] \rightarrow M$ zu $X \in \mathcal{X}(M)$ erläutert werden. Gilt nämlich $\gamma(1) = \hat{\gamma}(1)$, so bildet
+\begin{equation}
+\tilde{\gamma}: [0, 2] \rightarrow M, \; \tilde{\gamma}(t) = \begin{cases} \gamma(t), & t < 1 \\ \hat{\gamma}(t), & t \geq 1 \end{cases}
+\end{equation}
+auch eine Integralkurve von $X$, wie man sich leicht überlegen kann: die Stetigkeit des Übergangs wird von der Bedingung $\gamma(1) = \hat{\gamma}(1)$ garantiert und die Differenzierbarkeit $\gamma'(1) = \hat{\gamma}'(1)$ folgt daraus, dass es sich jeweils um Integralkurven an diesem Punkt handelt. Das bedeutet, dass sie denselben Tangentialvektor an diesem Punkt repräsentieren und daher folgt mit $\gamma(1) = \hat{\gamma}(1)$:
+\begin{equation}
+\gamma'(1) = X_{\gamma(1)} = X_{\hat{\gamma}(1)} = \hat{\gamma}'(1) \, .
+\end{equation}
+
+Sind die beiden zu verklebenden Kurven auf $[0, 1]$ definiert, so muss man tricksen und das \enquote{Produkt} der Kurven anders definieren, erhält jedoch letztendlich:
+\begin{equation*}
+\tilde{\gamma}: [0, 2] \rightarrow M, \; \tilde{\gamma}(t) = \begin{cases} \gamma(2t), & t < 1/2 \\ \hat{\gamma}(2t - 1), & t \geq 1/2 \end{cases}
+\end{equation*}
+\end{bsp}
+
+
+Offenbar liefert jedes Vektorfeld $X \in \mathcal{X}(M)$ eine GDGL auf $M$. Die logische Frage ist dann, wie es mit der Existenz und Eindeutigkeit einer Lösung dafür aussieht.
+\begin{satz}[Existenz und Eindeutigkeit einer Lösung]\label{satz:exloesgdglmf}
+Für eine Mannigfaltigkeit $M$ und $X \in \mathcal{X}(M)$ existiert ein $\delta = \delta_p \in \mathbb{R}^{> 0}$ und ein $U \subset M$ offen, sodass durch jeden Punkt $p \in U$ eine eindeutige Integralkurve $\gamma: I \rightarrow U$ von $X$ durch $p$ auf dem Intervall $(-\delta, \delta)$ existiert.
+
+Falls $\text{supp}(X) = \overline{\qty{p \in M: \; X_p \neq 0}}$ kompakt ist, ist $X$ zudem vollständig.
+\end{satz}
+	\anm{der Träger supp (von englisch \enquote{support}) sollte dabei bereits bekannt sein. Es handelt sich dabei um den Abschluss $\overline{N}$ der Nicht-Nullstellen-Menge $N$ einer Abbildung, also die kleinste abgeschlossene Menge, die $N$ enthält oder formal: $\overline{N} = \bigcap_{N \subset A, A \text{ abgeschlossen}} A \displaystyle$ (offenbar ist für $N$ abgeschlossen $\overline{N} = N$).}
+
+
+%was bringt uns die Kompaktheit hier, geht es da um endlich viele Punkte vlt ? -> wollen ja: für jeden Punkt existiert eine offene Umgebung $U$ und ein $\epsilon > 0$, sodass für alle $q \in U$ die Integralkurve durch $q$ für alle Zeiten existiert und dafür braucht man diese Umgebung anscheinend (außerhalb des Trägers ist die Integralkurve konstant, weil dort ja $X_p = 0$ und das entspricht ja gerade der Ableitung von $\gamma$, das heißt dort muss $\gamma$ konstant sein) -> lol, wären ja nicht endlich viele Punkte, allerhöchstens abzählbar viele; das Ding scheint endliche Überdeckung zu sein, siehe Ende des Beweises hier
+
+% gilt das eventuell nur für $0 \neq X$ ? Aber eigentlich ist ja die Lösung für dieses Vektorfeld einfach die Kurve, die auf 0 abbildet oder, sollte also für alle Punkte und zu jeder Zeit existieren
+
+\begin{proof}
+Idee ist letztendlich wieder einmal das Zurückführen auf den $\mathbb{R}^n$ und dort Ausnutzen der Existenz einer Lösung; schreibe also die Gleichung in Koordinaten auf, die durch eine Karte $(U, \varphi)$ gegeben sind (die ist dann auf einer offenen Menge definiert, nämlich dem Koordinatengebiet der Karte); dabei kommt dann die äquivalente Gleichung $\hat{\gamma}'(t) = \hat{X}(\hat{\gamma}(t))$ heraus, wobei
+\begin{equation}
+\hat{\gamma} := \varphi \circ \gamma: I \rightarrow \varphi(U) \subset \mathbb{R}^n
+\end{equation}
+und
+\begin{equation}
+\hat{X}: \varphi(U) \rightarrow \mathbb{R}^n, \; q \mapsto \mqty(\lambda_1(q) \\ \vdots \\ \lambda_n(q)), \quad \lambda_k := \qty(X \cdot \varphi_k) \circ \varphi^{-1}: \varphi(U) \rightarrow \mathbb{R}
+\end{equation}
+das kann eben nach dem Satz aus dem vorherigen Abschnitt gelöst werden, womit durch Rücktransformation auf $M$ mithilfe von $\varphi$ auch die urpsrüngliche Gleichung eine Lösung hat
+
+danach hilft Kompaktheit, weil das endliche Teilüberdeckung impliziert und daher nur endlich viele $\delta_p > 0$ existieren; daraus folgt Existenz auf Intervall $(-\delta, \delta)$ und die Kurven kann man dann zusammenbasteln, sodass man letztendlich die Existenz der Integralkurve für alle Zeiten erhält
+\end{proof}
+
+Offenbar handelt es sich um die \enquote{Mannigfaltigkeiten-Version} des Satzes \ref{satz:loesgdglreell} zur Existenz und Eindeutigkeit der Lösung einer GDGL ! Zumindest lokal auf offenen Mengen $U \subset M$ findet man also durch alle $p \in M$ eine Integralkurve $\gamma$ von $X$.
+
+Das hat wichtige Folgen für eine gewisse Klasse von Mannigfaltigkeiten:
+\begin{cor}[Vollständigkeit auf kompakten Mannigfaltigkeiten]
+Für eine kompakte Mannigfaltigkeit $M$ ist jedes Vektorfeld $X \in \mathcal{X}(M)$ vollständig.
+\end{cor}
+\begin{proof}
+Das folgt sofort daraus, dass der Träger per Definition eine abgeschlossene Menge ist und abgeschlossene Teilmengen kompakter Mengen wieder kompakt sind (weil die endliche Überdeckung für $M$ existiert, gibt es sie natürlich auch für jede Teilmenge von $M$). Damit hat jedes Vektorfeld kompakten Träger.
+\end{proof}
+Die besonderen Eigenschaften kompakter Mannigfaltigkeiten treten noch öfter auf.\\
+
+
+Weil nun die Lösung nur für gewisse Zeiten, aber alle Punkte garantiert werden kann, ist die Betrachtung von Integralkurven $\gamma(t)$ nicht mehr wirklich praktisch und die Suche nach einem Objekt, das Punkt und Zeit enthält, ist angebracht. Das führt zu der Idee von Flüssen auf Mannigfaltigkeiten, die den Transport von Punkten entlang der Lösung einer GDGL und damit entlang eines gewissen Vektorfelds beschreiben.
+
+%nun zu Flüssen (Name kommt daher, dass man bei diesen Sachen immer vorstellt, wie/ dass jeder Punkt auf der MF weitertransportiert wird, wie eben in einem Fluss)
+
+\begin{satz}[Fluss eines Vektorfelds]
+Für ein Vektorfeld $X \in \mathcal{X}(M)$ existiert eine offene Teilmenge $\mathcal{U} \subset \mathbb{R} \cross M$ mit $\qty{0} \cross M \subset \mathcal{U}$ und eine glatte Funktion
+\begin{equation}
+\Phi = \Phi^X: \mathcal{U} \rightarrow M, \; (t, p) \mapsto \Phi_t(p) \, ,
+\end{equation}
+sodass gilt: %die erfüllen:
+\begin{itemize}
+\item[1.] $\forall p \in M$ ist $\mathcal{U}_p := \qty{t \in \mathbb{R}: \; (t, p) \in \mathcal{U}}$ ist ein Intervall, das die 0 enthält
+
+\item[2.] $\forall p \in M$ ist die Abbildung
+\begin{equation}
+\Phi(p): \mathcal{U}_p \rightarrow M, \; \mathbb{R} \ni t \mapsto \Phi_t(p) = \gamma_p(t)
+\end{equation}
+eine maximale Integralkurve von $X$ durch $p$, sodass auch $(s, \Phi_0(p)) = (s, p)$
+
+\item[3.]
+$%\begin{equation}
+(s, p), (t, \Phi_s(p)) \in \mathcal{U} \; \Rightarrow \; (t + s, p) \in \mathcal{U}$ und $\Phi_t \circ \Phi_s(p) = \Phi_{t + s}(p) \, .
+$%\end{equation}
+\end{itemize}
+
+Die Abbildung $\Phi$ heißt \Def{Fluss von $X$}.
+\end{satz}
+\begin{proof}
+kriegen Offenheit von $\mathcal{U}$ sofort aus Existenz + Eindeutigkeit der Lösung GDGL, weil dann immer eine Integralkurve in einer kleinen Umgebung existiert; Glattheit der Abbildung in 2 folgt direkt daraus die Lösung einer glatten DGL glatt vom Anfangswert abhängt (betrachte auch die Abbildung dort beim Existenzbeweis, das ist quasi schon Fluss und der wurde dort als glatt gezeigt); das dritte folgt, weil die Integralkurven $t \mapsto \Phi_{s + t}(p), \, t \mapsto \Phi_t(\Phi_s(p))$ beide nach 2 maximal sind und durch $\Phi_s(p)$ gehen, aber ja offenbar den gleichen Definitionsbereich haben (daher folgt aus der Maximalität die Gleichheit der Abbildungen, weil die Lösung eines AWP eindeutig durch den Anfangswert vorgegeben ist)
+\end{proof}
+
+Weil das alles am Anfang sehr verwirrend ist, hier noch einmal in kompakt: $\Phi$ selber gibt einen Punkt in $M$, das zugehörige Vektorfeld erhält man punktweise durch
+\begin{equation}
+X_{\Phi_s(p)} = \eval{\dv{t} \Phi_t(p)}_{t = s}, \quad \forall s \in \mathcal{U}_p \, ,
+\end{equation}
+die Bewegung entlang $X$ kann nun also von beliebigen $p \in M$ gestartet werden.
+
+Diese \enquote{Definition} ist sehr lang, aber die Grundidee ist sehr logisch nachvollziehbar (dass man so allgemein wie möglich bleiben will, macht es am Ende so kompliziert): wie bereits davor angedeutet möchte man die Integralkurven $\gamma(t)$ durch jeden Punkt $p$ in einer Abbildung zusammenfassen. Genau das wurde in $\Phi$ (manchmal wird $\Phi^X$ geschrieben, um die Zugehörigkeit zum Vektorfeld $X$ zu kennzeichnen) gemacht, dort ändert Variation des ersten Parameters die Zeit, die man die Integralkurve bereits entlang geht, und Variation des zweiten Parameters ändert die Integralkurve, die man entlang geht (durch Änderung des Anfangswerts $p$). Es ist also ganz natürlich, dass Tupel $(t, p) \in \mathcal{U}$ auftreten und man könnte das symbolisch so erklären, dass $\mathcal{U}$ die Vereinigung von $I_p \cross \qty{p}$ mit dem zur Integralkurve durch $p$ gehörigen Definitionsintervall $I_p \subset \mathbb{R}$ ist, das immer die Form $(-\delta, \delta)$ für ein $\delta \in \mathbb{R}$ hat und bei Eigenschaft 1 als $\mathcal{U}_p$ bezeichnet wird (daher ist das Tupel $(0, p)$ für alle $p \in M$ in $\mathcal{U}$ enthalten, $\qty{0} \cross M \subset \mathcal{U}$). Das wird aus Satz \ref{satz:exloesgdglmf} klar und von dort kommt auch, dass man für alle $p \in M$ lösen kann und nicht nur auf einer offenen Teilmenge $U \subset M$.
+
+-> ah, man kann wahrscheinlich nicht im Allgemeinen die DGL lösen (nur auf offener Teilmenge garantiert), aber bei $t = 0$ wirkt der Fluss als Identität, von daher kann man den Fluss immer zur Zeit 0 definieren !!! Wenn AWP für dem Punkt DGL nicht lösbar, dann ist halt $\delta_p = 0$ bzw. $\mathcal{U}_p = \qty{(0, p)}$, aber 0 ist immer noch enthalten
+
+
+Eigenschaft 2 drückt also die bereits logisch gegebene Motivation hinter der Definition des Flusses aus, nur 3 ist nicht direkt offensichtlich. Dort steht aber einfach, dass man statt separatem Durchlaufen der Integralkurve durch $p \in M$ für die Zeit $s \in \mathbb{R}$ und Durchlaufen der Integralkurve durch $\Phi_s(p) \in M$ für die Zeit $t \in \mathbb{R}$ (bei Existenz der beiden, was durch $(s, p), (t, \Phi_s(p)) \in \mathcal{U}$ gesichert ist) auch einfach die Integralkurve durch $p$ für die Zeit $s + t$ durchlaufen kann (entspricht der Verklebung, die hier aber direkt mit in $\Phi$ drin steckt, weil es nur maximale Integralkurven enthält).
+
+	\anm{die in 3 genutzte Verknüpfung liefert eine Art Gruppenstruktur und sofort ist beispielsweise klar, dass $\qty(\Phi_t(p))^{-1} = \Phi_{- t}(p)$.}
+
+Veranschaulichen kann man sich die ganze Konstruktion anhand eines früheren Beispiels (Drehvektorfeld auf der Sphäre), denn weil in \eqref{eq:sphvektfeld} bereits Punkt und Zeit beliebig waren, hat man dort bereits die Flussabbildung berechnet (Eigenschaft 3 kann man unter Ausnutzen von Additionstheoremen nachrechnen).
+
+Ein weiteres, anschauliches Beispiel liefern die Gauß'schen Basisfelder:
+\begin{bsp}[Fluss Gauß'scher Basisfelder]
+Für ein Vektorfeld $X \in \mathcal{X}(M)$ mit der Darstellung
+\begin{equation*}
+X_U = \pdv{\varphi_1}
+\end{equation*}
+in der durch eine Karte $(U, \varphi)$ induzierten lokalen Trivialisierung ist der Fluss von $X_U$ für Punkte $x = (x_1, \dots, x_n) \in \varphi(U)$ gegeben durch
+\begin{equation}
+\Phi_t^X\qty(\varphi^{-1}(x)) = \varphi^{-1}(x_1 + t, x_2, \dots, x_n) \, .
+\end{equation}
+Das ist anschaulich so zu verstehen, dass man in der Karte einfach in $x_1$-Richtung geht und den so entstehenden Punkt wieder nach $M$ abbilden muss. Das funktioniert natürlich nur für Zeiten $t \in (-\delta, \delta)$ mit einer vom Punkt abhängigen Intervalllänge $\delta$.
+
+Allgemeiner könnte man die Existenz des Flusses für kleine Zeiten auch so beschreiben, dass für jeden Punkt $p \in U$ eine Umgebung $V_p \subset U$ und eine Zahl $\delta > 0$ existieren, sodass die Integralkurve durch jedes beliebige $q \in V_p$ auf dem Intervall $(-\delta, \delta)$ existiert und damit auch der Fluss
+\begin{equation}
+\Phi_t^X(q) = \varphi^{-1}(\varphi(q) + t \, e_1)
+\end{equation}
+von $X$ auf dieser offenen Menge $U \subset M$ existiert.
+
+	\anm{das ist natürlich analog für alle anderen $e_k$ möglich.}
+\end{bsp}
+
+Speziell für vollständige Vektorfelder folgt nun nach Satz \ref{satz:exloesgdglmf}, dass alle Integralkurven auf ganz $\mathbb{R}$ definiert sind, sodass für das Definitionsgebiet des Flusses $\Phi^X$
+\begin{equation}
+\mathcal{U} = \mathbb{R} \cross M \, \text{ und } \, \mathcal{U}_p = \mathbb{R}, \quad \forall p \in M
+\end{equation}
+gilt. Weil Vektorfelder $X \in \mathcal{X}(M)$ in jedem Punkt $p$ auf $M$ eine Richtung $X_p$ vorgeben (eindeutig !), folgt in diesem Fall außerdem, dass die Zuordnung $\Phi_{t_0}: M \rightarrow M$ ein Diffeomorphismus ist, der sehr anschaulich für die Dauer $t_0$ die gesamte Mannigfaltigkeit entlang der Feldlinien des Vektorfelds $X$ verschiebt (die Glattheit folgt aus der Glattheit von $X$ und aller Integralkurven, sodass nur die Bijektivität zu verargumentieren ist).
+
+Mit diesen Erkenntnissen ergibt sich sofort folgendes Korollar:
+\begin{cor}[Flussabbildung]\label{cor:flussdiffeo}
+Für ein vollständiges Vektorfeld $X \in \mathcal{X}(M)$ ist die Abbildung
+\begin{equation}
+\hat{\Phi}: \mathbb{R} \rightarrow \text{Diff}(M), \; t \mapsto \Phi_t
+\end{equation}
+ein Gruppenhomomorphismus von $(\mathbb{R}, +)$ nach $(\text{Diff}(M), \circ)$.
+\end{cor}
+\begin{proof}
+Dass der Zielbereich die Menge der Diffeomorphismen $\text{Diff}(M)$ ist, wurde bereits vor dem Korollar festgehalten.
+
+Für das Vorliegen eines Gruppenhomomorphismus ist nun noch die Erhaltung der Gruppenstruktur unter $\hat{\Phi}$ zu zeigen (Linearität ist wegen der Linearität von Diffeomorphismen klar). Auf $\mathbb{R}$ hat man dort die Addition gegeben, also die Verknüpfung $s \circ t = s + t$ (ganz offenbar erfüllt das z.B. $s, t \in \mathbb{R} \Rightarrow s + t \in \mathbb{R}$) und auf der Menge der Diffeomorphismen nimmt man einfach die Verknüpfung von Abbildungen, bei der sich wegen des Erhalts von Bijektivität und Glattheit unter Verknüpfung nichts an den wichtigen Eigenschaften ändert und die rein rechnerisch aus der Linearität des Differentials sowie der Kettenregel folgt (für das Inverse gibt es dann beispielsweise Rechenregeln wie der Invertierung von Matrizen). Dann berechnet man einfach:
+\begin{equation*}
+\hat{\Phi}(s) \circ \hat{\Phi}(t) = \Phi_s \circ \Phi_t = \Phi_{s + t} = \hat{\Phi}(s + t)
+\end{equation*}
+und damit bleibt die Gruppenstruktur unter $\hat{\Phi}$ erhalten.
+\end{proof}
+
+Im Prinzip hat man hier die unmittelbar vor dem Satz erkannte Struktur genutzt, dass für vollständige Vektorfelder zu jeder beliebigen Zeit $t_0$ die Abbildung $\Phi_{t_0}: M \rightarrow M$ ein Diffeomorphismus ist. Weil die festgelegte Zeit $t_0$ einfach einem Parameter entspricht, kann man sich so die Abbildung $\hat{\Phi}$ bauen (kann leider nicht mit der Vorschrift von $\Phi$ ausgedrückt werden, daher die leichte Abwandlung $\hat{\Phi}$).
+
+
+Natürlich kann man dabei nur für den Fall vollständiger Vektorfelder ganz $\mathbb{R}$ als Definitionsbereich annehmen, weil dort jede Integralkurve für alle Zeiten existiert. Im allgemeineren Fall nicht vollständiger Vektorfelder kann man den Wertebereich gleich lassen, muss aber den Definitionsbereich stark einschränken, genauer auf das Intervall $(-\delta, \delta)$, wobei das $\delta$ aus der Integralkurve mit dem kleinsten Definitionsintervall stammt. Es ist nämlich ganz klar, dass eine Integralkurve außerhalb ihres Definitionsbereichs nicht wirken kann und daher nicht an der Verschiebung von Punkten teilnimmt (dann würde kein Diffeomorphismus mehr vorliegen, weil die Bijektivität kaputt geht). -> ahhhh, wahrscheinlich geht das echt nur bei vollständigen und sonst oft nicht, weil nicht für jeden Punk lösbar
+
+%Eine andere Möglichkeit (bei der $\mathbb{R}$ bleiben könnte) wäre, den Definitionsbereich der Diffeomorphismen einzuschränken und statt $M$ die Menge de
+
+Möchte man jedoch am Definitionsbereich $\mathbb{R}$ festhalten, so kann man das tun, allerdings bildet man dann nicht mehr auf globale Diffeomorphismen ab, sondern lokale auf der Menge der Punkte, durch die eine Integralkurve läuft, die zur gewählten Zeit $t_0$ noch existiert (nur diese Menge wird dann ja bis zu dieser Zeit $t_0$ verschoben).
+
+	\anm{man beachte, dass ein Gruppenhomomorphismus nichts über die Bijektivität o.Ä. aussagt ! Diese ist sogar explizit nicht gegeben, weil die einparametrige Gruppe der Diffeomorphismen sehr groß ist (man kann immer Buckelfunktionen z.B. zum Abschneiden nutzen, um den Träger kompakt zu kriegen).}
+
+Die gerade herausgefundenen Eigenschaften sollten einem jetzt nicht völlig unbekannt sein, tatsächlich kamen sie bereits vor (auch wenn dort noch nicht von Flüssen o.Ä. die Rede war), wie dieses Beispiel zeigt:
+\begin{bsp}[Exponentialabbildung]\label{bsp:expabb}
+Als wichtiges Beispiel eines Flusses stellt sich die Exponentialabbildung bei Lie-Gruppen heraus. Sie ergab sich als Integralkurve zur DGL
+\begin{equation*}
+\gamma'(t) = \xi \gamma(t) \, .
+\end{equation*}
+Dass $\gamma$ auf ganz $\mathbb{R}$ definiert ist und damit das Vektorfeld $X^\xi$ vollständig, ist sowohl wegen der einfachen Wirkung als Multiplikation als auch wegen der Lösung $\text{Exp}(t\xi)$ (dort können keine Probleme mit undefinierten Stellen auftreten). Wie aber bereits vor Definition \ref{defi:defiexpabb} begründet wurde, kann man genau so einfach das $\xi$ variieren und erhält trotzdem die analoge Lösung. Damit ist klar, dass es sich bei der Exponentialabbildung um den Fluss zu $X^\xi$ handelt (das ist sogar die allgemeinere Definition, die Produktform ergibt sich dann für $G = \text{GL}(n, \mathbb{R})$).
+
+Nach dem eben gezeigten Korollar \ref{cor:flussdiffeo} zusammen mit den Ausführungen davor folgt dann auch direkt, dass es sich bei Exp um einen Diffemorphismus handelt (dass die Bijektivität möglich ist, zeigt $\dim(G) = \dim(T_g G) = \dim(\mathfrak{g})$). Außerdem entspricht die Rechenregel \ref{eq:expabbgruppe} genau der 3. Eigenschaft von Flüssen, die einer Gruppeneigenschaft entsprach.
+\end{bsp}
+
+
+\begin{bsp}[Fluss Gauß'scher Basisfelder V2]
+? wirklich Beispiel ?
+
+Beispiel von eben wird hier nochmal anders aufgezogen; hier wird gezeigt, dass es eine Karte gibt, in der der Fluss von der einfachen Form eines Gauß'schen Basisvektors ist (auch wenn das Finden dieser Karte in der Praxis sehr schwer sein kann, hier geht es ein wenig ums Prinzip für Beweise z.B.)
+
+Sei $X \in \mathcal{X}$ und $p \in M$, sodass $X_p \neq 0$ (der Tangentialvektor an diesem Punkt soll also nicht 0 sein)
+
+
+Dann existiert eine um $p$ zentrierte Karte $\varphi: U \rightarrow \mathbb{R}^n$ mit
+\begin{equation}
+X_U = \pdv{\varphi_1} \, .
+\end{equation}
+Dort ist der Fluss also leicht zu handhaben (wollen natürlich $U$ so groß wie möglich machen, aber global geht meist nicht leider).
+
+
+Stelle z.B. Kreisscheibe $\subset \mathbb{R}^2$ vor und Vektorfeld $X = y \pdv{x} - x \pdv{y} = \pdv{\varphi}$
+\end{bsp}
+
+
+Flüsse spielen unter Anderem in der Differentialgeometrie und Theoretischen Physik eine wichtige Rolle (z.B.~Stichwort Hamilton'scher Fluss), weil man mit ihnen das Fließen in optimale Zustände oder Symmetrien eines gewissen Problems untersuchen kann (zugehörige Symmetrietransformationen sind Diffeomorphismen).
+
+
+\newpage
+
+
+	\section{Push-Forward, Pullback und Lie-Ableitung}
+Auch wenn Flüsse im Allgemeinen nicht explizit hingeschrieben werden können, sind sie für theoretische Untersuchung trotzdem oft gut geeignet, was hier am Beispiel der Lie-Ableitung klar werden wird. Diese soll hier kurz motiviert werden, danach ist aber noch einige Vorarbeit bis zur eigentlichen Definition nötig.\\
+
+Für ein Vektorfeld $X \in \mathcal{X}(M)$ mit Fluss $\Phi: \mathcal{U} \rightarrow M$ kann man nun die Abbildung
+\begin{equation*}
+\Phi_t^*(f) := f \circ \Phi_t: M \rightarrow \mathbb{R}, \quad f \in C^\infty(M; \mathbb{R})
+\end{equation*}
+betrachten (die später Pullback der Funktion $f$ heißen wird). So bewirkt man, dass $f$ anschaulich entlang des Flusses $\Phi_t(p)$ durch den Punkt $p$ zur Zeit $t$ ausgewertet wird, man setzt also nicht mehr beliebige Punkte aus $M$ ein.
+
+Obwohl der Fluss $\Phi$ im Allgemeinen nur ein lokaler Diffeomorphismus ist, weil er nicht für jede Zeit $t$ existieren muss, so existiert er dennoch sicher an jedem Punkt in einer kleinen Umgebung $(-\delta, \delta)$ um $t = 0$ (wurde in der Definition gefordert). Diese Tatsache liefert dann die Wohldefiniertheit der Ableitung von $\Phi^*f$% (bedenke: es handelt sich auch um eine Abbildung von $M$ aus)
+\begin{equation*}
+\eval{\dv{t} \qty(\Phi_t^* f)(p)}_{t = 0}
+\end{equation*}
+und die explizite Berechnung ergibt (vielleicht etwas überraschend):
+\begin{equation*}
+\eval{\dv{t} \qty(\Phi_t^* f)(p)}_{t = 0} = \eval{\dv{t} f \circ \Phi_t (p)}_{t = 0} = \eval{\dv{\Phi_t(p)} f}_{\Phi_0(p)} \circ \eval{\dv{t} \Phi_t}_{t = 0} (p) = D_p f (X_p) = X_p \cdot f \, ,
+\end{equation*}
+wobei $\Phi_0(p) = p$ und die Differentialgleichung ausgenutzt wurden. Diese Abbildung wird später Lie-Ableitung heißen und erlaubt wegen der expliziten Wirkung die Berechnung der Richtungsableitung entlang $X$ über Benutzung des zu $X$ gehörigen Flusses. Das spielt beispielsweise eine wichtige Rolle bei der Beschreibung von Symmetrien.
+
+	\anm{die ungewohnte Schreibweise bei der Ableitung von $f$ kommt daher, dass man eigentlich $f(p)$ hat und daher $\dv{p} f$. Da aber nur Punkte $\phi_t(p)$ eingesetzt werden, wird mit dieser Schreibweise lediglich der Punkt variiert (nur daher erhält man dann übrigens auch $D_p f$, das entspricht nicht $\dv{t} f$ !).}
+
+
+Weil man eine allgemeinere Wirkung als die auf Funktionen haben möchte, erfolgt jetzt die Abstraktion der beiden hier kurz vorgestellten Definitionen.
+\begin{defi}[Push-Forward]
+Für einen Diffeomorphismus $\Psi: M \rightarrow N$ und ein Vektorfeld $X \in \mathcal{X}(M)$ definiert
+\begin{equation}
+\Psi_* X: N \rightarrow T_q N, \; q \mapsto \qty(\Psi_* X)_q := D_{\Psi^{-1}(q)} \Psi\qty(X_{\Psi^{-1}(q)})
+\end{equation}
+ein glattes Vektorfeld auf $N$, den \Def[Push-Forward eines Vektorfelds]{Push-Forward von $X$ (mittels $\Psi$)}.
+\end{defi}
+Obwohl das Differential eigentlich eine Abbildung
+\begin{equation*}
+D \Psi: TM \rightarrow TN = T \qty(\Psi(M)) , \; X_p \equiv \qty(p, X_p) \mapsto D_p \Psi\qty(X_p) \equiv \qty(\Psi(p), D_p \Psi\qty(X_p))
+\end{equation*}
+definiert, kann man durch Festhalten der zweiten Komponente (weil man ja ein festes Vektorfeld $X \in \mathcal{X}(M)$ pusht) eine Abbildung auf $M$ konstruieren. Wegen der Forderung, dass $\Psi$ ein Diffeomorphismus sein soll und daher insbesondere bijektiv, betrachtet man einfach statt $p \in M$ äquivalent das Bild $q = \Psi(p)$, das ja auch den Fußpunkt des Tangentialvektors vorgibt (Auswertung in $p$ wird dann zu Auswertung in $\Psi^{-1}(q) = p$). Weil nun der Punkt noch variabel ist, an dem das feste Vektorfeld $X$ (und dann natürlich auch das Differential) ausgewertet wird, erhält man so zwar immer noch eine Abbildung in den Tangentialraum $T_q N$ (nicht $TN$ wegen Festhalten des Punktes und damit der Faser), aber nicht mehr aus $TM$, sondern aus $N$.
+
+Diese lange Erklärung ist interessanterweise deshalb nötig, weil hier nichts künstlich neu konstruiert wurde (was dann oft gut abzugrenzen ist von bereits bekanntem), sondern es sich nur um einen alternativen Weg der Benutzung des Differentials handelt. Das bedarf einer klaren Abgrenzung vom allgemeinen Differential, weil es ja schon vorher dessen Aufgabe war, Tangentialvektoren von einem Raum auf den anderen zu schieben bzw. auf englisch zu pushen (diese Tatsache wurde hier gezielter ausgenutzt).
+
+%-> auf Wikipedia steht dass es verallgemeinerte Richtungsableitung ist, entspricht das also doch dem Differential ? -> ah ne, da haben die das anders definiert (wir haben hier die Sichtweise mit festem Tangentialvektor, den kann man aber auch variabel lassen und dann hat man ja genau das Differential, weil der ja auch seinen Fußpunkt kennt)
+
+
+Dieser Push-Forward erfüllt für jede glatte Funktion $f: N \rightarrow \mathbb{R}$
+\begin{equation}
+\qty(\Psi_* X)_q \cdot f = \qty(\Psi_* X \cdot f)(q) = \qty(X \cdot \qty(f \circ \Psi))\qty(\Psi^{-1}(q)) = X_p \cdot \qty(f \circ \Psi) \, ,
+\end{equation}
+es handelt sich damit um das (eindeutige) $\Psi$-verwandte Vektorfeld zu $X$ (siehe \ref{defi:verwandtsch}). Das gepushte Vektorfeld wirkt also einfach wie das alte, nur auf die mit $\Psi$ verknüpfte Funktion $f$ (unter Ausnutzen der Definition vom Anfang).
+
+\begin{bsp}[Push-Forward eines Vektorfelds auf der Sphäre]
+Sei nun $M = \mathbb{S}^2 = N$, $\mathcal{X}(\mathbb{S}^2) \ni X: \mathbb{S}^2 \rightarrow \mathbb{R}^3$ (es gilt also $X_p \perp p$, wenn man einen Punkt auf der Sphäre mit seinem Ortsvektor im $\mathbb{R}^3$ identifiziert) und $A$ eine Drehmatrix $A \in \text{SO}(3)$. Weil diese insbesondere Längen erhalten (man sieht das wegen $\langle A x, A x \rangle = (Ax)^T Ax = x^T A^T A x = x^T x$), bildet die Matrix eine lineare Abbildung $A: \mathbb{S}^2 \rightarrow \mathbb{S}^2, \; p \mapsto A p$ auf der Sphäre (wo Länge 1 ja die definierende Eigenschaft ist) und sogar einen Diffeomorphismus $\Psi_A = A$ (weil wegen $\text{SO}(3) \subset \text{GL}(3)$ invertierbar und nur Multiplikation, also auch glatt).
+
+Für das beliebige Vektorfeld $X$ ist der Push-Forward dann wieder ein Vektorfeld
+\begin{equation}
+\qty(\Psi_A)_* X: \mathbb{S}^2 \rightarrow T_p \mathbb{S}^2 = \mathbb{R}^3, \; p \mapsto \qty(\qty(\Psi_A)_* X)_p = A X_{A^{-1}p} \, ,
+\end{equation}
+weil Anwendung der zu $A$ gehörigen linearen Abbildung einfach der Multiplikation mit $A$ ist. Es ist jedoch noch zu zeigen, dass man wirklich im Tangentialraum landet, wozu das Bild $\perp p$ stehen muss:
+\begin{equation*}
+\langle \qty(\qty(\Psi_A)_* X)_p, p \rangle = \langle A X_{A^{-1}p}, p \rangle = \langle X_{A^{-1}p}, A^T p \rangle = \langle X_{A^{-1}p}, A^{-1} p \rangle = 0 \, ,
+\end{equation*}
+wobei die Orthogonalität $A^T = A^{-1}$ von Drehmatrizen genutzt wurde. Das letzte Gleichzeichen folgt dann wegen $X_q \perp q$ mit $q = A^{-1} p$.
+\end{bsp}
+
+
+\begin{bsp}[Push-Forward mit Fluss]\label{bsp:flusspush}
+Sei $X \in \mathcal{X}(M)$ und $t \mapsto \Phi_t$ der Fluss von $X$. Nimmt man nun ein $t \in \mathbb{R}$ bei dem $\Phi_t: M \rightarrow M$ an jedem Punkt $p \in M$ existiert (gilt $\forall t$, wenn $X$ vollständig und sonst zumindest in einer Umgebung um $t = 0$), so gilt
+\begin{equation}
+\qty(\Phi_t)_* X = X \, .
+\end{equation}
+Das kann man durch direktes Nachrechnen zeigen, indem man die Beobachtung $\Phi_0 = \text{id}$ nutzt und dann $\dv{s} \qty(\qty(\qty(\Phi_s)_* X) \cdot f)(p) = 0$ verifiziert.
+\end{bsp}
+
+In diesem Beispiel ist klarerweise der Fluss $\Phi$ zu $X$ auch der Fluss zum gepushten Feld $\qty(\Phi_t)_* X$ (weil das ja wieder $X$ ist), allgemeiner gilt der folgende Satz:
+\begin{satz}[Fluss eines gepushten Vektorfelds]
+Für einen Diffeomorphismus $\Psi: M \rightarrow M$ und ein Vektorfeld $X \in \mathcal{X}(M)$ mit Fluss $\Phi: \mathcal{U} \rightarrow M, \; (t, p) \mapsto \Phi_t(p)$ ist
+\begin{equation}
+\Psi \circ \Phi \circ \Psi^{-1}: \mathcal{U} \rightarrow M, \; (t, p) \mapsto \Psi \circ \Phi_t \circ \Psi^{-1}(p)
+\end{equation}
+der Fluss von $\Psi_* X$.
+\end{satz}
+Es müssen hier lediglich die definierenden Eigenschaften $(0, p) \mapsto p$ und maximale Integralkurve für jedem Punkt gezeigt werden (also, dass die DGL erfüllt ist). Das geschieht durch Nachrechnen (wichtig dabei: durch geschicktes Verknüpfen $\text{id} = \Phi_t \circ \Phi_{-t}$ ergänzen). Für $\Psi = \Phi$ erhält man das Ergebnis aus dem Beispiel davor.\\
+
+
+Will man diese Definition, wie es in den Abschnitten vorher üblich war, auf 1-Formen übertragen, so stellt sich heraus, dass man nicht \enquote{pusht}, sondern \enquote{pullt}:
+\begin{defi}[Pullback]
+Für eine 1-Form $\omega \in \Omega^1(N; \mathbb{R})$ und die glatte Abbildung $\phi: M \rightarrow N$ definiert
+\begin{equation}
+\qty(\phi^*\omega)_p: T_p M \rightarrow \mathbb{R}, \; X = X_p \mapsto \qty(\phi^*\omega)_p(X_p) := \omega_{\phi(p)}\qty(D_p \phi(X_p)) = \omega_{\phi(p)}\qty(X_p \cdot \phi)
+\end{equation}
+eine 1-Form $\phi^*\omega \in \Omega^1(M; \mathbb{R})$, den \Def[Pullback! einer 1-Form]{Pullback von $\omega$/ Zurückholung von $\omega$}.
+\end{defi}
+Die Idee ist einfach, ein Vektorfeld auf $M$ zu nehmen, das nach $N$ zu pushen und dort in $\omega$ einzusetzen, wodurch man effektiv eine 1-Form auf $M$ erhält (der Pullback stellt sich als Abbildung des Push-Forward als duales Konzept zu eben jenem heraus). Als Verknüpfung glatter Abbildungen ist das natürlich wieder glatt und daher definiert diese Angabe einer Vorschrift überhaupt eine 1-Form. Interessant beim Pullback gegenüber dem Push-Forward ist, dass er nicht nur für Diffeomorphismen definiert ist, in gewisser Weise ist der Pullback von 1-Formen also etwas flexibler.
+
+Dass man nun im Prinzip das Umgekehrte (Duale !) zum Push-Forward macht, ist eigentlich klar, wenn man sich beispielsweise an die Rolle von $\qty(f \circ \gamma)'$ als Derivation, aber auch Funktionenkeim erinnert (je nach Interpretation). Bei einem Vektorfeld ersetzt man schließlich den Wertebereich, bei 1-Formen hingegen den Definitionsbereich.
+
+
+Die Glattheit des Pullbacks kann aber auch in Koordinaten gezeigt werden:
+\begin{bsp}[Lokale Darstellung Pullback]
+Sei $x = (x_1, \dots, x_m)$ eine Karte um $p \in U \subset M$ offen und $y = (y_1, \dots, y_n)$ eine Karte um $f(p) \in V \subset N$ offen mit $f(U) \subset V$ (kann oBdA angenommen werden, weil so eine im Maximalen Atlas drin ist), dann gilt
+\begin{align}
+\omega_V &= \sum_{j = 1}^n \alpha_j \, dy_j, \quad \alpha_j: V \rightarrow \mathbb{R}
+\notag\\
+f^*\omega_U &= \sum_{j = 1}^m \beta_j \, df_j, \quad \beta_j = \alpha_j \circ y_k \circ f: U \rightarrow \mathbb{R}
+\end{align}
+und das ist ebenfalls offenbar glatt. Man holt also Koordinatenfunktionen mit $f$ zurück und verknüpft das dann noch mit den vorherigen Koeffizienten.
+
+nein, keine Fehler hier bei den Indizes, das zweite kann man sich durch Anwenden auf Tangentialvektoren dann eben überlegen (beachte $d f_j$ !!!)
+\end{bsp}
+
+? Beispiel ist Differential einer Abbildung ? -> siehe Bemerkung hinten -> lol, zeigt doch sogar nächstes Beispiel (die Abschlussbemerkung weist ja auf genau das hin)
+
+\begin{bsp}[Berechnung Pullback]\label{bsp:spherepullback}
+Hier soll noch eine ganz explizite Rechnung gemacht werden, die beim Verständnis des Pullbacks helfen sollte. Betrachte dazu die 1-Form
+\begin{equation}
+\omega = y \, dx - x \, dy \text{ mit } \omega_p(X_p) = \omega_p(v_1, v_2) = x(p) \, d_p y(v_1) - y(p) \, d_p x(v_2)
+\end{equation}
+und die Parametrisierung
+\begin{equation}
+\phi: \mathbb{S}^1 \rightarrow \mathbb{R}^2, \; \theta \mapsto \mqty(x \\ y) = \mqty(x(\theta) \\ y(\theta)) = \mqty(\cos(\theta) \\ \sin(\theta)) \, ,
+\end{equation}
+die einfach Polarkoordinaten mit dem festen Radius $r = 1$ entspricht (damit ist der Einheitskreis ja offenbar zu beschreiben). Dann kann man aus $\omega$ auch eine 1-Form auf $\mathbb{S}^1$ gewinnen, nämlich den Pullback, der allgemein definiert ist über
+\begin{equation*}
+f(p) \, d\theta = \qty(\phi^* \omega)_p (v_1, v_2) = \omega_{\phi(p)}\qty(D_p \phi(v_1), D_p \phi(v_2)) \, .
+\end{equation*}
+Dafür erhält man unter Benutzung der Kettenregel den folgenden, länglichen Ausdruck, der noch umgeformt wird:
+\begin{align}
+& \quad x\qty(\phi(p)) \, d_{\phi(p)} y\qty(D_p \phi(v_1)) - y\qty(\phi(p)) \, d_{\phi(p)} x\qty(D_p \phi(v_2))
+\notag\\
+&= \qty(x \circ \phi)(p) \, D_{\phi(p)} y \qty(D_p \phi(v_1)) - \qty(y \circ \phi) \, D_{\phi(p)} x \qty(D_p \phi(v_2))
+\notag\\
+&= \qty(x \circ \phi)(p) \, D_p \qty(y \circ \phi)(v_1) - \qty(y \circ \phi) \, D_p \qty(x \circ \phi)(v_2)
+\notag\\
+&= \qty(x \circ \phi)(p) \, d_p \qty(y \circ \phi)(v_1) - \qty(y \circ \phi) \, d_p \qty(x \circ \phi)(v_2) \, .
+\end{align}
+Man sieht also, dass der Pullback einer 1-Form einfach dem Einsetzen der neuen Komponentenfunktionen aus der Parametrisierung statt der alten Komponenten entspricht (allgemeingültige Aussage) ! Speziell für das betrachtete $\omega$ ergibt das (die Vektorargumente spielen hier keine Rolle):
+\begin{align}
+\eta_\theta &:= \qty(\phi^*\omega)_\theta = \omega_{(x(\theta), y(\theta))} = \cos(\theta) \, \cos(\theta) \, d\theta - \sin(\theta) \qty(-\sin(\theta) \, d\theta)
+\notag\\
+&= \qty(\sin(\theta)^2 + \cos(\theta)^2) \, d\theta = d\theta \, .
+\end{align}
+Dabei erhält man die Terme für $dx, dy$ nach der Form
+\begin{equation*}
+d_\theta \qty(x \circ \phi) = d_\theta \cos(\theta) = -\sin(\theta) \, d\theta \, ,
+\end{equation*}
+also: \enquote{leite die Funktion ab nach ihren Parametern und schreibe diese Parameter mit einem $d$ dahinter (das sind die zur Koordinate gehörigen Funktionenkeime)}. Das entspricht auch genau dem Wechsel der Darstellung der dualen Gauß'schen Basis festgehalten hat (siehe \eqref{eq:gausswechseldual}), ist aber deutlich einfacher zu merken (weniger Indizes bei gleichem Ergebnis). Das erweist sich nun als sehr nützlich, weil man ja insbesondere Basiswechsel so berechnen kann, wähle einfach $\omega = dx$ etc. !
+\end{bsp}
+
+
+Obwohl der Pullback für allgemeinere Abbildungen definiert ist, kann man natürlich den Fall eines Diffeomorphismus $\phi = \Psi: M \rightarrow M$ untersuchen. Sehr spannend wird das Ganze dann bei Betrachtung der glatten Funktion $p \mapsto \omega_p(X_p)$, weil
+\begin{equation}\label{eq:pullpushv1}
+\qty(\Psi^* \omega)\qty(\Psi^{-1}_* X) = \omega(X) \circ \Psi: M \rightarrow \mathbb{R}, \; p \mapsto \qty(\omega(X) \circ \Psi)(p) = \omega_{\Psi(p)}\qty(X_{\Psi(p)}) \, .
+\end{equation}
+	\anm{hier wird $N = M$ gewählt, um Verwirrungen mit Definitions- und Wertebereichen vorzubeugen, die nur vom Wesentlichen ablenken würden.}
+
+Das folgt leicht mithilfe der Kettenregel (sei dazu $q = \Psi^{-1}(p)$):
+\begin{align*}
+\Psi^*\omega\qty(\Psi^{-1}_* X)(p) &= \omega_{\Psi(p)}\qty(\qty(\Psi^{-1}_* X)_p \cdot \Psi) = \omega_{\Psi(p)}\qty(D_p \Psi \qty(\qty(\Psi^{-1}_* X)_p))
+\\
+&= \omega_{\Psi(p)}\qty(D_p \Psi \qty(D_{\Psi(p)} \Psi^{-1}\qty(X_{\Psi(p)}))) 
+\\
+&= \omega_{\Psi(p)}\qty(D_{\Psi(p)} \qty(\Psi \circ \Psi^{-1}) \qty(X_{\Psi(p)}))) = \omega_{\Psi(p)}\qty(X_{\Psi(p)})
+\end{align*}
+Dabei meint $\Psi^{-1}_* = \qty(\Psi^{-1})_*$. Man erhält also eine natürliche Verträglichkeit von Pullback und Push-Forward, die mit folgender Definition noch natürlicher aussieht:
+
+\begin{defi}[Übertragung Pullback]
+Für einen Diffeomorphismus $\Psi: M \rightarrow M$ heißt die Funktion
+\begin{equation}
+\Psi^* f := f \circ \Psi, \quad f \in C^\infty(M; \mathbb{R})
+\end{equation}
+\Def[Pullback! einer Funktion]{Pullback von $f$} und das Vektorfeld
+\begin{equation}
+\Psi^* X := \qty(\Psi^{-1})_* X = \Psi^{-1}_* X
+\end{equation}
+\Def[Pullback! eines Vektorfelds]{Pullback von $X$}.
+\end{defi}
+
+Statt nur von gepushten Vektorfeldern und gepullten 1-Formen, kann man nun auch von gepullten Funktionen und gepullten Vektorfeldern sprechen (wenn ein Diffeomorphismus vorliegt). Das ist beides sinnvoll, weil das Ziel ja letztendlich immer das Ändern des Definitions- bzw.~Wertebereichs war und für Funktionen kann man das sehr einfach über Verknüpfung machen. Bei Vektorfeldern hingegen muss die \enquote{Richtung} des Push-Forwards geändert werden (hier nicht ganz klar wegen $N = M$, aber anhand des Push-Forwards mit $\Psi^{-1}$ erahnbar).
+
+Die natürliche Verträglichkeit der verschiedenen Definitionen von Pullbacks erhält man nun sehr schön durch Umschreiben von \eqref{eq:pullpushv1} in folgende Form:
+\begin{equation}\label{eq:pullpushv2}
+\Psi^*\qty(\omega(X)) = \qty(\Psi^* \omega) \qty(\Psi^* X), \quad \forall \omega \in \Omega^1(M), X \in \mathcal{X}(M) \, .
+\end{equation}
+Man drückt hier also den Pullback der Funktion $p \mapsto \omega_p\qty(X_p)$ aus über den Pullback der 1-Form und den Pullback des Vektorfelds. Das ist so wichtig, weil sie wegen der äquivalenten Interpretation als Bilinearformen ($\equiv$ Funktionen) die Definition eines Pullbacks ganz allgemeiner Tensoren/Tensorfelder erlaubt. Diese lassen sich nämlich lokal (wo $T = T_U$) schreiben als endliche Summe aus Tensoren der Form
+\begin{equation*}
+X_1 \otimes \dots \otimes X_r \otimes \omega_1 \otimes \dots \otimes \omega_s, \quad X_j \in \mathcal{X}(M), \omega_j \in \Omega^1(M)
+\end{equation*}
+und daher ist folgende Definition nur sinnvoll:
+
+\begin{defi}[Pullback eines Tensors]
+Für einen Diffeomorphismus $\Psi: M \rightarrow M$, $X_j \in \mathcal{X}(M)$ und $\omega_j \in \Omega^1(M)$ heißt
+\begin{equation}
+\Psi^* T_U := \sum \Psi^* X_1 \otimes \dots \otimes \Psi^* X_r \otimes \Psi^* \omega_1 \otimes \dots \otimes \Psi^* \omega_s
+\end{equation}
+\Def[Pullback! eines Tensors]{Pullback des Tensors $T$}.
+\end{defi}
+Der nötige Beweis der Wohldefiniertheit folgt sofort, weil der Pullback punktweise linear ist und das Tensorprodukt linearer Abbildungen wieder linear ist. Man beachte jedoch, dass die gezeigte Darstellung im Allgemeinen nur lokal möglich ist.
+
+
+Einige wichtige Eigenschaften neben der Linearität sind dann:
+\begin{satz}[Eigenschaften des Pullbacks]
+Für einen Diffeomorphismus $\Psi: M \rightarrow M$ gilt% auf $T^{(r, s)}M$
+%\begin{equation}
+%\Psi^* \circ \tr_{k, l} = \tr_{k, l} \circ \Psi^*, \; k \leq r, l \leq s \, .
+%\end{equation}
+
+\begin{itemize}
+\item[1.] $\Psi^*(T \otimes S) = \Psi^*T \otimes \Psi^*S, \quad \forall T \in \Gamma(M, T^{(r, s)}M), S \in \Gamma(M, T^{(k, l)}M)$
+
+\item[2.] $(\psi \circ \Psi)^* T = \Psi^*\qty(\psi^*T), \quad \psi: M \rightarrow M$ Diffeomorphismus
+
+\item[3.] $\Psi^* \circ \tr_{k, l} = \tr_{k, l} \circ \Psi^*: T^{(r, s)}M \rightarrow T^{(r - 1, s - 1)}M$ mit $k \leq r, l \leq s$
+\end{itemize}
+\end{satz}
+
+\begin{proof}
+1. folgt wegen $T \otimes S \in \Gamma(M, T^{(r + k, s + l)}M)$ (zumindest nach Umordnen) und dann aus der Definition des Pullbacks
+
+2. folgt aus der Kettenregel
+
+3. folgt aus dem Beweis vorher zur Verträglichkeitsbedingung, indem man die Definition auf zerlegbare Tensoren anwendet
+\end{proof}
+
+Das definiert also die Wirkung auf Tensorprodukte (1.), was bei Verknüpfungen passiert (2.) und die Verträglichkeit mit Kontraktion (3.), die Bedingung \eqref{eq:pullpushv2} verallgemeinert (Fall vorher für $k = 1 = l$ und Anwendung auf $\omega \otimes X$).
+
+
+Nach dieser langen Vorarbeit kann nun (endlich) die Lie-Ableitung definiert werden:
+\begin{defi}[Lie-Ableitung]
+Für ein Vektorfeld $X \in \mathcal{X}(M)$ mit zugehörigem Fluss $\Phi: \mathcal{U} \rightarrow M$ und ein Tensorfeld $T \in \Gamma(M; T^{(r, s)}M)$ ist
+\begin{equation}
+\mathcal{L}_X T: M \rightarrow T^{(r, s)}M, \; p \mapsto \qty(\mathcal{L}_X T)_p := \eval{\dv{t} \qty(\Phi_t^* T)_p}_{t = 0}
+\end{equation}
+die \Def[Lie-Ableitung]{Lie-Ableitung entlang $X$} mit $\mathcal{L}_X T \in \Gamma(M; T^{(r, s)}M)$.
+\end{defi}
+Weil der Fluss per Definition auf einer offenen Umgebung von $\qty{0} \cross M$ existiert, ist $\Psi_t^*$ jeweils ein lokaler Diffeomorphismus. Deshalb ist der Pullback in dieser Umgebung berechenbar und die Lie-Ableitung auch für nicht vollständige Vektorfelder wohldefiniert (es ist ja bloß die Ableitung bei $t = 0$ relevant). Die Zuordnung $p \mapsto \qty(\mathcal{L}_X T)_p$ definiert dann eine Abbildung nach $T^{(r, s)}M$, die wegen der Glattheit des Flusses und der Ableitung ebenfalls glatt ist (insgesamt liegt damit ein Tensorfeld vor).
+
+
+Anschaulich gesagt misst die Lie-Ableitung die Änderung des Tensorfeldes $T$ bei Verschiebung entlang des Flusses $\Phi$ von $X$, indem die infinitesimale Änderung und damit Ableitung berechnet wird (wie üblich betrachtet man dabei infinitesimale Änderungen, also die Ableitung).
+
+Auch für diese gibt es natürlich wichtige Eigenschaften:
+\begin{satz}[Eigenschaften der Lie-Ableitung]\label{satz:lieableigsch}
+Für die Lie-Ableitung $\mathcal{L}_X$ entlang eines Vektorfeld $X \in \mathcal{X}(M)$ gilt:
+\begin{itemize}
+\item[1.] $\mathcal{L}_X \cdot f = X \cdot f, \quad \forall f \in C^\infty(M; \mathbb{R}) = \Gamma(M, T^{(0, 0)})$
+
+\item[2.] $\mathcal{L}_X Y = \qty[X, Y], \quad \forall Y \in \mathcal{X}(M)$
+
+\item[3.] $\mathcal{L}_X\qty(T \otimes S) = \qty(\mathcal{L}_X S) \otimes T + S \otimes \qty(\mathcal{L}_X T), \quad \forall T \in \Gamma(M, T^{(r, s)}M), S \in \Gamma(M, T^{(k, l)}M)$
+
+\item[4.] $\mathcal{L}_X\qty(\tr_{k, l}(T)) = \tr_{k, l}\qty(\mathcal{L}_X T), \quad \forall T \in \Gamma(M, T^{(r, s)}M), \; k \leq r, l \leq s$
+\end{itemize}
+\end{satz}
+\begin{proof}
+nutzen wiederum, dass wir nur wissen müssen, wie eine Derivation auf eine allgemeine Funktion wirkt, um die Derivation zu kennen; müssen uns dann überlegen, was überhaupt der Push-Forward macht, nämlich $\qty(\Psi_* Y)_q = D_{\Psi^{-1}(q)} \Psi \qty(Y_{\Psi^{-1}(q)})$ und dann ist $\qty(\Psi_* Y) \cdot f (p) = \qty(Y \cdot \qty(f \circ \Psi))(\Psi^{-1}(q))$, woraus direkt die Gleichung folgen sollte; zudem gilt $\eval{\qty(\dv{t} \qty(\Phi_{-t})_* Y \cdot f)}_{t = 0}(p) = \eval{\dv{t} Y_{\Phi_t(p)} \cdot \qty(f \circ \Phi_{-t})}_{t = 0}$
+
+es helfen die Eigenschaften des Pullbacks, dort ist ja auch Vertauschung drin z.B.
+\end{proof}
+
+Damit ist die Wirkung auf Funktionen (1.) sowie Vektorfelder (2.) definiert (deshalb heißt der Kommutator oft auch Lie-Ableitung) und man erhält allgemein für Tensoren (Funktionen und Vektorfelder sind ja nur spezielle Beispiele dafür) eine Produktregel (3.) sowie Verträglichkeit $\equiv$ Vertauschung mit der Kontraktion (4.). Damit lässt sich im Prinzip alles ableiten, was an Objekten auf Mannigfaltigkeiten existiert (die Wirkung auf 1-Formen bzw. allgemeiner Tensoren aus $T^{(r, s)}M$ mit $s > 0$ ist noch nicht allgemeiner schreibbar, hier muss die Definition verwendet werden).
+
+
+Darüber hinaus zeigt sich, dass die Lie-Ableitung durch diese Eigenschaften eindeutig bestimmt ist. Das heißt dass jede Abbildung auf Tensorfelder, die das erfüllt, bereits die Lie-Ableitung ist (daher auch Satz am Anfang, dass man mit Flüssen gut die Lie-Ableitung beschreiben kann, obwohl sie ja zunächst darüber definiert war; jetzt hat man mit diesen drei Eigenschaften eine davon unabhängige, wenn auch natürlich implizite und daher sehr abstrakte). Das ist sehr angenehm, weil so eine alternative Definition hat, die zwar auf den ersten Blick weniger anschaulich wirkt (man hat ja keine Funktion oder so vorliegen), aber eben unter Umständen für das praktische Rechnen damit deutlich besser zu handhaben ist, weil die Wirkung direkt klar ist.
+
+	\anm{allgemein handelt es sich wegen der vielen Indizes und Details in den Definitionen um ein eher schwieriges Thema, man merkt sich daher meist nur die wichtigsten Aussagen, wie beispielsweise Satz \ref{satz:lieableigsch}.}
+
+\begin{bsp}[Jacobi-Identität]
+Dass man die Lie-Klammer bereits kennengelernt hat, zeigt sich an der Wirkung auf Vektorfelder. Man erhält damit auch eine Herleitung (und Merkregel) für die Jacobi-Identität, die einfach nur Linearität und Produktregel von $\mathcal{L}_X$ ausnutzt:
+\begin{equation}
+\begin{split}
+[X,[Y,Z]] &= \mathcal{L}_X [Y,Z] = \mathcal{L}_X(YZ) - \mathcal{L}_X(ZY) 
+\\
+&= \mathcal{L}_X(Y) Z + Y \mathcal{L}_X(Z) - \mathcal{L}_X(Z) Y - Z \mathcal{L}_X(Y) 
+\\
+&= \mathcal{L}_X(Y) Z - \mathcal{L}_X(Z) Y + Y \mathcal{L}_X(Z) - Z \mathcal{L}_X(Y) 
+\\
+&= [\mathcal{L}_X Y,Z] + [Y,\mathcal{L}_X Z] 
+\\
+&= [[X,Y],Z] + [Y,[X,Z]] \, .
+\end{split}
+\end{equation}
+
+	\anm{nimmt man es ganz genau, ist diese Schreibweise etwas verkürzt. Man kann die Produktregel lediglich auf Tensoren anwenden, nutzt jedoch das Vertauschen von $\mathcal{L}_X$ mit der Spur. Stringenter, aber äquivalent, wäre also:
+	\begin{align*}
+	\mathcal{L}_X(YZ) &= \mathcal{L}_X \tr_{1, 1}(Y \otimes Z) = \tr_{1, 1} \mathcal{L}_X (Y \otimes Z) 
+	\\
+	&= \tr_{1, 1} \qty((\mathcal{L}_X Y) \otimes Z + Y \otimes (\mathcal{L}_X Z)) 
+	\\
+	&= \mathcal{L}_X(Y)Z + Y\mathcal{L}_X(Z) \, .
+	\end{align*}
+	? müsste ja so sein oder, Produktregel an sich wurde nirgendwo festgehalten; Problem: das Ding ist doch kein $(1, 1)$-Tensor oder ?}
+\end{bsp}
+
+als Beispiel vlt (auf jeden Fall aufnehmen, inspiriert von \url{https://de.wikipedia.org/wiki/Lie-Ableitung#Eigenschaften_und_Lie-Algebra}): die Lie-Ableitung wirkt als Derivation auf Funktionen (evtl auch nur punktweise -> ah ne, daher kommt wieder Funktion raus, weil man auch punktweise betrachten kann), erfüllt also $\mathbb{R}$-Linearität und Leibniz-Regel (Linearität aus Definition mit Ableitung und Pullback wahrscheinlich, anderes sollte aus Eigenschaft 3 folgen, weil das Tensorprodukt von $(0, 0)$-Tensoren wieder einen $(0, 0)$-Tensor ergibt und man daher einfach multiplizieren kann wahrscheinlich); das zeigt aber, dass $\mathcal{L}$ die tensorielle Eigenschaft nicht erfüllt und daher nicht durch einen Schnitt gegeben ist
+
+
+man kann wohl jede Lie-Klammer als Lie-Ableitung schreiben -> joooo, nur im Spezialfall von Vektorfeldern wirkt das Ding als Kommutator
+
+
+man kann wohl vieles bereits mit dieser Darstellung durch erste Koordinatenfunktion sehen, dazu sehr nützlich ! Siehe Screenshot dazu
+
+
+\begin{bsp}[Lie-Ableitung einer Funktion]
+Sei $f: M \rightarrow \mathbb{R}$ und $G$ eine Matrix-Lie-Gruppe, die auf $M$ wirkt (es gibt also Abbildungen $G \cross M \rightarrow M$) und für $\xi \in \mathfrak{g} = T_e G$ sei $X = X^\xi$. Nimmt man nun an, dass $f$ invariant unter $G$ ist, also $f(p) = f(g \, p), \, \forall g \in G, p \in M$ erfüllt ist (gutes Beispiel ist $f(p) = f(x, y, z)$ auf der Sphäre, die ist invariant unter Drehung um die z-Achse). Dann gilt natürlich $\mathcal{L}_X \cdot f = X \cdot f = 0$, weil $X$ die infinitesimale Gruppenwirkung darstellt ($f$ ändert sich nicht bei Gruppenwirkung und daher ist Ableitung gleich 0), unter der $f$ aber invariant ist.
+
+Weiter gilt aber auch $\mathcal{L}_X df = 0$, auch das Differential der Funktion (eine 1-Form) ist dann invariant unter $G$ (? nachvollziehbar, da ja $f$ es schon war ?). Das kann man auch nachrechnen: $\qty(\mathcal{L}_X df)(Y) = \tr_{1, 1}\qty(\qty(\mathcal{L}_X df) \otimes Y) = \tr_{1, 1}\mathcal{L}_X \qty(df \otimes Y) - \tr_{1, 1}\qty(df \otimes \mathcal{L}_X Y) = \mathcal{L}_X \tr_{1, 1}\qty(df \otimes Y) - \qty[X, Y] \cdot f = \mathcal{L}_X\qty(Y \cdot f) - \qty[X, Y] \cdot f = Y \cdot X \cdot f = 0$, wobei im Wesentlichen die Rechenregeln der Lie-Ableitung verwendet wurden und das letzte Gleichzeichen aus der Invarianz von $f$ unter $X$ folgt (die Ableitung dort ist also 0).
+\end{bsp}
+
+
+
+\begin{cor}[Kommutator von Lie-Ableitungen]
+Für $X, Y \in \mathcal{X}(M)$ gilt 
+\begin{equation}
+\qty[\mathcal{L}_X, \mathcal{L}_Y] = \mathcal{L}_{\qty[X, Y]} \, .
+\end{equation}
+\end{cor}
+Dabei gilt für ein allgemeines Tensorfeld $T$ wie zuvor auch $\qty[\mathcal{L}_X, \mathcal{L}_Y] T = \mathcal{L}_X \qty(\mathcal{L}_Y T) - \mathcal{L}_Y \qty(\mathcal{L}_X T)$. Der Nachweis geschieht schlicht über Nachrechnen der Eigenschaften für $\qty[\mathcal{L}_X, \mathcal{L}_Y]$, bei deren Gültigkeit aus der eindeutigen Bestimmung von $\mathcal{L}_{\qty[X, Y]}$ bereits Gleichheit folgt.
+
+Die anschauliche Aussage ist, dass der \enquote{Unterschied} bei Tausch der Reihenfolge bei Ableitung in die Richtungen $X, Y$ gerade der Ableitung in Richtung des \enquote{Unterschieds} von $X, Y$ ist (das ist ja im Prinzip im Kommutator erfasst). Eine wichtige Folgerung daraus ist, dass die Lie-Ableitungen in Richtung von $X, Y$ genau dann kommutieren, wenn $X$ und $Y$ bereits kommutieren. Das entspricht nach Definition der Lie-Ableitung der Aussage, dass die Flüsse infinitesimal kommutieren. Man mag sich nun fragen, ob sich auch allgemeinere Schlüsse auf das Kommutieren der Flüsse ziehen lassen.
+
+
+ähnliche Aussage galt doch bei Lie-Algebren oder ?
+
+können Aussage mit VF auch aufintegrieren, also von den VF auf die Flüsse schließen
+
+\begin{bsp}[Cartans Formel]
+Für $\omega \in \Omega^1(M)$ und $X \in \mathcal{X}(M)$ gilt \Def{Cartans Formel}:
+\begin{equation}
+\mathcal{L}_X(Y) = d\qty(\omega(X))(Y) + d\omega(X, Y) \, .
+\end{equation}
+Man beachte dabei, dass im ersten Summanden das Differential der Funktion $\omega(X): M \rightarrow \mathbb{R}$ steht und im zweiten die Abbildung $d\omega$ aus \ref{lemma:fakedifferential} benutzt wurde !
+
+mach Nachrechnen safe auch für Cartans Formel, weil da sooo geil das mit Vertauschung von Spur und Tensorprodukt; ist Beispiel im Skript (hier halt nur für 1-Formen bis jetzt)
+\end{bsp}
+
+\begin{lemma}[Pullback des Kommutators]
+Für Vektorfelder $X, Y \in \mathcal{X}(M)$ mit $\Phi: \mathcal{U} \rightarrow M$ als Fluss von $X$ gilt
+\begin{equation}
+\qty(\Phi_{t_0})^* \qty[X, Y] = \eval{\dv{t} \Phi^*_t Y}_{t = t_0} \, .
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Definiere die $\Phi_{- t_0}$-verwandten Vektorfelder $\tilde{X} = \qty(\Phi_{- t_0})_* X = \qty(\Phi_{t_0})^* X$ (nach Definition des Pullbacks von Vektorfelder) und $\tilde{Y} = \qty(\Phi_{- t_0})_* Y$  zu $X, Y$und nutze dann das Übertragen der Verwandschaft auf den Kommutator (siehe \ref{lemma:verwandtkomm}):
+\begin{equation*}
+\qty[\tilde{X}, \tilde{Y}] = \qty(\Phi_{- t_0})_* \qty[X, Y] = \Phi^*_{t_0} \qty[X, Y] \, .
+\end{equation*}
+Weil gleichzeitig wegen $\tilde{X} = \qty(\Phi_{t_0})^* X = X$ (siehe Aussage aus Beispiel \ref{bsp:flusspush}) aber
+\begin{equation*}
+\qty[\tilde{X}, \tilde{Y}] = \qty[X, \tilde{Y}] = \mathcal{L}_X \tilde{Y} = \eval{\dv{t} \Phi^*_t \qty(\Phi^*_{t_0} Y)}_{t = 0} = \eval{\dv{t} \Phi^*_{t + t_0} Y}_{t = 0} = \eval{\dv{t} \Phi^*_t Y}_{t = t_0}
+\end{equation*}
+gilt, ist man nun schon fertig (haben Verknüpfung von Flüssen genutzt und dann Translation, was natürlich die Ableitung nicht ändert bei geeigneter Anpassung der Stelle der Auswertung; man könnte auch sagen iwie kleine Umdefinition).
+\end{proof}
+
+
+Nun kann man die Aussage über den Kommutator der Flüsse machen:
+\begin{satz}[Kommutator von Flüssen]
+Für $X \in \mathcal{X}(M)$ mit Fluss $\Phi: \mathcal{U} \rightarrow M$ und $Y \in \mathcal{X}(M)$ mit Fluss $\Psi: \mathcal{V} \rightarrow M$ gilt
+\begin{equation}
+\qty(\Phi_t \circ \Psi_s)(p) = \qty(\Psi_s \circ \Phi_t)(p), \quad \forall p \in M, (s, t) \in \mathbb{R} \cross \mathbb{R}
+\end{equation}
+mit $\qty(t, \Psi_s(p)), (t, p) \in \mathcal{U}$ und $\qty(s, \Phi_t(p)), (s, p) \in \mathcal{V}$ genau dann, wenn $\qty[X, Y] = 0$ .
+\end{satz}
+Die Gleichheit $\Phi_t \circ \Psi_s = \Psi_s \circ \Phi_t$ ist hier einfach nur punktweise notiert und die Forderungen danach besagen im Wesentlichen, dass diese Gleichheit nur auf den Definitionsgebieten der Flüsse gilt (wegen der Verknüpfung der Flüsse muss das daher auch jeweils für das Bild des einen Flusses gefordert werden). Im Fall vollständiger Vektorfelder lautet die Aussage einfach: zwei Flüsse kommutieren genau dann, wenn die zugehörigen Vektorfelder kommutieren.
+
+
+Nun noch eine nützliche Aussage:
+\begin{cor}
+Für $U \subset M$ offen sowie $X_1, \dots, X_n \in \mathcal{X}(U)$ mit $\qty[X_i, X_j] = 0, \, \forall i,j = 1, \dots, n$ und $X_1(p), \dots, X_n(p)$ als Basis von $T_p U = T_p M$ für alle $p \in U$ existiert für alle Punkte $p \in U$ eine offene Umgebung $V \subset U$ und eine in $p$ zentrierte Karte $x = \qty(x_1, \dots, x_n): V \rightarrow \mathbb{R}^n$ mit
+\begin{equation}
+\qty(X_k)_V = \pdv{x_k}, \quad \forall k = 1, \dots, n \, .
+\end{equation}
+\end{cor}
+Die Rückrichtung war bereits vorher klar (Kommutieren wurde bereits gezeigt und die Basis steckt bereits im Namen der Gauß'schen Basisfelder/ -vektoren). Man erhält nun aber (analog zu einer Aussage vorher) dass auch die Umkehrung gilt und man daher für eine Familie von Vektorfeldern mit diesen speziellen Eigenschaften immer eine zentrierte Karte findet, in denen die Vektorfelder eine sehr einfache Form annehmen.
+
+\begin{satz}
+Für $W \subset \mathbb{R}^2$ offen mit $0 \in W$, $p \in M$, $X \in \mathcal{X}(M)$ mit Fluss $\Phi: \mathcal{U} \rightarrow M$ und $Y \in \mathcal{X}(M)$ mit Fluss $\Psi: \mathcal{V} \rightarrow M$ sei
+\begin{equation}
+\mathcal{H}(p): W \rightarrow M, \; (s, t) \mapsto \mathcal{H}_{(s, t)}(p) = \Phi_s \circ \Psi_t \circ \Phi_{- s} \circ \Psi_{- t}(p) \, .
+\end{equation}
+Dann gilt
+\begin{equation}
+\begin{split}
+\eval{\pdv{\mathcal{H}}{s}}_{(0, 0)} = \eval{\pdv[2]{\mathcal{H}}{s}}_{(0, 0)} &= 0 = \eval{\pdv[2]{\mathcal{H}}{t}}_{(0, 0)} = \eval{\pdv{\mathcal{H}}{t}}_{(0, 0)}
+\\
+\eval{\pdv[2]{\mathcal{H}}{s}{t}}_{(0, 0)} &= - \qty[X, Y]_p \, .
+\end{split}
+\end{equation}
+\end{satz}
+bilden mit $\mathcal{H}$ also auf Kommutator ab; erste Zeile ist easy, weil $\mathcal{H}(s, 0) = p = \mathcal{H}(t, 0)$ (offensichtlich weil Fluss zur Zeit 0 einfach die Identität ist)
+
+
+\begin{bsp}[Einparken]
+bestes Beispiel ever übrigens
+
+besagt also, dass man durch Vorwärts-/ Rückwärtsfahren zusammen mit Lenken in die Parklücke reinkommt (bzw. mit Kommutieren davon, also hintereinander ausführen)
+\end{bsp}
+
+\begin{bsp}[Katzen]
+hätte nicht gedacht, dass es noch besser geht, aber here we go
+
+Zitat: fallende Katzen benutzen nicht-kommutierende Vektorfelder, um sich um die eigene Achse drehen zu können und dann auf ihren vier Pfoten zu landen
+
+kann man wohl im Internet so wie das vorher ausgearbeitet finden; bei Drehungen ist aber klar, dass sie z.B. nicht kommutieren (einfach einmal vorstellen; denke zudem an QM, wo Drehimpulsoperatoren nicht kommutieren), von daher hört sich das sogar sinnvoll an
+\end{bsp}
+
+
+
+\newpage
+
+
+
+\end{document} 

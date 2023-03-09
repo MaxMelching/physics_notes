@@ -1,0 +1,837 @@
+\documentclass[../H_Analysis_main.tex]{subfiles}
+%\input{../header} \graphicspath{ {../} }
+
+
+\begin{document}
+
+\setcounter{chapter}{2}
+
+\chapter{Tangentialräume}
+\begin{center}
+Bislang wurde auf einer Mannigfaltigkeit nur mit einer zusätzlich zur Menge existierenden Struktur gearbeitet, der vom Atlas induzierten Topologie. Damit kann man, wie bereits gezeigt wurde, auch schon einiges machen, aber in vielen Fällen würde man auch gerne mit Richtungen und darauf aufbauend Vektoren arbeiten.
+
+Das ist jedoch schwierig, weil eine Mannigfaltigkeit die dafür nötige Struktur eines Vektorraums nicht natürlicherweise besitzt (man stelle sich die Addition zweier Punkte auf der 2-Sphäre vor, die Summe der zugehörigen Ortsvektoren liegt natürlich nicht mehr auf $\mathbb{S}^2$). Das Ziel dieses Abschnitts ist daher die (künstliche) Konstruktion einer solchen Struktur, was zu den sogenannten Tangentialräumen führt. Wie außerdem klar werden wird, kann man diese auf verschiedene Weisen einführen und aufbauen, die auf den ersten Blick unterschiedlich scheinen, sich aber als äquivalent herausstellen und alle ihre Vorteile haben (im späteren Verlauf ergibt sich daraus sogar der praktische Nebeneffekt, dass man sich in jeder Situation die passendste Sichtweise aussuchen kann).
+\end{center}
+
+
+\newpage
+
+
+	\section{Definition}%alles zu einzelnen sections machen ?
+		\subsection{Von Untermannigfaltigkeiten}
+Die erste Veranschaulichung dieses neuen Begriffs wird auf einer speziellen Klasse von Mannigfaltigkeiten eingeführt, den Untermannigfaltigkeiten, weil diese Teilmengen des bekannten $\mathbb{R}^n$ sind. Ein Tangentialvektor an den Punkt $p$ ist hier dann einfach ein Vektor im $\mathbb{R}^n$, der in $p$ tangential bzw. parallel an der Untermannigfaltigkeit liegt. Damit gibt man sehr intuitiv eine Richtung auf der (Unter-)Mannigfaltigkeit vor.
+
+Um diese anschauliche Definition mathematisch fassen zu können, wird der Kurvenbegriff genutzt. Dabei handelt es sich um Abbildungen $\gamma: (-\delta, \delta) \rightarrow \mathbb{R}^n$, die im Folgenden eigentlich immer zusätzlich als glatt angenommen werden. Ihr Bild ist ein eindimensionales Objekt im $\mathbb{R}^n$, im Prinzip handelt es sich um eine Verallgemeinerung von Geraden (Kurven sind in einem gewissen Sinne verformte Geraden).
+
+\begin{defi}[Tangentialraum]
+Für eine $k$-dimensionale Untermannigfaltigkeit $M \subset \mathbb{R}^n$ heißt die Menge
+\begin{equation}
+T_p M := \qty{v \in \mathbb{R}^n: \; \exists \gamma \text{ mit } \gamma(0) = p, \, \gamma'(0) = v}
+\end{equation}
+für glatte Kurven $\gamma: I \rightarrow M$ \Def[Tangentialraum! einer Untermannigfaltigkeit]{Tangentialraum von $M$ am Punkt $p \in M$}.
+\end{defi}
+Man setzt hier also einen Tangentialvektor als Ableitung (was wegen des eindimensionalen Definitionsbereichs der Richtungsableitung entspricht) im Punkt 0 entlang einer Kurve, wenn diese Kurve am Anfang (im Punkt 0) durch $p$ läuft.
+
+\begin{satz}[Darstellung Tangentialraum]
+Der Tangentialraum einer $k$-dimensionalen Untermannigfaltigkeit $M \subset \mathbb{R}^n$ ist ein $k$-dimensionaler Untervektorraum des $\mathbb{R}^n$.
+
+Falls $M$ implizit über eine Bedingung der Form $M = F^{-1}(q)$ mit einem regulären Wert $q$ von $F$ gegeben ist, so gilt zudem
+\begin{equation}
+T_p M = \text{kern}(D_p F), \quad \forall p \in M \, .
+\end{equation}
+\end{satz}
+	\anm{die erste Aussage gilt auch allgemeiner, für eine $k$-dimensionale UMF $N \subset M$ ist $T_p N \subset T_p M$ ein $k$-dimensionaler Untervektorraum von $T_p M$.}
+
+Dieser Satz ist sehr hilfreich, weil er in vielen Fällen die sehr einfache Berechnung von Tangentialräumen ermöglicht, die bei allgemeinen Mannigfaltigkeiten nicht durch eine einzige, spezielle Formel möglich ist ! Für wichtige Beispiele gilt damit:
+\begin{bsp}[Tangentialraum der Sphäre]
+Wie in Beispiel \ref{bsp:kugelumf} gezeigt wurde, gilt $\mathbb{S}^n = F^{-1}(1)$ für $F: \mathbb{R}^{n+1} \rightarrow \mathbb{R}, \, p \mapsto \langle p, p \rangle$ und daraus berechnet man $D_p F(v) = 2 \langle p, v \rangle$. Daher ist der Tangentialraum
+\begin{equation}
+T_p \mathbb{S}^n = \qty{v \in \mathbb{R}^{n+1}: \, \langle v, p\rangle = 0} \, ,
+\end{equation}
+was man auch intuitiv so festhalten würde: ein Tangentialvektor steht tangential an der Sphäre, also senkrecht zu Ortsvektoren aus der Sphäre.
+\end{bsp}
+
+\begin{bsp}[Tangentialräume von SL$(n)$]
+nach der hergeleiteten Formel für das Differential der Determinante gilt
+\begin{equation}
+0 = D_g \det(g) (h) = \det(g) \tr(g^{-1} h) = \tr(g^{-1} h) = \tr(g^T h) \, .
+\end{equation}
+und damit obviously $T_g \text{SL}(n) = \qty{h \in \text{Mat}(n, \mathbb{R}): \; \tr(g^{-1} h) = 0}$% g \mathfrak{gl}(n, \mathbb{R}) = \qty{A \in \mathfrak{gl}(n, \mathbb{R}): \; \tr(g^{-1} A) = 0}$
+\end{bsp}
+
+\begin{bsp}[Tangentialraum zu O$(n)$% und SO$(n)$
+]\label{bsp:tangraumso}
+Zunächst soll der Tangentialraum für die Gruppe O$(n)$ der orthogonalen Matrizen bestimmt werden. Dazu muss deren definierende Gleichung $F(g) = g^T g = \mathds{1}$ abgeleitet werden, was in \eqref{eq:ablggtrans} bereits gemacht wurde. Nach dem Ergebnis dort muss jedes Element $h \in T_g O(n)$ deshalb die folgende Bedingung erfüllen:
+\begin{align}
+0 = D_g \qty(g^T g)(h) = g^T h + h^T g \, .
+\end{align}
+Im Spezialfall der Identität $g = e$, der noch sehr wichtig wird, ergibt das
+\begin{align}
+0 = D_e \qty(g^T g)(h) = h^T + h \quad \Leftrightarrow \quad h^T = - h \, ,
+\end{align}
+der Tangentialraum ist durch die schiefsymmetrischen $n \cross n$-Matrizen gegeben.
+
+
+Möchte man nun noch den Tangentialraum $T_e \text{SO}(n)$ bestimmen, so muss noch die zusätzliche Forderung $\det(g) = 1$ berücksichtigt werden. Das wird abgeleitet mit $g \in \text{SO}(n)$ und daher $\det(1) = 1, \; g^{-1} = g^T$ analog zur Rechnung bei $T_g \text{SL}(n)$ zu
+\begin{equation*}
+0 = D_g \det(g) (h) = \det(g) \tr(g^{-1} h) = \tr(g^{-1} h) = \tr(g^T h) \, .
+\end{equation*}
+
+Interessanterweise gibt das für $g = e$ gar keine zusätzliche Forderung, schließlich ist jede schiefsymmetrische Matrix $h$ bereits spurfrei und erfüllt damit automatisch $\tr(e^T h) = \tr(h) = 0$ (das liegt daran, dass die auch Diagonaleinträge der Schiefsymmetrie genügen müssen, $a_{jj} = a^T_{jj} = - a_{jj} \Leftrightarrow a_{jj} = 0$). Es gilt deshalb
+\begin{equation}
+T_e \text{O}(n) = T_e \text{SO}(n) \, .
+\end{equation}
+%\url{https://de.wikipedia.org/wiki/Orthogonale_Gruppe#Die_Lie-Algebra_zur_O(n)_und_SO(n)}
+\end{bsp}
+
+
+
+
+		\subsection{Geometrisch}
+Es wäre natürlich toll, wenn sich diese sehr einfache (weil geometrisch gut vorstellbare) Definition von Tangentialvektoren auf Mannigfaltigkeiten übertragen ließe. Dazu muss man sich überlegen, wie man Richtungen auf einer abstrakten Mannigfaltigkeit definieren kann (nicht alle sind wie die Sphäre eine so schön vorstellbare Einbettung). 
+
+Wie üblich ist die Idee, das Ganze über Karten auf den $\mathbb{R}^n$ zurückzuführen. Jedoch braucht man noch etwas, das man zurückführen kann (ein Punkt wäre als Richtung ungeeignet) und muss daher ein mathematisches Konstrukt finden, das in irgendeiner Weise einer Richtung ähnelt. Die erste Idee bei Richtungen sind Ableitungen und das wird auch genutzt. Weil eine Richtungsableitung ja gerade (noch) nicht möglich ist, wählt man als abzuleitendes Objekt dabei Kurven $\gamma$, also eindimensionale Teilmengen von $M$ (diese beschreiben einen Weg und damit eine Richtung an jedem Punkt).
+
+Weil Kurven einfach nur (hier zumeist als glatt angenommene) Abbildungen
+\begin{equation}
+\gamma: (-\delta, \delta) \rightarrow M, \, t \mapsto \gamma(t)
+\end{equation}
+sind, machen Definition und Ableitung keine Probleme. Meist nutzt man dabei die Darstellung in Karten $\varphi: U = \text{im}(\gamma) \rightarrow V$, also Abbildungen der Form
+\begin{equation}
+\varphi \circ \gamma: (-\delta, \delta) \rightarrow V \subset \mathbb{R}^n
+\end{equation}
+Man braucht dabei übrigens nur eine Karte, weil der \enquote{Input} von $\gamma$ ja bereits reelle Zahlen aus einem offenen Intervall $(-\delta, \delta)$ sind.
+
+
+Die Kurve (bzw. ihre Verknüpfung mit $\varphi$) gibt also einen Punkt/ Vektor (je nach Interpretation) im $\mathbb{R}^n$ und weil das Differential von $f: \mathbb{R}^m \rightarrow \mathbb{R}^n$ eine Abbildung $D_p f: \mathbb{R}^m \rightarrow \mathbb{R}^n$ ist, gibt auch sie einen Vektor (Ableitung steht ja für Richtung)
+\begin{equation}
+\qty(\varphi \circ \gamma)' := D\qty(\varphi \circ \gamma): \mathbb{R} \rightarrow \mathbb{R}^n, \, s \mapsto \qty(\varphi \circ \gamma)'(s) = D_s \qty(\varphi \circ \gamma) = \eval{\dv{t} \varphi \circ \gamma}_{t = s} \, .
+\end{equation}
+
+Damit lassen sich für jeden Punkt $s \in \mathbb{R}$ sinnvoll Richtungen definieren. Da man das aber bei der Definition von Tangentialvektoren für Punkte $p \in M$ machen möchte, muss man die $s$ so wählen, dass $\gamma(s) = p$. Um es sich nicht unnötig schwer zu machen (und weil es oBdA möglich ist wegen Translationen), fordert/ setzt man allgemein
+\begin{equation}
+\gamma(0) = p \, .
+\end{equation}
+
+Da es enorm viele Kurven gibt, hat man auch enorm viele Richtungen. Natürlich kommt es aber vor, dass zwei verschiedene Kurven im Punkt $p$ parallel sind (also die gleiche Ableitung in $p$ haben, wie üblich bezogen auf die Auswertung in einer Karte). Da im Rahmen dieses Abschnitts aber nur das Verhalten der Ableitung im Punkt $p$ interessiert und gar nicht die Kurve selber (lediglich als Hilfsmittel genutzt), ist es nicht sinnvoll, solche Kurven getrennt zu betrachten. Diese Überlegung führt zu:
+
+\begin{defi}[Kurvenkeim, Tangentialraum]
+Für zwei Kurven $\gamma_1: (-\delta_1, \delta_1) \rightarrow M, \gamma_2: (-\delta_2, \delta_2) \rightarrow M$ und eine Karte $\varphi: U \rightarrow \mathbb{R}^n$ um einen Punkt $p \in U \subset M$ mit $\gamma_1(p) = 0 = \gamma_2(p)$ definiert man
+\begin{equation}
+\gamma_1 \sim_p \gamma_2 \quad \Leftrightarrow \quad \qty(\varphi \circ \gamma_1)'(0) = \qty(\varphi \circ \gamma_2)'(0) \, .
+\end{equation}
+
+Eine so definierte Äquivalenzklasse $[\gamma]_p := \gamma/ \sim_p = \gamma'$ glatter Kurven durch den Punkt $p \in M$ heißt \Def{Kurvenkeim an $p$} oder \Def{geometrischer Tangentialvektor an $p$}.
+
+Der \Def[Tangentialraum! einer Mannigfaltigkeit]{Tangentialraum $T_p M$} der Mannigfaltigkeit $M$ am Punkt $p \in M$ ist die Menge aller (geometrischen) Tangentialvektoren  $[\gamma]_p$.
+\end{defi}
+	\anm{eine wichtige Beobachtung ist, dass die Äquivalenzrelation vollkommen unabhängig von $\delta_1, \delta_2 > 0$ sind. Das einzig Relevante ist, dass die 0 enthalten ist, weil diese auf $p$ abgebildet wird und nur dieser Punkt hier interessiert.}
+
+Das Ganze kann man sich nun wie bei einer Geraden im $\mathbb{R}^n$ vorstellen, wo es ja auch Orts- und Richtungsvektor gab. Das Festhalten des Punktes bei $T_p M$ entspricht dann der Betrachtung eines festen Ortsvektors und der Tangentialraum in dieser Analogie ist die Menge aller Richtungsvektoren, die an diesen Ortsvektor angelegt werden.
+
+Eine wichtige Frage ist nun, was bei Wahl einer anderen Karte $\psi$ passiert. Würde die Äquivalenzrelation dort nicht erhalten bleiben, wäre die Definition nicht sinnvoll (z.B. wichtig beim Nachweis gewisser Eigenschaften). Glücklicherweise kann man zeigen:
+
+\begin{satz}[Kartenunabhängigkeit]
+Die so definierte Äquivalenzrelation hängt nicht von der Wahl der Karte um $p$ ab.
+\end{satz}
+\begin{proof}
+Aus der Definition der Äquivalenzklasse sollte die Grundidee klar sein:
+\begin{align*}
+\qty(\varphi \circ \gamma)'(0) &= \eval{\dv{\, \varphi \circ \gamma}{t}}_{t = 0} = \eval{\dv{\, \varphi  \circ \psi^{-1} \circ \psi \circ \gamma}{t}}_{t = 0} %&= D_{t = 0}\qty(\varphi \circ \gamma) = D_{t = 0} \qty(\varphi  \circ \psi^{-1} \circ \psi \circ \gamma)
+\\
+&= \eval{\dv{\, \varphi  \circ \psi^{-1}}{t}}_{\qty(\psi \circ \gamma)(0)} \circ \eval{\dv{\, \psi \circ \gamma}{t}}_{t = 0} %D_{\qty(\psi \circ \gamma)(0)} \qty(\varphi  \circ \psi^{-1}) \circ D_{t = 0} \qty(\psi \circ \gamma)
+\\
+&= \eval{\dv{\, \varphi \circ \psi^{-1}}{t}}_{\psi(p)} \circ \eval{\dv{\, \psi \circ \gamma}{t}}_{t = 0} \, . %D_{\psi(p)}\qty(\varphi \circ \psi^{-1}) \circ D_{t = 0} \qty(\psi \circ \gamma)
+\end{align*}
+Im letzten Schritt wurde dabei die Forderung $\gamma(0) = p$ genutzt. Da man das aber für alle Kurven fordert (und damit insbesondere für die Repräsentanten einer Äquivalenzklasse), steht dort nur ein von der gewählten Kurve unabhängiger Faktor. Die analoge Rechnung für eine andere, zu $\gamma$ äquivalente Kurve $\tilde{\gamma}$ ergibt also:
+\begin{equation*}
+\qty(\varphi \circ \tilde{\gamma})'(0) = \eval{\dv{\, \varphi  \circ \psi^{-1}}{t}}_{\psi(p)} \circ \eval{\dv{\, \psi \circ \tilde{\gamma}}{t}}_{t = 0} \; ,  %D_{\psi(p)}\qty(\varphi \circ \psi^{-1}) \circ D_{t = 0} \qty(\psi \circ \tilde{\gamma}) \; ,
+\end{equation*}
+aber die Abbildung $D_{\psi(p)} \qty(\varphi  \circ \psi^{-1}): \mathbb{R}^n \rightarrow \mathbb{R}^n$
+%\begin{equation*}
+%\dv{\, \varphi  \circ \psi^{-1}}{t}\mid_{\psi(p)} = D_{\psi(p)} \qty(\varphi  \circ \psi^{-1}): \mathbb{R}^n \rightarrow \mathbb{R}^n
+%\end{equation*}
+ist ein Isomorphismus (weil Kartenwechsel Diffeomorphismen sind), daher folgt aus der Injektivität
+\begin{equation*}
+\qty(\varphi \circ \gamma)'(0) = \qty(\varphi \circ \tilde{\gamma})'(0) \quad \Leftrightarrow \quad \qty(\psi \circ \gamma)'(0) = \qty(\psi \circ \tilde{\gamma})'(0)
+\end{equation*}
+und das war zu zeigen.
+\end{proof}
+
+%? Heller sagt bei $\dv{\, \varphi  \circ \psi^{-1}}{t}\mid_{\qty(\psi \circ \gamma)(0)} \circ \dv{\, \psi \circ \gamma}{t}\mid_{t = 0}$ immer, dass $\dv{\, \varphi  \circ \psi^{-1}}{t}\mid_{\qty(\psi \circ \gamma)(0)}$ auf $\dv{\, \psi \circ \gamma}{t}\mid_{t = 0} = \qty(\psi \circ \gamma)'(0)$ angewendet wird ? -> jo, wird später erklärt
+
+Richtungen auf Mannigfaltigkeiten können also durch Kurvenkeime $[\gamma]_p$ beschrieben werden und jede Kurve mit $\gamma(0) = p$ repräsentiert einen solchen. Der Name sollte dabei nicht überraschen, weil man die Richtung immer ausgehend von $p$ beschreibt und $\gamma$ bildet den Ursprung ($\equiv$ Keim) auf $p$ ab. Statt $[\gamma]_p$ wird oft einfach $\gamma'(0)$ oder $\gamma'$ genutzt (denn $[\gamma]_p$ bezeichnet schon die Ableitung $\gamma'$ und nicht die Kurve $\gamma$ !).
+
+Der Beweis der Kartenunabhängigkeit zeigt dabei, dass ein Kurvenkeim $[\gamma]_p$ auch als Richtungsableitung einer vom Repräsentanten $\gamma$ induzierten Funktion $f: \mathbb{R}^n \rightarrow \mathbb{R}$ aufgefasst werden kann ! Das sieht man in der Darstellung
+\begin{equation}
+[\gamma]_p = \gamma' \equiv \qty(\varphi \circ \gamma)'(0) = \eval{\dv{\, \varphi \circ \gamma}{t}}_{t = 0} = \eval{\dv{\, \varphi \circ \psi^{-1}}{t}}_{\psi(p)} \circ \eval{\dv{\, \psi \circ \gamma}{t}}_{t = 0} \, ,
+\end{equation}
+mit $\psi$ als Karte um $p$. Schaut man sich diesen Ausdruck nämlich einmal genauer an, so kann man direkt sehen, dass $\varphi \circ \psi^{-1}: \mathbb{R}^n \rightarrow \mathbb{R}$ lediglich ein Funktional/ eine Linearform auf dem $\mathbb{R}^n$ ist und $\psi \circ \gamma: \mathbb{R} \rightarrow \mathbb{R}^n$ (damit auch $\qty(\psi \circ \gamma)': \mathbb{R} \rightarrow \mathbb{R}^n$) ausgewertet am Punkt $t = 0$ einfach nur einen Vektor im $\mathbb{R}^n$ ergibt.% Damit folgt die genannte Äquivalenz.
+
+
+\begin{bsp}[Expliziter Kurvenkeim]
+Für $p \in M \subset \mathbb{R}^n$ offen gilt $T_p M = \mathbb{R}^n$, wie man sich leicht klar macht. Betrachtet man nun die auf dem Intervall $t \in (-\delta, \delta)$ definierten Kurven
+\begin{equation}
+\qty(\varphi \circ \gamma)(t) = p + t v \, ,
+\end{equation}
+so gilt mit der Karte $\varphi = \text{id}$ gerade:
+\begin{equation}
+\qty(\varphi \circ \gamma)'(0) = \gamma'(0) = (p + t v)'(0) = v \, .
+\end{equation}
+\end{bsp}
+Auf dem euklidischen Raum kann man also mit normalen Vektoren statt Tangentialvektoren rechnen, nur auf allgemeinen Mannigfaltigkeiten eben nicht unbedingt ! Das zeigt, wie gut die Definition gewählt wurde, weil sie altbekannte Zusammenhänge in einer verallgemeinerten Fassung enthält. Interessant ist aber, dass nun eine klare Unterscheidung von Punkten und Vektoren vorliegt (im $\mathbb{R}^n$ ist dazu ja die verschiedenen Interpretationen Orts- und Richtungsvektor der prinzipiell gleichen Objekte nötig).
+
+\begin{bsp}[Auf Untermannigfaltigkeiten]
+Für $M$ als UMF sollte das mit der vorherigen Definition von $T_p M$ übereinstimmen (was es tut, wie er gezeigt hat; dort wurden ja auch Richtungsableitungen im Punkt 0 genommen, aber das waren halt schon die Tangentialvektoren, weil man da den Fall des $\mathbb{R}^n$ betrachtet hat und damit das vorherige Beispiel greift).
+\end{bsp}
+
+
+Es wurden nun Tangentialvektoren eingeführt und die Menge aller Tangentialvektoren an einem Punkt $p \in M$ als Tangentialraum $T_p M$ definiert. Jedoch sind die dazu nötigen Eigenschaften eines Vektorraums (was ja der Sinn des Ganzen war) noch überhaupt nicht nachgewiesen und insbesondere nicht die nötigen Operationen Addition $+$ und Skalarmultiplikation $\cdot$ gefunden ! Das soll nun nachgeholt werden:
+
+\begin{itemize}
+\item[$\cdot$] Die Frage nach einer sinnvollen Skalierung bei Kurven kann recht einfach beantwortet werden. Ein doppelt so schnelles Durchlaufen der Kurve ändert schließlich die Ableitung gerade um den Faktor 2 und damit auch den Richtungsvektor in 0 um diesen Faktor (wieder zur Erinnerung: das Bild von 0 ist gerade $p$ und die Ableitung an der Stelle daher der gesuchte Richtungsvektor !).
+
+\begin{defi}[Skalarmultiplikation]
+Für eine Kurve $\gamma: (-\delta, \delta) \rightarrow M, \; t \mapsto \gamma(t), \, \gamma(0) = p$, die als Element von $[\gamma]_p$ einen Tangentialvektor an $p \in M$ bildet, definiert man:
+\begin{equation}
+\lambda [\gamma]_p := [\tilde{\gamma}]_p \qquad \quad \tilde{\gamma}: (-\tilde{\delta}, \tilde{\delta}) \rightarrow M, \, t \mapsto \tilde{\gamma}(t) = \gamma(\lambda t), \, \lambda \in \mathbb{R} \, .
+\end{equation}
+
+Man kann $\tilde{\delta}$ auch exakt angeben, bei $\abs{\lambda} \leq 1$ klappt $\tilde{\delta} = \delta$ und sonst $\tilde{\delta} = \frac{\delta}{\abs{\lambda}}$.
+\end{defi}
+	\anmind{man will bei der Definition von $\tilde{\delta}$ sicher gehen, dass sich das Bild von $\gamma$ nicht vergrößert, um keine Probleme mit fehlenden Definitionsbereichen bei Karten oder nicht offenen Mengen zu bekommen.}
+
+Tatsächlich gilt dann bezüglich einer Karte $\varphi: U \rightarrow \mathbb{R}^n$ Linearität:
+\begin{equation*}
+\qty(\varphi \circ \tilde{\gamma})'(0) = D_{t = 0} \qty(\varphi \circ \gamma \circ \lambda t) = D_{\lambda t(0)}\qty(\varphi \circ \gamma) \circ D_{t = 0} \qty(\lambda t) = \lambda \qty(\varphi \circ \gamma)'(0) \, .
+\end{equation*}
+
+
+
+\item[$+$] Die Addition stellt sich als etwas kniffliger und daher im Endeffekt auch schwerer vorstellbar heraus (siehe nämlich Beispiel $S^2$ in der Einführung des Abschnitts). Hier ist die Idee, eine Vektoraddition in Karten durchzuführen und so die Vektorraumstruktur des $\mathbb{R}^n$ zu nutzen (danach geht es zurück nach $M$):
+
+\begin{defi}[Addition]
+Für $[\gamma_1]_p, [\gamma_2]_p$ zwei Tangentialvektoren an $p \in M$ und $\lambda \in \mathbb{R}$ definiert man:
+\begin{equation}
+\begin{split}
+[\gamma_1]_p + [\gamma_2]_p := [\hat{\gamma}]_p \qquad \hat{\gamma}&: (-\delta_1, \delta_1) \cap (-\delta_2, \delta_2) \rightarrow \mathbb{R}^n,
+\\
+t \mapsto \hat{\gamma}(t) &:= \varphi^{-1}\qty(\qty(\varphi \circ \gamma_1)(t) + \qty(\varphi \circ \gamma_2)(t) - \varphi(p)) \, .
+%\qty([\gamma]_p + [\hat{\gamma}]_p)(t) := [\varphi^{-1}\qty(\qty(\varphi \circ \gamma)(t) + \qty(\varphi \circ \hat{\gamma})(t) - \varphi(p))]_p
+\end{split}
+\end{equation}
+\end{defi}
+
+Daraus folgt auch als Kartendarstellung dieser Beispielkurve (andere sind also prinzipiell auch möglich, wenn sie sinnvoll konstruiert sind)
+%Das funktioniert zumindest auf einem kleinen Intervall um die 0 und ist auch kartenunabhängig ! Eine Kartendarstellung sieht dabei zum Beispiel so aus:
+\begin{equation*}
+\qty(\varphi \circ \hat{\gamma})(t) = \qty(\varphi \circ \gamma_1)(t) + \qty(\varphi \circ \gamma_2)(t) - \varphi(p) \, .
+\end{equation*}
+
+Das ist auch sofort klar, weil die normale Kurve bereits über die inverse Karte definiert ist (für die Begründung siehe Text davor).
+%	\anmind{das $\lambda$ ist nur dazu da, um gleichzeitig die Linearität zu zeigen.}
+Der letzte Term ist dabei nicht etwa nötig, weil man weiterhin in der Äquivalenzklasse bleiben muss, die Richtung soll sich sogar eigentlich auch bei einer Vektoraddition ändern. Er dient dazu, die Forderung $\hat{\gamma}(0) = p$ zu erfüllen (sonst hätte man keinen Tangentialvektor in $T_p M$ mehr !), Nachrechnen zeigt die Korrektheit:
+\begin{align*}
+\hat{\gamma}(0) &= \varphi^{-1}\qty(\qty(\varphi \circ \gamma)(0) + \qty(\varphi \circ \hat{\gamma})(0) - \varphi(p))
+\\
+&= \varphi^{-1}\qty(\varphi(p) + \varphi(p) - \varphi(p)) = \varphi^{-1}\qty(\varphi(p)) = p \, .
+\end{align*}
+Bei der Skalarmultiplikation war das klar, weil $t = 0 \Leftrightarrow \lambda t = 0, \, \forall \lambda \in \mathbb{R}$.
+\end{itemize}
+
+Diese beiden Operationen machen den Tangentialraum zu einem Vektorraum, dessen Struktur aufgrund der Benutzung von Karten $\varphi: U \rightarrow V \subset \mathbb{R}^n$ von der des Raums $T_{\varphi(p)} V$ induziert wird (das Zurückführen auf den $\mathbb{R}^n$ wird wieder deutlich). Das heißt aber auch, dass noch die Wohldefiniertheit des Tangentialraums zu zeigen ist:
+
+\begin{satz}[Eigenschaften $T_p M$]
+Die Vektorraumstruktur von $T_p M$ ist unabhängig von der Wahl der Karte $\varphi$ und die Dimension von $T_p M$ ist gleich der von $M$.
+
+Für zwei Mannigfaltigkeiten $M, N$ gilt zudem $T_{(p, q)} M \cross N = T_p M \cross T_q N$.
+\end{satz}
+
+
+
+
+		\subsection{In Karten}
+Wie bei Mannigfaltigkeiten üblich, muss man explizite Rechnungen mit Tangentialvektoren in Karten und damit im $\mathbb{R}^n$ durchführen. Diese Not kann man aber auch zur Tugend machen und den gesamten Formalismus rund um Tangentialvektoren neu darstellen (Grund: bringt einen anderen Blickwinkel). Dass das Ganze möglich ist, sollte bereits aus der geometrischen Betrachtung klar sein, wo ein Beispiel für eine Kurve ja $t \mapsto \varphi^{-1}\qty(\varphi(p) + t v)$ war und das hängt auch von der gewählten Karte ab. In diesem Fall wird die Richtung auf $M$ eben von vorne herein beschrieben durch den Vektor $v \in \mathbb{R}^n$ und die Idee ist, das zu verallgemeinern.
+
+\begin{defi}[(Tangential-)Vektor]
+Mithilfe der Menge
+\begin{equation}
+\mathcal{A}_p := \qty{(U_p, \varphi_p): \; p \in U_p, (U_p, \varphi_p) \in \mathcal{A}_{max}}
+\end{equation}
+bildet die Verknüpfung zweier Tripel
+\begin{equation}
+(U, \varphi, v)_p \sim (V, \psi, w)_p \quad \Leftrightarrow \quad D_{\varphi(p)} \qty(\psi \circ \varphi^{-1})(v) = w, \quad v, w \in \mathbb{R}^n
+\end{equation}
+eine Äquivalenzrelation auf $\mathcal{A}_p \cross \mathbb{R}^n$, die als \Def{Tangentialvektor} bezeichnet wird.
+\end{defi}
+Das beschreibt einen Vektor auf der Mannigfaltigkeit $M$, weil dort Vektor im $\mathbb{R}^n$ gegeben ist und dazu die \enquote{Vorschrift}, mit der man zurück übersetzen kann (das Kartentupel $(U, \varphi)$ bzw. $(V, \psi)$). Die Äquivalenzrelation sorgt für Wohldefiniertheit.
+
+
+Der Sinn des Ganzen ist, dass man natürlich leicht eine Ableitung in Karten machen kann und so auch eine Richtung erhält. Da eine ganz wesentliche Forderung aber die Unabhängigkeit der dort geschehenden Mathematik von der Karte ist, muss man sich genau so anschauen, was bei der Ableitung der gleichen Funktion am gleichen Punkt in einer anderen Karte herauskommt. Die Forderung entsteht dann durch Ableitung des jeweiligen Kartenwechsels, der ja gerade diesen Wechsel macht. Die Deutung der beiden Vektoren $v, w \in \mathbb{R}^n$ ist, dass sie den gleichen Vektor bzw. die gleiche Richtung auf der Mannigfaltigkeit beschreiben, den man durch Ableitung des inversen Kartenwechsels in Richtung des jeweiligen Vektors gewinnen kann, es gilt also
+\begin{equation*}
+%D_{\varphi(p)} \varphi^{-1}(v) \equiv ? = ? D_{\psi(p)} \psi^{-1}(w) \, .
+%
+D_{\psi(p)} \psi^{-1}(w) = D_{\psi(p)} \psi^{-1}\qty(D_{\varphi(p)} \qty(\psi \circ \varphi^{-1})(v)) = D_{\varphi(p)} \psi^{-1} \circ \psi \circ \varphi^{-1}(v) = D_{\varphi(p)} \varphi^{-1}(v) \, ,
+\end{equation*}
+was nach $\varphi^{-1}: \mathbb{R}^n \rightarrow M$ einen Vektor auf der Mannigfaltigkeit beschreibt.
+%Das kann man sich beispielsweise an dieser Rechnung klar machen:
+%\begin{equation*}
+%w = D_{\varphi(p)} \qty(\psi \circ \varphi^{-1})(v) = D_{\varphi^{-1}\qty(\varphi(p))} \psi \circ D_{\varphi(p)} \varphi^{-1}(v) = D_p \psi \qty(D_{\varphi(p)} \varphi^{-1}(v)) \, ,
+%\end{equation*}
+%die ja im Prinzip genau das aussagt.
+
+
+Dass man auf diese Weise Kurvenkeime und Tangentialvektoren in Karten identifizieren kann, ist nun also klar. Das zeigt jedoch noch nicht, dass das mit jedem Kurvenkeim/ jedem Vektor möglich ist, hierfür ist die Isomorphie der beiden Räume zu zeigen.
+
+\begin{satz}[Kurvenkeim $\leftrightarrow$ (Tangential-)Vektor]
+Es gilt
+\begin{equation}
+T_p M \cong \qty(\mathcal{A}_p \cross \mathbb{R}^n)/ \sim \, ,
+\end{equation}
+wobei der Isomorphismus auf natürliche Weise gegeben ist durch
+\begin{equation}
+\Phi: T_p M \rightarrow \mathcal{A}_p \cross \mathbb{R}^n, \; [\gamma]_p \mapsto [\qty(U, \varphi, \qty(\varphi \circ \gamma)'(0))]_p \, .
+\end{equation}
+\end{satz}
+Man nimmt also statt des Vektors $\gamma'(0) = \qty(\varphi^{-1}(\varphi(p) + t v))'(0) =: q \in T_p M$ also den Vektor $\qty(\varphi \circ \gamma)'(0) = v \in \mathbb{R}^n$. Wegen
+\begin{equation*}
+v = D_{t = 0} \varphi \circ \gamma = D_{\gamma(p)} \varphi \circ D_{t = 0} \gamma = D_p \varphi(q) \qquad \qty(\Leftrightarrow \quad q = D_{\varphi(p)} \varphi^{-1}(v))
+\end{equation*}
+stellt man den Vektor also einfach im $\mathbb{R}^n$ dar (was wichtig ist, weil man sich Vektoren auf Mannigfaltigkeiten höchstens bei eingebetteten vorstellen kann !).
+
+	\anm{diese Rechnung ist dabei eher symbolisch zu sehen, weil man Vektoren auf $M$ (also Elemente von $T_p M$) ja bereits von Anfang an (siehe bei Kurvenkeimen) gewissermaßen über den $\mathbb{R}^n$ definiert. Diese Rechnung ist deshalb mehr zur Verdeutlichung der eigentlich offensichtlichen Äquivalenz gedacht.}
+
+Auch die Menge $\qty(\mathcal{A}_p \cross \mathbb{R}^n)/ \sim$ bildet damit einen Vektorraum. Die zugehörigen Operationen sind gegeben durch
+\begin{equation}
+[U, \varphi, v]_p + \lambda [U, \varphi, w]_p = [U, \varphi, v + \lambda w]_p \, .
+\end{equation}
+Weil ja $v$ bereits ein Vektor aus dem $\mathbb{R}^n$ ist, kann man die dort vorhandene Vektorraumstruktur einfach ausnutzen (folgt rein rechnerisch aus der Linearität der Ableitung). Es ist also in dieser Notation wirklich sehr einfach, zu rechnen und man kann zum Beispiel mithilfe der Koordinatenkurven $[U, \varphi, e_k] \equiv$ Achse ganz leicht ein Koordinatensystem und damit eine Basis konstruieren. Eine oft benutzt Repräsentation eines solchen Tripels $[U, \varphi, v]$ ist mithilfe einer Kurve $t \mapsto \varphi^{-1}\qty(\varphi(p) + t v)$ oder in kurz auch $\varphi^{-1}\qty(\varphi(p) + t v)$ geschrieben (weil es bei dem Tripel ja eigentlich nur um den Vektor $v$ geht, den man auch durch einen Kurvenkeim darstellen kann).
+
+Wichtig ist dabei jedoch zu beachten, dass die Ergebnisse der Rechnungen in jeder Karte \enquote{anders aussehen}. Obwohl also das Gleiche passiert bei der Addition äquivalenter Vektoren in verschiedenen Karten, ist das Ergebnis im Allgemeinen nicht exakt das Gleiche (auch wenn die Ergebnisse natürlich in einer Äquivalenzklasse liegen, es geht hier alleine um den Zahlenwert bzw. Vektor, der herauskommt).
+
+
+\begin{bsp}[Sphäre]
+Sei $p = (x, y, z) \in S^2, \, z > 0$ (Bedingung mit $z$ nur zur Vereinfachung, nicht nötig; schränkt uns einfach auf obere Hemisphäre ein).
+
+hier wäre gut Plot möglich ! Nimm beliebige Richtung, normiere die auf 1 und plotte daran die Tangentialvektoren (auch Sphäre dazu)
+ 
+Er gibt dann Plattmacher an (die $z$-Koordinate wird bei Länge 1 des Vektors immer 0 ! Fordere daher auch $z > 0$, damit nicht schon in der Ebene, in die reinprojiziert werden soll)
+\end{bsp}
+
+
+Die Motivation hinter dieser zweiten Definition von Tangentialvektoren ist ganz einfach zu verstehen. Das Ableiten von Kurven ist zwar sehr einfach, aber Relationen wie Surjektivität rechnet man besser in einer festen Karte und ohne Kurvenkeim nach (Kurvenkeime waren zwar mithilfe von Karten definiert, die Relationen aber für Äquivalenzklassen gedacht und damit etwas unhandlicher). Von nun an wird sich daher immer der Formalismus ausgesucht, der besser zum jeweiligen Problem passt und die einfachste Behandlung ermöglicht (mehr dazu im Abschnitt \enquote{Vergleich}).
+
+
+
+		\subsection{Derivationen}
+Nun folgt ein weiterer Ansatz zum Thema Tangentialvektoren, der noch allgemeiner gehalten ist. Zur Motivation werden einige Eigenschaften der bereits behandelten und als Tangentialvektor identifizierten Richtungsableitung von Kurven nachgewiesen, die dann zur Verallgemeinerung der Definition selbiger genutzt werden.
+
+Dazu wird die Richtungsableitung eines glatten Funktionals $f \in C^\infty(M; \mathbb{R})$ definiert:
+\begin{equation}
+[\gamma]_p \cdot f := [\gamma]_p(f) := \qty(f \circ \gamma)'(0) = \qty(f \circ \varphi^{-1})'\qty(\varphi(p)) \circ \qty(\varphi \circ \gamma)'(0) \, .
+\end{equation}
+Man wendet also den eben eingeführten Begriff des Tangentialvektors direkt an, der ja eine Richtung auf $M$ angibt (hier in der geometrischen Repräsentation als $\qty(\varphi \circ \gamma)'(0)$). Ganz analog zu Kurvenkeimen hat man es dann letztendlich mit Richtungsableitungen auf dem $\mathbb{R}^n$ zu tun, schließlich steht dort $f \circ \varphi^{-1}: \mathbb{R}^n \rightarrow \mathbb{R}$ und das wird abgeleitet in Richtung des Vektors, der durch Auswertung der Abbildung $\qty(\varphi \circ \gamma)': \mathbb{R} \rightarrow \mathbb{R}^n$ (die zwischendurch noch nach $M$ geht) an der Stelle 0 gegeben ist (das macht die Verknüpfung dort, Einsetzen). Das Ergebnis ist also am Ende eine reelle Zahl.
+
+	\anm{offensichtlich lassen sich Kurvenkeime als Richtungsableitung einer Karte $\varphi$ deuten. $[\gamma]_p$ wird damit zu einer Art Operator $[\gamma]_p: C^\infty(M; \mathbb{R}) \rightarrow \mathbb{R}$.}
+
+Wie immer in der Mathematik ist nun die Wohldefiniertheit der Abbildung wichtig, also die Unabhängigkeit vom gewählten Repräsentanten der Äquivalenzklasse $[\gamma]_p$:
+
+\begin{proof}
+Die Äquivalenzrelation ist $\gamma_1 \sim_p \gamma_2 \Leftrightarrow \qty(\varphi \circ \gamma_1)'(0) = \qty(\varphi \circ \gamma_2)'(0) \,$. Damit gilt
+\begin{align*}
+\qty(f \circ \gamma)'(0) &= D_0 \qty(f \circ \gamma) = D_0 \qty(f \circ \varphi^{-1} \circ \varphi \circ \gamma) = D_{\varphi(p)} \qty(f \circ \varphi^{-1}) \circ D_0 \qty(\varphi \circ \gamma)
+\\
+&= D_{\varphi(p)} \qty(f \circ \varphi^{-1}) \circ D_0 \qty(\varphi \circ \tilde{\gamma}) = D_0 \qty(f \circ \varphi^{-1} \circ \varphi \circ \tilde{\gamma}) = \qty(f \circ \tilde{\gamma})'(0) \qedhere
+\end{align*}
+\end{proof}
+	\anm{interessant/ gut ist, dass man so direkt die aus Analysis I/ II bekannte Form von Richtungsableitungen erfasst. Für $M = \mathbb{R}^m$ (Karte also einfach $\varphi = \text{id}$) und eine glatte Kurve $\gamma: \mathbb{R} \rightarrow \mathbb{R}^m$ gewinnt die Ableitung in Richtung von $v \in \mathbb{R}^m$ zurück, indem man oBdA die Kurve $\gamma(t) = \varphi^{-1}\qty(\varphi(p) + t v) = p + t v \in [\gamma]_p$ wählt:
+	\begin{equation}
+	[\gamma]_p \cdot f = \qty(f \circ \gamma)'(0) = \eval{\dv{t} f \circ \gamma}_{t = 0} = \eval{\dv{t} f(p + t v)}_{t = 0} \, ,
+	\end{equation}
+	weil $f \circ \gamma$ eine Funktion von $t$ ist, und dafür \enquote{berechnet} man natürlich
+	\begin{align*}
+	\eval{\dv{t} f(p + t v)}_{t = 0} &= D_{t = 0} \qty(f(p + t v)) = D_{t = 0} \qty(f \circ (p + t v))
+	\\
+	&= \qty(D_{(p + t v)(0)} f) \circ D_{t = 0} \qty(p + t v) = \qty(D_p f) \circ v = D_ p f(v)
+	\end{align*}
+	}
+
+
+Diese Abbildung erfüllt dann interessante Eigenschaften, wie folgender Satz zeigt.
+\begin{satz}[Eigenschaften Richtungsableitung]
+Für $[\gamma]_p \in T_p M$ ist die Abbildung $C^\infty(M; \mathbb{R}) \ni f \mapsto [\gamma]_p \cdot f := \qty(f \circ \gamma)'(0)$ linear und erfüllt zudem die Produkt-/ Leibnizregel. Es gilt also
+\begin{equation}
+[\gamma]_p \cdot \qty(f + \lambda g) = \lambda [\gamma]_p \cdot f + [\gamma]_p \cdot g \qquad [\gamma]_p \cdot \qty(f g) = f(p) \, [\gamma]_p \cdot g + g(p) \, [\gamma]_p \cdot f \, .
+\end{equation}
+\end{satz}
+
+\begin{proof}
+Anwenden von Rechenregeln des Differentials aus Analysis I/ II (wo Linearität und Produktregel gezeigt wurden) liefert:
+\begin{align*}
+[\gamma]_p \cdot \qty(f + \lambda g) &= D_0 \qty(\qty(f + \lambda g) \circ \gamma) = D_0 \qty(\lambda f \circ \gamma) + D_0 \qty(g \circ \gamma)
+\\
+&= \lambda D_0 \qty(f \circ \gamma) + D_0 \qty(g \circ \gamma) = \lambda [\gamma]_p \cdot f + [\gamma]_p \cdot g
+\\\\
+[\gamma]_p \cdot \qty(f g)&= D_0 \qty(\qty(f g) \circ \gamma) = f(\gamma(0)) \, D_0 \qty(g \circ \gamma) + D_0 \qty(f \circ \gamma) \, g(\gamma(0))
+\\
+&= f(p) \, [\gamma]_p \cdot g + g(p) \, [\gamma]_p \cdot f \qedhere
+\end{align*}
+\end{proof}
+
+Man hat somit die Gleichheit der Definition (zumindest den Eigenschaften nach) von Richtungsableitungen von Funktionen mit der aus früheren Analysis-Kursen gezeigt. Tatsächlich stellt sich aber weiter heraus, dass sich alleine mit diesen Regeln eine alternative, sinnvolle Definition von Tangentialvektoren angeben lässt:
+
+\begin{defi}[Derivation]
+Eine \Def{Derivation} $X$ an den Punkt $p$ auf einer Mannigfaltigkeit $M$ ist eine Linearform
+\begin{equation}
+X: C^\infty(M; \mathbb{R}) \rightarrow \mathbb{R}, \, f \mapsto X(f) =: X \cdot f \, ,
+\end{equation}
+die zusätzlich noch die Leibniz-Regel erfüllt, also
+\begin{equation}
+X \cdot (fg) = f(p) \, X \cdot g + g(p) \, X \cdot f, \quad \forall f, g \in C^\infty(M; \mathbb{R}) \, .
+\end{equation}
+Der Raum aller Derivationen an $p \in M$ wird mit $\text{Der}_p(M)$ bezeichnet.
+\end{defi}
+Die genaue Abbildungsvorschrift ist dabei weniger relevant, es geht nur darum, ob die Leibniz-Regel erfüllt ist und dass es sich um eine Linearform auf dem Raum der glatten Funktionen handelt. Man erhält auch direkt eine große Klasse von Beispielen, weil offenbar jede Richtungsableitung $\gamma'$ einer Kurve $\gamma: \mathbb{R} \rightarrow M$ eine Derivation ist, die mit $X_{[\gamma]_p}$ (verkürzt $X_{[\gamma]}$) oder $X_{\gamma'}$ bezeichnet wird und wirkt als
+\begin{equation*}
+X_{[\gamma]_p} \cdot f = \qty(f \circ \gamma)'(0) = D_p f \qty(\gamma'(0)) \, .
+\end{equation*}
+
+\begin{satz}[Lokalität]
+Für eine Derivation $X$ an $p \in M$ und $f, g \in C^\infty(M; \mathbb{R})$ mit $f(x) = g(x), \forall x \in U$ auf einer offenen Umgebung $U \subset M$ von $p$ gilt $X \cdot f = X \cdot g$.
+\end{satz}
+Dieser zunächst unscheinbar wirkende Satz hat eine spannende Aussage: sind glatte Funktionen $f, g$ auf einer Teilmenge $U \subset M$ gleich, so ist ihre Derivation auf ganz $M$ gleich ! Die Form der Funktionen außerhalb von $U$ ist dabei vollkommen egal, sie können dort also grundverschieden sein. Wie der Name des Satzes sagt, ist das Ausdruck der Lokalität von Derivationen. Diese sind am festen Punkt $p \in M$ definiert, deshalb ist es sogar nachvollziehbar, dass nur das Verhalten nahe $p$ relevant ist.
+
+	\anm{beim Beweis wird ein interessanter Trick angewendet. Wegen der Linearität reicht es nämlich, die Aussage nur für Funktionen zeigen, die auf $U$ den Wert 0 annehmen und außerhalb beliebig sind (betrachte einfach Differenz der beiden Funktionen, die Aussage folgt dann mithilfe der Buckelfunktionen).}
+
+\begin{cor}
+Für eine offene Teilmenge $U \subset M$ mit $p \in U$ gilt $\text{Der}(M) = \text{Der}(U)$.
+\end{cor}
+Das ist im Prinzip eine direkte Folge aus der Lokalität, weil das Verhalten einer Funktion außerhalb von $U$ keine Rolle für die Derivationen spielt (die Beweisidee ist daher gerade das Einschränken einer Funktion $f \in C^\infty(M; \mathbb{R})$ auf die offene Teilmenge $U$, was wegen der Offenheit nichts an der Glattheit ändert und dann nur noch Anwenden der Lokalität). Insbesondere kann man sich daher bei Derivationen auf die Arbeit mit Funktionen $C^\infty(U; \mathbb{R})$ beschränken, anstatt Elemente von $C^\infty(M; \mathbb{R})$ nutzen zu müssen (Differenzierbarkeit dort unter Umständen leichter zu zeigen).
+
+\begin{satz}[Kurvenkeim $\leftrightarrow$ Derivation]
+Die Menge $\text{Der}_p(M)$ bildet mithilfe der Operationen
+\begin{equation}
+\qty(\lambda X + Y) \cdot f := \lambda \, X \cdot f + Y \cdot f
+\end{equation}
+auf natürliche Weise einen Vektorraum.
+
+Für einen Punkt $p$ aus einer Mannigfaltigkeit $M$ ist zudem die Abbildung
+\begin{equation}
+T_p M \ni [\gamma]_p \mapsto X_{[\gamma]_p} \in \text{Der}_p(M)
+\end{equation}
+ein Vektorraumisomorphismus.
+\end{satz}
+
+\begin{proof}
+Vektorraumeigenschaften sind easy/ klar (daher \enquote{auf natürliche Weise}, hier muss nichts konstruiert werden !)
+
+Wohldefiniertheit klar wegen Eigenschaften der Richtungsableitung (bereits über Äquivalenzklasse definiert)
+
+
+nun wichtig: Linearität (nötig bei Isomorphismus !)\\
+man braucht eine Karte, um Kurvenkeime vergleichen zu können; man nimmt dann zwei Kurven $\gamma \equiv (U, \varphi, v)$ und $\tilde{\gamma} \equiv (U, \varphi, w)$ (? er schreibt die Kurven aber schon mit Strichen dran ?); für die Summe gilt dann klarerweise $\gamma + \lambda \tilde{\gamma} \equiv (U, \varphi, v + \lambda w)$ oder als äquivalente Repräsentation der Kurvenkeim $t \mapsto \varphi^{-1}\qty(\varphi(p) + t (v + \lambda w))$ -> ahhh ne, daher fehlt auch ein $\varphi(p)$ wahrscheinlich, die Addition ist bei Kurvenkeimen ja anders definiert, right ?; berechne dann einfach 
+\begin{align*}
+X_{\gamma + \lambda \tilde{\gamma}} \cdot f &= \eval{\dv{t} f \circ \varphi^{-1} \qty(\varphi(p) + t (v + \lambda w))}_{t = 0}
+\\
+&= D_t \qty(f \circ \varphi^{-1})\qty(\varphi(p) + t (v + \lambda w))
+\\
+&= D_t \qty(f \circ \varphi^{-1})\qty(\varphi(p) + t v) + \lambda \, D_t \qty(f \circ \varphi^{-1})\qty(\varphi(p) + t w)
+\\
+%&= D_t \qty(f \circ \varphi^{-1} \circ \qty(\varphi(p) + t (v + \lambda w)))
+%\\
+%&= D_{\varphi(p) + t (v + \lambda w)} \qty(f \circ \varphi^{-1}) \circ D_t\qty(\varphi(p) + t (v + \lambda w))
+%\\
+%&= D_{\varphi(p) + t (v + \lambda w)} \qty(f \circ \varphi^{-1}) (v + \lambda w)
+%\\
+%&= D_{\varphi(p) + t (v + \lambda w)} \qty(f \circ \varphi^{-1})(v) + \lambda D_{\varphi(p) + t (v + \lambda w)} \qty(f \circ \varphi^{-1})(w)
+%\\
+&= X_{\gamma} \cdot f + \lambda \,  X_{\tilde{\gamma}} \cdot f
+\end{align*}
+nutze bei Rechnung dann einfach Linearität des Differentials; evtl. aufpassen bei dem Einsetzen da mit Klammern (also was genau abgeleitet wird); wechseln da eigentlich zwischen verschiedenen Definitionen, aber weil die alle äquivalent sind (wegen der Isomorphismen zwischen den Räumen), ist das überhaupt kein Problem
+
+
+nun wichtig für Injektivität:\\
+Kurven, deren Richtungsableitungen trivial sind (? also verschwinden ?), die entsprechen nämlich gerade den Nullvektoren im Tangentialraum; betrachte dazu Karten als Vektor von Funktionen (die als Einträge im Output ja Koordinatenfunktionen haben, die von der Mannigfaltigkeit nach $\mathbb{R}$ gehen, es sind dann eben $n$ Stück davon in einem Vektor da; sind dann zwar nur auf einer offenen Menge $U$ gegeben, aber das war ja kein Problem bei Derivationen)
+
+danach Trick: können beliebige Translationen quasi machen im Bild der Funktion (weil konstante Funktionen ja abgeleitet von der Derivation gerade 0 ergeben; geht natürlich nicht ohne weiteres auf $M$, weil dort ja alles an einem festen Punkt $p$ gegeben ist und so), daher kann man z.B. oBdA $f(p) = 0$ angeben und dann auch mit Karten $p$ in den Ursprung legen sowie das Bild clever als Ball wählen (das reicht, weil Derivationen ja lokal sind !)
+
+
+? bei $\dv{f}{tx} = \sum_{k = 1}^n x_k \pdv{f}{x_k}$ nutzt man einmal Kettenregel zu $\pdv{f}{x} \dv{tx}{t}$ und dann, dass dort ein Skalarprodukt steht ? Er benutzt auf jeden Fall auch Hadamards Lemma, dessen Aussage gerade ist:
+\begin{equation}
+X \cdot f = \sum_k h_k(0) \; X \cdot x_k \qquad h(x) := \int_0^1 \pdv{f}{x_k}(tx) \, dt
+\end{equation}
+wobei $X \cdot x_k =: a_k$ ein Skalar ist (wird schließlich ausgewertet im Punkt $p$) und dann mit $\gamma(t) := t a$ ($a$ eben als Vektor der $a_k$) auch $X_{\gamma} \cdot x_k = a_k$ (das zeigt gerade, die Äquivalenz von Tangentialvektor und Derivation). Man hat damit quasi eine Basisdarstellung von Derivationen.
+
+? $x_k$ da wieder als Komponenten des Bildes einer Karte $x$ ? ja, $x = (x_1, \dots, x_n)$
+\end{proof}
+
+Es ist also nicht nur jede Richtungsableitung eine Derivation, sondern auch umgekehrt findet man nicht Derivationen, die keine Richtungsableitungen sind ! Das zeigt sich eben, wenn man einen Kurvenkeim auf die zugehörige Richtungsableitung abbildet und im Endeffekt bedeutet es, dass Tangentialvektoren das selbe sind wie Derivationen.
+
+Man mag sich nun fragen, warum man dann überhaupt die im Vergleich zu Richtungsableitungen viel unanschaulicheren Derivationen einführt. Das hat einfach damit zu tun, dass abstraktere Definitionen in manchen Fällen die Behandlung von Problemen vereinfachen (vor allem bei Lie-Gruppen, -Algebren und -Ableitungen wird das vorkommen). Außerdem ermöglichen sie die folgende, ungemein wichtige Konstruktion:
+
+\begin{bsp}[Gauß'sche Basis]\label{bsp:gaussbasis}
+Für eine Karte $x = (x_1, \dots, x_m): U \rightarrow \mathbb{R}^m$ um $p \in U$ von $M$ nach $\mathbb{R}^m$ mit $x_j$ als Komponentenfunktion ist die Abbildung
+\begin{equation}
+\eval{\pdv{x_k}}_p: C^\infty(M; \mathbb{R}) \rightarrow \mathbb{R}, \; f \mapsto \eval{\pdv{x_j}}_p \cdot f = \eval{\pdv{f \circ x^{-1}}{x_k}}_{x(p)}% = \pdv{f \circ x^{-1}}{x_k} \qty(x(p))
+\end{equation}
+%? lieber mit \verb+\eval{}_{x(p)}+ ? 
+eine Derivation von enormer Wichtigkeit. Sie nimmt sich also eine glatte Funktion $f: M \rightarrow \mathbb{R}$ und leitet $\tilde{f} = f \circ x^{-1}: \mathbb{R}^m \rightarrow \mathbb{R}$ in Richtung der $k$-ten Koordinate $x_k$ ab (%man möchte ja mit der partiellen Ableitung im reellen Raum arbeiten und macht deshalb diese \enquote{Zurückholung}, 
+man arbeitet dabei natürlich am zu $p$ Punkt im $\mathbb{R}^m$, also $x(p)$). Von diesen gibt es offenbar genau $m = \dim(M)$ Stück und tatsächlich bildet die Menge
+\begin{equation}
+\qty{\eval{\pdv{x_k}}_p}_{k = 1}^m \quad \equiv \quad \qty{\qty(x^{-1}\qty(x(p) + t e_k))'(0)}_{k = 1}^m \quad \equiv \quad \qty{[U, x, e_k]_p}_{k = 1}^m
+%\qty{\eval{\pdv{x_1}}_p, \dots, \eval{\pdv{x_m}}_p} \quad \equiv \quad \qty{x^{-1}\qty(x(p) + t e_1), \dots, x^{-1}\qty(x(p) + t e_m)}
+\end{equation}
+eine Basis des Tangentialraums $T_p M$ (damit insbesondere $\dim(T_p M) = m$) ! Man überträgt/ identifiziert also die Standardbasis $e_k$ des $\mathbb{R}^m$ (das sind die Spaltenvektoren) auf den Tangentialraum, was der natürlichste Weg zur Definition einer Basis des $T_p M$ ist. Schließlich lassen sich alle anderen Tangentialvektoren analog in Karten beschreiben und dort bezüglich der Standardbasis darstellen.
+
+
+Da man nun wieder etwas über Karten definiert, stellt sich die Frage nach dem Verhalten bei einem Kartenwechsel. Eine andere Karte $y = (y_1, \dots, y_m): V \rightarrow \mathbb{R}^m$ um $p \in M$ induziert natürlich analog zu $x$ eine Basis $\eval{\pdv{y_k}}_p$ von $T_p M$. Die verschiedenen Basen lassen sich dann durch eine lineare Transformation ineinander überführen, die auf die jeweiligen Koeffizienten wirkt. Explizit gilt:
+\begin{equation}\label{eq:gausswechsel}
+\eval{\pdv{x_j}}_p = \sum_{k = 1}^m \qty(\eval{\pdv{x_j}}_p \cdot y_k) \eval{\pdv{y_k}}_p = \sum_{k = 1}^m \pdv{\, y_k \circ x^{-1}}{x_j}\qty(x(p)) \eval{\pdv{y_k}}_p \, ,
+\end{equation}
+was wegen $\eval{\pdv{x_j}}_p \equiv [U, x, e_j]_p = [V, y, D_{x(p)} \qty(y \circ x^{-1})(e_j)]_p$ folgt (also Wechsel der in einen Spaltenvektor geschriebenen Derivationen über Multiplikation mit der Jacobi-Matrix des Kartenwechsels). Eine Merkregel (nämlich $\eval{\pdv{x_j}}_p \cdot y_k$) für die Koeffizienten erhält man durch Einsetzen der Komponentenfunktion $y_j$ auf beiden Seiten und Ausnutzen von $\eval{\pdv{y_j}{y_k}}_p = \delta_{jk}$.
+
+Offenbar werden also die Begriffe Kartenwechsel und Basiswechsel äquivalent bzw. der aus der Linearen Algebra bekannte Begriff des Basiswechsels verallgemeinert/ in den Formalismus von Mannigfaltigkeiten übertragen.
+\end{bsp}
+
+Diese Formel ist aufgrund der vielen Indizes sehr verwirrend, die Verwendung in der Praxis bei expliziten Rechnungen ist aber relativ einfach. Man muss sich einfach als Idee merken, dass man die Parametrisierung der Basis $x$ durch die Komponenten $y_k$ einsetzt, nach diesen Komponenten ableitet und am Ende einfach aufpassen muss, dass dort die richtigen Koordinaten stehen.  Logisch ist die grobe Form des Ausdrucks auch sofort nachvollziehbar, weil eine Komponente (also quasi Richtung) des einen Koordinatensystems, dargestellt in Koordinaten eines anderen (das ist gerade Kartenwechsel), möglicherweise bzw. eigentlich sogar sicher mehr als einen Term enthält.
+
+Bei der Interpretation von $\pdv{x_k}$ als Vektor denkt man dabei am besten einfach an den Standardbasisvektor $e_k$ des $\mathbb{R}^n$. Diese Interpretation ist nötig, weil man sich im Allgemeinen Vektoren auf Mannigfaltigkeiten nicht vorstellen kann, sondern nur die Kartendarstellung und das ist eben gerade $e_k$. Zudem spielen sie ja eine ganz analoge Rolle, sie bilden die Basis ihres zugrundeliegenden Raums.
+
+
+
+		\subsection{Vergleich}
+Wie eben bei den Gauß'schen Basen gesehen wurde, springt man bei der Benutzung von Tangentialvektoren immer zwischen den verschiedenen möglichen Darstellungen. In diesem Abschnitt soll diese Praxis noch einmal ganz explizit begründet werden, indem die äquivalenten Darstellungen gesammelt und verglichen werden. Dazu bestens geeignet ist das folgende Diagramm:
+
+$$
+\begin{tikzcd}[row sep = 76, column sep = 24]%, font = \large]
+ & \arrow{dl}{X_{\qty[\gamma]_p}} \qty[\gamma]_p \in T_p M \arrow[swap]{dr}{v = \qty(\varphi \circ \gamma)'(0)} &  \\
+X \in \text{Der}_p M \arrow[shift left = 0.5em]{ur}{\gamma'(t) = \qty(f^{-1})' \circ \qty(X \cdot f)(t)}%\qty(\varphi^{-1}(X \cdot \varphi))'(0)}
+ & & \qty[U, x, v]_p \in \qty(\mathcal{A}_p \cross \mathbb{R}^n)/\sim \arrow[swap, shift right = 0.5em]{ul}{\gamma(t) = \varphi^{-1}\qty(\varphi(p) + t v)}
+\end{tikzcd}
+$$
+%\begin{tikzcd}[row sep = 76]
+% & \arrow[dl] $\qty[\gamma]_p \in T_p M$ \arrow[dr, swap, "{v = \qty(\varphi \circ \gamma)'(0)}"] &  \\
+%$X \in \text{Der}_p M$ \arrow[ur, "{X_{\qty[\gamma]_p}}"] & & $\qty[U, x, v]_p \in \qty(\mathcal{A}_p \cross \mathbb{R}^n)/\sim$ \arrow[ul, swap, shift right = 0.5em, "{\gamma(t) = \varphi^{-1}\qty(\varphi(p) + t v)}"]
+%\end{tikzcd}
+
+Die Umrechnung zwischen Derivation und der Darstellung in Karten ist vollkommen analog zu der von Kurvenkeimen und Derivationen, weshalb das Ganze nicht explizit aufgeführt wird. Man kann sonst auch einfach verknüpfen, also von Derivation zu Kurvenkeimen und von dort zu geometrischen (das ergibt %$v = \qty(\varphi \circ \qty(\varphi^{-1}(X \cdot \varphi)'(0)))'(0)$) 
+$v = \varphi' \circ \qty(f^{-1})' \circ \qty(X \cdot f)(0)$) bzw. umgekehrt (das ergibt $X_{[\varphi^{-1}(\varphi(p) + tv)]_p}$).\\
+
+
+Man kann sich den Zusammenhang der drei Definitionen dann wie folgt merken: die grundlegende Idee bei einem Tangentialvektor ist es, eine Richtung vorzugeben. Daher leitet man einfach Kurven ab, das Differential als lineare Approximation ergibt dann die Tangente an die Kurve in einem gewissen Punkt und das wird der neue Richtungsbegriff (der Kurvenkeim). Man identifiziert dann Kurven mit der gleichen Steigung in diesem Punkt $p$, wobei die formale Definition der Gleichheit in Karten $\varphi$ geschieht. Man macht das jedoch auf eine gute, wohldefinierte Art und Weise, weil für Kurven mit in einer Karte parallelen Tangenten an $\varphi(p)$ die Aussage in allen möglichen Karten analog gilt und man daher guten Gewissens sagen kann, dass die Kurven parallele Tangenten in $p$ (also auf $M$) haben.
+
+Da man jedoch nicht immer Objekte wie Kurvenkeime auf der eigentlichen Mannigfaltigkeit betrachten möchte, ist der nächste Schritt die Entwicklung einer äquivalenten Kartendarstellung $v$ des Tangentialvektors. Das macht man einfach, indem man die Kurve in einer Karte darstellt und dann Ergebnis der Ableitung als dieses $v$ erkennt. Hat man hingegen einen Vektor in Kartendarstellung gegeben, so kann man durch einfaches Integrieren zu $t v + c$ den zugehörigen Kurvenkeim in der Karte daraus gewinnen (die Integrationskonstante $c$ wird dabei nicht auf 0 gesetzt, sondern muss für das Erfüllen der Konvention $\gamma(0) = p$ angepasst werden), was der Wahl eines besonders einfachen Repräsentanten entspricht, nämlich der Tangente an $p$ selber.
+
+	\anm{dabei ist es sehr wichtig, noch einmal zu betonen, dass zwar die Äquivalenzrelation bei Kurvenkeimen in Karten definiert ist, das eigentlich betrachtete Objekt aber immer noch auf der Mannigfaltigkeit liegt. Davon will man nun weg und stattdessen die wirkliche Kartendarstellung $v$ eines Vektors betrachten.}
+
+Man kann statt nur Kurven aber auch Funktionen entlang/ auf Kurven betrachten, indem man $f(p)$ durch $f(\gamma(t))$ ersetzt (so werden nur Punkte eingesetzt, die auf der Kurve liegen). Leitet man das dann ab, so stellt man fest, dass $(f \circ \gamma)'(t)$ äquivalent zu Richtungsableitungen der Form $D_p f(v)$ ist. Da nun $v$ eine Richtung im $\mathbb{R}^m$ darstellt und damit eine ganze Äquivalenzklasse repräsentiert, kann man offenbar bereits den Tangentialvektor kennen, wenn man die Wirkung auf Funktionen bei der Richtungsableitung kennt ! Solche Richtungsableitungen erfüllen die Eigenschaften einer sogenannten Derivation (linear, Produktregel) und es zeigt sich sogar, dass ein Isomorphismus zwischen den beiden Mengen existiert. Mit jedem Tangentialvektor kann man also eine eindeutige Derivation $\equiv$ Richtungsableitung assoziieren und das im Gegensatz zur Kartendarstellung als Operator ohne Karte/ Basis !
+
+%Idee Derivation: $X(f)$ wirkt wie $[\gamma]_p(f)$, also muss $X$ etwas wie $[\gamma]_p$ sein und damit eine Art Tangentialvektor (haben halt eindeutige Identifikation anhand der Wirkung)
+
+
+Die Äquivalenz sieht man sehr gut in Beispiel \ref{bsp:gaussbasis}, also bei der Gauß'schen Basis, wo alle Interpretationen unmittelbar vorkommen. Es ist dann durchaus irreführend, dass mit $\eval{\pdv{x_j}}_p$ nicht immer eine Richtungsableitung gemeint ist, das ist nur bei $\eval{\pdv{x_j}}_p \cdot f$ der Fall und gerade der äquivalenten Behandlung geschuldet. Steht dort nur $\eval{\pdv{x_j}}_p$, so hat man es mit dem Kurvenkeim zu tun, der in einer Karte der $j$-ten Achse $e_j$ entspricht, man muss dort also eigentlich an einen Vektor denken (insbesondere in der angegebenen Transformationsformel muss man da sehr aufpassen) !\\
+
+
+
+%\begin{bsp}[Tangentialvektoren auf der Sphäre]
+%Tipp: einfach mal selber rechnen und umdefinieren (anhand Sphäre gerade machen ?)
+
+%super Beispiel bei ihm: in Polarkoordinaten hängt ein Tangentialvektor vom Punkt ab (siehe z.B. bei Kreis) !
+
+%Bei Beispiel Kurve an Kreis $S^1$ müssen wir noch richtigen Fußpunkt wählen und richtige Geschwindigkeit, daher statt Parametrisierung $\gamma(t) = \qty(\cos(t), \sin(t))$ dann etwas wie $\tilde{\gamma}(t) = \qty(\cos\qty(\frac{3}{2} t + \frac{7}{4} \pi), \sin\qty(\frac{3}{2} t + \frac{7}{4} \pi))$; diese Kurve liefert dann eine Karte um den Punkt $p = \qty(\cos\qty(-\frac{\pi}{4}) + \sin\qty(-\frac{\pi}{4}))$, indem man das Inverse betrachtet (Kurve ist erstmal Parametrisierung, das ist eine Form für Darstellung von UMF). Es ist dann $v \equiv [\qty(U, \varphi, v)]$ und es ist in dieser Karte dann $v = \qty(\varphi \circ \gamma)'(0)$, aber wegen $\varphi = \gamma^{-1}$ ist das die Identität $v = \qty(x)'(0) = 1(0) = 1$ !
+%\end{bsp}
+
+
+Als Quintessenz dieses Abschnitts sollte man mitnehmen, dass wegen der mathematischen und auch logisch gut nachvollziehbaren Äquivalenz ($\equiv$ Isomorphie) der drei Definitionen rund um Tangentialvektoren die Begriffe nicht mehr unterschieden werden und fließend zwischen den verschiedenen Interpretationen gewechselt wird.
+
+%scheint hier gut diskutiert zu sein: \url{https://www.matheplanet.com/default3.html?call=viewtopic.php?topic=23874\&ref=https\%3A\%2F\%2Fwww.qwant.com\%2F}
+
+
+\newpage
+
+
+	\section{Kotangentialraum und Differentiale}
+		\subsection{Linearformen auf dem Tangentialraum (Kotangentialraum)}
+Mit dem Tangentialraum kann man nun wie mit einem \enquote{ganz normalem} Vektorraum arbeiten und als erste Anwendung wird der zugehörige Dualraum konstruiert, also der Raum der Linearformen/ linearen Funktionale/ 1-Formen von $T_p M$ nach $\mathbb{R}$.
+
+\begin{defi}[Kotangentialraum]
+Lineare Abbildungen
+\begin{equation}
+\alpha_p: T_p M \rightarrow \mathbb{R}
+\end{equation}
+heißen \Def[Kotangential! -vektor]{Kotangentialvektoren}. Der Menge aller Kotangentialvektoren und somit der Dualraum von $T_p M$ ist der \Def[Kotangential! -raum]{Kotangentialraum} $T^*_p M := \qty(T_p M)^*$.
+
+Die Vektorraum-Operationen sind dabei punktweise definiert über
+\begin{equation}
+\qty(\alpha_p + \lambda \beta_p)(v) = \alpha_p(v) + \lambda \beta_p(v) \, .
+\end{equation}
+\end{defi}
+Konsequenterweise trifft man also nach der Zuordnung Vektor $\rightarrow$ Tangentialvektor die Zuordnung Kovektor $\rightarrow$ Kotangentialvektor. Man kann aber auch eine etwas anschaulichere Definition finden, nämlich das Analogon zu Kurvenkeimen $[\gamma]_p \equiv \gamma'$.
+
+\begin{defi}[Funktionenkeim]
+Für zwei glatte Funktionen $f: U \rightarrow \mathbb{R}, \, g: V \rightarrow \mathbb{R}$ auf offenen Mengen $U, V \subset M$ definiert man an einem Punkt $p \in U \cap V$
+\begin{equation}
+f \sim_p g \; \Leftrightarrow \; \qty(f \circ \gamma)'(0) = \qty(g \circ \gamma)'(0), \; \forall \gamma: \qty(-\delta, \delta) \rightarrow M \; \text{ mit } \; \gamma(0) = p \, .
+\end{equation}
+Eine so definierte Äquivalenzklasse $[f]_p$ (auch mit $d_p f$ bezeichnet) auf den glatten Funktionen am Punkt $p$ heißt \Def{Funktionenkeim}.
+\end{defi}
+Man identifiziert hier also Funktionen miteinander, die in einem gewissen Punkt (wegen der Stetigkeit aller beteiligten Funktionen, Karten etc. auch in einer kleinen Umgebung darum) die gleiche Ableitung in jede Richtung haben (weil es ja $\forall \gamma$ gelten soll). Oftmals fordert man zudem noch $f(p) = g(p)$ und damit \Def{Gleichheit bis zur ersten Ordnung} der beiden Funktionen in $p$. Das ist hier jedoch nicht unbedingt nötig und wird daher weggelassen, weil man sonst nur mehr Notation hätte (dann müsste man nämlich bei $\sim_p$ ein kartesisches Produkt von $\mathbb{R}$ und $C^\infty(M; \mathbb{R})$ betrachten).
+
+%Funktionswert dabei egal, nur die erste Ableitung ist wichtig (würden sich ja dann nur um eine Konstante unterscheiden sonst -> lol ne, betrachten ja nur Ableitung an einem Punkt) !!!
+
+Der Gedanke hinter der Definition dieser Äquivalenzklassen ist dabei bereits von der Diskussion bei Tangentialvektoren klar, man möchte nämlich wieder eine Isomorphie zeigen. Dafür braucht man aber eine eindeutige Zuordnung und deshalb eine gewisse Eindeutigkeit der betrachteten Objekte (zumindest bei den relevanten Eigenschaften, was hier eben die erste Ableitung ist).
+
+
+\begin{satz}[Funktionenkeim $\leftrightarrow$ Kotangentialvektor]
+Mithilfe der Operationen 
+\begin{equation}
+\lambda [f]_{\sim p} + [g]_{\sim p} := \qty[\lambda f +g]_{\sim p} \quad \lambda f + g: U \cap V \rightarrow \mathbb{R}, \; p \mapsto \lambda f(p) + g(p)
+\end{equation}
+bildet die Menge aller Funktionenkeime auf natürliche Weise einen Vektorraum $\mathcal{F}_p$. Dieser Vektorraum ist kanonisch isomporph zum Kotangentialraum $T^*_p M$ mittels
+\begin{equation}
+\begin{split}
+\Phi&: \mathcal{F}_p \rightarrow T^*_p M, \; [f] \mapsto \Phi_{[\gamma]_p}\qty([f]) 
+\\
+\text{ mit } \; \Phi\qty([f]_{\sim p})&: T_p M \rightarrow \mathbb{R}, \; [\gamma]_p \mapsto \qty(\gamma \circ f)'(0) \, .
+\end{split}
+\end{equation}
+\end{satz}
+
+\begin{proof}
+Beweisidee ist, sich die Wirkung auf Elemente des Tangentialraums anzugucken; kriegen Injektivität wegen Benutzung Äquivalenzrelation (rechnen ja letzendlich dann mit $[f]\qty([\gamma]) = \qty(f \circ \gamma)'(0)$. Surjektivität überlegt man sich über Funktionskeime, die von einer Karte $x = (x_1, \dots, x_n)$ gegeben werden und das sind gerade $d_p x_1, \dots d_p x_n$, was man als dual zu $\pdv{x_1 \mid_p}, \dots \pdv{x_n \mid_p}$ ausrechnen kann.
+
+
+Trick für nur auf Teilmenge $U$ definierte Funktion (wird deshalb so selbstverständlich genutzt): nimm Buckelfunktion, damit kann man glatt fortsetzen (ist schon sick bei denen, das ging sonst ja nicht auf glatte Art und Weise)
+\end{proof}
+
+
+Diese Äquivalenz führt dazu, dass man bei Kotangentialvektoren oft lieber an Funktionenkeime $d_p f = [f]_{\sim_p} \in T^*_p M$ denkt, weil diese etwas anschaulicher sind (bei Tangentialvektoren stellt man sich analog meist Kurvenkeime vor). Das funktioniert auch mathematisch, weil man beim problematischen Fall eines zu kleinen Definitionsbereichs eine glatte Fortsetzung finden kann, die nur \enquote{weit weg} vom betrachteten Punkt $p$ Funktionswerte ändert und damit nicht die Äquivalenzklasse o.Ä. (wie im Beweis gerade, man ändert nichts in der betrachteten Umgebung, aber außerhalb).
+
+? müsste damit nicht jede 1-Form integrierbar sein, weil es Isomorphismus zwischen $T_p^*M$ und Raum der Funktionenkeime = Ableitungen von Funktionen gibt ?
+
+\begin{bsp}[Funktionenkeim $\leftrightarrow $ Derivation]\label{bsp:fktkeimderiv}
+%Einfachstes, aber auch sehr wichtiges Beispiel für Kotangentialvektor:
+Man kann nun auch eine sehr interessante Verbindung zwischen Tangential- und Kotangentialvektoren herstellen, wie folgende Relation zeigt:
+\begin{equation}
+d_p f: T_p M \cong \text{Der}_p M \rightarrow \mathbb{R}, \, X \mapsto d_p f(X) = X \cdot f \, .
+\end{equation}
+
+Das kann man tatsächlich sehr schnell nachrechnen. Dazu soll der Vektor $X$ zunächst in der Basisdarstellung $X = \sum_{j = 1}^n \lambda_j \eval{\pdv{x_j}}_p \equiv X_p$ betrachtet werden, entlang dem nun auch die Richtungsableitung von $f$ berechnet werden kann:
+\begin{align*}
+d_p f(X) &= \qty(\sum_{j = 1}^n \eval{\pdv{\tilde{f}}{x_j}}_p \, d_p x_j)(X) = \sum_{j = 1}^n \eval{\pdv{\tilde{f}}{x_j}}_p \, d_p x_j \qty(\sum_{k = 1}^n \lambda_k \eval{\pdv{x_k}}_p)
+\\
+&= \sum_{j, k = 1}^n \eval{\pdv{\tilde{f}}{x_j}}_p \, \lambda_k d_p x_j \qty(\eval{\pdv{x_k}}_p) = \sum_{j, k = 1}^n \eval{\pdv{\tilde{f}}{x_j}}_p \, \lambda_k \delta_{jk}
+\\
+&= \sum_{j = 1}^n \lambda_j \, \eval{\pdv{\tilde{f}}{x_j}}_p
+\end{align*}
+Dabei wurde genutzt, dass $\lambda_j$ genau wie $v$ an einem festen Punkt $p$ (variabel, aber natürlich muss ein fester Punkt betrachtet werden) einfach nur Konstanten sind, daher muss man nichts darauf anwenden und kann es aus $d_p x_j$ herausziehen (dabei wird zudem genutzt, dass 1-Formen linear sind !). Wichtig ist zudem, dass man $f$ ja nicht einfach partiell ableiten kann (als Abbildung auf $M$, $x_j$ ist ja eine Koordinate im $\mathbb{R}^n$ !), stattdessen gilt nach der Definition der Gauß'schen Basis:
+\begin{equation}
+\eval{\pdv{x_j}}_p \cdot f = \eval{\pdv{f \circ x^{-1}}{x_j}}_p =: \eval{\pdv{\tilde{f}}{x_j}}_p \, .
+\end{equation}
+	\anm{eigentlich handelt es sich bei $X$ sogar um ein sogenanntes Vektorfeld mit $\lambda_j = \lambda_j(p)$, also Koeffizientenfunktionen. Hier erfolgt aber die Betrachtung an einem festen Punkt $p$, wo diese konstant sind (Vektorfelder werden im nächsten Kapitel eingeführt und ausführlich behandelt).}
+
+Andererseits erhält man bei der Interpretation von $X$ als Derivation (und damit Richtungsableitung) bei Anwendung auf die Funktion $f$:
+\begin{align*}
+X \cdot f &= \qty(\sum_{j = 1}^n \lambda_j \eval{\pdv{x_j}}_p) \cdot f = \sum_{j = 1}^n \lambda_j \qty(\eval{\pdv{x_j}}_p \cdot f) = \sum_{j = 1}^n \lambda_j \eval{\pdv{\tilde{f}}{x_j}}_p
+\end{align*}
+und damit ganz offenbar das Gleiche. Jeder Tangentialvektor gibt also sofort auch einen Kotangentialvektor vor (das wurde ja beim Beweis der Äquivalenz von Funktionenkeim und Kotangentialvektor bereits gezeigt), bzw. besser: für einen festen Tangentialvektor $[\gamma]_p$ und eine feste Funktion $f$ sind die Wirkung der zum Vektor gehörigen Derivation $X_{[\gamma]_p}$ auf $f$ und die des Funktionenskeims von $f$ auf $[\gamma]_p$ nicht zu unterscheiden (das alles findet am Punkt $p$ statt) !
+
+Eine andere Formulierung dieser Aussage ist: man kennt einen Kotangentialvektor, wenn man weiß, wie er auf eine beliebige Derivation wirkt.
+\end{bsp}
+
+
+Diese Interpretation erlaubt nun sehr einfach das Finden einer Basis von $T^*_p M$:
+
+\begin{bsp}[Duale Gauß'sche Basis]
+Von der dualen Basis $\tilde{e}_i$ einer gegebenen Basis $e_j$ wird ja gefordert, dass $\tilde{e}_i (e_j) = \delta_{ij}$. Eine Basis des Tangentialraums ist bekannt, nämlich $e_j = \eval{\pdv{x_j}}_p$, man muss also nun die dazu duale Basis finden (bevorzugt ausgedrückt als Funktionenkeim). 
+
+Wie bereits beim Beweis der Äquivalenz von Funktionenkeim und Kotangentialvektor klar wurde, muss man nun lediglich die Familie von glatten Funktionen $\qty{f_j = x_j}_{j = 1}^m$ betrachten. Aus der Analysis ist nämlich bekannt, dass
+\begin{equation*}
+\eval{\pdv{x_k}}_p \cdot f_j = \eval{\pdv{x_j \circ x^{-1}}{x_k}}_{x(p)} = \eval{\delta_{jk}}_{x(p)} = \delta_{jk} \, .
+\end{equation*}
+Wegen der Wirkung $d_p f(X) = X \cdot f$ ist damit die duale Basis von $T^*_p M$ zur von der Karte $x = (x_1, \dots, x_m): U \rightarrow \mathbb{R}^n$ induzierten Gauß'schen Basis gegeben durch
+\begin{equation}
+\qty{d_p x_j}_{j = 1}^m \, ,
+\end{equation}
+also die Funktionenkeime der Komponentenfunktionen (analog zu den Derivationen bzw. äquivalent Kurvenkeimen dieser Komponentenfunktionen als Basis von $T_p M$).
+
+
+Auch hier kann man den Basiswechsel zur von einer anderen Karte $y = (y_1, \dots, y_n): V \rightarrow \mathbb{R}^n$ induzierten Basis $d_p y_1, \dots, d_p y_n$ betrachten, es ergibt sich auf $U \cap V$:
+\begin{equation}\label{eq:gausswechseldual}
+%d_p y_j = \sum_{k = 1}^n \pdv{y_j \circ x^{-1}}{x_k} \qty(x(p)) d_p x_k
+d_p x_j = \sum_{k = 1}^n \pdv{x_j \circ y^{-1}}{y_k} \qty(y(p)) d_p y_k
+\end{equation}
+%mit der analogen Merkregel $d_p y_j \qty(\eval{\pdv{x_k}}_p) = \eval{\pdv{x_k}}_p \cdot y_j$ für die Koeffizienten (die sich somit sehr ähnlich zu denen bei der \enquote{normalen} Gauß'schen Basis bestimmen !).
+mit der analogen Merkregel $d_p x_j \qty(\eval{\pdv{y_k}}_p) = \eval{\pdv{y_k}}_p \cdot x_j$ für die Koeffizienten.
+\end{bsp}
+
+
+
+		\subsection{Abbildungen auf dem Tangentialraum (Differentiale)}
+Was bis jetzt für Funktionen $f: M \rightarrow \mathbb{R}$ gemacht wurde, soll natürlich auch auf allgemeinere Abbildungen $F: M \rightarrow N$ zwischen Mannigfaltigkeiten erweitert werden.
+
+\begin{satz}[Differential]
+Das Differential einer glatten Abbildung $F: M \rightarrow N$ zwischen zwei Mannigfaltigkeiten $M, N$ ist gegeben durch
+\begin{equation}
+D_p F: T_p M \rightarrow T_{F(p)} N, \, [\gamma]_p \mapsto [F \circ \gamma]_{F(p)} \, .
+\end{equation}
+Diese Abbildung ist wohldefiniert und linear. Bezüglich zweier Karten $x: U \rightarrow \mathbb{R}^m$ um $p \in M$ sowie $y: V \rightarrow \mathbb{R}^n$ um $F(p) \in N$ gilt zudem
+\begin{equation}
+D_p F\qty([U, x, v]_p) = \qty[V, y, D_{x(p)} \qty(y \circ F \circ x^{-1})(v)]_p \, .
+\end{equation}
+\end{satz}
+Das Ganze sollte nicht allzu sehr überraschen. Differentiale bilden im $\mathbb{R}^n$ Richtungen auf Richtungen ab, sie beschreiben ja gerade die Richtungsableitung (Ergebnis ist die Änderung einer Abbildung in eine gewisse Richtung). Statt Vektoren nimmt man nun Tangentialvektoren und erhält so eine Abbildung zwischen verschiedenen Tangentialräumen. Die Definition zeigt zudem direkt eine Kartendarstellung und diese entspricht einfach der Jacobi-Matrix $D_{x(p)} \qty(y \circ F \circ x^{-1})$ (in den meisten Fällen abhängig von $p$ bzw. $x(p)$, also nur eine punktweise Darstellung) ! In Karten kann man daher die Anwendung des Differentials einfach über die Matrixmultiplikation des jeweiligen Richtungsvektors von rechts an die Jacobi-Matrix darstellen.
+
+
+Eine nach dem vorherigen Abschnitt natürlich äquivalente Interpretation des Differentials wäre, dass man hier aus einem Kurvenkeim auf $M$ einen neuen auf $N$ erhält (mit einem Ergebnis, das unabhängig von der gewählten Kurve $\gamma$ ist). In jedem Fall ist das Differential aber linear und damit ein Vektorraum-Homomorphismus, der eine differenzierbare Abbildung in erster (und damit linearer) Ordnung approximiert. Man kann durchaus auch höhere Ordnungen betrachten, das ist das Gebiet der Jets, aber die Linearität soll hier nicht aufgegeben werden, weil sie bereits genug Informationen liefert und um die Diskussion nicht weiter zu verkomplizieren.
+
+\begin{bsp}[Funktionenkeim $\leftrightarrow$ Differential]
+Im Fall  $f: M \rightarrow N = \mathbb{R}$ identifiziert man mittels natürlicher Isomorphie $T_{f(p)} \mathbb{R} = \mathbb{R}$. Dann entspricht aber die Abbildung $D_p f: T_p M \rightarrow T_{f(p)} \mathbb{R}$ auch dem Funktionenkeim/ natürlichen Kotangentialvektor $d_p f: T_p M \rightarrow \mathbb{R}$ als Element von $T_p^* M$! Das Differential ist damit die Verallgemeinerung des Kurvenkeims einer glatten Funktion $f$ auf Abbildungen und es rechtfertigt auch die (vorher eigentlich ungenaue bzw. gar nicht richtig definierte) Schreibweise mit $d_p$ als Ableitung, es handelt sich tatsächlich um ein Differential (wird bei Differentialformen wichtig).
+
+
+Das bringt auch eine logische Erklärung für die in Beispiel \ref{bsp:fktkeimderiv} gefundene Äquivalenz von Funktionenkeim und Derivation. Man weiß nun nämlich, dass $d_p f(X)$ einfach der Ableitung von $f$ in Richtung des Vektors $X$ entspricht. Das ist aber natürlich das Gleiche, wie die Derivation $X$ auf $f$ anzuwenden (so war $X$ definiert).
+
+
+Die Jacobi-Matrix hat in diesem Fall dann die Dimensionen $1 \cross \dim(M)$ und es handelt sich um einen Spezialfall der Richtungsableitung, bei der kein Vektor, sondern eine Zahl herauskommt. Es ist damit sofort klar, dass
+\begin{equation}
+T^*_p M = \qty{[f]_p: \; f: M \rightarrow \mathbb{R} \text{ glatt}} \; \cong \; \qty(T_p M)^* \, .
+\end{equation}
+\end{bsp}
+
+Den Zusammenhang zwischen den ganzen inzwischen eingeführten Größen kann man sich auch sehr schön visuell klar machen:
+%$$
+%\begin{tikzcd}[row sep = 42pt, column sep = 42pt]
+%M \ar{r}{X_p} & T_p M \ar{d}{\alpha} \\
+%\mathbb{R} \ar{u}{\gamma} & \mathbb{R}
+%\end{tikzcd}
+%$$
+$$
+\begin{tikzcd}[row sep = 24, column sep = 50]
+& M \arrow[swap]{dd}{X_p \, \equiv \, \gamma'} \arrow{r}{F} & N %\arrow{dd}{X_{F(p)} \equiv \qty(\gamma \circ F)'} 
+\arrow[bend left = 12]{dr}{f} & \\
+\mathbb{R} \arrow[bend left = 12]{ur}{\gamma} &  &  & \mathbb{R} \\
+& T_p M  \arrow[swap]{r}{D_p F} & T_p N \arrow[bend right = 12, swap]{ur}{\alpha_p \, \equiv \, d_p f} &
+\end{tikzcd}
+$$
+
+Im Prinzip hat man inzwischen also einen Kreislauf zwischen den reellen Zahlen, der Mannigfaltigkeit und dem Tangentialraum und kann darüber hinaus noch zwischen Mannigfaltigkeiten und Tangentialräumen wechseln (ganz bewusst wurden hier auf einer Seite die Kurve und auf der anderen Seite eine Funktion gezeigt, sonst gäbe es zu viele Überschneidungen). Das ist im Prinzip alles, was man an Abbildungen konstruieren kann und das einzige Manko ist, dass man noch an einen festen Punkt gebunden ist (das ändert sich jedoch im nächsten Abschnitt).\\
+
+
+Davor soll aber eine essentielle Eigenschaft von Differentialen übertragen werden:
+\begin{satz}[Kettenregel]
+Für glatte Abbildungen $\Phi: M \rightarrow N$ und $\Psi: N \rightarrow O$ zwischen Mannigfaltigkeiten $M, N, O$ gilt $\forall p \in M$:
+\begin{equation}
+D_p \qty(\Phi \circ \Psi) = D_{\Phi(p)} \Psi \circ D_p \Phi: T_p M \rightarrow T_{\qty(\Phi \circ \Psi)(p)} O \, .
+\end{equation}
+\end{satz}
+\begin{proof}
+Die Idee ist einfaches Nachrechnen in Karten $x, y, z$ und Ausnutzen der Kettenregel dort:
+\begin{align*}
+&\quad D_p \qty(y \circ \Phi \circ \Psi x^{-1}) = D_p \qty(y \circ \Phi \circ z^{-1} \circ z \circ \Psi \circ x^{-1})
+\\
+&= D_{\qty(z \circ \Psi x^{-1})(p)} \qty(y \circ \Phi \circ z^{-1}) \circ D_p \qty(z \circ \Psi \circ x^{-1}) \, ,
+\end{align*}
+und das entspricht einfach den Kartendarstellungen der Differentiale $D_{\Phi(p)} \Psi, D_p \Phi$.
+\end{proof}
+Die Kettenregel wird sich in vielen Fällen noch als äußerst nützliches Hilfsmittel erweisen. Man beachte aber, dass beim zweiten Gleichzeichen nur $\Psi$ vom ersten Differential abgeleitet wird und nicht mehr der Teil danach !
+
+\begin{bsp}[Kurven-, Funktionenkeim]
+Man kann unter Ausnutzung der Kettenregel nun auch die Bedingungen für die Äquivalenzrelationen bei Kurvenkeimen und Funktionenkeimen umformulieren:
+\begin{align}
+\gamma_1 \sim_p \gamma_2 \quad &\Leftrightarrow \quad D_p x\qty(\gamma_1'(0)) = D_p x\qty(\gamma_2'(0)), \quad x: U \rightarrow \mathbb{R}^n
+\\
+f \sim_p g \quad &\Leftrightarrow \quad D_p f(v) = D_p g(v), \quad \forall v = \gamma'(0) \in T_p M \, .
+\end{align}
+Bei Kurvenkeimen muss man die Gleichheit übrigens nicht für alle Karten $x$ fordern, sondern die Wohldefiniertheit folgt bereits, wenn es in einer Karte erfüllt ist (das wurde bei der Definition geometrischer Tangentialvektoren auch gezeigt).
+\end{bsp}
+
+
+Wie bereits bekannt, spiegelt das Differential einer Abbildung wichtige Eigenschaften über die Abbildung selbst wider, so zum Beispiel:
+\begin{defi}[Klassifikationen glatter Abbildungen]
+Eine glatte Abbildung $\Phi: M \rightarrow N$ heißt 
+\begin{itemize}
+\item[1.] \Def{Immersion} (oder auch: \Def{immersiv}), falls $D_p \Phi$ injektiv
+
+\item[2.] \Def{Submersion} (oder auch: \Def{submersiv}), falls $D_p \Phi$ surjektiv
+
+\item[3.] \Def[Diffeomorphismus! (lokaler)]{lokaler Diffeomorphismus} (oder auch: \Def{lokal diffeomorph}), falls $D_p \Phi$ bijektiv
+\end{itemize}
+für alle $p \in M$ ist.
+\end{defi}
+
+\begin{cor}
+Für $\Phi: M \rightarrow N$ gilt $\dim(M) \geq \dim(N)$, falls $\Phi$ submersiv ist und $\dim(M) \leq \dim(N)$, falls $\Phi$ immersiv ist. Zudem ist $\Phi$ ein Diffeomorphismus, wenn $\Phi$ bijektiv und lokal diffeomorph ist.
+\end{cor}
+Diese Aussagen folgen mit der Linearität direkt aus der Injektivität/ Surjektivität des Differentials (bildet ja zwischen Vektoren auf den Mengen $M, N$ ab). Da ein Diffeomorphismus insbesondere ein bijektives Differential hat (injektiv und surjektiv), folgt dort das weitere Korollar $\dim(M) = \dim(N)$. Die Jacobi-Matrix muss in allen Fällen vollen Rang haben, dieser ergibt sich aus dem kleineren von $\dim(M), \dim(N)$.
+
+
+Aus dem Satz vom regulären Wert \ref{satz:satzregwert} folgt dann weiter sofort, dass die Urbildmenge eines jeden Wertes im Bild von Submersionen eine Untermannigfaltigkeit bildet. Es lassen sich also im Prinzip alle Eigenschaften des Differentials vom $\mathbb{R}^n$ auf Mannigfaltigkeiten übertragen, wieder bestätigt sich die bereits mehrfach betonte Interpretation dieser Theorie als natürliche Verallgemeinerung von Analysis auf dem $\mathbb{R}^n$.\\
+
+
+Zum Ende dieses Abschnitts sollen die erworbenen Kenntnisse über Differentiale benutzt werden, um eine wichtige Eigenschaft von Matrix-Lie-Gruppen herzuleiten:
+
+\begin{satz}[Tangentialräume von Matrix-Lie-Gruppen]\label{satz:tangraummlg}
+Die Elemente des Tangentialraums $T_g G$ im Punkt $g \in G$ mit einer Matrix-Lie-Gruppe $G$ sind gegeben über $g \xi$ mit $\xi \in T_e G$.
+\end{satz}
+\begin{proof}
+Das Ziel ist nun, eine Abbildung $L: G \rightarrow G$ mit bijektivem Differential zu finden, weil dann $DL: T_g G \rightarrow T_{L(g)}$ ist und man so den Tangentialraum $T_{L(g)}$ erhält ($L(g)$ ist wieder ein Punkt in $G$). Als die passende Abbildung stellt sich die Linkstranslation $L_g$ um ein Element $g \in G$ heraus, die wirkt als
+\begin{equation}
+L = L_g: G \rightarrow G, \; h \mapsto g h \, .
+\end{equation}
+Das ist offenbar linear und wegen der Existenz eines Inversen $\qty(L_g)^{-1} = L_{g^{-1}}$ (weil $L_g \circ L_{g^{-1}} (h) = L_g \qty(g^{-1} h) = g g^{-1} h = h$) auch bijektiv, also ein Isomorphismus.
+
+	\anm{diese Existenz einer inversen Abbildung ist bei Matrizenräumen überhaupt nur denkbar, weil $G$ eine Teilmenge der quadratischen, invertierbaren Matrizen ist und weil zudem beides unter Multiplikation erhalten ist !}
+
+Mit diesem Wissen lässt sich aus der Kettenregel ein Inverses von $DL_g$ konstruieren:
+\begin{equation*}
+\text{id}_{T_h G} = D_h \text{id}_G = D_h \qty(L_{g^{-1}} \circ L_g) = D_{L_g(h)} L_{g^{-1}} \circ D_h L_g = D_{gh} L_{g^{-1}} \circ D_h L_g \, .
+\end{equation*}
+Somit ist $\qty(D_h L_g)^{-1} = D_{L_g(h)} L_{g^{-1}} = D_{gh} L_{g^{-1}}$, bei $L_g$ handelt es sich um einen Diffeomorphismus (Glattheit war direkt klar, weil es linear ist) ! Deshalb ist insbesondere
+\begin{equation}
+D_e L_g: T_e G \rightarrow T_{L_g(e)} G = T_g G, \; \xi \mapsto D_e L_g(\xi)
+\end{equation}
+bijektiv, jedes Element von $T_g G$ ist bereits durch ein Element von $T_e G$ bestimmt ! Um zu wissen, wie diese genau aussehen, muss noch das Differential berechnet werden (man darf differenzieren, weil eine lineare Abbildung vorliegt und die sind immer glatt):
+\begin{equation}
+D_p L_g (h) = \lim_{t \rightarrow 0} \frac{L_g(p + t \, h) - L_g(p)}{t} = \lim_{t \rightarrow 0} \frac{g(p + t \, h) - gp}{t} = \lim_{t \rightarrow 0} \frac{t \, gh}{t} = gh \, .
+\end{equation}
+Weil das Differential wie bei linearen Abbildungen üblich nicht vom Punkt abhängt, kann oBdA $p = e$ gesetzt werden. Die Ableitung von $L_g(e)$ in Richtung $\xi \in T_e G$ ist also einfach $g \xi$ und das war zu zeigen.
+
+Es ist dabei übrigens nicht rigoros, $g\xi = L_g(\xi)$ zu schreiben, weil $L_g$ eine Abbildung von und nach $G$ ist, aber $\xi \notin G$. Man darf diese Elemente überhaupt nur multiplizieren, weil es sich jeweils um Untergruppen von $\text{Mat}(n, \mathbb{R})$ handelt und daher auf beiden die gleiche Verknüpfung vorliegt, nämlich die von $\text{Mat}(n, \mathbb{R})$.
+\end{proof}
+	\anm{dass $D_p L_g(h) = L_g(h), \, \forall p$ sollte nicht überraschen, das ist bei reellen Zahlen genauso. Dort hat man aber nur die Richtungen 1 oder -1 (und daher steht dort dann nur noch der Vorfaktor), bei linearen Abbildungen auf Matrizenräumen sieht das wegen der höherem Dimension anders aus.}
+
+Dieser Satz zeigt also, dass man nur den Tangentialraum an der Identität $e \in G$ kennen muss, um den Tangentialraum $T_g G$ an jedem anderem Punkt $g \in G$ zu kennen, weil die Elemente von $T_g G$ eben bereits durch den Punkt und die Elemente von $T_e G$ bestimmbar sind ! Aufgrund dieser besonderen Rolle bekommt $T_e G =: \mathfrak{g}$ auch einen eigenen Namen, die \Def[Lie-Algebra]{Lie-Algebra}. Symbolisch schreibt man auch
+\begin{equation}
+T_g G = D_e L_g (\mathfrak{g}) = \qty{gh: \; h \in \mathfrak{g} = T_e G} \, \equiv \, L_g \mathfrak{g} \, .
+\end{equation}
+Wegen der Wirkung von $L_g$ als Linkstranslation auf der Matrizengruppe kann man sich das quasi als Verschiebung des gesamten Vektorraums auf der Mannigfaltigkeit $G$ vom Punkt $e$ zum Punkt $g$ vorstellen. Die Berechnung erfolgt für $G = F^{-1}(q)$ als Urbild einer Submersion (was bei Matrix-Lie-Gruppen sehr häufig der Fall ist) ganz einfach nach der allgemeinen Formel für Tangentialräume von Untermannigfaltigkeiten:
+\begin{equation}
+\mathfrak{g} = T_e G = \text{kern}\qty(D_e F) \, .
+\end{equation}
+Natürlich könnte auch $T_g G = \text{kern}\qty(D_g F)$ über diese Formel berechnet werden, aber das ist eigentlich nur sinnvoll, wenn man $T_g G$ für nur ein $g \in G$ berechnen soll (dann nimmt sich das nichts vom Aufwand her). Für allgemeinere Rechnungen und Beweise wird sich aber die hier gezeigte Schreibweise $T_g G = g \, \mathfrak{g}$ als sehr nützlich erweisen.
+
+	\anm{allgemeiner bezeichnet der Begriff \Def{Lie-Algebra} einen Vektorraum $\mathfrak{g}$ zusammen mit einer bilinearen, antisymmetrischen Verknüpfung $[\cdot, \cdot]: \mathfrak{g} \cross \mathfrak{g} \rightarrow \mathfrak{g}$, die die Jacobi-Identität erfüllt und auch \Def{Lie-Klammer} genannt wird (bei Matrix-Lie-Gruppen ist das der Kommutator, der erst später eingeführt wird). Zu jeder Lie-Gruppe $G$ gehört eine solche Lie-Algebra $\mathfrak{g} = T_e G$ (es gibt aber auch andere Beispiele). Auch $T_g G = D_e L_g\qty(\mathfrak{g})$ gilt allgemein (Beweisidee genau wie bei Satz \ref{satz:tangraummlg}, man hat immer Linkstranslation $L_g$ und Inverses wegen der Gruppenstruktur).}
+
+
+Hier noch ein weiteres Beispiel, das ebenfalls mit Matrix-Lie-Gruppen zu tun hat:
+\begin{bsp}[Hopf-Faserung]
+?! WTF
+
+$\text{SU}(2) = \qty{g = \mqty(x & -\overline{y} \\ y & \overline{x}): \; x, y \in \mathbb{C} \, \wedge \, \det(g) = x \overline{x} + y \overline{y} = 1} = S^3$
+
+haben dann Darstellung von SU(2), die irgendwie mit der 3-Sphäre übereinstimmt. Brauchen übrigens nur zwei Einträge kennen wegen Forderung SU (die Gleichung da ist wegen $\det = 1$, das sieht mit Identifizierung von $\mathbb{C}^2$ mit $\mathbb{R}^4$ aus wie die Bedingung bei der Sphäre)
+
+definieren dann die Hopf-Faserung als $\pi: \text{SU}(2) \rightarrow \mathbb{CP}^1, \, \mqty(x & -\overline{y} \\ y & \overline{x}) \mapsto \mathbb{C} \mqty(x \\ y) \in \mathbb{CP}^1$, das ist eine Submersion (als Einschränkung einer stetigen und glatten Abbildung $\pi: \mathbb{C}^2 \backslash \qty{0} \rightarrow \mathbb{CP}^1$); dann irgendwie Berechnung des Tangentialraums, weil man daran Surjektivität sieht
+
+heißt auch Faserung der 3-Sphäre durch Kreise
+
+lol, $it$ bzw. $ir$ meint $i \cdot t$ bzw. $i \cdot r$ mit imaginärer Einheit !
+\end{bsp}
+
+
+
+\newpage
+
+
+
+\end{document} 

@@ -1,0 +1,1702 @@
+\documentclass[../H_Analysis_main.tex]{subfiles}
+%\input{../header} \graphicspath{ {../} }
+
+
+\begin{document}
+
+\setcounter{chapter}{5}
+
+\chapter{Differentialformen}
+\begin{center}
+Die Theorie von Tensoren ist zwar auch allgemein sehr ertragreich, hier soll sich von nun an aber auf eine ganz bestimmte Klasse selbiger konzentriert werden, die alternierenden Tensoren. Es wird sich nämlich herausstellen, dass sich mit diesen im Rahmen des Cartan'schen Differentialformenkalküls die Integrationstheorie vom $\mathbb{R}^n$ verallgemeinern lässt auf Mannigfaltigkeiten. Im Zuge dessen lernt man nach der Lie-Ableitung eine zweite Art kennen, wie Formen abgeleitet werden können.
+
+Zum Ende wird die Theorie dann noch genutzt, um einige (recht fortgeschrittene) Anwendungen zu zeigen, insbesondere bei der Klassifizierung von Mannigfaltigkeiten. Eine etwas einfachere Anwendung ist, dass man mit dieser Theorie ein mathematisches Objekt angeben kann, das an einem gewissen Punkt $p$ den Fluss eines Feldes o.Ä. durch die von zwei Vektoren aufgespannte Fläche (bzw. allgemeiner durch das Volumen) messen kann.
+\end{center}
+
+
+\newpage
+
+
+	\section{Alternierende multilineare Abbildungen}
+Wie bereits angekündigt, wird sich von nun an im Allgemeinen auf die besondere Klasse der alternierenden bzw. schiefsymmetrischen Tensoren konzentriert. Bevor das basisunabhängig in der neuen Sprache von Tensoren und Schnitten formuliert wird, soll das Ganze für multilineare Abbildungen diskutiert werden (nach der bekannten Isomorphie ist der Übergang nicht allzu schwer).
+
+Die Symmetrie bezieht sich dabei auf das Verhalten beim Tausch zweier Argumente, einer sogenannten \Def{Transposition}. Mathematisch handelt es sich um Abbildungen
+\begin{equation}
+\sigma_{i, j}(l) = \begin{cases} l, & \text{falls } l \neq i, j \\ j, & \text{falls } l = i \\ i, & \text{falls } l = j \end{cases} \, ,
+\end{equation}
+mit deren Hilfe man die Indizes von Vektoren $v_l$ tauschen kann. Führt man viele Transpositionen hintereinander aus, so handelt es sich um eine \Def{Permutation}
+\begin{equation}
+\sigma \in S_k = \qty{g: \qty{1, \dots, k} \rightarrow \qty{1, \dots, k} \text{ bijektiv}}
+\end{equation}
+und damit ein Element der \Def[Symmetrische Gruppe]{Symmetrischen Gruppe $S_n$}. Dabei handelt es sich tatsächlich um eine Gruppe, die Verknüpfung wird gebildet von der Komposition mehrerer Abbildungen und das Einzelelement ist mit $g = \text{id}$ direkt klar.
+
+Auch wenn sich jede Permutation als endliches Produkt aus Transpositionen/ Vertauschungen schreiben lässt, so ist die Zusammensetzung nicht eindeutig. Als geeignetes Mittel zur Klassifizierung stellt sich aber die Parität der Vertauschungen heraus, man erhält den wohldefinierten und surjektiven Gruppenhomomorphismus
+\begin{equation}
+\text{sign}: S_k \rightarrow \qty{-1, 1}, \; \sigma \mapsto (-1)^{\# \text{ der Transpositionen in } \sigma} \, ,
+\end{equation}
+das \Def{Signum} der Permutation $\sigma$. Eine alternative Art der Berechnung ist, die Determinante der zu $\sigma$ gehörigen Permutationsmatrix zu bestimmen.
+
+	\anm{man kann das Signum auch mit Wertebereich $\mathbb{Z}_2$ definieren, dann besteht sein Kern aus den gerade Permutationen. -> aus Skript, checke es aber nicht}
+
+Diese Möglichkeit zur Klassifizierung des Verhaltens beim Tauschen von Argumenten ermöglicht nun die formale Definitionen gewisser Symmetrien von multilinearen Abbildungen, wie eben beispielsweise der Schiefheit. Es sei dabei jedoch angemerkt, dass sich Abbildungen hierbei auch auf nicht allgemein beschreibbare Weise verhalten können oder sich einfach nicht in allen Argumenten gleich verhalten, solche Symmetrien sind also eher die Ausnahme (wenn auch eine sehr interessante) !
+
+\begin{defi}[Alternierende Form]
+Eine $k$-fach multilineare Abbildung $\omega \in \text{Mult}(V; k) = V^* \otimes \dots \otimes V^*$ mit
+\begin{equation}
+\omega(v_1, \dots, v_k) = \text{sign}(\sigma) \, \omega(v_{\sigma(1)}, \dots, \omega_{\sigma(k)}), \quad \forall v_1, ,\dots, v_k \in V, \sigma \in S_k
+\end{equation}
+heißt \Def[Alternierende Abbildung]{alternierend/schief(symmetrisch)}. Die Menge aller alternierenden Multilinearformen/ $k$-Linearformen $\omega \in \text{Mult}(V; k)$ wird mit $\Lambda^k V^*$ bezeichnet.
+
+Für Gleichheit ohne sign heißt $\omega$ \Def[Symmetrische Abbildung]{symmetrische Abbildung}.
+\end{defi}
+%Weil $\text{sign}^2 = 1$, kann man natürlich äquivalent $\text{sign}(\sigma) \, \omega(v_1, \dots, v_k) = \omega(v_{\sigma(1)}, \dots, \omega_{\sigma(k)})$ schreiben. 
+
+Das bedeutet einfach, dass bei jedem Argumenttausch ein Vorzeichenwechsel passiert (deutlich praktischeres Kriterium zur Überprüfung als das aus der eigentlichen Definition), was wegen der Zusammensetzung der Elemente von $S_k$ klar ist.
+
+
+Eine sehr interessante Eigenschaft, die sofort daraus folgt, erkennt man für den Fall $v_i = v_j, \, \exists i, j$: nach der Definition einer alternierenden Form gilt dann nämlich
+\begin{align*}
+\omega(v_1, v_1, \dots, v_k) &= \omega(v_1, v_2, \dots v_k) = - \omega(v_2, v_1, \dots, v_k) = - \omega(v_1, v_1, \dots v_k)
+\\
+\Leftrightarrow \quad \omega(v_1, v_1, \dots v_k) &= 0 \, .
+\end{align*}
+Wegen der Linearität in jedem Argument kann man allgemeiner folgern, dass alternierende Formen für linear abhängige Vektoren $v_2 = \lambda v_1, \, \exists \lambda \in \mathbb{R}$ verschwinden:
+\begin{equation*}
+\omega(v_1, v_2, \dots, v_k) = \omega(v_1, \lambda v_1, \dots, v_k) = \lambda \, \omega(v_1, v_1, \dots, v_k) = 0 \, .
+\end{equation*}
+
+Das hat unter Anderem weitreichende physikalische Folgen, z.B. können deswegen gewisse Teilchen nicht den gleichen Zustand besetzen (Zustände werden durch Tensoren beschrieben, hängt mit dem Pauli-Prinzip zusammen).
+
+\begin{bsp}[Determinante]\label{bsp:stdbspdet}
+Als Standardbeispiel einer alternierenden Multilinearform wird sich die Determinante herausstellen, die aus der Linearen Algebra als Abbildung
+\begin{equation}
+\det: \mathbb{R}^n \cross \dots \cross \mathbb{R}^n, \; (v_1, \dots, v_n) \mapsto \det(A) = \det(v_1, \dots, v_n) \, ,
+\end{equation}
+bekannt ist, wobei die Spaltenvektoren nebeneinander gestellt werden und so eine Matrix $A$ bilden (man könnte aber genau so gut Zeilenvektoren übereinander schreiben, weil Transposition die Determinante invariant lässt). Nach den bekannten Rechenregeln ist diese alternierend (Spalten- oder Zeilentausch bringt Vorzeichenwechsel) und multilinear (in jeder Spalte und Zeile linear, also in jedem Argument). Insgesamt bedeutet das gerade $\det \in \Lambda^n V^*$.
+\end{bsp}
+
+\begin{bsp}[Pullback]\label{bsp:pullbackkform}
+Für eine lineare Abbildung $f: V \rightarrow W$ und $\omega \in \Lambda^k W^*$ ist $f^* \omega \in \Lambda^k V^*$ mit
+\begin{equation}
+f^* \omega(v_1, \dots, v_k) = \omega\qty(f(v_1), \dots, f(v_k)), \quad v_j \in V, \forall j \, .
+\end{equation}
+Die $k$-fache Linearität folgt dabei sofort aus der von $f$ und $\omega$. Der Pullback wirkt hier also auf den ersten Blick etwas anders als zuvor, nämlich ohne Ableitung. Das liegt einfach daran, dass die Ableitung zuvor ja nur dazu da war, um Tangentialvektoren zu \enquote{bauen}, aber hier sind $V, W$ bereits Vektorräume und daher kann man durch einfache Verknüpfung Elemente davon erhalten.
+
+Weil alternierende Multilinearformen aber insbesondere Multilinearformen sind, verhält sich der Pullback ansonsten wie gewohnt.
+\end{bsp}
+
+
+Alternierende Multilinearformen werden sich als sehr nützlich herausstellen, aber es wurde ja bereits festgehalten, dass nur ein kleiner Teil aller Multilinearformen diese Eigenschaft hat. Weil man den gleich entwickelten Formalismus aber gerne auch für allgemeine Formen anwenden würde, muss man diese alternierend machen:
+\begin{defi}[Alternierungsoperator]
+Die Abbildung/ der Operator
+\begin{equation}
+\begin{split}
+&\text{Alt} = \text{Alt}_k: \text{Mult}(V; k) \rightarrow \Lambda^k V^*, \; \omega \mapsto \text{Alt}(\omega) 
+\\
+\text{ mit } \; &\text{Alt}(\omega)(v_1, \dots, v_k) = \frac{1}{k!} \sum_{\sigma \in S_k} \text{sign}(\sigma) \, \omega\qty(v_{\sigma(1)}, \dots, v_{\sigma(k)})
+\end{split}
+\end{equation}
+heißt \Def{Alternierungsoperator}.
+\end{defi}
+Das ist wohldefiniert und linear, weil nur Summen von linearen Abbildungen auftreten. Formal gesprochen handelt es sich um den Projektionsoperator auf den vollständig antisymmetrischen Unterraum $\Lambda^k V^* \subset \text{Mult}(V; k)$. Der Normierungsfaktor $\frac{1}{k!} = \frac{1}{\dim(S_k)}$ ist dabei nicht nötig, sondern aus Konvention so gewählt, dass
+\begin{equation}
+\text{Alt}(\omega) = \omega, \quad \forall \omega \in \Lambda^k V^* \, .
+\end{equation}
+
+Dieser Operator ermöglicht nun auch die Einführung eines Produkts auf den alternierenden Multilinearformen. Das war vorher nicht möglich/ wohldefiniert, weil das Produkt zweier alternierender Multilinearformen ja nicht zwingend wieder alternierend ist (was nun aber gerade erzwungen werden kann).
+
+\begin{defi}[Dachprodukt]
+Die Abbildung
+\begin{equation}
+\bigwedge: \Lambda^k V^* \cross \Lambda^l V^* \rightarrow \Lambda^{k + l} V^*, \; (\omega, \eta) \mapsto \omega \wedge \eta = \frac{(k + l)!}{k! \, l!} \text{Alt}_{k + l} \qty(\omega \otimes \eta)
+\end{equation}
+heißt \Def[Dachprodukt]{Dach-/ wedge-Produkt} und $\Lambda^k V^*$ \Def[Dachprodukt! -raum]{Dachproduktraum}. Andere gebräuchliche Bezeichnungen sind \Def[Äußeres! Produkt]{Äußeres Produkt} für $\wedge$ und \Def[Äußere! Potenz]{$k$-te Äußere Potenz} für $\Lambda^k V$.
+\end{defi}
+Dass der Alternierungsoperator überhaupt sinnvoll auf Tensoren wirken kann, kommt von der Identifikation mit der Abbildung
+\begin{equation*}
+\omega \otimes \eta: V \cross \dots \cross V \rightarrow \mathbb{R}, \; (v_1, \dots, v_{k + l}) \mapsto \omega(v_1, \dots, v_k) \, \eta(v_1, \dots, v_l)% \qty(\omega \otimes \eta)(v_1, \dots, v_{k + l}) = \omega(v_1, \dots, v_k) \, \eta(v_1, \dots, v_l)
+\end{equation*}
+
+Folgende Regeln können bei $\wedge$ genutzt werden:
+\begin{satz}[Rechenregeln Dachprodukt]\label{satz:regelndachpr}
+Für Multilinearformen $\omega \in \Lambda^k V^*, \eta \in \Lambda^l V^*, \nu \in \Lambda^m V^*$ gilt
+\begin{itemize}
+\item[1.] $\omega \wedge \qty(\eta \wedge \nu) = \qty(\omega \wedge \eta) \wedge \nu$
+
+\item[2.] $\omega \wedge \eta = \qty(-1)^{k l} \eta \wedge \omega$
+
+\item[3.] $\omega \wedge \qty(\eta + \nu) = \omega \wedge \eta + \omega \wedge \nu, \qty(\eta + \nu) \wedge \omega = \eta \wedge \omega + \nu \wedge \omega$, wenn $l = m$
+
+\item[4.] $f^*(\omega \wedge \eta) = \qty(f^*\omega) \wedge \qty(f^*\eta)$
+\end{itemize}
+\end{satz}
+\begin{proof}
+Der Beweis ist im Prinzip einfach nur Nachrechnen, wobei man dann die Rechenregeln des Alternierungsoperators nutzen muss. Bei 3. ist dabei $l = m$ nötig, damit die Addition überhaupt Sinn macht und 4. folgt sofort aus der Verträglichkeit des Pullbacks mit dem Tensorprodukt.
+\end{proof}
+
+Eine direkte Folgerung aus der 2. Eigenschaft ist für ungerade Dimension $\omega \wedge \omega = 0$, weil in diesem Fall ganz allgemein $(-1)^{k^2} = -1$ gilt. Insbesondere ist also ein $k$-faches Dachprodukt null, wenn eine Linearform ($k = 1$, ungerade) doppelt vorkommt. Diese erst einmal unscheinbare Folgerung wird noch sehr oft ausgenutzt werden.
+
+Aufgrund der ersten Eigenschaft werden zudem meist die Klammern weggelassen bei mehr als zwei Faktoren, aber streng genommen kombiniert das Dachprodukt nur zwei Differentialformen. Dennoch lassen sich so sinnvoll Produkte mit mehr Faktoren definieren, das geschieht induktiv und nimmt eine bekannte Form an:
+
+\begin{satz}[Berechnung des Dachprodukts]
+Für Linearformen $\alpha_1, \dots, \alpha_k \in \Lambda^1 V^* = V^*$ und $v_1, \dots, v_k \in V$ gilt:
+\begin{equation}
+\qty(\alpha_1 \wedge \dots \wedge \alpha_k)\qty(v_1, \dots, v_k) = \det\qty(\qty(\alpha_i(v_j))_{i, j = 1}^k) \, .
+\end{equation}
+\end{satz}
+\begin{proof}
+Beweisidee ist Entwicklung der Determinante auf der rechten Seite und links Abspalten des letzten Dachprodukts immer sowie Ausschreiben der linearen Abbildung davon wahrscheinlich, wo eben die Multiplikation reinkommt (dann Induktion)
+\end{proof}
+
+Das Gleichzeichen meint hier auch wirklich Gleichheit des Ergebnisses und nicht nur Isomorphie, man setzt schließlich Vektoren in Linearformen ein und erhält daher das Produkt reeller Zahlen (die Determinante bildet ebenfalls nach $\mathbb{R}$ ab). Notationell ist es noch wichtig zu erwähnen, dass meist die Klammern um die $\alpha_i$ weggelassen werden, weil es sich beim Dachprodukt ja um ein einziges Objekt handelt.
+
+Dieser Satz ist sehr interessant, weil er die etwas direktere Berechnung des Dachprodukts mithilfe der etwas vertrauteren Determinante anstatt des recht komplizierten Alternierungsoperators ermöglicht. Man beachte zudem, dass Linearformen eingesetzt werden und damit nicht auf irgendeine Alternierung achten muss.
+
+	\anm{in der Viel-Teilchen-Physik ist ein ähnliches Objekt weit verbreitet, das dort Slater-Determinante genannt wird.}
+
+\begin{bsp}[Explizite Berechnung eines Dachprodukts]
+Ausschreiben von Dachprodukten wird im Allgemeinen sehr lang und übersichtlich. Im Falle einer 2-Form geht es jedoch noch, dort gilt explizit:
+\begin{equation}
+dx_1 \wedge dx_2 = dx_1 \otimes dx_2 - dx_2 \otimes dx_1
+\end{equation}
+und die Auswertung ist nach der Äquivalenz zu multilinearen Abbildungen:
+\begin{equation*}
+%\qty(dx_1 \wedge dx_2)(v_1 \otimes v_2) = 
+\qty(dx_1 \wedge dx_2)(v_1, v_2) = dx_1(v_1) dx_2(v_2) - dx_2(v_1) dx_1(v_2) = \det\mqty(dx_1(v_1) & dx_1(v_2) \\ dx_2(v_1) & dx_2(v_2)) \, ,
+\end{equation*}
+die Determinante kommt also tatsächlich heraus.
+\end{bsp}
+
+Bis jetzt konnten Dachprodukte ganz allgemein aufgestellt und auch ausgewertet werden. Zum Vergleich verschiedener Elemente und viele andere Zwecke ist aber auch die lokale Darstellung einer Multilinearform $\omega \in \Lambda^k V^*$ nötig. Dazu muss im ersten Schritt eine Basis gefunden werden:
+
+\begin{satz}[Basis des Dachproduktraums]
+Für eine Basis $\alpha_1, \dots, \alpha_n$ von $V^*$ mit $n = \dim(V) = \dim(V^*)$ ist
+\begin{equation}
+\qty{\alpha_{i_1} \wedge \dots \wedge \alpha_{i_k}: \; 1 \leq i_1 \leq \dots \leq i_k \leq n}
+\end{equation}
+eine Basis von $\Lambda^k V^*$. Insbesondere ist also
+\begin{equation}
+\dim(\Lambda^k V^*) = \mqty(n \\ k) = \frac{n!}{k! \, (n - k)!} \, .
+\end{equation}
+\end{satz}
+\begin{proof}
+beruht halt auf Basisdarstellung der einzelnen Elemente und dann Bilden des Produkts davon mit allen möglichen Kombis (die kann man abzählen mit Binomialkoeffizienten und daraus folgt dann auch Dimension; ist ja Antwort auf die Frage: \enquote{wie oft passen $k$ Vektoren auf verschiedene Weise in $n$ unterschiedliche Einträge}); haben da aber wohl noch keine Sortierung und daher muss man noch Umordnen, alles ist bis auf VZ richtig und daher muss jeder Faktor 0 sein (das zeigt dann Gleichheit)
+\end{proof}
+
+Offenbar können also alternierende $k$-Linearformen als $k$-faches Produkt aus Linear-/1-Formen dargestellt werden und diese Erkenntnis motiviert die Schreibweise
+\begin{equation}
+\Lambda^k V^* \equiv V^* \wedge \dots \wedge V^* \, .
+\end{equation}
+Man kann sich nun die Frage stellen, ob sich auch der Fall $k = 0$ behandeln lässt. Dort hat man dann lineare Abbildungen ohne Argumente aus dem Vektorraum $V$, die in die reellen Zahlen abbilden, und zudem wird $\mqty(\dim(V) \\ 0) = 1$ (beachte: man teilt nicht durch 0, sondern durch $0! = 1$). Die erste Antwort auf die Frage wäre also: nein ! Diese Forderungen lassen sich erfüllen durch die Wahl $V = \mathbb{R} = V^*$. Eine reelle Zahl kann nämlich auch als konstante Abbildung $c: V = \mathbb{R} \rightarrow \mathbb{R}, \; x \mapsto c$ gedeutet werden und weil diese immer gleich abbilden, werden dafür im Prinzip auch keine Argumente benötigt. Außerdem ist sofort klar, dass verschiedene konstante Abbildungen linear abhängig sind, weil die zugehörigen reellen Zahlen sich in jedem Punkt nur um eine feste Konstante unterscheiden. Damit sind die Forderungen erfüllt und die Identifikation/ Definition $\Lambda^0 V^* := \mathbb{R}$ erweist sich als sinnvoll.
+
+
+	\anm{das Dachprodukt kann eigentlich nur auf Multilinearformen wirken und nicht auf Vektorräume, aber weil jedes Element sich in solche Produkte zerlegen lässt, schreibt man das trotzdem so auf (eher symbolisch zu verstehen).
+
+	-> hmm, evtl eher Alt$(V^* \otimes \dots \otimes V^*)$ schreiben mit Vorfaktoren oder so ? Weil ja nicht jedes Element ein direktes Produkt ist, sondern wie bei Tensorprodukten üblich auch Linearkombinationen auftreten können; sieht man auch an Dimensionen, das Dachprodukt der beiden Räume $\Lambda^1 V^*, \Lambda^2 V^*$ kann nicht $\Lambda^3 V^*$ sein}
+
+
+Die nun bekannte Formel für die Dimension erlaubt ebenfalls einige allgemeine und sehr interessante Aussagen: so ist wegen $\mqty(k \\ k) = 1, \, \forall k \in \mathbb{N}$ im Fall $k = \dim(V)$ klar, dass nur ein einziges Basiselement existiert und daher alle $k$-Linearformen linear abhängig sind. Denkt man nun zurück an Beispiel \ref{bsp:stdbspdet}, so stellt sich dieses Basiselement als die Determinante heraus, dort ist also jede alternierende Multilinearform bis auf einen Faktor (im Allgemeinen ist dieser eine Funktion) gleich der Determinante ! Punktweise unterscheiden sich diese Formen also sogar nur um eine reelle Zahl.
+
+Außerdem folgt für $k > \dim(V)$ nach den Eigenschaften des Binomialkoeffizienten sofort $\Lambda^k V^* = \qty{0} \Leftrightarrow \omega = 0, \, \forall \omega \in \Lambda^k V^*$! Das ist auch sofort klar, weil in diesem Fall nicht genug linear unabhängige Basiselemente aus $V^*$ zum Einsetzen existieren, in einem $k$-fachen Dachprodukt also immer mindestens ein Faktor doppelt vorkommt und daher immer eine 0 auftaucht (man denke dann an die Folgerung aus Satz \ref{satz:regelndachpr}).\\
+
+
+Nachdem man die Basiselemente gefunden hat, ergibt sich die Basisdarstellung einer alternierenden Multilinearform $\omega \in \Lambda^k V^*$ ($V$ habe Dimension $n$) zu
+\begin{equation*}
+\begin{split}
+\omega &= \sum_{1 \leq i_1 < \dots < i_k \leq n} \omega_{i_1, \dots, i_k} \, \alpha_{i_1} \wedge \dots \wedge \alpha_{i_k}
+\\
+\text{mit } \; \omega(v_1, \dots, v_k) &= \sum_{1 \leq i_1 < \dots < i_k \leq n} \omega_{i_1, \dots, i_k} \, \qty(\alpha_{i_1} \wedge \dots \wedge \alpha_{i_k})(v_1, \dots, v_k) \, .
+\end{split}
+\end{equation*}
+
+Es fehlt jedoch noch ein Ausdruck für die Koeffizienten $\omega_{i_1, \dots, i_k}$. Weil dafür die hinteren Terme $\alpha_{i_1} \wedge \dots \wedge \alpha_{i_k}(v_1, \dots, v_k) = 1$ oder 0 werden müssen, liegt nach Definition der dualen Basis die Wahl $v_i = e_i$ ($\equiv$ Duales zu $\alpha_i$) nahe und tatsächlich zeigt sich:
+\begin{equation}
+\begin{split}
+%\omega_{i_1, \dots, i_k} = 
+\omega(e_{j_1}, \dots, e_{j_k}) &= \sum_{1 \leq i_1 < \dots < i_k \leq n} \omega_{i_1, \dots, i_k} \, \qty(\alpha_{i_1} \wedge \dots \wedge \alpha_{i_k})(e_{j_1}, \dots, e_{j_k}) 
+\\
+&= \sum_{1 \leq i_1 < \dots < i_k \leq n} \omega_{i_1, \dots, i_k} \, \alpha_{i_1}(e_{j_1}) \dots \alpha_{i_k}(e_{j_k})
+\\
+&= \sum_{1 \leq i_1 < \dots < i_k \leq n} \omega_{i_1, \dots, i_k} \, \delta_{i_1, j_1} \dots \delta_{i_k, j_k} = \omega_{j_1, \dots, j_k} \, .
+\end{split}
+\end{equation}
+Diese Koeffizienten entsprechen denen für 1-Formen bei Darstellung in einer Trivialisierung, nur eben verallgemeinert auf Multilinearformen.\\
+
+
+Nachdem nun mit lokalen Darstellungen angefangen wurde, müssen wiederum Basiswechsel untersucht werden. Dazu nehme man zwei Basen $a_1, \dots, a_n$ und $b_1, \dots, b_n$ von $V$ sowie die zugehörigen dualen Basen $\alpha_1, \dots, \alpha_n$ und $\beta_1, \dots, \beta_n$ auf $V^*$. Ein allgemeiner Basiswechsel hat immer die Form, dann gibt es (weil es sich jeweils um Basen handelt), Skalare $\lambda_{j_1 \dots j_k}^{i_1, \dots, i_k} \in \mathbb{R}$ sodass
+\begin{equation*}
+\alpha_{i_1} \wedge \dots \wedge \alpha_{i_k} = \sum_{1 \leq j_1 < \dots < j_k \leq n} \lambda_{j_1 \dots j_k}^{i_1, \dots, i_k} \, \beta_{j_1} \wedge \dots \wedge \beta_{j_k} \, ,
+\end{equation*}
+wobei $\lambda_{j_1 \dots j_k}^{i_1, \dots, i_k} \in \mathbb{R}$, und wieder erhält man wegen $\beta_i(b_j) = \delta_{ij}$ gerade
+\begin{equation}
+\lambda_{j_1 \dots j_k}^{i_1, \dots, i_k} = \alpha_{i_1} \wedge \dots \wedge \alpha_{i_k} \qty(b_{j_1}, \dots, b_{j_k}) = \det\qty(\qty(\alpha_{i_s}(b_{j_t}))_{s, t = 1}^k) \, .
+\end{equation}
+
+Zusammenfassend lässt sich somit schreiben:
+\begin{align*}
+\omega &= \sum_{1 \leq i_1 < \dots < i_k \leq n} \omega_{i_1, \dots, i_k} \, \alpha_{i_1} \wedge \dots \wedge \alpha_{i_k}
+\\
+&= \sum_{1 \leq i_1 < \dots < i_k \leq n} \omega(a_{i_1}, \dots, a_{i_k}) \, \alpha_{i_1} \wedge \dots \wedge \alpha_{i_k}
+\\
+&= \sum_{1 \leq i_1 < \dots < i_k \leq n} \omega(a_{i_1}, \dots, a_{i_k}) \, \qty(\sum_{1 \leq j_1 < \dots < j_k \leq n} \lambda_{j_1 \dots j_k}^{i_1, \dots, i_k} \, \beta_{j_1} \wedge \dots \wedge \beta_{j_k})
+\\
+&= \sum_{1 \leq j_1 < \dots < j_k \leq n} \qty(\sum_{1 \leq i_1 < \dots < i_k \leq n} \lambda_{j_1 \dots j_k}^{i_1, \dots, i_k} \, \omega(a_{i_1}, \dots, a_{i_k})) \, \beta_{j_1} \wedge \dots \wedge \beta_{j_k}
+\\
+&= \sum_{1 \leq j_1 < \dots < j_k \leq n} \omega(b_{j_1}, \dots, b_{j_k}) \, \beta_{j_1} \wedge \dots \wedge \beta_{j_k}
+\\
+\Leftrightarrow \qquad &\omega(b_{j_1}, \dots, b_{j_k}) = \sum_{1 \leq i_1 < \dots < i_k \leq n} \det\qty(\qty(\alpha_{i_s}(b_{j_t}))_{s, t = 1}^k) \, \omega(a_{i_1}, \dots, a_{i_k}) \, .
+\end{align*}
+
+
+
+		\subsection{Äußere Algebra}
+Jeder der Dachprodukträume $\Lambda^k V^*$ hat offenbar eine Vektorraumstruktur, man betrachtet schließlich in jedem Argument lineare Abbildungen und kann daher sinnvoll addieren sowie mit Skalaren multiplizieren. Mit dem Dachprodukt $\bigwedge$ hat man zudem eine Möglichkeit gefunden, das Produkt zweier multilinearer Abbildungen zu bilden, jedoch ist $\Lambda^k V^*$ nicht abgeschlossen unter diesem Produkt (die Ordnung erhöht sich ja gerade), weshalb der Dachproduktraum keine Algebra bildet.
+
+
+Betrachtet man jedoch die Vektorraumsumme
+\begin{equation*}
+\bigoplus_k \Lambda^k V^* \, ,
+\end{equation*}
+die offenbar direkt ist (eine 1-Form liegt nur in $\Lambda^1 V^* = V^*$ und nicht in $\Lambda^2 V^*$ o.Ä.), so ist diese abgeschlossen unter der Multiplikation mit $\wedge$ ! Weil die anderen Eigenschaften durch Summieren nicht verloren gehen, erhält man somit eine Algebra.
+
+\begin{defi}[Äußere Algebra]
+Die Vektorraumsumme
+\begin{equation}
+\Lambda V^* = \bigoplus_k \Lambda^k V^*
+\end{equation}
+heißt \Def[Äußere! Algebra]{Äußere Algebra} (manchmal auch \Def{Graßmann-Algebra}).
+\end{defi}
+
+Aufgrund der Art, wie sich $\Lambda V^*$ zusammensetzt (direkte Summe), sagt man auch, dass sie eine \Def[Graduierung]{natürliche Graduierung} hat. Offenbar lässt sich die Äußere Algebra analog für allgemeine Vektorräume $V$ definieren und nicht nur für Dualräume $V^*$.\\
+
+
+Eine alternative Definition geht etwas allgemeiner von der direkten Summe
+\begin{equation*}
+T(V) = \bigoplus_k V^{\otimes k} = \mathbb{K} \oplus V \oplus V \otimes V \oplus \dots
+\end{equation*}
+mit einem $\mathbb{K}$-Vektorraum $V$ aus. Weil sich jeder Tensor in einen symmetrischen und einen antisymmetrischen/ alternierenden Anteil zerlegen lässt, ergibt sich damit
+\begin{equation}
+\Lambda V = T(V)/ \mathcal{I}
+\end{equation}
+mit $\mathcal{I} \subset T(V)$ als Bezeichnung für den symmetrischen Unterraum (das ein sogenanntes Ideal bildet, Details hier unwichtig). In diesem Quotientenvektorraum identifiziert man beliebige Tensoren $T = \text{Sym}(T) + \text{Alt}(T)$ mit $\tilde{T} = \text{Alt}(T)$, also ihren antisymmetrischen Anteilen und erhält damit ebenso die Äußere Algebra.
+
+Eine Art Mischung aus den beiden Ansätzen ist es, $\Lambda^k V = T^k(V)/ \mathcal{I}$ zu definieren, dann ist nämlich wiederum $\Lambda V^* = \bigoplus_k \Lambda^k V^*$.
+
+	\anm{eine Verallgemeinerung der Äußeren Algebra sind sogenannte Clifford-Algebren, die nach dem gleichen Prinzip konstruiert werden können.}
+
+
+
+\newpage
+
+
+	\section{Differentialformen und Äußeres Differential}
+Bis jetzt wurden allgemeine und alternierende $k$-Formen auf beliebigen Vektorräumen $V$ betrachtet. Hier geht es ja aber eigentlich um Mathematik auf Mannigfaltigkeiten, wo kein beliebiger Vektorraum vorliegt, sondern erst einmal nur $V = T_p M$. Von nun an wird also $\Lambda^k T_p^* M$ untersucht und weil die Arbeit an einem festen Punkt bereits im letzten Abschnitt ausführlich untersucht wurde, ist es jetzt interessant, auch den Punkt zu variieren. Das geht, indem man das \Def{Bündel der alternierenden $k$-Formen}
+\begin{equation}
+\Lambda^k T^*M = \bigcup_{p \in M} \Lambda^k T_p^* M
+\end{equation}
+definiert, das ein Vektorbündel vom Rang $\mqty(n \\ k) = \frac{n!}{k! \, (n - k)!}$ bildet ($n = \dim(M)$). Genau wie alternierende Tensoren einen Unterraum von Tensoren bilden, handelt es sich bei $\Lambda^k T^* M$ ein Unterbündel des Bündels der $k$-Formen
+\begin{equation*}
+\qty(T^* M)^{\otimes k} = T^* M \otimes \dots \otimes T^* M \, ,
+\end{equation*}
+schließlich ist jede alternierende multilineare Abbildung insbesondere eine multilineare Abbildung (ganz explizit erhält man die nötigen Übergangsabbildungen durch Einschränkung der von $T^* M$ auf den alternierenden Unterraum).
+
+Die geeigneten Abbildungen zur Untersuchung dieses Bündels sind Schnitte darin:
+\begin{defi}[Differentialform]
+Ein Schnitt $\omega \in \Gamma(M; \Lambda^k T^*M) =: \Omega^k(M)$ heißt \Def[Differentialform]{$k$-Differentialform}.
+\end{defi}
+
+Die Benennung folgt dabei der beim Übergang von 1-Formen (auf $T_p M$) auf 1-Differentialformen (auf $TM$) und genau so sagt man oft auch verkürzend $k$-Formen zu ihnen. Aufgrund der Definition über Schnitte ist sofort klar, dass Differentialformen jedem Punkt auf glatte Weise eine alternierende $k$-Form $\omega_p: T_p M \cross \dots \cross T_p M \rightarrow \mathbb{R}$ zuordnen und letztere stellen sich als konstante Differentialformen heraus (die nur eine $k$-Form zuordnen, weshalb nur die sich ergebende Form interessant ist).
+
+Da Multilinearformen auf $T_p M$ aber insbesondere auch Tensoren $\in T_p^* M \otimes \dots \otimes T_p^* M$ sind, ergibt sich die äquivalente Interpretation einer Differentialform als Tensorfeld im Unterbündel der alternierenden Tensoren ! Formal heißt das:
+
+\begin{lemma}[Universelle Eigenschaft]
+Für eine Mannigfaltigkeit $M$ und eine Abbildung
+\begin{equation*}
+\Omega: \mathcal{X}(M) \cross \dots \cross \mathcal{X}(M) \rightarrow C^\infty(M) \, ,
+\end{equation*}
+die $k$-fach multilinear, alternierend und tensoriell ist, existiert ein $\omega \in \Omega^k(M)$ mit
+\begin{equation}
+%\Omega(X_1, \dots, X_k)(p) = \omega_p(X_1(p), \dots, X_k(p)), \quad \forall p \in M, X_1, \dots, X_k \in \mathcal{X}(M) \, .
+\Omega(X_1, \dots, X_k) = \omega_p(X_1, \dots, X_k), \quad \forall X_1, \dots, X_k \in \mathcal{X}(M) \, .
+\end{equation}
+\end{lemma}
+Diese Universelle Eigenschaft für alternierende Tensoren folgt sofort aus der für allgemeine Tensoren, weil Differentialformen gerade Schnitte im Unterbündel alternierenden Tensoren sind. Dieses Lemma sagt also, was beim Einsetzen fester Vektorfelder in eine Differentialform passiert, bei der aber der Punkt variabel bleibt (daher erhält man jeweils eine Funktion und die sollen gleich sein).
+
+
+Auch wenn diese Definition nun sehr formalisiert ist und recht fremd scheint, sind Differentialformen eigentlich nichts Neues:
+\begin{bsp}[Bekannte Beispiele von Differentialformen]
+Bis jetzt wurde bereits öfter mit solchen Objekten gearbeitet, dort war aber die gemeinsame Herkunft noch nicht klar. Bei
+\begin{align}
+\Omega^0(M) &= C^\infty(M; \mathbb{R})
+\\
+\Omega^1(M) &= \Gamma(M; \Lambda^1 T^*M) = \Gamma(M; T^*M)
+\end{align}
+handelt es sich offenbar einfach um die glatten Funktionen bzw. 1-Formen (dort kann noch nichts alternieren, daher musste das vorher nicht gefordert werden).
+\end{bsp}
+
+
+Bevor gleich die großen Vorteile von Differentialformen klar werden, sei erwähnt, dass der Pullback bei Differentialform eine etwas andere Form annimmt als für $k$-Formen (gezeigt in Beispiel \ref{bsp:pullbackkform}). Da ein $\omega \in \Omega^k(N)$ gewissermaßen als Funktion und $k$-Form wirkt (verwertet ja Punkte und bildet ab auf Formen, kann also so gesehen auch Vektoren verwerten), ergibt sich der Pullback mittels einer glatten Abbildung $f: M \rightarrow N$ als $\Omega^k(M) \ni f^* \omega: M \rightarrow \Lambda^k T_p^* M$ und punktweise gilt
+\begin{equation}
+\qty(f^* \omega)_p (X_1, \dots, X_k) = \omega_{f(p)} \qty(D_p f(X_1), \dots, D_p f(X_k)) \, .%, \, v_j \in T_p M, D_p f(v_j) \in T_p N, \forall j
+\end{equation}
+Es handelt sich also lediglich um eine Anwendung des Pullbacks von Tensoren und dabei taucht ein Differential auf, weil man ja Vektorfelder $X_j$ auf $M$ hat welche auf $N$ benötigt, sie also pushen muss. Für eine weitere Abbildung $g: O \rightarrow M$ erfüllt der Pullback von Differentialformen übrigens analog $\qty(f \circ g)^* \omega = g^*\qty(f^* \omega)$.
+
+	\anm{dass der Pullback einer Differentialform wieder eine solche ergibt, ist dabei nicht klar (weil man sich dabei auf dem alternierenden Unterbündel bewegt, dessen Abgeschlossenheit unter dem Pullback nicht selbstverständlich ist !).}
+
+
+Wie auf Mannigfaltigkeiten üblich, lassen sich Differentialformen auch lokal darstellen, sei dazu $x = (x_1, \dots, x_n): U \rightarrow \mathbb{R}^n$ eine Karte auf der offenen Menge $U \subset M$. Für $\omega \in \Omega^k(M)$ existiert dann wie bei $k$-Formen eine Darstellung in einer dualen Basis, die hier als $dx_j$ gewählt wird (daher nur lokal möglich):
+\begin{equation}
+\begin{split}
+\Omega^k(U) \ni \omega_U &= \sum_{1 \leq i_1 < \dots < i_k \leq n} f_{i_1, \dots, i_k} \, dx_{i_1} \wedge \dots \wedge dx_{i_k}
+\\
+\text{mit } \; f_{i_1, \dots, i_k} &= \omega\qty(\pdv{x_{i_1}}, \dots, \pdv{x_{i_k}}): U \rightarrow \mathbb{R} \, .
+\end{split}
+\end{equation}
+Aus der Definition als glatter Schnitt folgt dann sofort auch die Glattheit der Koeffizienten, $f_{i_1, \dots, i_k} \in C^\infty(U; \mathbb{R})$. Der Basiswechsel zu einer Karte $y: V \rightarrow \mathbb{R}^n$ erfolgt dann über Ersetzen der $dx_j$ mit den $dy_j$ und Einsetzen anderer Koeffizienten $g_{i_1, \dots, i_k}$, deren Zusammenhang zu den $f_{i_1, \dots, i_k}$ gerade gegeben ist über
+\begin{align}
+g_{j_1, \dots, j_k} &= g_{j_1, \dots, j_k} \, dy_{j_1} \wedge \dots dy_{j_n}\qty(\pdv{y_{j_1}}, \dots, \pdv{y_{j_n}})
+\notag\\
+&= \omega_{U \cap V} \qty(\pdv{y_{j_1}}, \dots, \pdv{y_{j_n}})
+\notag\\
+&= \sum_{1 \leq i_1 < \dots < i_k \leq n} f_{i_1, \dots, i_k} \, dx_{i_1} \wedge \dots \wedge dx_{i_k}\qty(\pdv{y_{j_1}}, \dots, \pdv{y_{j_n}})
+\notag\\
+&= \sum_{1 \leq i_1 < \dots < i_k \leq n} f_{i_1, \dots, i_k} \, \det\qty(\qty(dx_{i_s}\qty(\pdv{x_{j_t}}))_{s, t = 1}^k)
+\notag\\
+&= \sum_{1 \leq i_1 < \dots < i_k \leq n} f_{i_1, \dots, i_k} \, \qty(\det\qty(\qty(\pdv{x_{i_s}}{x_{j_t}})_{s, t = 1}^k) \circ y)
+\end{align} 
+Das folgt durch Einsetzen der Formel für das Wechseln zwischen verschiedenen Gauß'schen Basen \eqref{eq:gausswechseldual} mit permutieren, zusammenfassen oder kürzer aus dem Basiswechsel des vorherigen Abschnitts mit Ausschreiben der Wirkung $dx_{i_s}\qty(\pdv{x_{j_t}})$.
+
+	\anm{die Verknüpfung der Determinanten mit $y$ kommt am besten aus \ref{eq:gausswechseldual} heraus: $d_p x_j = \sum_{k = 1}^n \pdv{x_j \circ y^{-1}}{y_k} \qty(y(p)) d_p y_k$. Lässt man wie hier das Einsetzen von $p$ weg, so muss man das Auswerten an $y(p)$ beachten und daher kommt die Verknüpfung.}
+
+Ebenfalls interessant auf Mannigfaltigkeiten sind auch die Kartendarstellungen der behandelten Objekte. Im Falle einer Differentialform $\omega_U \in \Omega^k(U)$ erhält man
+
+\begin{equation*}
+\qty(x^{-1})^* \omega: U \rightarrow \Lambda^k \mathbb{R}^n, \; p \mapsto \eval{\qty(x^{-1})^* \omega_U}_{x(p)} \, .
+\end{equation*}
+Der Pullback berechnet sich dabei für $\omega_U = f_{i_1, \dots, i_k} \, dx_{i_1} \wedge \dots \wedge dx_{i_k}$ explizit zu
+\begin{align}
+\eval{\qty(x^{-1})^* \omega_U}_{x(p)} &= \sum_{1 \leq i_1 < \dots < i_k \leq n} \qty(f_{i_1, \dots, i_k} \circ x^{-1}) \, \qty(\qty(x^{-1})^*dx_{i_1}) \wedge \dots \wedge \qty(\qty(x^{-1})^*dx_{i_k})
+\notag\\
+&= \sum_{1 \leq i_1 < \dots < i_k \leq n} \qty(f_{i_1, \dots, i_k} \circ x^{-1}) \, \alpha_{i_1} \wedge \dots \wedge \alpha_{i_k}
+\end{align}
+mit dem Kovektor $\alpha_j: \mathbb{R}^n \rightarrow \mathbb{R}$ zum Standardbasiselement $e_j$. Dabei wurde
+\begin{align}
+\qty(\qty(x^{-1})^*dx_j)_p(X) &= d_{x^{-1}(p)} x_j(D_p x^{-1}(X)) = D_{x^{-1}(p)} x_j(D_p x^{-1}(X))
+\notag\\
+&= D_{x^{-1}(p)} x_j \circ D_p x^{-1}(X) = D_p \qty(x_j \circ x^{-1})(X) 
+\notag\\
+&= D_p \qty(\pi_j \circ x \circ x^{-1})(X) = \lim_{t \rightarrow 0} \frac{\pi_j(p + t X) - \pi_j(p)}{t} 
+\notag\\
+&= \lim_{t \rightarrow 0} \frac{p_j + t X_j - p_j}{t} = X_j = \alpha_j(X)
+\end{align}
+mit der Projektion $\pi_j$ auf die $j$-te Komponente genutzt. Somit gilt% nach $\qty(f \circ g)^* \omega = g^*\qty(f^* \omega)$
+\begin{equation}
+\qty(x^{-1})^* dx_j = \alpha_j = \qty(x^{-1} \circ x)^* \alpha_j \quad \Leftrightarrow \quad dx_j = x^* \alpha_j \, .
+\end{equation}
+
+
+\begin{bsp}[Determinante]
+Die Determinante als Standardbeispiel einer Multilinearform existiert auch auf Mannigfaltigkeiten und spielt dort auch eine herausragende Rolle (z.B. in der Integrationstheorie). Weil das Bündel der $n$-Formen auf einer $n$-dimensionalen Mannigfaltigkeit nach $\mqty(n \\ n) = \frac{n!}{n! 0!} = 1$ eindimensional ist, gilt
+\begin{equation}
+\Omega^k(U) \ni \omega_U = h \, \det
+\end{equation}
+für eine glatte Funktion $h \in C^\infty(U; \mathbb{R})$.
+
+Weil aus der Linearen Algebra die \enquote{Normierung} der Determinante bekannt ist (sie erfüllt $\det(e_1, \dots, e_n) = 1$), erhält man als lokale Darstellung
+\begin{equation}
+\text{det}_U = dx_1 \wedge \dots \wedge dx_n: T_p U \cross \dots \cross T_p U \rightarrow \mathbb{R} \, .
+\end{equation}
+\end{bsp}
+
+\begin{bsp}[$n$-Formen]
+Eine sehr wichtige Rolle z.B. bei der Integration werden die $n$-Formen spielen. Deren lokale Darstellung ist nun deutlich übersichtlicher als die für allgemeine $k$-Formen, weil es nur eine Kombination der $i_1, \dots, i_k$ geben kann:
+\begin{equation*}
+\omega_U = f \, dx_1 \wedge \dots \wedge dx_n, \quad f = \omega\qty(\pdv{x_1}, \dots, \pdv{x_n})
+\end{equation*}
+für eine Karte $x = (x_1, \dots, x_n): U \rightarrow \mathbb{R}^n$. Das Schöne hieran ist, dass Operationen wie Basiswechsel sich deutlich übersichtlicher schreiben lassen, unter Anderem weil viel weniger Indizes benötigt werden. Explizit berechnet man nämlich für eine andere Karte $y: V \rightarrow \mathbb{R}^n$ mit $\omega\qty(\pdv{y_1}, \dots, \pdv{y_n}) = g$ auf der Menge $U \cap V$:
+\begin{align}\label{eq:nformwechsel}
+g &= \omega\qty(\pdv{y_1}, \dots, \pdv{y_n}) = f \, dx_1 \wedge \dots \wedge dx_n \qty(\pdv{y_1}, \dots, \pdv{y_n}) 
+\notag\\
+&= f \, \det\qty(\qty(dx_i\qty(\pdv{y_j}))_{i, j = 1}^{n, n}) = f \, \det\qty(D \qty(x \circ y^{-1})) \circ y
+\end{align}
+oder analog
+\begin{equation}
+f = g \, \det\qty(D\qty(y \circ x^{-1})) \circ x = \frac{g}{\det\qty(D\qty(x \circ y^{-1})) \circ x} \, .
+\end{equation}
+
+	\anm{man beachte hier wieder, dass nur die Determinante und nicht die Funktionen mit den Karten verknüpft werden! Etwas besser kann man das erkennen in folgender Schreibweise:
+	\begin{equation*}
+	g(p) = f(p) \, \eval{\det\qty(D\qty(x \circ y^{-1}))}_{y(p)} \qquad f(p) = g(p) \, \eval{\det\qty(D\qty(y \circ x^{-1}))}_{x(p)}
+	\end{equation*}
+	}
+
+Interessant wird auch, wie man die Darstellung in Karten wechselt, wo die Funktionen $\tilde{f} = f \circ x^{-1}, \, \tilde{g} = g \circ y^{-1}$ vorliegen. Hier berechnet man
+\begin{align*}
+g \circ y^{-1} (p) &= f(y^{-1}(p)) \, \eval{\det\qty(D\qty(x \circ y^{-1}))}_{y(y^{-1}(p))} 
+\\
+&= f \circ x^{-1} \circ x \circ y^{-1} (p) \, \eval{\det\qty(D\qty(x \circ y^{-1}))}_p
+\end{align*}
+oder mit der Definition $\varphi = x \circ y^{-1}: y(U \cap V) \rightarrow x(U \cap V)$:
+\begin{equation}
+\tilde{g} = \tilde{f} \circ \varphi \, \det\qty(D\varphi) \qquad \tilde{f} = \tilde{g} \circ \varphi^{-1} \, \det\qty(D\varphi^{-1}) \, .
+\end{equation}
+\end{bsp}
+
+Der bereits mehrfach angesprochene große Vorteil an Differentialformen ist also, dass die Definition sehr schön invariant/ basisunabhängig geht, man aber gleichzeitig sehr gut und schnell lokale Rechnungen damit durchführen kann (vor allem mit $n$-Formen).
+
+%dann einfach anbringen, dass das Dachprodukt von Linearformen auch einer Linearform auf dem Dachproduktraum entspricht, natürliche Identifikation/ Dualität halt
+
+
+
+		\subsection{Äußeres Differential}
+Nun soll noch ein sehr wichtiger Operator eingeführt werden, der für viele Aussagen über Differentialformen essentiell ist und beispielsweise eine verallgemeinerte Formulierung der Integrabilitätsbedingung aus \ref{satz:integrab1form} für 1-Formen ermöglicht (jedoch erst in einem späteren Abschnitt, siehe \ref{cor:poincare}) ! Dazu braucht man eine Abbildung zwischen $\Omega^k(M)$ und $\Omega^{k + 1}(M)$, also die Verallgemeinerung des Differentials $D$ als Abbildung von Funktionen ($\equiv$ 0-Formen aus $\Omega^0(M)$) auf Linearformen (1-Formen aus $\Omega^1(M)$) und das ist eben dieser Operator (der in Anlehnung an $D$ Äußeres Differential heißt).
+
+
+Um am Ende Schreibarbeit zu sparen, definiert man zwei Notationen:
+\begin{defi}[Hilfsnotationen]
+Für $X, X_1, \dots, X_{k + 1} \in \mathcal{X}(M), \, \omega \in \Omega^k(M)$ sei zum Einen
+\begin{equation}
+\begin{split}
+&i_X: \Omega^k(M) \rightarrow \Omega^{k - 1}(M), \; \omega \mapsto i_X \omega \in \Omega^{k - 1}(M) 
+\\
+\text{über } \; &i_X\omega(X_1, \dots, X_{k - 1}) = \omega(X, X_1, \dots, X_{k - 1})
+\end{split}
+\end{equation}
+und zum Anderen
+\begin{equation}
+\omega(X_1, \dots, \hat{X}_i, \dots, X_{k + 1}) = \omega(X_1, \dots, X_{i - 1}, X_{i + 1}, \dots, X_{k + 1}) \, .
+\end{equation}
+\end{defi}
+
+Mit $i_X$ kann man also den Grad einer Differentialform verringern, indem man immer ein festes Vektorfeld $X$ einsetzt und dieses nicht mehr als Argument betrachtet (welches, wird im Index aufgeführt). Damit entspricht $i_X$ einem inneren Produkt auf $\Omega^k(M)$. Andererseits kann man den Grad auch erhöhen, indem man eines der Argumente einfach nicht einsetzt (welches, wird mit einem $\hat{ }$ gekennzeichnet). Natürlich ist jeweils eine Verallgemeinerung auf mehrfaches Einsetzen/ Auslassen unproblematisch, man nehme einfach mehr Indizes oder Hüte dazu.
+
+\begin{bsp}[Lie-Ableitung]
+Als erste Veranschaulichung/ Anwendung der Definition bietet sich die Wirkung der Lie-Ableitung auf Funktionen an, die sich dann schreibt als
+\begin{equation*}
+\mathcal{L}_X f = X \cdot f = df(X) = i_X df \, ,
+\end{equation*}
+was aus der 1-Form $df$ eine Funktion/ 0-Form $i_X df: M \rightarrow \mathbb{R}$ macht.
+\end{bsp}
+
+Diese Notationen reichen aber bereits, um zu \enquote{definieren}:
+\begin{satz}[Äußere Ableitung]\label{satz:aussereabl}
+Es existiert genau eine lineare Abbildung
+\begin{equation*}
+d: \Omega^k(M) \rightarrow \Omega^{k + 1}(M), \quad \forall k = 0, \dots, \dim(M)
+\end{equation*}
+mit den folgenden Eigenschaften:
+\begin{itemize}
+\item[1.] $d$ ist das Differential für $k = 0$
+
+\item[2.] $d\qty(\omega \wedge \eta) = \qty(d\omega) \wedge \eta + \qty(-1)^k \omega \wedge d\eta, \quad \forall \omega \in \Omega^k(M), \eta \in \Omega^l(M), \, \forall k, l$
+
+\item[3.] $d^2 \omega = \qty(d \circ d)(\omega) = d\qty(d\omega) = 0, \quad \forall \omega \in \Omega^k(M), \, \forall k$
+\end{itemize}
+
+Wichtige Eigenschaften sind (mit $\phi: N \rightarrow M$ glatt)
+\begin{equation}\label{eq:aeusseigensch}
+d \qty(\phi^* \omega) = \phi^* \qty(d\omega) \qquad \qquad \mathcal{L}_X \omega = i_X \qty(d\omega) + d \qty(i_X \omega) \qquad \qquad \mathcal{L}_X d = d \mathcal{L}_X \, .
+\end{equation}
+\end{satz}
+\begin{defi}[Äußeres Differential]
+Diese wohldefinierte Abbildung $d$ heißt \Def[Äußere! Ableitung]{Äußeres Differential}/ \Def[Äußere! Ableitung]{Äußere Ableitung}.
+\end{defi}
+\begin{proof}
+man nimmt als Ansatz eine multilineare Abbildung $\Omega$ (Form in \eqref{eq:aeussdiff}), zeigt dafür die Eigenschaften und definiert dann darüber die Wirkung von $d$ als $\Omega = d\omega$ (funktioniert nach Existenz tensorieller Abbildung, vorher gezeigt); hieraus erhält man auch direkt die Linearität
+
+
+1. für $k = 0$ ($\omega = f$) ergibt Einsetzen $df(X) = X \cdot f$ und das ist eben die normale Richtungsableitung
+
+Eigenschaft 2 ist lokal, wie man aus der definierenden Gleichung sieht, das heißt $\omega_U = \eta_U \Rightarrow \qty(d\omega)_U = \qty(d\eta)_U$ (logische Erklärung ist, dass Ableitungen die lokale Änderung messen) und daher reicht auch lokale Rechnung, die man recht einfach machen kann
+
+3. folgt ebenfalls einfach durch Anwenden der Leibniz-Regel auf die lokale Darstellung und dann Ausnutzen, dass zweite Ableitung von $f_{i_1 \dots i_k}$ und auch von $dx_i$ verschwindet
+
+
+weil diese drei Eigenschaften von der Abbildung $d\omega$ erfüllt werden, ist die Existenz gezeigt und die Eindeutigkeit ist klar, weil 2. die Lokalität vorgibt und man dann durch die 3 Eigenschaften den induzierten Operator herleiten kann, der aber genau die gleiche Form hat wie der vorher definierte
+
+die anderen Formeln kann man dann einfach nachrechnen; die erste hilft dabei bereits sehr, weil man damit z.B. Flüsse einfach betrachten kann
+
+
+coole Rechnung (wohl nicht im Skript) zum Nachweis von Cartans Formel (nehmen hier $X = \pdv{x_1}$ ohne Nullstellen): $\mathcal{L}_X \omega = \pdv{f}{x_1} \, dx_{i_1} \wedge \dots \wedge dx_{i_k}$ und analog für $i_1 < \dots < i_k$ mit $i_1 > 1$ (Fall mit $i_1 = 1$ geht analog): $i_{\pdv{x_1}} d\omega + d i_{\pdv{x_1}} \omega = i_{\pdv{x_1}} \sum_{j = 1}^n \pdv{f}{x_j} \, dx_j \wedge dx_{i_1} \wedge \dots \wedge dx_{i_k} = \pdv{f}{x_1} \, dx_{i_1} \wedge \dots \wedge dx_{i_k} = \mathcal{L}_X \omega$
+
+
+zu $d(dx_j) = 0$: haben ja $x_j = f$, also $dx_i =: \omega \in \Omega(U)$, dann folgt das schon aus Integrabilitätsgleichung \eqref{satz:integrab1form} $X \cdot \omega(Y) - Y \cdot \omega(X) - \omega\qty([X, Y]) = 0$, weil so ja genau $d\omega = d(dx_j)$ definiert ist ! Können auch ausschreiben und dann Satz von Schwarz sowie $dx_i \wedge dx_i = 0$ nutzen; anderer Weg: können das auch hinschreiben die doppelte Ableitung und dann sehen, dass dort zweite Ableitung steht (symmetrisch nach Satz von Schwartz) und noch was schiefes dahinter mit dem Wedge-Produkt
+
+Wie sieht man Vertauschen von Pullback und Äußerem Differential: schreibe den Shit für 1-Formen lokal hin (folgt dann nach Kettenregel) und dann folgt das weil man $k$-Formen als Produkt von 1-Formen hat
+\end{proof}
+
+Die Existenz von $d$ ist damit gezeigt, aber es liegt hat noch nichts Handfestes zur Wirkung auf eine Differentialform vor ! Aus dem Beweis ergibt sich jedoch dafür:
+\begin{equation}\label{eq:aeussdiff}
+\begin{split}
+d\omega(X_0, \dots, X_k) &= \sum_{i = 0}^k \qty(-1)^i X_i \cdot \qty(\omega\qty(X_0, \dots, \hat{X}_i, \dots, X_k)) 
+\\
+&+ \sum_{0 \leq i < j \leq n} \qty(-1)^{i + j} \omega\qty(\qty[X_i, X_j], X_0, \dots, \hat{X}_i, \dots, \hat{X}_j, \dots, X_k) \, .
+\end{split}
+\end{equation}
+Man hätte auch den Operator auf diese Weise definieren können und dann alle Eigenschaften inklusive Eindeutigkeit zeigen können, aber das hätte vom Wesentlichen abgelenkt: der Operator mit den gewünschten Eigenschaften nimmt genau diese Form an und es nicht so, dass diese Form das einfach zufälligerweise erfüllt. Die zweite Summe dient dabei im Wesentlichen dazu, $d$ tensoriell zu machen, es gilt also
+\begin{equation*}
+d\omega(X_0, \dots, fX_j, \dots, X_k) = f \, d\omega(X_0, \dots, fX_j, \dots, X_k), \quad \forall j = 0, \dots, k \, .
+\end{equation*}
+Damit lässt sich die Äußere Ableitung
+\begin{equation*}
+d: \Omega^k(M) = \Gamma(M; \Lambda^k T^*M) \rightarrow \Omega^{k + 1}(M) = \Gamma(M; \Lambda^{k + 1} T^*M)
+\end{equation*}
+nach Satz \ref{satz:tenseigsch} als Schnitt im Unterbündel der alternierenden Tensoren auffassen,
+\begin{equation}
+d \in \Gamma(M; \qty(\Lambda^k T^*M)^* \otimes \Lambda^{k + 1} T^*M) = \Gamma(M; \Lambda^k TM \otimes \Lambda^{k + 1} T^*M) \, .
+\end{equation}
+
+
+Für Rechnungen ist neben dieser allgemeinen Darstellung des Operators aber auch die lokale Darstellung relevant. Für eine Karte $x = (x_1, \dots, x_n): U \rightarrow \mathbb{R}^n$ und
+\begin{equation*}
+\omega_U = \sum_{1 \leq i_1 < \dots < i_k \leq n} f_{i_1, \dots, i_k} \, dx_{i_1} \wedge \dots \wedge dx_{i_k}
+\end{equation*}
+kann man berechnen, dass die Äußere Ableitung wie folgt wirkt:
+\begin{equation}
+\qty(d\omega)_U = \sum_{1 \leq i_1 < \dots < i_k \leq n} df_{i_1, \dots, i_k} \wedge dx_{i_1} \wedge \dots \wedge dx_{i_k} \, .
+\end{equation}
+Dabei hat das Differential der Koeffizienten $f_{i_1, \dots, i_k}: U \rightarrow \mathbb{R}$ die allgemeine Form
+\begin{equation*}
+df_{i_1, \dots, i_k} = \sum_{j = 1}^n \pdv{f_{i_1, \dots, i_k}}{x_j} \, dx_j \, .
+%= \sum_{j = i_1, \dots, i_k} \pdv{f_{i_1, \dots, i_k}}{x_j} \, dx_j
+\end{equation*}
+%und das zweite Gleichzeichen folgt sofort, weil die Funktion nur von den vorkommenden Koeffizienten abhängt.
+
+Hier hilft es natürlich sehr, dass man lokal die Gauß'schen Basisvektoren einsetzt, weil diese kommutieren, wodurch die zweite Summe in \eqref{eq:aeussdiff} komplett wegfällt. Zudem wird in dieser Darstellung zwar nicht die Basisunabhängigkeit der Wirkung/ des Operators an sich klar, aber zum expliziten Rechnen ist sie natürlich sehr viel praktischer, weil man so einfach nur das Differential einer Funktion bestimmen muss.\\
+
+
+Nun sollen aber die Eigenschaften etwas erläutert werden, angefangen wird mit den geforderten, die für die Eindeutigkeit verantwortlich sind: die erste ist relativ klar, man möchte ein verallgemeinertes Differential haben. Aus ihr wird aber im Ansatz (richtig dann bei der Wirkung) klar, warum die Wirkung von $d$ den Grad der Formen erhöht: man leitet die Form bzw. lokal ihre Koeffizientenfunktion ja ab, das heißt jeder Summand wird in jede mögliche Richtung $x_j$ abgeleitet und diese Richtung geht mit einem zusätzlichen Vektorfeld einher (man hat übrigens ein $\wedge$ zwischen $df_{i_1, \dots, i_k}$ und $dx_{i_1} \wedge \dots \wedge dx_{i_k}$ stehen, weil die entstehende Form wieder alternierend sein soll).
+
+Die zweite Eigenschaft ist das Analogon zur Produktregel für sogenannte Antiderivationen, wie $d$ eine ist (anderes Beispiel ist $i_X \qty(\alpha \wedge \beta) = \qty(i_X \alpha) \wedge \beta + (-1)^k \alpha \wedge \qty(i_X \beta)$).
+
+%Die dritte und letzte Eigenschaft erlaubt nach der Integrabilitätsgleichung \eqref{satz:integrab1form} die Interpretation, dass eine Form $d\omega$ immer integrabel ist, weil für diese i (sieht man auch an Definition der Wirkung). -> haben doch noch gar keine Integrabilitätsbedingung gezeigt ?
+Die dritte und letzte Eigenschaft tritt wahrscheinlich zum ersten mal in dieser Form auf und vereinfacht das Rechnen mit der Äußeren Ableitung ganz massiv (beispielsweise wird nur deshalb $d(dx_j) = 0$ und daher die Wirkung lokal so kurz, nach der zweiten Eigenschaft sind eigentlich viel mehr Terme zu erwarten !).\\
+
+
+Die Eigenschaften, die sich daraus ergeben, sind jedoch ebenso spannend, so hat man eine natürliche Verträglichkeit des Äußeren Differentials mit Pullback und Lie-Ableitung (eine mit dem Dachprodukt wurde zudem schon gefordert). Aber auch die zweite Formel in \eqref{eq:aeusseigensch} ist von großem Wert, weil sie die vorher nicht allgemein bekannte Wirkung der Lie-Ableitung auf Differentialformen liefert ! Sie trägt den Namen \Def[Cartans Formel]{Cartan-Formel (engl. Cartan's magic formula)} nach ihrem Entdecker Élie Cartan (die Äußere Ableitung heißt manchmal auch Cartan'sche Ableitung).
+
+	\anm{dass die Maurer-Cartan-Gleichung \eqref{eq:maurercartangl} ebenfalls diesen Namen trägt, ist dabei kein Zufall, dort wurde die Äußere Ableitung bereits genutzt (siehe Lemma \ref{lemma:fakedifferential}) und mit ihr lässt sie sich zu $d\omega(X, Y) = -\qty[\omega(X), \omega(Y)]$ umformulieren.}\\
+
+
+$d$ liefert nun auch neue Möglichkeiten zur Klassifizierung von Differentialformen:
+\begin{defi}[Geschlossenheit, Exaktheit]
+Eine Differentialform $\omega \in \Omega^k(M)$ heißt \Def[Differentialform! (geschlossene)]{geschlossen}, wenn $d\omega = 0$ und \Def[Differentialform! (exakt)]{exakt}, wenn $\exists \eta \in \Omega^{k - 1}(M): \; d\eta = \omega$. Diese Differentialform $\eta$ heißt dann auch \Def{Potential}.
+\end{defi}
+Man kann nun sofort festhalten, dass für $n = \dim(M)$ jede $n$-Form geschlossen ist, weil dann $\omega = f \, dx_1 \wedge \dots \wedge dx_n$ und daher tritt entweder der (triviale) Fall $df = 0$ ein oder es kommt ein doppelter Term $dx_j \wedge dx_j$ vor.\\
+
+Auch wenn es sich bei $d$ eigentlich um nichts wirklich Neues handelt (man denke nur an die Bezeichnung des Differentials bei Funktionenkeimen, wo abweichend von jeglicher bis dahin genutzter Konvention $d$ statt $D$ genutzt wurde !), sieht es als Verallgemeinerung trotzdem zunächst etwas anders und ungewohnt aus. Abhilfe schafft dabei wie immer ein Rechenbeispiel, bei dem auch das Verhalten im Zusammenhang mit Dachprodukt und Pullback deutlich werden:
+\begin{bsp}[Pullback und Äußere Ableitung einer 2-Form]
+Hier soll es um die 2-Form
+\begin{equation}
+\omega = x \, dy \wedge dz + y \, dz \wedge dx + z \, dx \wedge dy \; \in \Omega^2\qty(\mathbb{R}^3)
+\end{equation}
+gehen. Mithilfe der Standard-Parametrisierung der Sphäre,
+\begin{equation}
+\phi: \mathbb{S}^2 \rightarrow \mathbb{R}^3, \; \mqty(\theta \\ \varphi) \mapsto \mqty(x \\ y \\ z) = \mqty(x(\theta, \varphi) \\ y(\theta, \varphi) \\ z(\theta, \varphi)) = \mqty(\sin(\theta) \cos(\varphi) \\ \sin(\theta) \sin(\varphi) \\ \cos(\theta)) \, ,
+\end{equation}
+die im Wesentlichen Kugelkoordinaten mit festem Radius 1 entspricht, kann man daraus aber auch eine 2-Form auf der Sphäre machen, nämlich:
+\begin{align*}
+\phi^* \omega &= \phi^* \qty(x \, dy \wedge dz + y \, dz \wedge dx + z \, dx \wedge dy)
+\\
+&= \phi^*\qty(x) \, \phi^*\qty(dy \wedge dz) + \phi^*\qty(y) \, \phi^*\qty(dz \wedge dx) + \phi^*\qty(z) \, \phi^*\qty(dx \wedge dy)
+\end{align*}
+Diese Rechnung funktioniert also genau wie für 1-Formen (siehe z.B. in \ref{bsp:spherepullback}), nur dass man hier noch Dachprodukte hat. Wegen der Verträglichkeit davon, $\phi^*\qty(\omega \wedge \eta) = \qty(\phi^* \omega) \wedge \qty(\phi^* \eta)$, ist das aber unproblematisch und man erhält:
+\begin{align*}
+\phi^* \omega &=  \phi^*x \, \qty(\phi^* dy) \wedge \qty(\phi^*dz) + \phi^*y \, \qty(\phi^* dz) \wedge \qty(\phi^* dx) + \phi^*z \, \qty(\phi^* dx) \wedge \qty(\phi^* dy)
+\\
+&= \phi^*x \, d\qty(\phi^* y) \wedge d\qty(\phi^*z) + \phi^*y \, d\qty(\phi^* z) \wedge d\qty(\phi^* x) + \phi^*z \, d\qty(\phi^* x) \wedge d\qty(\phi^* y)
+\end{align*}
+wegen der zusätzlichen Verträglichkeit von Pullback und Äußerer Ableitung (vorher musste man das von Hand berechnen mithilfe der Kettenregel). Man wählt nun den pragmatischen Weg der Berechnung der Pullbacks (statt den aufwendigen Basiswechsel), genau wie in \ref{bsp:spherepullback}. Das ergibt zusammen mit $\phi^* x \equiv x(\theta, \varphi)$ (man drückt alte die Koordinate in den neuen aus) für die einzelnen Komponenten:
+\begin{align*}
+dx &= d\qty(\sin(\theta) \cos(\varphi)) = \pdv{x}{\theta} \, d\theta + \pdv{x}{\varphi} \, d\varphi = \cos(\theta) \cos(\varphi) \, d\theta - \sin(\theta) \sin(\varphi) \, d\varphi
+\\
+dy &= d\qty(\sin(\theta) \sin(\varphi)) = \pdv{y}{\theta} \, d\theta + \pdv{y}{\varphi} \, d\varphi = \cos(\theta) \sin(\varphi) \, d\theta + \sin(\theta) \cos(\varphi) \, d\varphi
+\\
+dz &= d\qty(\cos(\theta)) = \pdv{z}{\theta} \, d\theta + \pdv{z}{\varphi} \, d\varphi = - \sin(\theta) \, d\theta
+\end{align*}
+
+
+Für die einzelnen Terme des Pullback folgt damit:
+\begin{align*}
+\phi^*x \, d\qty(\phi^* y) \wedge d\qty(\phi^*z) &= \sin(\theta) \cos(\varphi) \, d\qty(\sin(\theta) \sin(\varphi)) \wedge d\qty(\cos(\theta))
+\\
+&= \sin(\theta) \cos(\varphi) \, \qty(\cos(\theta) \sin(\varphi) \, d\theta + \sin(\theta) \cos(\varphi) \, d\varphi) 
+\\
+& \quad \wedge \qty(- \sin(\theta) \, d\theta)
+\\
+&= \sin(\theta)^3 \cos(\varphi)^2 \, d\theta \wedge d\varphi
+\end{align*}
+\begin{align*}
+\phi^*y \, d\qty(\phi^* z) \wedge d\qty(\phi^* x) &= \sin(\theta) \sin(\varphi) \, d\qty(\cos(\theta)) \wedge d\qty(\sin(\theta) \cos(\varphi))
+\\
+&= \sin(\theta) \sin(\varphi) \, \qty(- \sin(\theta) \, d\theta) 
+\\
+& \quad \wedge \qty(\cos(\theta) \cos(\varphi) \, d\theta - \sin(\theta) \sin(\varphi) \, d\varphi) 
+\\
+&= \sin(\theta)^3 \sin(\varphi)^2 \, d\theta \wedge d\varphi
+\end{align*}
+\begin{align*}
+\phi^*z \, d\qty(\phi^* x) \wedge d\qty(\phi^* y) &= \cos(\theta) \, d\qty(\sin(\theta) \cos(\varphi)) \wedge d\qty(\sin(\theta) \sin(\varphi))
+\\
+&= \cos(\theta) \, \qty(\cos(\theta) \cos(\varphi) \, d\theta - \sin(\theta) \sin(\varphi) \, d\varphi) 
+\\
+& \quad \wedge d\qty(\cos(\theta) \sin(\varphi) \, d\theta + \sin(\theta) \cos(\varphi) \, d\varphi)
+\\
+&= \cos(\theta)^2 \sin(\theta) \, d\theta \wedge d\varphi
+\end{align*}
+und durch Summieren darüber ergibt sich schlussendlich:
+\begin{align}
+\phi^* \omega &= \sin(\theta)^3 \cos(\varphi)^2 \, d\theta \wedge d\varphi + \sin(\theta)^3 \sin(\varphi)^2 \, d\theta \wedge d\varphi + \cos(\theta)^2 \sin(\theta) \, d\theta \wedge d\varphi
+\notag\\
+&= \sin(\theta)^3 \, d\theta \wedge d\varphi + \cos(\theta)^2 \sin(\theta) \, d\theta \wedge d\varphi 
+\notag\\
+&= \sin(\theta) \, d\theta \wedge d\varphi \, .
+\end{align}
+
+Hier wurden schon Eigenschaften der Äußeren Ableitung ausgenutzt, aber noch nicht richtig damit gerechnet. Als 2-Form kann man $\omega$ aber auch ableiten:
+\begin{align}
+d\omega &= (1 \, dx) \wedge dy \wedge dz + (1 \, dy) \wedge dz \wedge dx + (1 \, dz) \wedge dx \wedge dy
+\notag\\
+&= dx \wedge dy \wedge dz - dy \wedge dx \wedge dz - dx \wedge dz \wedge dy
+\notag\\
+&= 3 \, dx \wedge dy \wedge dz \, .
+\end{align}
+Den Pullback davon kann man nun auf zwei Arten berechnen, \enquote{konventionell} (einfach Durchrechnen) oder kürzer unter Ausnutzen der Vertauschung mit $d$:
+\begin{align}
+\phi^* d\omega &= \qty(\cos(\theta) \cos(\varphi) \, d\theta - \sin(\theta) \sin(\varphi) \, d\varphi) 
+\notag\\
+& \quad \wedge \qty(\cos(\theta) \sin(\varphi) \, d\theta + \sin(\theta) \cos(\varphi) \, d\varphi) \wedge \qty(- \sin(\theta) \, d\theta)
+\notag\\
+&= 0
+\\
+\phi^* d\omega &= d \qty(\phi^* \omega) = d\qty(\sin(\theta) \, d\theta \wedge d\varphi) = \qty(\cos(\theta) \, d\theta) \wedge d\theta \wedge d\varphi = 0 \, .
+\end{align}
+Dieses Ergebnis war durchaus erwartbar, weil $d\omega \in \Omega^3(\mathbb{R}^3)$, aber $\dim(\mathbb{S}^2) = 2$ und damit gibt es keine nicht-trivialen 3-Formen auf der 2-Sphäre.
+\end{bsp}
+
+Dass das Äußere Differential zudem schon in Vorlesungen zur Analysis o.Ä. vorkam und vor allem Physikern bekannt sein sollte, zeigt das folgende Beispiel:
+
+\begin{bsp}[Gradient, Rotation, Divergenz]\label{bsp:gradrotdiv}
+Für eine Funktion $f(x, y, z)$ ist ja vom \enquote{normalen} Differential bekannt, dass
+\begin{equation*}
+df = \pdv{f}{x} dx + \pdv{f}{y} dy + \pdv{f}{z} dz = \langle \nabla f, ds \rangle \equiv \nabla f = \mqty(\pdv{f}{x} \\ \pdv{f}{y} \\ \pdv{f}{z}) = \text{grad } f \, .
+\end{equation*}
+Dort wirkt die Äußere Ableitung wie das Differential und hat die Darstellung als Gradient in der zur Karte $(x, y, z)$ gehörigen Trivialisierung (notiert hinter $\equiv$).
+
+
+Nimmt man nun die allgemeine Darstellung einer 1-Form
+\begin{equation*}
+\omega = f \, dx + g \, dy + h \, dz \equiv \mqty(f \\ g \\ h) \, ,
+\end{equation*}
+so wirkt das Äußere Differential auf diese 1-Form wie
+\begin{align}
+d\omega &= \qty(\pdv{f}{x} dx + \pdv{f}{y} dy + \pdv{f}{z} dz) \wedge dx + \qty(\pdv{g}{x} dx + \pdv{g}{y} dy + \pdv{g}{z} dz) \wedge dy 
+\notag\\
+& \qquad \qquad \qquad + \qty(\pdv{h}{x} dx + \pdv{h}{y} dy + \pdv{h}{z} dz) \wedge dz
+\notag\\
+&= \qty(\pdv{h}{y} - \pdv{g}{z}) \, dy \wedge dz + \qty(\pdv{f}{z} - \pdv{h}{x}) \, dz \wedge dx + \qty(\pdv{g}{x} - \pdv{f}{y}) \, dx \wedge dy
+\notag\\
+&= \langle \nabla \cross \mqty(f \\ g \\ h), dA \rangle \equiv \nabla \cross \mqty(f \\ g \\ h) = \text{rot } \mqty(f \\ g \\ h) = d\mqty(f \\ g \\ h) \, .
+\end{align}
+Man erhält also die bekannte Rotation des Vektors $(f, g, h)$.
+
+Die Wirkung auf eine 2-Form (Bezeichnung so, dass $f$ die x-Komponente in der Basis bzw. Reihenfolge von der Rotation ist)
+\begin{equation*}
+\eta = f \, dy \wedge dz + g \, dx \wedge dz + h \, dx \wedge dy \equiv \mqty(f \\ g \\ h)
+\end{equation*}
+berechnet sich dann zu
+\begin{align}
+d\eta &= \qty(\pdv{f}{x} dx + \pdv{f}{y} dy + \pdv{f}{z} dz) \wedge dy \wedge dz + \qty(\pdv{g}{x} dx + \pdv{g}{y} dy + \pdv{g}{z} dz) \wedge dx \wedge dz
+\notag\\
+& \qquad \qquad \qquad + \qty(\pdv{h}{x} dx + \pdv{h}{y} dy + \pdv{h}{z} dz) \wedge dx \wedge dy
+\notag\\
+&= \qty(\pdv{f}{x} + \pdv{g}{y} + \pdv{h}{z}) dx \wedge dy \wedge dz = \langle \nabla, \mqty(f \\ g \\ h) \rangle \, dV = \text{div } \mqty(f \\ g \\ h) \, dV
+\end{align}
+und entspricht damit der Divergenz des Vektors $(f, g, h)$ !
+
+
+Außerdem folgen sofort Aussagen, die sonst enorm viel Rechenarbeit benötigen:
+\begin{align}
+0 &= \qty(d \circ d) f = d \qty(\nabla f) = \nabla \cross \qty(\nabla f) = \text{rot grad } f
+\\
+0 &= \qty(d \circ d) \omega = d (\nabla \cross \mqty(f \\ g \\ h)) = \nabla \cdot (\nabla \cross \mqty(f \\ g \\ h)) = \text{div rot } \mqty(f \\ g \\ h) \, .
+\end{align}
+
+Dabei wurden die folgenden Abkürzungen eingeführt:
+\begin{equation}
+ds = \mqty(dx \\ dy \\ dz), \quad dA = \mqty(dy \wedge dz \\ dz \wedge dx \\ dx \wedge dy), \quad dV = dx \wedge dy \wedge dz \, ,
+\end{equation}
+das allgemeine Linien-, Flächen- und Volumenelement der Koordinaten $(x, y, z)$.
+
+	\anm{die Bezeichnung $(x, y, z)$ suggeriert zwar, dass es sich um kartesische Koordinaten handelt, hier bezeichnet das aber lediglich die Koordinatenfunktionen einer allgemeinen Karte !}
+\end{bsp}
+
+Das Äußere Differential wird sich in den folgenden Abschnitten als sehr nützlicher Operator erweisen, der quasi eine andere Art der Ableitung darstellt als die Lie-Ableitung. Wichtige Eigenschaften sind dabei neben der Wohldefiniertheit auch, dass man für die Definition und Anwendung keine Zusatzstruktur braucht, man kann also einfach Ableiten (beim Integrieren wird das z.B. nicht der Fall sein). Letztendlich spielt $d$ eine große Rolle dabei, dass das \Def{Cartan'sche Differentialformenkalkül} eine so reichhaltige Theorie ist, die beispielsweise das Integrieren oder die Berechnung von topologischen Invarianten ermöglicht (bei letzterem wird $d^2 = 0$ wichtig) und das nun in Teilen vorgestellt werden soll.
+
+	\anm{ein Kalkül ist einfach ein formales System von Regeln, bei dem sich aus gegebenen (Rechen-)Regeln weitere Regeln/ Aussagen ableiten lassen.}
+
+
+\newpage
+
+
+	\section{Integration von Differentialformen}
+Zum Ende des letzten Abschnitts wurde gezeigt, wie Differentialformen abzuleiten sind und daher kann man sich fragen, ob sie auch integrierbar sind. Was dazu nötig ist, soll nun untersucht werden, zunächst braucht man ein wichtiges Hilfswerkzeug:
+\begin{defi}[Zerlegung der 1]
+Eine Familie von Funktionen $h_\alpha \in C^\infty(M), \, \alpha \in I$ mit
+\begin{itemize}
+\item[1.] $h_\alpha(x) \geq 0, \quad \forall x \in M, \alpha \in I$
+
+\item[2.] $\text{supp} \, h_\alpha = \overline{\qty{x \in M: \; h_\alpha(x) \neq 0}} \subset U_\alpha, \quad \forall \alpha \in I$
+
+\item[3.] Für jeden Punkt $x \in M$ existiert eine offene Umgebung $U \subset M$, sodass $\text{supp} \, h_\alpha \cap U \neq \emptyset$ nur für endlich viele $\alpha \in I$ gilt.
+
+\item[4.] $\displaystyle \sum_{\alpha \in I} h_\alpha(x) = 1, \quad \forall x \in M$
+\end{itemize}
+für Elemente $U_\alpha$ einer offenen Überdeckung $\displaystyle \bigcup_{\alpha \in I} U_\alpha = M$ heißt \Def{Zerlegung der 1}.
+\end{defi}
+Die Summe in Eigenschaft 4 läuft ja über eine beliebige Indexmenge $I$, die Konvergenz ist daher nicht unbedingt klar. Sie wird aber von Eigenschaft 3 garantiert, weil deshalb nur endlich viele Summanden ungleich null sind, man hat eine Art lokale Endlichkeit (wichtig, weil dadurch die Existenz in jedem Punkt aus $M$ und damit die Wohldefiniertheit gesichert sind). Man macht also im Endeffekt die Zerlegung der konstanten Funktion $1: M \rightarrow \mathbb{R}, \; p \mapsto 1$, indem sie in Indikatorfunktionen der Form $h_\alpha(p) = \begin{cases} c, & p \in U_\alpha \\ 0, & p \notin U_\alpha \end{cases}$ aufgeteilt wird (wähle hier $c \in \mathbb{R}$ so, dass die Summe eins wird). Das wird vor allem beim Vereinfachen von Ausdrücken helfen.
+
+
+\begin{satz}[Existenz einer Zerlegung der 1]
+Für jede offene Überdeckung $\displaystyle \bigcup_{\alpha \in I} U_\alpha = M$ existiert eine Zerlegung der 1.
+\end{satz}
+\begin{proof}
+Hier spielt die Existenz der Buckelfunktionen $b^p$ eine wichtige Rolle, auf kompakten Mannigfaltigkeiten ist das Ergebnis eine Zerlegung mithilfe von
+\begin{equation*}
+h_\alpha = \frac{1}{\sum_{l = 1}^n b^{p_l}} \sum_{\qty{l \in \qty{1, \dots, k}: \; \alpha = \alpha_{p_l}}} b^{p_l} \, .
+\end{equation*}
+Der allgemeine Beweis ist sehr topologisch und hier nicht wirklich relevant.
+\end{proof}
+
+Man kann also sagen, dass man sich hier alles so zusammenbastelt, wie man es gerne hätte und dann tatsächlich (durch cleveres Hinzunehmen gewisser Eigenschaften) die Existenz zeigen kann. Jedoch sind noch weitere Begriffe nötig (bzw.~es ist üblich, diese zu nutzen), bevor Integrationstheorie aufgezogen werden kann.
+
+Ein weiterer wichtiger Begriff wird dazu jedoch noch benötigt:
+\begin{defi}[Orientierbarkeit]
+Eine Mannigfaltigkeit $M$ der Dimension $n$ heißt \Def{orientierbar}, wenn eine $n$-Form $\omega \in \Omega^n(M)$ ohne Nullstellen existiert, also $0 \neq \omega_p \in \Lambda^n T_p^* M, \, \forall p \in M$. Eine $n$-Form $\omega$ mit dieser Eigenschaft heißt \Def{Volumenform}.
+
+Eine \Def[Orientierung]{Orientierung $o$} von $M$ ist eine Äquivalenzklasse solcher $n$-Formen, wobei
+\begin{equation}
+\omega \sim \eta \quad \Leftrightarrow \quad \omega = f \, \eta \, \text{ mit } \, f: M \rightarrow \mathbb{R}^{> 0}, \; f \in C^\infty(M) \, .
+\end{equation}
+Eine \Def{orientierte Mannigfaltigkeit} ist dann ein Tupel $(M, [\omega])$.
+\end{defi}
+Jede $n$-Form kann man wegen $\dim(\Lambda^n T_p^* M) = 1$ ja lokal schreiben als $\omega_U = f \, dx_1 \wedge \dots \wedge dx_n$ mit einer einzigen Funktion $f \in C^\infty(U)$ und mit dem Begriff der Orientierung kann man dieses $f$ für Volumenformen noch weiter einschränken. Weil ja $dx_1 \wedge \dots \wedge dx_n = \det$ ist (also $\omega = f \, \det$), erhält man für $\omega \sim \det$, dass $f: U \rightarrow \mathbb{R}^{> 0}$ und sonst $f: U \rightarrow \mathbb{R}^{< 0}$. Man erkennt damit direkt, dass auf einer orientierbaren Mannigfaltigkeit genau zwei Orientierungen $o_1, o_2$ existieren und dass man für einen Repräsentanten $\omega \in o_1$ sofort auch Repräsentanten von $o_2$ findet, z.B.~$-\omega \in o_2$.
+
+Punktweise sind die Elemente einer Orientierung also Vielfache voneinander, aber um welchen Faktor sie sich unterscheiden, kann von Punkt zu Punkt variieren.
+
+	\anm{man fordert dabei $> 0$, weil sonst die Nullform herauskommen könnte und die kann wegen $0 \cdot x = 0, \, \forall x \in \mathbb{R}$ nicht äquivalent zu einer Volumenform sein (Ziel/ Idee dabei ist also Vermeiden eines Widerspruchs).}
+
+
+%Determinantenform ist eine, die 1 annimmt auf ONB (vlt bestimmte gewählte gemeint, z.B. Standardbasis) -> Beispiel ist halt eben die Determinante auf der Standardbasis des $\mathbb{R}^n$, dort erhält man dann ja z.B. im Integral bei Auswertung in dieser Basis $(dx_1 \wedge dx_2 \wedge dx_3)(e_1, e_2, e_3) = 1 \cdot 1 \cdot 1 = 1$ und damit keinen Beitrag im Integral (wäre bei Auswertung in Kugelkoordinaten anders z.B.); Determinantenform ist n-Form mit det ungleich 0 (das auch eindeutig)
+
+
+
+\begin{bsp}[Orientierung einer Untermannigfaltigkeit]
+Für eine 2D-Untermannigfaltigkeit $M \subset \mathbb{R}^3$ und ein nicht-verschwindendes Normalenfeld $N: M \rightarrow \mathbb{R}^3$ ($0 \neq N(p) \notin T_p M, \, \forall p \in M$) ist $M$ orientierbar mittels
+\begin{equation}
+\omega = \det\qty(N, \cdot, \cdot) \, ,
+\end{equation}
+weil $N$ senkrecht auf $M$ steht und die Determinante nicht-degeneriert ist.
+\end{bsp}
+
+\begin{bsp}[Flussform]
+Volumenformen erlauben nun die im Ausblick angesprochene Messung von Flüssen gewisser (Vektor-)Felder 
+\begin{equation*}
+F: M \rightarrow T_p M, \; p \mapsto F(p)
+\end{equation*}
+durch Hyperflächen einer $n$-dimensionalen, orientierten Mannigfaltigkeit $M$. Das geschieht mit einer Volumenform $\mu \in \Omega^n(M)$ durch die \Def{Flussform}
+\begin{equation}
+\begin{split}
+\Omega^{n - 1}(M) \ni \mu^F&: T_p M \cross \dots \cross T_p M \rightarrow C^\infty(M; \mathbb{R}),  
+\\
+&(X_1, \dots,X_{n - 1}) \mapsto \mu(F, X_1, \dots, X_{n - 1}) \, .
+\end{split}
+\end{equation}
+Man erhält am Ende eine Funktion $\mu(F, X_1, \dots, X_{n - 1})$, die punktweise den Fluss von $F$ durch die von $X_1, \dots, X_{n - 1}$ aufgespannte Hyperfläche misst. Diese Messung hat beispielsweise in der Physik und dort ganz konkret der Elektrodynamik Relevanz, wo man Ladungsströme als Flüsse elektrischer Ladung untersucht.
+\end{bsp}
+
+Es gibt aber auch eine anschaulichere bzw. explizitere Sichtweise auf Orientierbarkeit:
+\begin{satz}[Orientierbarkeit V2]
+Eine Mannigfaltigkeit $M$ ist genau dann orientierbar, wenn ein Atlas $\mathcal{A} = \qty{(U_i, x_i): \; i \in I}$ existiert mit
+\begin{equation}
+\det\qty(D \qty(x_1 \circ x_2^{-1})): x_1(U_1 \cap U_2) \rightarrow \mathbb{R}^{> 0}
+\end{equation}
+und eine Orientierung ist durch die Wahl eines solchen Atlas eindeutig bestimmt.
+\end{satz}
+\begin{proof}
+erste Richtung: konstruieren uns aus Atlas einfach einen mit den gewünschten Eigenschaften (geht, weil halt maximal)
+
+zweite Richtung: betrachte mit $h_i$ als Zerlegung der 1 die Form $\omega = \sum_{i \in I} h_i \, dx_{i, 1} \wedge \dots \wedge dx_{i, n}$ -> die verschwindet nirgendwo und glatt, weil wir einfach endlich viele glatte Formen aufsummieren; zudem haben die Formen $dx_{i, j}$ überall das gleiche Vorzeichen (Voraussetzung an den Atlas, aus dem sie kommen) und daher addiert man nur nicht-negative Elemente; zudem ist nach Konstruktion gesichert, dass nicht alle $h_i$ verschwinden und man hat eine Volumenform
+\end{proof}
+
+Man fordert also, dass die Funktionaldeterminante des Basiswechsels positiv ist (ungleich 0 ist sie immer, weil es ein Diffeomorphismus ist). Man kann sich dann aber aus dem Wechsel der lokalen Darstellung in Gleichung \eqref{eq:nformwechsel} vorstellen, dass das äquivalent zur Gleichheit zweier Formen bis auf die positive Funktion $\det\qty(D \qty(x_1 \circ x_2^{-1}))$ ist.
+
+Eine (vermutlich mathematisch vielleicht nicht ganz korrekte) Merkregel dafür ist, dass hier das Differential (mit dem man ja Richtungen in verschiedenen Räumen in Beziehung setzen kann) mithilfe der Determinante \enquote{gemessen}, also auf eine reelle Zahl heruntergebrochen wird. Diese Zahl repräsentiert dann quasi die Matrix und damit, wie die Richtungen zusammenhängen. Weil die Richtungsänderung nicht zu stark sein soll (man möchte ja bildlich gesprochen kein Spiegeln, weil das die Orientierung im Raum ändern würde), muss diese Zahl eben größer als 0 sein.
+
+
+Weitere Notationen in diesem Zusammenhang sind:
+\begin{defi}[Übertragung Orientierung]
+Eine Karte $x: U \rightarrow \mathbb{R}^n$ auf $(M, [\omega])$ heißt \Def[orientierte Karte]{orientiert}, wenn
+\begin{equation}
+\exists f: U \rightarrow \mathbb{R}^{> 0}: \quad \omega_U = f \, dx_1 \wedge \dots \wedge dx_n \, .
+\end{equation}
+
+Eine Abbildung $f: (M, [\omega]) \rightarrow (N, [\eta])$ heißt für $\dim(M) = \dim(N)$ \Def[orientierungserhaltende Abbildung]{orientierungserhaltend}, wenn $f^* \eta \in [\omega]$, also $f^* \eta = h \, \omega$ für ein $h: U \rightarrow \mathbb{R}^{> 0}$.
+\end{defi}
+%? lieber $\qty[f^* \eta] = [\omega]$ schreiben ? brauchen maximalen Rang bei orientierungserhaltender wegen Rechnung die er gemacht hat, det taucht auf
+
+Dabei ist es klar, dass man beim Pullback das Vielfache einer beliebigen Form erhält, weil in der lokalen Darstellung ohnehin nur ein Summand vorkommt:
+\begin{equation}
+\omega = g_1 \, dx_1 \wedge \dots \wedge dx_n, f^*\eta = g_2 \, dx_1 \wedge dx_n \quad \Rightarrow \quad f^*\eta = h \, \omega \text{ mit } h = \frac{g_2}{g_1} \, .
+\end{equation}
+Das kann noch 0 sein, wird aber nicht singulär, weil $\omega \neq 0 \Rightarrow g_1(p) \neq 0, \, \forall p$. Jedoch kann hier noch nichts über die Positivität von $h$ ausgesagt werden (ist deshalb immer zu prüfen), für lineare Abbildungen erhält man aber immerhin $h(p) \neq 0, \, \forall p$, weil es sich bei $\eta$ um eine nicht-verschwindende $n$-Form handelt und lineare Abbildungen Kern auf Kern abbilden (Ergebnis kann nicht Nullform sein).
+
+
+\begin{bsp}[Einige Beispiele und Gegenbeispiele]
+Sphäre ist immer orientierbar
+
+jedes Tangentialbündel ist orientierbar (tatsächlich kann man dann durch Schreiben einer Menge als Tangentialbündel dann die Orientierbarkeit zeigen; Beispiel Zylinder $= T\mathbb{S}^1$ und sofort folgt Orientierbarkeit davon)
+
+Möbiusband (verklebe Rechteck quasi gedreht) ist nicht orientierbar
+
+$M$ ist immer orientierbar, wenn es ein triviales Tangentialbündel hat (? weil der $\mathbb{R}^n$ es ja ist ?), also insbesondere Lie-Gruppen
+
+
+Ausblick: können deRahm-Kohomologie nutzen, um Orientierbarkeit zu zeigen
+\end{bsp}
+
+Mit diesen Begriffen ist man nun in der Lage, Differentialformen $\omega \in \Omega^n(U)$ der Ordnung $n = \dim(M)$ auf einer Mannigfaltigkeit $M$ bzw.~offenen Teilmengen $U$ davon zu integrieren. Das \Def[Integral einer Differentialform]{Integral einer n-Form} $\omega$ ist dann definiert als
+\begin{equation}
+\int_U \omega = \int_U f \, dx_1 \wedge \dots \wedge dx_n := \int_U f \, dx_1 \dots dx_n = \int_U f \, d\lambda^n \, ,
+\end{equation}
+man integriert einfach die Funktion $f$ mithilfe des Lebesgue-Maßes $d\lambda^n$. Diese muss natürlich integrabel sein, was bei glatten Funktionen mit kompaktem Träger automatisch erfüllt ist (dieser Fall ist im Folgenden auch von der größten Relevanz).
+
+Rein logisch gesehen ergibt es dabei sehr viel Sinn, Differentialformen zu integrieren. Die grundlegende Idee bei der Integration ist ja so etwas wie das Zusammenzählen aller Punkte in einem Volumen und dafür muss man sich in einer gewissen Richtung durch dieses Volumen bewegen. Genau diese beiden Dinge sind aber die Argumente von Differentialformen und zusammen mit ihrer Basisinvarianz macht sie zu den richtigen Objekten für die Integration. Unter Anderem deswegen wurde auch die Notation/ das \enquote{Interface} beim neuen Hilfsmittel Differentialformen so gewählt, dass sie bestmöglich zur bereits vorher bestehenden Integrationstheorie passt (zumindest handelte es sich dabei um eine Teilmotivation, die duale Basis $dx_j$ ist ja tatsächlich als Richtungsableitung der Koordinatenfunktionen zu deuten).
+
+%? wenn die Funktion integrabel ist, nennt man die Differentialform auch so ? -> neee, eigentlich werden n-Formen allgemein als integrabel angenommen anscheinend (ist ja klar, dass man bei Integrationstheorie nur mit integrablen Sachen arbeitet)
+
+	\anm{man wird nun oft die Kompaktheit des Trägers fordern und da kommt natürlich die Frage auf, warum nicht einfach die Kompaktheit von $M$ gefordert wird? Das liegt daran, dass es viele Situationen gibt, in denen man über nicht-kompakten Mannigfaltigkeiten integrieren möchte, das beste Beispiel ist der $\mathbb{R}^n$ (der Träger bildet als kompakte Teilmenge von $M$ aber eine kompakte Mannigfaltigkeit).}
+
+\begin{bsp}[Integral einer Volumenform]
+Wie man anhand der Determinante in der Darstellung
+\begin{equation*}
+\det = 1 \, dx_1 \wedge \dots dx_n
+\end{equation*}
+sehen kann, heißt eine Volumenform so, weil
+\begin{equation}
+\int_M \det = \int_M 1 \, d\lambda^n = \text{vol}(M) \, .
+\end{equation}
+\end{bsp}
+
+Das Transformationsverhalten von Differentialformen ist nun schon bekannt und daher liegt das Übertragen der Transformationsformel vom $\mathbb{R}^n$ auf allgemeine $n$-dimensionale Mannigfaltigkeiten nahe:
+\begin{satz}[Transformationsformel]
+Für einen orientierungserhaltenden Diffeomorphismus $\varphi: V \rightarrow U$ zwischen offenen Mengen $V \subset \mathbb{R}^n, U \subset \mathbb{R}^n$ und $\omega \in \Omega^n(U)$ gilt:
+\begin{equation}
+\int_U \omega = \int_V \varphi^* \omega \, .
+\end{equation}
+\end{satz}
+\begin{proof}
+Das folgt im Wesentlichen aus der Transformationsformel auf dem $\mathbb{R}^n$:
+\begin{align*}
+\varphi^* \omega &= f \circ \varphi \, d\qty(x_1 \circ \varphi) \wedge \dots \wedge d\qty(x_n \circ \varphi) = f \circ \varphi \, \det\qty(D\varphi) \, dy_1 \wedge \dots \wedge dy_n
+\\
+\Rightarrow \quad \int_ U \omega &= \int_U f \, d\lambda^n = \int_{\varphi(V)} f \, d\lambda^n = \int_V f \circ \varphi \, \abs{\det(D\varphi)} \, d\lambda^n = \int_V \varphi^* \omega \, .
+\end{align*}
+mit den Standardkoordinaten $y_1, \dots, y_n$ auf $V$.
+\end{proof}
+
+Man weiß nun also, was bei einem Wechsel der Definitionsbereiche/ Kartengebiete passiert. Interessant ist dabei, wie man im Beweis sieht, dass das Ganze nur wegen der festgelegten Orientierung so klappt. Nur dann ist nämlich $\abs{\det(D\varphi)} = \det(D\varphi)$ nach Forderung bei gleichorientierten Karten (man hat $y = \varphi \circ x \, \Rightarrow \, y \circ x^{-1} = \varphi$). Tatsächlich ist es so, dass man die Orientierbarkeit fordert, damit man in der Transformationsformel nicht mit den Vorzeichen aufpassen muss, die bei einem Koordinatenwechsel auftreten. Das ist sinnvoll, weil so das Wechseln von Koordinaten deutlich einfacher ist und das erleichtert beispielsweise die Überprüfung der Koordinatenunabhängigkeit (dass man die schöne Form mit dem Pullback bekommt, ist lediglich ein netter Nebeneffekt). Wäre dies nicht der Fall, würde man manche Beiträge addieren und andere subtrahieren (obwohl nach der Idee des Riemann-Integrals eigentlich alle addiert werden müssten), man hätte also bei der Definition eines Maßes das Problem, eine feste Richtung beizubehalten oder anders gesagt, die Orientierung zu behalten (daher da $\abs{\det(D\varphi)}$).
+
+
+Schaut man sich nun an, dass bei einem Basiswechsel mittels $\varphi: V \rightarrow U$ ja
+\begin{equation*}
+\int_U f(x_1, \dots, x_n) \, d\lambda^n = \int_U \omega = \int_V \varphi^* \omega = \int_V g(y_1, \dots, y_n) \, d\lambda^n
+\end{equation*}
+gilt, so kann man als Merkregel Folgendes festhalten: für die Integration einer Differentialform $\omega$ über ein gewisses Gebiet $U$ muss man einfach nur das Gebiet mit geeigneten Koordinaten $x_j$ parametrisieren, die Form lokal in diesen $x_j$ ausdrücken und dann die Koeffizientenfunktion $f$ aus diesem Ausdruck $\omega = f \, dx_1 \wedge \dots \wedge dx_n$ integrieren. In anderen Koordinaten $y_j$ hat das dann die Form $\omega = g \, dy_1 \wedge \dots \wedge dy_n$, aber dort kann man eigentlich genau das Gleiche machen, nämlich $g$ integrieren (lediglich das Integrationsgebiet $U$ muss an die Parametrisierung angepasst werden).
+
+Es wird also nur der Teil von $\omega$ vor den Dachprodukten über das parametrisierte Gebiet integriert. Man mag sich nun fragen, wo überhaupt der Unterschied zur Integration von Funktionen ist, man nimmt hier doch schließlich auch Funktionen?! Das ist relativ einfach erklärt, es ist nämlich im Allgemeinen
+\begin{equation}
+\int_U f(x_1, \dots, x_n) \, d\lambda^n \neq \int_{\varphi^{-1}(U)} \qty(f \circ \varphi)(y_1, \dots, y_n) \, d\lambda^n = \int_V \tilde{f}(y_1, \dots, y_n) \, d\lambda^n \, ,
+\end{equation}
+das Integral ändert sich bei Koordinatenwechseln und ist daher keine wohldefinierte Größe (woher sollte man denn wissen, welche Basis die \enquote{richtige} ist, welches Ergebnis also stimmt?). Bei Differentialformen hat man den Vorteil, dass nach Kartenwechseln die Koeffizientenfunktion nicht nur die umparametrisierte Funktion $f \circ \varphi$ ist, sondern $\tilde{f} = \det(D\varphi) f \circ \varphi$ gilt - man kriegt die Jacobi-Determinante herein, deren Notwendigkeit die Transformationsformel bereits zeigte. Diese korrigiert die Verzerrung des Volumenelements beim Basiswechsel von $x_j$ zu $y_j$ und ist daher ein notwendiger Faktor, der mit aufintegriert werden muss, damit die Ergebnisse in den beiden Koordinaten übereinstimmen.
+
+	\anm{zuvor wurde dieser Zusatzterm bei Substitutionen darüber erklärt, dass er aus de $d$-Termen hinter der Funktion kommt, was sich beim Vergleich mit $dy_1 \wedge \dots \wedge dy_n = \det(D(x \circ y^{-1})) \, dx_1 \wedge \dots \wedge dx_n$ sogar als richtige Erklärung herausstellt ! Im Prinzip ist es also Interpretationssache, ob man die Koeffizientenfunktion vor das allgemeine Lebesgue-Maß $d\lambda^n$ des jeweiligen Gebiets (das ist nicht immer gleich, auf $U$ gilt $d\lambda^n = dx_1 \dots dx_n$ und auf $V$ gilt $d\lambda^n = dy_1 \dots dy_n$) schreibt oder einfach den Korrekturfaktor $\det(D(x \circ y^{-1}))$ aus dem Maß berücksichtigt.}
+
+% kann man den Shit nicht auch irgendwie so verargumentieren, dass man da Vektoren in das Dachprodukt hinten einsetzt in eine feste Darstellung und je nach Art der Vektoren ($\equiv$ Wahl der Basis) kriegt man da entweder das Kronecker-Delta raus (dann integriert man nur die Funktion) oder halt was anderes, das am besten nach Basiswechsel in die zu den Vektoren gehörige duale Basis auszuwerten ist und wo dann die Jacobi-Determinante reinkommt (Vektoren müssen Basis sein, weil sonst Auswertung im Dachprodukt 0 gibt, wenn zwei linear abhängig sind)
+
+
+Es ist dann üblich, eine Orientierung vorzugeben, im $\mathbb{R}^n$ meist die durch die Standardbasis $e_1, \dots, e_n$ induzierte \Def{Standardorientierung}. Diese wird gegeben durch $\qty[\det] = \qty[dx_1 \wedge \dots \wedge dx_n]$ und ist eindeutig, weil man hier ja nur die zu $e_1, \dots, e_n$ duale Basis benutzt. Repräsentanten dieser Äquivalenzklasse heißen auch \Def{positiv orientiert} und wenn man durch Basen induzierte Formen betrachtet, so nennt man diese Basen auch positiv orientiert (zum Beispiel ist für $n = 3$ die Basis $e_3, e_1, e_2$ positiv orientiert, aber $e_1, e_3, e_2$ nicht, weil $e_1 \wedge e_2 \wedge e_3 = - e_1 \wedge e_3 \wedge e_2 = e_3 \wedge e_1 \wedge e_2$). Eine nützliche Eigenschaft für jede positiv orientierte Volumenformen $\text{vol}$ ist $\int_M \text{vol} > 0$.\\
+
+
+Für eine einfachere Rechnung konstruiert man nun eine besondere Zerlegung der 1 und nutzt dazu $M = \qty(M \backslash K) \cup \qty(\bigcup_{l = 1}^k U_l)$ für $K \subset M$ kompakt mit endlicher Überdeckung $K \subset \bigcup_{l = 1}^k U_l$ (existiert nach Definition von Kompaktheit). Dann kann man $1 = h_0 + \sum_{l = 1}^k h_l$ schreiben, wobei $h_0$ kompakten Träger in $M \backslash K$ hat und die $h_l$ kompakten Träger in $U_l$, sodass das Produkt Träger $\text{supp}(h_l \omega) \subset U_l \cap K$ hat (nur dort sind beide gleichzeitig ungleich null und damit das Produkt). Das wird nun spannend, wenn man den Träger einer Differentialform $\omega \in \Omega^n(M)$ für dieses $K$ und die $U_l$ als Kartengebiete orientierungserhaltender Karten $x_l: U_l \rightarrow \mathbb{R}^n$ einsetzt:
+\begin{cor}[Berechnung eines Integrals]\label{cor:diffintberprakt}
+Für $\omega \in \Omega^n(M)$ mit kompaktem Träger und positiv orientierte Karten $x_l: U_l \rightarrow \mathbb{R}^n$ mit der zugehörigen Zerlegung der 1, $\displaystyle h_0 + \sum_{l = 1}^k h_l$, ist
+\begin{equation}
+\int_M \omega = \sum_{l = 1}^k \int_{x_l(U_l)} \qty(\qty(x^l)^{-1})^* \qty(h_l \omega)
+\end{equation}
+wohldefiniert.
+\end{cor}
+Die Wohldefiniertheit folgt aus Linearität zusammen mit der Transformationsformel und bedeutet hier Unabhängigkeit von den Karten $x_l$ und Kartengebieten $U_l$. Sie kann jedoch nicht auf die Orientierung übertragen werden (die Karten müssen ja sogar extra orientierungserhaltend gewählt werden, daher auch nicht erwartbars).
+
+Das Ganze kann sogar als alternative Definition des Integrals einer Differentialform gesehen werden, zu der hier dann die Äquivalenz mit der ersten gezeigt wurde. Diese ist sehr praktisch, weil sie das lokale Rechnen auf dem $\mathbb{R}^n$ erlaubt ($\equiv$ Riemann-Integral, wird möglich wegen des Pullbacks mit den inversen Karten $\qty(x_l)^{-1}: \mathbb{R}^n \rightarrow U_l$), aber tatsächlich ist sogar noch eine weiter Vereinfachung möglich. Dazu muss aber erst ein wichtiger Begriff aus der Maßtheorie übertragen werden:
+\begin{defi}[Nullmenge]
+Eine Teilmenge $A \subset M$ heißt \Def{Nullmenge}, wenn für alle Karten $x: U \rightarrow \mathbb{R}^n$ das Koordinatengebiet $x\qty(U \cap A) \subset \mathbb{R}^n$ eine Nullmenge im Sinne der Maßtheorie ist.
+\end{defi}
+	\anm{es übertragen sich damit wichtige Erkenntnisse aus der Maßtheorie, beispielsweise sind offene Teilmengen keine Nullmengen, Untervektorräume $N$ mit $\dim(N) < \dim(M)$ hingegen immer (insbesondere Untermannigfaltigkeiten!).}
+
+Wieder nutzt man hier also, dass im $\mathbb{R}^n$ mit der Maßtheorie ein solcher Begriff existiert (dort geht es um das Verschwinden des Integrals allgemeiner stetiger Funktionen) und überträgt das einfach, indem man es für alle Karten fordert (so vermeidet man sofort Probleme mit der Wohldefiniertheit). Natürlich müssen aber letztendlich nicht wirklich alle Karten betrachtet werden (das wäre schwierig), sondern nur so viele, dass man die zugehörigen Kartengebiete ganz $M$ überdecken (der Rest folgt dann mit Kartenwechseln und weil Diffeomorphismen nach der Transformationsformel Nullmengen auf Nullmengen abbilden). Damit kann man nun zeigen:
+\begin{cor}[Berechnung eines Integrals V2]
+Für eine orientierte Karte $x: U \rightarrow \mathbb{R}^n$ mit $M \backslash U$ als Nullmenge sowie $\omega \in \Omega^n(M)$ mit kompaktem Träger gilt:
+\begin{equation}\label{eq:intvereinf}
+\int_M \omega = \int_{x(U)} \qty(x^{-1})^* \omega \, .
+\end{equation}
+\end{cor}
+Anschaulich gesagt muss das Kartengebiet also einfach groß genug sein, um die Mannigfaltigkeit bis auf Nullmengen zu überdecken. Die Idee ist dabei einfach, dass bei geeigneter Zerteilung von $M$ die Integralterme über die Nullmengen verschwinden (per Definition dieser). Im Endeffekt kann man deshalb bei gut gewählten Karten den Aufwand zur Berechnung des Integrals über $M$ verringern auf Integration über die Menge $x(U) \subset \mathbb{R}^n$ und man benötigt auch nur diese eine Karte (deren Existenz auch für jede Mannigfaltigkeit gezeigt werden kann).
+
+Letztendlich ist das Ergebnis sogar sehr intuitiv und besagt einfach, dass man für das Integral einer Differentialform über eine Mannigfaltigkeit auch einfach das Integral über die gepullte Differentialform in Koordinaten berechnen kann. Das war bereits die Aussage von Korollar \ref{cor:diffintberprakt}, nur dass sie dort noch nicht so gut erkennbar war (man brauchte dort ja noch mehrere Mengen $U_l$ zur Überdeckung von $M$, deshalb mehrere Karten $x_l$ und es musste jeweils $h_l \omega$ integriert werden, um doppelte Beiträge durch Überschneiden von Definitionsbereichen zu vermeiden).
+
+Dieses Lemma wird noch an einem Beispiel erläutert:
+\begin{bsp}[Integration auf der Sphäre]
+Man betrachte nun die 2-Form $\omega = \frac{y}{x^2 + y^2} \, dx + \frac{x}{x^2 + y^2} \, dy \in \Omega^1(S^1)$ auf der zweidimensionalen Untermannigfaltigkeit $S^1 \subset M$ und dazu die Karte $x: S^1 \backslash\qty{(-1, 0)} \rightarrow ]-\pi, \pi[$ mit $x^{-1}(\varphi) = (\cos(\varphi), \sin(\varphi))$ (man wählt diese ungewöhnlichen Bereiche aus mehreren Gründen: wegen der Periodizität nimmt man statt $[-\pi, \pi]$ zunächst $[-\pi, \pi)$ und dann geht man auf $(-\pi, \pi) = ]-\pi, \pi[$, weil die Sphäre kompakt ist und man offene Mengen braucht). Für diese kann man berechnen:
+\begin{align}
+\qty(x^{-1})^* \omega &= -\frac{\sin(\varphi)}{\cos(\varphi)^2 + \sin(\varphi)^2} \, d(\cos(\varphi)) + \frac{\cos(\varphi)}{\cos(\varphi)^2 + \sin(\varphi)^2} \, d(\sin(\varphi)) 
+\notag\\
+&= - \sin(\varphi) \, \qty(- \sin(\varphi) \, d\varphi) + \cos(\varphi) \, \qty(\cos(\varphi) \, d\varphi)
+\notag\\
+&= d\varphi
+\end{align}
+auf dem Intervall $]-\pi, \pi[$ mit der Koordinate $\varphi$ auf $S^1$. Daraus folgt direkt
+\begin{equation}
+\int_{S^1} \omega = \int_{]-\pi, \pi[} d\varphi = 2\pi \, .
+\end{equation}
+Man nutzt einfach \eqref{eq:intvereinf} und dass Herausnehmen des Punkts $-\pi$ bzw.~$(-1, 0)$ nichts am Integral ändert.% Im Prinzip ist es dann sogar lediglich eine Anwendung der Transformationsformel.
+\end{bsp}
+
+
+\newpage
+
+
+	\section{Satz von Stokes}
+Die Integration von Differentialformen ist unter Anderem so beliebt, weil dafür auf Mannigfaltigkeiten der fundamentale Satz von Stokes existiert. Um diesen verstehen und beweisen zu können, sind noch einige Definitionen und Erweiterungen nötig.
+
+
+Zuerst muss man Mannigfaltigkeiten eine gewisse (optionale) Zusatzstruktur geben, die in Analogie zu topologischen Begriffen als Rand bezeichnet wird. Bisher wurde ja in Definitionen fast ausschließlich mit offenen Mengen gearbeitet, nun werden auch abgeschlossene zugelassen. Man wird dann auch auf abgeschlossene/ berandete Mengen im $\mathbb{R}^n$ abbilden und ein wichtiges Modell dafür sind die \Def[Halbraum]{Halbräume}
+\begin{equation}
+\mathbb{H}^n = \qty{(x_1, \dots, x_n) \in \mathbb{R}^n: \; x_1 \leq 0} \, .
+\end{equation}
+Das $\leq$ erzeugt hier einen Rand, weil man bei \enquote{Weitergehen} in gewisse Rechnungen direkt aus der Menge herausgeht (nicht wie bei offenen Mengen, wo eine kleine Umgebung immer noch in der Menge liegt). Auf dieser Basis definiert man:
+
+\begin{defi}[Mannigfaltigkeit mit Rand]
+Ein topologischer Raum $M$, der hausdorffsch und zweitabzählbar ist, heißt \Def[Mannigfaltigkeit! mit Rand]{berandete Mannigfaltigkeit}, wenn ein $\partial M \subset M$ abgeschlossen existiert mit:
+\begin{itemize}
+\item die offene Menge $\overset{\circ}{M} = M \backslash \partial M$ ist eine Mannigfaltigkeit
+
+\item für alle $p \in \partial M$ existieren $U_p \subset M, V_p \subset \mathbb{H}^n$ offen und Homöomorphismen $x: U_p \rightarrow V_p$ (die \Def{Randkarten}), sodass die Übergänge zwischen zwei beliebigen Randkarten genau wie der Übergang einer Randkarte zu einer Karte von $M$ Diffeomorphismen sind und weiter gilt:
+\begin{equation}\label{eq:fordrand}
+x(p) \in \partial\mathbb{H}^n = \qty{(x_1, \dots, x_n) \in \mathbb{R}^n: \; x_1 = 0} \quad \Leftrightarrow \quad p \in \partial M \, .
+\end{equation}
+\end{itemize}
+
+Man nennt $\partial M$ \Def[Rand! einer Mannigfaltigkeit]{Rand von $M$}, Punkte $p \in \partial M$ \Def[Rand! -punkt]{Randpunkte}, $\overset{\circ}{M}$ \Def[Inneres einer Mannigfaltigkeit]{Inneres von $M$}.
+\end{defi}
+
+Man kann also sagen, dass man hier eine ganz \enquote{normale} Mannigfaltigkeit $\overset{\circ}{M}$ nimmt (erste Forderung) und diese dann noch etwas fortsetzt. Dieses Fortsetzen kann man sich wie ein Herankleben von etwas mehr Mannigfaltigkeit vorstellen und wird bei der Betrachtung in Karten noch etwas klarer: dort nimmt man zum Koordinatengebiet $\mathbb{R}^{ > 0} = \qty{(x_1, \dots, x_n) \in \mathbb{R}^n: \; x_1 > 0}$ der Mannigfaltigkeit $\overset{\circ}{M}$ noch die Hyperfläche $\qty{(x_1, \dots, x_n) \in \mathbb{R}^n: \; x_1 = 0}$ dazu (diese Vorstellung taugt aber auch im Kartengebiet auf der Mannigfaltigkeit, weil $\mathbb{R}^{ > 0}$ als offene Teilmenge des $\mathbb{R}^n$ selber eine ist).
+
+	\anm{? natürlich sind Randmengen offen bezüglich der Teilraumtopologie von $\mathbb{H}^n$, das abgeschlossen bezieht sich auf die Standardtopologie des $\mathbb{R}^n$. ?}
+
+Die anderen Forderungen entsprechen dann eigentlich genau dem, was man bei Mannigfaltigkeiten vorher auch hatte (weil man insgesamt eine Mannigfaltigkeit haben möchte, müssen sich halt auch Randkarten mit normalen vertragen), bis auf \eqref{eq:fordrand}. Dort steht aber einfach nur, dass Randpunkte auf Randpunkte abgebildet werden sollen und das ist auch sehr sinnvoll, weil die Karten als Homöomorphismen ja die topologischen Eigenschaften übertragen und der Rand eben besondere Eigenschaften hat (ist abgeschlossen im $\mathbb{R}^n$, Unterschied zu offen bereits beschrieben).
+
+	\anm{beim Übergang zwischen Randkarten und normalen bildet man in offene Mengen des $\mathbb{R}^n$ ab und nicht aus $\mathbb{H}^n$, weil durch das Schneiden der Definitionsbereiche alle Randpunkte herausfallen.}
+
+
+Ein anderes, wichtiges Beispiel, das bei der Vorstellung helfen sollte, sind \enquote{normale} Mannigfaltigkeiten, von denen ein Stück abgeschnitten wurde:
+\begin{bsp}[Untermannigfaltigkeit mit Rand]\label{bsp:mfmitrandbsp}
+Für eine $n$-dimensionale Mannigfaltigkeit $N$ und eine abgeschlossene (bezüglich der induzierten Topologie, also definiert über offenes Komplement), $n - 1$-dimensionale Untermannigfaltigkeit $A \subset N$ sollen nun folgende Annahmen gelten: $N$ sei zusammenhängend und $N \backslash A$ habe genau zwei Zusammenhangskomponenten $N_1, N_2$.
+
+Dann ist $M = A \cup N_1$ eine berandete Mannigfaltigkeit mit Rand $\partial M = A$ und Innerem $\overset{\circ}{M} = N_1$ (damit ist $N_2 = N \backslash M $). Die topologischen Eigenschaften sind sofort klar (folgen daraus, wie man die Mengen wählt) und das Innere ist als offene Teilmenge von $N$ sofort eine Mannigfaltigkeit. Wichtig sind nun die Randkarten, die erhält man aus der Untermannigfaltigkeitenstruktur, die die Existenz von Plattmachern $\Phi: U \rightarrow \mathbb{R}^n$ ($U \subset N$ offen) garantiert und diese erfüllen:
+\begin{equation}
+\Phi(A \cap U) = \Phi(U) \cap  \qty{(x_1, \dots, x_n) \in \mathbb{R}^n: \; x_1 = 0} \, ,
+\end{equation}
+weil $A$ ja gerade eine Hyperfläche ist und daher nur eine Koordinaten 0 wird beim Plattmachen (die zweite Menge ist offensichtlich $\partial \mathbb{H}^n$). Dann erhält man oBdA (im anderen Fall kann einfach mit $-1$ multipliziert, quasi gespiegelt werden)
+\begin{equation}
+\Phi(N_1 \cap U) = \Phi(U) \cap \qty{(x_1, \dots, x_n) \in \mathbb{R}^n: \; x_1 < 0}
+\end{equation}
+und weil man um jeden Punkt $p \in A$ solche Plattmacher findet, taugen diese bereits als Randkarten und man ist fertig.
+\end{bsp}
+
+%\begin{bsp}
+%er macht dann auch analoges Beispiel (nimm wieder MF $N$ und abgeschlossene UMF $A$), aber mit Annahme $N$ zusammenhängend und $N \backslash A$ zusammenhängend; dann kann man nämlich bei $N \backslash A$ (hat nun zwei Ränder) an zwei Stellen die Menge $A$ wieder ankleben und das ergibt wieder Mannigfaltigkeit mit Rand (nur dass wir zweimal rangeklebt haben)
+%\end{bsp}
+
+Der Rand trägt auch allgemeiner eine natürliche Untermannigfaltigkeitenstruktur (also insbesondere eine Mannigfaltigkeit, aber ohne Rand, $\partial \qty(\partial M) = \emptyset$), wie man sich sehr leicht überlegen kann: nimmt man eine Randkarte $x: U_p \rightarrow \mathbb{H}^n$ und schränkt diese auf den Rand zu $x_{\partial M}: U_p \cap \qty(\partial M) \rightarrow \partial\mathbb{H}^n$ ein, dann hat man bereits einen Plattmacher gefunden, weil ja $x_1(p) = 0, \, \forall p \in \partial\mathbb{H}^n$. Durch Herausprojizieren der ersten Komponente erhält man dann die induzierten Karten für den Rand, der damit eine $n - 1$-dimensionale Untermannigfaltigkeit von $M$ (Hyperfläche) bildet.\\
+
+
+Weil nun alles so analog formuliert wurde, übertragen sich wichtige Begriffe wie Maximaler Atlas, glatte Abbildungen, Tangentialvektoren, Bündel, Tensoren, Integral, Orientierung zusammen mit den dazu relevanten Sätzen genau auf berandete Mannigfaltigkeiten und man kann hier direkt mit neuer Theorie weitermachen.
+
+Beim Satz von Stokes wird im Endeffekt auch über den Rand integriert werden, aber dazu braucht dieser noch eine Orientierung ! Bequem wäre es dabei, wenn diese direkt von der Orientierung der zugrunde liegenden Mannigfaltigkeit induziert werden würde (der Rand ist ja eine Hyperfläche davon), weil man sich dann Arbeit sparen könnte. Das ist tatsächlich möglich, erfordert aber die folgende Definition:
+
+\begin{defi}[Normalenfeld]
+Ein Vektorfeld $N \in \mathcal{X}(M)$ heißt \Def[Normalenfeld]{Normalenfeld längs des Randes}, wenn
+\begin{equation}
+N_p \notin T_p \partial M, \quad \forall p \in \partial M \, .
+\end{equation}
+
+%Ein Normalenvektorfeld $N$ heißt \Def{nach außen gerichtet}, wenn $D_p x_1(N_p) > 0$ und \Def{nach innen gerichtet}, wenn $D_p x_1(N_p) < 0$ jeweils für jede Randkarte $x = (x_1, \dots, x_n): U \rightarrow \mathbb{H}^n$ sowie alle Punkte $p \in \partial M \cap U$ erfüllt ist.
+Ein Normalenvektorfeld $N$ heißt 
+\begin{equation}
+\begin{cases} \text{\Def{nach außen gerichtet}}, \text{ wenn} & D_p x_1(N_p) > 0 \\ \text{\Def{nach innen gerichtet}}, \text{ wenn} & D_p x_1(N_p) < 0 \end{cases}
+\end{equation}
+für jede Randkarte $x = (x_1, \dots, x_n): U \rightarrow \mathbb{H}^n$ sowie alle Punkte $p \in \partial M \cap U$.
+\end{defi}
+? müssen vlt zusammenhängend fordern ?
+
+Man kann sich nun leicht vorstellen, dass auf dem Rand ja $x_1 = 0$ galt und daher für ein Normalenfeld (das eben nicht tangential am Rand liegen soll) $x_1 \neq 0$ gelten muss (dann bleibt nur größer oder kleiner als 0). -> hää, $x_1$ soll ja null sein da auf dem Rand, aber die Ableitung zeigt halt entweder nach außen oder nach innen (weil tangential ausgeschlossen); geht dann darum, dass man schaut, wohin das Vektorfeld am Rand zeigt (indem man die Richtung in einem Randpunkt untersucht) und diese Vorstellung stimmt, weil der Rand ja mit der Hyperebene des $\mathbb{H}^n$ identifiziert wird, wo $x_1 = 0$ und dann schaut man sich an, wohin das Vektorfeld in $x_1$-Richtung zeigt (in 2D wäre diese Hyperebene gleich der $x_2 = $y-Achse und das Normalenfeld hat dann entweder eine Komponente, die in positive x-Richtung zeigt oder in negative; anschauliche Deutung passt also wegen Kartendarstellung, in der das echt so ist)
+
+
+Die dann geforderte Bedingung kann lokal noch weiter ausformuliert werden, indem die Darstellung $N_p = \sum_{i = 1}^n \lambda_i(p) \eval{\pdv{x_i}}_p$ des Normalenfelds in der Randkarte $x = (x_1, \dots, x_n): U \rightarrow \mathbb{H}^n$ genutzt wird:
+\begin{equation}
+D_p x_1(N_p) = d_p x_1(N_p) = N_p \cdot x_1 = \sum_{i = 1}^n \lambda_i(p) \eval{\pdv{x_1}{x_i}}_p = \sum_{i = 1}^n \lambda_i(p) \, \delta_{1 i} = \lambda_1(p)
+\end{equation}
+und damit heißt $N_p$ $\begin{cases} \text{nach außen gerichtet}, \text{ wenn} & \lambda_1(p) > 0 \\ \text{nach innen gerichtet}, \text{ wenn} & \lambda_1(p) < 0 \end{cases}$.%nach außen bzw. innen gerichtet für $\lambda_1(p) > 0$ bzw. $\lambda_1(p) < 0$.
+
+Im Allgemeinen muss man jedoch sagen, dass der Begriff eines Normalenfelds auf einer Mannigfaltigkeit schwer zu fassen ist, weil (zumindest noch) keine Metrik/ Skalarprodukt vorliegt (und weil die Mannigfaltigkeit am Rand ja eigentlich \enquote{aufhört}). Trotzdem kann man sich das Ganze recht anschaulich vorstellen:
+
+\begin{bsp}[Untermannigfaltigkeit mit Rand 2]
+In Beispiel \ref{bsp:mfmitrandbsp} kann man sich das noch plastischer/ geometrischer vorstellen, sei dazu $X \in \mathcal{X}(M)$ ein Normalenfeld (also $X_p \notin T_p \partial A, \, \forall p \in \partial A$). Betrachtet man dann die zu $X$ gehörigen Integralkurven $\gamma_p$ durch $p \in A$, so kann man folgende Klassifizierung treffen: $X$ ist nach außen gerichtet, wenn $\gamma_p(t) \in N \backslash M$ (mach erinnere sich: die Kurve gibt einem Punkte in der Mannigfaltigkeit für jedes $t$ !) und nach innen gerichtet, wenn $\gamma_p(t) \in N_1$, wobei man jeweils kleine Zeiten $t > 0$ betrachtet (kann beliebig klein werden, weil man aus dem Rand als abgeschlossene Menge ja sofort wieder herauskommt; es gibt dort keine Umgebungen, die noch drin liegen, wie es bei offenen Mengen der Fall war).
+
+Anschaulich bedeutet das: die nach außen gerichtete Kurve läuft aus der Mannigfaltigkeit heraus, die nach innen gerichtete geht in das Innere hinein (von diesem Startpunkt $p$ auf dem Rand aus gesehen). Es ist hier übrigens sogar klar/ definiert, was \enquote{Herauslaufen} bedeutet, die Kurve geht dann in die umliegende Mannigfaltigkeit $N$ hinein, in der $M$ ja liegt.
+\end{bsp}
+
+In diesem Beispiel ist also klar, was der Begriff \enquote{nach außen gerichtet} auf dem Rand einer Mannigfaltigkeit bedeutet (wegen der Einbettung), aber das ist natürlich nicht allgemeingültig. Dort ist die Idee, die spezielle Form der Randkarten zu nutzen, die ja in den oberen Halbraum $\mathbb{H}^n$ abbilden und der ist ja nicht \enquote{zu Ende} bei $x_1 = 0$. Deshalb kann man Koordinatengebiete o.Ä. dort mittels Verkleben durch Diffeomorphismen immer ein kleines Stück fortsetzen (bei kompaktem Rand, wieder ist natürlich die Endlichkeit wichtig) und analog für einen Fluss. Das betrachtete Normalenfeld $N$ besitzt ja ebenfalls einen solchen und dieser ermöglicht eine recht einfache Klassifizierung der fraglichen Begriffe: existiert er für $\epsilon$ klein im Intervall $[0, \epsilon)$, so ist $N$ nach außen gerichtet, und bei Existenz im Intervall $(-\epsilon, 0]$ ist es nach innen gerichtet. Man schaut sich also an, wohin das Normalenfeld sich bewegt, wohin es fließt und daher ist innen/außen hier auch tatsächlich sehr geometrisch zu verstehen!
+
+
+Das Ganze ist eine gute/ sinnvolle und nützliche Definition, weil man zeigen kann:
+\begin{lemma}[Existenz eines Normalenfelds]
+Für jede berandete Mannigfaltigkeit $M$ existiert ein nach außen gerichtetes Normalenvektorfeld $N \in \mathcal{X}(M)$.
+\end{lemma}
+\begin{proof}
+Überdecke zunächst $\partial M = \bigcup_{i \in I} U_i$ mit $U_0 = M \backslash \partial M$ (offen, weil Rand abgeschlossen) und für die restlichen $i$ mit $U_i$ als Kartengebiert der Randkarte $x_i: U_i \rightarrow \mathbb{H}^n$. Dazu gehört dann eine Zerlegung der 1, $1 = h_0 + \sum_i h_i$ und damit kann man das Vektorfeld $N = \sum_i h_i \pdv{x_{i, 1}}$ konstruieren, das immer nach außen zeigt (man nimmt ja nur die Gauß'schen Vektorfelder der ersten Komponenten aller Karten, die das per Definition erfüllen) und zudem nirgendwo verschwindet, weil die Summe über die Koeffizienten 1 ergibt.
+\end{proof}
+
+	\anm{allgemeiner sind kompakte Hyperflächen im $\mathbb{R}^n$ immer orientierbar (man kann da oft einen Normalenvektor konstruieren durch Ausnutzen des Skalarprodukts auf dem $\mathbb{R}^n$, indem man an jedem Punkt den Tangentialraum betrachtet); können dann iwie immer schreiben $\omega = i_N \det_{\mathbb{R}^{n + 1}}$ mit Determinantenform $\det$ (lol, das wurde für 2D-UMF bereits in einem Beispiel gemacht) und das gibt für $N \notin T_p \partial M, \, \forall p \in \partial M$ immer einen Repräsentanten der Orientierung ($N$ muss aber nicht senkrecht stehen, soll halt einfach nur nicht tangential sein)}
+
+
+Diese Definition, die einem ja im Prinzip einen mit dem Rand verbundenen Richtungsbegriff gibt, ermöglicht nun das Finden einer natürlichen Orientierung:
+\begin{defi}[Randorientierung]
+Für eine orientierbare, berandete Mannigfaltigkeit $(M, [\omega])$ trägt der Rand $\partial M$ eine natürliche, induzierte \Def{Randorientierung}, nämlich
+\begin{equation}
+\qty(i_N \omega)_{\partial M} \in \Omega^{n - 1}(\partial M)
+\end{equation}
+mit $N \in \mathcal{X}(M)$ als nach außen gerichtetem Normalenfeld.
+\end{defi}
+Dass das nicht verschwindet, ist nun klar, weil $N$ nach außen gerichtet ist (hier ist die Existenz und daher das vorherige Lemma wichtig) und $\omega$ ja selber nicht verschwindet (man schränkt im Prinzip $\omega$ ein auf den Rand und weil dieser Dimension $n-1 < n$ hat, muss man dazu ein festes, geeignetes Vektorfeld $\equiv \notin T_p \partial M$ einsetzen, damit $\omega \neq 0$).\\
+
+
+
+Mit dieser Vorbereitung kann man nun den wesentlichen Satz zur Integration von Differentialformen zeigen, den berühmten Satz von Stokes. Dieser verbindet mathematische Eleganz und Schönheit mit großem Nutzen und wird sehr häufig in verschiedensten Gebieten der Mathematik und Physik verwendet.
+
+\begin{satz}[Stokes]
+Für eine $n$-dimensionale, orientierte Mannigfaltigkeit $M$ mit Rand $\partial M$ und $\omega \in \Omega^{n - 1}(M)$ mit kompaktem Träger gilt
+\begin{equation}
+\int_M d\omega = \int_{\partial M} \omega \, .
+\end{equation}
+\end{satz}
+\begin{proof}
+Nach der langen Vorbereitung ist der Beweis nicht mehr so schwer, wie es eigentlich für einen so wichtigen und großen Satz üblich wäre.
+
+Man betrachte die Überdeckung $M = \bigcup_i U_i$ mithilfe von Karten- und Randkartengebieten $U_i$ sowie eine Zerlegung der 1 als $1 = \sum_i h_i$ durch Funktionen mit $\text{supp}\qty(h_i) \subset U_i$. Wegen der Linearität des Äußeren Differentials gilt dann
+\begin{align}
+d\omega &= d\qty(\sum_i h_i \omega) = \sum_i d\qty(h_i \omega) = \sum_i h_i d\omega \, .
+\end{align}
+Deshalb reicht es, die Aussage für Formen mit $\text{supp}(\omega) \subset U_i$ zu zeigen (das $h_i$ schaltet sich ja nur dort ein). Man hat dann oBdA noch zwei Fälle: $U_i = \mathbb{R}^n$ (ohne Rand, also $U_i \cap \partial M = \emptyset$) und $U_i = \mathbb{H}^n$ (mit Rand, also $U_i \cap \partial M \neq \emptyset$). Das funktioniert so, weil man zentrierte Karten hat und einen Diffeomorphismus zwischen diesem Ball und dem $\mathbb{R}^n$ angeben kann und analog kann man das mit der Halbkugel und dem $\mathbb{H}^n$ machen (oder: setze außerhalb des Bilds des Trägers fort mit 0).
+
+dürfen Summe und Integral vertauschen, weil man bei dem $\omega$ ne endliche Summe hat wegen kompakter Träger (genutzt bei der Zerlegung der 1), also lokal endlich
+
+dann Lust verloren, Idee aber jeweils Nachrechnen (dauert bisschen)
+\end{proof}
+
+	\anm{für $M$ kompakt ist der Träger automatisch kompakt (als Abschluss definiert und wegen der Endlichkeit von $M$ auch endlich).}
+
+Man kann hier also die Integrale von $\omega$ und $d\omega$ in Beziehung setzen. Wichtig ist aber, dass damit nicht etwas wie Aufleiten gemeint ist (man bekommt keine Stammfunktion/-form heraus), sondern tatsächlich die Berechnung von Flächen bzw.~Volumina -- man integriert immer über einer Mannigfaltigkeit $M$ und $\partial M$ (bei der zweiten Integration schränkt man sich einfach auf die Teilmenge $\partial M$ von $M$ ein) und nicht unbestimmt. Die Kompaktheit des Trägers ist dabei so wichtig, weil sie die Endlichkeit etwaiger auftretenden Summen (siehe alternative Definition in Korollar \ref{cor:diffintberprakt}) garantiert.
+
+
+Das erlaubt nun oft eine sehr einfache Auswertung von Integralen, z.B.:
+\begin{cor}[Spezialfälle]
+Für eine orientierte, nicht-berandete Mannigfaltigkeit $M$ gilt
+\begin{equation}
+\int_M d\omega = 0 \, .
+\end{equation}
+
+Für eine orientierte, berandete, $n$-dimensionale Mannigfaltigkeit $M$ und eine $n-1$-Form $\omega = d\eta \in \Omega^{n - 1}(M)$ mit $\eta \in \Omega^{n - 2}(M)$ gilt
+\begin{equation}
+\int_{\partial M} \omega = 0 \, .
+\end{equation}
+\end{cor}
+Die Beweise folgen sofort nach dem Satz von Stokes (beachte: $d^2\eta = 0$). Nach diesen allgemeineren Formeln soll nun noch ein konkretes Beispiel gerechnet werden:
+\begin{bsp}[Integral auf der Kreisscheibe]
+Betrachte $M = \qty{(x, y) \in \mathbb{R}^2: \; x^2 + y^2 \leq 1}$ mit $\partial M = \mathbb{S}^1$. Dann ist die Karte $x: \mathbb{S}^1 \backslash \qty{(-1, 0)} \rightarrow ]-\pi, \pi[$ mit $x^{-1}(\varphi) = \qty(\cos(\varphi), \sin(\varphi))$ positiv orientiert bezüglich der Randorientierung (weil $\pdv{r}, \pdv{\varphi}$ im gesamten $\mathbb{R}2$ positiv orientiert sind).
+
+Nun kann man wegen der Kompaktheit von $M$ auch den Satz von Stokes anwenden, beispielsweise auf die Differentialform $\omega = x \, dy$. Das eine Integral ergibt
+\begin{equation}
+\int_M d\omega = \int_M 1 \, dx \wedge dy = \pi
+\end{equation}
+und genau so kann man berechnen:
+\begin{equation}
+\int_{\mathbb{S}^1} \omega = \int_{]-\pi, \pi[} x^* \omega = \int_{-\pi}^\pi \qty(\cos(\varphi))^2 d\varphi = \pi \, ,
+\end{equation}
+wie nach dem Satz von Stokes erwartet (das Integral über $\mathbb{S}^1$ lässt sich so umschreiben, weil man nur einen Punkt $\equiv$ Nullmenge herausnehmen muss).
+
+
+seine Zeichnungen/ Erklärungen zu orientiert (auf dem Rand) !!! er malt da einfach Pfeile tangential zum Kreis (also senkrecht auf Normalenfeld und dabei nach links zeigen statt nach rechts), super Veranschaulichung ! -> haben wohl sogar spezieller Normalenfeld $\pdv{r}$ und Tangentialfeld $\pdv{\varphi}$
+\end{bsp}
+
+
+\begin{bsp}[Hauptsatz der Integral- und Differentialrechnung]
+Eine sehr interessante Folgerung kann man für die kompakte Mannigfaltigkeit $M = [0, 1]$ mithilfe der ursprünglichen Definition des Integrals von Differentialformen ziehen (Annahme: es existiert eine Stammfunktion/ -form zu $\eta = d\omega = f \, dx$):
+\begin{align*}
+\int_0^1 f(x) \, dx = \int_{\qty[0, 1]} f \, d\lambda^1 = \int_M d\omega = \int_{\partial M} \omega = \int_{\qty{0, 1}} F(x) = F(1) - F(0)
+\end{align*}
+und das ist der Hauptsatz der Integral- und Differentialrechnung !
+
+Man benutzt dabei, dass Funktionen wie $F(x)$ Nullformen sind, deren Äußere Ableitung einfach wie das normale Differential $dF = \pdv{F}{x} \, dx = \dv{F}{x} \, dx$ wirkt (partielle und totale Ableitung sind gleich, weil $x$ der einzige Parameter ist). Die Auswertung des Integrals über einer diskreten Menge wird dann nach der Maßtheorie schlichtweg zur Summierung über die einzelnen Funktionswerte. Es tritt hierbei ein minus bei der 0 auf, weil man auf dem Intervall $[0, 1]$ die Orientierung $+ 1$ gewählt hat und deshalb zeigt das am Randpunkt 0 nach außen gerichtete Vektorfeld eigentlich in die \enquote{falsche}, negative Richtung und das minus davor ist zum Ausgleichen dessen nötig (bei Wahl der anderen Orientierung würde man über das Intervall $[1, 0]$ integrieren und $F(0) - F(1)$ erhalten).
+\end{bsp}
+
+\begin{bsp}[Gauß- und Stokes-Satz]
+Zwei vor allem in der Physik bekannte Sätze sind Korollare dieses großen Satzes von Stokes, der Satz von Gauß und der Satz von Stokes (der kleine quasi). Aus Beispiel \ref{bsp:gradrotdiv} sind die allgemeinen Äußeren Ableitungen von 0-, 1-, 2-Formen bekannt, sodass mit $V$ als 3D-Gebiet, $S = \partial V$ als Fläche und $C = \partial S$ als Kurve
+\begin{equation}
+\begin{split}
+&\int_C f \, dx + \int_C g \, dy + \int_C h \, dz = \int_C (f, g, h) \cdot ds = \int_C \omega
+\\
+= &\int_S d\omega = \int_S \qty(\nabla \cross (f, g, h)) \cdot dA 
+\\
+= &\int_S \qty(\pdv{h}{y} - \pdv{g}{z}) \, dy \, dz + \int_S \qty(\pdv{f}{z} - \pdv{h}{x}) \, dz \, dx + \int_S \qty(\pdv{g}{x} - \pdv{f}{y}) \, dx \, dy
+\end{split}
+\end{equation}
+und
+\begin{equation}
+\begin{split}
+&\int_S f \, dy \, dz + \int_S g \, dz \, dx + \int_S h \, dx \, dy = \int_S (f, g, h) \cdot \, dA = \int_S \omega
+\\
+= &\int_V d\omega = \int_V \nabla \cdot (f, g, h) \, dV = \int_V \pdv{f}{x} \, dV + \int_V \pdv{g}{y} \, dV + \int_V \pdv{h}{z} \, dV
+\end{split}
+\end{equation}
+folgen (das erste heißt ebenfalls Satz von Stokes und das zweite Satz von Gauß).
+
+Dass dabei fließend zwischen $dA = (dy \wedge dz, dz \wedge dx, dx \wedge dy), \, dV = dx \wedge dy \wedge dz$ und $d\lambda^2 = dA = (dy dz, dz dx, dx dy), \, d\lambda^3 = dV = dx dy dz$ gewechselt wird, liegt an der Definition des Integrals von $\omega$, bei der man die Differentialform ja quasi in lokaler Darstellung einsetzt und dann die Dachprodukte weglässt. Eine Erklärung warum das zwar missverständlich, aber nicht ganz falsch ist, wäre, dass das Dachprodukt beim Einsetzen von Vektoren zur Multiplikation der Ergebnisse wird (und man setzt ja so oder so immer die zugehörige duale Basis ein, sonst würde man transformieren und das sogar quasi automatisch, weil man die Auswertung nicht-dualer Basisvektoren im Allgemeinen erst nach einem Basiswechsel macht).
+\end{bsp}
+
+\begin{bsp}[Integral auf Ellipsoid]
+Nun soll ein etwas fortgeschritteneres Beispiel behandelt werden, das die Stärke des Satzes von Stokes zeigt. Es soll um die Berechnung von $\int_M \omega$ gehen, wobei diese in Standardkoordinaten durch
+\begin{equation}
+\Omega^2\qty(\mathbb{R}^3 \backslash \qty{0}) \ni \omega = \frac{1}{\qty(x^2 + y^2 + z^2)^{3/2}} \, \qty(x \, dy \wedge dz - y \, dx \wedge dz + z \, dx \wedge dy)
+\end{equation}
+gegeben ist, sodass die Integration davon aufgrund der Kettenregel schwierig werden könnte. Ein weiteres Problem ist aber, dass man hier die kompakte 2D-Untermannigfaltigkeit $M = F^{-1}(1)$ betrachtet, die nur implizit als Urbild von
+\begin{equation}
+F: \mathbb{R}^3 \rightarrow \mathbb{R}, \; (x, y, z) \mapsto 2x^2 + 3y^2 + 4z^2
+\end{equation}
+zum regulären Wert 1 gegeben ist (man kann sehr leicht die Glattheit und Surjektivität des Differentials prüfen). Eigentlich wäre die Auswertung des Integrals nun sehr aufwendig, aber aus der Definitionsgleichung
+\begin{equation*}
+2x^2 + 3y^2 + 4z^2 = 1
+\end{equation*}
+für $M$ kann man sofort sehen, dass es sich um ein Ellipsoid (verformte Sphäre) mit Halbachsenlängen $\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{3}}, \frac{1}{\sqrt{4}} = \frac{1}{2}$ handelt (siehe auch Abbildung \ref{fig:stokes_ellipsoid_rand}. Weil zudem die Kompaktheit(abgeschlossen !) gegeben ist, kann man zusätzlich zur geometrisch anschaulichen Interpretation als Rand auch mathematisch von einem solchen sprechen. Weil das Innere des Ellipsoids (das Urbild unter $F$ zu allen Werten im offenen Intervall $(0, 1)$) ist als offene Teilmenge des $\mathbb{R}^3 \backslash \qty{0}$ eine Mannigfaltigkeit und $M$ ist per Definition eine Untermannigfaltigkeit, also inbesondere eine Mannigfaltigkeit. Daher ist es gerechtfertigt, für
+\begin{equation*}
+N := \qty{(x, y, z) \in \mathbb{R}^3 \backslash \qty{0}: \; 0 < 2x^2 + 3y^2 + 4z^2 \leq 1}
+\end{equation*}
+als Mannigfaltigkeit mit Rand $M$ den Satz von Stokes anzuwenden:
+\begin{equation*}
+\int_M \omega = \int_N d\omega \, .
+\end{equation*}
+Man berechnet nun aber nach der Produktregel:
+\begin{align*}
+d\omega &= \qty(\frac{1}{\qty(x^2 + y^2 + z^2)^{3/2}} \, dx + \frac{-3}{2} \frac{2 x}{\qty(x^2 + y^2 + z^2)^{5/2}} x \, dx) \wedge dy \wedge dz
+\\
+& \quad - \qty(\frac{1}{\qty(x^2 + y^2 + z^2)^{3/2}} \, dy + \frac{-3}{2} \frac{2 y}{\qty(x^2 + y^2 + z^2)^{5/2}} y \, dy) \wedge dx \wedge dz
+\\
+& \quad + \qty(\frac{1}{\qty(x^2 + y^2 + z^2)^{3/2}} \, dz + \frac{-3}{2} \frac{2 z}{\qty(x^2 + y^2 + z^2)^{5/2}} z \, dz) \wedge dx \wedge dy
+\\
+&= \frac{3}{\qty(x^2 + y^2 + z^2)^{3/2}} dx \wedge dy \wedge dz - \frac{3 \qty(x^2 + y^2 + z^2)}{\qty(x^2 + y^2 + z^2)^{5/2}} dx \wedge dy \wedge dz
+\\
+&= \frac{3}{\qty(x^2 + y^2 + z^2)^{3/2}} dx \wedge dy \wedge dz - \frac{3}{\qty(x^2 + y^2 + z^2)^{3/2}} dx \wedge dy \wedge dz
+\\
+&= 0
+\end{align*}
+
+Damit gilt einfach
+\begin{equation}
+\int_M \omega = \int_N d\omega = \int_N 0 = 0
+\end{equation}
+und man hat sich sehr viel Arbeit erspart.
+
+-> oof, kommt wohl 4pi raus :D
+
+Mitschrift dazu aus Fragestunde: okö, dürfen da nicht einfach 0 sagen, weil noch mehr Rand da ist (machen nicht $\leq 0$.. ooof; aber sonst hier halt dazu umändern, null Bock auf mehr Rand) ! sollten $4 \pi$ rauskriegen, weil dort dann iwie eingebettet in ner Sphäre und daher darf man Randintegrale gleichsetzen (erhalten dann halt einmal das Integral was wir wollen und einmal das ober die Sphäre); haben ja Loch da innen drin oder ist das am Ende nicht mal das Problem ?
+\end{bsp}
+
+\iffalse
+\begin{figure}
+\centering
+%\includegraphics[width=0.5\textwidth]{Bilder/stokes_ellipsoid_rand.pdf}
+
+\caption[Oberfläche Ellipsoid]{Veranschaulichung der Oberfläche des Ellipsoids, also der Niveaumenge $2x^2 + 3y^2 + 4z^2 = 1$. Es wurde hier extra ein Teil abgeschnitten, damit erkennbar ist, dass es sich nur um den Rand handelt.}
+\label{fig:stokes_ellipsoid_rand}
+\end{figure}
+\fi
+
+
+Einsetzoperator hat geometrische Bedeutung, durch Einsetzen Normalenfeld kann man Fluss rein oder raus berechnen
+
+
+
+
+
+\newpage
+
+
+	\section{De-Rham-Kohomologie}
+In diesem Abschnitt sollen nun die topologischen Eigenschaften von Mannigfaltigkeiten untersucht werden, also ein erster Schritt in die Richtung der Klassifizierung von Mannigfaltigkeiten (anhand dieser Eigenschaften) gemacht werden.
+
+
+Insbesondere wird dazu das Äußere Differential $d^k: \Omega^k(M) \rightarrow \Omega^{k + 1}(M)$ nützlich sein, das von nun an (bei Benutzung als Abbildung) mit einem $k$ indiziert wird, weil die Ordnung der jeweiligen Differentialform wichtig wird (bei Anwendung auf eine Differentialform benutzt man aber weiterhin nur $d$). Eine definierende Eigenschaft dieser Äußeren Ableitung war ja $d \circ d = 0$ bzw. mit Index $d^{k + 1} \circ d^k = d^{k + 1} d^k = 0 = d^k \circ d^{k - 1}$. Betrachtet man $d$ aber nun als klassische Abbildung, so bedeutet das einfach
+\begin{equation}
+\text{Bild}(d^{k - 1}) \subset \text{Kern}(d^k) \subset \Omega^k(M) \, ,
+\end{equation}
+weil aus der Menge $\Omega^k(M)$ aller Differentialformen nur manche geschlossen sind (und damit wegen $d\omega = 0$ im Kern von $d = d^k$ liegen) und von diesen geschlossenen wiederum nur manche noch zusätzlich exakt sind (also eine Stammform $\eta \in \Omega^{k - 1}$ haben und daher wegen $\omega = d\eta$ im Bild von $d = d^{k - 1}$ liegen).
+
+Weil exakte Differentialformen wegen $d^{k - 1} \circ d^k = 0$ jedoch immer im Kern von $d^k$ liegen, ist es eine interessante Frage, welche Differentialformen geschlossen sind, aber nicht exakt. Um das zu beantworten, muss man den Raum betrachten, der die exakten Differentialformen aus dem Kern herausnimmt. Das reicht jedoch meist nicht aus, weil die Räume $\Omega^k(M), \text{Kern}(d^k), \text{Bild}(d^{k - 1})$ im Allgemeinen alle unendlich-dimensional sind. Daher betrachtet man einen Quotientenvektorraum, der dann wegen der darauf existierenden Äquivalenzrelation auch endlich-dimensional werden kann:
+\begin{defi}[De-Rham-Kohomologiegruppe]
+Der Quotientenvektorraum
+\begin{equation}
+H_{dR}^k(M) = \frac{\text{Kern}(d^k)}{\text{Bild}(d^{k - 1})}
+\end{equation}
+heißt \Def[De-Rham-Kohomologiegruppe]{$k$-te De-Rham-Kohomologiegruppe von $M$}, die Elemente bezeichnet man als \Def[Kohomologieklasse]{Kohomologieklassen}.
+\end{defi}
+
+Jede Kohomologieklasse nun die für Quotientenvektorräume typische Form
+\begin{equation}
+[\omega] = \qty{\omega + d\alpha: \; \alpha \in \Omega^{k - 1}(M)}
+\end{equation}
+%\url{https://de.wikipedia.org/wiki/Faktorraum#Definition}
+und damit gilt insbesondere $\omega \sim 0$ für alle $\omega$ mit Stammform ($0 \equiv$ Nullform). Die Äquivalenzklasse $[\omega]$ einer Form $\omega \in \Omega^k(M)$ misst also allgemein, wie viel dieser Form zur Exaktheit fehlt (die Form $\hat{\omega} = \omega - d\alpha$, bei der die exakten Anteile abgezogen sind, liegt nämlich offenbar in der gleichen Kohomologieklasse, $\hat{\omega} \in [\omega]$).
+
+	\anm{in der Mathematik treten häufiger solche Operatoren auf, deren doppelte Anwendung die Nullform ergibt, und dafür kann man immer die zugehörigen Kohomologiegruppen untersuchen.}
+
+
+Interessant ist nun, dass das Integral einer Kohomologieklasse auf kompakten, orientierten Mannigfaltigkeiten wohldefiniert ist, was eine direkte Folge aus dem Satz von Stokes ist. Für eine Form $\tilde{\omega} \in [\omega] \in \Omega^k(M)$ hat man nämlich per Definition die Existenz eines $\eta \in \Omega^{k - 1}(M)$ mit $\tilde{\omega} = \omega + d\eta$. Deshalb ist:
+\begin{equation}
+\int_M \tilde{\omega} = \int_M \omega + d\eta = \int_M \omega + \int_M d\eta = \int_M \omega =: \int_M \omega \, .
+\end{equation}
+Die Kompaktheit ist dabei nötig, weil $M$ hierfür als Rand einer \enquote{größeren} Mannigfaltigkeit gesehen wird und die Orientierung für das Integrieren allgemein.
+
+%-> subsection zu Kohomologie und die ganze Theorie darum ? -> nöö, zu eklig. Wichtige Wikipedia-Artikel sind aber: \url{https://de.wikipedia.org/wiki/De-Rham-Kohomologie}, \url{https://de.wikipedia.org/wiki/Kohomologie}, \url{https://de.wikipedia.org/wiki/Kettenkomplex}, \url{https://de.wikipedia.org/wiki/Abelsche_Kategorie}, \url{https://de.wikipedia.org/wiki/Kategorientheorie}, \url{https://de.wikipedia.org/wiki/Morphismus}, \url{https://de.wikipedia.org/wiki/Faktorraum}
+
+
+Noch handelt es sich um einen neuen und zudem relativ unanschaulichen Begriff, deshalb sind Beispiele ein geeignetes Mittel, um ein besseres Gefühl dafür zu bekommen:
+\begin{bsp}[$H_{dR}^0(M)$ für $M$ zusammenhängend]
+Für eine zusammenhängende Mannigfaltigkeit $M$ ist es man im Fall $k = 0$ klar, dass $k - 1 = - 1$-Formen nicht existieren und daher $\text{Bild}(d^{- 1}) = \qty{0}$ einfach nur den Nullvektorraum gibt. Den Kern (und damit die De-Rham-Kohomologie) kann man mit $\Omega^0(M) = C^\infty(M; \mathbb{R})$ aber explizit angeben als
+\begin{equation}
+\begin{split}
+H_{dR}^0(M) &= \text{Kern}(d^0)/ \text{Bild}(d^{-1}) = \text{Kern}(d^0) = \qty{f \in C^\infty(M; \mathbb{R}): \; df = 0}
+\\
+&= \qty{f: \; \exists c \in \mathbb{R} \text{ mit } f(p) = c, \, \forall p \in M} \cong \mathbb{R}
+\end{split}
+\end{equation}
+und damit einfach die Menge der konstanten Funktionen (das ist natürlich kanonisch isomorph zu $\mathbb{R}$, daher auch $\dim\qty(H_{dR}^0(M)) = 1$). Man kann dabei von lokal konstant ($df = 0$) auf global konstant schließen, weil $M$ eben zusammenhängend ist. Daher existiert zwischen jedem Paar von Punkten ein Weg, der diese verbindet und entlang dessen $f$ konstant ist (dann muss es aber schon global konstant sein).
+
+	\anm{die ersten Folgerungen zum Bild gelten auch für nicht zusammenhängende Mannigfaltigkeiten, erst danach braucht man diese Eigenschaft.}
+\end{bsp}
+
+\begin{bsp}[$H_{dR}^n(M)$ für $M$ kompakt, orientiert]
+Für eine kompakte, orientierte Mannigfaltigkeit $M$ der Dimension $n$ gilt nach dem Satz von Stokes $\int_M d\eta = 0$ für $\eta \in \Omega^{n - 1}(M)$ (setze dafür $\omega = d\eta$ und dann ist es einfach $d\qty(d\eta) = 0$). Andererseits gilt für eine Volumenform $\omega \in \Omega^n(M)$ (existiert, weil $M$ orientierbar) immer $\int_M \omega \neq 0$ (weil $M$ nicht leer und das $\omega$ nur positive oder negative Beiträge geben kann, nicht beides, sonst müsste es eine Nullstelle haben). Nach Stokes folgt damit aber $\int_{\partial M} d\omega \neq 0$, also existiert mindestens eine Form $\mu = d\omega \in \text{Bild}(d^{n - 1})$ ungleich 0 (woraus $\text{Bild}(d^{k - 1}) \neq \qty{0}$ folgt) und damit ist nach $\text{Bild}(d^{k - 1}) \subset \text{Kern}(d^k)$ auch $\text{Kern}(d^n) \neq \qty{0}$, sodass insgesamt folgt:
+\begin{equation}
+H_{dR}^n(M) \neq \qty{0} \, .
+\end{equation}
+
+-> das passt von den $d$'s nicht auf dem Rand ! Merke einfach: haben integrierbare, deren Integral verschwindet und aber auch ne Volumenform, die das nicht tut; wegen Wohldefiniertheit Integral in einer Kohomologieklasse muss es daher verschiedene geben und damit mehr als die der 0 !
+\end{bsp}
+
+
+Wie immer ist dann die erste Anwendungen bei neuen Objekten die Betrachtung von Abbildungen zwischen diesen. Die Abbildung zwischen De-Rham-Kohomologien verschiedener Mannigfaltigkeiten erscheint zunächst nur schwer untersuchbar, vereinfacht sich aber deutlich mit der Kenntnis von $d \circ \phi^* = \phi^* \circ d$ für eine beliebige glatte Abbildung $\phi: M \rightarrow N$. Dann gilt nämlich folgendes Lemma:
+\begin{lemma}[Induzierte Abbildung]
+Eine glatte Abbildung $\phi: M \rightarrow N$ induziert eine wohldefinierte, lineare Abbildung
+\begin{equation}
+\phi^*: H_{dR}^k(N) \rightarrow H_{dR}^k(M), \; [\eta] \mapsto \qty[\phi^* \eta]
+\end{equation}
+zwischen den De-Rham-Kohomologien $H_{dR}^k(N), H_{dR}^k(M)$.
+\end{lemma}
+\begin{proof}
+Die Linearität folgt sofort aus der Linearität des Pullbacks. Die Wohldefiniertheit kann man sich wie folgt überlegen: für ein $\omega \in \text{Kern}(d^k) \subset \Omega^k(N)$ gilt
+\begin{equation*}
+0 = d\omega \quad \Rightarrow \quad 0 = \phi^* d\omega = d \qty(\phi^* \omega) \quad \Rightarrow \quad \phi^*\omega \in \text{Kern}(d^k) \subset \Omega^k(M) \, ,
+\end{equation*}
+der Kern in $N$ wird also auf den Kern in $M$ abgebildet, $\phi^* \qty(\text{Kern}_N(d^k)) = \text{Kern}_M(d^k)$.
+
+Andererseits gilt für ein $\eta = d\alpha \in \text{Bild}(d^{k - 1}) \subset \Omega^k(N)$ auch
+\begin{equation*}
+\phi^* \eta = \phi^* d\alpha = d\qty(\phi^*\alpha) \in \text{Bild}(d^{k - 1}) \subset \Omega^k(M) \, ,
+\end{equation*}
+das heißt das Bild in $N$ wird abgebildet auf das Bild in $M$, $\phi^* \qty(\text{Bild}_N(d^{k - 1})) = \text{Bild}_M(d^{k - 1})$. Deshalb bildet $\phi^*$ auch die Äquivalenzklassen gleich ab.
+\end{proof}
+Es handelt sich hier also fast um die Einschränkung des Pullbacks $\phi^*: \Omega^k(N) \rightarrow \Omega^k(M)$ auf die Menge $\text{Kern}(d^k)$, nur dass man noch eine Äquivalenzrelation auf dieser Menge einführt und daher eine Abbildung auf dem Quotientenraum erhält.
+
+Sofort erhält man damit dieses interessante Korollar:
+\begin{cor}
+Existiert ein Diffeomorphismus $\Psi: M \rightarrow N$, so gilt
+\begin{equation}
+H_{dR}^k(M) = H_{dR}^k(N), \quad \forall k \, .
+\end{equation}
+\end{cor}
+\begin{proof}
+Für Diffeomorphismen $\Psi, \Phi: M \rightarrow N$ gilt auf der de-Rham-Kohomologie $\qty(\Psi \circ \Phi)^* = \Phi^* \circ \Psi^*$ und daher hat man mit der Beobachtung $\text{id}^* = \text{id}_{H_dR^k(M)}$ (hier muss also nur eingeschränkt werden auf $H_{dR^k(M)}$) sofort $\qty(\Psi^*)^{-1} = \qty(\Psi^{-1})^*$. Aus der Existenz eines Inversen folgt dann, dass ein Isomorphismus vorliegt.
+
+dürfen da vertauschen, weil Pullback und d vertauschen !! daher folgt aus Vertauschen auf k-Formen auch Vertauschen auf De-Rham-Kohomologie; für id das ist auch klar, weil Bedingung ja nur ist, die Form nicht zu ändern
+\end{proof}
+Man erhält damit ein erstes Mittel zur Unterscheidung von Mannigfaltigkeiten, weil für $\dim(H_{dR}^k(M)) \neq \dim(H_{dR}^k(N))$ kein Diffeomorphismus zwischen $M, N$ existieren kann (also keine topologische Äquivalenz der differenzierbaren Strukturen).\\
+
+
+Für die nächsten Verallgemeinerungen ist noch ein wichtiger Begriff nötig:
+\begin{defi}[Homotopie]
+Zwei Abbildungen $f, g: M \rightarrow N$ heißen \Def[Homotopie]{homotop}, wenn eine glatte Abbildung
+\begin{equation}
+F: [0, 1] \cross M \rightarrow N \, \text{ mit } \, F(0, \cdot) = f \text{ und } F(1, \cdot) = g \, .
+\end{equation}
+\end{defi}
+Bei $F$ handelt es sich auch um eine Abbildung zwischen Mannigfaltigkeiten, weil das Intervall $[0, 1]$ ja insbesondere eine kompakte, berandete Mannigfaltigkeit ist. Man kann sich das anschaulich vorstellen, dass sich die Bilder der beiden Abbildungen durch Verformen ineinander überführen lassen (am besten mit Kurven vorstellbar, dort spielt aber auch die Orientierung/ Umlaufrichtung eine Rolle).
+
+	\anm{Homotopie definiert sogar eine Äquivalenzrelation, wie man durch geeignetes Verkleben sieht. Explizit wendet man dazu das \enquote{Produkt} zweier Kurven
+	\begin{equation}
+	\gamma * \tilde{\gamma} := \begin{cases} \gamma(2t), & 0 \leq t \leq 1/2 \\ \tilde{\gamma}(2t - 1), & 1/2 \leq t \leq 1 \end{cases}
+	\end{equation}
+	in der ersten Komponente von $F$ an (das wird nötig wegen der festgesetzten Endpunkte 0 und 1, daher müssen die Kurven im Produkt schneller durchlaufen werden). Für einen stetigen Übergang muss dabei natürlich $\gamma(1) = \tilde{\gamma}(0)$ sein und für einen differenzierbaren braucht man sogar $\gamma'(1) = \tilde{\gamma}'(0)$.}
+
+
+Homotopie hat nun interessante Auswirkungen auf die induzierten Abbildungen $f^*, g^*$:
+\begin{satz}[Homotopieinvarianz der De-Rham-Kohomologie]
+Falls $f, g: M \rightarrow N$ homotop sind, so gilt
+\begin{equation}
+f^* = g^*: H_{dR}^k(N) \rightarrow H_{dR}^k(M) \, .
+\end{equation}
+\end{satz}
+-> nehmen hier wohl nur geschlossene Repräsentanten und daher verschwindet da was
+
+Dieser Satz wurde von George De-Rham bewiesen, nach dem dann auch die Kohomologie benannt wurde. Das hat eine sehr spannende und wichtige Folgerung:
+\begin{cor}[Poincare-Lemma]\label{cor:poincare}
+Jedes sternförmige Gebiet $G \subset \mathbb{R}^n$ hat für $k > 0$ triviale $k$-te De-Rham- Kohomologiegruppen, das bedeutet:
+\begin{equation}
+H_{dR}^k(G) = \qty{0}, \quad \forall k \, .
+\end{equation}
+\end{cor}
+	\anm{in einer \Def[sternförmig]{sternförmige Menge $G$} gibt es einen Punkt $x_0 \in G$, das Sternzentrum, sodass von dort aus eine gerade Verbindungsstrecke zu jedem Punkt $x \in M \subset \mathbb{R}^n$ existiert, die komplett in $M$ liegt, also $$\qty{x_0 + t (x - x_0): \; t \in [0, 1]} \subset M, \; \forall x \in M$$.}
+\begin{proof}
+Aufgrund der Sternförmigkeit existiert für alle $q \in G$ die Homotopie
+\begin{equation*}
+F: [0, 1] \cross G \rightarrow G, \; q \mapsto p + t(q - p)
+\end{equation*}
+für alle Zeiten $t \in [0, 1]$ und diese erfüllt offenbar
+\begin{align*}
+F(0, \cdot) &= p = const. \quad \Rightarrow \quad F(0, \cdot)^* = 0: H_{dR}^k(G) \rightarrow H_{dR}^k(G)
+\\
+F(1, \cdot) &= \text{id} \quad \Rightarrow \quad F(1, \cdot)^* = \text{id}: H_{dR}^k(G) \rightarrow H_{dR}^k(G)
+\end{align*}
+und dann gilt nach dem Korollar $0 = F(0, \cdot)^* = F(1, \cdot)^* = \text{id}$. Wenn die Nullabbildung aber die Identität ist, muss bereits $H_{dR}^k(D) = \qty{0}$ gelten.
+\end{proof}
+%Auch wenn es ursprünglich anders bewiesen wurde (war vor der Homotopieinvarianz bekannt), geht es so natürlich sehr einfach. 
+Die Bedeutung dieses Lemmas ist enorm, wie man sich klar machen sollte: für alle
+\begin{equation*}
+\omega \in \text{Kern}(d^k) \subset \Omega^k(G) \quad \Rightarrow \quad d\omega = 0
+\end{equation*}
+existieren dann Elemente (mehrere möglich, je nach Anzahl der Elemente in $[\omega]$)
+\begin{equation*}
+\alpha \in \text{Bild}(d^{k - 1}) \subset \Omega^k(G) \quad \Rightarrow \quad \exists \eta \in \Omega^{k - 1}(G): \; d\eta = \alpha
+\end{equation*}
+\begin{equation*}
+\text{mit } \; 0 = [\omega] = \omega + \alpha \quad \Leftrightarrow \quad \omega = -d\eta = d\qty(-\eta) \, ,
+\end{equation*}
+man findet also die Stammform(-en) $-\eta$ zu $\omega$ (das Ganze ist nicht eindeutig wegen der auftretenden Ableitung). Anders gesagt bedeutet das
+\begin{equation}
+\omega \text{ geschlossen } \quad \Leftrightarrow \quad \omega \text{ exakt }
+\end{equation}
+oder in Worten: für jede Differentialform $\omega \in \Omega^k(G), \, k > 0$ mit $d\omega = 0$ findet man eine Stammform $\eta \in \Omega^{k - 1}(G)$ mit $d\eta = \omega$. Daher ist insbesondere jede $n$-Form auf einer sternförmigen Menge exakt, die waren ja immer geschlossen !
+
+Auf sternförmigen Gebieten kann das Äußere Differential $d\omega$ also auch als Abbildung interpretiert werden, die misst, ob man eine Stammform findet. Man hat damit ein sehr einfaches Kriterium zur Überprüfung der Integrabilität einer Differentialform gefunden (es handelt sich damit um eine Verallgemeinerung der Integrabilitätsbedingung \eqref{eq:integrfkt} bzw. sogar der Maurer-Cartan-Gleichung \eqref{eq:maurercartangl} für einen Wertebereich $\neq \mathbb{R}$) !
+
+
+
+		\subsection{*Mayer-Vietories-Sequenz*}
+um dann besser damit rechnen zu können, überlegt man sich, was bei einer MF als Vereinigung $M = U \cup V$ zweier offener Teilmengen $U, V \subset M$ passiert; haben kommutierendes Diagramm, also $\gamma_U \circ i_U = \gamma_V \circ i_V$
+
+bei $\gamma$ wird einfach mit den beiden zurückgezogen (auf verschiedene Mengen dann) -> bei den ersten beiden Pfeilen heißt das, dass nur die 0 im Kern von $\gamma^*$ liegt (die 0 an erster Stelle wird von jeder beliebigen Abbildung nur auf die 0 abgebildet, solange diese linear ist -> siehe Argument im ersten Kapitel; deshalb steht da auch keine Abbildung, wie wir dahin kommen ist eigentlich egal für die Eigenschaft der Exaktheit hier); der letzte Pfeil heißt dann, dass das Bild von $\partial i^*$ der gesamte Raum sein muss, weil die Nullabbildung eben nur auf die Null abbildet (alles geht in den Kern) ! der davor heißt, dass der das Bild von $\gamma^*$ gleich dem Kern von $\partial i^*$ ist
+
+man hat da Inklusionen (sogar noch natürliche)
+$$
+\begin{tikzcd}[row sep = 8, column sep = 50]
+ & U \arrow{dr}{\gamma_U} & 
+\\
+U \cap V \arrow{ur}{i_U} \arrow[swap]{dr}{i_V} &  & M
+\\
+ & V \arrow[swap]{ur}{\gamma_V} & 
+\end{tikzcd}
+$$
+
+\begin{lemma}
+Für $\gamma^* \omega = \qty(\gamma_U^* \omega, \gamma_V^* \omega)$ und $\partial i^*(\alpha, \beta) = i_U^* \alpha - i_V^* \beta$ wird die Sequenz
+$$
+\begin{tikzcd}[column sep = 36]
+0 \arrow{r}{} & \Omega^k(M) \arrow{r}{\gamma^*} & \Omega^k(U) \oplus \Omega^k(V) \arrow{r}{\partial i^*} & \Omega^k(U \cap V) \arrow{r}{} & 0
+\end{tikzcd}
+$$
+exakt.
+\end{lemma}
+
+\begin{proof}
+exakt heißt, dass Bild der einen Abbildung Kern der nächsten ist; also müssen jetzt alle Abbildungen so konstruiert werden, dass das erfüllt ist
+
+
+Exaktheit an erster Stelle folgt wegen $\gamma^*$ injektiv
+
+
+$\alpha, \beta) \in \text{Kern}(\partial i^*)$ heißt, dass $\alpha_{U \cap V} = \beta_{U \cap V}$
+
+$\omega$ ist glatt, weil $U, V$ offene Teilmengen sind und wohldefiniert, weil man an jedem Punkt halt nen Wert zuordnen kann (nutzen hier $M = U \cup V$)
+
+damit folgt Exaktheit an zweiter Stelle wegen $\gamma^* \omega = (\alpha, \beta)$
+
+
+für beliebige Form $\eta \in \Omega^k(U \cap V) = \text{Kern}(0)$ (Nullabbildung haut halt alles in den Kern rein)
+
+finden/ definieren dann Zerlegung der 1 mit $1 = h_U + h_V$  (sodass also $\text{supp}(h_U) \subset U, \text{supp}(h_V) \subset V$) und dann kann man $\eta$ auf $U$ fortsetzen durch Multiplikation mit $h_V$ (außerhalb des Schnitts nimmt diese fortgesetzte Form dann halt 0 an, aber auf glatte Art und Weise, also alles gut) sowie analog auf $V$ durch Multiplikation mit $h_U$ (sowie Vorzeichen, wegen Definition $\partial i^*$), die Fortsetzungen nennt man dann $\alpha, \beta$ und dann ist das Tupel daraus wohldefiniert auf der direkten Summe $\Omega^k(U) \oplus \Omega^k(V)$
+
+es ist dann eben auch $\partial i^*\qty(\alpha, \beta) = \qty(h_U + h_V) \eta = \eta$ und das war zu zeigen (weil es aus Kern gewählt wurde und als Bild angenommen wird)
+\end{proof}
+
+
+Mit dieser Kenntnis kann man nun die \Def{Mayer-Vietoris-Sequenz}
+$$
+\begin{tikzcd}[row sep = 36, column sep = 36]
+H_{dR}^{k + 1}(M) & \dots & 
+\\
+H_{dR}^{k + 1}(M) \arrow{r}{\gamma^*} & H_{dR}^{k + 2}(U) \oplus H_{dR}^{k + 2}(V) \arrow[swap]{r}{\partial i^*} & H_{dR}^{k + 2}(U \cap V)  \arrow{ull}{d^*}
+\\
+H_{dR}^k(M) \arrow{r}{\gamma^*} & H_{dR}^{k + 1}(U) \oplus H_{dR}^{k + 1}(V) \arrow[swap]{r}{\partial i^*} & H_{dR}^{k + 1}(U \cap V)  \arrow{ull}{d^*}
+\\
+ &  & \dots \arrow{ull}{d^*}
+\end{tikzcd}
+$$
+untersuchen. Die Frage ist, ob die sogenannten \Def{connecting-Homomorphismen $d^*$} existieren und zudem ist wichtig, ob diese die Sequenz exakt machen.
+\begin{satz}
+Es existieren lineare Abbildungen $d^*: H_{dR}^k(U \cap V) \rightarrow H_{dR}^{k + 1}(M)$, sodass die Mayer-Vietoris-Sequenz exakt wird.
+\end{satz}
+Bei Betrachtung der Definitionsbereiche wird klar, dass diese connecting-Homomorphismen als eine Art Fortsetzung der jeweiligen $k$-ten De-Rham-Kohomologie gesehen werden können.
+\begin{proof}
+Zur Definition von $d^*$ nehme man eine Differentialform $\omega \in \Omega^k(U \cap V)$ mit $d\omega = 0$ und nehme dann $(\alpha, \beta) \in \Omega^k(U) \oplus \Omega^k(V)$ mit $\partial i^*(\alpha, \beta) = \omega$; dann ist $(d\alpha, d\beta) \in \Omega^{k + 1}(U) \oplus \Omega^{k + 1}(V)$ und es gilt $\partial i^*(d\alpha, d\beta) = d\alpha - d\beta = d\omega - d\omega = 0$, sodass $\exists \eta \in \Omega^{k + 1}(M)$ mit $i^*\eta = (d\alpha, d\beta)$ und das erfüllt auch $d\eta = 0$
+
+damit setzt man (Kenntnis der Wirkung auf Elemente ist ja nötig) $d^* [\omega] = [\eta]$
+
+nun zu zeigen: Wohldefiniertheit $d^*$ (? ähnliche Argumentation wie bei Beweis Existenz, benutze dann Lemma nochmal ?), weil Linearität dann klar (weil alle Abbildungen halt linear sind); dann muss nur noch Exaktheit gezeigt werden (siehe Skript), Idee ist Verwendung des Lemmas und dann auch Äquivalenz Bild zu Kern zeigen durch Konstruktion geeigneter Formen
+\end{proof}
+
+Warum ist der Satz cool ? Naja, man kann die Berechnung höherer (und damit im Allgemeinen komplizierterer) Kohomologiegruppen reduzieren auf die Berechnung niedrigerer
+
+Das soll direkt ausgenutzt werden zur Berechnung einer expliziten De-Rham-Kohomologie und zwar natürlich des Standardbeispiels, der $n$-Sphäre:
+\begin{bsp}[De-Rham-Kohomologie der Sphäre]
+Der Fall $k = 0$ ist natürlich schon bekannt  (wurde allgemein bei zusammenhängenden Mannigfaltigkeiten bestimmt)
+
+
+beispielhaft dann Fall $n = 1$ machen ? Schien ganz ok
+
+bei Induktion nutzt man dann die Mayer-Vietoris-Sequenz, dazu setzt man als offene Mengen, deren Vereinigung $M$ überdecken soll, $U = \mathbb{S}^n \backslash \qty{(1, 0, 0)}, V = \mathbb{S}^n \backslash \qty{(-1, 0, 0)}$ (die sind mittels stereographischer Projektionen diffeomorph zum $\mathbb{R}^n$ -> braucht man das oder hat er das einfach nur so gedropt ?)
+
+Mayer-Vietoris sagt für $k = 1$ (schreibe also nur den Anfang hin): $0 \rightarrow H_{dR}^0(\mathbb{S}^n) \rightarrow H_{dR}^0(U) \oplus H_{dR}^0(V) \rightarrow H_{dR}^0(U \cap V) \rightarrow H_{dR}^1(\mathbb{S}^n) \rightarrow H_{dR}^1(U) \oplus H_{dR}^1(V) \rightarrow H_{dR}^1(U \cap V) \rightarrow \dots$
+
+man nutzt nun, dass man direkt folgende Aussagen treffen kann (weil Fall $k = 0$ bekannt): $\dim(H_{dR}^0(\mathbb{S}^n)) = 1$, $\dim(H_{dR}^0(U)) = 1 = \dim(H_{dR}^0(V)) \Rightarrow \dim(H_{dR}^0(U) \oplus H_{dR}^0(V)) = 2$, aber weil der Durchschnitt $U \cap V$ wieder zusammenhängt, ist $\dim(H_{dR}^0(U \cap V)) = 1$; zudem ist nach dem Lemma von Poincare klar (anwendbar, weil $U, V$ jeweils diffeomorph zum $\mathbb{R}^n$), dass $\dim(H_{dR}^1(U)) = 0 = \dim(H_{dR}^1(V)) \Rightarrow \dim(H_{dR}^1(U) \oplus H_{dR}^1(V)) = 0$; nun muss noch die Exaktheit der Sequenz genutzt werden und dann ist aus Dimensionsgründen der gesamte Raum $H_{dR}^0(U \cap V)$ im Kern der Abbildung dahin enthalten, sodass das Bild mit der nächsten Abbildung (die zu $H_{dR}^1(\mathbb{S}^n)$ geht) nulldimensional ist; weil aber der nächste Raum $H_{dR}^1(U) \oplus H_{dR}^1(V)$ wieder nulldimensional ist, muss der Kern der nächsten Abbildung das auch sein, sodass im Endeffekt $\dim(H_{dR}^1(\mathbb{S}^n) = 0$ folgt (das war der Induktionsanfang)
+
+im Induktionsschritt arbeitet man für $1 < k < n$ dann aber eigentlich nur mit Nullvektorräumen, dann folgt das mit Exaktheit im Wesentlichen (er hat aber noch bisschen mehr gemacht)
+
+
+für den Fall $k = n$ tritt dann $H_{dR}^{n - 1}(U \cap V) \cong H_{dR}^{n - 1}(\mathbb{S}^{n - 1})$ auf und das ist eindimensional, daher muss  (für Exaktheit der Sequenz, dahinter steht nämlich der Nullvektorraum), auch $H_{dR}^n(\mathbb{S}^n)$ Dimension 1 haben
+
+
+Ergebnis wird sein (wirklich so erwähnen ?): $H_{dR}^k(\mathbb{S}^n) \cong \begin{cases} \mathbb{R}, & k = 0, n \\ 0, & k \neq 0, n\end{cases}$
+
+erhalten halt bei $k = n$ dann die reellen Zahlen bis auf Orientierung oder so, bei Wahl dieser dann isomorph zu $\mathbb{R}$, in jedem Fall aber eindimensional !
+
+\begin{cor}\label{cor:intverschwstamm}
+Für $\omega \in \Omega^n(\mathbb{S}^n)$ gilt
+\begin{equation}
+\int_{\mathbb{S}^n} \omega = 0 \quad \Leftrightarrow \quad \exists \eta \in \Omega^{n - 1}(\mathbb{S}^n): \; d\eta = \omega \, .
+\end{equation}
+\end{cor}
+\begin{proof}
+Bekannt ist, dass $\dim\qty(H_{dR}^n(\mathbb{S}^n)) = 1$. Außerdem ist nach Stokes klar, dass für $\omega = d\eta$ gilt: $\int_{\mathbb{S}^n} \omega = 0$.
+
+Die Abbildung $\int: H_{dR}^n(\mathbb{S}^n) \rightarrow \mathbb{R}, \; [\omega] \mapsto \int_{\mathbb{S}^n} \omega$ ist wohldefiniert (weil sich zwei Repräsentanten nur um $d\alpha$ unterscheiden, was nach Stokes aber keinen Beitrag zum Integral gibt) und nach der Beobachtung (? welche meint er ?) auch surjektiv. Damit folgt aber aus Dimensionsgründen die Bijektivität, $\int$ ist also ein Isomorphismus.
+
+-> geht es darum, dass man dann (bis auf Vielfache) nur eine Äquivalenzklasse hat und dass wegen der Wohldefiniertheit des Integrals dann jede Form $\omega$, die Integral 0 hat, auch in der Äquivalenzklasse von 0 liegt (also ein $\alpha$ existiert, sodass $\omega + d\alpha = 0$, woraus aber Integrierbarkeit folgt) ???
+\end{proof}
+
+Fragestunde erläutert diesen Satz noch bisschen
+\end{bsp}
+
+
+
+Eine weitere Anwendung der Mayer-Vietoris-Sequenz ist die natürliche Definition einer sehr wichtigen Größe bei der Klassifizierung von Mannigfaltigkeiten:
+\begin{defi}[Euler-Charakteristik]
+Für eine Mannigfaltigkeit $M$ mit für alle $k$ endlich-dimensionalen $H_{dR}^k(M)$ heißt
+\begin{equation}
+\chi(M) := \sum_{k = 0}^{\dim(M)} (-1)^k \dim\qty(H_{dR}^k(M))
+\end{equation}
+die \Def[Euler-Charakteristik]{Euler-Charakteristik von $M$}.
+\end{defi}
+Die Bedingung endlicher Dimension aller $H_{dR}^k(M)$ ist zum Beispiel bei kompakten Mannigfaltigkeiten erfüllt (hier nicht gezeigt, ist aber z.B. mit Hodge-Theorie möglich).
+
+
+Weil Definition so random wirkt, hier Antwort auf Frage, woher die Definition von $\chi$ kommt: Homologie ist nicht-trivial bei Königsberger Brückenproblem (Euler hat daraus ein topologisches Problem gemacht, aber hat noch nicht die allgemeine Theorie aufgebaut dazu; ist nicht geometrisch, weil genaue Lage der Brücken egal, nur Anzahl und welche die verbinden); bei Flächen mit simplizialer Zerlegung, also Zerlegung in Dreiecke, dabei tritt immer gewisse Anzahl an Ecken $E$, Anzahl an Kanten $K$ und Anzahl an Flächen $F$ auf, diese Zahl kann man dann zusammenfassen und diese ist dann unabhängig von der expliziten Wahl der Zerlegung; können dann rekursiv Dreiecke verfeinern und $\chi(G) = E - K + F$ bleibt invariant; bei kompakten Flächen ist De-Rham-Isomorphismus für Dualität von Homologie und Kohomologie verantwortlich und daher kommen die Identifizierungen von $E$ mit $\dim(H_{dR}^1(G))$ etc, daher ist $\chi(G)$ dann auch gleich diesen Dimensionen; können diese Größe über ein Integral berechnen, Gauß-Bonnet (Gauß war wohl der erste, der den Shit da so richtig in Zusammenhang gebracht hat); Chern-Klassen sind iwie Verallgemeinerung davon (daher tritt das bei Topologie dann auch auf); in String-Theorie kompaktifiziert man Raumzeit durch Ran-$\cross$-en anderer MF, das ranmultiplizierte muss Calabi-Yau-MF sein und gewisse Invarianten entsprechen dann Anzahl an Teilchen bzw. Zustandsräumen
+
+-> merke also: eigentlich ist das ne topologische Größe (sogar Invariante, also unter Homöos/ Diffeos erhalten) und die hat eigentlich mit Homologien zu tun, aber man kommt dann äquivalent zu Kohomologien
+
+\begin{lemma}
+Für eine Mannigfaltigkeit $M = U \cup V$ mit $U, V \subset M$ offen mit endlich-dimensionalen $H_{dR}^k(M), H_{dR}^k(U), H_{dR}^k(V), H_{dR}^k(U \cap V)$ gilt
+\begin{equation}
+\chi(M) = \chi(U) + \chi(V) - \chi(U \cap V) \, .
+\end{equation}
+\end{lemma}
+Man kann also die Berechnung der Euler-Charakteristik aufteilen auf die Berechnung selbiger für Teilmengen aus $M$, die eine Überdeckung bilden, und das sogar direkt, wenn diese disjunkt sind (sonst muss man den Beitrag des Schnitts abziehen).
+
+folgt direkt mit Mayer-Vietoris bei Anwendung eines Lemmas über allgemeine exakte Sequenzen (das den Rand-Satz $\dim(V) = \dim(\text{Kern}(f)) + \dim(\text{Bild}(f))$ benutzt)
+
+
+Mayer-Vietoris bzw die davor (5.20) ist noch nicht mit Äußerem Differential verträglich, erhalten nu 5.21 (iwie abgeleitete Frequenz) -> brauchen Zerlegung der 1 einmal und das ist nicht verträglich mit Äußerem Differential (iwie nicht automatisch geschlossen); daher bildet man so komisch ab da !
+
+bei disjunkten Mengen kann man direkte Summe der De-Rhams nehmen (De-Rham von Schnitt dann null, daher volle dim in Bild oder so)
+
+
+
+		\subsection{Grad von Abbildungen}
+Die Kenntnis der (Ko-)Homologiegruppen der $n$-Sphäre kann nun für das Herausfinden vieler weiterer Eigenschaften von kompakten, orientierten Mannigfaltigkeiten benutzt werden, wie immer benötigt das aber ein wenig Vorbereitung.
+
+Man nennt dann analog zu Definitionen bei Untermannigfaltigkeiten einen Punkt $q \in S^n$ regulären Wert, falls $\forall p \in f^{-1}(q)$ im Urbild dieses Wertes unter der glatten Abbildung $f: M \rightarrow \mathbb{S}^n$ das Differential $D_p F$ surjektiv ist (wegen der $\dim(M) = n = \dim(\mathbb{S}^n$ folgt dann sogar Bijektivität). Dann ist $f$ in Umgebungen regulärer Werte automatisch ein lokaler Diffeomorphismus (eine interessante Eigenschaft auf kompakten Mengen ist, dass reguläre Werte nur endlich viele Urbilder besitzen) !
+
+Wichtig ist nun noch die Orientierung. Für $\omega \in \Omega^n(\mathbb{S}^n)$ als Repräsentant der Orientierung der $n$-Sphäre und $\eta \in \Omega^n(M)$ als Repräsentant der Orientierung auf $M$ gilt dann nach früheren Ausführungen $f^*\omega = \lambda \, \eta$ mit einer Funktion $\lambda: M \rightarrow \mathbb{R} \backslash \qty{0}$ (zumindest in der Umgebung von Punkten $p \in f^{-1}(p)$, weil $f$ dort ein lokaler Diffeomorphismus und damit insbesondere linear ist). Man definiert nun
+\begin{equation}
+\text{sign}\qty(f(p)) := \begin{cases} 1, & \lambda(p) > 0 \\ - 1, & \lambda(p) < 0 \end{cases}
+\end{equation}
+und das ist offenbar wohldefiniert, weil andere Repräsentanten $\tilde{\omega}, \tilde{\eta}$ der Äquivalenzklasse/ Orientierung sich nur um positive Funktionen von $\omega, \eta$ unterscheiden und diese ändern das Vorzeichen von $\lambda$ natürlich nicht. Etwas geometrischer kann man das Ganze ausdrücken mithilfe einer positiv orientierten Basis $X_1(p), \dots, X_n(p)$ des $T_p M$ (die also auf einer gewissen Volumenform positive Werte annimmt), dann ist nämlich $\qty(f(p), D_p f(X_1(p)), \dots, D_p f(X_n(p)))$ eine positiv orientierte Basis des $\mathbb{R}^{n + 1}$.
+
+
+Zu regulären Werten spielt im Zusammenhang mit Integralen folgender Satz aus der Maß- und Integrationstheorie eine wichtige Rolle:
+\begin{lemma}[Sard]
+Die Menge der nicht-regulären Werte einer Abbildung $f: M \rightarrow \mathbb{S}^n$ mit $\dim(M) = n$ ist eine Nullmenge. Insbesondere existieren also reguläre Werte $q \in \mathbb{S}^n$.
+\end{lemma}
+Der Beweis wird hier nicht explizit angegeben, aber die Idee ist, Umgebungen um die nicht-regulären Werte zu nehmen und dann über die Endlichkeit der Überdeckung wegen der Kompaktheit zu argumentieren (endlich viele Punkte haben Maß 0).
+
+zu Lemma von Sard: haben entweder kritischen oder regulären Wert natürlich und dann kann man aber Urbilder zählen; weil der Grad aber ungleich null ist, muss aus der Definition des Grads bei regulären Werten der Wert angenommen wird; bei nicht-regulärem Wert braucht man gar keine weitere Info, da muss ja schon ein Punkt vorliegen mit $d_p f$ ist nicht surjektiv, das heißt aber insbesondere wird $p$ angenommen (Umkehrung gilt natürlich nicht)
+
+Man beachte dabei aber, dass ein Punkt $q \in \mathbb{S}^n$, der nicht im Bild von $f$ liegt, auch als regulärer Wert zählt, das Urbild kann also durchaus leer sein. Mit der Kenntnis dieses Lemmas/ Satzes ergibt nun folgender Satz Sinn:
+\begin{satz}[Grad einer Abbildung]
+Für eine $n$-dimensionale, kompakte, orientierte Mannigfaltigkeit $M$, eine glatte Abbildung $f: M \rightarrow \mathbb{S}^n$ und $\omega \in \Omega^n(\mathbb{S}^n)$ mit $\int_{\mathbb{S}^n} \omega \neq 0$ existiert ein $k \in \mathbb{R}$ mit
+\begin{equation}
+\int_M f^* \omega = k \, \int_{\mathbb{S}^n} \omega \, .
+\end{equation}
+Weiter gilt für jeden regulären Wert $q \in \mathbb{S}^n$ von $f$ mit paarweise verschiedenen Urbildern $p_1, \dots, p_l$ folgende Formel für den \Def[Grad einer Abbildung]{Grad von $f$}:
+\begin{equation}
+\text{deg}(f) = k = \sum_{j = 1}^l \text{sign}\qty(f(p_j)) \, .
+\end{equation}
+\end{satz}
+Man beachte, dass $\omega$ nicht aus der Orientierung stammen muss, nur das Integral muss ungleich 0 sein (darf also sogar auf offener Teilmenge den Wert 0 annehmen).
+
+\begin{proof}
+Zunächst ist die Wohldefiniertheit des Grades zu zeigen, sei dazu $\tilde{\omega} \in \Omega^n(\mathbb{S}^n)$ mit $\int_{\mathbb{S}^n} \tilde{\omega} \neq 0$. Dann gilt nach einer Reskalierung der Form, die oBdA möglich ist, $\int_{\mathbb{S}^n} \omega = \int_{\mathbb{S}^n} \tilde{\omega}$ und daher existiert nach Korollar \ref{cor:intverschwstamm} ein $\beta \in \Omega^{n - 1}(\mathbb{S}^n)$ mit $\tilde{\omega} - \omega = d\beta$. Mit Stokes folgt dann aber $\int_M d\beta = 0$ ($M$ ist eine kompakte Mannigfaltigkeit, kann also ein Rand sein) bzw. analog $\int_M f^* \qty(d\beta) = \int_M d\qty(f^*\beta) = 0$ und daher
+\begin{equation*}
+\int_M f^* \tilde{\omega} = \int_M f^*\qty(\omega + d\beta) = \int_M f^*\omega + \int_M d\qty(f^*\beta) = \int_M f^*\omega \, .
+\end{equation*}
+
+
+Man betrachte nun offene Umgebungen $U_j$ der Punkte $p_j$ und bedenke, dass $f$ eingeschränkt auf $U_l$ ein Diffeomorphismus ist (bildet diffeomorph auf $f(U_l)$ ab). Damit kann man nun die als Durchschnitt offener Mengen offene Menge $V = \bigcap_{j = 1}^l U_j$ definieren (nicht-leer, weil auf jeden Fall $q \in V$, allerdings muss auch zusammenhängend gefordert werden), mit der man Diffeomorphismen $f_j: U_j \cap f^{-1}(V) \rightarrow V$ erhält. Betrachtet man nun ein $\omega \in \Omega^n(\mathbb{S}^n)$ mit $\int_{\mathbb{S}^n} \omega \neq 0$ und $\text{supp}(\omega) \subset V \subset \mathbb{S}^n$ (z.B. durch Buckelfunktionen zu erreichen). Nun kann man einfach nachrechnen:
+\begin{equation*}
+\int_M f^*\omega = \sum_{j = 1}^l \int_{U_j \cap f^{-1}(V)} f^*\omega = \sum_{j = 1}^l \int_V \text{sign}\qty(f(p_j)) \, \omega = \qty(\sum_{j = 1}^l \text{sign} f(p_j)) \, \int_V \omega \, ,
+\end{equation*}
+wobei man die Transformationsformel nutzt (dort ist ein orientierungserhaltender Diffeomorphismus gefordert, sodass immer noch das signum heranmulipliziert werden muss, weil $1 \cdot 1 = (- 1) \cdot (- 1) = 1$). Das ist als Summe ganzer Zahlen wieder in $\mathbb{Z}$.
+\end{proof}
+
+? wenn Abbildung also keine kritischen Werte (also keine kritischen Punkte) hat, dann wird der Grad 0 und das Integral da verschwindet ?
+
+-> die Folgerung mit surjektiv wenn Grad nicht 0 checke ich iwie nicht
+
+Dieser Abbildungsgrad wird tatsächlich sehr nützlich beim Beweis eines wichtigen Satzes (dem Brouwer'schen Fixpunktsatz). Damit dort nicht zu viele Beweise in einem vorkommen, werden noch einzelne Rechenregeln für $\text{deg}(f)$ gezeigt.
+
+\begin{lemma}[Rechenregel Grad]
+Für eine kompakte, berandete, $(n + 1)$-dimensionale Mannigfaltigkeit $X$ mit Rand $M = \partial X$ und eine glatte Abbildung $f: X \rightarrow \mathbb{S}^n$ gilt
+\begin{equation}
+\text{deg}\qty(f_M) = \text{deg}\qty(f_{\partial X}) = 0 \, .
+\end{equation}
+\end{lemma}
+\begin{proof}
+Für $\omega \in \Omega^n(\mathbb{S}^n)$ gilt $d\omega \in \Omega^{n + 1}(\mathbb{S}^n) \Rightarrow d\omega = 0$. Weil der Rand $M$ als abgeschlossene Teilmenge der kompakten Mannigfaltigkeit $X$ wieder kompakt ist, darf man insbesondere darauf integrieren und es folgt mit Stokes:
+\begin{equation*}
+\text{deg}\qty(f_M) \int_{\mathbb{S}^n} \omega = \int_M f_M^* \omega = \int_M f^* \omega = \int_{\partial X} f^*\omega = \int_X d\qty(f^*\omega) = \int_X f^*\qty(d\omega) = 0 \, .
+\end{equation*}
+Weil aber gerade $\int_{\mathbb{S}^n} \omega \neq 0$ war (man konnte das oBdA wählen, weil der Grad wohldefiniert und damit unabhängig von der Wahl von $\omega$ ist), muss damit $\text{deg}\qty(f_M) = 0$ sein.
+\end{proof}
+
+Das hat nun insbesondere für homotope Abbildungen interessante Folgen:
+\begin{cor}[Homotopieinvarianz des Grades]
+Für zwei homotope Abbildungen $f, g: M \rightarrow \mathbb{S}^n$ auf einer kompakten, orientierten, $n$-dimensionalen Mannigfaltigkeit gilt
+\begin{equation}
+\text{deg}(f) = \text{def}(g) \, .
+\end{equation}
+\end{cor}
+\begin{proof}
+Die Idee ist, den Grad der Homotopie $F: X = [0, 1] \cross M \rightarrow \mathbb{S}^n$ zwischen $f = F(0, \cdot)$ und $g = F(1, \cdot)$ zu berechnen. Bilden $[dt], [\eta]$ ($t$ als Parameter im Intervall $[0, 1]$) Orientierungen auf $[0, 1], M$, so bildet $[dt \wedge \eta]$ eine auf $X$ und die induzierte Randorientierung ist gegeben durch $[-\eta]$ bei $t = 0$ (weil es dort nach außen zeigt, man also die Richtung $-1$ hat und daher $dt = -1$ wird sowie das $\wedge$ mit einer skalaren Funktion nur einer Multiplikation entspricht) und $[\eta]$ bei $t = 1$. Die Homotopie erfüllt nun alle Voraussetzungen des vorherigen Lemmas, daher berechnet man mit Fubini
+\begin{align*}
+0 &= \text{deg}(F_{\partial X}) = \frac{\int_{\partial X} F^*\omega}{\int_{\mathbb{S}^n}\omega} = \frac{\int_X d\qty(F^*\omega)}{\int_{\mathbb{S}^n}\omega} = \frac{\int_{[0, 1] \cross M} d\qty(F^*\omega)}{\int_{\mathbb{S}^n}\omega} = \frac{\int_M \qty(\int_{[0, 1]} d\qty(F^*\omega))}{\int_{\mathbb{S}^n}\omega}
+\\
+&= \frac{\int_M \qty(\int_{\qty{0, 1}} F^*\omega)}{\int_{\mathbb{S}^n}\omega} = \frac{\int_M \qty(F^*\omega(1) - F^*\omega(0))}{\int_{\mathbb{S}^n}\omega} = \frac{\int_M g^*\omega}{\int_{\mathbb{S}^n}\omega} - \frac{\int_M f^*\omega}{\int_{\mathbb{S}^n}\omega} = \text{deg}(g) - \text{deg}(f) \, .
+%\\
+%\\
+%0 &= \text{deg}(F_{\partial X}) = \frac{\int_X F^*\omega}{\int_{\mathbb{S}^n}\omega} = \frac{\int_{[0, 1] \cross M} F^*\omega}{\int_{\mathbb{S}^n}\omega} = \frac{\int_M \qty(\int_{[0, 1]} F^*\omega)}{\int_{\mathbb{S}^n}\omega} = \frac{\int_M \qty(\int_{\qty{0, 1}} F^*d\eta)}{\int_{\mathbb{S}^n}\omega}
+%\\
+%&= \frac{\int_M \qty(\int_{[0, 1]} dF^*\eta)}{\int_{\mathbb{S}^n}\omega} = \frac{\int_M \qty(\int_{\qty{0, 1}} F^*\omega)}{\int_{\mathbb{S}^n}\omega} = \frac{\int_M \qty(F^*\omega(1) - F^*\omega(0))}{\int_{\mathbb{S}^n}\omega}
+%\\
+%&= \frac{\int_M \qty(F(1) - F(0))^*\omega}{\int_{\mathbb{S}^n}\omega} = \frac{\int_M \qty(g - f)^*\omega}{\int_{\mathbb{S}^n}\omega} = \frac{\int_M g^*\omega}{\int_{\mathbb{S}^n}\omega} - \frac{\int_M f^*\omega}{\int_{\mathbb{S}^n}\omega} = \text{deg}(g) - \text{deg}(f) \, .
+\end{align*}
+Wichtig ist das Beachten der Randorientierung (deshalb zieht man den Term mit der 0 ab) und dass nur $F$ in Punkten aus dem Intervall $[0, 1]$ ausgewertet werden kann.
+\end{proof}
+
+Damit kann nun vergleichsweise einfach die folgende Aussage gezeigt werden:
+\begin{satz}[Brouwer'scher Fixpunktsatz]
+Eine glatte Abbildung $f: X \rightarrow X$ auf dem abgeschlossenen Einheitsball
+\begin{equation*}
+X = \overline{B(0; 1)} = \qty{x \in \mathbb{R}^n: \; \norm{x}^2 \leq 1}
+\end{equation*}
+besitzt einen Fixpunkt, also einen Punkt $p \in X$ mit $f(p) = p$.
+\end{satz}
+\begin{proof}
+Der hier vorgestellte Beweis ist ein Widerspruchsbeweis, man nimmt also zunächst an, dass kein Fixpunkt existiert. Dann ist die Abbildung
+\begin{equation*}
+F: X \rightarrow \partial X = \mathbb{S}^{n - 1}, \; p \mapsto \frac{p - F(p)}{\norm{p - F(p)}}
+\end{equation*}
+wohldefiniert (keine Singularität, weil kein Fixpunkt) und glatt. Deshalb gilt nach dem vorherigen Lemma $\text{deg}(G_{\partial X}) = \text{deg}(G_{\mathbb{S}^{n - 1}}) = 0$. Betrachtet man nun die Homotopie
+\begin{equation*}
+H: [0, 1] \cross \mathbb{S}^{n - 1} \rightarrow \mathbb{S}^{n - 1}, \; (t, p) \mapsto \frac{p - t F(p)}{\norm{p - t F(p)}} \, ,
+\end{equation*}
+so gilt $H(1, \cdot) = G_{\mathbb{S}^{n - 1}}$, aber $H(0, \cdot) \frac{p}{\norm{p}} = \text{id}_{\mathbb{S}^{n - 1}}$. Dann müsste aber gelten:
+\begin{equation*}
+0 = \text{deg}\qty(G_{\mathbb{S}^{n - 1}}) = \text{deg}\qty(\text{id}_{\mathbb{S}^{n - 1}}) = 1
+\end{equation*}
+und das ist der gewünschte Widerspruch.
+\end{proof}
+
+
+\newpage
+
+
+	\section{Hodge-Dualität}
+
+hier dann auch Dachprodukt von Vektoren aufnehmen, das ja dann Flächen/ Volumina aufspannt
+
+eine Volumenform zeigt Zusammenhang zwischen $p$-Formen und $(n - p)$-Vektoren
+
+zumindest steht sowas bei Penrose und das sollte genau Hodge sein
+
+
+
+\end{document} 

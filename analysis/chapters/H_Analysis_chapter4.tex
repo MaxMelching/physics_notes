@@ -1,0 +1,1415 @@
+\documentclass[../H_Analysis_main.tex]{subfiles}
+%\input{../header} \graphicspath{ {../} }
+
+
+\begin{document}
+
+\setcounter{chapter}{3}
+
+\chapter{Felder und Formen}
+\begin{center}
+Nachdem nun eine sinnvolle Definition von Vektoren und Kovektoren existiert, soll es in diesem Abschnitt um die Arbeit damit gehen. Dabei wird es zunächst wichtig, die Arbeit mit einzelnen Punkten $p$ auf die gesamte Mannigfaltigkeit auszuweiten (was intuitiv wohl besser verständlich ist, weil man vorher immer mit $p$ einen allgemeinen, aber festen Punkt meinte, der nun aber endlich auch glatt variiert werden kann), wofür das sogenannte Tangentialbündel eingeführt wird. Statt Vektoren wird es dann um Vektorfelder gehen und Kovektoren werden zu 1-(Differential-)Formen. Diese beiden neuen Begriffe spielen eine sehr wichtige Rolle in Anwendungen der fortgeschrittenen Mathematik und haben darüber hinaus viele Anwendungen in der (Theoretischen) Physik.
+\end{center}
+
+
+\newpage
+
+
+	\section{Tangentialbündel und Kotangentialbündel}
+Als Einstieg wird die Idee der in diesem Abschnitt zu entwickelnde Maschinerie anhand eines gut bekannten Beispiels vorgestellt:
+
+\begin{bsp}[Sphäre]
+Zunächst wird das hier verwendete Kartentupel $(U, \varphi)$ der Sphäre angegeben:
+\begin{align*}
+U &= \mathbb{S}^2 \cap \qty(\mathbb{R}^2 \cross \mathbb{R}^{> 0}) \subset S^2 \subset \mathbb{R}^3,
+\\
+\varphi: U &\rightarrow V \subset \mathbb{R}^2, \; (\tilde{x}, \tilde{y}, \tilde{z}) \mapsto \varphi(\tilde{x}, \tilde{y}, \tilde{z}) = (x, y) \, .
+\end{align*}
+Es handelt sich also im Wesentlichen um den Plattmacher der Sphäre (die ja insbesondere eine UMF ist), man wählt deswegen auch die $z$-Koordinate $> 0$. Weil man nun auch die \enquote{Karte} $\psi = \eval{\text{id}}_{\mathbb{S}^2}: \mathbb{S}^2 \rightarrow \mathbb{S}^2, \; p \mapsto p$ wählen kann (beachte hier, dass die Menge $S^2$ zweidimensional ist, es sich in diesem Sinne also quasi um eine Karte handelt), ist nach der Kartendarstellung von Tangentialvektoren
+\begin{equation}
+D_{\varphi(p)} \varphi^{-1}(v) \in T_p \mathbb{S}^2 \, .
+\end{equation}
+Dabei lässt sich die Umkehrabbildung von $\varphi$ sehr einfach aus der Bestimmungsgleichung $x^2 + y^2 + z^2 + 1$ der Sphäre bestimmen:
+\begin{equation}
+\varphi^{-1}: \mathbb{R}^2 \rightarrow \mathbb{S}^2, \; (x, y) \mapsto (\tilde{x}, \tilde{y}, \tilde{z}) = (x, y, \sqrt{1 - x^2 - y^2}) \, .
+\end{equation}
+
+Betrachtet man nun die Abbildung
+\begin{equation}\label{eq:abbtangraumsph}
+\begin{split}
+\sigma: U \cross \mathbb{R}^2 &\rightarrow T_p \mathbb{S}^2 \subset \mathbb{R}^3, \; (p, v) = \qty((x, y), (v_1, v_2)) \mapsto D_{\varphi(p)} \varphi^{-1}(v)
+\\
+&= \qty(v_1, v_2, -\frac{x}{\sqrt{1 - x^2 - y^2}} v_1 - \frac{y}{\sqrt{1 - x^2 - y^2}} v_2)
+\end{split}
+\end{equation}
+Das ist glatt in allen Argumenten und offenbar sogar linear in $v_1, v_2$.
+\end{bsp}
+
+Ganz analog kann man das für allgemeinere Untermannigfaltigkeiten $M$ aufziehen, weil immer ein solcher Plattmacher $\hat{\Phi}: \hat{U} \rightarrow \mathbb{R}^n$ existiert. Für die induzierte Karte $\Phi = \pi_k \circ \hat{\Phi}: U = \hat{U} \cap M \rightarrow \mathbb{R}^k$ ist dann die Zuordnung/ Abbildung
+\begin{equation}
+\Phi(U) \cross \mathbb{R}^k \ni \qty(q, v) \mapsto D_q \Phi^{-1}(v)
+\end{equation}
+glatt bezüglich $p \in M$.
+
+
+
+		\subsection{Tangentialbündel}
+Man mag sich nun aber weiterführend fragen, ob sich diese glatte Zuordnung zwischen Punkten $p \in M$ und dem Tangentialraum $T_p M$ an diesem Punkt (man bildet mit $\sigma$ aus Gleichung \eqref{eq:abbtangraumsph} ja auf Tangentialvektoren an beliebigen Punkten ab) auch für Mannigfaltigkeiten im Allgemeinen existiert. Die Antwort lautet \enquote{Ja}:
+
+
+\begin{satz}
+Für eine $n$-dimensionale Mannigfaltigkeit $M$ bildet
+\begin{equation}
+TM := \bigsqcup_{p \in M} T_p M = \bigcup_{p \in M} \qty{p} \cross T_p M
+\end{equation}
+auf natürliche Art wieder eine Mannigfaltigkeit und zwar so, dass die Abbildung
+\begin{equation}\label{eq:proj1}
+\pi: TM \rightarrow M, \; v \mapsto p
+\end{equation}
+auf den Fußpunkt $p$ von $v$ eine glatte Submersion ist.
+
+Der zugehörige Atlas ist gegeben durch Karten der Form
+\begin{equation}\label{eq:indktb}
+\qty(x, Dx): TU = \bigsqcup_{p \in U} T_p U = \bigsqcup_{p \in U} T_p M \rightarrow x(U) \cross \mathbb{R}^n, \; v \mapsto \qty(x(p), D_p \, x(v))
+\end{equation}
+auf $TU \subset TM$, wobei $x: U \rightarrow \mathbb{R}^n$ eine Karte auf $M$ ist.
+\end{satz}
+	\anm{man nutzt statt $x(U) \cross \mathbb{R}^n$ auch manchmal $U \cross \mathbb{R}^n$, weil die beiden Mengen homöomorph (unter Umständen sogar diffeomorph) sind, das wird beim Thema Trivialisierungen weiter ausgeführt. Die ganze Zeit nutzt man aber in der zweiten Komponente, dass $T_p\mathbb{R}^n \cong \mathbb{R}^n, \, \forall p \in M$.}
+
+\begin{defi}[Tangentialbündel]
+$(TM, \pi)$ (oder auch nur $TM$) heißt \Def{Tangentialbündel von $M$}. Ein einzelnes Element $T_p M$ beziehungsweise äquivalent $\qty{p} \cross T_p M $ von $TM$ heißt auch \Def[Faser! des Tangentialbündels]{Faser (über $p$)}.
+\end{defi}
+
+\begin{proof}
+wichtigste Eigenschaft ist eben, dass die beiden Komponenten ja unabhängig voneinander behandelt werden können (im Sinne von: erste Komponente kann geändert werden und zweite auch, wobei man bei zweiter halt Tangentialvektor an dem Punkt ändert und bei erster den Punkt und damit den Tangentialraum -> also sind die doch nicht unabhängig ?)
+
+offenbar gilt $(x, Dx) \qty(TU \cap T\tilde{U}) = x(U \cap \tilde{U}) \cross \mathbb{R}^n$
+
+finden ganz einfach Kartenwechsel und da stehen dann (wende einmal Kettenregel rückwärts an) einfach nur der Kartenwechsel (per Definition glatt) bzw. die Ableitung davon (natürlich auch glatt): $(y, Dy) \circ (x, Dx)^{-1} (q, v) = \qty(y \circ x^{-1}(q), D_q \qty(y \circ x^{-1})(v))$
+
+
+die Scheiße mit Topologie folgt, weil abzählbarer Atlas und Hausdorff gilt weil der erste Teil (also die Punkte) safe in $M$ trennbar sind (analog in den Tangentialräumen) oder sie sind eben im gleichen Kartengebiet (auch safe trennbar, schon bekannt)
+
+Projektion auch glatt, weil einfach nur Rausnehmen der ersten $n$ Komponenten
+
+Heller zu Submersion: die Surjektivität des Differentials ist eine wichtige Eigenschaft, die wir aber relativ leicht zeigen können. In den Karten $(x,Dx)$ von $TM$ welche von Karten $x$ von $M$ induziert sind, ist das Differential einfach wie folgt gegeben: es gilt allgemein $\pi( [U,x,v]_p )=p$, also gilt bezüglich der Karte $(x,Dx)$ mit $(x,Dx) ([U,x,v]_p)= (x(p),v)$, dass $\pi (x(p),v)=x(p)$. In diesen Koordinaten lässt man also nur die Vektorkomponente weg, und das Differential ist damit auch surjektiv: $D_{(x(p),v)} \pi (y,w)=y$.
+
+Vektorraumstruktur wird geerbt von Tangentialräumen
+\end{proof}
+
+In der bei der Einführung des Tangentialraums genutzten Analogie mit Orts- und Richtungsvektoren wird beim Tangentialbündel auch die Variation des Ortsvektors möglich und die Darstellung $\qty{p} \cross T_p M$ entspricht OV $\cross$ RV (mit gewissen Einschränkungen, Richtungsvektoren kennen nämlich ihren Fußpunkt nicht, Tangentialvektoren schon).\\
+
+Jedoch wurde hier ein wahrscheinlich unbekanntes Symbol genutzt, die \Def{disjunkte Vereinigung $\sqcup$}, deren Bedeutung am besten an einem expliziten Beispiel klar wird:
+\begin{equation*}
+\begin{split}
+M_1 = \qty{1,2,3} \qquad \qquad M_2 &= \qty{4,5,6} \qquad \qquad M_3 = \qty{2, 3, 4}
+\\\\
+M_1 \cup M_2 = \qty{1, 2, 3, 4, 5, 6} \qquad M_1 \sqcup M_2 &= \qty{(1, 1), (1, 2), (1, 3), (2, 4), (2, 5), (2, 6)}
+\\\\
+M_1 \cup M_3 = \qty{1, 2, 3, 4} \qquad M_1 \sqcup M_3 &= \qty{(1, 1), (1, 2), (1, 3), (3, 2), (3, 3), (3, 4)}
+\end{split}
+\end{equation*}
+
+Hier wurde einmal die bereits bekannte Vereinigung $\cup$ der Mengen gebildet und einmal die disjunkte Vereinigung $\sqcup$, die durch Hinzunahme des zur Menge $M_j$ gehörigen Index' im Prinzip künstlich disjunkte Mengen erzeugt und daher eine Vereinigung schafft, bei der doppelte Elemente auch in der vereinigten Menge noch doppelt auftauchen. Das mag nun merkwürdig erscheinen, der Grund kann aber beispielsweise die Erhaltung einer gewissen Dimension unter Vereinigung sein.
+
+Es fällt jedoch auch sofort auf, dass man zwischen den Vereinigungen der disjunkten Mengen $M_1, M_2$ (anders als bei $M_1, M_3$, die nicht disjunkt sind) eine bijektive Zuordnung finden kann, die zusätzliche Indizierung wäre hier also eigentlich nicht nötig. Das ist aber auch der Fall, der bei $TM$ als Vereinigung der Tangentialräume $T_p M$ auftritt und daher hier relevant ist. Weil jeder Tangentialvektor $[\gamma]_p \in T_p M \subset TM$ noch eine Information über seinen Fußpunkt $p$ enthält (als Bild von $t = 0$, Punkt an dem abgeleitet wird o.Ä.), sind die verschiedenen Tangentialräume im Prinzip per Definition disjunkt. Schreibt man nun jeden Tangentialvektor als $v = v_p$ (wobei damit jede mögliche Darstellung gemeint ist, also geometrisch/ in Karten/ Derivation), so wird sofort klar, dass Vereinigungen der Form $\sqcup_p \qty{v_p}$ und $\cup_p \qty{p} \cross \qty{v_p}$ äquivalent sind, indem man die offenbar bijektive Zuordnung $v_p \mapsto \qty{p} \cross v_p$ trifft.
+
+	\anm{daraus folgt, dass für $U \subset M$ offen auch $TU \subset TM$ offen ist. Zudem kann man $TM$ als Vereinigung aller Tangentialräume oder auch als Vereinigung aller Tangentialvektoren an jedem Punkt sehen (beide sind Elemente von $TM$).}
+
+Man mag sich nun fragen, warum dann überhaupt diesen Umweg gehen muss und neue Begriffe einführt. Das liegt einfach daran, dass beide Notationen Vorteile in gewissen Situationen haben, z.B.~wird die erste aufgrund ihrer Kürze oft in Abbildungsvorschriften verwendet (wo man dann nur $v_p$ abbilden muss anstatt des Tupels $(p, v_p)$). Für die Vorstellung des Tangentialbündels und eindeutige Angaben darin ist aber die zweite Notation meist geeigneter, weil die Indizierung bei $v_p$ in vielen Fällen nicht gemacht wird und man bei der Bezeichnung $v$ eines Tangentialvektors nicht den Fußpunkt $p$ erkennt, bei $(p, v)$ ist dieser jedoch direkt dabei.\\
+
+
+Nun wird auch die Rolle der Abbildung $\pi$ klarer, die unter Verwendung der kürzeren Schreibweise in \eqref{eq:proj1} definiert wurde. Schreibt man es jedoch in die Form
+\begin{equation}
+\pi: TM \rightarrow M, \; (p, v) \mapsto p \, ,
+\end{equation}
+so ergibt sich die Interpretation als Projektion auf die erste Komponente. Diese Abbildung ist dann ganz offenbar surjektiv (was hier heißt, dass man jeden Punkt trifft), weil man ja gerade über jeden Punkt vereinigt. Die Injektivität ist hingegen nicht gegeben, weil man die Vektorkomponente herausprojiziert, es gilt sogar
+\begin{equation}
+\pi^{-1}(p) = T_p M \, .
+\end{equation}
+Damit bildet insbesondere das Urbild eines jeden Bildpunktes von $\pi$ einen Vektorraum, was durchaus interessant ist. Weil es sich weiter um eine Submersion handelt, ist sogar jede Faser $T_p M$ eine Untermannigfaltigkeit von $TM$. Die Abbildung $\pi$ verdeutlicht auch, warum $TM \neq M \cross \qty(\cup_{p \in M} T_p M)$. Dort hätte man Ausdrücke der Form $(p, q) \in M \cross T_q M, p \neq q$ -- das ergibt konzeptionell wenig Sinn, da Tangentialvektoren ausschließlich an ihren Fußpunkt koppeln (daher klappt Projektion).%\\ (was sollte man damit machen wollen ?)\\
+
+
+Es soll hier noch einmal betont werden, dass das Vorhandensein dieser Struktur sehr bemerkenswert ist. Tangentialräume an verschiedenen Punkten haben nämlich an sich nichts miteinander zu tun, da sie mit der eigentlichen Mannigfaltigkeit nur in der infinitesimalen Nähe ihres Fußpunktes in Berührung kommen und es sonst keine Verbindung gibt. Dass das Ganze in expliziten Anwendungen jedoch fast wie selbstverständlich wirkt (intuitiv variiert man den Punkt fast automatisch, was nun auch mathematisch und glatt funktioniert), zeigt das Beispiel der Sphäre:
+
+%das geht, weil das Differential $D_p x: T_p M \rightarrow \mathbb{R}$ ein Isomorphismus ist (insbesondere bijektiv), wobei beschrieben durch die Karte ja gerade $T_p M = \qty{[U, x, v]: \; v \in \mathbb{R}^n}$ gilt und dann eben gerade $D_p x\qty([U, x, v]) = v$; können zudem glatte Kartenwechsel haben wegen Forderung nach Kartenwechsel = Diffeo bei glatten MF
+
+\begin{bsp}[Sphäre]
+Man betrachte nun die 2-Sphäre als Menge
+\begin{equation*}
+p \in \mathbb{S}^2 = \qty{p \in \mathbb{R}^3: \; \langle p, p \rangle = 1} \subset \mathbb{R}^3
+\end{equation*}
+mit dem zugehörigen Tangentialraum
+\begin{equation*}
+T_p \mathbb{S}^2 = \qty{v \in \mathbb{R}^3: \; \langle v, p \rangle = 0} \, .
+\end{equation*}
+Dann ist das Tangentialbündel einfach gegeben über
+\begin{equation}
+T\mathbb{S}^2 = \qty{(p, v) \in \mathbb{R}^3 \cross \mathbb{R}^3: \; \langle p, p \rangle = 1, \langle v, p \rangle = 0} \, .
+\end{equation}
+
+Mithilfe der Submersion
+\begin{equation}
+F: \mathbb{R}^6 \rightarrow \mathbb{R}^2, \, (p, v) \mapsto (\langle p, p \rangle, \langle v, p \rangle)
+\end{equation}
+erhält man zudem, dass es sich dabei wegen $T\mathbb{S}^2 = F^{-1}\qty((1, 0))$ um eine vier-dimensionale Untermannigfaltigkeit von
+\begin{equation*}
+\mathbb{R}^3 \cross \mathbb{R}^3 = T\mathbb{R}^3 \cong \mathbb{R}^6
+\end{equation*}
+handelt. Eine alternative Möglichkeit, um auf diese Erkenntnis zu kommen ist die Konstruktion von Plattmachern von $T\mathbb{S}^2$ aus den Plattmachern von $\mathbb{S}^2$. Die Idee ist dabei, dass man immer noch $\qty{0}$ dazunehmen und die Nullen aus dem kartesischen Produkt nach hinten ordnen kann (das liefert bereits den Plattmacher).
+\end{bsp}
+Der letzte Teil klappt allgemeiner für jede Untermannigfaltigkeit, die Struktur des Tangentialbündels ist also verträglich mit der eigentlichen Untermannigfaltigkeit.\\
+
+
+Der große Vorteil bei der Arbeit mit dem Tangentialbündel ist also, dass man bei der Auswahl von Tangentialvektoren auf der Mannigfaltigkeit nicht mehr nur an einen Punkt gebunden ist und so eine noch allgemeinere Formulierung vieler Sachverhalte möglich wird. Mit als erstes sollte dort wahrscheinlich das Differential einfallen:
+\begin{bsp}[Differential]
+Für eine differenzierbare Abbildung $f: M \rightarrow N$ ist das Differential
+\begin{equation}
+Df: TM \rightarrow TN, \; T_p M \ni v \mapsto D_p f(v) \in T_{f(p)} N
+\end{equation}
+glatt. Man bildet hier tatsächlich zwischen den verschiedenen Tangentialbündeln ab, weil die Vektoren $v$ ihren Fußpunkt $p$ kennen und dieser darf nun auch variiert werden. Deshalb ist die hier verwendete Schreibweise äquivalent zu
+\begin{equation*}
+Df: TM \rightarrow TN, \; (p, v) \mapsto (f(p), D_p f(v)) \, .
+\end{equation*}
+
+In Karten $(U, x), \, p \in U$ und $(V, y), \, f(p) \in V$ erhält man dann die Darstellung
+\begin{equation*}
+(p, v) \mapsto \qty(y \circ f \circ x^{-1} (p), D_p\qty(y \circ f \circ x^{-1})(v))
+\end{equation*}
+und erkennt, dass hier im Differential mit dem Bild von $p$ noch mehr Informationen enthalten sind als bloß die Richtungsableitung (zweite Komponente). Aus dieser Schreibweise wird zudem klar, dass für eine glatte Funktion auch das Differential glatt ist, denn dann ist auch die Kartendarstellung $y \circ f \circ x^{-1}$ glatt.
+\end{bsp}
+
+Dass dort noch mehr dahinter steckt, erkennt man auch bei der folgenden Aussage:
+\begin{satz}[Bedingung für Diffeomorphismus]
+Eine glatte Abbildung $f: M \rightarrow N$ zwischen Mannigfaltigkeiten $M, N$ ist genau dann ein Diffeomorphismus, wenn $Df$ bijektiv ist.
+\end{satz}
+\begin{proof}
+Die Grundidee des Beweises ist sehr einfach, nämlich Ausnutzen der Bijektivität (aus der die Existenz eines Inversen folgt) und dann Anwenden der Kettenregel:
+\begin{equation}
+f \circ f^{-1} = \text{id}_N \quad \Rightarrow \quad \text{id}_{TN} = D \, \text{id}_N = D \qty(f \circ f^{-1}) = Df \circ Df^{-1} \, ,
+\end{equation}
+womit man ein Rechtsinverses gefunden hat. Durch analoges Vorgehen bei der Verknüpfung $f^{-1} \circ f$ erhält man ein Linksinverses und damit die Bijektivität.
+
+Zudem berechnet man in einer Karte $y$ leicht das Differential von
+\begin{equation*}
+\text{id}: M \rightarrow M, \; p \mapsto p \quad \equiv \quad y \circ \text{id}_M \circ y^{-1} = \text{id}_{\mathbb{R}^n}: \mathbb{R}^n \rightarrow \mathbb{R}^n, \; q = y(p) \mapsto q
+\end{equation*}
+und erhält dafür (hier Berechnung der Jacobi-Matrix):
+\begin{equation}
+D_{q = y(p)} \text{id}_{\mathbb{R}^n} = \qty[\eval{\pdv{x_i}{x_j}}_q]_{i, j = 1}^n = \qty[\delta_{ij}]_{i, j = 1}^n = \text{id}_{T_q \mathbb{R}^n} \, .
+\end{equation}
+
+Die Rückrichtung funktioniert mit genau derselben Gleichung, nur hat man hier die Existenz des Inversen von $Df$ gegeben und kann wegen der Identität auf die Existenz von $f^{-1}$ schließen (Glattheit folgt aus der Existenz von $Df$).
+\end{proof}
+Das kann man auch ziemlich direkt logisch aus der Darstellung von $Df$ erklären. In der ersten Komponente steht die Funktion und in der zweiten das eigentliche Differential der Funktion, bei Bijektivität von $Df$ sind die beiden also bijektiv und mit der vorausgesetzten Glattheit macht das $f$ zu einem Diffeomorphismus.
+
+
+\begin{bsp}[Tangentialbündel Matrix-Lie-Gruppe]
+Eine spannende Beobachtung ergibt sich bei der Betrachtung von Matrix-Lie-Gruppen. In Satz \ref{satz:tangraummlg} wurde gezeigt, dass die allgemeine Form von Tangentialvektoren am Punkt $g \in G$ gegeben ist als $g h$ für Elemente $h \in \mathfrak{g} = T_e G$ der Lie-Algebra, dass also eine glatte  Identifikation von $\mathfrak{g}$ mit einem beliebigen Tangentialraum existiert. Zur Charakterisierung aller Tangentialräume $T_g G$ ist hier also offenbar nur die Information Punkt $g \in G$ und Lie-Algebra nötig, sodass für das Tangentialbündel $TG$ (wo die Tangentialräume zu allen Punkten gesammelt werden) ebenfalls nur die Informationen Punkte (also $G$) und Lie-Algebra benötigt werden. Insgesamt motiviert das die Schreibweise
+\begin{equation}
+TG = G \cross \mathfrak{g} \, ,
+\end{equation}
+wobei $=$ hier streng genommen wieder \enquote{nur} $\cong$ ist, man findet nämlich den (kanonischen !) Diffeomorphismus $G \cross \mathfrak{g} \rightarrow TG, \; (g, h) \mapsto gh \equiv (g, g h)$. Das Tangentialbündel lässt sich hier also sehr einfach charakterisieren/ beschreiben.
+\end{bsp}
+
+Was zunächst als Spezialfall bei Matrix-Lie-Gruppen auftritt, kann tatsächlich in ganz ähnlicher Weise auch allgemeiner sinnvoll definiert/ gefordert werden:
+\begin{defi}[Globale Trivialisierung]
+Das Tangentialbündel $TM$ einer Mannigfaltigkeit $M$ heißt \Def{trivial}, falls eine glatte Identifikation zwischen $TM$ und $M \cross \mathbb{R}^n$ existiert, die faserweise linear ist.
+
+Genauer fordert man die Existenz eines Diffeomorphismus
+\begin{equation}
+\Phi: TM \rightarrow M \cross \mathbb{R}^n \, ,
+\end{equation}
+der bei Einschränkung auf eine Faser zu einem linearen Isomorphismus
+\begin{equation}
+\Phi_p: T_p M \rightarrow \qty{p} \cross \mathbb{R}^n
+\end{equation}
+werden soll.
+
+Eine Mannigfaltigkeit mit trivialem Tangentialbündel heißt auch \Def{parallelisierbar}.
+\end{defi}
+Dabei trägt $\qty{p} \cross \mathbb{R}^n$ ($n = \dim(M) = \dim(T_p M)$) eine natürliche Vektorraumstruktur, die im Wesentlichen vom $\mathbb{R}^n$ vererbt wird. Die Existenz einer solchen Trivialisierung $\Phi$ wird meist verkürzt mit $TM = M \cross \mathbb{R}^n$ notiert, um die enge Verbindung zwischen diesen Strukturen klarzumachen. Auf den ersten Blick scheint die Definition relativ sinnlos zu sein, so wurde ja bereits $TM \neq M \cross \qty(\cup_{p \in M} T_p M)$ festgehalten. Der große Unterschied ist hier jedoch, dass jeder Tangentialraum $T_p M$ mit seinem Bild unter der Karte $(x, Dx)$ identifiziert wird, also mit dem $\mathbb{R}^n$ (auch wenn andere Identifizierungen der enthaltenen Vektoren vorgenommen werden, die $T_p M$ zu verschiedenen $p$ sehen ja eigentlich ganz unterschiedlich aus) und nur deshalb funktioniert diese Schreibweise. Die Information über die Kartendarstellung $v$ eines Vektors reicht übrigens schon, weil man mithilfe von $D_{x(p)} x^{-1}(v)$ den zugehörigen Vektor auf der Mannigfaltigkeit zurückgewinnen kann. Das werden zwar an unterschiedlichen Punkten ganz unterschiedliche Vektoren sein, aber diese sehen abgebildet unter dieser Karte eben gleich aus und das ist das Tolle an der Trivialisierung.
+
+Die Forderung nach faserweiser Linearität ist wichtig für die Erhaltung der Vektorraumstruktur und bedeutet im Beispiel des Differentials $Df: TM \rightarrow TN$, dass die Einschränkung auf jede Faser, $\qty(Df)_p = D_p f: T_p M \rightarrow T_p N$ für jeden Punkt $p \in M$ linear ist. Äquivalent ist die Forderung nach der Linearität der Abbildung $p \mapsto D_p f$ (beim Differential ist diese Eigenschaft natürlich klar, aber nicht immer).\\
+
+
+Der Sinn des Ganzen ist im Wesentlichen die Vereinfachung der Arbeit und damit verbunden eine Verkürzung der Notation, wie man an folgenden Beispielen sieht:
+\begin{bsp}[Sphäre]
+$T S^1 = S^1 \cross \qty(i \mathbb{R})$ (komplex wegen Drehung irgendwie; ist wirklich i gemeint da ?); man kann zur Kurve $ t \mapsto \gamma(t) = \mqty(\cos(t + t_0) \\ \sin(t + t_0))$ dann immer einen wohldefinierten Tangentialvektor $\pdv{t} = \gamma' \in T_{(\cos(t_0), \sin(t_0))} S^1$%\mqty(\cos(t_0) \\ \sin(t_0))} S^1$
+definieren, sodass $TS^1 \cong S^1 \cross \mathbb{R}$. Die gleiche Trivialisierung liefert die Identifikation $S^1 = \text{SO}(2)$, von der als Matrix-Lie-Gruppe die Trivialisierung bereits bekannt ist.
+
+Man kann damit auch den $n$-Torus $T^n = S^1 \cross \dots \cross S^1$ trivialisieren. Interessanterweise geht das mit $TS^2$ nicht auf eine triviale Weise (dazu später mehr).
+\end{bsp}
+
+\begin{bsp}[Trivialisierung einer Untermannigfaltigkeit]
+Sofort ist klar, dass für eine (Unter-)Mannigfaltigkeit als offene Teilmenge $M \subset \mathbb{R}^n$ wegen $T_p M = T_p \mathbb{R}^n = \mathbb{R}^n$ eine globale Trivialisierung $TM = M \cross \mathbb{R}^n$ existiert.
+
+Jedoch kann man sich etwas Analoges für jede offene Teilmenge $U \subset M$ einer allgemeineren Mannigfaltigkeit überlegen, was im Prinzip sofort aus der Kartendarstellung $[U, x, v]_p$ folgt. Eigentlich bezeichnet diese ja einen Tangentialvektor am Punkt $p \in U$, der in der Karte $x$ gerade zu $v$ wird, oder als Abbildung:
+\begin{equation*}
+\phi: T_p U = T_p M \rightarrow \mathbb{R}^n, \; [U, x, v]_p \mapsto v \, .
+\end{equation*}
+
+Hält man nun aber den Punkt nicht mehr fest und betrachtet damit das gesamte Bündel statt einer einzelnen Faser, so kann man eine analoge Abbildung
+\begin{equation}
+\Phi: TU \rightarrow U \cross \mathbb{R}^n, \; [U, x, v]_p \mapsto (p, v)
+\end{equation}
+definieren, die eine Globale Trivialisierung auf $U$ bildet (man erinnere sich dabei, dass jede Teilmenge einer Mannigfaltigkeit wieder eine Mannigfaltigkeit ist).
+\end{bsp}
+
+Die letzte Erkenntnis ist dabei überaus wichtig, weil die dort vorgestellte Konstruktion ziemlich einfach praktisch umzusetzen ist, schließlich werden hier Karten benutzt und es muss daher nicht global (viel allgemeiner, nicht immer gut) gearbeitet werden. Aus diesem Grund bekommt das Ganze einen Namen und wird weiter untersucht:
+\begin{defi}[Lokale Trivialierung]
+Für eine Karte $x: U \rightarrow \mathbb{R}^n$ heißt die Abbildung
+\begin{equation}
+\hat{g}_{(U, x)}: TU \rightarrow U \cross \mathbb{R}^n, \; [U, x, v]_p \mapsto (p, v) = (p, \mqty(v_1 \\ \vdots \\ v_n))
+\end{equation}
+\Def[Lokale Trivialisierung! des Tangentialbündels]{Lokale Trivialisierung (von $TM$)} oder auch \Def{Bündelkarte}.
+
+Diese ist glatt, bijektiv und faserweise linear, es ist also
+\begin{equation*}
+\eval{\hat{g}_{(U, x)}}_{T_p M}: T_p U = T_p M \rightarrow \qty{p} \cross \mathbb{R}^n, \; [U, x, v]_p \mapsto (p, v)
+\end{equation*}
+eine lineare Abbildung.
+
+Oftmals wird auch nur die zweite Komponente verwendet und damit
+\begin{equation}
+g_{(U, x)} = \pi_2 \circ \hat{g}_{(U, x)}: TU \rightarrow \mathbb{R}^n, \; [U, x, v]_p \mapsto v = \mqty(v_1 \\ \vdots \\ v_n) \, .
+\end{equation}
+\end{defi}
+	\anm{offenbar existiert dann lokal ein Diffeomorphismus, sodass
+	\begin{equation}
+	TU = \mathbb{R}^{2n} \, .
+	\end{equation}
+	Man beachte, dass hier $v \in \mathbb{R}^n$ und nicht $v \in T_p M$ ist !}
+
+Man trivialisiert nun also nicht mehr auf der gesamten Mannigfaltigkeit $M$, sondern nur auf der Teilmenge $U$. Diese Trivialisierung wird dabei immer von der Karte $x$ induziert, weil nur deswegen überhaupt diese Darstellung von Tangentialvektoren vorliegt. Zudem hat man es mit unterschiedlichen Stufen der Verkürzung zu tun: bei $\hat{g}_{(U, x)}$ wird zwar der Tangentialvektor $[U, x, v]_p$ auf $(p, v)$ heruntergebrochen, es liegt aber noch genug Information zur Beschreibung von $TU$ vor (zudem bleiben Definitionsbereich und Karte im Index erhalten, nur nicht im Output).
+
+Es ist nun aber sehr interessant, dass man noch weiter gehen kann und mit $g_{(U, x)}$ auf einmal eine Abbildung hat, deren Output keine Information zum Punkt enthält ! Bis jetzt war bei der Arbeit mit Vektoren immer eine Abhängigkeit vom Fußpunkt $p$ vorhanden, weil dieser bei Vektoren auf Mannigfaltigkeiten eben immer wichtig ist, aber nun wird mit Kartendarstellungen der Vektoren im $\mathbb{R}^n$ gearbeitet, die nichts über $p$ wissen. Das spiegelt sich unter Anderem in den Darstellungen für Tangentialvektoren wider, man betrachte z.B.~$[U, x, v]_p$ (nur in dieser Kombination ist es ja äquivalent zu einem Element von $T_p M$) vs. $v$. Die einfache Erklärung für das Weglassen ist, dass der eigentliche Punkt im manchen Fällen schlichtweg unwichtig wird, beispielsweise wenn einfach nur mit Vektoren gerechnet werden soll.
+
+Dass diese Abbildung $g_{(U, x)}$ trotzdem einen Sinn hat, soll hier kurz veranschaulicht werden. Der wesentliche Punkt ist, dass wegen der Isomorphie von $T_p M$ und $\mathcal{A}_p \cross \mathbb{R}^n$ garantiert an jedem Punkt $p \in U$ irgendein Tangentialvektor $[\gamma]_p$ existiert, der bezüglich der Karte $x$ die Darstellung $v$ hat -- der Punkt ist also nicht unbedingt nötig für eine Zuordnung des Tangentialvektors zu $v$. Was man hier verliert, ist die Existenz des Inversen, die Abbildung von $v$ ins Tangentialbündel kann nicht mehr wohldefiniert sein. Das liegt gerade daran, dass an jedem Punkt $p$ ein Tangentialvektor $[\gamma]_p$ existiert, der die Kartendarstellung $v$ hat -- die Vektoren $[\gamma]_p \sim [U, x, v]_p$ und $[\gamma]_q \sim [U, x, v]_q$ zu verschiedenen Punkten $p, q \in M$ werden aber ganz unterschiedliche Formen haben, es ist keine eindeutige Zuordnung mehr möglich.\\
+
+
+Nun soll noch etwas mit dem neuen Instrument der Lokalen Trivialisierung gearbeitet werden. Zunächst ist dabei zu klären, wie man überhaupt auf die Koeffizienten $v_j$ in der lokalen Trivialisierung kommt, Einsetzen von $v$ in die Karten ist hier der falsche Ansatz (weil Karten ja ihren Definitionsbereich in $M$ haben und nicht in $T_p M$). Hierzu muss man sich klar machen, dass man entweder eine Kurve $\gamma$ gegeben hat (dann gilt ja ganz einfach $v = \qty(x \circ \gamma)'(0)$, wie im Kapitel zu Tangentialvektoren festgehalten) oder man hat eine Derivation $X$ gegeben (der Fall einer gegebenen Kartendarstellung $[U, x, v]_p$ dürfte selbsterklärend sein). Nun muss allerdings die Arbeit in der Praxis bedacht werden, wo man immer eine Basisdarstellung der Form
+\begin{equation}
+X = \sum_{j = 1}^n \lambda_j \eval{\pdv{x_j}}_p
+\end{equation}
+mit den von der Karte $x$ induzierten Gauß'schen Basisvektoren gegeben hat. Das liegt daran, dass explizite Anwendungen eben immer in Koordinaten stattfinden und man deshalb automatisch eine Karte mit den jeweiligen Darstellungen gegeben hat. Wegen der Linearität der Tangentialvektoren lässt sich nun aber berechnen:
+\begin{equation}
+[U, x, v]_p = [U, x, \sum_{j = 1}^n v_j e_j]_p = \sum_{j = 1}^n v_j \, [U, x, e_j]_p \, .
+\end{equation}
+Weil nun $X \equiv v$ und gleichzeitig $\eval{\pdv{x_j}}_p \equiv e_j$, folgt aus dem Koeffizientenvergleich:
+\begin{equation}
+\sum_{j = 1}^n \lambda_j \eval{\pdv{x_j}}_p \equiv \sum_{j = 1}^n v_j \, [U, x, e_j]_p \quad \Leftrightarrow \quad v_j = \lambda_j = X \cdot x_j, \forall j \, .
+\end{equation}
+Bei einer gegebenen Derivation muss man also nur die Koeffizienten $\lambda_j \in \mathbb{R}$ in eine Spalte schreiben und hat bereits den Vektor in der Trivialisierung. Auch wenn die Darstellung in einer von der Karte $y$ induzierten Trivialisierung gesucht ist, kann man einfach den Basiswechsel gemäß \eqref{eq:gausswechsel} berechnen (dazu nun mehr).
+
+	\anm{das entspricht tatsächlich der zweiten Komponente der induzierten Karten des Tangentialbündels (siehe \eqref{eq:indktb}), weil dort die Richtungsableitung $D_p x(v)$ ausgewertet wird, was aber in jeder Komponente $j$ der Richtungsableitung $D_p x_j(v) = d_p x_j(v) = X_p \cdot x_j$ entspricht.} 
+
+\begin{bsp}[Basisvektor]
+Die einfachste mögliche Rechnung ist für einen Basisvektor:
+\begin{equation}
+\hat{g}_{(U, x)}\qty(\eval{\pdv{x_1}}_p) = (p, \mqty(1 \\ 0 \\ \vdots \\ 0)) \qquad \Rightarrow \qquad \hat{g}_{(U, x)}\qty(\eval{\pdv{x_k}}_p) = (p, e_k) \, .
+\end{equation}
+\end{bsp}
+
+Wie bei der Arbeit mit Karten üblich, kann es an einem Punkt verschiedene lokale Trivialisierungen geben und es ist wieder eine Verträglichkeitsbedingung nötig:
+\begin{defi}[Kozyklus]
+Für zwei Karten $x: U \rightarrow \mathbb{R}^n$ und $y: V \rightarrow \mathbb{R}^n$ heißt die Abbildung
+\begin{equation}
+\hat{g}_{(V, y), (U, x)} = \hat{g}_{(V, y)} \circ \hat{g}_{(U, x)}^{-1}: (U \cap V) \cross \mathbb{R}^n \rightarrow (U \cap V) \cross \mathbb{R}^n, \; (p, v) \mapsto (p, w)
+\end{equation}
+\Def{Übergangstrivialisierung}. Die Menge aller $g_{(U_\alpha, x_\alpha), (U_\beta, x_\beta)}$ wird der \Def[Kozyklus! des Tangentialbündels]{Kozyklus (des Tangentialbündels)} genannt. Unter Nutzung der Projektion $\pi_2$ erhält man analog
+\begin{equation}
+g_{(V, y), (U, x)} = \pi_2 \circ \hat{g}_{(V, y), (U, x)} = g_{(V, y)} \circ \hat{g}_{(U, x)}^{-1}: (U \cap V) \cross \mathbb{R}^n \rightarrow \mathbb{R}^n, \; (p, v) \mapsto w \, .
+\end{equation}
+\end{defi}
+
+Hier wird also nur die Darstellung des Vektors von der Karte $x$ zu $y$ gewechselt (Reihenfolge ist wichtig, rechtes Tupel wird ersetzt mit dem linken). Mit dem Punkt passiert dabei die ganze Zeit nichts, weil ja mit den lokalen Trivialisierungen und nicht den induzierten Karten des Tangentialbündels gearbeitet wird. 
+
+Diese Darstellung von Übergangstrivialisierungen ist jedoch nicht wirklich praktisch, besser ist ein Umschreiben von $g_{(V, y), (U, x)}$. Im ersten Schritt nimmt man dazu
+\begin{equation}\label{eq:uebergangtriv1}
+g_{(V, y), (U, x)}(p): \mathbb{R}^n \rightarrow \mathbb{R}^n, \; v \mapsto w \, .
+\end{equation}
+Man lagert den Punkt also quasi aus, sodass er immer noch variabel bleibt, aber nicht mehr als Argument angesehen wird. Der Vorteil davon ist, dass $g_{(V, y), (U, x)}(p)$ nun im Wesentlichen Vektoren auf Vektoren abbildet (es handelt sich genauer sogar um einen glatten Vektorraumautomorphismus, weil man glatte und bijektive Abbildungen verknüpft), weshalb eine Darstellungsmatrix an jedem Punkt existiert.
+
+Der zweite Schritt ist die äquivalente Interpretation des Übergangs $g_{(V, y), (U, x)}$ als
+\begin{equation}
+g_{(V, y), (U, x)}: U \cap V \rightarrow \text{GL}(n; \mathbb{R}), \; p \mapsto g_{(V, y), (U, x)}(p) = D_{x(p)} \, y \circ x^{-1}
+\end{equation}
+mit der Jacobi-Matrix des Kartenwechsels $y \circ x^{-1}$ ! Das sollte nur auf den ersten Blick überraschen, weil im Kapitel zu Tangentialvektoren der Darstellungswechsel als $w = D_{x(p)}\qty(y \circ x^{-1})(v)$ definiert war. \enquote{Einsetzen} eines Vektors (was hier Multiplikation von rechts bedeutet) in den zu dieser invertierbaren $n \cross n$-Matrix gehörigen Vektorraumautomorphismus entspricht dann dem Auswerten der Abbildung
+\begin{equation}
+g_{(V, y), (U, x)}(p): \mathbb{R}^n \rightarrow \mathbb{R}^n, \; v \mapsto w = D_{x(p)}\qty(y \circ x^{-1})(v)
+\end{equation}
+und das war genau die erste Neuinterpretation, da Elemente von $\text{GL}(n; \mathbb{R})$ auch mit einer Abbildung wie in \eqref{eq:uebergangtriv1} assoziiert werden können.
+
+	\anm{man kann sich das auch aus der Karte $(x, Dx)$ des Tangentialbündels überlegen, die ja gleich der Darstellung eines Vektors in einer Trivialisierung ist. Einen Kartenübergang macht man nach dem alten Schema $x = x \circ y^{-1} \circ y$ gemäß
+	\begin{equation}
+	(x, Dx) = (x, Dx) \circ (y^{-1}, Dy^{-1}) \circ (y, Dy) = (x \circ y^{-1}, D \qty(x \circ y^{-1})) \circ (y, Dy)
+	\end{equation}
+	und dort tritt in der zweiten Komponente ein Differential auf, das punktweise einer Abbildung mit der Jacobi-Matrix entspricht !}
+
+
+%Lagern quasi den Punkt aus, sodass der nicht mehr wirklich Argument ist, sondern beliebig (wollen nur Vektor als Argument); Bei erster Trivialisierung nur umschreiben, packen die festen Sachen (wir setzen ja bei lokaler gerade Gebiet und Karte fest) in den Index und Rest kommt raus. Punkt schmeißen wir aber manchmal auch raus (bzw in der Verknüpfung so halb)
+
+
+Man kann nun auch einige Eigenschaften finden, die alle Elemente eines Kozyklus erfüllen und die daher \Def[Kozyklus! -Bedingungen]{Kozyklus-Bedingungen} genannt werden:
+\begin{satz}[Kozyklus-Bedingungen]
+Für drei Karten $(U, x), (V, y), (W, z)$ auf einer Mannigfaltigkeit $M$ gilt auf der Teilmenge $U \cap V \cap W$:% eine Art Kettenregel:
+\begin{equation}
+g_{(W, z), (U, x)} = g_{(W, z), (V, y)} \, g_{(V, y), (U, x)} \, .
+\end{equation}
+Zudem existiert ein punktweise definiertes Inverses
+\begin{equation}
+g^{-1}_{(V, y), (U, x)} = g_{(U, x), (V, y)} \, .
+\end{equation}
+\end{satz}
+Die Beweise sind relativ einfach und beruhen auf Benutzung der Kettenregel sowie der Darstellung als Jacobi-Matrix (daher Verkettung $\equiv$ Matrixmultiplikation).\\
+
+! er hat nices Beispiel zur Berechnung eines Kozyklus !
+
+
+Diese Aussagen reichen erst einmal aus, es soll daher nun um den Sinn des ganzen Komplexes um Trivialisierungen gehen. Es stellt sich nämlich durchaus die Frage, warum man nun ein Hybrid einführt zwischen Angabe von Daten wie Punkten/ Vektoren auf Mannigfaltigkeiten und in Karten (also auf dem $\mathbb{R}^n$). Diese Frage ist im Prinzip auch die Antwort - in vielen Fällen sind diese Trivialisierungen (man sollte vielleicht eher von einer \Def{Koordinatisierung} sprechen) als Hybrid-Karten schlichtweg am praktischsten (nicht zuletzt wegen der deutlich verkürzten Notation).
+
+Das Hauptproblem ist, dass man beim Rechnen auf dem Tangentialbündel natürlich so viel Struktur (dazu gehören die Mannigfaltigkeiten-Struktur, Differenzierbarkeit und die Vektorraumstruktur der einzelnen Fasern, also der Tangentialräume) wie möglich erhalten möchte, ohne dass es zu kompliziert wird. Das könnte man natürlich in den induzierten Karten machen und dort auch die Kartenwechsel berechnen - jedoch würde das Ganze sehr unübersichtlich werden. Man kann sich nämlich beispielsweise überlegen, dass beim Vergleich von Tangentialvektoren auch der Fußpunkt $p$ wichtig ist, dieser aber in verschiedenen Karten ganz anders aussehen kann und man daher unnötig Arbeit aufwenden würde. Das ist einer der Gründe, warum man oft nur die Vektorkomponente von Elementen des Tangentialbündels trivialisiert, aber nicht die Punkte. Das wird über die Anordnung der Komponenten ihrer Kartendarstellung in einen Spaltenvektor und damit Interpretation als Element des $\mathbb{R}^n$ realisiert, man identifiziert also $T_p M$ mit $\mathbb{R}^n$. Ein weiterer Vorteil dabei ist, dass man so unabhängig von festen Punkten arbeiten kann und auch der Wechsel zwischen den Darstellungen sehr einfach und sogar glatt ist. Die Berechnungen von Jacobi-Matrizen ist schließlich vergleichsweise einfach und mit den Punkten muss ebenfalls kaum etwas oder sogar gar nichts gemacht werden (nur beim Wechsel muss er eingesetzt werden).
+
+
+? nicht sicher ob das hier schon rauskam: wichtig ist auf jeden Fall die Identifizierung von $TM$ mit $M \cross \mathbb{R}^n$, das ist viel besser zu handhaben (nur noch ein VR, endlich) !
+
+
+%man kann das schreiben als $\hat{g}_{(V, y), (U, x)} = \pi_2 \circ g_{(V, y), (U, x)}: U \cap V \rightarrow \text{GL}(n; \mathbb{R})$ mit $\pi_2$ als Projektion auf die zweite Komponente (entspricht quasi $g_{(V, y), (U, x)}(p)$). Dann ist $g_{(V, y), (U, x)}(p, v) = (p, \hat{g}_{(V, y), (U, x)}(p, v))$. -> hier noch $\hat{g}, g$ vertauscht !
+
+%\begin{defi}[Kozyklus]
+%$(U, V) \mapsto g_{(V, y), (U, x)}$ heißt auch \Def{Kozyklus}. Muss die Kozyklenbedingungen aus dem vorherigen Satz erfüllen.
+%\end{defi}
+
+
+%Sinn Trivialisierung: wollen MF-Struktur haben und differenzieren etc. auf dem Tangentialbündel, aber gleichzeitig noch Vektorräume erhalten von den Fasern; um dann noch halbwegs schön/ praktikabel rechnen zu können, ist aber Betrachtung der induzierten Karten $x, Dx)$ (also komplett im euklidischen Raum) teilweise nicht wirklich hilfreich, sondern es reicht die Trivialisierung der Vektorkomponente bei Behalten des Punktes (Klartext: induzierte Karten sind scheiße, daher nehmen wir neue); Trivialisierung sind spezielle Karten (aber nicht im eigentlichen Sinne, sondern mit eher besonderer Bedeutung), sodass man keine Abhängigkeiten mehr vom Punkt hat (in der neuen, abstrahierten Definition hat man bereits das Verhalten in allen Punkten erfasst); wir trivialisieren also nur die Vektoren (indem wir sie über Koeffizienten darstellen) und nicht den Fußpunkt (man kann dann eben echt gut wechseln, weil glatt zwischen den Vektoren und Punkte halt auch easy); es handelt sich vlt. eher um eine Koordinatisierung als Trivialisierung
+
+
+
+für später: man hat also leider keine allgemein natürliche Identifikation eines allgemeinen Tangentialraums mit dem euklidischen Raum, die hängt immer vom Punkt ab (und damit von den gewählten Karten; meint hier, dass zwar immer möglich, aber man kann keine schön allgemeine Form der Übergangsabbildung angeben); Ableitungen in Koordinatensystemen als Grenzwerte zwischen verschiedenen Punkten machen daher gar nicht so wirklich Sinn, man will daher (später, nicht an dieser Stelle) ne allgemeinere/ sinnvollere Definitionen und Wege zum Rechnen (Levi-Civita-Zusammenhang); das Ganze muss eben auch auf Mannigfaltigkeiten Sinn machen !
+
+
+
+		\subsection{Kotangentialbündel}
+Die übliche Prozedur, das Übertragen der Erkenntnisse auf den Dualraum, ist nun nicht mehr schwer, die Hauptarbeit ist bereits getan.
+
+\begin{satz}
+Für eine $n$-dimensionale Mannigfaltigkeit $M$ bildet
+\begin{equation}
+T^*M := \bigsqcup_{p \in M} T^*_p M = \bigcup_{p \in M} \qty{p} \cross T^*_p M
+\end{equation}
+auf natürliche Art wieder eine Mannigfaltigkeit, sodass
+\begin{equation}
+\pi: T^* M \rightarrow M, \; \alpha \mapsto p
+\end{equation}
+eine Submersion ist und außerdem $T^*_p M \in T^*M$ auf glatte Weise der Dualraum zur Faser $T_p M \in TM$ ist.
+
+Der zugehörige Atlas ist gegeben durch Karten der Form
+\begin{equation}\label{eq:indkktb}
+(x, \alpha): T^* U = \bigsqcup_{p \in U} T^*_p U \rightarrow V \cross \mathbb{R}^n, \; \alpha \mapsto (x(p), \mqty(\alpha\qty(\eval{\pdv{x_1}}_p) \\ \vdots \\ \alpha\qty(\eval{\pdv{x_n}}_p)))
+\end{equation}
+auf $T^* U \subset T^* M$, wobei $x: U\rightarrow V$ eine Karte auf $M$ ist.
+\end{satz}
+
+\begin{defi}[Kotangentialbündel]
+$(T^* M, \pi)$ (oder auch nur $T^*M$) heißt \Def[Kotangential! bündel]{Kotangentialbündel von $M$}. Auch hier heißt ein Element $T^*_p M$/ $\qty{p} \cross T^*_p M $ von $T^*M$ \Def[Faser! des Kotangentialbündels]{Faser (über $p$)}.
+\end{defi}
+
+\begin{proof}
+nimm eine Karte $(U, x)$ und das zugehörige Tangentialbündel $T^* U$
+
+nimm (/ stelle so dar) dann Kotangentialvektor an $p \in U$ in Gauß'scher Basis quasi, also
+\begin{equation*}
+\alpha \in T^*_p M \mapsto (x(p), \mqty(\alpha\qty(\eval{\pdv{x_1}}_p) \\ \dots \\ \alpha\qty(\eval{\pdv{x_n}}_p))) \, ;
+\end{equation*}
+das ist dann äquivalent zur Basis-/ Kartendarstellung
+\begin{equation*}
+\alpha = \sum_k \lambda_k \, d_p x_k \mapsto (x(p), \mqty(\lambda_1 \\ \dots \\ \lambda_n)) \, ;
+\end{equation*}
+kriegen dann auch die Übergangsabbildungen
+\begin{equation*}
+(p, v) \mapsto \qty((y \circ x^{-1})(p), ((D_p (y \circ x^{-1}))^{-1})^T(v))
+\end{equation*}
+\end{proof}
+
+Man erhält also ganz analoge Darstellungen mit $\alpha$ oder $(p, \alpha)$ (Kotangentialvektoren ließen sich ja als Funktionenkeime und damit Ableitungen darstellen, daher ist der Koeffizientenvektor auch analog). Nutzt man zweite Interpretation, dann lässt sich $\pi$ wieder als Projektion auf die erste Komponente interpretieren (und unabhängig von den eigentlich unterschiedlichen Definitionsbereichen $TM, T^* M$).\\
+
+
+Die Formulierung mit dem Dualraum bedeutet dabei einfach nur, dass die dualen Abbildungen des Tangentialbündels enthalten sind. Analog zur dualen Abbildung aus der Linearen Algebra lässt sich das auch darüber ausdrücken, dass für
+\begin{equation*}
+X: M \rightarrow TM, \; \omega: M \rightarrow T^*M \; \text{ mit } \; \pi \circ X = \pi \circ \omega
+\end{equation*}
+die Funktion
+\begin{equation}
+\omega(X): M \rightarrow \mathbb{R}, \; p \mapsto \omega_p(X_p) = \omega(p)\qty(X(p))
+\end{equation}
+definiert ist und hier darüber hinaus sogar glatt (als Verknüpfung glatter Objekte).% Die Bedingung mit $\pi$ sagt dabei einfach
+
+? er schreibt das im Skript mit nem $N$, wo soll das denn herkommen (könnte aber gewollt sein, weil im Skript vorher auch verschiedene Vektorräume $V, W$ auftreten) ? Also auch die Vektorfelder und 1-Formen bilden von $N$ ab, muss daher vlt überhaupt $\pi \circ X = \pi \circ \omega$ gefordert werden, bei Abbildungen von $M$ könnte/ sollte das sogar per Definition klar sein oder ?
+
+
+
+Wiederum ist aber so, dass die induzierten Karten eher selten genutzt werden und stattdessen häufiger die Darstellungen in Trivialisierungen:
+\begin{defi}[Lokale Trivialisierung]
+Für eine Karte $x: U \rightarrow \mathbb{R}^n$ heißt die Abbildung
+\begin{equation}
+\hat{h}_{(U, x)}: T^* U \rightarrow U \cross \mathbb{R}^n, \; \alpha \mapsto (p, \lambda) = (p, \mqty(\lambda_1 \\ \vdots \\ \lambda_n))
+\end{equation}
+\Def[Lokale Trivialisierung! des Kotangentialbündels]{Lokale Trivialisierung (von $T^*M$)}.
+
+Diese ist glatt, bijektiv und faserweise linear, es ist also
+\begin{equation}
+\eval{\hat{h}_{(U, x)}}_{T_p M}: T^*_p U \rightarrow \qty{p} \cross \mathbb{R}, \; \alpha \mapsto (p, \lambda)
+\end{equation}
+eine lineare Abbildung. Die Projektion auf die zweite Komponente ist
+\begin{equation}
+h_{(U, x)} = \pi_2 \circ \eval{\hat{h}_{(U, x)}}_{T_p M}: T^*_p U \rightarrow \mathbb{R}, \; \alpha \mapsto \lambda \, .
+\end{equation}
+
+
+Für zwei Karten $x: U \rightarrow \mathbb{R}^n$ und $y: V \rightarrow \mathbb{R}^n$ heißt die Abbildung
+\begin{equation}
+\hat{h}_{(U, x), (V, y)} = \hat{h}_{(V, y)} \circ \hat{h}_{(U, x)}^{-1}: (U \cap V) \cross \mathbb{R}^n \rightarrow (U \cap V) \cross \mathbb{R}^n, \; (p, \lambda) \mapsto (p, \mu)
+\end{equation}
+\Def{Übergangstrivialisierung}. Die Menge aller $\hat{h}_{(U, x), (V, y)}$ wird der \Def[Kozyklus! des Kotangentialbündels]{Kozyklus (des Kotangentialbündels)} genannt. Mit der Projektion erhält man
+\begin{equation}
+h_{(U, x), (V, y)} = \pi_2 \circ \hat{h}_{(U, x), (V, y)} = \hat{h}_{(V, y)} \circ \hat{h}_{(U, x)}^{-1}: (U \cap V) \cross \mathbb{R}^n \rightarrow \mathbb{R}^n, \; (p, \lambda) \mapsto \mu \, .
+\end{equation}
+\end{defi}
+
+Tatsächlich ist nun alles analog zum Tangentialbündel definiert worden. Auch hier kann man zudem eine Darstellungsmatrix finden, die sich in der folgenden Interpretation des Übergangs wiederfindet:
+\begin{equation}
+\begin{split}
+h_{(U, x), (V, y)}: U \cap V \rightarrow \text{GL}(n; \mathbb{R}), \; &p \mapsto h_{(V, y), (U, x)}(p) = \qty(\qty(D y \circ x^{-1})^{-1})^T
+\\
+\Rightarrow \quad h_{(V, y), (U, x)}(p) &= \qty(g_{(V, y), (U, x)}(p)^{-1})^T
+\end{split}
+\end{equation}
+mit dem Kozyklus $g_{(V, y), (U, x)}(p)$ des Tangentialbündels. Es tritt also wiederum die Jacobi-Matrix des Kartenwechsels auf, die nun aber noch invertiert und transponiert werden muss. Eine Eselsbrücke für das Auftreten davon ist, dass man nun erst noch einen Vektor hineinstecken muss, bevor von dort abgebildet wird und man daher etwas Umgekehrtes bzw. Inverses machen muss (rechnerisch folgt es aus der Transformation der dualen Gauß'schen Basisvektoren).
+
+Das Ganze erfüllt übrigens die analogen Kozyklus-Bedingungen, auch wenn man invertiert und transponiert. Es ist sogar nur deswegen der Fall, weil sich so gerade die Vertauschungen von ${}^T, {}^{-1}$ im Matrixprodukt ausgleichen.\\
+
+
+Die Berechnung des Koeffizientenvektors folgt dem selben Muster wie zuvor:
+\begin{equation}
+\alpha = \sum_{j = 1}^n \alpha_j d_p x_j \quad \Rightarrow \quad \lambda_j = \alpha_j = \alpha\qty(\eval{\pdv{x_j}}_p), \forall j \, .
+\end{equation}
+	\anm{auch hier ist erkennbar, dass die zweite Komponente der induzierten Karten (siehe \eqref{eq:indkktb}) schon so definiert war.}
+
+
+\begin{bsp}[Basisvektor]
+Wieder wird die Rechnung mit einem Basisvektor gemacht:
+\begin{equation}
+\begin{split}
+\hat{h}_{(U, x)}\qty(d_p x_1) &= (p, \mqty(d_p x_1\qty(\eval{\pdv{x_1}}_p) \\ \vdots \\ d_p x_1\qty(\eval{\pdv{x_n}}_p))) = (p, \mqty(1 \\ 0 \\ \vdots \\ 0))  
+\\ & \\
+&\Rightarrow \quad \hat{h}_{(U, x)}\qty(d_p x_k) = (p, e_k) \, .
+\end{split}
+\end{equation}
+\end{bsp}
+
+
+Hmm, sollte wegen der Interpretation von 1-Formen als Funktionenkeimen nicht sogar die Koeffizienten mit denen vom Tangentialbündel gleich sein ???
+
+
+
+
+\newpage
+
+
+	\section{Vektorfelder und 1-Formen}
+Die neu geschaffenen Bündelstrukturen eröffnen nun viele Möglichkeiten. So wird es nun beispielsweise möglich, nicht mehr nur Vektoren an einem Punkt zu betrachten, sondern an beliebigen Punkten auf der Mannigfaltigkeit. Das entspricht einer Abbildung $M \rightarrow TM$ und um genau solche Konstrukte soll es nun gehen:
+\begin{defi}[(Tangential-)Vektorfeld]
+Ein \Def[Vektorfeld]{Vektorfeld $X$ auf $M$} ist eine glatte Abbildung
+\begin{equation}
+X: M \rightarrow TM, \; p \mapsto (p, X_p)
+\end{equation}
+mit der Eigenschaft, dass für $\pi: TM \rightarrow M, \; (p, v) \mapsto p$ gilt:
+\begin{equation}
+\pi \circ X = \text{id}_M \, .
+\end{equation}
+Die Menge aller Vektorfelder auf $M$ wird mit $\mathcal{X}(M)$ bezeichnet.
+\end{defi}
+Eine solche Abbildung $X$ ordnet also jedem Punkt $p \in M$ auf glatte Art und Weise (was einfach die Glattheit von $X$ meint) irgendeinen Tangentialvektor $X_p$ (man sagt aber oft verkürzend nur Vektor, denn genau das ist es ja) am Punkt $p$ zu und damit ein Element von $T_p M$. Es werden also gerade keine Vektoren aus einem anderen Tangentialraum $T_q M, \, p \neq q \in M$ zugeordnet (was ja prinzipiell auch denkbar wäre), dafür sorgt die Forderung mit der Projektion (man nennt $X$ dann auch \Def{fußpunkttreu}). In gewisser Weise macht das Vektorfelder zu Umkehrfunktionen von $\pi$, die durch Einschränkung des Urbilds $\pi^{-1}(p) = T_p M$ zu jedem $p \in M$ nur ein Element zuordnen.
+
+	\anm{offenbar handelt es sich bei Vektoren um konstante Vektorfelder. Der Großteil aller Elemente von $\mathcal{X}(M)$ ist aber nicht-konstant. Man muss nun aufpassen, weil verschiedene Objekte nun sehr ähnlich aussehen: $X \equiv$ Vektorfeld, $X_p \equiv$ Vektor, $X_p \cdot f \equiv$ Richtungsableitung von $f$ am Punkt $p$ entlang $X_p$.}
+
+Streng genommen wird zwar ein Tupel aus Punkt und Tangentialvektor zugeordnet, aber der Punkt wird meist vernachlässigt und deshalb bei der zweiten Komponente in den Index geschrieben (dann also $X(p) = X_p$), weil $X$ in der ersten Komponente ja als Identität wirkt, die Angabe also keine zusätzliche Information bringt.
+
+	\anm{man könnte auch sagen, dass man im Allgemeinen die erste Interpretation des Tangentialbündels nutzt, wo sowieso nur der Vektor vorkam. Dann würde man mit der Abbildung $\pi: TM \rightarrow M, \, v \mapsto p$ arbeiten statt der Projektion, was aber kein Problem wäre, die Aussagen bleiben ja alle analog gültig.}
+
+Bei $\mathcal{X}(M)$ handelt es sich übrigens nicht nur um einen Vektorraum, sondern sogar um ein Modul über den glatten Funktionen $C^\infty(M; \mathbb{R})$ mittels der Multiplikation
+\begin{equation}
+\begin{split}
+\cdot&: C^\infty(M; \mathbb{R}) \cross \mathcal{X}(M) \rightarrow \mathcal{X}(M), \; (f, X) \mapsto f \cdot X \text{ mit } (f \cdot X)(p) = f(p) \, X_p \, .
+%\\
+%\cdot&: C^\infty(M; \mathbb{R}) \cross \Omega(M) \rightarrow T^* M, \; (f, \omega) \mapsto f \cdot \omega \text{ mit } (f \cdot \omega)(p) = f(p) \,  \omega_p \, .
+\end{split}
+\end{equation}
+
+Im Allgemeinen gilt dabei $\dim(\mathcal{X}(M)) = \infty \neq \dim(T_p M)$, weil es natürlich viel mehr Vektorfelder als Vektoren gibt (letztere wurden ja bereits als konstante Vektorfelder identifiziert). Das \enquote{Problem}/der Unterschied bei der Dimension ist, dass zwar jeder Vektorraum $T_p M$ endlichdimensional ist, Vektorfelder aber auf jedem Tangentialraum agieren. Man kann sich deshalb (analog zur Dimensionsbetrachtung bei $C^\infty(M; \mathbb{R})$, siehe \ref{cor:dimcinfty}) mithilfe von Buckelfunktionen unendlich viele linear unabhängige Vektorfelder konstruieren, indem man diese auf verschiedenen Mengen ungleich 0 werden lässt, also disjunkte Träger wählt (die sind dann nicht linear abhängig, weil im Vergleich immer $X_p = 0$ mit dem Nullvektorfeld ist und $\tilde{X}_p \neq 0$, aber weil $0 \cdot x = 0, \, \forall x \in \mathbb{R}$ kann es kein $c \in \mathbb{R}$ geben mit $c X_p = \tilde{X}_p$, was die lineare Unabhängigkeit zeigt).
+
+%Ändert man ein Vektorfeld also durch Multiplikation mit einer glatten Funktion (und damit punktweise um den Wert $f(p)$) ab, so sind diese (eigentlich sehr ähnlichen Vektorfelder) nur bei einer konstanten Funktion $f$ linear abhängig. Es ist dann wegen $\dim(C^\infty(M; \mathbb{R})) = \infty$ schnell klar, dass man so beliebig viele linear unabhängige Vektorfelder konstruieren kann, weshalb $\mathcal{X}(M)$ unendlich-dimensional ist.
+
+
+\begin{bsp}[Drehvektorfeld]\label{bsp:drehvekt}
+Der Einfachheit halber soll ein Beispiel auf dem euklidischen Raum angegeben werden, auch wenn die Unterscheidung von Punkt und Vektor dort lediglich eine Frage der Interpretation ist. Unter Verwendung des Kreuzprodukts $\cross$ ist
+\begin{equation}
+X: \mathbb{R}^3 \rightarrow \mathbb{R}^3, \; p = (x, y, z) \mapsto v = e_3 \cross p = \mqty(-y \\ x \\ 0) \, ,
+\end{equation}
+das Drehvektorfeld um die z-Achse (um andere Achsen analog).
+
+Man hat dort also nun einen Punkt stehen, der noch variiert werden kann. Im Prinzip ändert sich an den meisten Notationen nichts (es wird höchstens ein Punkt im Index weggelassen), aber man kann nun beliebige Punkte einsetzen und muss sich nicht wie vorher mit einem einzigen begnügen (auch wenn es dort wahrscheinlich gar nicht klar wurde, dass $p$ nicht variiert werden darf, weil man es intuitiv immer schon macht). Eine etwas allgemeinere Darstellung (wenn auch immer noch in der Karte zu Standardkoordinaten) wäre
+\begin{equation}
+X = -y \pdv{x} + x \pdv{y} \, .
+\end{equation}
+Interessanterweise ist die Einschränkung $X_{\mathbb{S}^2}$ auch ein Vektorfeld auf $\mathbb{S}^2$. Ein Plot dieses eingeschränkten Vektorfelds findet sich in Abbildung \ref{fig:drehvektfeldplot} (in einem Würfel als Ausschnitt des $\mathbb{R}^3$ würde das Ganze zu unübersichtlich aussehen, daher wird nur die Einschränkung auf $\mathbb{S}^2$ geplottet; die Verallgemeinerung kann man sich dann so vorstellen, dass der Radius der Kreise auch noch variabel ist). Jeder Pfeil entspricht einem Element des Tangentialraums am zugehörigen Punkt, mit dem Vektorfeld kann man also Vektoren an jedem dieser Punkte zusammenfassen.\\
+
+
+Man schreibt  kein $\eval{}_p$ mehr an die Gauß'schen Basisvektoren, weil von nun an mit einer Vektorfeld-Version selbiger gearbeitet wird, also Abbildungen der Form
+\begin{equation}
+\pdv{x_j}: M \rightarrow T_p M, \; p \mapsto \eval{\pdv{x_j}}_p \, .
+\end{equation}
+Analog wird die duale Basis verallgemeinert zu
+\begin{equation}
+dx_j: M \rightarrow T^*_p M, \; p \mapsto d_p x_j \, .
+\end{equation}
+\end{bsp}
+
+\begin{figure}[ht]
+\centering
+\subfloat[Plot in Äquatorialebene]{\includegraphics[width=0.45\textwidth]{Bilder/vectorfield_example_circle.pdf}}\hspace*{0.04\textwidth}
+\subfloat[Plot auf gesamter Sphäre]{\includegraphics[width=0.45\textwidth]{Bilder/vectorfield_example_sphere.pdf}}
+
+\caption[Veranschaulichung Drehvektorfeld]{Veranschaulichung des Drehvektorfeldes aus Beispiel \ref{bsp:drehvekt}. In (a) wird zunächst nur der Schnitt der Sphäre durch die Äquatorialebene gezeigt, um den Verlauf etwas klarer zu machen, bevor (b) dann das Feld auf der gesamten Sphäre zeigt. In beiden Bildern ist gut zu erkennen, woher der Name Drehvektorfeld kommt.}
+\label{fig:drehvektfeldplot}
+\end{figure}
+
+
+Natürlich lässt sich eine zu $X$ analoge Abbildung in den Kotangentialraum angeben:
+\begin{defi}[1-(Differential-)Form]
+Eine \Def[1-Differentialform]{1-Differentialform $\omega$ auf $M$} ist eine glatte Abbildung
+\begin{equation}
+\omega: M \rightarrow T^*M, \; p \mapsto \omega_p
+\end{equation}
+mit der Eigenschaft, dass für $\pi: T^*M \rightarrow M, \; (p, \alpha) \mapsto p$ gilt:
+\begin{equation}
+\pi \circ \omega = \text{id}_M \, .
+\end{equation}
+Die Menge aller 1-Differentialformen wird mit $\Omega^1(M)$ bezeichnet.
+\end{defi}
+Analog zu Vektorfeld ordnet also eine 1-Differentialform einem Punkt $p$ auf glatte Art und Weise ein Element des Kotangentialraums an diesem Punkt zu, also eine 1-Form. Es lässt sich mit dieser Definition sofort erkennen, dass 1-Formen konstanten 1-Differentialformen entsprechen. Auch bei nicht konstanten wird jedoch meist das Präfix Differential- weggelassen, 1-Formen bezeichnen also sowohl Linearformen $M \rightarrow \mathbb{R}$ als auch Zuordnungen $M \rightarrow T^* M$ von Punkten zu solchen Linearformen (die Begriffe verschwimmen aber ganz offenbar).
+
+Auch $\Omega^1(M)$ bildet ein Modul über den glatten Funktionen mittels einer zu der bei Vektorfeldern analogen Multiplikation $\qty(f \omega)(p) = f(p) \, \omega_p$.
+
+
+\begin{bsp}[Norm]
+Eine sehr einfache Linearform auf dem $\mathbb{R}^n$ ist die Abstandsfunktion
+\begin{equation}
+r: \mathbb{R}^n \rightarrow \mathbb{R}, \; x \mapsto \norm{x} = \sqrt{x_1^2 + \dots + x_n^2} \, ,
+\end{equation}
+die den Abstand des Punktes $x$ vom Ursprung misst.
+
+? dafuq, das ist ja nur ne 1-Form und keine Differentialform ? evtl hier Flussform reinhauen aus MfP ?
+\end{bsp}
+
+
+Analog zu den Überlegungen beim Tangentialbündel, wo die allgemeinen Darstellungen bei expliziten Rechnungen nicht wirklich hilfreich waren, ist auch bei Vektorfeldern und 1-Formen eine Koordinaten-/ Kartendarstellung teilweise hilfreich oder sogar unausweichlich (zu sehen beim Beispiel des Drehvektorfeldes). Dabei benutzt man natürlich die bereits zu diesem Thema geleistete Arbeit und damit lokale Trivialisierungen:
+
+\begin{defi}[Lokale Darstellung]
+Für eine Karte $x: U \rightarrow \mathbb{R}^n$ und ein Vektorfeld $X \in \mathcal{X}(M)$ ist
+\begin{equation}
+X_U = \sum_{k = 1}^n \lambda_k \pdv{x_k} \; \text{ mit } \; \lambda_k = X \cdot x_k: U \rightarrow \mathbb{R}, \; p \mapsto \lambda_k(p) = X_p \cdot x_k(p)
+\end{equation}
+die \Def[Lokale Darstellung! eines Vektorfelds]{Lokale Darstellung von $X$}. Oft notiert man dafür auch
+\begin{equation}
+s_{(U, x)}: U \rightarrow \mathbb{R}^n, \; p \mapsto \mqty(\lambda_1(p) \\ \dots \\ \lambda_n(p)) \, .
+\end{equation}
+\end{defi}
+Die Interpretation der Darstellung ist, dass man Derivationen über ihre Wirkung auf die Karte $x_k$ charakterisiert. Im Prinzip sind die dabei auftretenden Veränderungen zur lokalen Darstellung von Vektoren total logisch. Statt konstanten Koeffizienten sind die $\lambda_j$ nun Funktionen des Punktes $p$, die Verallgemeinerung dessen war ja gerade der Kniff beim Übergang $T_p M \rightarrow TM$. Zudem steht der Punkt $p$ nicht mehr im Index der Gauß'schen Basisvektoren, um klarzumachen, dass es sich nun auch um ein Vektorfeld handelt statt eines Vektors am festen Punkt $p$. Das Gebiet, auf dem trivialisiert wird, steht außerdem zusammen mit der Karte im Index.
+
+	\anm{oftmals werden die Funktionen $\lambda_j: U \rightarrow \mathbb{R}$ und $\tilde{\lambda}_j = \lambda_j \circ x^{-1}: \mathbb{R}^n \rightarrow \mathbb{R}$ (also die Kartendarstellungen der Koeffizienten) nicht wirklich unterschieden !}
+
+\begin{satz}[Globale Darstellung]
+Für ein Vektorfeld $X \in \mathcal{X}(M)$ mit lokalen Darstellungen
+\begin{equation*}
+X_U = \sum_{k = 1}^n \lambda_k \pdv{x_k} \qquad \qquad X_V = \sum_{k = 1}^n \mu_k \pdv{y_k}
+\end{equation*}
+in zwei Karten $x: U \rightarrow \mathbb{R}^n, \, y: V \rightarrow \mathbb{R}^n$ gilt:
+\begin{equation}
+s_{(V, y)} = g_{(V, y), (U, x)} \, s_{(U, x)}
+\end{equation}
+mit dem Kozyklus $g_{(V, y), (U, x)}$ des Tangentialbündels $TM$.
+
+Umgekehrt existiert zu lokalen Darstellungen $X_U, X_V$ genau dann ein globales Vektorfeld, wenn eben jene Gleichung erfüllt ist.
+\end{satz}
+
+Das ist analog zur Verträglichkeitsbedingung bei lokalen Trivialisierungen, man wechselt über den Kozyklus. Das ist auch logisch, weil die lokale Darstellung von $X$ an die durch $x$ induzierte lokale Trivialisierung gebunden ist. Diese Aussage ist jedoch ungemein wichtig, weil sie Bedingungen die Wohldefiniertheit lokaler Rechnungen liefert und erst das rechtfertigt das Rechnen mit solchen Darstellungen.
+
+Dass man es dabei die ganze Zeit mit glatten Funktionen $\lambda_j$ zu tun hat (nötig, weil Vektorfelder glatt sein müssen), folgt direkt aus diesem Lemma:
+\begin{lemma}\label{lemma:vektfeldfkt}
+Für ein Vektorfeld $X \in \mathcal{X}(M)$ und eine Funktion $f \in C^\infty(M; \mathbb{R})$ ist auch
+\begin{equation}
+\phi: M \rightarrow \mathbb{R}, \;  p \mapsto X_p \cdot f
+\end{equation}
+eine glatte Funktion.
+\end{lemma}
+Die Anwendung eines Vektorfeldes ($\equiv$ Ableitung) auf eine glatte Funktion liefert also wieder eine glatte Funktion, man kann schließlich in Punkten auswerten. Der Beweis beruht auf $d_p f(X_p) = X_p \cdot f$ zusammen mit der Definition des Kotangentialbündels (Verknüpfung zu Vektorfeldern bei der dualen Abbildung).
+
+	\anm{allgemeiner gilt das für $p \mapsto \omega_p\qty(X_p)$, siehe auch Beispiel \ref{bsp:1fveklokal}.}
+
+
+Nun wird zur Veranschaulichung eine lokale Trivialisierung berechnet:
+\begin{bsp}[Vektorfeld auf Sphäre]
+Man betrachte die Standardkarte der Sphäre, die stereographische Projektion:
+\begin{align*}
+\phi&: U = S^2 \backslash \qty{S} \rightarrow \mathbb{R}^2, \; (x, y, z) \mapsto (\phi_1, \phi_2) = \frac{1}{1 + z} (x, y)
+%\\
+%\psi&: V = S^2 \backslash \qty{N} \rightarrow \mathbb{R}^2, \; (x, y, z) \mapsto (\psi_1,\psi_2) = \frac{1}{1 - z} (x, y)
+%\\
+%\qty(\psi \circ \varphi^{-1})&(\varphi_1, \varphi_2) = \frac{1}{\varphi_1^2 + \varphi_2^2} (\varphi_1, \varphi_2)
+\end{align*}
+%Der Kartenwechsel reskalierte ja lediglich, weil Punkte nahe bei $N$ im einen Fall in Richtung $\infty$ und im anderen Fall in Richtung $0$ geschickt werden.
+
+%Für das Drehvektorfeld $X_{(x, y, z)} = \mqty(-y \\ x \\ 0)$ erhält man dann
+%\begin{align*}
+%X_{(x, y, z)} &\equiv -\frac{\varphi_2}{2} \qty(1 + \varphi_1^2 + \varphi_2^2) \pdv{\varphi_1} + \frac{\varphi_1}{2} \qty(1 + \varphi_1^2 + \varphi_2^2) \pdv{\varphi_2}
+%\\
+% &\equiv -\frac{\psi_2}{2} \qty(1 + \psi_1^2 + \psi_2^2) \pdv{\psi_1} + \frac{\psi_1}{2} \qty(1 + \psi_1^2 + \psi_2^2) \pdv{\psi_2}
+%\end{align*}
+%und damit
+%\begin{align*}
+%S_{(U, \varphi)} &= \mqty(-\frac{\varphi_2}{2} \qty(1 + \varphi_1^2 + \varphi_2^2) \\ \frac{\varphi_1}{2} \qty(1 + \varphi_1^2 + \varphi_2^2))
+%\\
+%S_{(V, \psi)} &= \mqty(-\frac{\psi_2}{2} \qty(1 + \psi_1^2 + \psi_2^2) \\ \frac{\psi_1}{2} \qty(1 + \psi_1^2 + \psi_2^2)) \, .
+%\end{align*}
+
+%Man kann dann nachrechnen, dass tatsächlich
+%\begin{equation*}
+%S_{(V, \psi)}(p) = D_{\varphi(p)} \, \qty(\psi \circ \varphi^{-1}) S_{(U, \varphi)} \, .
+%\end{equation*}
+
+%Drehvektorfeld sieht nur so gleich aus, liegen beide quasi im Zentrum von der Drehung (symmetrische Situation, daher haben Vektorfelde analoge Koeffizienten vor Gauß'schen Basisvektoren stehen).
+
+%(fast) nachgerechnet in OneNote, HÜ 5
+
+
+Nimmt man nun die in der durch $\phi$ induzierten Trivialisierung als $\pdv{\phi_1}, \pdv{\phi_2}$ gegebenen Vektorfelder, so kann man sich auch die Frage nach deren Darstellung in Standardkoordinaten stellen. Diese kann über die Transformationsformel
+\begin{equation*}
+%\eval{\pdv{x_j}}_p = \sum_k \eval{\pdv{y_k \circ x^{-1}}{x_j}}_{x(p)} \eval{\pdv{y_k}}_p
+\eval{\pdv{\phi_j}}_p = \sum_k \eval{\pdv{x_k \circ \phi^{-1}}{\phi_j}}_{\phi(p)} \eval{\pdv{x_k}}_p
+\end{equation*}
+berechnet werden. Dazu sind also die partiellen Ableitungen der Komponenten $x, y, z$ nach den Koordinaten $\phi_1, \phi_2$ zu bestimmen, was natürlich in der durch $\phi^{-1}$ gegebenen Darstellung (entspricht gerade der Parametrisierung von $x, y, z$ durch $\phi_1, \phi_2$) gemacht werden muss. Einsetzen von $\phi(p)$ bedeutet dann einfach Ausschreiben von $\phi_1, \phi_2$, man möchte schließlich am Ende einen Ausdruck mit $\pdv{x}, \pdv{y}, \pdv{z}$ und deshalb auch $x, y, z$ haben. Die inverse Karte ist bereits bekannt als:
+\begin{align*}
+\phi^{-1}: \mathbb{R}^2 \rightarrow S^2 \backslash \qty{S}, \; (\phi_1, \phi_2) \mapsto (x, y, z) = \qty(\frac{2 \phi_1}{1 + \phi_1^2 + \phi_2^2}, \frac{2 \phi_2}{1+ \phi_1^2 + \phi_2^2}, \frac{1 - \phi_1^2 - \phi_2^2}{1 + \phi_1^2 + \phi_2^2}) \, .
+\end{align*}
+Weil nun alle gewünschten Koeffizienten partielle Ableitungen sind, bietet sich die Berechnung der Jacobi-Matrix an:
+\begin{align}
+D_{(\phi_1, \phi_2)} \phi^{-1} &= \mqty(\pdv{x}{\phi_1} & \pdv{x}{\phi_2} \\ \pdv{y}{\phi_1} & \pdv{y}{\phi_2} \\ \pdv{z}{\phi_1} & \pdv{z}{\phi_2})
+\end{align}
+
+noch Kozyklus berechnen
+
+	\anm{die Moral von der Geschicht ist: Merken über die exakten Formeln ist zu unübersichtlich, man muss einfach als Darstellung eines Vektors die partielle Ableitung der Parametrisierungen aller Koeffizienten der neuen Basis ableiten nach der zum Vektor (den man ersetzen will) gehörigen Komponente und daran noch den Vektor zur abgeleiteten Komponente multiplizieren.}
+\end{bsp}
+
+%? hier die Interpretation der Gauß'schen Basisvektoren als tatsächliche partielle Ableitung im $\mathbb{R}^n$ einbringen (was bei Wahl der Funktionen $\tilde{\lambda} = \lambda \circ x^{-1}$ tatsächlich genau stimmt !); siehe dafür Screenshot zu Gauß Basis Koordinaten ?\\
+
+Wieder werden nun Definitionen und Sätze von $TM$ auf $T^* M$ übertragen:
+\begin{defi}[Lokale Darstellung]
+Für eine Karte $x: U \rightarrow \mathbb{R}^n$ und eine 1-Form $\omega \in \Omega^1(M)$ ist
+\begin{equation}
+\omega_U = \sum_{k = 1}^n f_k \, dx_k \; \text{ mit } f_k = \omega\qty(\pdv{x_k}): U \rightarrow \mathbb{R}, \; p \mapsto f_k(p) = \omega_p\qty(\eval{\pdv{x_k}}_p)
+\end{equation}
+die \Def[Lokale Darstellung! einer 1-Form]{Lokale Darstellung von $\omega$}. Oft notiert man dafür auch
+\begin{equation}
+t_{(U, x)}: U \rightarrow \mathbb{R}^n, \; p \mapsto \mqty(f_1(p) \\ \dots \\ f_n(p)) \, .
+\end{equation}
+\end{defi}
+Auch hier ist die einzige Veränderung, dass man es nun nicht mehr mit konstanten Koeffizienten, sondern Koeffizientenfunktionen zu tun hat. Analog zu Vektorfeldern untersucht man aber die Wirkung des Objekts auf die Komponenten der Karte, hier eben auf die zugehörigen Gauß'schen Basisvektoren.
+
+	\anm{auch hier muss man auf die Unterscheidung von $f_k$ und den zugehörigen Kartendarstellungen achten !}
+
+\begin{satz}[Globale Darstellung]
+Für eine 1-Form $\omega \in \Omega^1(M)$ mit lokalen Darstellungen
+\begin{equation*}
+\omega_U = \sum_{k = 1}^n f_k \, dx_k \qquad \qquad \omega_V = \sum_{k = 1}^n g_k \, dx_k
+\end{equation*}
+in zwei Karten $x: U \rightarrow \mathbb{R}^n, \, y: V \rightarrow \mathbb{R}^n$ gilt:
+\begin{equation}
+t_{(V, y)} = h_{(V, y), (U, x)} \, t_{(U, x)}
+\end{equation}
+mit dem Kozyklus $h_{(V, y), (U, x)}$ des Kotangentialbündels $T^*M$.
+
+Umgekehrt existiert zu lokalen Darstellungen $\omega_U, \omega_V$ genau dann eine (globale) 1-Form $\omega \in \Omega(M)$, wenn eben jene Gleichung erfüllt ist.
+\end{satz}
+Auch hier gibt es also keine Überraschungen.
+
+\begin{bsp}[Differential $\equiv$ 1-Form]
+Für eine Funktion $f \in C^\infty(M; \mathbb{R})$ ist das Differential am Punkt $p$ als Funktion
+\begin{equation*}
+d_p f: T_p M \rightarrow \mathbb{R}, \; v \mapsto d_p f(v)
+\end{equation*}
+definiert, die $f$ am festen Punkt $p \in M$ in Richtung von $v \in T_p M$ ableitet (daher kam auch die Darstellung $d_p f(X_p) = X_p \cdot f$ mit der zu $v$ gehörigen Derivation $X$).
+
+Durch Nutzung des Tangentialbündels kann man nun aber den Punkt ebenfalls variieren lassen und so das Differential analog als
+\begin{equation}
+df: TM \rightarrow \mathbb{R}, \; (p, v) \mapsto d_p f(v)
+\end{equation}
+definieren. Daraus ergibt sich anders interpretiert das Objekt
+\begin{equation}
+df: M \rightarrow T^* M, \; p \mapsto d_p f \, ,
+\end{equation}
+wobei es sich wegen der Glattheit von $f$ um eine 1-Form $df \in \Omega^1(M; \mathbb{R})$ handelt. Damit wird auch klar, dass die Ableitung einer Funktion $f$ in Koordinaten nichts Anderes ist als die Kartendarstellung der zugehörigen 1-Form !
+\end{bsp}
+
+\begin{bsp}[Allgemeine lokale Darstellung]\label{bsp:1fveklokal}
+Wie bei den Koeffizienten $f_k$ von 1-Formen zu sehen war, definiert
+\begin{equation}
+\Theta: M \rightarrow \mathbb{R}, \; p \mapsto \omega_p\qty(X_p)
+\end{equation}
+eine glatte (weil $\omega, X$ glatt sind) Funktion auf $M$. Sind nun $\omega, X$ als lokale Darstellungen in einer Karte $x: U \rightarrow \mathbb{R}^n$ gegeben, so kann man auch $\Theta$ umschreiben:
+\begin{equation}
+\begin{split}
+\omega_U\qty(X_U) &= \qty(\sum_{j = 1}^n f_j \, dx_j) \qty(\sum_{k = 1}^n \lambda_k \pdv{x_k}) = \sum_{j = 1}^n f_j \, dx_j\qty(\sum_{k = 1}^n \lambda_k \pdv{x_k})
+\\
+&= \sum_{j, k = 1}^n f_j \, \lambda_k \, dx_j\qty(\pdv{x_k}) = \sum_{j, k = 1}^n f_j \, \lambda_k \, \delta_{jk} = \sum_{j = 1}^n f_j \, \lambda_j \, .
+\end{split}
+\end{equation}
+Das ist nun sehr einfach punktweise auszuwerten.
+\end{bsp}
+
+\begin{bsp}[1-Form auf Sphäre]
+%er macht dann Beispiel für Höhenfunktion bei Kugel; wichtig ist dabei, dass bei Entwicklung von $dz$ in anderer Basis $d\varphi_1, d\varphi_2$ gegeben sind durch $dz\qty(\pdv{\varphi_k}) = \pdv{z \circ \varphi^{-1}}{\varphi_1}$
+Man betrachte die 1-Form
+\begin{equation}
+\omega: T_{(x, y, z)} \mathbb{S}^2 \rightarrow \mathbb{R}, \; X \mapsto dx(X) + 2 dy(X) + 3 dz(X) + (x^2 + y^2 + z^2) dz(X) \, ,
+\end{equation}
+die in der durch die Standardkoordinaten induzierten lokalen Darstellung gegeben ist (oft wird auch einfach $\omega = dx + 2 dy + 4 dz$ geschrieben, wobei der Term $x^2 + y^2 +z^2$ wegen der Einschränkung auf $\mathbb{S}^2$ natürlich wegfällt). Expliziter kann man das für ein allgemeines Vektorfeld $X = a \pdv{x} + b \pdv{y} + c \pdv{z}$ umschreiben zu:
+\begin{equation}
+\omega(X) = a + 2 b + 4 c \, ,
+\end{equation}
+wobei lediglich die Linearität von $\omega$ und $dx_i\qty(\pdv{x_j}) = \delta_{ij}$ genutzt wurden.
+
+Nun soll die Darstellung dieser 1-Form in der durch die stereographischen Projektionen $\phi, \psi$ induzierten Trivialisierungen berechnet werden, wobei man dazu einfach die bekannte Transformationsformel nutzen kann:
+\begin{equation*}
+dx_j = \sum_k \eval{\pdv{x_j \circ y^{-1}}{y_k}}_{y(p)} dy_k \, .
+\end{equation*}
+Benötigt werden daher die inversen Abbildungen (weil $y \equiv \phi, \psi$)
+\begin{align*}
+\phi^{-1}&: \mathbb{R}^2 \rightarrow S^2 \backslash \qty{S}, \; (\phi_1, \phi_2) \mapsto (x, y, z) = \qty(\frac{2 \phi_1}{1 + \phi_1^2 + \phi_2^2}, \frac{2 \phi_2}{1+ \phi_1^2 + \phi_2^2}, \frac{1 - \phi_1^2 - \phi_2^2}{1 + \phi_1^2 + \phi_2^2})
+\\
+\psi^{-1}&: \mathbb{R}^2 \rightarrow S^2 \backslash \qty{N}, \; (\psi_1, \psi_2) \mapsto (x, y, z) = \qty(\frac{2 \psi_1}{1 + \psi_1^2 + \psi_2^2}, \frac{2 \psi_2}{1+ \psi_1^2 + \psi_2^2}, \frac{\psi_1^2 + \psi_2^2 - 1}{1 + \psi_1^2 + \psi_2^2})
+\end{align*}
+Es sind nun also die jeweiligen partiellen Ableitungen der Komponenten $x, y, z$ nach den Koordinaten $\phi_1, \phi_2$ bzw. $\psi_1, \psi_2$ zu berechnetn. Weil die Abhängigkeiten von diesen Koordinaten aber in der Parametrisierung (also den ausgeschriebenen $x, y, z$) stecken, müssen die Ableitungen bereits mit eingesetzter Parametrisierung berechnet werden (dadurch spart man sich das Einsetzen von $\phi(p)$ und $\psi(p)$ in die Ergebnisse dort, weil ja $\phi(p) = (\phi_1, \phi_2)$). Wiederum ergibt es Sinn, einfach die Jacobi-Matrizen auszurechnen, weil diese ja bereits alle Koeffizienten enthalten:
+\begin{align}
+D_{(\phi_1, \phi_2)} \phi^{-1} &= \mqty(\pdv{x}{\phi_1} & \pdv{x}{\phi_2} \\ \pdv{y}{\phi_1} & \pdv{y}{\phi_2} \\ \pdv{z}{\phi_1} & \pdv{z}{\phi_2})
+\\
+D_{(\psi_1, \psi_2)} \psi^{-1} &= \mqty(\pdv{x}{\psi_1} & \pdv{x}{\psi_2} \\ \pdv{y}{\psi_1} & \pdv{y}{\psi_2} \\ \pdv{z}{\psi_1} & \pdv{z}{\psi_2})
+\end{align}
+
+Kozyklus noch machen
+
+	\anm{auch hier gilt der Hinweis, sich weniger von den Indizes verwirren zu lassen. Man muss hier die inverse und transponierte Jacobi-Matrix betrachten (beim Kozyklus so berechnet), daher sind die Karten in Zähler und Nenner vertauscht (vom Invertieren) und man summiert über die ableitenden/ unteren Komponenten, also mit vom Transponieren vertauschten Indizes. Klarer wird das Prinzip in Beispielen, die noch folgen, siehe z.B. \eqref{bsp:spherepullback}.}
+\end{bsp}
+
+
+Das bereits vorher gezeichnete Diagramm lässt sich nun noch etwas allgemeiner schreiben, weil die Punkte nun eben nicht mehr fest sind (vorher brauchte man ja streng genommen für jedes $p$ ein eigenes $X_p$ und analog $\alpha_p$):
+$$
+\begin{tikzcd}[row sep = 56, column sep = 50]
+\mathbb{R} \arrow{r}{\gamma} & M \arrow[swap]{d}{X} \arrow[swap]{dl}{\omega} \arrow{r}{F} & N
+\arrow{r}{f} & \mathbb{R} \\
+T^*M & TM  \arrow[swap]{r}{DF} & TN \arrow[swap]{u}{\pi} \arrow[swap]{ur}{df} &
+\end{tikzcd}
+$$
+
+Man kann nun also über das Differential verschiedene Tangentialbündel und -räume in Verbindung bringen. Das klappt aber auch für Vektorfelder, die ja Abbildungen aus der Mannigfaltigkeit in das Tangentialbündel sind:
+
+\begin{defi}[Verwandtschaft]\label{defi:verwandtsch}
+Zwei Vektorfelder $X \in \mathcal{X}(M)$ und $Y \in \mathcal{X}(N)$ auf zwei Mannigfaltigkeiten $M, N$ heißen \Def{$\Phi$-verwandt}, wenn es eine glatte Abbildung $\Phi: M \rightarrow N$ gibt mit
+\begin{equation}
+D_p \Phi(X_p) = Y_{\Phi(p)}, \; \forall p \in M \; \Leftrightarrow \; D_{\Phi^{-1}(q)} \Phi(X_{\Phi^{-1}(q)}) = Y_q, \; \forall q = \Phi(p) \in N \, .
+\end{equation}
+\end{defi}
+
+Das Prinzip ist also recht einfach: man wechselt die Punkte mithilfe der Abbildung $\Phi$ und die Vektorfelder mithilfe des Differentials, transportiert also $X$ mithilfe von $\Phi$ auf eine andere Mannigfaltigkeit. Das erlaubt es dann auch, Vektorfelder auf verschiedenen Mannigfaltigkeiten zu vergleichen, weil für $\Phi$-verwandte Vektorfelder $X, Y$ die Änderung der Abbildung $\Phi$ entlang $X$ an einem gewissen Punkt $p \in M$ ja gerade $Y$ am Bildpunkt $\Phi(p)$ entspricht (über diese Wirkung sind Vektorfelder gerade festgelegt/ definiert, weil sie als Derivationen interpretierbar sind).
+
+	\anm{später wird diese Wirkung bei Vektorfeldern \Def{Push-Forward} genannt.}
+
+
+
+		\subsection{Weiterführende Aussagen}
+Nach der Definition und Darstellung folgen nun einige weiterführende Aussagen zu Vektorfeldern und 1-Formen, die primär auf die Arbeit mit (Matrix-)Lie-Gruppen vorbereiten (zumindest im Rahmen dieser Zusammenfassung). Im ersten Schritt soll dabei gezeigt werden, dass man auch für Vektorfelder (also im Prinzip Sammlungen von Tangentialvektoren) etwas wie allgemeine Derivationen findet.
+
+\begin{satz}[Existenz einer Derivation]
+Für eine Abbildung
+\begin{equation*}
+D: C^\infty(M; \mathbb{R}) \rightarrow C^\infty(M; \mathbb{R})
+\end{equation*}
+mit
+\begin{equation*}
+D\qty(\lambda f + \mu g) = \lambda D(f) + \mu D(g) \qquad D(fg) = f D(g) + g D(f)
+\end{equation*}
+existiert ein eindeutiges Vektorfeld $X \in \mathcal{X}(M)$, sodass
+\begin{equation}
+D(f)(p) = X(p) \cdot f \, .
+\end{equation}
+\end{satz}
+\begin{proof}[Beweisidee]
+zeige Glattheit der Koffizientenfunktionen oder so; weil aber jede Derivation an einem Punkt einer Richtungsableitung entspricht und ganz offenbar $\lambda_j = X \cdot x_j$. Weil aber die Koordinatenfunktionen $x_j$ (also die Projektionen auf Komponenten) glatt sind, ist auch deren Ableitung glatt (und damit ihre Derivation). Die Verträglichkeit in einer anderen Karte wird dabei direkt mitgeliefert, weil man mit der Derivation einen unabhängig von der Darstellung wohldefinierten Tangentialvektor hat !
+\end{proof}
+
+Die Aussage ist im Prinzip, dass man für eine lineare Abbildung $D$, die die Produktregel erfüllt (wie das Differential), punktweise Derivationen $X_p$ mit gleicher Wirkung auf beliebige $f$ findet. Aufgrund der Wirkung auf Funktionen liefert das nach Lemma \ref{lemma:vektfeldfkt} wieder eine glatte Funktion und erklärt den Wertebereich. $D$ ist dann nichts anderes als eine verallgemeinerte Derivation $X$, die punktweise (meint: setze einen festen Punkt in die entstehende Funktion ein, nicht in die abgebildete !) eine Derivation $X_p = X(p): C^\infty(M; \mathbb{R}) \rightarrow \mathbb{R}, \; f \mapsto (Df)(p)$ definiert.% (das sieht man an $D(fg)(p) = f(p) D(g)(p) + g(p) D(f)(p)$).
+
+
+Im Prinzip ist die Aussage also auch, dass die Ableitung einer Funktion wieder eine Funktion ergibt. Es ist deshalb nicht abwegig, auf diese Funktion wieder eine Derivation bzw. ein Vektorfeld (bedenke: $\text{Der}(M) \cong \mathcal{X}(M)$) wirken zu lassen, was Abbildungen
+\begin{align*}
+XY&: C^\infty(M; \mathbb{R}) \rightarrow C^\infty(M; \mathbb{R}), \; f \mapsto X \cdot Y \cdot f
+\\
+\text{mit } \; XY(p)&: C^\infty(M; \mathbb{R}) \rightarrow \mathbb{R}, \; f \mapsto X_p \cdot Y_p \cdot f = D_p \qty(D_p f(Y))(X)
+\end{align*}
+liefert und anders als bisher gewohnt ist im Allgemeinen $XY \neq YX$ ! Diese Tatsache motiviert die Definition folgender wichtiger Abbildung:
+
+\begin{defi}[Kommutator]
+Für eine Mannigfaltigkeit $M$ wird die Abbildung
+\begin{equation}
+[\cdot, \cdot]: \mathcal{X}(M) \cross \mathcal{X}(M) \rightarrow \mathcal{X}(M), \; (X, Y) \mapsto [X, Y]
+\end{equation}
+\Def{Kommutator} genannt. Dabei bezeichnet für $X, Y \in \mathcal{X}(M)$ das Vektorfeld $[X, Y] \in \mathcal{X}(M)$ den \Def[Kommutator]{Kommutator von $X, Y$}, das entspricht der Abbildung
+\begin{equation}
+[X, Y]: C^\infty(M; \mathbb{R}) \rightarrow C^\infty(M; \mathbb{R}), \; f \mapsto [X, Y] \cdot f := X \cdot Y \cdot f - Y \cdot X \cdot f \, .
+\end{equation}
+\end{defi}
+Der Begriff des Kommutators ist vielleicht schon aus der Linearen Algebra von Matrizen bekannt (was sinnvoll ist, der Tangentialraum einer Matrix-Lie-Gruppe besteht wiederum aus Matrizen und der ist ja die Grundlage für Vektorfelder), hier handelt es sich um die allgemeinere Version. Die Aufgabe ist jedoch genau analog, der Kommutator $[X, Y]$ soll messen, wie unterschiedlich die Vektorfelder $X$ und $Y$ wirken, ob die Wirkung des einen die des anderen beeinflußt. Ist der Kommutator die Nullabbildung, so sagt man, dass diese Vektorfelder \Def{vertauschen}/ \Def[Kommutator]{kommutieren}:
+\begin{equation*}
+[X, Y] = 0 \quad \Leftrightarrow \quad XY = YX \, .
+\end{equation*}
+	\anm{der Kommutator wird sich als Spezialfall der Wirkung der Lie-Ableitung herausstellen, die allerdings im nächsten Kapitel vorkommt.}
+
+
+\begin{bsp}[Kommutator Gauß'scher Basisvektoren]
+Nimm Karte $x = (x_1, \dots, x_n): U \rightarrow \mathbb{R}^n$:
+\begin{equation}
+\qty[\pdv{x_i}, \pdv{x_j}] \cdot x_k = \pdv{x_i} \pdv{x_j} x_k - \pdv{x_j} \pdv{x_i} x_k = \pdv{x_i} \delta_{jk} - \pdv{x_j} \delta_{ik} = 0
+\end{equation}
+Damit kommutieren die Gauß'schen Basisvektoren schon, weil die Koeffizientenfunktionen $x_k$ lokal die Mannigfaltigkeit beschreiben. Die Gauß'schen Basisvektoren kommutieren also lokal im Koordinatengebiet (das außerhalb davon zu fordern ist nach der Definition der $\pdv{x_k}$ überhaupt nicht sinnvoll). Weil die Karte $x$ aber beliebig war, folgt die allgemeine Gültigkeit dieser Aussage.
+
+Schaut man sich diese Aussage nun genauer an, so handelt es sich im Prinzip um die Formulierung des Satzes von Schwartz auf Mannigfaltigkeiten (Richtungsableitungen kommutieren entlang der Koordinatenachsen)!
+
+-> da steckt irgendwas Krasses hinter, dass man die $x_j$ als Basis von $C^\infty(M; \mathbb{R})$ bzw. einem Quotienten-VR davon verwenden kann (wurde auch beim Beweis von Derivationen genutzt)
+\end{bsp}
+
+Der Kommutator hat nun einige interessante Eigenschaften:
+\begin{satz}[Eigenschaften des Kommutators]
+Der Kommutator $[X, Y]$ erfüllt
+\begin{itemize}
+\item die Produktregel $[X, Y] \cdot \qty(fg) = \dots = f [X, Y] \cdot g + g [X, Y] \cdot f$
+
+\item als Abbildung $[\cdot, \cdot]: \mathcal{X}(M) \cross \mathcal{X}(M) \rightarrow \mathcal{X}(M)$ die Bilinearität
+
+\item die Schiefsymmetrie $[X, Y] = - [Y, X]$ ($\Rightarrow [X, X] = 0, \, \forall X \in \mathcal{X}(M)$)
+
+\item $[f X, g Y] = fg [X, Y] + f (X \cdot g) Y - g (Y \cdot f) X$% mit $fX: M \rightarrow T_p M, \; p \mapsto (fX)(p) = f(p) X(p)$
+
+\item die \Def{Jacobi-Identität}: $[X, [Y, Z]] - [[X, Y], Z] - [Y, [X, Z]] = 0$
+\end{itemize}
+\end{satz}
+
+Bilinearität heißt dabei einfach, dass man bei Festhalten des einen Eintrags eine lineare Abbildung im anderen Eintrag erhält und umgekehrt. Die Idee beim Beweisen von Eigenschaften des Kommutators ist zumeist das Anwenden auf eine Testfunktion $f$ (der man die nötigen Eigenschaften wie Glattheit zuschreibt) und dann Nachrechnen.
+
+Aufgrund dieser Eigenschaften ist der Kommutator das erste Beispiel einer sogenannten \Def{Lie-Klammer}, die in der Theorie der Lie-Gruppen eine wichtige Rolle spielen. Die Jacobi-Identität ist eine charakteristische Eigenschaft von Lie-Klammern, die das Verhalten bei zyklischer Vertauschung klärt. Besser zu merken ist sie in der Form
+\begin{equation*}
+[X, [Y, Z]] = [[X, Y], Z] + [Y, [X, Z]] \, ,
+\end{equation*}
+so sieht das Ganze nämlich nach einer Art Leibniz-Regel aus.
+
+
+Diese Rechenregeln helfen nun bei der allgemeinen Berechnung einer lokalen Darstellung des Kommutators (auch bei Derivationen waren ja nur die Werte in einer Umgebung wichtig, daher sollte das möglich sein), bisher wurde ja lediglich die einfachste Form lokaler Vektorfelder untersucht, die Gauß'schen Basisvektoren.
+\begin{bsp}[Lokale Darstellung Kommutator]
+Weil der Kommutator einfach gesagt nur aus zwei Vektorfeldern besteht, ist
+\begin{equation}
+[X, Y]_U = [X_U, Y_U]
+\end{equation}
+mit den Einschränkungen der Vektorfelder auf $U$ offen in $M$. Für gegebene Trivialisierungen $X_U = \sum_{j = 1}^n \lambda_j \pdv{x_j}, Y_U = \sum_{k = 1}^n \mu_k \pdv{x_k} \displaystyle$ kann weiter berechnet werden:
+\begin{align}
+[X_U, Y_U] &= \qty[\sum_{j = 1}^n \lambda_j \pdv{x_j}, \sum_{k = 1}^n \mu_k \pdv{x_k}] = \sum_{j, k = 1}^n \qty[\lambda_j \pdv{x_j}, \mu_k \pdv{x_k}]
+\notag\\
+&= \sum_{j, k = 1}^n \lambda_j \pdv{x_j} \qty(\mu_k \pdv{x_k}) - \mu_k \pdv{x_k} \qty(\lambda_j \pdv{x_j}) 
+\notag\\
+&= \sum_{j, k = 1}^n \lambda_j \, \mu_k \pdv{x_j} \qty(\pdv{x_k}) + \lambda_j \pdv{\mu_k}{x_j} \pdv{x_k}  - \mu_k \, \lambda_j \pdv{x_k} \qty(\pdv{x_j}) - \mu_k \pdv{\lambda_j}{x_k} \pdv{x_j}
+\notag\\
+&= \sum_{j, k = 1}^n \lambda_j \, \mu_k \qty[\pdv{x_j}, \pdv{x_k}] + \lambda_j \pdv{\mu_k}{x_j} \pdv{x_k} - \mu_k \pdv{\lambda_j}{x_k} \pdv{x_j}
+\notag\\
+&= \sum_{j, k = 1}^n \lambda_j \, \pdv{\mu_k}{x_j} \, \pdv{x_k} - \mu_k \, \pdv{\lambda_j}{x_k} \, \pdv{x_j}\notag
+\end{align}
+wobei die Linearität des Kommutators, die Produktregel sowie das Vertauschen der Gauß'schen Basisvektoren genutzt wurden. Weil die Summen über $j, k$ nun aber genau gleich lang laufen, treten die gleichen Terme auf wie bei Vertauschung der Indizes im zweiten Term. Etwas übersichtlicher kann man daher schreiben:
+\begin{equation}
+[X_U, Y_U] = \qty(\sum_{j, k = 1}^n \lambda_j \, \pdv{\mu_k}{x_j} - \mu_j \, \pdv{\lambda_k}{x_j}) \, \pdv{x_k} \, .
+\end{equation}
+%n=2: $11 - 11 + 21 - 12 + 12 - 21 + 22 - 22$ bei normal und bei Tauschen j, k im zweiten: $11 - 11 + 21 - 21 + 12 - 12 + 22 - 22$ -> gleiche Terme nach Umtauschen, passt
+\end{bsp}
+
+
+Nachdem also nun einige Eigenschaften von Vektorfeldern vorgestellt wurden, wird das analoge noch mit 1-Formen gemacht. Besonders spannend wird dabei der Fakt sein, dass man den Begriff von Linearformen (die ja bis jetzt immer in die reellen Zahlen abbildeten) auch sinnvoll so erweitern kann, dass in beliebige Vektorräume abgebildet wird und daher Vektoren statt Zahlen als Werte angenommen werden:
+\begin{defi}[Vektorwertige 1-Form]
+Für $V$ als $r$-dimensionalen Vektorraum mit einer Basis $v_1, \dots, v_r \in V$ wird
+\begin{equation}
+\omega = \sum_{k = 1}^r \omega_k \, v_k: M \rightarrow C^\infty(T_p M; V), \; p \mapsto \omega_p
+\end{equation}
+mit $\omega_k \in \Omega^1(M; \mathbb{R})$ als \Def{$V$-wertige 1-Form} bezeichnet, $\omega \in \Omega^1(M; V)$. Daraus ergibt sich punktweise eine lineare Abbildung
+\begin{equation}
+\omega_p: T_p M \rightarrow V, \; X \mapsto \sum_{k = 1}^n \omega_k(X) \, v_k \, .
+\end{equation}
+
+Für eine invariante/ basisunabhängige Definition ist die Glattheit von $\omega: TM \rightarrow V$ zu fordern und dass $\omega$ faserweise linear ist, also  $\eval{\omega}_{\pi^{-1}(p)}: T_p M \rightarrow V$ linear.
+\end{defi}
+
+Die Idee ist also, einfach die bereits bekannten Linearformen in die reellen Zahlen als Koeffizienten eines Vektors in der Basis des Vektors zu schreiben. Zu jedem Tangentialvektor $X \in T_p M$ erhält man dann einen Vektor $v \in V$, der als $v = \sum_{k = 1}^r \omega_k \, v_k$ oder $v = \qty(\omega_1, \dots, \omega_n)$ geschrieben werden kann. Weil ein Vektorraum natürlich prinzipiell mehrere Basen haben kann, ist die Wohldefiniertheit dieser Definition zu zeigen. Setzt man aber die Entwicklung $v_k = \sum_{j = 1}^n \lambda_{kj} a_j$ in einer anderen Basis $a_j$ ein, ergibt das
+\begin{equation}
+\omega = \sum_{j = 1}^n \qty(\sum_{k = n}^r \lambda_{kj} \omega_k) a_j =: \sum_{j = 1}^n \eta_j a_j \, .
+\end{equation}
+Weil das genau die gleiche Form mit nur etwas veränderten Koeffizienten hat (wie bei Basiswechseln üblich), zeigt das bereits die Wohldefiniertheit.
+
+Es ändert sich also rein formal nicht viel, man erhält ganz analoge Aussagen, z.B. ist für $f: M \rightarrow V$ wieder $df \in \Omega^1(M; V)$. Lediglich der Wertebereich muss bei der Menge der 1-Formen nun extra angegeben werden (das wird allerdings nur gemacht, wenn nicht die reellen Zahlen gemeint sind).
+
+\begin{bsp}[1-Form in Matrix-Lie-Gruppe]
+Insbesondere kann man $V = \text{GL}(n, \mathbb{R})$ setzen (bzw. als beliebige Untergruppe $G$ davon, die automatisch auch eine Vektorraumstruktur hat). Die einfachste denkbare Basis davon sind die Vektoren bzw. Matrizen
+\begin{equation*}
+\qty{v_k}_{k = 1}^{n^2} = \qty{\mqty(1 & 0 & \dots & 0 \\ 0 & 0 &  & \vdots \\ \vdots & \ddots &  & \vdots\\ 0 & \dots & \dots & 0), \mqty(0 & 1 & 0 & \dots & 0 \\ 0 & 0 & 0 &  & \vdots \\ \vdots &  & \ddots &  & \vdots\\ 0 & \dots & \dots & \dots & 0), \dots, \mqty(0 & 0 & \dots & 0 \\ \vdots & \ddots &  & \vdots \\ \vdots &  & 0 & 0\\ 0 & \dots & 0 & 1)} \, .
+\end{equation*}
+
+Statt die Basisvektoren $v_k$ zu benutzen und dann Ausdrücke wie
+\begin{equation*}
+\omega = \sum_{k = 1}^{n^2} \omega_k \, v_k
+\end{equation*}
+zu erhalten, schreibt man das Ganze oft lieber um mit der Bezeichnung $g_{ij}$ (die das Basiselement mit einer 1 in der $ij$-Komponente bezeichnet, die Basis bleibt also gleich und wird nur anders genannt!) und erhält damit
+\begin{equation*}
+\omega = \sum_{i = 1}^n \sum_{j = 1}^n \omega_{ij} \, g_{ij} \, .
+\end{equation*}
+Dieser Fall mit $G$ wird noch ausführlicher in einem eigenen Abschnitt behandelt.
+\end{bsp}
+
+Dass Ableitungen von Funktionen 1-Formen sind, ist nun auch für vektorwertige 1-Formen klar. Jedoch kann man sich auch die umgekehrte Frage stellen, also: wann gehört zu einer 1-Form $\omega$ eine Funktion $f$, sodass $df = \omega$? Es stellt sich heraus, dass das nicht für jede 1-Form gilt, man aber eine Bedingung finden kann. Zunächst wird der Fall $V = \mathbb{R}$ gezeigt, eine Verallgemeinerung folgt aber noch.
+
+\begin{satz}[Integrabilitätsbedingung]\label{satz:integrab1form}
+Falls für $\omega \in \Omega^1(M)$ eine Funktion $f: M \rightarrow \mathbb{R}$ mit $df = \omega$ existiert, dann gilt
+\begin{equation}\label{eq:integrfkt}
+X \cdot \omega(Y) - Y \cdot \omega(X) - \omega\qty([X, Y]) = 0, \quad \forall X, Y \in \mathcal{X}(M) \, .
+\end{equation}
+Erfüllt ein $\omega \in \Omega^1(M)$ andererseits diese Bedingung, dann existieren für alle Punkte $p \in M$ offene Umgebungen $U \subset M$ sowie $f_U: U \rightarrow \mathbb{R}$ mit $\omega_U = df_U$.
+
+Verschiedene solche Funktionen $f_U, f_V$ unterscheiden sich dabei auf den Zusammenhangskomponenten von $U \cap V$ lediglich um eine Konstante
+\begin{equation}
+f_{U, V} = \qty(f_U)_{U \cap V} - \qty(f_V)_{U \cap V} \in \mathbb{R} \, .
+\end{equation}
+\end{satz}
+\begin{proof}
+schöne Sache: man kann hier zeigen, dass $\pdv{x_k} \cdot \lambda_j = \pdv{x_j} \cdot \lambda_k$ ! mache dazu erstmal lokale Darstellung (also die lokale Trivialisierung angibt); setze dann spezielle Vektorfelder ein, nämlich zwei aus der Gauß'schen Basis ! Kommutator von denen wird 0, dann steht da eben $0 = \pdv{x_k} \cdot \omega\qty(\pdv{x_l}) - \pdv{x_l} \cdot \omega\qty(\pdv{x_k}) = \pdv{x_k} \cdot \lambda_l - \pdv{x_l} \cdot \lambda_k$; wenn man die $\lambda$ als Richtungsableitung interpretiert (was geht, weil es ja genau da raus kommt), dann entspricht das dem Kommutieren der zweiten Ableitung und damit dem Satz von Schwarz!
+
+
+der zweite Teil ist mit dem ersten recht leicht zu zeigen:
+\begin{equation*}
+d f_{U, V} = d\qty(\qty(f_U)_{U \cap V} - \qty(f_U)_{U \cap V}) = d\qty(f_U)_{U \cap V} - d\qty(f_U)_{U \cap V} = \omega_{U \cap V} - \omega_{U \cap V} = 0
+\end{equation*}
+\end{proof}
+
+Umschreiben von \eqref{eq:integrfkt} in die äquivalente Form
+\begin{equation*}
+X \cdot \omega(Y) - Y \cdot \omega(X) = \omega(XY - YX) = \omega(XY) - \omega(YX)
+\end{equation*}
+erlaubt die Interpretation, dass ein Vektorfeld an der 1-Form \enquote{vorbeiziehbar} sein muss (bzw.~die dabei entstehenden, zusätzlichen Terme sich gerade herauskürzen).
+
+
+Das Ganze heißt \Def{Integrabilitätsbedingung} für die Abbildung $p \mapsto \omega_p = d_p f$, weil sie gerade eine notwendige Bedingung für die Existenz einer \Def[Stammfunktion]{Stammfunktion $f$} liefert. Rechnet man also \eqref{eq:integrfkt} nach und erhält etwas anderes als 0, dann existiert sicher keine Stammfunktion und damit liefert dieser Satz ein sehr einfaches Kriterium dafür (? vereinfacht wird das Nachrechnen dadurch, dass es für alle Vektorfelder gelten muss, können also immer passende wählen, z.B. schön einfache wie einen einzelnen Gauß'schen Basisvektor -> ? really, bei Widerlegen klar, aber bei Zeigen ? Vlt wegen irgendwas mit Basisdarstellung in Gauß'scher, aber so allgemein sollte das eigentlich nicht gehen...).
+
+-> man kann nur lokal integrieren !!!
+
+Findet man eine Lösung, so ist diese wegen des Auftretens der Ableitung $df$ offenbar nur bis auf eine Konstante bestimmt und gilt auch nicht immer global, sondern nur auf einer Zusammenhangskomponente (was natürlich auch der gesamte Raum sein kann), was vorher in der Analysis nicht anders war. Hilfreich ist jedoch, dass die Lösungen auf unterschiedlichen Zusammenhangskomponenten ebenfalls nicht sehr verschieden sind, sondern sich analog zur Eindeutigkeit (galt bis auf eine Konstante) nur um eine Konstante unterscheiden. Die Behandlung der Lösungen kann also ziemlich einheitlich und oBdA auf die Lösung auf einer Zusammenhangskomponente reduziert werden.
+
+
+\begin{bsp}[Gegenbeispiel]
+Wie bereits erwähnt, gilt diese Bedingung natürlich nicht immer. Das kann man auch konkreter anhand eines Gegenbeispiels auf $M = \mathbb{R}^2$ mit Koordinaten $(x, y)$ zeigen. Für die 1-Form $\omega = x \, dy$ ist nämlich
+\begin{equation*}
+\pdv{x} \cdot \omega\qty(\pdv{y}) - \pdv{y} \cdot \omega\qty(\pdv{x}) - \omega(0) = \pdv{x} \cdot x - \pdv{y} \cdot 0 - 0 = 1 \neq 0 \, .
+\end{equation*}
+Bei dieser Richtung ist zu beachten, dass es sich bei $\qty{\pdv{x}, \pdv{y}}$ und $\qty{dx, dy}$ gerade um zueinander duale Basen handelt, weshalb man z.B. nach \enquote{Einsetzen} von $\pdv{x}$ in $dx$ gerade die 1 erhält und sonst 0.
+
+-> u see, hier reicht es weil Gegenbeispiel; aber bei Zeigen auch ?
+\end{bsp}
+
+Obwohl nun gerade gesagt wurde, dass im Allgemeinen Gegenbeispiele existieren, gibt es dort wiederum Spezialfälle (quasi Gegenbeispiele gegen Gegenbeispiele).
+\begin{bsp}[1D-Mannigfaltigkeit]
+1-Formen auf 1D-Mannigfaltigkeiten $M$ erfüllen die Integrabilitätsbedingung \eqref{eq:integrfkt} immer. Dass dem so ist, wird erst mit der Einführung des Dachprodukts und des Äußeren Differentials ab \ref{satz:aussereabl} klar, mit dem sich die Integrabilitätsbedingung als $d\omega = 0$ schreiben lässt. Diese Forderung ist im Falle von 1-Formen auf 1D-Mannigfaltigkeiten aber sofort erfüllt, weil 2-Formen auf eben solchen nicht existieren (nur die Nullform, die alle Vektorfelder auf 0 abbildet) und $d\omega$ gerade eine 2-Form ist.
+\end{bsp}
+
+
+\begin{bsp}
+hier nachrechnen des Beispiels aus HÜ 4 (1-Form wurde bereits berechnet)
+\end{bsp}
+
+
+
+		\subsection{(Matrix-)Lie-Gruppen 2 und Maurer-Cartan-Theorie}
+Eine ganz wichtige Anwendung vektorwertiger 1-Formen ist der Fall, bei dem Werte in allgemeinen Lie-Gruppen $G$ angenommen werden. Deren Theorie wurde aber noch nicht wirklich entwickelt, beispielsweise muss der Begriff der Lie-Algebra noch übertragen werden. Hier wird zwar weiterhin zum Großteil mit Matrix-Lie-Gruppen weitergearbeitet, die Aussagen sind jedoch zur Verallgemeinerung geeignet, weil man im Wesentlichen nur die Verknüpfung Multiplikation auf GL/ Untermannigfaltigkeiten davon durch die jeweils betrachtete Verknüpfung auf $G$ ersetzen muss.
+
+Für eine Matrix-Lie-Gruppe $G$ galt ja $T_g G = D_e L_g (\mathfrak{g})$ mit der Lie-Algebra $\mathfrak{g} = T_e G$ und der Abbildung $L_g: G \rightarrow G, \; h \mapsto g h$. Differenzieren dieser Abbildung an einer beliebigen Stelle (durchgerechnet im Beweis zu Satz \ref{satz:tangraummlg}) ergab $D_p L_g = D_e L_g$ und dann $D_e L_g(\xi) = g \xi$ für $\xi \in T_e G$. Man multipliziert also ein Element $g \in G$ mit einem $\xi \in T_e G$, was wegen $G, T_e G \subset \text{GL}(n, \mathbb{R})$ funktioniert (man hat die gleiche Verknüpfung Multiplikation). Dort war es dann üblich, einen festen Punkt $g \in G$ zu betrachten, weil das für verschiedene $\xi$ den Tangentialraum $T_g G$ ergab. Es ist aber ebenfalls interessant, das Element $\xi \in T_e G$ festzuhalten und den Punkt $g$ zu variieren, weil das einer Abbildung entspricht, die zu verschiedenen Punkten jeweils einen Tangentialvektor an diesem Punkt ergibt. Man hat damit also ein Vektorfeld
+\begin{equation}
+X^\xi: G \rightarrow T_g G, \; g \mapsto X^\xi(g) = X^\xi_g = g \xi = D_e L_g(\xi)
+\end{equation}
+konstruiert (die dazu benötigte Glattheit von $L_g$ ist klar) ! Anschaulich gesagt verschiebt/ pusht $X^\xi$ den Vektor $\xi$ mithilfe des Differentials vom Punkt $e$ weg zu anderen Punkten $g$ auf der Mannigfaltigkeit $G$, wo er dann die Form $X^\xi_g$ annimmt.
+
+
+Weil man jedem Element $h \in T_e G = \mathfrak{g}$ ein solches Vektorfeld zuordnen kann, mag man sich die Frage stellen, ob nicht $\mathcal{X}(G) \equiv \mathfrak{g}$ ? Die Antwort ist im Allgemeinen nein, weil natürlich auch Vektorfelder $X \in \mathcal{X}(G)$ denkbar sind mit: $X_g = X^\xi_g = g\xi$, aber $X_{\tilde{g}} = X^\mu_{\tilde{g}} = \tilde{g} \mu$ für $g \neq \tilde{g}$. Obwohl $\mathcal{X}(G)$ als Vektorraum zusammen mit der Lie-Klammer $[X, Y] \cdot f = X \cdot Y \cdot f - Y \cdot X \cdot f$ auch eine Lie-Algebra bildet, ist das offenbar nicht die hier interessante, von $G$ induzierte Lie-Algebra $\mathfrak{g}$. Damit stellt sich aber die Frage, wie man die Elemente $\xi$ von $\mathfrak{g}$ alternativ klassifizieren kann.
+
+	\anm{dass $\mathfrak{g} \neq \mathcal{X}(M)$ sieht man meist schon an den Dimensionen. Im Allgemeinen gilt ja $\dim(\mathcal{X}(M)) = \infty$, aber wegen $\dim(G) = \dim(T_g G), \, \forall g \in G$ ist $\dim(\mathfrak{g}) = \dim(T_e G) = \dim(G)$ und das ist in den meisten Fällen endlich.}
+
+Über Vektorfelder zu gehen, stellt sich aber trotzdem als der richtige Ansatz heraus, jedoch nur solche von der Art $X^\xi$, weil für diese folgende Eigenschaft gilt:
+
+\begin{satz}[Linksinvarianz]\label{satz:linksinvvektf}
+Für $X \in \mathcal{X}(G)$ mit $G$ als Lie-Gruppe ist die Existenz eines $\xi \in \mathfrak{g}$, sodass $X = X^\xi$, äquivalent zur $L_g$-Verwandtheit von $X$ zu sich selbst.
+\end{satz}
+\begin{proof}
+Man zeigt hier einfach, dass eine Voraussetzung die jeweils andere impliziert. Im ersten Fall muss mit $g \in G$ beliebig das von $L_g: G \rightarrow G, \; h \mapsto gh$ induzierte Vektorfeld $X^\xi_g = D_e L_g(\xi)$ untersucht werden. Für ein anderes Element $\tilde{g} \in G$ mit der zugehörigen Linkstranslation $L_{\tilde{g}}: G \rightarrow G, \; h \mapsto \tilde{g} h$ gilt dann
+\begin{equation*}
+D_g L_{\tilde{g}}(X^\xi_g) = D_g L_{\tilde{g}} \qty(D_e L_g(\xi)) = D_e L_{\tilde{g} g}(\xi) = X^\xi_{\tilde{g} g} = X^\xi_{L_{\tilde{g}}(g)}
+\end{equation*}
+und damit ist gezeigt, dass $X^\xi$ $L_{\tilde{g}}$-verwandt zu $X^\xi$ bzw. sich selbst für alle $\tilde{g} \in G$ ist.
+
+Umgekehrt muss für $X \in \mathcal{X}(G)$ beliebig mit der Eigenschaft, dass es $L_{\tilde{g}}$-verwandt zu sich selber am allen Punkten $\tilde{g} \in G$ ist, nur ein $\xi \in \mathfrak{g}$ gefunden werden, sodass $X_g = X^\xi_g, \, \forall g \in G$. Betrachtet man aber die Definition $\mathfrak{g} = T_e G$ genauer, so ist sofort die Wahl $\xi = X_e$ klar. Das erfüllt dann auch die gewünschte punktweise Gleichheit:
+\begin{equation*}
+X_g = X_{g e} = D_e L_g(X_e) = D_e L_g(\xi) = X^\xi_g \, . \qedhere
+\end{equation*}
+\end{proof}
+Die Selbstverwandtheit bedeutet, dass dort die gleichen Vektorfelder vorliegen und weil sie eben von der Linkstranslation vermittelt wird, hat man damit eine Linksinvarianz aller Vektorfelder $X^\xi$. Das bildet dann die gesuchte definierende Eigenschaft der induzierten Lie-Algebra: für ihre Elemente $\xi$ soll $g\xi = X^\xi$ linksinvariant sein.
+
+Es wurde ja bereits erwähnt, dass der Kommutator $[\cdot, \cdot]$ die Lie-Klammer auf $\mathfrak{g}$ bilden soll und damit eine Verknüpfung eben jener Lie-Algebra. Jedoch ist die dazu nötige Abgeschlossenheit von $\mathfrak{g}$ unter seiner Wirkung keineswegs direkt klar, sondern muss nachgewiesen werden. Dabei hilft folgende Aussage:
+\begin{lemma}[Kommutator verwandter Vektorfelder]\label{lemma:verwandtkomm}
+Für $\Phi: M \rightarrow N$ und zwei $\Phi$-verwandte Paare von Vektorfeldern $X, Y \in \mathcal{X}(M)$ und $\tilde{X}, \tilde{Y} \in \mathcal{X}(N)$ sind auch $[X, Y]$ und $[\tilde{X}, \tilde{Y}]$ $\Phi$-verwandt.
+\end{lemma}
+\begin{proof}
+Nach der Kettenregel folgt zunächst (man beachte: das gilt nur für verwandte Vektorfelder mit $\tilde{X}_{\Phi(p)} = D_p \Phi(X_p)$, weil das explizit genutzt wird)
+\begin{equation*}
+X_p \cdot \qty(f \circ \Phi) = D_p \qty(f \circ \Phi)(X_p) = D_{\Phi(p)} f \circ D_p \Phi(X_p) = D_{\Phi(p)} f \qty(\tilde{X}_{\Phi(p)}) = \tilde{X}_{\Phi(p)} \cdot f \, ,
+\end{equation*}
+das heißt Verwandtheit $\tilde{X}_{\Phi(p)} = D_p \Phi(X_p)$ ist äquivalent zur Wirkung als $\tilde{X}_{\Phi(p)} \cdot f = X_p \cdot \qty(f \circ \Phi)$. Schreibt man das um zu $(\tilde{X} \cdot f)\qty(\Phi(p)) = \qty(X \cdot \qty(f \circ \Phi))(p)$, so lässt sich daraus auch die Gleichheit $(\tilde{X} \cdot f) \circ \Phi = X \cdot \qty(f \circ \Phi)$ ohne Punkt machen. Erinnert man sich nun noch, dass $\tilde{Y} \cdot f$ ebenfalls eine Funktion ist, so kann man das (mehrfach) ausnutzen und für die Kommutatoren berechnen:
+\begin{align*}
+\qty([\tilde{X}, \tilde{Y}] \cdot f) \circ \Phi &= (\tilde{X} \cdot \tilde{Y} \cdot f) \circ \Phi - (\tilde{Y} \cdot \tilde{X} \cdot f) \circ \Phi 
+\\
+&= X \cdot ((\tilde{Y} \cdot f) \circ \Phi) - Y \cdot ((\tilde{X} \cdot f) \circ \Phi)
+\\
+&= X \cdot Y \cdot (f \circ \Phi) - Y \cdot X \cdot (f \circ \Phi)
+\\
+&= [X, Y] \cdot (f \circ \Phi) \, .
+\end{align*}
+Damit gilt nach der ersten Überlegung auch
+\begin{equation*}
+[\tilde{X}, \tilde{Y}]_{\Phi(p)} = D_p \Phi\qty([X, Y]_p) \, . \qedhere
+\end{equation*}
+\end{proof}
+
+Als Korollar daraus folgt dann die gewollte Aussage:
+\begin{cor}[Kommutator von Vektorfeldern]
+Für zwei Vektorfelder $X^\xi, X^\mu \in \mathcal{X}(G)$ auf einer Lie-Gruppe $G$ gilt
+\begin{equation}\label{eq:kommutlie}
+[X^\xi, X^\mu] = X^{[\xi, \mu]} \, .
+\end{equation}
+\end{cor}
+\begin{proof}
+Mit dem vorherigen Lemma ist der Beweis recht einfach möglich und erspart lokales Nachrechnen (was im Falle einer Matrix-Lie-Gruppe mithilfe einiger Matrixmultiplikationen aber durchaus möglich wäre). Danach gilt nämlich
+\begin{equation*}
+D_p \Phi([X, Y]_p) = [D_p \Phi(X), D_p \Phi(Y)]_{\Phi(p)} \, .
+\end{equation*}
+Setzt man nun aber $\Phi = L_g$ und $X = X^\xi, Y = X^\mu$, so gilt für die beiden Seiten bei Betrachtung der Stelle $p = e$ (ist oBdA möglich, weil $e \in G$ sein muss):
+\begin{align*}
+D_e L_g\qty(\qty[X^\xi, X^\mu]_e) &= D_e L_g\qty(\qty[X^\xi_e, X^\mu_e]) = D_e L_g\qty(\qty[\xi, \mu]) = X^{[\xi, \mu]}
+\\
+[D_e L_g (\xi), D_e L_g (\mu)] &= [X^\xi_g, X^\mu_g] = [X^\xi, X^\mu]_g
+\end{align*}
+und daraus folgt (gilt in beliebigen und damit allen $g \in G$, also für die Abbildung)
+\begin{equation*}
+[X^\xi, X^\mu]_g = [D_e L_g (\xi), D_e L_g (\mu)] = D_e L_g\qty(\qty[X^\xi, X^\mu]_e) = X^{[\xi, \mu]}_g \, . \qedhere
+\end{equation*}
+\end{proof}
+
+	\anm{im Allgemeinen werden die Rechnungen dabei zunächst für die Matrix-Lie-Gruppe $G = \text{GL}(n, \mathbb{R})$ mit Lie-Algebra $\mathfrak{gl}(n, \mathbb{R})$ durchgeführt und dann unter Ausnutzen der Untermannigfaltigkeitenstruktur anderer Matrix-Lie-Gruppen darauf übertragen (die sind ja immer Teilmengen von $\text{GL}(n, \mathbb{R})$).}
+
+Diese Eigenschaft wirkt zunächst vielleicht etwas unscheinbar, ist aber sehr wichtig. Sie zeigt nämlich die Abgeschlossenheit von $\mathfrak{g} = T_e G$ unter der Verknüpfung $[\cdot, \cdot]$ (aus der Existenz von $X^{[\xi, \mu]}$ folgt nach Satz \ref{satz:linksinvvektf} insbesondere $[\xi, \mu] \in T_e G$) und wegen $[X^\xi, X^\mu]_g = X^{[\xi, \mu]}_g \in T_g G$ sogar auch die von $T_g G$ für beliebige $g \in G$ unter $[\cdot, \cdot]$! Ein weiterer großer Vorteil ist, dass sich wegen \eqref{eq:kommutlie} alle relevanten Eigenschaften der Lie-Klammer (wie die Jacobi-Identität) automatisch von $\mathfrak{g}$ übertragen auf allgemeine Tangentialräume, auch dort kann der Kommutator nun also sinnvoll wirken.
+
+
+%\begin{equation}
+%X^{h_1}_g X^{h_2}_g = D_e L_{h_1} \qty(D_e L_{h_2}(g)) = D_e L_{h_1} \qty(g h_2) = g h_2 h_1 \, ,
+%\end{equation}
+%wobei man streng genommen die Vektorfelder auf eine Funktion $f$ wirken lassen müsste, von der dann auch der Punkt $g$ der Auswertung im Differential vorgegeben wird (das wäre aber unnötig viel Notation).
+%-> ohhh, schade...; dann wohl doch schreiben: man kann bestimmt nachrechnen, dass $[X^\xi, X^\mu] = X^{[\xi, \mu]}$, Kommutator kann also einfach in der Matrix-Lie-Algebra gebildet werden
+%
+%-> evtl doch besser ?
+%\begin{equation}
+%X^\xi \cdot X^\xi \cdot f = D_{f(g)}\qty(D_g f(X^{h_1}))(X^{h_2}) = 
+%\end{equation}
+%Achtung: $\cdot$ hier als Wirkung Vektorfeld, nicht wirklich Matrixmultiplikation -> funktioniert aber eh nicht so nice hier
+
+
+Diese Eigenschaft ist ein erster Hinweis auf gewisse Zusammenhänge zwischen einer Lie-Gruppe (bzw. genauer: dem Tangentialraum davon) und der induzierten Lie-Algebra. Obwohl diese Strukturen zunächst als Mannigfaltigkeit und Tangentialraum höchstens über das Anknüpfen an Fußpunkten in Verbindung stehen (man denke hier an Punkte vs. Vektoren), existiert ein sehr viel konkreterer Zusammenhang zwischen ihnen, den man über zum Beispiel über Betrachtung der zu einem solchen Vektorfeld $X^\xi$ gehörigen Integralkurven finden kann. Die zugehörige Theorie wird zwar erst in einem späteren Abschnitt behandelt (genauer: \ref{sec:gdgl2}), wurde aber bereits in Abschnitt \ref{sec:gdgl} angefangen. Es stellt sich dort als natürliche Frage heraus, das Anfangswertproblem zu einem Vektorfeld zu betrachten, also beispielsweise:
+\begin{equation*}
+\gamma'(t) = X^\xi_{\gamma(t)}, \quad \forall t \in I
+\end{equation*}
+mit einem offenen Intervall $I \subset \mathbb{R}$ und $\gamma: I \rightarrow G$. Durch die spezielle Form von $X^\xi$ ergibt sich daraus die sehr konkrete und einfache Differentialgleichung
+\begin{equation}
+\gamma'(t) = \gamma(t) \, \xi \, .
+\end{equation}
+Da das $\xi$ in irgendeiner Weise als innere Ableitung aus $\gamma$ herauskommen muss, solche inneren Ableitungen aber immer links von der abzuleitenden Funktion auftauchen, wird hier die Annahme gemacht, dass $\qty[\gamma(t), \xi] = 0, \; \forall t \in I$ (mögliche andere Lösungen interessieren hier nämlich nicht). Dann lässt sich die DGL sofort lösen:
+\begin{equation}\label{eq:dglexpabb}
+\gamma'(t) = \gamma(t) \, \xi = \xi \gamma(t) \quad \Leftrightarrow \quad \gamma(t) = \text{Exp}(t \xi) \, .
+\end{equation}
+Diese Integralkurve $\gamma$ ist dann also eine Abbildung aus den reellen Zahlen in die Lie-Gruppe $G$. Ebenso interessant bzw. noch interessanter ist aber das Ergebnis, das man durch Festhalten eines beliebigen $t$ erhält (oBdA wird hier $t = 1$ gesetzt) und stattdessen $\xi \in \mathfrak{g}$ variiert. Das ergibt die bereits angedeutete konkrete Verbindung zwischen Lie-Gruppe und -Algebra, die wichtige Exponentialabbildung:
+
+\begin{defi}[Exponentialabbildung]\label{defi:defiexpabb}
+Die \Def{Exponentialabbildung} ist definiert als
+\begin{equation}
+\text{Exp}: \mathfrak{g} \rightarrow G, \; \xi \mapsto \text{Exp}(\xi) = \sum_{k = 1}^\infty \frac{1}{k!} \xi^k \, .
+\end{equation}
+mit $\xi^0 = e = \text{id}$ und $\xi^{k + 1} = \xi \xi^k$.
+\end{defi}
+Mit $\xi^k$ meint man also lediglich das $k$-fache Produkt der Matrix $\xi$ in der Matrix-Algebra, wobei dieses induktiv definiert ist mit \enquote{Anfangswert} $\xi^0 = e$ (wie $x^0 = 1, \, \forall x \in \mathbb{R} \backslash \qty{0}$). Weil es sich um eine unendliche Reihe handelt (unendliches Produkt der Matrix wird gebildet), erlaubt das die Interpretation, dass in der Lie-Algebra die infinitesimale Wirkung der Lie-Gruppe steckt. $\mathfrak{g}$ ist damit als Erzeuger von $G$ zu sehen, diese Interpretation spielt unter Anderem bei Symmetrien in der Physik eine große Rolle für das Verständnis der zugrundeliegenden Zusammenhänge. Die mathematische Grundlage/ Robustheit dazu wird geliefert von der Tatsache, dass die Exponentialabbildung ein Diffeomorphismus ist (das ergibt sich in späteren Abschnitten und wird in Beispiel \ref{bsp:expabb} genauer erläutert).
+
+
+Dass nun eine Abbildung mit dem Namen Exponentialabbildung auftaucht, mag zunächst sehr verwirrend klingen, da sich damit scheinbar eine Kollision mit der Exponentialfunktion $\text{Exp} = e: \mathbb{R} \rightarrow \mathbb{R}, \, x \mapsto e^x$ mit der Eulerschen Zahl $e$ ergibt. Es handelt sich jedoch nicht um eine Kollision, im Prinzip handelt es sich um ein und die selbe Abbildung! Das kann man daran sehen, dass ja $T_p\mathbb{R} \cong \mathbb{R}, \, \forall p$ gilt und dass Punkte in $\mathbb{R}$ sich einfach als $1 \cross 1$-Matrizen interpretieren lassen. Es handelt sich bei $e^x$ also nur um einen Spezialfall der hier definierten Exponentialabbildung (dass das Sinn ergibt sieht man auch daran, dass beide die gleiche DGL \ref{eq:dglexpabb} erfüllen)! Mit Kenntnis dieser Gemeinsamkeit überrascht das folgende Lemma dann auch nicht:
+
+%Die Tatsache $\text{Exp}(\xi) \in G$ für $\xi \in \mathfrak{g}$ ist dabei wirklich bemerkenswert und überhaupt nicht auf triviale Weise klar o.Ä., vor allem weil die Exponentialabbildung eigentlich als $\text{Exp}: \mathbb{R} \rightarrow \mathbb{R}$ bekannt ist ! Dort ist es aber natürlich so, dass man es mit Zahlen als $1 \cross 1$-Matrizen und $T_p \mathbb{R} \cong \mathbb{R}, \, \forall p$ zu tun hat, es fällt quasi einfach nicht auf, dass man eigentlich vom Tangentialraum ausgeht (die neue Definition ist damit die allgemeinere) -> sure, ist das immer die gleiche Exp? Oder nennt man nicht einfach jede Funktion die das erfüllt so?. Es wird aber noch besser als bloße Existenz, mithilfe des Cauchy-Produkts kann man nämlich auch die Rechenregeln von Exp übertragen:
+\begin{lemma}[Rechenregeln der Exponentialabbildung]
+Für $a, b \in \mathbb{R}$ gilt
+\begin{equation}\label{eq:expabbgruppe}
+\text{Exp}\qty((a + b) \cdot \xi) = \text{Exp}(a \cdot \xi) \, \text{Exp}(b \cdot \xi) \, .
+\end{equation}
+Zudem erfüllt die Kurve $\gamma = \gamma_\xi: \mathbb{R} \rightarrow G, \; t \mapsto \text{Exp}(t\xi)$ die Differentialgleichung
+\begin{equation}\label{eq:dglexpabb2}
+\dv{t}\gamma_\xi(t) = \dv{t} \text{Exp}(t\xi) = \xi \, \text{Exp}(t\xi) = \xi \, \gamma_\xi(t) = X^\xi_{\gamma_\xi(t)} \in T_{\gamma_\xi(t)} G \, .
+%\eval{\dv{t} \text{Exp}(t \cdot \xi)}_{t = t_0} = \text{Exp}(t_0 \cdot \xi) \cdot \eval{\dv{t} \text{Exp}(t \cdot \xi)}_{t = 0} = \text{Exp}(t_0 \cdot \xi) \cdot \xi = X^\xi_{\text{Exp}(t_0 \cdot \xi)}
+\end{equation}
+\end{lemma}
+Die zweite Gleichung ergibt wegen $\text{Exp}(\xi) \in G, \xi \in \mathfrak{g} = T_e G$ ein Element von $T_{\text{Exp}(\xi)} G$, wie es bei DGL auf Mannigfaltigkeiten schon vorher der Fall war.
+
+Die erste Eigenschaft gibt übrigens zusätzlich wegen
+\begin{equation}
+\text{Exp}(\xi) \text{Exp}(-\xi) = \text{Exp}(0) = e
+\end{equation}
+insbesondere das zu $\text{Exp}(\xi)$ inverse Element $\text{Exp}(-\xi)$. Bei allen Rechnungen mit der Exponentialabbildung ist zu beachten, dass zwar $\xi \, \text{Exp}(\xi) = \text{Exp}(\xi) \, \xi$ gilt, aber
+\begin{equation}
+\text{Exp}(\xi) \text{Exp}(\mu) \neq \text{Exp}(\mu) \text{Exp}(\xi) \, ,
+\end{equation}
+weil die Matrizen $\xi, \mu$ im Allgemeinen nicht kommutieren, weshalb analog
+\begin{equation}
+\text{Exp}(\xi + \mu) \neq \text{Exp}(\mu) \text{Exp}(\xi) \, .
+\end{equation}
+
+%Außerdem berechnet man für ein festes $t \in \mathbb{R}$
+%\begin{equation}
+%\eval{\dv{t} \text{Exp}(t \cdot \xi)}_{t = t_0} = \text{Exp}(t_0 \cdot \xi) \cdot \eval{\dv{t} \text{Exp}(t \cdot \xi)}_{t = 0} = \text{Exp}(t_0 \cdot \xi) \cdot \xi = X^\xi_{\text{Exp}(t_0 \cdot \xi)} \, .
+%\end{equation}
+
+Streng genommen galten die bisherigen Diskussionen dabei wiederum nur für $G \subset \text{GL}(n, \mathbb{R})$, aber auch hier lässt sich das ganze auf beliebige Untergruppen bzw. äquivalent Untermannigfaltigkeiten erweitern, für $\xi \in \mathfrak{g} = T_e G$ ist also $\text{Exp}(\xi) \in G$ (daher wurde nicht unterschieden). Dass das wirklich klappt und dass Exponentialabbildungen i.A. nicht jedes mal über die Reihendefinition berechnet werden, zeigt folgendes Beispiel:
+
+\begin{bsp}[Exponentialabbildung zu $\mathfrak{so}(2)$]
+Gesucht wird hier die Abbildung
+\begin{equation*}
+\text{Exp}: \mathfrak{so}(2) \rightarrow \text{SO}(2), \; \mathfrak{g} \mapsto \sum_{n = 1}^\infty \frac{\mathfrak{g}^n}{n!} \, .
+\end{equation*}
+
+Die Aufgabe ist deshalb, die Potenzen für Elemente der Lie-Algebra $\mathfrak{so}(2)$ zu berechnen. Nach Beispiel \ref{bsp:tangraumso} ist bekannt, dass diese durch die schiefsymmetrischen $2 \cross 2$-Matrizen gegeben sind, deren allgemeine Form wie folgt ist:
+\begin{align}
+\mqty(a & b \\ c & d)^T &= \mqty( a & c \\ b & d) = - \mqty(a & b \\ c & d) \quad \Leftrightarrow \quad a = 0 = d, b = -c
+\notag\\
+\Rightarrow \quad \mathfrak{o}(2) &= \mathfrak{so}(2) = \qty{\mqty(0 & -c \\ c & 0): \; c \in \mathbb{R}\backslash\qty{0}} \, .
+\end{align}
+Dabei muss man $c \neq 0$ aufgrund der Invertierbarkeit fordern, die Nullmatrix ist schließlich nicht invertierbar (?).
+
+Man kann nun per Induktion das $n$-fache Produkt berechnen, zunächst für $n = 2$:%, 3$:
+\begin{align*}
+\mqty(0 & -c \\ c & 0) \cdot \mqty(0 & -c \\ c & 0) &= \mqty(-c^2 & 0 \\ 0 & -c^2) \, .
+\end{align*}
+
+Für gerade $n$ (führe dazu neue Variable $k$ mit $n = 2k$ ein) erhält man deshalb:
+\begin{align}
+\mqty(0 & -c \\ c & 0)^{2k} &= \qty(\mqty(0 & -c \\ c & 0)^2)^k = \mqty(-c^2 & 0 \\ 0 & -c^2)^k = \mqty( (-1)^k c^{2k} & 0 \\ 0 & (-1)^k c^{2k})
+\end{align}
+und daraus analog für ungerade
+\begin{align}
+\mqty(0 & -c \\ c & 0)^{2k + 1} &= \qty(\mqty(0 & -c \\ c & 0)^2)^k \cdot \mqty(0 & -c \\ c & 0)
+\notag\\
+\notag\\
+&= \mqty( (-1)^k c^{2k} & 0 \\ 0 & (-1)^k c^{2k}) \cdot \mqty(0 & -c \\ c & 0)
+\notag\\
+\notag\\
+&= \mqty(0 & (-1)^{k + 1} c^{2k + 1} \\ (-1)^k c^{2k + 1}  & 0)
+\end{align}
+
+Ein kurzer Vergleich mit den Potenzreihen der trigonometrischen Funktionen,
+\begin{align*}
+\sin(x) = \sum_{k = 1}^\infty (-1)^k \frac{x^{2k + 1}}{(2k + 1)!} \qquad \qquad \cos(x) = \sum_{k = 1}^\infty (-1)^k \frac{x^{2k}}{(2k)!} \, ,
+\end{align*}
+ergibt dann für die Exponentialabbildung von $\mathfrak{g} = \mathfrak{g}(c) \in \mathfrak{so}(2)$:
+\begin{align}
+\text{Exp}(\mathfrak{g}) &= \sum_{n = 0}^\infty \frac{\mathfrak{g}^n}{n!} = \sum_{n = 0, \, n \text{ gerade}}^\infty \frac{\mathfrak{g}^n}{n!} + \sum_{n = 0, \, n \text{ ungerade}}^\infty \frac{\mathfrak{g}^n}{n!} = \sum_{k = 0}^\infty \frac{\mathfrak{g}^{2k}}{(2k)!} + \sum_{k = 0}^\infty \frac{\mathfrak{g}^{2k + 1}}{(2k + 1)!}
+\notag\\
+\notag\\
+&= \sum_{k = 0}^\infty \frac{1}{(2k)!} \mqty(0 & -c \\ c & 0)^{2k} + \sum_{k = 0}^\infty \frac{1}{(2k + 1)!} \mqty(0 & -c \\ c & 0)^{2k + 1}
+\notag\\
+\notag\\
+&= \sum_{k = 0}^\infty \frac{1}{(2k)!} \mqty( (-1)^k c^{2k} & 0 \\ 0 & (-1)^k c^{2k}) + \sum_{k = 0}^\infty \frac{1}{(2k + 1)!} \mqty(0 & (-1)^{k + 1} c^{2k + 1} \\ (-1)^k c^{2k + 1}  & 0)
+\notag\\
+\notag\\
+&= \mqty(\cos(c) & 0 \\ 0 & \cos(c)) + \mqty(0 & -\sin(c) \\ \sin(c) & 0) = \mqty(\cos(c) & -\sin(c) \\ \sin(c) & \cos(c))
+\end{align}
+
+Wegen $\sin(c)^2 + \cos(c)^2 = 1$ erfüllt das $\det(\exp(\mathfrak{g})) = 1, \forall c$ und weil zudem aufgrund von Additionstheoremen die Orthogonalität erfüllt ist, erhält man so immer ein Element von SO(2). Das Inverse ist entspricht dann wegen $-\sin(c) = \sin(-c), \cos(c) = \cos(-c)$ sehr anschaulich der Drehung um den negativen Winkel, das \enquote{rückgängig machen} beim Invertieren ist hier sehr wörtlich zu nehmen.
+
+Man kann zudem sehen, dass Ableiten dieses Elements der Lie-Gruppe an der Stelle $c = 0$ gerade ein Element der Lie-Algebra ergibt ? sinnvoll ?:
+\begin{align*}
+g&: \mathbb{R} \rightarrow G, \; c \mapsto g(c) = \mqty(\cos(c) & -\sin(c) \\ \sin(c) & \cos(c))
+\\\\
+\Rightarrow \quad D_{c = 0} \, g(c) &= \eval{\mqty(-\sin(c) & -\cos(c) \\ \cos(c) & -\sin(c))}_{c = 0} = \mqty(0 & -1 \\ 1 & 0) \, .
+\end{align*}
+
+	\anm{die anderen Elemente aus O$(n)$ haben bekanntlich Determinante $-1$ und entsprechen daher Drehspiegelungen. Für sie ergibt sich
+	\begin{equation*}
+	\text{Exp}(\mathfrak{g}) = \mqty(\cos(c) &  \sin(c) \\ \sin(c) & -\cos(c)) \, ,
+	\end{equation*}
+	man muss also einfach oBdA die rechte Spalte mit einem minus multiplizieren (was dann das minus in der Determinante bewirkt). Natürlich könnte man auch die linke Spalte mit einem minus versehen, aber das entspräche einfach nur der Drehung um den jeweiligen negativen Winkel und ist deshalb äquivalent.}
+\end{bsp}
+
+
+Nachdem man nun mit Lie-Gruppen/ -Algebren und ihren Eigenschaften besser vertraut ist, kann auch die (am Anfang des Abschnitts angekündigte) Diskussion von Funktionen mit Werten in Lie-Gruppen $G$ sowie den zugehörigen 1-Formen begonnen werden (wobei sich hier wieder auf den Fall $G \subset \text{GL}(n, \mathbb{R})$ konzentriert wird). Statt Funktionen $f: M \rightarrow \mathbb{R}$ soll es also um glatte Funktionen $f: M \rightarrow G$ gehen (wegen der Mannigfaltigkeitenstruktur von $G$ wäre Abbildungen aber ebenfalls passend).
+
+
+Ein interessanter Ansatz ist, solche Funktionen über damit assoziierte 1-Formen zu beschreiben. Auch wenn das zunächst merkwürdig erscheint, liegt sofort die Idee nahe, das Differential $Df = df: TM \rightarrow TG, \; (p, v) \mapsto \qty(f(p), d_p f(v))$ zu benutzen, aber das ist noch eine Abbildung nach $TG$ und nicht nach $G$. Hier hilft aber die Existenz der natürlichen Isomorphie $TG \cong G \cross \mathfrak{g}$, die von
+\begin{equation*}
+\Psi: G \cross \mathfrak{g} \rightarrow TG, \; (g, \xi) \mapsto (g, g \xi)
+\end{equation*}
+vermittelt wird. Weil Matrix-Lie-Gruppen als Teilmengen von $\text{GL}(n, \mathbb{R})$ immer aus invertierbaren Matrizen bestehen, kann man diese Abbildung umkehren und erhält
+\begin{equation*}
+\Psi^{-1}: TG \rightarrow G \cross \mathfrak{g}, \; (g, v) = (g, g \xi) \mapsto (g, g^{-1} v) = (g, \xi) \, .
+\end{equation*}
+
+%Man schreibt dann (etwas ungenau, aber im Prinzip Konvention, weil die Isomorphie eben kanonisch/ natürlich ist und die daher Identifikation selbstverständlich)
+Damit wird die Betrachtung der Abbildung
+\begin{equation*}
+\Psi^{-1} \circ df: TM \rightarrow G \cross \mathfrak{g}, \; (p, v) \mapsto \qty(f(p), f(p)^{-1} d_p f(v))
+\end{equation*}
+möglich, wobei mit
+\begin{equation*}
+f^{-1}: M \rightarrow G, \; p \mapsto f^{-1}(p) = \qty(f(p))^{-1}
+\end{equation*}
+die Abbildung auf die inverse Matrix des jeweiligen Bildpunktes gemeint ist (nicht das Inverse von $f$, dessen Existenz ist nicht einmal garantiert !). Das ist glatt, weil die Inversenbildung in $\text{GL}(n, \mathbb{R})$ glatt ist, und das erlaubt wiederum die Konstruktion einer vektorwertigen 1-Form mit Werten in der Lie-Algebra $\mathfrak{g}$:
+\begin{equation}
+\omega_f = \pi_2 \circ \Psi^{-1} \circ df: TM \rightarrow G \cross \mathfrak{g}, \; (p, v) \mapsto f^{-1}(p) \, d_p f(v) \, .
+\end{equation}
+Diese 1-Form $\omega_f \in \Omega^1(M, \mathfrak{g})$ wird \Def{Maurer-Cartan-Form} genannt und ist eindeutig (die Inversenbildung ist eindeutig, weshalb aus $f^{-1}(p) = g^{-1}(p), \, \forall p \in M$ bereits $f(p) = g(p), \, \forall p \in M$ und damit $f = g$ folgt). Für jedes $f \in C^\infty(M, G)$ existiert also eine eindeutige Maurer-Cartan-Form und das war das erklärte Ziel.
+
+
+%Man kann sich nun auch mit Abbildungen in Lie-Gruppen beschäftigen, hier wird wieder der Falle einer Matrix-Lie-Gruppe $G \subset \text{GL}(n, \mathbb{R})$ betrachtet. Tatsächlich kann man nun eine Abbildung $f: M \rightarrow G$ über das Differential beschreiben, weil $Df: TM \rightarrow TG = G \cross \mathfrak{g}$. Man kann deshalb die zweite Komponente $\pi_2 \circ Df: TM \rightarrow \mathfrak{g}$ betrachten, die faserweise linear ist. Es gilt tatsächlich $\pi_2 \circ Df = f^{-1} df$, was aus der Darstellung des Tangentialbündels als $G \cross \mathfrak{g}$ folgt, was ja über die Abbildung $G \cross \mathfrak{g} \rightarrow TG, \; (g, \xi) \mapsto g \cdot \xi$ geschah (müssen das nun umkehren und die zweite Komponente nehmen, dann steht es da; man hat ja dann Abbildungen $f: M \rightarrow G, D_p f: T_p M \rightarrow T_{f(p)} G$ iwie, weshalb dann das $d_pf$ reinkommt faserweise). Insgesamt erhält man so eine 1-Form $\omega_f = f^{-1} df \in \Omega^1(M ,\mathfrak{g})$, es werden also Werte in der Lie-Algebra angenommen (man kann sich das als Differential von $M$ in die Lie-Gruppe $G$ vorstellen). Das ist die \Def{Maurer-Cartan-Form}.
+
+Weil jede Gruppe das inverse Element enthalten muss und Lie-Gruppen $G$ dort keine Ausnahmen sind, kann man auch fragen, welche Maurer-Cartan-Form zu $f^{-1}$ gehört. Der Vorfaktor ist wegen $\qty(f^{-1})^{-1} = f$ klar, aber um das Differential $d\qty(f^{-1})$ mit $f$ ausdrücken zu können, muss zunächst noch eine Rechenregel gezeigt werden:
+\begin{satz}[Quotientenregel]
+Für $f: M \rightarrow G$ glatt gilt
+\begin{equation}
+d\qty(f^{-1}) = -f^{-1} df f^{-1} \, .
+\end{equation}
+\end{satz}
+Damit folgt dann der gewünschte Ausdruck
+\begin{equation}
+\omega_{f^{-1}} = f d\qty(f^{-1}) = -f \cdot \omega_f \cdot f^{-1} \, .
+\end{equation}
+
+%Beweisidee ist Anwendung der Kettenregel (? nicht Produkt ?) auf $\text{id} = f \cdot f^{-1}$, dann Produktregel und umstellen: $0 = df \cdot f^{-1} + f \cdot df^{-1} \Leftrightarrow df^{-1} = -f^{-1} df f^{-1}$ (schreiben hier $\cdot$ statt $\circ$, weil es hier um Matrizen geht !)
+
+\begin{bsp}[Reelle Zahlen]
+Hier soll einmal klar gemacht werden, was bei einer Abbildung in die rellen Zahlen besonders ist. Für $f = \text{Exp}(h): M \rightarrow \mathbb{R}^{> 0}$ mit $h: M \rightarrow \mathbb{R}$ gilt nämlich
+\begin{align*}
+\omega_f = f^{-1} df &= e^{-h} d\qty(e^h) = e^{-h} e^h dh = dh
+\\
+\omega_{f^{-1}} = f d\qty(f^{-1}) &= e^h d\qty(e^{-h}) = e^h e^{-h} \qty(-dh) = - dh = - \omega_f \, .
+\end{align*}
+Dass hier alles eine sehr einfache Form annimmt, liegt daran, dass reelle Zahlen kommutieren, Elemente von (Matrix-)Lie-Gruppen aber im Allgemeinen nicht.
+\end{bsp}
+
+
+Nachdem nun mit den Maurer-Cartan-Formen eine neue Art von 1-Formen bekannt geworden ist, stellt sich die Frage, wieviele 1-Formen von dieser Art sind. Anders gesagt stellt man sich also die Frage: wann gibt es eine Funktion $f: M \rightarrow G$, sodass $\omega = \omega_f$ für ein $\omega \in \Omega^1(M, \mathfrak{g})$ oder äquivalent wann ist das $\omega$ integrierbar ? Gesucht ist damit eine Integrabilitätsbedingung wie Satz \ref{satz:integrab1form}, nur für Lie-Algebra-wertige 1-Formen. Auf dem Weg dahin sind noch einige Dinge zur Vorbereitung nötig, im ersten Schritt wird dabei eine Eigenschaft von Maurer-Cartan-Formen gezeigt:
+\begin{satz}[Maurer-Cartan-Gleichung]
+Für eine Matrix-Lie-Gruppe $G \subset \text{GL}(n, \mathbb{R})$ und $f: M \rightarrow G$ glatt gilt
+\begin{equation}\label{eq:maurercartangl}
+X \cdot \omega_f(Y) - Y \cdot \omega_f(X) - \omega_f\qty([X, Y]) = - \qty[\omega_f(X), \omega_f(Y)]
+\end{equation}
+für alle $X, Y \in \mathcal{X}(M)$.
+\end{satz}
+%Beweisidee ist Auffassen von $\mathfrak{g}$ als UVR von $\mathfrak{gl}$ (klar, weil ja $G \subset \text{GL}$)
+
+Der zweite Kommutator wird dabei in der Matrix-Lie-Algebra gebildet. Es ist gut zu wissen, dass Maurer-Cartan-Formen diese Bedingung erfüllen, aber darin steckt noch keine Aussage, die das Ganze mit allgemeinen 1-Formen in Beziehung setzt.
+
+Bevor das geschieht, soll die Gleichung aber noch etwas übersichtlicher gemacht und zugleich nützliche Eigenschaften der auftretenden Größen gezeigt werden:
+\begin{lemma}\label{lemma:fakedifferential}
+Für einen endlich-dimensionalen Vektorraum $V$, eine 1-Form $\omega \in \Omega^1(M, V)$ und zwei Vektorfelder $X, Y \in \mathcal{X}(M)$ zusammen mit Tangentialvektoren $x, y \in T_p M $, sodass $X_p = x, Y_p = y$ ist die Abbildung
+\begin{equation}
+d_p \omega: T_p M \cross T_p M \rightarrow V, \; (x, y) \mapsto X_p \cdot \omega(Y) - Y_p \omega(X) - \omega\qty([X, Y]_p)
+\end{equation}
+wohldefiniert. Zudem ist die Abbildung $d\omega: p \mapsto d_p \omega(X_p, Y_p)$ glatt.
+\end{lemma}
+	\anm{man trifft hier (ohne es zu wissen, weil alles erst später eingeführt) das erste mal auf die \Def[Äußere! Ableitung]{Äußere Ableitung}, die 1-Formen $\omega$ auf 2-Formen $d\omega$ abbildet !}
+
+Diese Abbildung entspricht also punktweise einer glatten, vektorwertigen Bilinearform mit Werten im Vektorraum $V$, die jedoch schief ist, also bei Vertauschung der Argumente die gleiche Abbildung bis auf ein Vorzeichen ergibt (durch Ansehen klar). Es handelt sich nicht nur um eine Zusammenfassung der linken Seite der Maurer-Cartan-Gleichung, sondern es wurde als ganz wesentliche Eigenschaft die Unabhhängigkeit des Funktionswerts von der gewählten Fortsetzung außerhalb des betrachteten Punktes gezeigt. Das erlaubt die Wahl besonders einfach auszuwertender Vektorfelder in expliziten Rechnungen.
+
+Eine besondere Eigenschaft von $d\omega$ (oft das Tensorielle oder \Def{tensorielle Eigenschaft} genannt) ist zudem, dass sich die Formel bei Einsetzen von $f \cdot Y$ statt $Y$ im zweiten Argument nur um den konstanten Faktor $f(p)$ ändert, der davor dazukommt (man nutzt dabei $C^\infty$-Linearität von 1-Formen ? wait, gilt die ? und dass $X \cdot f$ wieder ein Vektorfeld ist, wodurch sich alle Zusatzterme kürzen). Das ist durchaus besonders, bei einer Derivation z.B. kam ja noch die Ableitung dazu.\\
+
+
+Definiert man nun weiter für zwei 1-Formen $\omega, \eta \in \Omega^1(M, \mathfrak{g})$ die Abbildung
+\begin{equation*}
+[\omega \wedge \eta]: \mathcal{X}(M) \cross \mathcal{X}(M) \rightarrow C^\infty(M, \mathfrak{g}), \; (X, Y) \mapsto \qty[\omega(X), \eta(Y)] - \qty[\omega(Y), \eta(X)] \, ,
+\end{equation*}
+so nimmt die Maurer-Cartan-Gleichung offenbar folgende Form an:
+\begin{equation*}
+d \omega_f + \frac{1}{2} [\omega_f \wedge \omega_f] = 0 \quad \Leftrightarrow \quad d_p\omega_f(X_p, Y_p) + \qty[\omega_f(X_p), \omega_f(Y_p)]_p = 0 \, .
+\end{equation*}
+Die Definitionen helfen, weil die Gleichung so ohne Argumente und Punkt geschrieben werden kann. Neben der Übersichtlichkeit bilden sie das Rüstzeug, um eine Integrabilitätsbedingung für Lie-Algebra-wertige 1-Formen formulieren zu können:
+\begin{satz}[Maurer-Cartan-Lemma]
+Für eine 1-Form $\omega \in \Omega^1(M, \mathfrak{g})$ gilt die Maurer-Cartan-Gleichung
+\begin{equation*}
+d \omega + \frac{1}{2} \qty[\omega \wedge \omega] = 0
+\end{equation*}
+genau dann, wenn um alle $p \in M$ eine offene Umgebung $U$ und eine Abbildung $f_U: U \rightarrow G$ existieren mit $\omega_{f_U} = \omega_U$.
+\end{satz}
+Die Notation ist an dieser Stelle etwas unglücklich, sollte aber dennoch klar sein: $\omega_U$ heißt, dass man die auf $U$ eingeschränkte 1-Form $\omega$ betrachtet und $\omega_f$ bezeichnet die Maurer-Cartan-Form zu $f$. Die Aussage dieses Satzes ist sehr wichtig, weil sie eine notwendige Bedingung dafür gibt, dass eine 1-Form $\omega$ die Maurer-Cartan-Form zu einer Funktion $f: U \rightarrow G$ ist! Erfüllt $\omega$ also nicht die Maurer-Cartan-Gleichung, so ist sie insbesondere nicht integrierbar. Diese Aussage ist unheimlich wertvoll, weil die Gültigkeit der Maurer-Cartan-Gleichung vergleichsweise leicht nachzurechnen ist (z.B.~wegen Unabhängigkeit von $d_p \omega(X, Y)$ von der Fortsetzung).
+
+
+Man erkennt nun auch, dass sich Satz \ref{satz:integrab1form} grob vereinfacht formulieren lässt als: integrierbar $\Leftrightarrow$ $d\omega = 0$ (das wird später als Poincare-Lemma noch verallgemeinert gezeigt). Damit hat man nun eine noch allgemeinere, nicht-lineare Version zur Hand und für Räume, in denen alle Elemente $\omega(X), \omega(Y)$ kommutieren (wie beispielsweise die reellen Zahlen) erhält man wieder die Form von vorher, weil $[\omega \wedge \omega] = 0 - 0 = 0$.
+
+
+Interessant ist, dass man eine Art Abgeschlossenheit der Integrabilität unter Multiplikation zeigen kann. Für das punktweise Produkt $fg: M \rightarrow G, \; p \mapsto f(p) g(p)$ erfüllt auch $\omega_{fg} = g^{-1} \omega_f g + \omega_g$ immer die Maurer-Cartan-Gleichung (der Beweis erfolgt über stumpfes Nachrechnen, so kommt man auch auf die Form von $\omega_{fg}$).
+
+\begin{bsp}[Vektorwertige 1-Form und Maurer-Cartan-Gleichung]
+Das triviale Beispiel der Funktion $g = \text{id}: G \rightarrow G$ (ist offenbar glatt) liefert die Maurer-Cartan-Form $\omega_g \in \Omega^1(G, g)$. Für zwei Vektorfelder $X^g, Y^g \in T_g G$ und $\xi, \eta \in \mathfrak{g}$ gilt wegen $X_g^\xi = g \xi, X^\eta_g = g \eta$:
+\begin{equation*}
+\omega_g\qty(X^\xi_g) = \xi \qquad \omega_g\qty(X^\eta_g) = \eta \, .
+\end{equation*}
+Mit $[X^\xi, X^\eta]_g = X^{[\xi, \eta]}_g$ erhält man durch Einsetzen in die Maurer-Cartan-Gleichung
+\begin{equation}
+\begin{split}
+& \quad \qty(d \omega_f + \frac{1}{2} \qty[\omega_f \wedge \omega_f])(X^\xi, X^\eta)
+\\
+&= X^\xi \cdot \omega_g(X^\eta) - X^\eta \cdot \omega_g(X^\xi) - \omega_g\qty([X^\xi, X^\eta]) + \qty[\omega_g(X^\xi), \omega_g(X^\eta)]
+\\
+&= - [\xi, \eta] + [\xi, \eta] = 0
+\end{split}
+\end{equation}
+-> 1/2 kürzt sich, weil da gleiche Sachen stehen (wird zu einem Term); nutze dann, dass erste beide Terme konstant, bei drittem Term $[X^\xi, X^\eta]_g = X^{[\xi, \eta]}_g$ und beim letzten einfach Einsetzen der Definition von $\omega$
+
+und genau das sollte herauskommen. Es wurde genutzt, dass die Ableitung verschwindet (weil das Vektorfeld an einem Punkt ja konstant $\xi$ bzw. $\eta$ ergibt) und sonst einfach nur in die 1-Form eingesetzt.
+
+Man kann dabei einfach die bestmöglichen Vektorfelder zum Berechnen wählen, weil man ja die Wohldefiniertheit und damit Unabhängigkeit von den gewählten Vektorfeldern gezeigt hat.
+\end{bsp}
+
+
+
+\newpage
+
+
+
+\end{document} 
