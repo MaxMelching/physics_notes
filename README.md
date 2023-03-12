@@ -8,7 +8,7 @@ wrote and used throughout my physics studies at Leibniz University Hannover.
 
 
 * `analysis`: a summary of courses I took covering many aspects of analysis
-  (the mathematical topic). This include basic topics like sets, topology,
+  (the mathematical topic). This includes basic topics like sets, topology,
   differentiation and also more advanced ones like manifolds, Riemannian/
   differential geometry. Written in german.
 

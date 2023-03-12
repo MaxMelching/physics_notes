@@ -162,6 +162,15 @@ man schränkt also einfach das euklidische Skalarprodukt auf $M$ ein und nutzt d
 \end{bsp}
 
 
+\begin{bsp}[Gradient]
+Mithilfe der Metrik kann auch ein weiterer Ableitungsoperator definiert werden, der \Def{Gradient}. Er wirkt auf Funktionen und ist eindeutig festgelegt über die Forderung
+\begin{equation}
+df(X) = g\qty(\text{grad} f, X) \, .
+\end{equation}
+In der Physik und allgemein wird $\text{grad}$ sonst oft mit $\nabla$ bezeichnet, jedoch ist dieses Symbol hier schon anderen Objekten vorbehalten (nächster Abschnitt). Den Gradienten kann man sich nun so vorstellen, dass er die Änderung der Funktion in alle Richtungen erfasst, es handelt sich also um einen Vektor. Lokal enthält dieser Vektor in Komponente $i$ die Änderung von $f$ in Richtung von $\pdv{x_i}$. Durch Bildung des Skalarproduktes mit einem Vektor $X$ erhält man dann die Änderung von $f$ in Richtung von $X$, die Richtungsableitung $df(X)$.
+\end{bsp}
+
+
 \begin{bsp}[Sphäre]
 Die Metrik auf $\mathbb{S}^2$ bezüglich der stereographischen Projektion ist
 \begin{equation}
@@ -271,7 +280,7 @@ Für eine Mannigfaltigkeit $M$ und ein Vektorbündel $\pi: E \rightarrow M$ hei�
 \begin{equation}
 \nabla: \Gamma(M; E) \rightarrow \Gamma(M; T^* M \otimes E) \; \text{ mit } \nabla(fs) = df \otimes s + f \nabla s
 \end{equation}
-\Def[Zusammenhang]{Zusammenhang (auf $E$)}. Zudem bezeichnet man abkürzend für $X \in \mathcal{X}(M)$
+\Def[Zusammenhang]{(affiner) Zusammenhang (auf $E$)}. Zudem bezeichnet man abkürzend für $X \in \mathcal{X}(M)$
 \begin{equation}
 \nabla_X: \Gamma(M; E) \rightarrow \Gamma(M; E), \; s \mapsto \nabla_X s := \tr_{1, 1}(X \otimes \nabla s) \, .
 \end{equation}
@@ -354,12 +363,35 @@ jeweils $\forall X \in \mathcal{X}(M), S \in \Gamma(M; T^{(r, s)}M), T \in \Gamm
 \end{equation}
 
 
-Zusammenhänge lassen sich auf viele verschiedene Weisen motivieren. Ein anderer Ansatz ist die Tatsache, dass partielle Ableitungen nicht tensoriell sind. Die Suche nach einem geeigneten, tensoriellen Analogon führt dann ebenso zu Zusammenhängen, indem man lokal und komponentenweise definiert:
+Zusammenhänge lassen sich auf viele verschiedene Weisen motivieren. Ein anderer Ansatz ist die Tatsache, dass partielle Ableitungen nicht tensoriell sind. Die Suche nach einem geeigneten, tensoriellen Analogon führt dann ebenso zu Zusammenhängen, indem man lokal und komponentenweise schreibt:
 \begin{equation}
-\nabla_{\pdv{x_i}} s = \pdv{x_i} s + \Gamma_i s = \mqty(\pdv{x_i} s^0 \\ \vdots \\ \pdv{x_i} s^{n - 1}) + \Gamma_{ij}^k \mqty(s^0 \\ \vdots \\ s^{n - 1}) \, .
+%\nabla_{\pdv{x_i}} s = \pdv{x_i} s + \Gamma_i s = \mqty(\pdv{x_i} s^0 \\ \vdots \\ \pdv{x_i} s^{n - 1}) + \Gamma_{ij}^k \mqty(s^0 \\ \vdots \\ s^{n - 1}) \, , % hier stimmt doch was mit Indizes nicht... Habe von Eckert übernommen, aber der schreibt ja auch Summen zB nicht auf -> ok, kann doch sein, aber nur Matrixprodukte nicht gut ausgeschrieben
+\nabla_{\pdv{x_i}} s = \qty(\pdv{x_i} + \Gamma_i) \mqty(s_1 \\ \vdots \\ s_n) = \sum_j \pdv{s_j}{x_i} e_j + \sum_{j, k} \qty(\Gamma_i)_{kj} s_j e_k =: \mqty(\pdv{s_1}{x_i} \\ \vdots \\ \pdv{s_n}{x_i}) + \sum_k \mqty(\Gamma_{i1}^k s_k \\ \vdots \\ \Gamma_{in}^k s_k) \, ,
 \end{equation}
-Hier sieht man auch, warum $\nabla$ Tensoren auf Tensoren gleicher Art abbildet: in jeder Komponente des neuen Objekts ist die Änderung dieser jeweiligen Komponente des Arguments enthalten.
+$\Gamma_i, \nabla_{\pdv{x_i}}$ sind lokal also Matrizen. %\footnote{Aus Konvention schreibt man $\qty(\Gamma_i)_{jk} = \Gamma_{ij}^k$.} 
+Dieser zweite Ansatz ist also, eine lineare Transformation (und damit die \Def{Zusammenhangskoeffizienten} $\Gamma_{ij}^k$, Indizierung Konvention; \emph{nicht} selber tensoriell) zu ergänzen, um $\nabla$ tensoriell zu machen.\footnote{Hier sieht man auch, warum $\nabla$ Tensoren auf Tensoren gleicher Art abbildet: in jeder Komponente des neuen Objekts ist die Änderung dieser jeweiligen Komponente des Arguments enthalten.} Das reicht aus um allgemeine $\nabla_X$ zu definieren, da das Ganze eben tensoriell in $X = \sum_i \mu_i \pdv{x_i}$ ist. Die Äquivalenz dieses Ansatzes zu dem vorher gewählten wird in der lokalen Darstellung klar. Für die Gauß'schen Basisfelder und allgemeinen Basiselemente $e_i$ von $\Gamma(M; E)$ gilt daher per Definition
+\begin{equation}
+\nabla_{\pdv{x_i}} e_j = \sum_k \lambda_{ijk} e_k \in \Gamma(M; E)
+\end{equation}
+mit geeigneten Koeffizienten $\lambda_{ijk}: M \rightarrow \mathbb{R}$. Die Indizes $i, j$ werden ergänzt, damit klar ist zu welchen Basisvektoren $\lambda_k$ gehört. Für die lokale Darstellung ergibt sich:
+\begin{align}
+\nabla_X s &= \nabla_{\sum_i \mu_i \pdv{x_i}} \sum_j s_j e_j = \sum_i \mu_i \nabla_{\pdv{x_i}} \sum_j s_j e_j
+\notag\\
+&= \sum_{i, j} \mu_i \qty(\nabla_{\pdv{x_i}} s_j) e_j + \mu_i s_j \nabla_{\pdv{x_i}} e_j
+\notag\\
+&= \sum_{i, j} \mu_i \pdv{s_j}{x_i} e_j + \sum_{i, j, k} \mu_i s_j \lambda_{ijk} e_k
+\notag\\
+%&= \sum_{i, j, k} \mu_k \qty(\pdv{s_j}{x_k} e_j + \mu_i s_j \lambda_k) e_k \, .
+&= \sum_{i, j, k} \mu_i \qty(\pdv{s_k}{x_i} + s_j \lambda_{ijk}) e_k \, .
+\end{align}
+Hierbei wurden viele Eigenschaften von $\nabla$ genutzt und im letzten Schritt ein Index im linken Summanden umbenannt. Die allgemeine Idee bei der Rechnung ist, $\nabla$ auf Funktionen wirken zu lassen, wo $\nabla f = df$. Insgesamt ist damit klar, dass
+\begin{equation}
+\lambda_{ijk} = \Gamma_{ij}^k \, .
+\end{equation}
+Diese Idee der lokalen Definition reicht dann bereits aus für einen wohldefinierten Zusammenhangsbegriff. Es ist also so, dass die Zusammenhangskoeffizienten den Zusammenhang bereits vollständig bestimmen, da sie die zusätzlich zur partiellen Ableitung auftretende Wirkung enthalten.
 
+\iffalse
+{
 Dieser zweite Ansatz ist also, lineare Funktionen (die \Def{Zusammenhangskoeffizienten} $\Gamma_{ij}^k$; \emph{nicht} selber tensoriell) zu ergänzen, um die tensorielle Eigenschaft zu erfüllen. Die Äquivalenz dieses Ansatzes zu dem vorher gewählten wird in der lokalen Darstellung klar, die nun beispielhaft für die Wirkung auf Vektorfelder berechnet wird. Der Zusammenhang bildet unter Anderem Vektorfelder auf Vektorfelder ab. Für die Gauß'schen Basisfelder gilt daher per Definition
 \begin{equation}
 \nabla_{\pdv{x_i}} \pdv{x_j} = \sum_k \lambda_k \pdv{x_k}
@@ -379,10 +411,13 @@ Hierbei wurden viele Eigenschaften von $\nabla$ genutzt und im letzten Schritt e
 \lambda_k = \Gamma_{ij}^k \, .
 \end{equation}
 Die Indizes $i, j$ werden dabei ergänzt, damit auch klar ist zu welchen Basisvektoren der Koeffizient gehört. Diese Idee der lokalen Definition reicht dann bereits aus für einen wohldefinierten Zusammenhangsbegriff. Es ist also so, dass die Zusammenhangskoeffizienten den Zusammenhang bereits vollständig bestimmen, da sie die zusätzlich zur partiellen Ableitung auftretende Wirkung enthalten. Analog lässt sich die Wirkung auf andere Tensoren ausschreiben, es muss lediglich die partielle Ableitung durch die jeweiligen Basisvektoren ersetzt werden.
+}
+\fi
+
 
 
 \begin{bsp}[Zusammenhang auf dem $\mathbb{R}^n$]
-Im flachen $\mathbb{R}^n$ ist
+Im flachen $\mathbb{R}^n$ gilt
 \begin{equation}
 \Gamma_{ij}^k = 0, \; \forall i, j, k \quad \Rightarrow \quad \nabla_{\pdv{x_i}} = \pdv{x_i} \, .
 \end{equation}
@@ -458,7 +493,11 @@ T^\nabla: \mathcal{X}(M) \cross \mathcal{X}(M) \rightarrow \mathcal{X}(M), \; T^
 \end{equation}
 für Vektorfelder $X, Y \in \mathcal{X}(M)$ ein Tensor.
 \end{lemma}
-$T^\nabla$ wird auch \Def{Torsionstensor} genannt und mit ihm kann man die Bedingung für einen torsionsfreien Zusammenhang umschreiben zu $T^\nabla(X, Y) = 0, \; \forall X, Y \in \mathcal{X}(M)$ oder einfach $T^\nabla = 0$. Eine interessante Beobachtung ist, dass der Torsionstensor und damit auch die Eigenschaft der Torsionsfreiheit eine Verbindung zwischen Zusammenhängen und der Lie-Klammer $\mathcal{L}_X Y = \qty[X, Y]$ herstellt. Außerdem impliziert Torsionsfreiheit die Symmetrie der Zusammenhangskoeffizienten $\Gamma_{ij}^k$.\\
+$T^\nabla$ wird auch \Def{Torsionstensor} genannt und mit ihm kann man die Bedingung für einen torsionsfreien Zusammenhang umschreiben zu $T^\nabla(X, Y) = 0, \; \forall X, Y \in \mathcal{X}(M)$ oder einfach $T^\nabla = 0$. Eine interessante Beobachtung ist, dass der Torsionstensor und damit auch die Eigenschaft der Torsionsfreiheit eine Verbindung zwischen Zusammenhängen und der Lie-Klammer $\mathcal{L}_X Y = \qty[X, Y]$ herstellt. Torsionsfreie Zusammenhänge heißen zudem auch \Def[Zusammenhang! symmetrischer-]{symmetrisch}, da dann insbesondere gilt:
+\begin{equation}
+0 = T^\nabla\qty(\pdv{x}_i, \pdv{x_j}) = \nabla_{\pdv{x_i}} \pdv{x_j} - \nabla_{\pdv{x_j}} \pdv{x_i} = \sum_k \qty(\Gamma_{ij}^k - \Gamma_{ji}^k) \pdv{x_k} \quad \Leftrightarrow \quad \Gamma_{ij}^k = \Gamma_{ji}^k \, .
+\end{equation}
+Tatsächlich handelt es sich sogar um eine Äquivalenz (hier nicht ersichtlich).\\
 
 
 Es stellt sich nun heraus, dass diese zwei Eigenschaften starke Forderungen sind, die bei Weitem nicht alle Zusammenhänge erfüllen. Auf der anderen Seite sind sie gerade nicht zu stark, dass kein Zusammenhang sie erfüllen kann, es gilt:
@@ -479,12 +518,27 @@ Dieser Zusammenhang $\nabla$ erfüllt zudem $\forall X, Y, Z \in \mathcal{X}(M)$
 \begin{defi}[Levi-Civita-Zusammenhang]
 Für eine Riemannsche Mannigfaltigkeit $(M, g)$ heißt der eindeutige torsionsfreie und metrische Zusammenhang $\nabla$ \Def[Zusammenhang! Levi-Civita-]{Levi-Civita-Zusammenhang}. Die Zusammenhangskoeffizienten $\Gamma_{ij}^k$ heißen hier dann auch \Def[Christoffelsymbole]{Christoffelsymbole (zweiter Art)}. Gleichung \eqref{eq:koszul} heißt auch \Def{Formel von Koszul}.
 \end{defi}
+%-> \href{https://de.wikipedia.org/wiki/Levi-Civita-Zusammenhang}{Wikipedia} dazu
 Dieser bestimmte Zusammenhang spielt eine immense Rolle in der Riemannschen Geometrie und ganz allgemein Differentialgeometrie, auch wenn er nicht auf allgemeinen Vektorbündeln oder Mannigfaltigkeiten definiert ist, sondern speziell auf $TM$ und einer Riemannschen Mannigfaltigkeit (nur dann ergibt z.B.~die Forderung nach einem metrischen Zusammenhang Sinn). Das kommt daher, dass er im besonders kompatibel ist der Struktur der Mannigfaltigkeit auf der er definiert ist (insbesondere mit der Metrik). Im gewissen Sinne beeinflußt er die Objekte nicht, auf die er wirkt (Parallelogramme schließen sich weiterhin, Metrik ist konstant).
 
-Nur Levi-Civita-Zusammenhänge erfüllen die Formel von Koszul. Gleichsam definiert die Formel von Koszul aber auch Levi-Civita-Zusammenhänge eindeutig (die nötigen Umformungen klappen nur für torsionsfreie, metrische Zusammenhänge).
+Nur Levi-Civita-Zusammenhänge erfüllen die Formel von Koszul. Gleichsam definiert die Formel von Koszul aber auch Levi-Civita-Zusammenhänge eindeutig (die nötigen Umformungen klappen nur für torsionsfreie, metrische Zusammenhänge). Ein weiteres Indiz dafür ist, dass die Formel von Koszul die Christfoffelsymbole bestimmt, die den Zusammenhang eindeutig festlegen. Das ergibt sich aus \eqref{eq:koszul} für $X = \pdv{x_i}, Y = \pdv{x_j}, Z = \pdv{x_k}$:
+\begin{align*}
+\pdv{x_i} g_{jk} + \pdv{x_j} g_{jk} &= \pdv{x_k} g_{ij} + 2 g\qty(\sum_l \Gamma_{ij}^l \pdv{x_l}, \pdv{x_k})% = \pdv{x_k} g_{ij} + 2 \sum_l \Gamma_{ij}^l g_{lk}
+\\
+\Leftrightarrow \quad \sum_l \Gamma_{ij}^l g_{lk} &= \frac{1}{2} \qty(\pdv{g_{jk}}{x_i} + \pdv{g_{jk}}{x_j} - \pdv{g_{ij}}{x_k})
+%\\
+%\Leftrightarrow \quad \sum_{l, k} \Gamma_{ij}^l g_{lk} \qty(g^{-1})_{km} &= \sum_k \qty(g^{-1})_{km} \frac{1}{2} \qty(\pdv{g_{jk}}{x_i} + \pdv{g_{jk}}{x_j} - \pdv{g_{ij}}{x_k})
+\end{align*}
+Um die Christoffelsymbole links zu isolieren, kann man nun mit inversen Komponenten der Metrik multiplizieren und dann nutzen:
+\begin{align*}
+\qty(\sum_k \qty(g^{-1})_{km}) \qty(\sum_l \Gamma_{ij}^l g_{lk}) = \sum_{l, k} \Gamma_{ij}^l g_{lk} \qty(g^{-1})_{km} &= \sum_l \Gamma_{ij}^l \sum_k g_{lk} \qty(g^{-1})_{km} = \sum_l \Gamma_{ij}^l \delta_{lm} = \Gamma_{ij}^m \, .
+\end{align*}
+Somit ergibt sich:
+\begin{equation}
+\Gamma_{ij}^m = \frac{1}{2} \sum_k \qty(g^{-1})_{km} \qty(\pdv{g_{jk}}{x_i} + \pdv{g_{jk}}{x_j} - \pdv{g_{ij}}{x_k}) \, .
+\end{equation}
+Das ist eine Bestätigung der Interpretation, dass Levi-Civita-Zusammenhang und Mannigfaltigkeit eng verbunden sind -- $\nabla$ ist durch die Metrik eindeutig bestimmt.
 
-
-%-> \href{https://de.wikipedia.org/wiki/Levi-Civita-Zusammenhang}{Wikipedia} dazu
 
 
 \begin{bsp}[Levi-Civita-Zusammenhang des $\mathbb{R}^n$]
@@ -538,7 +592,7 @@ Für ein Vektorbündel $\pi: E \rightarrow M$ und $\phi: N \rightarrow M$ glatt 
 \end{equation}
 \end{satz}
 
-$\tilde{\nabla}$ ist, was natürlicherweise als Pullback von $\nabla$ zu sehen ist -- $\phi^* \nabla$ beschreibt also einfach einen (eindeutig bestimmten) Zusammenhang auf $\phi^* E$. Er wirkt auf die gepullten Schnitte so, dass das Ergebnis genau der Pullback des Objekts $\nabla s$ ist (ähnlich zu \eqref{eq:pullpushv2}). Mit eingesetztem Vektorfeld $X \in \mathcal{X}(M)$ wird die definierende Gleichung zu:
+$\tilde{\nabla}$ ist also, was natürlicherweise als Pullback von $\nabla$ zu sehen ist -- $\phi^* \nabla$ beschreibt also einfach einen (eindeutig bestimmten) Zusammenhang auf $\phi^* E$. Er wirkt auf die gepullten Schnitte so, dass das Ergebnis genau der Pullback des Objekts $\nabla s$ ist (ähnlich zu \eqref{eq:pullpushv2}). Mit eingesetztem Vektorfeld $X \in \mathcal{X}(M)$ wird die definierende Gleichung zu:
 \begin{equation}
 \phi^* \qty(\nabla_X s) = \qty(\phi^* \nabla)_{\tilde{X}} \qty(\phi^* s) = \qty(\phi^* \nabla)_{\phi^* X} \qty(\phi^* s) \, ,
 \end{equation}
@@ -546,16 +600,16 @@ wobei $X, \tilde{X}$ $\phi$-verwandt sind (also $\tilde{X} = \phi^* X$). Das zei
 
 Für diese Eigenschaft gilt weiter eine Art Kettenregel:
 \begin{satz}
-Für ein Vektorbündel $\pi: E \rightarrow M$ mit Zusammenhang $\nabla$ und Abbildungen $f: N \rightarrow M, g: O \rightarrow N$ gilt auf $\qty(f \circ g)^* E = g^* \qty(f^* E)$ über $O$:
+Für ein Vektorbündel $\pi: E \rightarrow M$ mit Zusammenhang $\nabla$ und Abbildungen $f: N \rightarrow M, h: O \rightarrow N$ gilt auf $\qty(f \circ h)^* E = h^* \qty(f^* E)$ über $O$:
 \begin{equation}
-\qty(f \circ g)^* \nabla = g^* \qty(f^* \nabla) \, .
+\qty(f \circ h)^* \nabla = h^* \qty(f^* \nabla) \, .
 \end{equation}
 \end{satz}
 
 
 Man mag sich nun fragen, ob die Eigenschaften eines Levi-Civita-Zusammenhangs sich unter Pullbacks ändern. Es stellt sich heraus, dass das nicht der Fall ist:
 \begin{satz}[Torsionsfrei, metrisch unter Pullback]
-Sei $\phi: N \rightarrow M$ und $\nabla$ ein Zusammenhang auf $TM$.
+Sei $\phi: N \rightarrow M$ glatt und $\nabla$ ein Zusammenhang auf $TM$.
 
 Ist $\nabla$ torsionsfrei, so gilt für $X, Y \in \mathcal{X}(M) = \Gamma(M; TM)$ und $\tilde{X} = \phi^* X = D \phi(X), \tilde{Y} = \phi^* Y = D\phi(Y) \in \Gamma(N; \gamma^* TM)$ längs $\phi$:
 \begin{equation}
@@ -568,21 +622,15 @@ X \cdot g(Y, Z) = g\qty(\phi^* \nabla_X Y, Z) + g\qty(Y, \phi^* \nabla_X Z) \, .
 \end{equation}
 \end{satz}
 
+Glatte Funktionen erhalten also die metrische Eigenschaft und Torsionsfreiheit.
 
-
-
-
-
--> viele nice Formeln vor Korollar 6.16 (zu Verhalten bei Pullback etc);
-
-
--> uh ja, 6.12 ist sehr wichtig; zeigt, was die Notation $\gamma^*$ bedeutet: $\qty(\gamma^* \nabla) \tilde{s} = \qty(\gamma^* \nabla) \qty(\gamma^* s) =  \gamma^* \nabla \qty(s \circ \gamma) = \gamma^*\qty(\nabla s)$; das erklärt unter Anderem die Herleitung bei Parallelitätsbedingung; ist sowas wie Kettenregel oder? -> ok, glaube $\gamma^* s = s \circ \gamma$ gilt nicht, aber bei Funktionen ja auf jeden Fall (von daher kann man es in Rechnung so machen; man sollte über Pullback ja auch auf jeden Fall so nachdenken)
+%-> uh ja, 6.12 ist sehr wichtig; zeigt, was die Notation $\gamma^*$ bedeutet: $\qty(\gamma^* \nabla) \tilde{s} = \qty(\gamma^* \nabla) \qty(\gamma^* s) =  \gamma^* \nabla \qty(s \circ \gamma) = \gamma^*\qty(\nabla s)$; das erklärt unter Anderem die Herleitung bei Parallelitätsbedingung; ist sowas wie Kettenregel oder? -> ok, glaube $\gamma^* s = s \circ \gamma$ gilt nicht, aber bei Funktionen ja auf jeden Fall (von daher kann man es in Rechnung so machen; man sollte über Pullback ja auch auf jeden Fall so nachdenken)
 
 
 
 
 		\subsection{Geodäten}
-Die erste Anwendung bei der ein Levi-Civita-Zusammenhang benutzt wird, ist die Bestimmung des Abstands von Punkten auf Mannigfaltigkeiten. Dieser konnte über \eqref{eq:distance_curve} bereits zwar sinnvoll definiert werden, jedoch muss zur tatsächlichen Berechnung die Kurve $\gamma$ bekannt sein, die $L(\gamma)$ minimiert. Das Ziel dieses Abschnitts ist es daher, einen systematischen Weg zum Aufstellen dieser Kurve $\gamma$ zu finden. Im $\mathbb{R}^n$ mag das trivial sein, auf allgemeinen Mannigfaltigkeiten ist es bisher noch nicht möglich!
+Die erste Anwendung bei der ein Levi-Civita-Zusammenhang benutzt wird, ist die Bestimmung des Abstands von Punkten auf Mannigfaltigkeiten. Dieser konnte über \eqref{eq:distance_curve} bereits zwar sinnvoll definiert werden, jedoch muss zur tatsächlichen Berechnung die Kurve $\gamma$ bekannt sein, die $L(\gamma)$ minimiert. Das Ziel dieses Abschnitts ist es daher, einen systematischen Weg zum Aufstellen dieser Kurve $\gamma$ zu finden. Im $\mathbb{R}^n$ mag das trivial sein, auf allgemeinen Mannigfaltigkeiten ist es jedoch bisher noch nicht möglich!
 
 \begin{satz}
 Für eine Riemannsche Mannigfaltigkeit $(M, g)$ mit Zusammenhang $\nabla$ und eine glatte, auf Bogenlänge parametrisierte Kurve $\gamma: [a, b] \rightarrow M$ mit $L(\gamma) = d\qty(\gamma(a), \gamma(b))$ gilt für das Vektorfeld $\gamma' \in \Gamma([a, b]; \gamma^* TM)$ längs $\gamma$
@@ -602,7 +650,7 @@ Eine glatte Kurve $\gamma: I \rightarrow M$, die \eqref{eq:geodgl} erfüllt, hei
 
 Geodäten sind also nichts als Kürzeste, die $L(\gamma) = d\qty(\gamma(a), \gamma(b))$ erfüllen. \eqref{eq:geodgl} heißt auch \Def{Geodätengleichung} und das ist der angekündigte systematische Weg, den Abstand zwischen Punkten zu finden. Da $\gamma$ nur von einem Parameter $t$ abhängt, wird hier $\dv{t}$ statt wie eigentlich üblich $\pdv{t}$ geschrieben.
 
-Die Bedeutung dieser Gleichung ist zudem sehr intuititv: die Richtung der Kurve bleibt konstant wenn man sie entlanggeht -- was so etwas wie das Verschwinden der zweiten Ableitung der Kurve bedeutet, dass sie also ungekrümmt ist. Der Pullback Zusammenhang $\gamma^*\nabla$ als Operator auf $\gamma^* TM$ statt $\nabla$ auf $M$ wird dabei benutzt, damit man nur Punkte $\gamma(t) \in M$ statt beliebiger $p$ einsetzt. So ist garantiert, dass man wirklich nur der Kurve folgt und sich nicht an anderer Stelle auf der Mannigfaltigkeit bewegt. Weil das jedoch eher ein Detail ist, wird es in der Schreibweise oft unterschlagen.\\
+Die Bedeutung dieser Gleichung ist zudem sehr intuititv: die Richtung der Kurve bleibt konstant wenn man sie entlanggeht -- was so etwas wie das Verschwinden der zweiten Ableitung der Kurve bedeutet, dass sie also ungekrümmt ist. Der Pullback Zusammenhang $\gamma^*\nabla$ als Operator auf $\gamma^* TM$ statt $\nabla$ auf $M$ wird dabei benutzt, damit nur Punkte $\gamma(t) \in M$ statt beliebiger $p$ eingesetzt werden. So ist garantiert, dass man wirklich nur der Kurve folgt und sich nicht an anderer Stelle auf der Mannigfaltigkeit bewegt. Weil das jedoch eher notationelles ein Detail ist, wird es beim Aufschreiben der Geodätengleichung oft unterschlagen.\\
 
 
 Im $\mathbb{R}^n$ werden Abstände einfach über die Differenz der enstprechenden Ortsvektoren gemessen, also die Gerade zwischen diesen beiden. Wie das nächste Beispiel zeigt, reproduziert die Geodätengleichung dieses Ergebnis.
@@ -631,7 +679,7 @@ Im Gegensatz dazu zeigt Abbildung \ref{fig:drehvektfeldplot} einen Kreisbogen mi
 \fi
 
 
-Nach diesem ersten Beispiel, die unterstreicht dass die Definition sinnvoll ist, stellt sich nun wieder einmal die Frage, was bei anderen Darstellungen passiert. Das entspricht der Frage, wie sich die Geodätengleichung unter einem Pullback $\phi^* \gamma$ verhält.
+Nach diesem ersten Beispiel, das unterstreicht dass die Definition sinnvoll ist, stellt sich nun wieder einmal die Frage, was bei anderen Darstellungen passiert. Das entspricht der Frage, wie sich die Geodätengleichung unter Pullbacks $\phi^* \gamma$ verhält.
 \begin{lemma}[Umparametrisierung Geodätengleichung]
 Für eine Riemannsche Mannigfaltigkeit $(M, g)$ mit Levi-Civita-Zusammenhang $\nabla$, eine glatte Kurve $\gamma: I \rightarrow M$ und einen Diffeomproshimus $\phi: J \rightarrow I$ gilt für $\tilde{\gamma} = \gamma \circ \phi: J \rightarrow M$:
 \begin{equation}
@@ -640,10 +688,11 @@ Für eine Riemannsche Mannigfaltigkeit $(M, g)$ mit Levi-Civita-Zusammenhang $\n
 \end{equation}
 \end{lemma}
 % hm, sicher die Pullbacks? Sollte stimmen, weil wir ja ne Gleichung auf $J$ haben hier, nicht auf $M$ (brauchen also auch Zusammenhang darauf); aber ist vlt $\gamma^* \nabla = \tilde{\gamma}^* \nabla$? Sind ja beide auf Intervallen... Sieht tbh auch bei Beweis Heller so aus
-Wird dieses Ergebnis $= 0$ gesetzt, ergibt sich die Geodätengleichung auf $J$.\\
+Wird dieses Ergebnis $= 0$ gesetzt, ergibt sich die Geodätengleichung auf $J$. Man beachte allerdings, dass diese Aussage nur für Levi-Civit-Zusammenhänge gilt.\\
 
 
 \iffalse % weil ich es noch nicht ganz verstehe, wie im Beweis da irgendwie die Parallelität einfließt
+{
 nützliche Eigenschaft, wie man Geodäten erkennen kann:
 \begin{lemma}
 Für eine Riemannsche Mannigfaltigkeit $(M, g)$ mit Levi-Civita-Zusammenhang $\nabla$ und eine glatte, immersierte Kurve $\gamma: I \rightarrow M$ mit
@@ -659,6 +708,7 @@ wir wollen $\nabla_{\dv{t}} \gamma' = 0$ zeigen (im Wesentlichen); zeigen dazu d
 immersiert sollte Intuition nicht groß stören oder? Heißt ja eher, dass nichts schief gehen kann bezüglich Singularitäten der Ableitung oder so; geometrischer Interpretation dieser Bedingung: Änderung der Ableitung ist immer parallel, also in Richtung, der Ableitung selber (das ist bei Geraden der Fall, wo der Richtungsvektor immer gleich ist; bei Kreisen ändert sich die Richtung der Tangenten immer, das heißt diese Bedingung ist nicht erfüllt) -> ah, immersiert heißt insbesondere Ableitung nicht null, nur deshalb können wir von Metrik null immer auf Geodätengleichung erfüllt schließen
 
 -> ah, haben hier Begriff von Parallelität weil wir uns die immer am selben Punkt angucken
+}
 \fi
 
 
@@ -669,11 +719,11 @@ Bezüglich einer Trivialisierung gilt nun mit $\tilde{\gamma} = x \circ \gamma: 
 \end{equation*}
 und damit erhält man die folgende lokale Darstellung der Geodätengleichung:
 \begin{align}
-0 &= \nabla_{\gamma'} \gamma'(t) = \nabla_{\dv{t}} \gamma'(t) = \sum_i \dv{\tilde{\gamma}_i'(t)}{t} \eval{\pdv{x_j}}_{\gamma(t)} + \tilde{\gamma}_i'(t) \nabla_{\dv{t}} \eval{\pdv{x_i}}_{\gamma(t)}
+0 &= \gamma^* \nabla_{\gamma'} \gamma'(t) = \gamma^* \nabla_{\dv{t}} \gamma'(t) = \sum_i \dv{\tilde{\gamma}_i'(t)}{t} \eval{\pdv{x_j}}_{\gamma(t)} + \tilde{\gamma}_i'(t) \, \gamma^* \nabla_{\dv{t}} \eval{\pdv{x_i}}_{\gamma(t)}
 \notag\\
-&= \sum_i \tilde{\gamma}_i''(t) \eval{\pdv{x_j}}_{\gamma(t)} + \sum_{i, j} \tilde{\gamma}_i'(t) \tilde{\gamma}_j'(t) \nabla_{\pdv{x_j}} \eval{\pdv{x_i}}_{\gamma(t)}
+&= \sum_i \tilde{\gamma}_i''(t) \eval{\pdv{x_j}}_{\gamma(t)} + \sum_{i, j} \tilde{\gamma}_i'(t) \tilde{\gamma}_j'(t) \, \gamma^* \nabla_{\pdv{x_j}} \eval{\pdv{x_i}}_{\gamma(t)}
 \notag\\
-&= \sum_i \tilde{\gamma}_i''(t) \eval{\pdv{x_j}}_{\gamma(t)} + \sum_{i, j, k} \tilde{\gamma}_i'(t) \tilde{\gamma}_j'(t) \Gamma_{ji}^k \eval{\pdv{x_k}}_{\gamma(t)}
+&= \sum_i \tilde{\gamma}_i''(t) \eval{\pdv{x_j}}_{\gamma(t)} + \sum_{i, j, k} \tilde{\gamma}_i'(t) \tilde{\gamma}_j'(t) \, \Gamma_{ji}^k \eval{\pdv{x_k}}_{\gamma(t)}
 \notag\\
 &= \sum_k \qty(\tilde{\gamma}_k''(t) + \sum_{i, j} \tilde{\gamma}_i'(t) \tilde{\gamma}_j'(t) \, \Gamma_{ji}^k(\gamma(t))) \eval{\pdv{x_k}}_{\gamma(t)}
 \notag\\
@@ -736,7 +786,9 @@ x(\text{Exp}(x_1 v_1 + \dots + x_n v_n)) = \qty(x_1, \dots, x_n)
 \Def[Normalkoordinaten]{(Riemannsche) Normalkoordinaten (um $p$)}.
 \end{defi}
 
--> hm, ist Proposition 6.25 cool? Und daher intuitiv oder mehr so: gilt echt?
+Das ist ne Forderung die wir hier stellen!
+
+Wiederum handelt es sich um eine Definition, die in vielen Beweisen Rechnungen vereinfachen wird
 
 
 nützliche Eigenschaft:
@@ -749,7 +801,10 @@ g_p(r v, w) = g_{\text{Exp}_p(v)} \qty(D_v \text{Exp}_p (r v), D_v \text{Exp}_p 
 zeigt auch, wie praktisch Exponentialabbildung (damit kann man potentiell halt Eigenschaften ausnutzen, right?); stellt sich halt raus, dass man die noch etwas erweitern kann auf allgemeine $r \in \mathbb{R}$, nicht nur $r = 1$, deswegen schreiben wir hier die allgemeine Version hin
 
 
-Theorem 6.27 ist zwar cool (Satz von Hopf-Rinow), aber braucht halt ganze Vorarbeit; das folgende Korollar am Ende ist aber sehr nützlich:
+6.25 auch cool, zeigt wie weit weg von $p$ der Punkt $\text{Exp}_p(X)$ ist!
+
+
+Theorem 6.27 ist zwar cool (Satz von Hopf-Rinow, deshalb machen wir das alles hier in dem Abschnitt), aber braucht halt ganze Vorarbeit; das folgende Korollar am Ende ist aber sehr nützlich:
 
 
 
@@ -766,7 +821,8 @@ Eine natürliche Frage ist, ob und wie man Riemannsche Metriken unterscheiden ka
 \begin{defi}[Paralleler Schnitt]
 Ein Schnitt $s \in \Gamma(M; E)$ heißt \Def{parallel} (auch: \Def{konstant}) wenn $\nabla s = 0$.
 \end{defi}
-Hm, irgendwie fehlt mir hier ein eingesetztes Vektorfeld... Soll das wirklich global sein? Oder ist das ohne eingesetzt und mit äquivalent (Verschwinden entlang eines impliziert entlang aller?) Hmm, sieht sogar aus Beweis Paralleltransport so aus, dass das äquivalent ist zu entlang einer Kurve (wobei das halt auch an Benutzen von $\gamma^* \nabla$ liegen kann, ist dann nicht $\gamma^* TM$ eindimensional? Und dann können wir den Basisvektor halt auch einfach einsetzen)
+
+Unabhängig vom eingesetzten Vektorfeld soll hier also die Ableitung mittels $\nabla$ verschwinden. Natürlich kann $E$ auch ein Pullbackbündel der Art $\phi^* F$ sein und betrachtet man den Fall einer Kurve $\gamma$ ist, führt das zu folgender Aussage:
 
 \iffalse % führt zu nichts das Beispiel, lieber in einem Satz vorher sagen dass man sich bei Vektoren parallel vorstellen kann und sonst halt konstant auf dem Weg da
 \begin{bsp}
@@ -779,7 +835,6 @@ paralleler Schnitt für Zusammenhang auf $E = TM^*$ ist 1-Form $\nabla_Y \omega 
 für Vektorfelder heißt das: $X$ ändert sich nicht wenn wir uns die Werte entlang eines Vektorfeldes $Y$ angucken, das nennt man dann parallel; allgemeiner, z.B.~eben für 1-Formen, ist da das Wort konstant vermutlich passender
 \end{bsp}
 \fi
-
 
 \begin{satz}
 Für eine glatte Kurve $\gamma: [a, b] \rightarrow M$ und ein Vektorbündel $\pi^E: E \rightarrow M$ mit Zusammenhang $\nabla$ existiert ein eindeutiger Schnitt $s \in \Gamma([a, b]; \gamma^* E)$ mit
@@ -819,9 +874,9 @@ Für $\tilde{s} = \sum_i \tilde{s}_i \tilde{e}_i$ ergibt sich folgende lokale Da
 Wird nun speziell in Richtung $\pdv{t}$ abgeleitet, so ergibt sich für $\tilde{s} = \gamma^* s$:
 \fi
 \begin{align}
-0 &= \sum_i \gamma^* \nabla_{\pdv{t}} \qty(\tilde{s}_i \tilde{e}_i) = \sum_i \gamma^* \nabla_{\pdv{t}} \qty(\tilde{s}_i) \tilde{e}_i + \tilde{s}_i \gamma^* \nabla_{\pdv{t}} \tilde{e}_i
+0 &= \sum_i \gamma^* \nabla_{\pdv{t}} \qty(\tilde{s}_i \tilde{e}_i) = \sum_i \gamma^* \nabla_{\pdv{t}} \qty(\tilde{s}_i) \tilde{e}_i + \tilde{s}_i \, \gamma^* \nabla_{\pdv{t}} \tilde{e}_i
 \notag\\
-&= \gamma^* \nabla_{\pdv{t}} \qty(s \circ \gamma) = \sum_i \eval{\nabla_{\pdv{t}} \qty(s_i \circ \gamma)}_t \qty(e_i \circ \gamma)(t) + \qty(s_i \circ \gamma)(t) \eval{\nabla_{\pdv{t}} e_i \circ \gamma}_t
+&= \gamma^* \nabla_{\pdv{t}} \qty(s \circ \gamma) = \sum_i \eval{\gamma^* \nabla_{\pdv{t}} \qty(s_i \circ \gamma)}_t \qty(e_i \circ \gamma)(t) + \qty(s_i \circ \gamma)(t) \eval{\gamma^* \nabla_{\pdv{t}} e_i \circ \gamma}_t
 \notag\\
 &= \sum_i \eval{\pdv{s_i \circ \gamma}{t}}_t \qty(e_i \circ \gamma)(t) + \qty(s_i \circ \gamma)(t) \eval{\pdv{\gamma}{t}}_t \sum_k \Gamma_{ij}^k(\gamma(t)) \qty(e_k \circ \gamma)(t)
 \notag\\
@@ -843,20 +898,19 @@ Für einen parallelen Schnitt $s \in \Gamma(M; E)$ und eine Kurve $\gamma: [a, b
 
 
 
-
-
-
 \begin{lemma}[Paralleltransport als Isometrie]
 6.30
 \end{lemma}
 
--> Eckert schreibt dazu auch was, remark 2. nach Definition metrischer Zusammenhang
-
-Bündelmetrik ist doch einfach nur Metrik oder? Halt Tensorfeld, das punktweise Skalarprodukt ist (wir sagen hier faserweise) -> vielleicht nicht genau das Gleiche, aber sehr ähnliche Idee
+-> Eckert schreibt dazu auch was, remark 2. nach Definition metrischer Zusammenhang; und später auch noch mehr dazu, bei metrischer Eigenschaft
 
 
+Der Begriff einer \Def{Bündelmetrik} wurde dabei noch nicht eingeführt. Es handelt sich lediglich um die Verallgemeinerung des Metrikbegriffs von Mannigfaltigkeiten auf Vektorbündel, also ein Tensorfeld das faserweise ein Skalarprodukt definiert.\\
 
-Von nun an wird hauptsächlich der Paralleltransport bezüglich eines Levi-Civita-Zusammenhangs auf dem Tangentialbündel einer Riemannschen Mannigfaltigkeit relevant sein. Ganz allgemein lässt sich jedoch zeigen (und definieren):
+
+%	\anm{von nun an wird hauptsächlich der Paralleltransport bezüglich eines Levi-Civita-Zusammenhangs auf dem Tangentialbündel einer Riemannschen Mannigfaltigkeit relevant sein.}
+
+Der Begriff des Paralleltransports ist gekoppelt an eine Kurve $\gamma$. Eine interessante Frage ist nun aber: folgt aus $\gamma^* \nabla = 0$ für eine andere Kurve $\tilde{\gamma}$ mit $\gamma(a) = \tilde{\gamma}(a), \gamma(b) = \tilde{\gamma}(b)$ auch $\tilde{\gamma}^* \nabla = 0$? Anders gefragt: hängt Paralleltransport vom expliziten Weg $\gamma$ oder nur $\gamma(a)$ und $\gamma(b)$ ab? Diese Frage lässt sich beantworten, indem man den \enquote{Unterschied} wiederholter Verschiebungen mittels $\nabla$ betrachtet:
 
 \begin{satz}
 Für ein Vektorbündel $\pi^E: E \rightarrow M$ mit Zusammenhang $\nabla$ ist
@@ -873,31 +927,25 @@ ein Tensorfeld $F^\nabla \in \Gamma(M; T^* M \otimes T^* M \otimes E^* \otimes E
 \begin{defi}[(Riemannscher) Krümmungstensor]
 $F^\nabla$ heißt \Def{Krümmungstensor} des Zusammenhangs $\nabla$. Falls $\nabla$ der Levi-Civita-Zusammenhang einer Riemannschen Mannigfaltigkeit $(M, g)$ ist, heißt
 \begin{equation}
-R := F^\nabla \in \Gamma(M; T^* M \otimes T^* M \otimes T^* M \otimes TM)
+R := F^\nabla = \nabla_X \nabla_Y - \nabla_Y \nabla_X - \nabla_{[X, Y]} \in \Gamma(M; T^* M \otimes T^* M \otimes T^* M \otimes TM)
 \end{equation}
 auch \Def[Krümmungstensor! (Riemannscher)]{Riemannscher Krümmungstensor}.
 \end{defi}
+%\href{https://de.wikipedia.org/wiki/Riemannscher_Kr%C3%BCmmungstensor}{Wikipedia} dazu
 
-$F^\nabla$ misst also inwiefern Bewegungen in verschiedene Richtungen auf $M$ kommutieren (in gewisser Weise infinitesimal, es handelt sich ja um ein Tensorfeld). Eine Möglichkeit, diesen Effekt ganz explizit mess- und sichtbar zu machen ist, den Paralleltransport eines Vektors entlang verschiedener Wege zu betrachten, wie es Abbildung \ref{fig:paralleltransport} tut.
-
-
-punktweise $R(X, Y) \in \text{BiLi}(T_p M, T_p M; \mathbb{R})$ (?ganz sage? Idee von Eckert)
-
-
-
-Riemann Tensor ist so etwas wie Feldstärke (aus Patil), das hat wohl sogar Einstein zu ART motiviert! Ahhh, siehe auch Eckert dazu (mega nice, er macht das iwie über Cartan Kalkül)
-
-\href{https://de.wikipedia.org/wiki/Riemannscher_Kr%C3%BCmmungstensor}{Wikipedia} dazu
-
--> erhalten so Integrabilitätsbedingung für Existenz paralleler Schnitte, nämlich $F^\nabla = 0$ (wie das folgende Lemma zeigt)
+$F^\nabla$ misst also inwiefern Bewegungen in verschiedene Richtungen auf $M$ kommutieren (in gewisser Weise infinitesimal, es handelt sich ja um ein Tensorfeld). Eine Möglichkeit, diesen Effekt ganz explizit mess- und sichtbar zu machen ist, den Paralleltransport eines Vektors entlang verschiedener Wege zu betrachten, wie es Abbildung \ref{fig:paralleltransport} tut. Das entspricht der Betrachtung von
+\begin{equation*}
+\gamma^* R = \gamma^* \nabla_{\gamma^* X} \gamma^* \nabla_{\gamma^* Y} - \gamma^* \nabla_{\gamma^* Y} \gamma^* \nabla_{\gamma^* X} - \gamma^* \nabla_{\gamma^* [X, Y]} \, ,
+\end{equation*}
+wobei die Kommutatorterme sicherstellen, dass etwaige Unterschiede beim Vertauschen der Reihenfolge nicht einfach von einer Nicht-Kompatibilität (dem Nicht-Kommutieren) der eingesetzten Vektorfelder verursacht wird. $F^\nabla \neq 0$ entspricht dann der Wegabhängigkeit von Paralleltransporten und lässt für $F^\nabla = R$ wegen der Eindeutigkeit von Levi-Civita-Zusammenhängen sogar Rückschlüsse auf die unterliegende Mannigfaltigkeit $M$ zu.
 
 
-ahhh ok, Idee (vielleicht): sagen wir nun, wir haben einen parallelen Schnitt zu $v = \gamma'(0) = \pdv{t}$ (und kommutierende Vektorfelder); dann untersucht $F^\nabla$, ob das Ding nach Verschieben um ein anderes Vektorfeld immer noch ein paralleler Schnitt ist, richtig? Bzw. das ist der Fall für flache MF, allgemein untersucht das Ding wie groß der Unterschied ist -> das sollte Verbindung zwischen Krümmung Paralleltransport sein (ist jetzt nicht explizit in der Formel drin, aber die Idee ist ziemlich analog bzw. die sind eng verbunden von der Art wie man darüber denken sollte)
+%es ist $R(X, Y) \in \text{Hom}(T^{(r, s)} M)$; aber ist das überhaupt relevant, also bringt das irgendwelchen neuen Erkenntnisse? Hm, Eckert nutzt es iwie als Definition, aber brauche das hier nicht glaube ich
 
 
-ok, wie ich es verstehe interessiert uns die explizite Wirkung auf Zusammenhänge gar nicht, eher wie $R$ "aussieht" (und insbesondere ob null oder nicht)
+%ahhh ok, Idee (vielleicht): sagen wir nun, wir haben einen parallelen Schnitt zu $v = \gamma'(0) = \pdv{t}$ (und kommutierende Vektorfelder); dann untersucht $F^\nabla$, ob das Ding nach Verschieben um ein anderes Vektorfeld immer noch ein paralleler Schnitt ist, richtig? Bzw. das ist der Fall für flache MF, allgemein untersucht das Ding wie groß der Unterschied ist -> das sollte Verbindung zwischen Krümmung Paralleltransport sein (ist jetzt nicht explizit in der Formel drin, aber die Idee ist ziemlich analog bzw. die sind eng verbunden von der Art wie man darüber denken sollte) -> bestimmt nette Interpretation, mag aber die Einführung vorher jetzt lieber (weniger verwirrend, hat auch schönes Bild dazu)
 
-der Kommutatorterm ist wieder dazu da, um sicherzustellen dass das alles nicht eigentlich von den Vektorfeldern herkommt, dass die nicht kompatibel sind und daher komische Sachen verursachen (so wissen wir, dass es von $\nabla$ und damit wegen der Eindeutigkeit am Ende von $M$ kommen muss)
+
 
 
 \begin{bsp}[Krümmungstensor und Gauß'sche Basisvektoren]
@@ -906,7 +954,7 @@ Auswerten der Abbildung $R(X, Y, s)$ in den Vektorfeldern $\pdv{x_i}, \pdv{x_j}$
 R\qty(\pdv{x_i}, \pdv{x_j}, s) = \nabla_{\pdv{x_i}} \nabla_{\pdv{x_j}} s - \nabla_{\pdv{x_j}} \nabla_{\pdv{x_i}} s = \qty[\nabla_{\pdv{x_i}}, \nabla_{\pdv{x_j}}] s \, .
 \end{equation*}
 
-Flachheit bedeutet hier also genau, dass das Ergebnis des Verschiebens nicht von der Reihenfolge abhängt. So sollte man sich das Ganze auch im allgemeinen Fall vorstellen, hier stellt der Kommutatorterm aber zusätzlich sicher, dass das Verhalten von $F^\nabla$ nicht von der expliziten Wahl der Vektorfelder im Argument abhängt.
+Flachheit bedeutet hier also genau, dass das Ergebnis des Verschiebens nicht von der Reihenfolge abhängt. So sollte man sich das Ganze auch im allgemeinen Fall vorstellen, wo der zusätzliche Kommutatorterm sicherstellt, dass das Verhalten von $F^\nabla$ nicht von der expliziten Wahl der Vektorfelder im Argument abhängt.
 \end{bsp}
 
 
@@ -951,18 +999,41 @@ Für den Levi-Civita-Zusammenhang $\nabla$ einer Riemannschen Mannigfaltigkeit $
 \end{satz}
 
 
-Eine wichtige Frage ist, ob überhaupt Krümmung vorliegt oder ob man die damit einhergehenden Effekte nicht berücksichtigen muss.
+Obwohl er als 4-Tensor nicht wie z.B.~$\nabla$ in Matrixform geschrieben kann, ist $R$ über seine Komponenten $R_{ijkl}$ charakterisierbar. Dazu berechnet man:
+\begin{align*}
+R\qty(\pdv{x_i}, \pdv{x_j}, \pdv{x_k}) &= \nabla_{\pdv{x_i}} \nabla_{\pdv{x_j}} \pdv{x_k} - \nabla_{\pdv{x_j}} \nabla_{\pdv{x_i}} \pdv{x_k} = \nabla_{\pdv{x_i}} \sum_m \Gamma_{jk}^m \pdv{x_m} - \nabla_{\pdv{x_j}} \sum_m \Gamma_{ik}^m \pdv{x_m}
+\\
+&= \sum_m \nabla_{\pdv{x_i}} \qty(\Gamma_{jk}^m) \pdv{x_m} + \Gamma_{jk}^m \nabla_{\pdv{x_i}} \pdv{x_m} - \nabla_{\pdv{x_j}} \qty(\Gamma_{ik}^m) \pdv{x_m} - \Gamma_{ik}^m \nabla_{\pdv{x_j}} \pdv{x_m}
+\\
+&= \sum_m \pdv{\Gamma_{jk}^m}{x_i} \pdv{x_m} + \Gamma_{jk}^m \sum_n \Gamma_{im}^n \pdv{x_n} - \pdv{\Gamma_{ik}^m}{x_j} \pdv{x_m} - \Gamma_{ik}^m  \sum_n \Gamma_{jm}^n \pdv{x_n} \, .
+\end{align*}
+
+Folglich ist (wobei man beachte, dass die Summe in \emph{allen} Termen über $m$ geht)
+\begin{equation}
+R_{ijkl} = dx_l\qty(R\qty(\pdv{x_i}, \pdv{x_j}, \pdv{x_k})) = \pdv{\Gamma_{jk}^l}{x_i} - \pdv{\Gamma_{ik}^l}{x_j} + \sum_m \Gamma_{jk}^m \Gamma_{im}^l - \Gamma_{ik}^m \Gamma_{jm}^l \, ,
+\end{equation}
+der Krümmungstensor ist bereits vollständing über die Christoffelsymbole (bzw.~allgemeiner: Zusammenhangskoeffizienten) bestimmt. Bei der Krümmung einer Riemannschen Mannigfaltigkeit handelt es sich damit um eine intrinsische Eigenschaft (da es die eindeutige Verbindung Mannigfaltigkeit $\rightarrow$ Levi-Civita-Zusammenhang $\rightarrow$ Christoffelsymbole $\rightarrow$ Riemannscher Krümmungstensor gibt).\\
+
+
+Eine wichtige Frage ist nun, ob überhaupt Krümmung vorliegt oder ob man die damit einhergehenden Effekte nicht berücksichtigen muss.
 
 \begin{defi}[Flachheit]
 Ein Zusammenhang $\nabla$ auf einem Vektorbündel $\pi^E: E \rightarrow M$ heißt \Def[flach! -er Zusammenhang]{flach} falls $F^\nabla = 0$ und eine Riemannsche Mannigfaltigkeit $(M, g)$ heißt \Def[flach! -e Mannigfaltigkeit]{flach} falls $R = 0$.
 \end{defi}
 
-äquivalente Definition:
-\begin{satz}[Flachheit]
+Wegen der Verträglichkeit des Levi-Civita-Zusammenhangs mit der Metrik und damit auch gesamten (Riemannschen) Mannigfaltigkeit, wird diese bei Verschwinden des Zusammenhangs also auch flach genannt. Auf ihr sind Paralleltransporte mit dem eindeutig bestimmten Levi-Civita-Zusammenhang unabhängig vom gewählten Weg und hängen nur vom Start-, Endpunkt ab.\\
+
+
+-> ok, wie ich es verstehe interessiert uns die explizite Wirkung auf Schnitte gar nicht, eher wie $R$ \enquote{aussieht} (und insbesondere ob null oder nicht)
+
+
+
+Der Riemanntensor ermöglicht weiter das Formulieren einer Integrabilitätsbedingung für die Existenz paralleler Schnitte, wie das folgende Lemma zeigt. Gleichzeitig kann dies als äquivalente Definition von Flachheit gesehen werden.
+\begin{satz}[Flachheit V2]
 Ein Zusammenhang $\nabla$ auf einem Vektorbündel $\pi^E: E \rightarrow M$ vom Rang $r$ ist genau dann flach wenn $\forall p$ eine Umgebung $U \subset M$ und $r$ parallele, linear abhängige Schnitte $s_1, \dots, s_r \in \Gamma(U; E)$ existieren.
 \end{satz}
 
-Flache Riemannsche Mannigfaltigkeiten erlauben oftmals einfachere Definitionen bzw.~Ausdrücke. Am Naheliegendsten ist die Suche danach vermutlich für die Metrik selber und tatsächlich lässt sich in diesem Fall zeigen:
+Flache Riemannsche Mannigfaltigkeiten sind von Vorteil, da sie oftmals einfachere Definitionen bzw.~Ausdrücke erlauben. Am Naheliegendsten ist die Suche danach vermutlich für die Metrik selber und tatsächlich lässt sich in diesem Fall zeigen:
 
 \begin{cor}[Satz von Riemann]
 Für eine flache Riemannsche Mannigfaltigkeit existiert um jeden Punkt $p \in M$ eine offene Umgebung $U \subset M$ und eine Karte $x: U \rightarrow \mathbb{R}^n$ mit
@@ -970,33 +1041,31 @@ Für eine flache Riemannsche Mannigfaltigkeit existiert um jeden Punkt $p \in M$
 g_U: x^* \langle \cdot, \cdot \rangle = \sum_i dx_i \otimes dx_i \quad \Leftrightarrow \quad g_{ii} = 1, g_{ij} = 0, \; \forall i, j \, .
 \end{equation}
 \end{cor}
-Das umfasst natürlich insbesondere im $\mathbb{R}^n$ und Teilmengen davon.
+Das umfasst natürlich insbesondere den $\mathbb{R}^n$ und Teilmengen davon.
 
 
-Der Begriff der Krümmung ist sehr hilfreich und hilft beispielsweise auch, Antworten auf ganz alltägliche Fragen zu finden - unter Anderem warum es keine maßstabs-/ längengetreuen Karten von der Erdoberfläche gibt. Diese Themen werden in den nächsten Abschnitten behandelt und dort wird sich auch eine Verbindung zwischen der Krümmung der Mannigfaltigkeit und der intrinsischen, topologischen Struktur zeigen (dies wird sich auch als Antwort auf die Frage nach Karten der Erdoberfläche erweisen, zwischen Räumen mit verschiedenen topologischen Eigenschaften, die sich als eng mit der Krümmung verbunden herausstellen, kann es keine Isometrien geben).
+\begin{bsp}[Krümmung als Feldstärke]
+Viele moderne Theorien der Physik sind in der Sprache der Differential- und Riemannschen Geometrie formuliert und die Krümmung spielt oftmals eine prominente Rolle. Um den Grund dafür zu sehen, bietet es sich an, über
+\begin{equation}
+\nabla_X e_i = \nabla_{\sum_j \mu_j \pdv{x_j}} e_i = \sum_j \mu_j \nabla_{\pdv{x_j}} e_i = \sum_j \mu_j \sum_k \Gamma_{ji}^k e_k =: \sum_k A_i^k(X) e_k
+\end{equation}
+komponentenweise die \Def[Zusammenhangs-1-Form]{Zusammenhangs-1-Form $A$ (zu $\nabla$)} mit $A \in \Gamma(M; T^*M \otimes E^* \otimes E)$ zu definieren.
+
+Definiert man weiter über
+\begin{equation}
+R(X, Y) \pdv{x_i} = \sum_j F_i^j(X, Y) \pdv{x_j}
+\end{equation}
+die \Def[Krümmungs-2-Form]{Krümmungs-2-Form $F$}, so gilt die \Def{Zweite Cartan-Strukturgleichung}
+\begin{equation}
+F_i^j = dA_i^j + A_k^j \wedge A_j^k \Leftrightarrow F = dA + A \wedge A = \qty(d + A) A =: d_A A \, .
+\end{equation}
+Diese Gleichung (die stark an die Maurer-Cartan-Gleichung \eqref{eq:maurercartangl} erinnert) bedeutet, dass $F$ sich als kovariante Ableitung\footnotemark{} schreiben lässt und damit physikalisch einer Feldstärke entspricht. Da $F$ über $R$ definiert war, hängen somit Krümmung und Feldstärke zusammen! Diese Erkenntnis spielte unter Anderem eine Rolle darin, wie Einstein die Allgemeine Relativitätstheorie formulierte, und bietet darüber hinaus eine allgemeine, intuitive Interpretation von Krümmung.
+%Riemann Tensor ist so etwas wie Feldstärke (aus Patil), das hat wohl sogar Einstein zu ART motiviert! Ahhh, siehe auch Eckert dazu (mega nice, er macht das iwie über Cartan Kalkül)
+\end{bsp}
+\footnotetext{Meint hier nicht den Zusammenhang $\nabla$, sondern eine Ableitung, die sich kovariant verhält und damit ein gewisses Transformationsverhalten zeigt.}
 
 
-
-
-		\subsection{Notes}
-
-geile Motivation von kovarianter Ableitung (von Carroll): partielle Ableitung ist nicht tensoriell, aber wir wollen das; man sucht eine Ableitung, die invariant unter Basiswechseln ist und damit diese Eigenschaft der Kovarianz erfüllt (das hier etwas frei geschrieben, sollte aber Idee ungefähr treffen); es stellt sich dann eben heraus, dass man partielle Ableitung mit Korrekturfaktoren (eher: -summanden, bzw. einfach -termen; das sind die connection-coefficients, ein Spezialfall davon sind die Christoffel-Symbole) nehmen kann
-
-
-
-ist Proposition 6.25 krass? Also ist das nur für Beweis cool (vlt ja, weil Proposition) oder generell?
-
-
-Ah, glaube man macht den ganzen Shit mit geodätischem Spray etc wegen Theorem 6.27
-
-
-\newpage
-
-
-	\section{Anderer Stuff}
-hier halt evtl den weirden, sehr mathematischen Shit machen -> oder den stark abkürzen und in vorherigen Abschnitt. Spray braucht man nicht, aber Exponentialabbildung und Normalkoordinaten sind cool
-
-Exponentialabbildung lässt sich auch allgemeiner als bei Lie-Gruppen definieren, die bei Lie-Gruppen ergibt sich dann wiederum als Spezialfall (hat Bielawski auch so geschrieben)
+Der Begriff der Krümmung ist sehr hilfreich und hilft beispielsweise auch, Antworten auf ganz alltägliche Fragen zu finden - unter Anderem warum es keine maßstabs-/ längengetreuen Karten von der Erdoberfläche gibt. Diese Themen werden in den nächsten Abschnitten behandelt und dort wird sich auch eine Verbindung zwischen der Krümmung der Mannigfaltigkeit und der intrinsischen, topologischen Struktur zeigen. Unter Anderem wird sich dies auch als Antwort auf die Frage nach Karten der Erdoberfläche erweisen, zwischen Räumen mit verschiedenen topologischen Eigenschaften, die sich als eng mit der Krümmung verbunden herausstellen, kann es keine Isometrien geben.
 
 
 \newpage
