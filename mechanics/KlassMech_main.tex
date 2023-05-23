@@ -1,0 +1,85 @@
+\include{header}
+
+\usepackage{subfiles}
+
+
+\makeindex
+
+\begin{document}
+\begin{titlepage}
+\centering
+\title{Zusammenfassung}
+
+\subtitle{Klassische Mechanik\\
+%\vspace{1cm}
+%\includegraphics[width=0.6\textwidth]{Bilder/Titelbild_KlassMech_V4.pdf}
+
+\vspace{-4\baselineskip}
+\includegraphics[width=0.9\textwidth]{Bilder/Titelbild_KlassMech_V5.pdf}
+\vspace{-\baselineskip}
+}
+
+\author{Max Melching}
+\date{\today}
+\setcounter{page}{0}
+\maketitle
+\end{titlepage}
+\newpage
+\pagenumbering{Roman}
+\pagestyle{plain.scrheadings}
+
+\tableofcontents
+
+\newpage
+
+\listoffigures
+
+\newpage
+
+%\listoftables
+
+%\newpage
+
+\pagestyle{scrheadings}
+\pagenumbering{arabic}
+
+
+\subfile{chapters/KlassMech_chapter1}
+
+\subfile{chapters/KlassMech_chapter2}
+
+\subfile{chapters/KlassMech_chapter3}
+
+\subfile{chapters/KlassMech_chapter4}
+
+\subfile{chapters/KlassMech_chapter5}
+
+
+\appendix
+
+\chapter{Anhang}
+
+	\section{Ideen/ random thoughts}
+Hmmm ok, Prinzip der kleinsten Wirkung sagt doch eigentlich, dass sich das System in seiner Evolution so verhält, dass es sich so wenig wie möglich ändern muss oder? Dass es extremale Änderung sein sollte, ist relativ klar, weil es sich das ja sonst quasi beliebig aussuchen könnte und das Minimum folgt dann wegen der Stabilität (Herleitung ist ja mit kleinen Abweichungen davon, das heißt bei nem Maximum würde man wieder wegkommen davon)
+
+
+Looool wait, der Plot $x(t)$ ist doch ein Plot des Phasenraums oder? Weil wir da Achsen x,t haben und das sind genau die Parameter oder? (Also glaube Phasenraum, weil ja auch Zeit. Konfigurationsraum wäre ja nur x z.B.) -> Hmm oder zumindest eines Teils davon (Impuls ja nicht dabei), also quasi eine Projektion davon auf gewisse Achsen
+
+
+Das Minus bei $-c^2dt^2$ kommt daher, dass Phasenräume genau die symplektischen MF bilden (wenn man so will also aus den kanonischen Vertauwchungsrelationen, right? Weil die ja symplektischen Struktur zeigen oder?) und die haben eben eine antisymmetrische Bilinearform, keine symmetrische
+
+
+zur Herleitung der BGL eines Starren Körpers: \url{https://de.wikipedia.org/wiki/Starrer_K%C3%B6rper?wprov=sfla1}, \url{https://de.wikipedia.org/wiki/Rotationsenergie?wprov=sfla1}
+
+
+	\section{Literatur}
+		\subsection{Links}
+Playlist VL Osborne dazu: \url{https://youtube.com/playlist?list=PLDfPUNusx1EoVnrQcCRishydtNBYU6A0c}
+
+		\subsection{Bücher}
+
+
+\addcontentsline{toc}{chapter}{Index}
+\printindex
+
+\end{document}

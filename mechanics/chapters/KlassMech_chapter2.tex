@@ -1,0 +1,216 @@
+\documentclass[../KlassMech_main.tex]{subfiles}
+%\input{../header} \graphicspath{../}
+
+
+\begin{document}
+
+\setcounter{chapter}{1}
+
+\chapter{Erweiterungen von Newton}
+
+	\section{Lagrange-Formalismus}
+
+	\section{Hamilton-Formalismus}
+
+
+
+
+
+	\section{Symplektische Struktur}
+
+hier halt etwas mathematischere Beschreibung; die kanonischen Vertauschungsrelationen definieren nämlich mathematisch gesehen eine Basis sowie die dazu duale Basis eines Tangentialraums bzw. sogar -bündels
+
+-> Beispiele für symplektische VR sind insbesondere die Tangentialräume von symplektischen MF
+
+-> Satz von Darboux zeigt: jede symplektische MF ist Phasenraum eines physikalischen Systems (habe ich zumindest mal so gelesen)
+
+
+gute Quelle: Nakahara DiffGeo + Topologie Abschnitt 5.4.3
+
+	\subsection{Phasenraum}
+%Die Idee der Klassischen Statistischen Mechanik ist es, ein makroskopisches Vielteilchen-System durch seine klassischen, mikroskopischen Eigenschaften zu beschreiben und die Quantenmechanik erst einmal zu vernachlässigen. Manchmal ist das hilfreich bei der Veranschaulichung, aber man muss immer beachten, dass diese Beschreibung aus verschiedensten Gründen nicht exakt ist.\\
+Mathematisch ist ein Teilchen in einem Gebiet $\Omega$ beschreibbar als Phase $\gamma = (\vec{p}, \vec{q})$ bestehend aus den \Def[Koordinaten! generalisierte]{generalisierten Koordinaten} $\vec{p}, \vec{q}$ im zugehörigen \Def{Phasenraum}
+\begin{equation}
+\Gamma = \mathbb{R}^3 \cross \Omega = \qty{\gamma: \; \gamma = (\vec{p}, \vec{q}) \equiv \text{ Zustand}} \equiv \text{ Zustandsraum} \, ,
+\end{equation}
+wobei unter Umständen noch Nebenbedingungen berücksichtigt werden müssen.
+
+? eher Konfiguration ? (p,q) ist Zustand statt Konfiguration, wenn stationäres Problem vorliegt. Dann ist ja Zeit egal und kann weggelassen werden (wie bei $\Psi$, das ja meist zeitunabhängig und dann ist eben bereits $\Psi(\vec{r})$ Zustand)
+
+	\anm{meist ist $\vec{q} \in \Omega \subset \mathbb{R}^3$ ein Element des Ortsraumes ($\Omega$ ist natürlich $\subset \mathbb{R}^3$, da dies ja der von uns Menschen beobachtbare Raum ist) und $\vec{p} \in \mathbb{R}^3$ ein Element des Impulsraumes, der den Dualraum zum Ortsraum bildet (anschaulich, da man mit dem Impuls, der die Bewegungsrichtung und -geschwindigkeit enthält, quasi Orte aufeinander abbilden kann, sich also von einem zum anderen bewegen). Der Wechsel zwischen Orts- und Impulsraum ist übrigens mithilfe der Fourier-Trafo möglich.}
+
+
+Betrachtet man nun $N$ Teilchen in Zuständen $(\vec{p}_i, \vec{q}_i)$, so ist der Phasenraum des Gesamtsystems gerade das kartesische Produkt der einzelnen Phasenräume, also
+\begin{equation}
+\begin{split}
+\Gamma &:= \Gamma_{Ges} = \Gamma_1 \cross \dots \cross \Gamma_N = \qty(\mathbb{R}^3 \cross \Omega) \cross \dots \cross \qty(\mathbb{R}^3 \cross \Omega) = \qty(\mathbb{R}^3 \cross \Omega)^N
+\\
+&= \qty{\gamma: \; \gamma = \qty((\vec{p_1}, \vec{q_1}), \dots, (\vec{p_n}, \vec{q_n}))} = \qty{\gamma: \, \gamma = \qty(\vec{p_1}, \dots, \vec{p_n}, \vec{q_1}, \dots \vec{q_n})} \, .
+\end{split}
+\end{equation}
+Durch Angabe von $\gamma \in \Gamma$ ist das $N$-Teilchen-System also vollständig beschreibbar.
+
+	\anm{man sieht aber, dass $\dim\qty(\Gamma) = 6N$, was in realen Anwendungen sehr groß werden kann (Avogadro-Zahl ist ja $\approx 6 \cdot 10^{23}$ !), daher ist das nicht immer die beste Möglichkeit (siehe StaPhy).}\\
+
+Oft ändert man nun noch die Indizes, da nicht immer alle drei Teilchenkoordinaten zusammen benötigt werden und schreibt sie in einen Gesamtorts-/ impulsvektor
+\begin{align}
+p &= (p_{1,1}, p_{1,2}, p_{1,3}, \dots, p_{N,1}, p_{N,2}, p_{N,3}) = (p_1, \dots, p_{3N})
+\\
+q &= (q_{1,1}, q_{1,2}, q_{1,3}, \dots, q_{N,1}, q_{N,2}, q_{N,3}) = (q_1, \dots, q_{3N})
+\\
+\Rightarrow \quad \gamma &= (p, q) \in \qty(\mathbb{R}^{3N} \cross \Omega^{N}) = \Gamma \, .
+\end{align}
+
+! Beispiel Plot reinmachen von Phasenraum Harmonischer Ossi, da sieht man mögliche (p,q)-Paare zu fester Energie, Masse = Nebenbedingung !
+
+
+
+	\subsection{Funktionen auf $\Gamma$}
+Ein Beispiel für eine Funktion auf dem Phasenraum ist die Hamilton-Funktion $H$ (wie Hamilton-Operator), die gleichzeitig die Energie beschreibt und definiert ist als
+\begin{align}
+H: \Gamma \rightarrow \mathbb{R}, \; \gamma \mapsto H(\gamma) = \sum\limits_{i = 1}^N \qty(\frac{\vec{p}^{\;2}_i}{2m} + V_1(\vec{q}_i)) + \sum\limits_{i,j = 1; i \neq j}^N V_2(\vec{q}_i - \vec{q}_j) \, .
+%\\
+%&= \sum\limits_{j = 1}^{3N} \qty(\frac{p_j^2}{2m} + V_1(q_j)) + \sum\limits_{i,j = 1; i \neq j}^{3N} V_2(\vec{q}_i - \vec{q}_j) .
+\end{align}
+
+	\anm{damit das Phasenraumvolumen eines Teilchens endlich ist, braucht man ein Potential, das im Unendlichen divergiert, da es sonst frei beweglich ist und somit ein unendliches Volumen beim Ortsteil eingenommen wird.}
+
+
+
+Wie in Vektorräumen üblich, existiert auch in $\Gamma$ noch mehr Struktur und zwar eine Art Skalarprodukt, es hilft hier der Satz von Darboux: er besagt, dass jeder Phasenraum in der Hamilton'schen Mechanik eine \Def[symplektisch! -e Mannigfaltigkeit]{symplektische Mannigfaltigkeit} bildet (Begriffe sind äquivalent). Das ist ein Paar $(M, \omega)$ bestehend aus einer glatten Mannigfaltigkeit $M$ mit einer \Def[symplektisch! -e Differentialform]{symplektischen Differentialform} $\omega = \sum\limits_{i,j} \omega_{ij} \, dq_i \wedge dp_j$ (glatt und geschlossen, also $d\omega = 0$), die analoge Rollen zu Vektorräumen mit alternierenden Bilinearformen/ Skalarprodukten einnehmen.
+
+! siehe OneNote $\rightarrow$ StaPhy Zusammenfassung für sehr hilfreiche Aufgabe ! dazu in Übung 10 MfP angucken, die man $\pdv{x}$ in einer Differentialform auswertet und paar andere coole Sachen ! w anscheinend mit Koeffizienten 1 !
+
+Auf dieser Grundlage kann man die sogenannte \Def{Poisson-Klammer} definieren als
+\begin{equation}
+\qty{f,g}_{p,q} = \sum\limits_{i = 1}^{3N} \pdv{f}{q_i} \pdv{g}{p_i} - \pdv{f}{p_i} \pdv{g}{q_i} = \sum\limits_{i,j} \omega^{ij} \, \partial_i f \, \partial_j g \, ,
+\end{equation}
+das gilt nur in gewählten Koordinaten !!! ? hatte vorher 6N, aber das kann nicht sein oder ? -> dort wahrscheinlich mit symplektischer Matrix gearbeitet
+
+wobei die Indizes $p,q$ oft weggelassen werden, da sie die Basis kennzeichnen und die Auswertung basisunabhängig ist (folgt aus den Eigenschaften von Differentialformen).
+
+Es lassen sich direkt einige grundlegende Relationen nachrechnen, die \Def[Poisson-Klammer! fundamentale]{fundamentalen Poisson-Klammern}:
+\begin{equation}
+\{q_k, q_l\} = 0 \hspace{1cm} \{p_k, p_l\} = 0 \hspace{1cm} \{q_k, p_l\} = \delta_{kl} \, .
+\end{equation}
+
+Dabei muss man lediglich die folgenden Zusammenhänge ausnutzen:
+\begin{equation}
+\pdv{q_k}{q_l} = \delta_{kl} = \pdv{p_k}{p_l} \hspace{2cm} \pdv{q_k}{p_l} = 0 = \pdv{p_k}{q_l} .
+\end{equation}
+
+Man kann nun zeigen, dass für eine beliebige Phasenraumfunktion $F(p,q)$ gilt:
+\begin{equation}
+\dv{F}{t} = \qty{F,H} + \pdv{F}{t} .
+\end{equation}
+
+Um nun die Dynamik dieses Systems (Annahme: $N$ Teilchen gleicher Masse $m$) zu beschreiben, kann man einfach die generalisierten Orts- und Impulsfunktionen $p_i, q_i$ (ordnen ja letztendlich jedem Zustand $\gamma \in \Gamma$ gewisse Größen zu, sind gerade Phasenraumfunktionen; sind nicht explizit zeitabhängig) in die Poisson-Klammer einsetzen. Das Ergebnis sind die \Def[kanonisch! -e Bewegungsgleichungen]{Hamilton'schen/ kanonischen Bewegungsgleichungen}:
+\begin{equation}\label{eq:kanGl}
+\dot{q}_i = \qty{q_i, H} = \pdv{H}{p_i} \qquad \dot{p}_i = \qty{p_i, H} = -\pdv{H}{q_i}, \qquad i = 1, \dots, 3N \, .
+\end{equation}
+
+
+
+	\subsection{Zeitentwicklung}
+Die allgemeine Lösung der kanonischen Gleichungen \eqref{eq:kanGl} zum beliebigen Anfangswert $\gamma$ beschreibt ja die Zeitentwicklung eines Systems, ordnet also jedem Zeitpunkt $t$ einen Punkt $\gamma(t) = \tilde{\gamma} = (p,q) \in \Gamma$ zu und bildet somit eine Kurve im Phasenraum (was einer Abfolge von Systemzuständen zu verschiedenen Zeiten entspricht).\\
+Diese allgemeine Lösung lässt sich zu beliebigen Startwerten bestimmen (zumindest theoretisch ist das möglich, hier aber gar nicht explizit nötig) und ist deshalb allgemein mithilfe einer Abbildungs-Schar darstellbar, dem \Def[Hamilton-Fluss]{Hamilton'schen Fluss}
+\begin{equation}
+\mathcal{F}_t : \Gamma \rightarrow \Gamma, \; \gamma \mapsto \mathcal{F}_t \gamma \equiv \gamma(t) \, .
+\end{equation}
+Es folgen quasi per Definition die Eigenschaften $\mathcal{F}_0 \gamma = \gamma$, $\mathcal{F}_s \circ \mathcal{F}_t = \mathcal{F}_{s+t}, \, s,t \in \mathbb{R}$.
+
+Benutzung Fluss ergibt hier voll Sinn, weil man so zu jedem Anfangszustand die komplette Zeitentwicklung beschreiben kann und das in einer Abbildung (fasse also den Parameter der Schar als Parameter einer Abbildung auf)
+\begin{equation}
+\mathcal{F}: (\mathbb{R}, \Gamma) \rightarrow \Gamma, \; (t, \gamma) \mapsto \gamma(t)
+\end{equation}
+
+	\anm{wir nehmen an, dass am Rand des Gebietes $\Omega$ die Lösung weiter gültig bleibt, das Teilchen aber $"$reflektiert$"$ bzw. $"$gespiegelt$"$ wird: $(\vec{p}_i, \vec{q}_i) \mapsto (-\vec{p}_i, \vec{q}_i)$.}\\
+
+Vorgriff zur Statistischen Mechanik: hier beschreibt man den Zustand bzw. die Präparation von Systemen als Dichtefunktion $\rho$ (kommt z.B. aus mikrokanonischer/ kanonischer Gesamtheit), so ist dort die Zeitentwicklung des Systems gegeben durch:
+\begin{equation}
+\dot{\rho}_t = \qty{\rho, H} \, .
+\end{equation}
+Dies ist die \Def{Liouville-Gleichung}, die dem Schrödinger-Bild $\dot{\rho}_t = i [\rho, H]$ in der QM entspricht. Der Zusammenhang zum Hamilton'schen Fluss $\mathcal{F}_t$ ist $\rho_t(\gamma) = \rho\qty(\mathcal{F}_{-t} \gamma)$.\\
+
+Will man nun ein Volumen oder eine Fläche messen, so ist dazu immer ein Maß nötig. Das auf $\Gamma$ verwendete Liouville-Maß ist dabei wie das Lebesgue-Maß definiert:
+\begin{equation}
+d\gamma = d^{\,3N}p \, d^{\,3N}q = dp_1 \, dq_1 \dots dp_{3N} \, dq_{3N} \equiv d^{\,3N}p \wedge d^{\,3N}q \, .
+\end{equation}
+
+Mit diesem Hilfsmittel kann man nun die beiden wesentlichen Erhaltungsgrößen im Phasenraum mit den zugehörigen Konsequenzen untersuchen, Volumen und Energie.
+
+Die Erhaltung des Volumens (damit ist nicht die Erhaltung von $d\gamma$ gemeint, sondern des Integrals davon über eine Menge $M$ !) bedeutet einfach, dass für eine beliebige integrierbare Funktion $f$ zu jedem Zeitpunkt $t \in \mathbb{R}$ gilt:
+\begin{equation}\label{eq:zeitentw}
+\int_M f\qty(\mathcal{F}_t \gamma) \, d\gamma = \int_{\mathcal{F}_t^{-1} M} f\qty(\gamma) \, d\gamma = \int_M f(\gamma) \, d\gamma \, .
+\end{equation}
+
+Idee: Anwendung der Transformationsformel auf die linke Seite, das ergibt dann $f\qty(\mathcal{F}_t^{-1}(\mathcal{F}_t \gamma)) = f(\gamma)$, aber auch auf Gebiet nötig, es kommt dann $\mathcal{F}_t^{-1}M$ raus
+
+%-> müsste links nicht auch $d\mathcal{F}_t \gamma$ stehen ??? evtl nicht, da wir ja über gleiche kurve integrieren (?)
+
+Daraus erhält man dann mit $f = \chi_M: \Gamma \rightarrow [0,1]$ als charakteristische Funktion einer beliebigen Menge $M \subset \Gamma$ für die Volumina
+%\begin{equation}
+%V_{\mathcal{F}_t^{-1}M} = \int f\qty(\mathcal{F}_t \gamma) \, d\gamma %= \int f(\gamma) \, d\gamma = V_M
+%\end{equation}
+\begin{equation}
+\int_{\mathcal{F}_t^{-1} M} d\gamma = \int_M d\gamma  \equiv \int_M \omega^{3N} \Leftrightarrow V_M = V_{\mathcal{F}_t^{-1}M} \, .
+\end{equation}
+Anmerkung: $\omega^{3N}$ ist gerade das $\omega$ von oben mit mehr Dimensionen (evtl. nur $\omega^N$)
+
+(sicher -1 etc. ??? $\rightarrow$ ja, jetzt eigentlich schon; das kann man zudem safe umschreiben zu $\mathcal{F}_{-t}$ nach den Eigenschaften von Flüssen)
+
+$\Rightarrow$ evtl. ist Bezeichnung nur missverständlich; er schreibt $\mathcal{F}_t^{-1}M = \{\gamma: \mathcal{F}_t \gamma \in M\}$, vlt. ist also gemeint, dass man sich das Volumen der zeitentwickelten $\gamma$ anschaut und wenn man das dann quasi zurückentwickelt, erhält man das gleiche Volumen wie von $M$ ? Das heißt nicht, dass gleich viele Zustände oder so (heißt es das doch evtl. ? Haben hier noch gar keine Dichte; eigentlich Aussage ist doch, dass Zustände aus $M$ auch bei Zeitentwicklung in $M$ bleiben oder ?), sondern eben nur, dass von allen Zuständen multipliziert mit der Dichte das gleiche Volumen eingenommen wird.
+-> hier geht es tatsächlich einfach nur mit Transformationsformel
+
+Wie so oft in der Physik wird (hier auch auf Grundlage des 1. Hauptsatzes) zudem die Energieerhaltung angenommen, es soll während der Zeitentwicklung nichts davon verloren gehen. Das bedeutet einfach
+\begin{equation}
+H(\mathcal{F}_t \gamma) = H(\gamma), \, \forall t \, .
+\end{equation}
+Betrachtet man nun alle Punkte mit gleicher Energie $E$, so bilden diese eine Energiefläche $\qty{\gamma | \, H(\gamma) = E}$, die als Fläche im $6N$-dimensionalen Phasenraum genau $(6N-1)$-dimensional ist. Das heißt aber, dass sie ein Liouville-Maß von 0 haben !
+
+Um trotzdem eine Aussage über Energieflächen treffen zu können, fügt man ihnen in der fehlenden Dimension die Ausdehnung $\epsilon$ hinzu und konstruiert so eine Energieschale $\qty{\gamma: \; E-\epsilon \leq H(\gamma) \leq E}$, die nun Liouville-messbar ist mit Maß $\neq 0$.\\
+Um diese kleine Schummelei auszugleichen, teilen wir bei der Definition des Flächenintegrals über eine Energiefläche (oder einer Teilmenge davon) wieder durch $\epsilon$ und erhalten so als Integral einer beliebigen Funktion $f: \Gamma \rightarrow \mathbb{R}$ (z.B. eine Observable) 
+\begin{align}\label{eq:energy}
+\expval{f}_{\qty[E = H(\gamma), \, E + \epsilon]} &= \int \chi_{\qty[E = H(\gamma), E - \epsilon]} f(\gamma) \, d\gamma
+\notag\\
+&= \int_{\qty{\gamma | \, H(\gamma) = E}} f(\gamma) \, d\gamma = \int \delta(H(\gamma) - E) \, f(\gamma) \, d\gamma
+\notag\\
+&:= \lim_{\epsilon \rightarrow 0} \frac{1}{\epsilon} \int_{E-\epsilon \leq H(\gamma) \leq E} f(\gamma) \, d\gamma = \dv{E} \int_{H(\gamma) \leq E} f(\gamma) \, d\gamma \, .
+\end{align}
+
+-> müsste es nicht nur über $H(\gamma) = E$ sein, da $\epsilon = 0$, also $E - \epsilon = E$; zweite Schreibweise überhaupt nötig ???
+
+
+Nach \eqref{eq:zeitentw} ist auch dieses Integral zeitunabhängig, jedoch hängen die Schalenbreite und somit der Wert des Integrals vom Inversen des Gradienten der Energie $dE$ ab.
+
+Anmerkung: wir können die $p_i, q_i$ auf einer Energiefläche nicht beliebig groß machen, da sonst zu viel Energie dazu benötigt wird (haben aber nur konstant viel zur Verfügung)\\
+
+Die hier Beschreibung eines Systems über eine Phase $\gamma \in \Gamma$ ist meistens jedoch überhaupt nicht praktisch, da $\Gamma$ ja $6N$-dimensional ist und $N$ oft Werte im Bereich von $10^{23}$ hat - man könnte die nötigen Datenmengen nicht speichern, geschweige denn damit rechnen. Zudem wäre es aufgrund der Quantenmechanik gar nicht möglich, ein System genau zu vermessen oder in einer Phase $\gamma$ zu präparieren.
+
+Wie bereits ganz am Anfang angedeutet, ist es sinnvoll, auf eine nicht exakte, statistische Beschreibung zurückzugreifen, da eine genaue nicht funktioniert. Die klassische Vielteilchen-Mechanik ist also eine Statistische Mechanik.
+
+
+
+		\subsection{Random Ergänzungen}
+
+kanonische Trafos sind Basiswechsel (bzw. eigentlich sogar Kartenwechsel oder ?) -> jo, Karten- und Basiswechsel sind ja quasi das Gleiche; deshalb auch ruhig Interpretation als symplektische MF bringen in Kapitel nach Hamilton, da sieht man dann mathematisch genau die Physik von vorher wieder
+
+Liouville-Gleichung folgt, weil $\rho$ Erhaltungsgröße quasi (haben $\dv{\rho}{t} = 0$ und dann Umstellen)
+
+Nolting Band 6, Abschnitt 1.2.1 - 1.2.3 ist super zu Phasenraum !
+
+
+haben auch Poisson-Klammern bei Drehimpuls (werden auf jeden Fall auf Seite 5, Band 5.2 erwähnt, sehen aber genau so aus wie die Kommutatorrelationen) !
+
+
+
+Formulierung mit Mannigfaltigkeiten: $(q,\dot{q}) \equiv$ Punkt, Tangentialvektor ergibt Sinn als Basis des Tangentialbündels (das den Konfigurationsraum beschreibt) -> ist ja bis auf Faktor $m$ gleich mit $(q, p)$ !! Und dann ist auch $(q,p)$ als Basis des Kotangentialbündels richtig/ sinnvoll (weil wegen Trivialisierung right; Eselsbrücke: Impuls erzeugt Translationen/ Bewegung, also die Abbildung eines Punktes auf andere Punkte und ist daher was Duales)
+
+
+
+die ganz allgemeine Form von Lagrange- und Hamilton-Formalismus ist das Wirkungsprinzip -> da dann auch guter Verweis möglich, dass GR den gleichen Lagrangian hat und nur andere Metrik, da die dort durch Gravitation und Massen beeinflußt wird (daher dann auch bisschen andere Physik)
+
+Legendre-Trafo wechselt zwischen Tangential- und Kotangentialbündel oder?
+
+
+\end{document}

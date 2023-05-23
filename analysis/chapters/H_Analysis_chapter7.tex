@@ -483,9 +483,12 @@ und umgestellt kann das genutzt werden, um zu zeigen:
 \notag\\
 &= g\qty(\nabla_X Y, Z) + g\qty(Y, \nabla_X Z) - X \cdot \qty(g(Y, Z))
 \notag\\
-\Leftrightarrow \quad & X \cdot \qty(g(Y, Z)) = g\qty(\nabla_X Y, Z) + g\qty(Y, \nabla_X Z) \, .
+\Leftrightarrow \quad & X \cdot \qty(g(Y, Z)) = g\qty(\nabla_X Y, Z) + g\qty(Y, \nabla_X Z) \, . \label{eq:metrisch_v2}
 \end{align}
-Das ist eine etwas explizitere Formel für die metrische Eigenschaft eines Zusammenhangs. Für die Torsionsfreiheit kann man nun eine interessante Eigenschaft zeigen:
+Das ist eine etwas explizitere Formel für die metrische Eigenschaft eines Zusammenhangs. Betrachtet nun man die Metrik als Skalar\emph{produkt} $g(X, Y) =: X Y$, so entspricht \eqref{eq:metrisch_v2} wegen $X \cdot \qty(g(X, Y)) = \nabla_X g(X, Y)$ genau einer Produktregel für $\nabla_X$.\\
+
+
+Auch für die Torsionsfreiheit kann man eine interessante Eigenschaft zeigen:
 \begin{lemma}[Torsionstensor]
 Für eine Mannigfaltigkeit $M$ und einen linearen Zusammenhang $\nabla$ ist
 \begin{equation}
@@ -633,24 +636,66 @@ Glatte Funktionen erhalten also die metrische Eigenschaft und Torsionsfreiheit.
 Die erste Anwendung bei der ein Levi-Civita-Zusammenhang benutzt wird, ist die Bestimmung des Abstands von Punkten auf Mannigfaltigkeiten. Dieser konnte über \eqref{eq:distance_curve} bereits zwar sinnvoll definiert werden, jedoch muss zur tatsächlichen Berechnung die Kurve $\gamma$ bekannt sein, die $L(\gamma)$ minimiert. Das Ziel dieses Abschnitts ist es daher, einen systematischen Weg zum Aufstellen dieser Kurve $\gamma$ zu finden. Im $\mathbb{R}^n$ mag das trivial sein, auf allgemeinen Mannigfaltigkeiten ist es jedoch bisher noch nicht möglich!
 
 \begin{satz}
-Für eine Riemannsche Mannigfaltigkeit $(M, g)$ mit Zusammenhang $\nabla$ und eine glatte, auf Bogenlänge parametrisierte Kurve $\gamma: [a, b] \rightarrow M$ mit $L(\gamma) = d\qty(\gamma(a), \gamma(b))$ gilt für das Vektorfeld $\gamma' \in \Gamma([a, b]; \gamma^* TM)$ längs $\gamma$
+Für eine Riemannsche Mannigfaltigkeit $(M, g)$ mit Levi-Civita-Zusammenhang $\nabla$ und eine glatte, auf Bogenlänge parametrisierte Kurve $\gamma: [a, b] \rightarrow M$ mit $L(\gamma) = d\qty(\gamma(a), \gamma(b))$ gilt für das Vektorfeld $\gamma' \in \Gamma([a, b]; \gamma^* TM)$ längs $\gamma$
 \begin{equation}\label{eq:geodgl}
 \nabla_{\gamma'} \gamma' := \nabla_{\dv{t}} \gamma' := \qty(\gamma^* \nabla)_{\dv{t}} \gamma' = 0 \, .
 \end{equation}
 \end{satz}
-
-\begin{proof}
-Erste Variation der Länge $L(\gamma)$, hier nicht explizit berechnet.
-\end{proof}
 
 \begin{defi}[Geodäte]
 Eine glatte Kurve $\gamma: I \rightarrow M$, die \eqref{eq:geodgl} erfüllt, heißt \Def{Geodäte}.
 \end{defi}
 %\href{https://de.wikipedia.org/wiki/Geod%C3%A4te}{Wikipedia}
 
+\begin{proof}
+Es handelt sich um ein Optimierungsproblem zum Finden der Kurve $\gamma$ mit $d(p, q) = L(\gamma)$. Der Lösungsansatz ist daher Variation. Im ersten Schritt wird dazu
+\begin{align*}
+\Gamma: (-\delta, \delta) \cross [0, L] &\rightarrow M, \; (t, s) \mapsto \Gamma_t(s)
+\\
+\text{mit } \; \Gamma_0(s) = \gamma(s), \forall s \in [0, L], \quad &\Gamma_t(0) = p, \Gamma_t(L) = q, \forall t \in (-\delta, \delta)
+\end{align*}
+definiert. Diese komplizierte Definition hat eine intuitive Deutung: $\Gamma$ hat zwei Parameter, der erste ändert den Weg und der zweite ändert die Position auf dem Weg. $\Gamma_0$ ist nichts als die Kurve $\gamma$ und $\Gamma_t$ hat den gleichen Start-, Endpunkt, nimmt jedoch einen anderen Weg zwischen diesen Punkten als die extremale Kurve $\gamma$.
+
+Die Länge von $\Gamma_t$ kann dann ebenfalls als Abbildung
+\begin{equation*}
+\mathcal{L}: (- \delta, \delta) \rightarrow \mathbb{R}, \; t \mapsto L\qty(\Gamma_t)
+\end{equation*}
+gesehen werden. Per Definition ist $\displaystyle \min_{\Gamma_t} \mathcal{L} = \gamma$ bzw.~$\displaystyle \min_t \mathcal{L}(\Gamma_t) = 0$ und oBdA kann zudem $L(\gamma) = 1$ angenommen werden. Mithilfe dieser Definitionen kann man eine Bedingung für $\gamma$ finden (wobei die Unterscheidung zwischen $\nabla$ und $\Gamma^* \nabla$ hier nicht gemacht wird, da die Rechnung bereits so schon unübersichtlich ist):
+\begin{align*}
+\eval{\dv{\mathcal{L}(t)}{t}}_{t = 0} &= \int_0^L \eval{\dv{t}}_{t = 0} \sqrt{g_{\Gamma_t(s)}\qty(\dv{\Gamma_t(s)}{s}, \dv{\Gamma_t(s)}{s})} \, ds
+\\
+&= \int_0^L \eval{\dv{t}}_{t = 0} \qty(\dv{g_{\Gamma_t(s)}\qty(\dv{\Gamma_t(s)}{s}, \dv{\Gamma_t(s)}{s})}{t}) \frac{1}{2} \qty(g_{\gamma(s)}\qty(\dv{\gamma(s)}{s}, \dv{\gamma(s)}{s}))^{-1 / 2} \, ds
+\\
+%\underset{\underset{\normalsize\text{oBdA } L(\gamma) = 1}{\nabla \text{ metrisch,}}}&{=} 
+\underset{\nabla \text{ metrisch, } L(\gamma) = 1}&{=} \int_0^L \eval{2 g_{\Gamma_t(s)} \qty(\nabla_{\dv{t}} \dv{\Gamma_t(s)}{s}, \dv{\Gamma_t(s)}{s})}_{t = 0} \frac{1}{2} \, ds
+% \qty(g_{\gamma(s)}\qty(\dv{\Gamma_t(s)}{s}, \dv{\Gamma_t(s)}{s}))^{-1 / 2} \, ds
+\\
+&= \int_0^L g_{\gamma(s)} \qty(\eval{\dv{t} \dv{\Gamma_t(s)}{s}}_{t = 0}, \dv{\gamma(s)}{s}) \, ds
+% \qty(g_{\gamma(s)}\qty(\dv{\Gamma_t(s)}{s}, \dv{\Gamma_t(s)}{s}))^{-1 / 2} \, ds
+\\
+\underset{[\dv{t}, \dv{s}] = 0}&{=} \int_0^L g_{\gamma(s)} \qty(\eval{\nabla_{\dv{s}} \dv{\Gamma_t(s)}{t}}_{t = 0}, \dv{\gamma(s)}{s}) \, ds
+\\
+\underset{\nabla \text{ metrisch}}&{=} \int_0^L \dv{s} \cdot g_{\gamma(s)}\qty(\eval{\dv{\Gamma_t(s)}{t}}_{t = 0}, \dv{\gamma}{s}) - g_{\gamma(s)} \qty(\dv{\Gamma_t(s)}{t}, \eval{\nabla_{\dv{s}} \dv{\gamma(s)}{s}}_{t = 0}) \, ds
+\\
+&= \dv{s} \int_0^L g_{\gamma(s)}\qty(\eval{\dv{\Gamma_t(s)}{t}}_{t = 0}, \dv{\gamma}{s}) \, ds - \int_0^L g_{\gamma(s)} \qty(\dv{\Gamma_t(s)}{t}, \nabla_{\dv{s}} \dv{\gamma(s)}{s}) \, ds
+\\
+\underset{\dv{s} \int ds = 0}&{=} - \int_0^L g_{\gamma(s)} \qty(\dv{\Gamma_t(s)}{t}, \nabla_{\dv{s}} \dv{\gamma(s)}{s}) \, ds
+\\
+\overset{!}&{=} 0 \, .
+\end{align*}
+
+Damit die letzte Gleichheit allgemein gilt, muss
+\begin{equation*}
+\nabla_{\dv{s}} \dv{\gamma(s)}{s} = \nabla_{\dv{s}} \gamma' = 0
+\end{equation*}
+sein. Das war zu zeigen.
+\end{proof}
+
 Geodäten sind also nichts als Kürzeste, die $L(\gamma) = d\qty(\gamma(a), \gamma(b))$ erfüllen. \eqref{eq:geodgl} heißt auch \Def{Geodätengleichung} und das ist der angekündigte systematische Weg, den Abstand zwischen Punkten zu finden. Da $\gamma$ nur von einem Parameter $t$ abhängt, wird hier $\dv{t}$ statt wie eigentlich üblich $\pdv{t}$ geschrieben.
 
-Die Bedeutung dieser Gleichung ist zudem sehr intuititv: die Richtung der Kurve bleibt konstant wenn man sie entlanggeht -- was so etwas wie das Verschwinden der zweiten Ableitung der Kurve bedeutet, dass sie also ungekrümmt ist. Der Pullback Zusammenhang $\gamma^*\nabla$ als Operator auf $\gamma^* TM$ statt $\nabla$ auf $M$ wird dabei benutzt, damit nur Punkte $\gamma(t) \in M$ statt beliebiger $p$ eingesetzt werden. So ist garantiert, dass man wirklich nur der Kurve folgt und sich nicht an anderer Stelle auf der Mannigfaltigkeit bewegt. Weil das jedoch eher notationelles ein Detail ist, wird es beim Aufschreiben der Geodätengleichung oft unterschlagen.\\
+Die Bedeutung dieser Gleichung ist sehr intuititv: die Richtung der Kurve bleibt konstant wenn man sie entlanggeht -- was so etwas wie das Verschwinden der zweiten Ableitung der Kurve bedeutet, dass sie also ungekrümmt ist (man macht keine \enquote{Schnörkel}, geht also den kürzesten Weg). Der Pullback Zusammenhang $\gamma^*\nabla$ als Operator auf $\gamma^* TM$ statt $\nabla$ auf $M$ wird dabei benutzt, damit nur Punkte $\gamma(t) \in M$ statt beliebiger $p$ eingesetzt werden (dass der Kurve gefolgt wird). Weil das jedoch eher notationelles ein Detail ist, wird es beim Aufschreiben oft unterschlagen.
+
+Man sieht im Beweis zudem, warum gerade die metrische Eigenschaft und Torsionsfreiheit für Zusammenhänge eingeführt und untersucht wurden (viele andere Eigenschaften von Zusammenhängen sind ja auch potenziell untersuchbar): nur durch sie ist eben eine Herleitung der Geodätengleichung möglich, wodurch am Ende das erklärte Ziel der Längenmessung erreicht werden kann.\\
 
 
 Im $\mathbb{R}^n$ werden Abstände einfach über die Differenz der enstprechenden Ortsvektoren gemessen, also die Gerade zwischen diesen beiden. Wie das nächste Beispiel zeigt, reproduziert die Geodätengleichung dieses Ergebnis.
@@ -680,6 +725,7 @@ Im Gegensatz dazu zeigt Abbildung \ref{fig:drehvektfeldplot} einen Kreisbogen mi
 
 
 Nach diesem ersten Beispiel, das unterstreicht dass die Definition sinnvoll ist, stellt sich nun wieder einmal die Frage, was bei anderen Darstellungen passiert. Das entspricht der Frage, wie sich die Geodätengleichung unter Pullbacks $\phi^* \gamma$ verhält.
+
 \begin{lemma}[Umparametrisierung Geodätengleichung]
 Für eine Riemannsche Mannigfaltigkeit $(M, g)$ mit Levi-Civita-Zusammenhang $\nabla$, eine glatte Kurve $\gamma: I \rightarrow M$ und einen Diffeomproshimus $\phi: J \rightarrow I$ gilt für $\tilde{\gamma} = \gamma \circ \phi: J \rightarrow M$:
 \begin{equation}
@@ -728,11 +774,11 @@ und damit erhält man die folgende lokale Darstellung der Geodätengleichung:
 &= \sum_k \qty(\tilde{\gamma}_k''(t) + \sum_{i, j} \tilde{\gamma}_i'(t) \tilde{\gamma}_j'(t) \, \Gamma_{ji}^k(\gamma(t))) \eval{\pdv{x_k}}_{\gamma(t)}
 \notag\\
 %\Leftrightarrow \quad 0 &= \tilde{\gamma}_k''(t) + \sum_{i, j} \tilde{\gamma}_i'(t) \tilde{\gamma}_j'(t) \, \Gamma_{ij}^k(\gamma(t)) \, .
-\Leftrightarrow \quad 0 &= \eval{\dv[2]{\tilde{\gamma}_k}{t}}_t + \sum_{i, j} \eval{\dv{\gamma_i}{t}}_t \eval{\dv{\gamma_j}{t}}_t \, \Gamma_{ij}^k(\gamma(t)) \, .
+\Leftrightarrow \quad 0 &= \eval{\dv[2]{\tilde{\gamma}_k}{t}}_t + \sum_{i, j} \eval{\dv{\tilde{\gamma}_i}{t}}_t \eval{\dv{\tilde{\gamma}_j}{t}}_t \, \Gamma_{ij}^k(\gamma(t)) \, .
 \end{align}
 	\anm{im letzten Schritt wurde dabei nicht die Symmetrie der Christoffelsymbole angenommen, sondern lediglich Indizes umbenannt.}
 
-Nach Variablensubstitution lässt sich diese DGL 2.~Ordnung in eine DGL 1.~Ordnung (auf $T \mathbb{R}^n$) umschreiben. Das hat die wichtige Folgerung, dass Geodäten durch Anfangspunkt und -richtung bereits eindeutig bestimmt sind (gilt bei Geraden ganz offensichtlich, aber somit allgemein).\\
+Mittels der Variablensubstitution $\dv{\tilde{\gamma}_j}{t} =: u_j$ lässt sich diese DGL 2.~Ordnung in eine DGL 1.~Ordnung (für die $u_j$, also auf $T \mathbb{R}^n$) umschreiben, die \Def{Euler-Lagrange-Gleichung} (sehr relevant in der Physik im Kontext von Phasenräumen). Das hat die wichtige Folgerung, dass Geodäten durch Anfangspunkt und -richtung bereits eindeutig bestimmt sind (gilt bei Geraden ganz offensichtlich, aber somit allgemein).\\
 
 
 
@@ -786,12 +832,8 @@ x(\text{Exp}(x_1 v_1 + \dots + x_n v_n)) = \qty(x_1, \dots, x_n)
 \Def[Normalkoordinaten]{(Riemannsche) Normalkoordinaten (um $p$)}.
 \end{defi}
 
-Das ist ne Forderung die wir hier stellen!
+Wiederum handelt es sich um eine Definition (basierend auf einer geforderten Eigenschaft), die in vielen Beweisen Rechnungen vereinfachen wird.
 
-Wiederum handelt es sich um eine Definition, die in vielen Beweisen Rechnungen vereinfachen wird
-
-
-nützliche Eigenschaft:
 \begin{lemma}
 Für eine Riemannsche Mannigfaltigkeit $(M, g)$, $p \in M$, $v, w \in T_p M$ sodass $\text{Exp}_p (v)$ existiert, gilt
 \begin{equation}
@@ -899,13 +941,14 @@ Für einen parallelen Schnitt $s \in \Gamma(M; E)$ und eine Kurve $\gamma: [a, b
 
 
 \begin{lemma}[Paralleltransport als Isometrie]
-6.30
+Für ein Vektorbündel $E$ mit Zusammenhang $\nabla$, Bündelmetrik $h$, die
+\begin{equation}
+\nabla h = 0 \quad \Leftrightarrow \quad X \cdot h(s, \tilde{s}) = h\qty(\nabla_X s, \tilde{s}) + h\qty(s, \nabla_X \tilde{s}), \; \forall X \in \mathcal{X}(M), s, \tilde{s} \in \Gamma(M; E)
+\end{equation}
+erfüllt, ist der Paralleltransport längs Kurven $\gamma: I \rightarrow M$ eine Isometrie.
 \end{lemma}
 
--> Eckert schreibt dazu auch was, remark 2. nach Definition metrischer Zusammenhang; und später auch noch mehr dazu, bei metrischer Eigenschaft
-
-
-Der Begriff einer \Def{Bündelmetrik} wurde dabei noch nicht eingeführt. Es handelt sich lediglich um die Verallgemeinerung des Metrikbegriffs von Mannigfaltigkeiten auf Vektorbündel, also ein Tensorfeld das faserweise ein Skalarprodukt definiert.\\
+Offenbar handelt es sich hier um eine Verallgemeinerung der metrischen Eigenschaft von Zusammenhängen auf beliebige Vektorbündel.\footnote{Eine \Def{Bündelmetrik} ist lediglich die Verallgemeinerung des Metrikbegriffs von Vektorbündel, also ein Tensorfeld $h \in \Gamma(M; E^* \otimes E^*)$ das faserweise ein Skalarprodukt definiert.} Wie bereits festgehalten wurde, ist das eine Verträglichkeitseigenschaft mit der Metrik, dass Verschiebung mittels $\nabla$ nicht ändert was $h$ misst. Insbesondere bedeutet das, dass jeder von $\nabla$ erzeugte Paralleltransport Längen und Winkel erhält, beispielsweise ist also $\norm{X_{\gamma(a)}} = \norm{X_{\gamma(b)}}$ für ein parallel entlang $\gamma$ transportiertes Vektorfeld $X$.\\% Per Definition erfüllt der Levi-Civita-Zusammenhang diese Eigenschaft.
 
 
 %	\anm{von nun an wird hauptsächlich der Paralleltransport bezüglich eines Levi-Civita-Zusammenhangs auf dem Tangentialbündel einer Riemannschen Mannigfaltigkeit relevant sein.}
@@ -983,7 +1026,7 @@ Flachheit bedeutet hier also genau, dass das Ergebnis des Verschiebens nicht von
 \end{figure}
 
 
-Rechnungen mit dem Krümmungstensor sind oft sehr kompliziert, es gibt aber immerhin einige Eigenschaften, die dabei sehr nützlich sind:
+Rechnungen mit dem Krümmungstensor sind oft sehr kompliziert, es gibt aber immerhin einige Eigenschaften, die dabei sehr nützlich sind (dafür aber nur in langwierigen Rechnungen zu beweisen, weshalb das hier nicht getan wird):
 
 \begin{satz}[Eigenschaften des Krümmungstensors]
 Für den Levi-Civita-Zusammenhang $\nabla$ einer Riemannschen Mannigfaltigkeit $(M, g)$ mit Krümmungstensor $R$ gilt $\forall p \in M$ und $X, Y, Z, W \in T_p M$:
@@ -997,7 +1040,6 @@ Für den Levi-Civita-Zusammenhang $\nabla$ einer Riemannschen Mannigfaltigkeit $
 \item $g(R(X, Y) Z, W) = g(R(Z, W) X, Y)$
 \end{enumerate}
 \end{satz}
-
 
 Obwohl er als 4-Tensor nicht wie z.B.~$\nabla$ in Matrixform geschrieben kann, ist $R$ über seine Komponenten $R_{ijkl}$ charakterisierbar. Dazu berechnet man:
 \begin{align*}
@@ -1049,7 +1091,7 @@ Viele moderne Theorien der Physik sind in der Sprache der Differential- und Riem
 \begin{equation}
 \nabla_X e_i = \nabla_{\sum_j \mu_j \pdv{x_j}} e_i = \sum_j \mu_j \nabla_{\pdv{x_j}} e_i = \sum_j \mu_j \sum_k \Gamma_{ji}^k e_k =: \sum_k A_i^k(X) e_k
 \end{equation}
-komponentenweise die \Def[Zusammenhangs-1-Form]{Zusammenhangs-1-Form $A$ (zu $\nabla$)} mit $A \in \Gamma(M; T^*M \otimes E^* \otimes E)$ zu definieren.
+komponentenweise die \Def[Zusammenhangs-1-Form]{Zusammenhangs-1-Form $A$ (zu $\nabla$)} mit $A \in \Gamma(M; T^*M \otimes E^* \otimes E)$ zu definieren. $e_j \in E$ bezeichnet dabei wie üblich einen Basisvektor.
 
 Definiert man weiter über
 \begin{equation}

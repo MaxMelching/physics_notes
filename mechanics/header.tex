@@ -1,0 +1,128 @@
+\documentclass[ngerman, DIV=11, BCOR=0mm, paper=a4, fontsize=12pt, parskip=half, twoside=false, titlepage=true]{scrreprt}
+%\graphicspath{ {Bilder/} {../Bilder/} }
+
+
+\usepackage[singlespacing]{setspace}
+\usepackage{lastpage}
+\usepackage[automark, headsepline]{scrlayer-scrpage}
+\clearscrheadings
+\setlength{\headheight}{\baselineskip}
+%\automark[part]{section}
+\automark[chapter]{chapter}
+\automark*[chapter]{section} %mithilfe des * wird nur ergänzt; bei vorhandener section soll also das in der Kopfzeile stehen
+\automark*[chapter]{subsection}
+\ihead[]{\headmark}
+%\ohead[]{Seite~\thepage}
+\cfoot{Seite~\thepage~von~\pageref{LastPage}}
+
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[expansion=true, protrusion=true]{microtype}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{mathdots}
+\usepackage{upgreek}
+\usepackage[free-standing-units]{siunitx}
+\usepackage{esvect}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage[hypcap]{caption}
+\usepackage{booktabs}
+\usepackage{flafter}
+\usepackage[section]{placeins}
+\usepackage{pdfpages}
+\usepackage{textcomp}
+\usepackage{subfig}
+\usepackage[italicdiff]{physics}
+\usepackage{xparse}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage{multirow}
+\usepackage{dsfont}
+\numberwithin{equation}{chapter}%{section}
+\numberwithin{figure}{chapter}%{section}
+\numberwithin{table}{chapter}%{section}
+\usepackage{empheq}
+\usepackage{tikz-cd}%für Kommutationsdiagramme
+\usepackage{mdframed}
+
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, breaklinks=true, citecolor=blue, linkcolor=black, menucolor=blue, urlcolor=blue} %sonst z.B. orange bei linkcolor
+
+\usepackage{imakeidx}%für Erstellen des Index
+\usepackage{xifthen}%damit bei \Def{} das Index-Arugment optional gemacht werden kann
+
+
+%\usepackage{tgtermes} % nimmt sogar etwas weniger Platz ein als default font, aber wenn dann nur auf Text anwenden oder?
+\usepackage{tgpagella}
+%\usepackage{euler}%sieht nichtmal soo gut aus und macht Fehler
+%\usepackage{mathpazo}%macht iwie überall pagella an...
+\usepackage{newtxmath}%etwas zu dick halt im Vergleich dann; wenn dann mit pagella oder überall Times gut
+
+\setkomafont{chapter}{\rmfamily\Huge\bfseries}%{\fontfamily{qpl}\selectfont\Huge}
+\setkomafont{chapterentry}{\rmfamily\large\bfseries}%{\fontfamily{qpl}\selectfont\large\bfseries}
+\setkomafont{section}{\rmfamily\Large\bfseries}%{\fontfamily{qpl}\selectfont\Large}
+%\setkomafont{sectionentry}{\rmfamily\large\bfseries} % man kann anscheinend nur das oberste Element aus toc setzen, hier also chapter
+\setkomafont{subsection}{\rmfamily\large}%{\fontfamily{qpl}\selectfont\large}
+\setkomafont{title}{\Huge\bfseries}{\fontfamily{qpl}\selectfont\Huge\bfseries}
+\setkomafont{subtitle}{\LARGE\scshape}%{\fontfamily{qpl}\selectfont\LARGE\scshape}
+\setkomafont{author}{\Large\slshape}
+\setkomafont{date}{\large\slshape}
+\setkomafont{pagehead}{\scshape}%\slshape
+\setkomafont{pagefoot}{\slshape}
+
+
+
+\definecolor{mygreen}{rgb}{0.8,1.00,0.8}
+\definecolor{mycyan}{rgb}{0.76,1.00,1.00}
+\definecolor{myyellow}{rgb}{1.00,1.00,0.76}
+\definecolor{defcolor}{rgb}{0.10,0.00,0.60} %{1.00,0.49,0.00}%orange %{0.10,0.00,0.60}%aquamarin %{0.16,0.00,0.50}%persian indigo %{0.33,0.20,1.00}%midnight blue
+
+
+% auch gut: green!42, cyan!42, yellow!24
+
+%Syntax Farbboxen: in normalem Text \colorbox{mygreen}{Text} oder bei Anmerkungen in Boxen \fcolorbox{black}{myyellow}{Rest der Box}, in Mathe-Umgebung für farbige Box \begin{empheq}[box = \colorbox{mycyan}]{align}\label{eq:} Formel \end{empheq} oder farbigen Rand \begin{empheq}[box = \fcolorbox{mycyan}{white}]{align}\label{eq:} Formel \end{empheq}
+
+\setlength{\fboxrule}{0.76pt}
+\setlength{\fboxsep}{1.76pt}
+
+\newcommand{\anm}[1]{\fcolorbox{yellow!24}{yellow!24}{\parbox[c]{0.985\textwidth}{\textbf{Anmerkung}: #1}}}
+
+%\newcommand{\anm}[1]{\footnote{#1}}
+
+\newcommand{\anmind}[1]{\fcolorbox{yellow!24}{yellow!24}{\parbox[c]{0.92 \textwidth}{\textbf{Anmerkung}: #1}}}
+% wegen Einrückung in itemize-Umgebungen o.Ä.
+
+\newcommand{\eqbox}{\fcolorbox{white}{cyan!24}}
+
+\newcommand{\textbox}[1]{\fcolorbox{white}{cyan!24}{#1}}
+
+
+\newcommand{\Def}[2][]{\textcolor{defcolor}{\fontfamily{qpl}\selectfont \textit{#2}}\ifthenelse{\isempty{#1}}{\index{#2}}{\index{#1}}}%{\colorbox{green!0}{\textit{#1}}}
+% zwischendurch Test mit \textbf{#1} noch (wurde aber viel größer)
+
+% habe jetzt Schrift/ font pagella reingehauen (mit qpl), ist mega; wobei Times auch toll (ptm statt qpl)
+
+% wenn Farbe doch doof, einfach beide auf white :D
+
+
+
+
+\mdfdefinestyle{defistyle}{topline=false, rightline=false, linewidth=1pt, frametitlebackgroundcolor=gray!12}
+
+\mdfdefinestyle{satzstyle}{topline=true, rightline=true, leftline=true, bottomline=true, linewidth=1pt}
+
+\mdfdefinestyle{bspstyle}{%
+rightline=false,leftline=false,topline=false,%bottomline=false,%
+backgroundcolor=gray!8}
+
+
+\mdtheorem[style=defistyle]{defi}{Definition}[chapter]%[section]
+\mdtheorem[style=satzstyle]{satz}[defi]{Satz}
+\mdtheorem[style=satzstyle]{lemma}[defi]{Lemma}
+\mdtheorem[style=satzstyle]{cor}[defi]{Korollar}
+\mdtheorem[style=bspstyle]{bsp}[defi]{Beispiel}
+
