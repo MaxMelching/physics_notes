@@ -55,3 +55,19 @@ mechanics/chapters/**
 !mechanics/chapters/KlassMech_chapter4.tex
 
 !mechanics/chapters/KlassMech_chapter5.tex
+
+
+
+relativity/Bilder/**
+
+relativity/ART_main.**
+
+!relativity/ART_main.tex
+
+!relativity/ART_main.pdf
+
+relativity/chapters/**
+
+relativity/chapters/ART_chapter_.tex
+
+relativity/chapters/ART_chapter_2.tex

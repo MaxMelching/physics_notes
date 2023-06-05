@@ -1,5 +1,5 @@
-\documentclass[../H_Analysis_main.tex]{subfiles}
-%\input{../header} \graphicspath{ {../} }
+%\documentclass[../H_Analysis_main.tex]{subfiles}
+\input{../header} \graphicspath{ {../} }
 
 
 \begin{document}
@@ -386,7 +386,7 @@ mit geeigneten Koeffizienten $\lambda_{ijk}: M \rightarrow \mathbb{R}$. Die Indi
 \end{align}
 Hierbei wurden viele Eigenschaften von $\nabla$ genutzt und im letzten Schritt ein Index im linken Summanden umbenannt. Die allgemeine Idee bei der Rechnung ist, $\nabla$ auf Funktionen wirken zu lassen, wo $\nabla f = df$. Insgesamt ist damit klar, dass
 \begin{equation}
-\lambda_{ijk} = \Gamma_{ij}^k \, .
+\lambda_{ijk} = \Gamma_{ij}^k \, .% = \tilde{e}^k\qty(\nabla_{\pdv{x_i}} e_j) \, .\footnote{Test}
 \end{equation}
 Diese Idee der lokalen Definition reicht dann bereits aus für einen wohldefinierten Zusammenhangsbegriff. Es ist also so, dass die Zusammenhangskoeffizienten den Zusammenhang bereits vollständig bestimmen, da sie die zusätzlich zur partiellen Ableitung auftretende Wirkung enthalten.
 
@@ -532,7 +532,7 @@ Nur Levi-Civita-Zusammenhänge erfüllen die Formel von Koszul. Gleichsam defini
 %\\
 %\Leftrightarrow \quad \sum_{l, k} \Gamma_{ij}^l g_{lk} \qty(g^{-1})_{km} &= \sum_k \qty(g^{-1})_{km} \frac{1}{2} \qty(\pdv{g_{jk}}{x_i} + \pdv{g_{jk}}{x_j} - \pdv{g_{ij}}{x_k})
 \end{align*}
-Um die Christoffelsymbole links zu isolieren, kann man nun mit inversen Komponenten der Metrik multiplizieren und dann nutzen:
+Um die Christoffelsymbole links zu isolieren, kann man mit inversen Komponenten der Metrik multiplizieren:
 \begin{align*}
 \qty(\sum_k \qty(g^{-1})_{km}) \qty(\sum_l \Gamma_{ij}^l g_{lk}) = \sum_{l, k} \Gamma_{ij}^l g_{lk} \qty(g^{-1})_{km} &= \sum_l \Gamma_{ij}^l \sum_k g_{lk} \qty(g^{-1})_{km} = \sum_l \Gamma_{ij}^l \delta_{lm} = \Gamma_{ij}^m \, .
 \end{align*}
@@ -698,7 +698,7 @@ Die Bedeutung dieser Gleichung ist sehr intuititv: die Richtung der Kurve bleibt
 Man sieht im Beweis zudem, warum gerade die metrische Eigenschaft und Torsionsfreiheit für Zusammenhänge eingeführt und untersucht wurden (viele andere Eigenschaften von Zusammenhängen sind ja auch potenziell untersuchbar): nur durch sie ist eben eine Herleitung der Geodätengleichung möglich, wodurch am Ende das erklärte Ziel der Längenmessung erreicht werden kann.\\
 
 
-Im $\mathbb{R}^n$ werden Abstände einfach über die Differenz der enstprechenden Ortsvektoren gemessen, also die Gerade zwischen diesen beiden. Wie das nächste Beispiel zeigt, reproduziert die Geodätengleichung dieses Ergebnis.
+Im $\mathbb{R}^n$ werden Abstände einfach über die Differenz der entsprechenden Ortsvektoren gemessen, also die Gerade zwischen diesen beiden. Wie das nächste Beispiel zeigt, reproduziert die Geodätengleichung dieses Ergebnis.
 
 \begin{bsp}[Geraden]
 Umschreiben der Geodätengleichung mit $\nabla$ als Differential $d$ ergibt
@@ -1066,7 +1066,7 @@ Ein Zusammenhang $\nabla$ auf einem Vektorbündel $\pi^E: E \rightarrow M$ heiß
 Wegen der Verträglichkeit des Levi-Civita-Zusammenhangs mit der Metrik und damit auch gesamten (Riemannschen) Mannigfaltigkeit, wird diese bei Verschwinden des Zusammenhangs also auch flach genannt. Auf ihr sind Paralleltransporte mit dem eindeutig bestimmten Levi-Civita-Zusammenhang unabhängig vom gewählten Weg und hängen nur vom Start-, Endpunkt ab.\\
 
 
--> ok, wie ich es verstehe interessiert uns die explizite Wirkung auf Schnitte gar nicht, eher wie $R$ \enquote{aussieht} (und insbesondere ob null oder nicht)
+%-> ok, wie ich es verstehe interessiert uns die explizite Wirkung auf Schnitte gar nicht, eher wie $R$ \enquote{aussieht} (und insbesondere ob null oder nicht) -> wir betrachten es hier nicht zumindest
 
 
 

@@ -1,0 +1,94 @@
+\input{header}
+
+%\usepackage{subfiles}
+
+\makeindex
+
+%\usepackage[backend=biber, style=numeric, citestyle=numeric, maxcitenames=3]{biblatex} % for biblatex package
+
+%\addbibresource{biblio.bib} % for biblatex package
+
+\begin{document}
+
+\pagenumbering{Roman}
+\pagestyle{plain.scrheadings}
+%\pagestyle{scrheadings}
+
+
+\subfile{title_page}
+
+
+\setcounter{page}{0}
+\thispagestyle{empty}
+
+
+\newpage
+
+
+\iffalse
+{
+\hypersetup{linkcolor=black}
+\tableofcontents
+}
+
+\newpage
+
+{
+\hypersetup{linkcolor=black}
+\listoffigures
+}
+
+\newpage
+
+{
+\hypersetup{linkcolor=black}
+\listoftables
+}
+
+
+\newpage
+
+\fi
+
+
+\pagestyle{scrheadings}
+\pagenumbering{arabic}
+
+
+
+\subfile{ART_chapter_}
+
+
+\iffalse
+\appendix
+
+
+
+
+\clearpage
+
+
+
+
+\bibliographystyle{IEEEtran}% only one to show urls except for nature ones
+%{sn-standardnature}{sn-mathphys}{sn-vancouver}% have undefined command
+%{phjcp}% in principle cool (author in \sc), but errors + problems with titles
+%{apsrev}% no numeric numbering and problems with titles
+%{plain}%siam does not work, ieeetr does not include everything it should (and with authors does not work; makes order after point of citation)
+\bibliography{biblio}
+
+\addcontentsline{toc}{chapter}{References}%{Bibliography}%can be omitted when using of tocbibind
+
+%\printbibliography % for biblatex package
+
+%\clearpage
+
+
+
+\printindex
+
+\addcontentsline{toc}{chapter}{Index}%can be omitted when using of tocbibind
+
+\fi
+
+\end{document}
