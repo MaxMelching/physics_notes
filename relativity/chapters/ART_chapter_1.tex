@@ -134,6 +134,18 @@ application of that formula: $\nabla_\mu \nabla_\nu X_\beta = R^\alpha_{\mu \nu 
 Riemann tensor has $20$ components and there are $10$ different traces (because of antisymmetry in first two indices, which means trace is always zero); our goal is now decomposing it into trace and traceless parts, both contain information about Riemann tensor; the trace part is nothing but the Ricci tensor $R_{\alpha \beta} = R^\lambda_{\alpha \lambda \beta}$, the \enquote{rest} (trace-free part) is the Weyl tensor (which he writes down in terms of some weird product); this product has the same symmetries as the Riemann tensor, so Weyl tensor also has them and it is trace free in addition, i.e.~$W^\lambda_{\alpha \lambda \beta} = 0$ (taking these conditions into account, the Weyl tensor has $10$ independent components in $4$ dimensions; very interesting property is that \emph{only} in $4$ dimensions, the amount of information in Weyl, Ricci Tensor is the same; in $3$ dimensions, Weyl tensor has no information and in higher ones much more than Ricci); in index-form it is given by $W^\alpha_{\beta \mu \nu}$
 
 
+oof:
+\begin{align*}
+R_{\alpha \beta \gamma \delta} &= \frac{1}{2} \qty(g \cdot \text{Ric})_{\alpha \beta \gamma \delta} - \frac{1}{12} R \qty(g \cdot g)_{\alpha \beta \gamma \delta} + W_{\alpha \beta \gamma \delta}
+\\
+&= \frac{1}{2} \qty(g_{\alpha \gamma} R_{\beta \delta} + g_{\beta \delta} R_{\alpha \gamma} - g_{\alpha \delta} R_{\beta \gamma} - g_{\beta \gamma} R_{\alpha \delta})
+\\
+&\quad - \frac{1}{12} R \qty(g_{\alpha \gamma} g_{\beta \delta} + g_{\beta \delta} g_{\alpha \gamma} - g_{\alpha \delta} g_{\beta \gamma} - g_{\beta \gamma} g_{\alpha \delta}) + W_{\alpha \beta \gamma \delta}
+\\
+&= \frac{1}{2} \qty(g_{\alpha \gamma} R_{\beta \delta} + g_{\beta \delta} R_{\alpha \gamma} - g_{\alpha \delta} R_{\beta \gamma} - g_{\beta \gamma} R_{\alpha \delta}) - \frac{1}{6} R \qty(g_{\alpha \gamma} g_{\beta \delta} - g_{\alpha \delta} g_{\beta \gamma}) + W_{\alpha \beta \gamma \delta}
+\end{align*}
+
+
 long talk about constant curvature; interesting statement (Schur's theorem): constant curvature $\Leftrightarrow$ Gaussian/sectional curvature of each point does not depend on the choice of the $2$-tangent-plane through the point
 
 the Weyl curvature $W^\alpha_{\beta \mu \nu}$ (which is a function of the metric $g$) has the important property of being conformally invariant, i.e.~$W^\alpha_{\beta \mu \nu}(\Omega^2 g) = W^\alpha_{\beta \mu \nu}(g)$ for some function $\Omega$ and even the reverse statement is true: if $W^\alpha_{\beta \mu \nu}(g_1) = W^\alpha_{\beta \mu \nu}(g_2)$, then $\exists$ locally a function $\Omega \in C^\infty(M; \mathbb{R})$ without zeros such that $g_1 = \Omega^2 g_2$; for example, a vanishing Weyl tensor means that the space is locally, conformally flat -> all of these statements are valid only for $n \geq 3$

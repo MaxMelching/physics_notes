@@ -6,6 +6,16 @@
 
 \chapter{General Relativity}
 
+	\section{}
+
+do postulates by Einstein again; weak equivalence principle + Einstein equivalence principle
+
+
+
+\newpage
+
+
+
 	\section{Gravitational Physics Summary -- Physics Part}
 
 \rem{we use units of $c = G = 1$ (\Def{geometric units})}
@@ -35,7 +45,7 @@ which tells us that gravitation is a conservative force with potential $\Phi_g =
 F^k = - \delta^{k l} \pdv{\Phi}{x^l} \, .
 \end{equation}
 as a consequence, knowing the potential is sufficient to know how gravity acts; for a point particle, we can determine it from $\Delta \Phi = \nabla^2 \Phi = 0$ and for a continuous mass distribution $\rho\qty(\vec{x})$ from
-\begin{equation}
+\begin{equation}\label{eq:field_eq_newton}
 \eqbox{
 \Delta \Phi\qty(\vec{x}) = 4 \pi \rho\qty(\vec{x})
 }
@@ -147,92 +157,253 @@ from experience we know about gravity that
 \item[(b)] bodies which move initially parallel to each other in a freely falling frame do not necessarily move parallel at all times if an external gravitational field is present (this effect is due to \Def{tidal forces} acting on them)
 \end{itemize}
 
-
-
-
-Now further examination of property (b)
-
-for a particle with worldline $x^k(\tau)$ we have
+Property (b) can be further examined and quantified. To do that, we note that for a particle with world line $x^k(\tau)$ we have
 \begin{equation*}
 \dv[2]{x^k}{\tau} = - \delta^{k l} \pdv{\Phi}{x^l} = - \delta^{k l} \eval{\pdv{\Phi}{x^l}}_{\vec{x}}
 \end{equation*}
-because of \eqref{eq:cons_force} and Newton's second law $F^k = m \dv[2]{x^k}{\tau}$
+because of \eqref{eq:cons_force} and Newton's second law $F^k = m \dv[2]{x^k}{\tau}$.
 
-similarly, for another particle starting close to the first one (i.e.~with worldline $x^k + \xi^k$, where $\abs{\xi^k \xi_k} \ll 1$)
+Similarly, for another particle starting close to the first one (i.e.~with world line $x^k + \xi^k$, where $\abs{\xi^k \xi_k} \ll 1$)
 \begin{align*}
 \dv[2]{\qty(x^k + \xi^k)}{\tau} &= - \delta^{k l} \eval{\pdv{\Phi}{x^l}}_{\vec{x} + \vec{\xi}}
 \\
 &\simeq - \delta^{k l} \eval{\pdv{\Phi}{x^l}}_{\vec{x}} - \delta^{k l} \xi^m \pdv{x^m} \eval{\pdv{\Phi}{x^l}}_{\vec{x}}
 \end{align*}
-where we made use of a Taylor approximation to first order
-
-since derivatives are linear, we obtain
-\begin{equation}
+where we made use of a Taylor approximation to first order. Since derivatives are linear, we obtain
+\begin{equation}\label{eq:tidal_newton}
 \eqbox{
 \dv[2]{\xi}{\tau} = \dv[2]{\qty(x^k + \xi^k)}{\tau} - \dv[2]{x^k}{\tau} = - \delta^{k l} \pdv[2]{\Phi}{x^m}{x^l} \, \xi^m
 }
 \end{equation}
-This is the \Def{Newtonian deviation equation}. We see that tidal forces are governed by the tidal acceleration tensor $\pdv[2]{\Phi}{x^m}{x^l}$.
-
-tidal forces are a way to detect gravity as opposed to constant acceleration (which would affect the worldlines $x^k$ and $x^k + \xi^k$ equally)
+	\rem{note that the evaluation is still at the point $\vec{x}$, not at something related to $\xi^k$!}
+This is the \Def{Newtonian deviation equation}. We see that tidal forces are governed by the tidal acceleration tensor $\pdv[2]{\Phi}{x^m}{x^l}$. Tidal forces are a way to detect gravity as opposed to constant acceleration (which would affect the world lines $x^k$ and $x^k + \xi^k$ equally)
 
 
 
 	\subsection{Curved Spacetime}
-problem: Newtonian gravity and SR are not entirely consistent, e.g.~due to instantaneous effect of gravity (redshift also strange); however, we can come up with generalized description: for anybody familiar with differential/Riemannian geometry, the effects of gravity sound very much like the ones associated with a curved space; this motivates the (mathematical) description of gravity as a geometrical effect in Minkowskian spacetime (which will become a curved space in this process)
+One problem in SR is that the Newtonian description of gravity is still taken to be valid. That, however, is a problem because there are many inconsistencies between them, for example the instantaneous effect of gravity (gravitational redshift is also puzzling). However, we can come up with generalized description: for anybody familiar with differential/Riemannian geometry, the effects (a), (b) of gravity stated above sound very much like the ones associated with a curved space. This motivates the (mathematical) description of gravity as a geometrical effect in Minkowskian spacetime (which will become a curved space in this process). Many relations known from SR will remain, but with different quantities and most prominently, a different metric other than $\eta$. The basic goal of \Def{general relativity} (GR) will be to find ways to derive the metric which contains information about spacetime curvature and thus gravity.\\
 
-derive geodesic equation; motivation: path which extremizes proper distance between events/points $A, B$; because proper time is proportional to infinitesimal line element, this tells us that the worldlines of test particles are governed by the geodesic equation, which generalizes the notion of a straight line; it makes sense to demand that because in a LIF, we have to reproduce SR where test particles move along straight lines (if no force is acting on them)
 
+say something about how LIF can be characterized using metric; is important we always want to recover results in there, for example statements on timelike etc. (around 2.36)\\
+
+
+The most basic thing we need to know is how test particles move in curved spaces. We will start with the case where no force is present, i.e.~free movement. The Newtonian theory/SR gives us $\ddot{\vec{a}} = 0$ and thus a movement on straight lines. This has to be reproduced locally (that is in a LIF), but originating from a more general concept. Finding this generalization is based on the observation that tangent vectors remain constant along straight lines. That leads to the \Def{geodesic equation}
+\begin{equation}
+\eqbox{
+\nabla_{\underline{t}} t^\beta = t^\alpha \nabla_\alpha t^\beta = 0
+}\, ,
+\end{equation}
+which just expresses that $t^\beta$ remains constant as long as we take the derivative along the curve that it is tangent to (which explains the $t^\alpha \nabla_\alpha$ part). Consequently, the world lines test particles are \Def{geodesics}.
+
+One can obtain the same statement from a completely different approach: by demanding that world lines are the curves in Minkowski space which extremize the proper time/distance
+\begin{equation}
+\tau_{AB} = \int_A^B d\tau = \int_A^B \sqrt{- g_{\alpha \beta} dx^\alpha dx^\beta} = \int_0^1 \sqrt{- g_{\alpha \beta} \dv{x^\alpha}{\sigma} \dv{x^\beta}{\sigma}} \, d\sigma
+\end{equation}
+between two events $A, B$.
+
+In both cases, we obtain the following coordinate version of the geodesic equation:
+\begin{equation}
+\eqbox{
+\dv[2]{x^\beta}{\sigma} + \Gamma_{\alpha \delta}^\beta \dv{x^\alpha}{\sigma} \dv{x^\delta}{\sigma}
+}
+\end{equation}
+
+\begin{proof}
+In the first approach, we use
+\begin{align*}
+t^\alpha \nabla_\alpha t^\beta &= \dv{x^\alpha}{\sigma} \nabla_\alpha \dv{x^\beta}{\sigma}
+\\
+&= \dv{x^\alpha}{\sigma} \qty(\pdv{x^\alpha} \dv{x^\beta}{\sigma} + \Gamma_{\alpha \delta}^\beta \dv{x^\delta}{\sigma})
+\\
+&= \dv{x^\alpha}{\sigma} \pdv{x^\alpha} \dv{x^\beta}{\sigma} + \Gamma_{\alpha \delta}^\beta \dv{x^\alpha}{\sigma} \dv{x^\delta}{\sigma}
+\\
+\underset{\text{chain rule}}&{=} \dv{\sigma} \dv{x^\beta}{\sigma} + \Gamma_{\alpha \delta}^\beta \dv{x^\alpha}{\sigma} \dv{x^\delta}{\sigma}
+\\
+&= \dv[2]{x^\beta}{\sigma} + \Gamma_{\alpha \delta}^\beta \dv{x^\alpha}{\sigma} \dv{x^\delta}{\sigma} \, .
+\end{align*}
+
+In the second approach, we derive the Euler-Lagrange equations by varying the proper time integral:
+\begin{equation}
+\eqbox{
+\pdv{L}{x^\alpha} = \dv{\sigma} \pdv{L}{dx^\alpha / d\sigma}
+}
+\end{equation}
+where we introduced the Lagrangian
+\begin{equation}
+\eqbox{
+L = L\qty(x^\alpha, \dv{x^\alpha}{\sigma}) = \sqrt{- g_{\alpha \beta} \dv{x^\alpha}{\sigma} \dv{x^\beta}{\sigma}}
+} \, .
+\end{equation}
+Notable and useful properties in this context are that $L$ is constant along the geodesic because
+\begin{align*}
+\dv{\sigma} \qty(g_{\alpha \beta} \dv{x^\alpha}{\sigma} \dv{x^\beta}{\sigma}) &= t^\gamma \partial_\gamma \qty(g_{\alpha \beta} t^\alpha t^\beta) = t^\gamma \nabla_\gamma \qty(g_{\alpha \beta} t^\alpha t^\beta)
+\\
+&= t^\alpha t^\beta \nabla_\gamma g_{\alpha \beta} + g_{\alpha \beta} t^\beta t^\gamma \nabla_\gamma t^\alpha + g_{\alpha \beta} t^\alpha t^\gamma \nabla_\gamma t^\beta = 0 \, .
+\end{align*}
+Note that this does \emph{not} imply $\partial_\alpha L = 0$ (so the Euler-Lagrange equations still make sense). It does, however, mean that we are free to change the parametrization from $\sigma$ to any \Def{affine parameter} $\sigma' = a \sigma + b, \; a, b \in \mathbb{R}$ while only picking up a factor $\frac{1}{a}$. The proper time $\tau$ is defined as the parameter $\sigma'$ with
+\begin{equation}
+L = 1 \qquad \Leftrightarrow \qquad g_{\alpha \beta} \dv{x^\alpha}{\tau} \dv{x^\beta}{\tau} = -1
+\end{equation}
+which comes from the known normalization of the four-velocity $U^\alpha = \dv{x^\alpha}{\tau}$. Therefore, we can always replace $d\sigma \rightarrow d\tau = L d\sigma$ or vice versa.
+\end{proof}
+The advantage of having two approaches is that, in some cases, calculating the Christoffel symbols might be easier or might have already been done, while in others the Euler-Lagrange equations reveal very useful properties of the problem/system (for example in case one coordinate does not appear explicitly in $L$; then, we have immediately found a quantity which is conserved by the system, i.e.~it does not change as time evolves/as we vary $\sigma$ when going along the geodesic, this quantity being $\pdv{L}{dx^\alpha / d\sigma}$).
+
+A physical consequence from $L = \text{const}$ is that geodesics/world lines which are timelike/null/spacelike somewhere have this property everywhere! Test particles (with mass $m > 0$) always move along timelike geodesics while massless particles like photons move along null geodesics (spacelike ones violate causality).
 
 
 
 		\subsection{Weakly Curved Spacetimes}
-re-derive first subsection from GR, that is using the spacetime metric
+basic idea here: re-derive first subsection from GR (confirm that it reproduces Newtonian results), that is using the spacetime metric
 \begin{equation}
 ds^2 = - \qty(1 + 2 \Phi) dt^2 + \qty(1 - 2\Phi) \qty(dx^2 + dy^2 + dz^2)
 \end{equation}
-which is the first order approximation in case the Newtonian potential $\Phi = - \frac{m}{r}$ fulfils $\abs{\Phi} \ll 1$; we will see where it comes from later on, will be used as motivation for now
+which is the first order approximation in case the Newtonian potential $\Phi = - \frac{m}{r}$ fulfils $\abs{\Phi} \ll 1$; we will see where it comes from later on, will be used as motivation for now\\
+
+
+we can formulate the geodesic equation for test particles in many ways, for example
+\begin{equation}
+U^\alpha \nabla_\alpha U^\beta = 0 \manyqquad p^\alpha \nabla_\alpha p^\beta
+\end{equation}
+where $U^\alpha = \dv{x^\alpha}{\tau}$ is the four-velocity of a particle with world line $x^\alpha$ and $p^\alpha = m U^\alpha$ is the four-momentum (sometimes preferred quantity because it is well-defined also for photons)
+
+for the first/time component $p^0 = E \approx m$ ($c^2 = 1$, this is an approximation to lowest order) we obtain
+\begin{equation}
+0 = m \dv{p^0}{\tau} + \Gamma^0_{\alpha \beta} p^\alpha p^\beta \approx m \dv{p^0}{\tau} + \Gamma^0_{0 0} \qty(p^0)^2 \qquad \Leftrightarrow \qquad \dv{p^0}{\tau} \approx - m \pdv{\Phi}{t}
+\end{equation}
+which matches the Newtonian result that if the gravitational field does not change over time, then the energy $p^0$ will be conserved over time
+
+similarly, the equations for the spatial components
+\begin{equation}
+0 = m \dv{p^k}{\tau} + \Gamma^k_{\alpha \beta} p^\alpha p^\beta \approx m \dv{p^k}{\tau} + \Gamma^k_{0 0} m^2 \qquad \Leftrightarrow \qquad \dv{p^k}{\tau} \approx - m \delta^{k l} \pdv{\Phi}{x^l}
+\end{equation}
+match the Newtonian result \eqref{eq:cons_force} that gravity acts as a conservative force\\
+
+
+in the Newtonian case, tidal forces \eqref{eq:tidal_newton} could be used to detect gravity as opposed to constant acceleration; something similar should be possible for curvature (which is how we described gravity now) and indeed, we obtain
+\begin{equation*}
+\eqbox{
+\nabla_{\underline{U}} \nabla_{\underline{U}} \xi^\beta = U^\sigma \nabla_\sigma U^\alpha \nabla_\alpha \xi^\beta = - R^\beta{}_{\gamma \delta \epsilon} U^\gamma \xi^\delta U^\epsilon
+} \, .
+\end{equation*}
+Therefore, gravity/curvature is determined and measured by the \Def{Riemann curvature tensor}
+\begin{equation}
+\eqbox{
+R^\beta{}_{\gamma \delta \epsilon} = \pdv{\Gamma^\beta{}_{\gamma \epsilon}}{x^\delta} - \pdv{\Gamma^\beta{}_{\gamma \delta}}{x^\epsilon} + \Gamma^\beta{}_{\delta \mu} \Gamma^\mu{}_{\gamma \epsilon} - \Gamma^\beta{}_{\epsilon \mu} \Gamma^\mu{}_{\gamma \delta}
+} \, .
+\end{equation}
+A helpful way to think about the Riemann tensor is as the \enquote{difference}/commutator of subsequent derivatives, which is motivated by the following equation:
+\begin{equation}
+\eqbox{
+\qty[\nabla_\alpha, \nabla_\beta] V^\mu = R^\mu{}_{\gamma \alpha \beta} V^\gamma
+} \, .
+\end{equation}
+
+
+We can simplify this equation by choosing a LIF with $\underline{e'_0} = \underline{e_\tau}$ (one basis vector along proper time). Since this coordinate system is parallel transported along the geodesic,
+\begin{equation*}
+U^\gamma \nabla_\gamma \dv{x'^\beta}{x^\alpha} = U^\gamma \nabla_\gamma \qty(\underline{e'^\beta})_\alpha = 0
+\end{equation*}
+and we obtain
+\begin{equation}
+\dv[2]{\xi^\beta}{\tau} = \pdv{x'^\beta}{x^\alpha} U^\sigma \nabla_\sigma U^\delta \nabla_\delta \xi^\alpha = - \pdv{x'^\beta}{x^\alpha} R^\alpha{}_{\gamma \delta \epsilon} \pdv{x^\gamma}{\tau} \xi^\delta \pdv{x^\epsilon}{\tau} = - R'^\beta{}_{\tau \delta \tau} \xi'^\delta
+\end{equation}
+	\rem{note that the evaluation is still at the point $\vec{x}$, not at something related to $\xi^k$!}
+due to the transformation law for vectors and tensors (?). This equation looks very much like the Newtonian expression \eqref{eq:tidal_newton}. Moreover, we see that the Riemann tensor might play a role which is similar to the tidal acceleration tensor $\pdv[2]{\Phi}{x^m}{x^l}$. Hence, it might also play a similar role in causing gravity...
 
 
 
 	\subsection{Einstein Equation}
+We have seen how Newtonian theory can be generalized, for example by going from a potential $\Phi$ for the gravity field to the metric $g_{\mu \nu}$. Many effects could be derived from that, e.g.~equations of motion and the effect of gravity in tidal forces -- but we have no way of determining the metric yet! Thus, we will now look for a field equation like \eqref{eq:field_eq_newton}. As it turns out, there is no way of truly deriving the result. Instead, we can only motivate it sufficiently.\\
 
+
+First of all, we need an analogue to the mass distribution $\rho\qty(\vec{x})$ to describe the effect of matter. This should be a tensorial quantity in accordance with previous generalizations.
+
+
+This definition also allows to summarize several conservation formulas into one, coordinate-independent equation:
 \begin{equation}
+\nabla_\alpha T^{\alpha \beta} = 0 \, .
+\end{equation}
+This gives us
+\begin{equation}
+\partial_t \rho + \partial_i \pi^i = 0 \manyqquad \partial_t \pi^i + \partial_j T^{i j} = 0
+\end{equation}
+which corresponds to energy and momentum conservation (which is the continuum version of $F^k = m a^k$ since spatial components of the stress-energy tensor describe forces).\\
+
+
+Now that we have something which causes gravity, we need to equate it with something that describes gravity -- a natural quantity would be the Riemann tensor $R^\alpha{}_{\beta \gamma \delta}$. However, the stress-energy tensor only has two indices, while the Riemann tensor has four. Thus, we have to get rid of two indices, which can be done by contraction. Since $T = T^\alpha{}_\alpha \neq 0$, we are only interested a $2$-tensor trace component, which turns out to be the \Def{Ricci tensor} 
+\begin{equation}
+\eqbox{
+R_{\alpha \beta} = R^\mu{}_{\alpha \mu \beta}
+} = R_{\beta \alpha} \, .
+\end{equation}
+
+However, the Ricci tensor is not divergent free, so a field equation of the kind $R^{\alpha \beta} = b T^{\alpha \beta}$ cannot hold. Luckily, we can construct divergent-free tensor from it by rearranging
+\begin{equation*}
+\nabla_\alpha R^{\alpha \beta} = \frac{1}{2} g^{\alpha \beta} \nabla_\alpha R
+\end{equation*}
+which can be obtained using the Bianchi identity. Since $\nabla_\alpha g^{\alpha \beta} = 0$,
+\begin{equation}
+\nabla_\alpha \qty(R^{\alpha \beta} - \frac{1}{2} g^{\alpha \beta} R) = 0
+\end{equation}
+and we see that the \Def{Einstein tensor}
+\begin{equation}
+\eqbox{
+G^{\alpha \beta} = R^{\alpha \beta} - \frac{1}{2} g^{\alpha \beta} R = G^{\beta \alpha}
+}
+\end{equation}
+fulfils the required conservation law. Here, $R$ is the \Def{Ricci scalar} (or \Def{scalar curvature})
+\begin{equation}
+\eqbox{
+R = R^\alpha_\alpha
+} \, ,
+\end{equation}
+part of another trace component of the Riemann tensor. Thus, the field equation of interest (also called \Def{Einstein equation}) is
+\begin{equation}\label{eq:einstein1}
+\eqbox{
+G^{\alpha \beta} = 8 \pi T^{\alpha \beta}
+}
+\end{equation}
+where the constant of proportionality $8 \pi$ is determined by requiring that they reduce to the Newtonian weak-field limit. Now, remembering that $\nabla_\gamma g^{\alpha \beta} = 0$ tells us we are free to add a term of the kind $a g^{\alpha \beta}$ to the field equation. Therefore,
+\begin{equation}\label{eq:einstein2}
 \eqbox{
 G^{\alpha \beta} + \Lambda g^{\alpha \beta} = 8 \pi T^{\alpha \beta}
 }
 \end{equation}
-with
-\begin{equation}
-\eqbox{
-G^{\alpha \beta} = R^{\alpha \beta} - \frac{1}{2} g^{\alpha \beta} R
-}
-\end{equation}
+is an equally valid version of the Einstein equation. $\Lambda$ is the (in)famous \Def{cosmological constant} and its contribution can be thought of as \enquote{stress-energy of empty space}. However, this can be absorbed in $T^{\alpha \beta}$, so we will mostly stick to using \eqref{eq:einstein1}. The Einstein equation can be interpreted following this famous quote by John Archibald Wheeler:
+\begin{center}
+\enquote{\textit{Spacetime tells matter how to move; matter tells spacetime how to curve.}}
+\end{center}
+
+%-> we need something with two indices now... To see how that might go, we can decompose Riemann tensor into part with non-vanishing and vanishing trace; since $T = T^\alpha{}_\alpha \neq 0$, we are only interested a $2$-tensor trace component, which turns out to be the \Def{Ricci tensor} $R_{\alpha \beta} = R^\mu{}_{\alpha \mu \beta}$ (is symmetric); the other trace component is (proportional to) the \Def{Ricci scalar} $R = R^\alpha{}_\alpha$, but this is not a tensor, so we will omit it for now
+
+%-> problem: Ricci tensor is not divergent free, but has to be fulfilled if equal to $T^{\alpha \beta}$! However, we can construct divergent-free tensor from it by rearranging the result $\nabla_\alpha R^{\alpha \beta} = \frac{1}{2} g^{\alpha \beta} \nabla_\alpha R$ which can be obtained using the Bianchi identity; since $\nabla_\alpha g^{\alpha \beta} = 0$, $\nabla_\alpha \qty(R^{\alpha \beta} - \frac{1}{2} g^{\alpha \beta} R) =: \nabla_\alpha G^{\alpha \beta} = 0$ and we see that the \Def{Einstein tensor} $G^{\alpha \beta}$ fulfils the required conservation law.
 
 
-often, we will use
-\begin{equation}
-G^{\alpha \beta} = 8 \pi T^{\alpha \beta}
-\end{equation}
-where the contribution of the cosmological constant is thought of as stress-energy \enquote{of empty space} and absorbed in $T^{\alpha \beta}$
-
-in vacuum, this becomes
-\begin{equation}
-G^{\alpha \beta} = 0
-\end{equation}
-but since taking the trace of the Einstein equations yields $R = - 8 \pi T$, we obtain the vacuum Einstein equation
+To simplify things one can look empty space first, where $T^{\alpha \beta} = T = 0$. For the Einstein equation, that means
+\begin{equation*}
+G^{\alpha \beta} = 0 \, .
+\end{equation*}
+But since trace of the Einstein equation yields $R = - 8 \pi T$ ($= 0$ in vacuum), we obtain the following \Def{vacuum Einstein equation}:
 \begin{equation}
 \eqbox{
 R^{\alpha \beta} = 0
-}
+} \, .
 \end{equation}
 
 
-now few examples of solutions that come out of the Einstein equations (there are not too many)
+Now we will come to few examples of solutions of the Einstein equation.% (spoiler: there are not too many).
+\begin{ex}[Solutions of the Einstein equation]
+\begin{enumerate}[(a)]
+\item Minkowski
 
-\begin{ex}
-weak Newtonian potential is Schwarzschild far away from source (we define a certain potential and make a gauge transformation)
+
+\item Schwarzschild
+
+
+\item weak Newtonian potential is Schwarzschild far away from source (we define a certain potential and make a gauge transformation)
+\end{enumerate}
 \end{ex}
+As we can see, there are not too many analytical solutions. This is because the Einstein equation forms a coupled system of partial differential equations, which makes them very hard to solve in general (even numerically).
 
 
 

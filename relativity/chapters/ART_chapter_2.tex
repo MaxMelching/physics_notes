@@ -4,19 +4,45 @@
 
 \begin{document}
 
-\chapter{Physics}
+\chapter{Special Relativity}
 % -> feel like new organization is needed: make one chapter (rather section) about clocks, but then also one on field equations etc? Because main point of GR. Or maybe even do Newton a bit (relativistic), for sure how we get movement of particles etc -> nope, surely no whole chapter about clocks; maybe one about SR
 
-	\section{Special Relativity}
+	\section{Newtonian Physics}
 		\subsection{Space \& Time}
 % Good sources: Nolting + Meinel
 maybe start from argument for speed of light is limit and then say that close to the speed of light, Newtonian description fails; this means we cannot look at time and space as separate concepts anymore, instead look at things like spacetime diagrams; from that, we can also derive something like notion of distance and then we can formalize this using notion of metric (another way to see this: we want invariant notion of distance in Minkowski space and we have already seen one; mathematically, that means we work with pseudo-metric)
 
 
+surely state that Newton is conform with our intuition and holds at small distances, speeds; for larger ones, however, inconsistencies show up
 
-Maxwell's equation tells us that the speed of light is a constant, $c = \frac{1}{\sqrt{\epsilon_0 \mu_0}}$; or Michelson-Morley experiment, shows that speed of light is the same in all inertial frames (i.e.~that uniform motion does not influence it); therefore, the distance light travels is related to this constant velocity via the well-known formula for uniform motion $c^2 \qty(\Delta t)^2 = \qty(\Delta x)^2 + \qty(\Delta y)^2 + \qty(\Delta z)^2$; any observer in a different intertial frame also has to measure the same velocity, despite having different coordinates, i.e.~$c^2 \qty(\Delta t')^2 = \qty(\Delta x')^2 + \qty(\Delta y')^2 + \qty(\Delta z')^2$
+
+
+Maxwell's equation tells us that the speed of light is a constant, $c = \frac{1}{\sqrt{\epsilon_0 \mu_0}}$; or Michelson-Morley experiment, shows that speed of light is the same in all inertial frames (i.e.~that uniform motion does not influence it); therefore, the distance light travels is related to this constant velocity via the well-known formula for uniform motion $c^2 \qty(\Delta t)^2 = \qty(\Delta x)^2 + \qty(\Delta y)^2 + \qty(\Delta z)^2$; any observer in a different inertial frame also has to measure the same velocity, despite having different coordinates, i.e.~$c^2 \qty(\Delta t')^2 = \qty(\Delta x')^2 + \qty(\Delta y')^2 + \qty(\Delta z')^2$
 
 argument for maximal speed? Ah, we do not even need maximum speed for showing inconsistency: speed of light being constant contradicts Newtonian addition of velocities; maybe this just magically comes out because otherwise, we would violate causality
+
+
+
+as end of this section: however, the Newtonian physics is not complete; as the Michelson-Morley experiment showed, the speed of light is constant (or rather say that Maxwell equations tell us this, M-M was after SR has been developed); in Newtonian physics, however, a photon emitted by an observer moving with velocity $v$ will have velocity $c + v$ in the frame of an observer at rest; to solve this inconsistency, we will have to rethink the Newtonian concepts of time and space
+
+
+
+\newpage
+
+
+
+	\section{Relativity}
+		\subsection{Einstein Postulates}
+
+maybe make one subsection on what SR builds on? Einstein postulates; then go on to what this tells us about time etc
+
+we only demand that physics must not depend on observer (inertial system) and that speed of light is constant
+
+
+Dragon shows how this also means $c$ is maximum speed anything can reach
+
+
+this constant speed of light makes it very special because it is independent of the observer/inertial system and thus allows to transform statements between them (make invariant statements?)
 
 
 
@@ -251,7 +277,7 @@ For two observers $\mathcal{B}, \mathcal{U}$ that move relative to each other wi
 $t_-$ is the time that light travels from $\mathcal{B}$ to $E$ and $t_+$ the time that a it travels from $E$ to $\mathcal{B}$.
 \end{thm}
 
-$\tau$ is the \Def{proper time} of the event $E$.
+$\tau$ is the \Def{proper time} of the event $E$. -> hmmm, is it a valid interpretation to say that different observers will not necessarily agree on the time $t$, but will agree on the proper time $\tau$ (i.e.~$\tau$ is invariant?); then, we could also compare the coordinate times $t$ they measure, which would lead to statements like \enquote{moving clocks tick slower}
 
 This theorem determines the geometry of spacetime and tells us that in spacetime diagrams, points of the same distance $\tau$ from event $O$ is hyperboloid.
 
@@ -301,10 +327,20 @@ turns out there is a very convenient way to formulate what we just learned, in t
 
 ok, this might be nice: in spacetime diagrams, we see the idea how space and time (which are, as we know now, no separate notions) can be combined into one entity -- describe them as coordinates in one space; this space is called Minkowski space and spacetime diagrams can be seen as a visualization of it; SR is basically which geometry Minkowski space possesses and mathematically, we can describe that in metric; this metric we get from invariant notion we have already seen
 
--> the geometric structure of Minkowski space can be described using the relation $c^2 \qty(\Delta t)^2 = \qty(\Delta x)^2 + \qty(\Delta y)^2 + \qty(\Delta z)^2$ because this naturally gives us a line element $ds^2$ and corresponding metric (these are mathematical tools needed in order to do geometry)
+\hrule
+
+-> the geometric structure of Minkowski space can be described using the relation $c^2 \qty(\Delta t)^2 = \qty(\Delta x)^2 + \qty(\Delta y)^2 + \qty(\Delta z)^2$ because this naturally gives us a line element $ds^2$ and corresponding metric (these are mathematical tools needed in order to do geometry; we choose this specific metric because it makes sense from a physics point of view, we can make statements about causality etc.); $ds^2 = 0$ means light, similarly $> 0$ and $< 0$ characterize certain things (here we need argument for $c$ as maximum speed, right? Because for other particles, $v^2 t^2 < c^2 t^2$ for sure, so $ds^2 < 0$ -> is this a valid argument? Because the $\Delta x_i$ will be smaller as well, right?)
+
+-> two observers can only communicate if their distance does not increase with a certain critical velocity (something like this), which is motivation for taking this particular metric and inner product (we can check causality)
+
+-> observer-independent statements mean that coordinates have no physical meaning; advantage of metric: statements using that (for example distances and angles) are coordinate-independent, so the metric allows us to make physically meaningful statements
+
+-> just state spacetime diagrams as convenient way to visualize Minkowski space
+
+\hrule
 
 
-solution: end separate description of space and time, go to 4D-Minkowski space; events can then be described using 4-vectors $\mathbf{\xi} = \mqty(c t \\ \vec{x}) = \mqty(c t \\ x \\ y \\ z)$; we choose to scale time such that all components have the same units; factors of $c$ are kind of nasty in relativity, which is why very often $c$ is set to $1$ (this way, first coordinate is simply time but scaling and computations are still convenient)
+solution: end separate description of space and time, go to 4D-Minkowski space; events can then be described using 4-vectors $\mathbf{\xi} = \mqty(c t \\ \vec{x}) = \mqty(c t \\ x \\ y \\ z)$ (called \Def{event} from now on); we choose to scale time such that all components have the same units; factors of $c$ are kind of nasty in relativity, which is why very often $c$ is set to $1$ (this way, first coordinate is simply time but scaling and computations are still convenient)
 
 
 
