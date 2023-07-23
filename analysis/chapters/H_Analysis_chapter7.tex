@@ -388,6 +388,8 @@ Hierbei wurden viele Eigenschaften von $\nabla$ genutzt und im letzten Schritt e
 \begin{equation}
 \lambda_{ijk} = \Gamma_{ij}^k \, .% = \tilde{e}^k\qty(\nabla_{\pdv{x_i}} e_j) \, .\footnote{Test}
 \end{equation}
+-> nur wenn $s$ ein Vektor ist! Für Kovektoren kann man zeigen, dass $\lambda_{ijk} = - \Gamma_{ij}^k$ und für alle anderen Tensoren ergibt sich das dann daraus weil man als Basis das Tensorprodukt von der Basis der Vektoren, Kovektoren nehmen kann und weil dann die kovariante Ableitung die Produktregel erfüllt
+
 Diese Idee der lokalen Definition reicht dann bereits aus für einen wohldefinierten Zusammenhangsbegriff. Es ist also so, dass die Zusammenhangskoeffizienten den Zusammenhang bereits vollständig bestimmen, da sie die zusätzlich zur partiellen Ableitung auftretende Wirkung enthalten.
 
 \iffalse
@@ -421,6 +423,8 @@ Im flachen $\mathbb{R}^n$ gilt
 \begin{equation}
 \Gamma_{ij}^k = 0, \; \forall i, j, k \quad \Rightarrow \quad \nabla_{\pdv{x_i}} = \pdv{x_i} \, .
 \end{equation}
+-> sollte hier nicht auch $\lambda_{ijk}$ statt $\Gamma_{ij}^k$ stehen?
+
 Wie gewollt verallgemeinern Zusammenhänge partieller Ableitungen.
 \end{bsp}
 
@@ -526,9 +530,9 @@ Dieser bestimmte Zusammenhang spielt eine immense Rolle in der Riemannschen Geom
 
 Nur Levi-Civita-Zusammenhänge erfüllen die Formel von Koszul. Gleichsam definiert die Formel von Koszul aber auch Levi-Civita-Zusammenhänge eindeutig (die nötigen Umformungen klappen nur für torsionsfreie, metrische Zusammenhänge). Ein weiteres Indiz dafür ist, dass die Formel von Koszul die Christfoffelsymbole bestimmt, die den Zusammenhang eindeutig festlegen. Das ergibt sich aus \eqref{eq:koszul} für $X = \pdv{x_i}, Y = \pdv{x_j}, Z = \pdv{x_k}$:
 \begin{align*}
-\pdv{x_i} g_{jk} + \pdv{x_j} g_{jk} &= \pdv{x_k} g_{ij} + 2 g\qty(\sum_l \Gamma_{ij}^l \pdv{x_l}, \pdv{x_k})% = \pdv{x_k} g_{ij} + 2 \sum_l \Gamma_{ij}^l g_{lk}
+\pdv{x_i} g_{jk} + \pdv{x_j} g_{ik} &= \pdv{x_k} g_{ij} + 2 g\qty(\sum_l \Gamma_{ij}^l \pdv{x_l}, \pdv{x_k})% = \pdv{x_k} g_{ij} + 2 \sum_l \Gamma_{ij}^l g_{lk}
 \\
-\Leftrightarrow \quad \sum_l \Gamma_{ij}^l g_{lk} &= \frac{1}{2} \qty(\pdv{g_{jk}}{x_i} + \pdv{g_{jk}}{x_j} - \pdv{g_{ij}}{x_k})
+\Leftrightarrow \quad \sum_l \Gamma_{ij}^l g_{lk} &= \frac{1}{2} \qty(\pdv{g_{jk}}{x_i} + \pdv{g_{ik}}{x_j} - \pdv{g_{ij}}{x_k})
 %\\
 %\Leftrightarrow \quad \sum_{l, k} \Gamma_{ij}^l g_{lk} \qty(g^{-1})_{km} &= \sum_k \qty(g^{-1})_{km} \frac{1}{2} \qty(\pdv{g_{jk}}{x_i} + \pdv{g_{jk}}{x_j} - \pdv{g_{ij}}{x_k})
 \end{align*}
@@ -538,7 +542,7 @@ Um die Christoffelsymbole links zu isolieren, kann man mit inversen Komponenten 
 \end{align*}
 Somit ergibt sich:
 \begin{equation}
-\Gamma_{ij}^m = \frac{1}{2} \sum_k \qty(g^{-1})_{km} \qty(\pdv{g_{jk}}{x_i} + \pdv{g_{jk}}{x_j} - \pdv{g_{ij}}{x_k}) \, .
+\Gamma_{ij}^m = \frac{1}{2} \sum_k \qty(g^{-1})_{km} \qty(\pdv{g_{jk}}{x_i} + \pdv{g_{ik}}{x_j} - \pdv{g_{ij}}{x_k}) \, .
 \end{equation}
 Das ist eine Bestätigung der Interpretation, dass Levi-Civita-Zusammenhang und Mannigfaltigkeit eng verbunden sind -- $\nabla$ ist durch die Metrik eindeutig bestimmt.
 
@@ -1054,7 +1058,10 @@ Folglich ist (wobei man beachte, dass die Summe in \emph{allen} Termen über $m$
 \begin{equation}
 R_{ijkl} = dx_l\qty(R\qty(\pdv{x_i}, \pdv{x_j}, \pdv{x_k})) = \pdv{\Gamma_{jk}^l}{x_i} - \pdv{\Gamma_{ik}^l}{x_j} + \sum_m \Gamma_{jk}^m \Gamma_{im}^l - \Gamma_{ik}^m \Gamma_{jm}^l \, ,
 \end{equation}
-der Krümmungstensor ist bereits vollständing über die Christoffelsymbole (bzw.~allgemeiner: Zusammenhangskoeffizienten) bestimmt. Bei der Krümmung einer Riemannschen Mannigfaltigkeit handelt es sich damit um eine intrinsische Eigenschaft (da es die eindeutige Verbindung Mannigfaltigkeit $\rightarrow$ Levi-Civita-Zusammenhang $\rightarrow$ Christoffelsymbole $\rightarrow$ Riemannscher Krümmungstensor gibt).\\
+der Krümmungstensor ist bereits vollständing über die Christoffelsymbole (bzw.~allgemeiner: Zusammenhangskoeffizienten) bestimmt. Bei der Krümmung einer Riemannschen Mannigfaltigkeit handelt es sich damit um eine intrinsische Eigenschaft (da es die eindeutige Verbindung Mannigfaltigkeit $\rightarrow$ Levi-Civita-Zusammenhang $\rightarrow$ Christoffelsymbole $\rightarrow$ Riemannscher Krümmungstensor gibt).
+
+
+-> Bianchi-Identitäten aufnehmen!!!\\
 
 
 Eine wichtige Frage ist nun, ob überhaupt Krümmung vorliegt oder ob man die damit einhergehenden Effekte nicht berücksichtigen muss.

@@ -13,7 +13,7 @@
 \automark*[chapter]{subsection}
 \ihead[]{\headmark}
 %\ohead[]{Seite~\thepage}
-\cfoot{Seite~\thepage~von~\pageref{LastPage}}
+\cfoot{\hypersetup{linkcolor=black}Seite~\thepage~von~\pageref{LastPage}}
 
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
@@ -50,7 +50,7 @@
 \usepackage{mdframed}
 
 \usepackage{hyperref}
-\hypersetup{colorlinks=true, breaklinks=true, citecolor=blue, linkcolor=black, menucolor=blue, urlcolor=blue} %sonst z.B. orange bei linkcolor
+\hypersetup{colorlinks=true, breaklinks=true, citecolor=linkblue, linkcolor=linkblue, menucolor=linkblue, urlcolor=linkblue} %sonst z.B. orange bei linkcolor
 
 \usepackage{imakeidx}%für Erstellen des Index
 \usepackage{xifthen}%damit bei \Def{} das Index-Arugment optional gemacht werden kann
@@ -80,6 +80,7 @@
 \definecolor{mycyan}{rgb}{0.76,1.00,1.00}
 \definecolor{myyellow}{rgb}{1.00,1.00,0.76}
 \definecolor{defcolor}{rgb}{0.10,0.00,0.60} %{1.00,0.49,0.00}%orange %{0.10,0.00,0.60}%aquamarin %{0.16,0.00,0.50}%persian indigo %{0.33,0.20,1.00}%midnight blue
+\definecolor{linkblue}{rgb}{0.00,0.00,1.00}%{0.10,0.00,0.60}
 
 
 % auch gut: green!42, cyan!42, yellow!24

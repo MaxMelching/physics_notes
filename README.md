@@ -14,3 +14,10 @@ wrote and used throughout my physics studies at Leibniz University Hannover.
 
 * `probability`: a summary of one course I took on probability theory/
   statistics and data analysis. Written in english.
+
+* `mechanics`: a summary of several courses I took on various aspects of
+  classical mechanics. These include the Lagrange and Hamilton formalism
+  as well as statistical mechanics. Written in german (largely unfinished).
+
+* `relativity`: a summary of general relativity courses I took, plus what
+  I have learnt about special relativity. Written in english (largely unfinished).

@@ -93,19 +93,37 @@
 
 % auch gut: green!42, cyan!42, yellow!24
 
-%Syntax Farbboxen: in normalem Text \colorbox{mygreen}{Text} oder bei Anmerkungen in Boxen \fcolorbox{black}{myyellow}{Rest der Box}, in Mathe-Umgebung für farbige Box \begin{empheq}[box = \colorbox{mycyan}]{align}\label{eq:} Formel \end{empheq} oder farbigen Rand \begin{empheq}[box = \fcolorbox{mycyan}{white}]{align}\label{eq:} Formel \end{empheq}
 
 \setlength{\fboxrule}{0.76pt}
 \setlength{\fboxsep}{1.76pt}
 
-\newcommand{\anm}[1]{\fcolorbox{yellow!24}{yellow!24}{\parbox[c]{0.985\textwidth}{\textbf{Anmerkung}: #1}}}%vorher: black als erste Farbe, das macht Rahmen schwarz%vorher: black als erste Farbe, das macht Rahmen schwarz
+%Syntax Farbboxen: in normalem Text \colorbox{mygreen}{Text} oder bei Anmerkungen in Boxen \fcolorbox{black}{myyellow}{Rest der Box}, in Mathe-Umgebung für farbige Box \begin{empheq}[box = \colorbox{mycyan}]{align}\label{eq:} Formel \end{empheq} oder farbigen Rand \begin{empheq}[box = \fcolorbox{mycyan}{white}]{align}\label{eq:} Formel \end{empheq}
+
+% Idea for simpler syntax: renew \boxed command from amsmath; seems to work like fbox, so maybe background color can be changed there
+
+\usepackage[most]{tcolorbox}
+%\colorlet{eqcolor}{}
+\tcbset{on line, 
+        boxsep=4pt, left=0pt,right=0pt,top=0pt,bottom=0pt,
+        colframe=cyan,colback=cyan!42,
+        highlight math style={enhanced}
+        }
+
+\newcommand{\eqbox}[1]{\tcbhighmath{#1}}
+
+
+\newcommand{\manyqquad}{\qquad \qquad \qquad \qquad}  % Four seems to be sweet spot
+
+
+
+\newcommand{\rem}[1]{\fcolorbox{yellow!24}{yellow!24}{\parbox[c]{0.985\textwidth}{\textbf{Remark}: #1}}}%vorher: black als erste Farbe, das macht Rahmen schwarz%vorher: black als erste Farbe, das macht Rahmen schwarz
 
 %\newcommand{\anm}[1]{\footnote{#1}}
 
 \newcommand{\anmind}[1]{\fcolorbox{yellow!24}{yellow!24}{\parbox[c]{0.92 \textwidth}{\textbf{Anmerkung}: #1}}}
 % wegen Einrückung in itemize-Umgebungen o.Ä.
 
-\newcommand{\eqbox}{\fcolorbox{white}{cyan!24}}
+\newcommand{\eqboxold}[1]{\fcolorbox{white}{cyan!24}{#1}}
 
 \newcommand{\textbox}[1]{\fcolorbox{white}{cyan!24}{#1}}
 

@@ -68,6 +68,8 @@ relativity/ART_main.**
 
 relativity/chapters/**
 
-relativity/chapters/ART_chapter_.tex
+!relativity/chapters/ART_chapter_1.tex
 
-relativity/chapters/ART_chapter_2.tex
+!relativity/chapters/ART_chapter_2.tex
+
+!relativity/chapters/ART_chapter_3.tex

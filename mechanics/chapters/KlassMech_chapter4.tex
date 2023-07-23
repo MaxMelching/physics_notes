@@ -1,5 +1,5 @@
-\documentclass[../KlassMech_main.tex]{subfiles}
-%\input{../header} \graphicspath{../}
+%\documentclass[../KlassMech_main.tex]{subfiles}
+\input{../header} \graphicspath{../} % \graphicspath{{Bilder/} {../Bilder/}}
 
 
 \begin{document}
@@ -7,6 +7,9 @@
 \setcounter{chapter}{3}
 
 \chapter{Thermodynamik}
+nun wollen wir einen Schritt weitergehen und Systeme aus sehr vielen Teilchen beschreiben -- so viele, dass man sogar die eigentliche Teilchennatur vernachlässigen kann und stattdessen das große Ganze beschreiben kann; das Ganze ist ähnlich zum Starren Körper, wir wollen aber nun den Fokus auf den Austausch von Energie in diesen Systemen legen und nicht deren Eigenschaften bei Translation/Rotation; das eigentliche Ziel heißt damit am Ende Statistische Mechanik, aber bevor wir das machen können, brauchen wir erst einmal ein besseres Verständnis von Energie in solchen Systemen; das wird auf die Begriffe Wärme und Arbeit führen, die im Rahmen von Thermodynamik erklärt werden können
+
+
 ? machen ? gehört halt iwie zu StatMech, aber vielleicht nicht in eigenem Abschnitt, sondern bei StatMech machen
 
 
@@ -150,8 +153,7 @@ dG &= \sum\limits_{i = 1}^n \pdv{G}{x_i} dx_i = \sum\limits_{i = 1}^n g_i dx_i :
 \text{(das sind Abkürzungen, es }& \text{handelt sich nicht um echte, mathematische Vektoren !)} \notag
 \end{align}
 
-	\anm{das Integral \eqref{eq:gradint} ist im Allgemeinen $\neq 0$, wenn nämlich das Feld $\vec{g}$ nicht konservativ ist; bei konservativen Feldern folgt aber wegen $d(dG) = 0$ aus Stokes direkt, dass \eqref{eq:gradint} 0 wird bei geschlossenen $\mathcal{C}$ und wegen $d(dG) = d\qty(\langle g, dx \rangle) = \langle \curl g, *dx \rangle$ erhält man daraus direkt $\curl \vec{g} = 0$, also die altbekannte Bedingung\\
-	(gilt nur in 3D; neue Bezeichnung entspricht also dem bereits bekannten Gradienten)}
+	\anm{das Integral \eqref{eq:gradint} ist im Allgemeinen $\neq 0$, wenn nämlich das Feld $\vec{g}$ nicht konservativ ist; bei konservativen Feldern folgt aber wegen $d(dG) = 0$ aus Stokes direkt, dass \eqref{eq:gradint} 0 wird bei geschlossenen $\mathcal{C}$ und wegen $d(dG) = d\qty(\langle g, dx \rangle) = \langle \curl g, *dx \rangle$ erhält man daraus direkt $\curl \vec{g} = 0$, also die altbekannte Bedingung\\	(gilt nur in 3D; neue Bezeichnung entspricht also dem bereits bekannten Gradienten)}
 
 Hier wurde kurz der Hodge-Stern-Operator * verwendet, der die Basisvektoren ändert ($*(e_1 \wedge \dots \wedge e_k) = (e_{k+1} \wedge \dots \wedge e_n)$, also z.B. bei $n=3$: $*dx_1 = dx_2 \wedge dx_3$).
 
@@ -283,7 +285,7 @@ Allgemeiner schreibt man, wenn doch ein Wärmeaustausch mit der Umgebung durch e
 
 	\subsection{2. Hauptsatz, Empirische Entropie}
 \begin{center}
-\includegraphics[width=0.5\textwidth,angle=0]{Zweiter_HS.png}
+%\includegraphics[width=0.5\textwidth,angle=0]{Bilder/Zweiter_HS.png}
 %\captionof{figure}{}\medskip
 \label{fig:Zweiter_HS}
 \end{center}
@@ -331,7 +333,7 @@ Ein Carnot-Prozess (letztendlich Gedankenexperiment) ist ein Kreisprozess (ein S
 Bei jedem Prozess $\mathcal{C}_i$ wird vom System $E$ Wärme $Q_i \equiv \delta Q$ aufgenommen/ abgegeben und Arbeit $A_i \equiv \delta A$ verrichtet (VZ jeweils abhängig von Richtung des Prozesses).
 
 \begin{center}
-\includegraphics[width=0.8\textwidth,angle=0]{Carnot.png}
+%\includegraphics[width=0.8\textwidth,angle=0]{Bilder/Carnot.png}
 %\captionof{figure}{}\medskip
 \label{fig:Carnot}
 \end{center}
@@ -373,7 +375,7 @@ Nächster Schritt: Auswerten des 2. Hauptsatzes und Ausnutzen von Carnot-Prozess
 Bisher haben wir die Größen Temperatur und Entropie nur empirisch betrachtet, also relativ zueinander. Bei der Angabe von Experiment-übergreifenden, absoluten Werten für diese Größen hilft die Kombination von zwei Carnot-Prozessen (mit $Q'_3 = -Q_1$).\\
 Man nehme dazu drei Wärmebäder der empirischen Temperaturen $\tilde{T}_- < T_0 < \tilde{T}_+$. $\mathcal{C}$ bezeichnet dabei den zwischen $\tilde{T}_-$, $T_0$ und $\mathcal{C}'$ den zwischen $T_0$, $\tilde{T}_+$.
 \begin{center}
-\includegraphics[width=0.5\textwidth,angle=0]{Carnot_doppelt.png}
+%\includegraphics[width=0.5\textwidth,angle=0]{Bilder/Carnot_doppelt.png}
 %\captionof{figure}{}\medskip
 \label{fig:Carnot_doppelt}
 \end{center}
@@ -477,7 +479,7 @@ dU^{(i)} &= \delta Q^{(i)} - \delta A^{(i)} = T^{(i)} dS^{(i)} - \delta A^{(i)} 
 
 Beispiel (Doppelkolben):\\
 \begin{center}
-\includegraphics[width=0.5\textwidth,angle=0]{Kolben.png}
+%\includegraphics[width=0.5\textwidth,angle=0]{Bilder/Kolben.png}
 %\captionof{figure}{}\medskip
 %\label{fig:Carnot_doppelt}
 \end{center}
@@ -720,7 +722,7 @@ Sonst (bei $T \geq T_C$) erhält man monoton fallende Isothermen (genau richtig)
 Das van-der-Waals-Gas kann also nicht die Realität beschreiben. Maxwell hat das Modell jedoch gerettet, indem er einen Sprung der Isotherme (weiter im $p$-$V$-Diagramm) eingeführt hat (die Maxwell-Konstruktion), sodass es keinen Widerspruch mehr gibt. Dieser Sprung ist ein Phasenübergang, da sich auf einmal das Volumen bei konstantem Druck ändert (funktioniert unter Mithilfe der Schwerkraft). Man erhält dann eine Phasenkoexistenz, links von der Geraden ist der flüssige Zustand und rechts ein Gas.
 
 \begin{center}
-\includegraphics[width=0.6\textwidth,angle=0]{maxwell.png}
+%\includegraphics[width=0.6\textwidth,angle=0]{Bilder/maxwell.png}
 %\captionof{figure}{}\medskip
 \label{fig:}
 \end{center}
@@ -731,7 +733,7 @@ Man könnte auch sagen, dass aus einem $"$schlechten$"$ thermodynamischen Potent
 Es tritt dabei auch ein Problem auf: wie z.B. in der Grafik erkennbar ist, liegen nun zwei Punkte mit gleichem Paar $(T, p)$ vor, es kommt also auch zu Knicken in der Freien Enthalpie $G$ und ein Zustand ist nicht wie normal eindeutig durch das Wertepaar $(T, p)$ festgelegt. Diese Paare zu allen $"$schlechten$"$ Temperaturen bilden die sogenannte Koexistenzlinie im $p$-$T$-Diagramm, die zum kritischen Punkt hinführen. Dabei kann es unter Umständen mehrere geben, die sich sogar im selben Punkt treffen können. Ein Beispiel ist der hier veranschaulichte Tripelpunkt von Wasser
 
 \begin{center}
-\includegraphics[width=0.5\textwidth,angle=0]{phdia.png}
+%\includegraphics[width=0.5\textwidth,angle=0]{Bilder/phdia.png}
 %\captionof{figure}{}\medskip
 \label{fig:}
 \end{center}
