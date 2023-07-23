@@ -1,0 +1,376 @@
+%\documentclass[ART_main.tex]{subfiles}
+\input{../header}
+
+
+\begin{document}
+
+\chapter{Physics}
+% -> feel like new organization is needed: make one chapter (rather section) about clocks, but then also one on field equations etc? Because main point of GR. Or maybe even do Newton a bit (relativistic), for sure how we get movement of particles etc -> nope, surely no whole chapter about clocks; maybe one about SR
+
+	\section{Special Relativity}
+		\subsection{Space \& Time}
+% Good sources: Nolting + Meinel
+maybe start from argument for speed of light is limit and then say that close to the speed of light, Newtonian description fails; this means we cannot look at time and space as separate concepts anymore, instead look at things like spacetime diagrams; from that, we can also derive something like notion of distance and then we can formalize this using notion of metric (another way to see this: we want invariant notion of distance in Minkowski space and we have already seen one; mathematically, that means we work with pseudo-metric)
+
+
+
+Maxwell's equation tells us that the speed of light is a constant, $c = \frac{1}{\sqrt{\epsilon_0 \mu_0}}$; or Michelson-Morley experiment, shows that speed of light is the same in all inertial frames (i.e.~that uniform motion does not influence it); therefore, the distance light travels is related to this constant velocity via the well-known formula for uniform motion $c^2 \qty(\Delta t)^2 = \qty(\Delta x)^2 + \qty(\Delta y)^2 + \qty(\Delta z)^2$; any observer in a different intertial frame also has to measure the same velocity, despite having different coordinates, i.e.~$c^2 \qty(\Delta t')^2 = \qty(\Delta x')^2 + \qty(\Delta y')^2 + \qty(\Delta z')^2$
+
+argument for maximal speed? Ah, we do not even need maximum speed for showing inconsistency: speed of light being constant contradicts Newtonian addition of velocities; maybe this just magically comes out because otherwise, we would violate causality
+
+
+
+		\subsection{Clocks}
+% Great source for this: Dragon script
+ok, time is different in relativity than it is in Newtonian case; so let's examine it further, in particular how to measure it, i.e.~let's deal with clocks
+
+
+The basic goal of special relativity is measuring the time between events. This may seem trivial for times in everyday life, but for more extreme situations (e.g.~speeds close to the speed of light), this notion of time turns out to be coordinate-dependent (and world-line dependent). -> motivate by thought experiment
+-> hm, maybe not say that it is basic goal? But just motivate by: what happens if we reach speeds to the ones close to light (suddenly, time cannot be viewed separately of space anymore)
+
+
+Which one of the observers is right? The, presumably unintuitive, answer is: both! This is one of the key results of relativity. -> they have to get in the same frame of reference, then clocks would show the same time (but not if one of them keeps moving relative to the other)
+
+
+
+uhhh, nice motivation why measuring time does not work for moving clocks: say we measure time using light pulses that are sent between events/observers (works because speed of light is constant); but what in case of a observer that moves with the speed of light? No other light pulse sent from some distance can ever reach him, so how can they agree on time measurements; one could argue now that this is due to the idea we had and this may be solved by measuring time differently -- however, it turns out that the speed of light is the highest speed that can is allowed in our universe/by the laws of physics
+
+\iffalse % Wrong spacetime diagram!
+\begin{figure}
+\centering
+
+\subfloat[Observers at rest]{
+\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+\draw[->] (0, 0) -- (0, 3) node[above left]{$t$};
+\draw[->] (0, 0) -- (3, 0) node[below right]{$x$};
+
+\foreach \i in {0.5, 1.5, 2.5} {
+\draw[fill] (0.5, \i) circle[radius=3pt]; % Left world line
+\draw[fill, blue] (2.5, \i) circle[radius=3pt]; % Right world line
+}
+
+\draw[red, ->] (0.5, 0.5) -- (2.5, 0.5);
+\draw[red, ->] (2.5, 1.5) -- (0.5, 1.5);
+\draw[red, ->] (0.5, 2.5) -- (2.5, 2.5);
+\end{tikzpicture}
+}
+%
+%
+\iffalse % both are moving
+\subfloat[Moving observers]{
+\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+\draw[->] (0, 0) -- (0, 3) node[above left]{$t$};
+\draw[->] (0, 0) -- (5, 0) node[below right]{$x$};
+
+\foreach \i in {0.5, 1.5, 2.5} {
+\draw[fill, shift={(0.5 * 2, 0)}] (0.5 - 0.5 * \i + 0.5 * 0.5, \i) circle[radius=3pt]; % Left world line
+\draw[fill, blue, shift={(0.5 * 2, 0)}] (2.5 + 0.5 * \i - 0.5 * 0.5, \i) circle[radius=3pt]; % Right world line, shifts by multiples of 0.5 (thus subtraction from \i)
+}
+
+\draw[red, ->, shift={(0.5 * 2, 0)}] (0.5, 0.5) -- (2.5, 0.5);
+\draw[red, ->, shift={(0.5 * 2, 0)}] (2.5 + 0.5, 1.5) -- (0.5 - 0.5, 1.5);
+\draw[red, ->, shift={(0.5 * 2, 0)}] (0.5 - 0.5 * 2, 2.5) -- (2.5 + 0.5 * 2, 2.5);
+\end{tikzpicture}
+}
+\fi
+%
+\subfloat[Moving observer]{
+\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+\draw[->] (0, 0) -- (0, 3) node[above left]{$t$};
+\draw[->] (0, 0) -- (4, 0) node[below right]{$x$};
+
+\foreach \i in {0.5, 1.5, 2.5} {
+\draw[fill] (0.5, \i) circle[radius=3pt]; % Left world line
+\draw[fill, blue] (2.5 + 0.5 * \i - 0.5 * 0.5, \i) circle[radius=3pt]; % Right world line, shifts by multiples of 0.5 (thus subtraction from \i)
+}
+
+\draw[red, ->] (0.5, 0.5) -- (2.5, 0.5);
+\draw[red, ->] (2.5 + 0.5, 1.5) -- (0.5, 1.5);
+\draw[red, ->] (0.5, 2.5) -- (2.5 + 0.5 * 2, 2.5);
+\end{tikzpicture}
+}
+
+
+\caption{Effect of moving clocks}
+\label{fig:moving_clock}
+
+\end{figure}
+\fi
+
+\iffalse
+\begin{figure}
+\centering
+
+\subfloat[Observers at rest]{
+\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]%, opacity=0.7] % opacity for consistency with second plot
+\draw[->] (0, 0) -- (0, 3) node[above left]{$t$, {\color{blue} $t'$}};
+\draw[->] (0, 0) -- (3, 0) node[below right]{$x$};
+
+\foreach \i in {0.5, 1, ..., 2.5} {
+\draw[fill] (0.5, \i) circle(0.1); % Left world line
+\draw[fill, blue] (2.5, \i) circle(0.1); % Right world line
+}
+
+\draw[red, ->] (0.5, 0.5) -- (2.5, 1);
+\draw[red, ->] (2.5, 1) -- (0.5, 1.5);
+\draw[red, ->] (0.5, 1.5) -- (2.5, 2);
+\end{tikzpicture}
+}
+%
+%
+\iffalse % both are moving
+\subfloat[Moving observers]{
+\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+\draw[->] (0, 0) -- (0, 3) node[above left]{$t$};
+\draw[->] (0, 0) -- (5, 0) node[below right]{$x$};
+
+\foreach \i in {0.5, 1.5} {
+\draw[fill, shift={(0.5 * 2, 0)}] (0.5 - 0.5 * \i + 0.5 * 0.5, \i) circle[radius=3pt]; % Left world line
+\draw[fill, blue, shift={(0.5 * 2, 0)}] (2.5 + 0.5 * \i - 0.5 * 0.5, \i + 0.5) circle[radius=3pt]; % Right world line, shifts by multiples of 0.5 (thus subtraction from \i)
+}
+
+\draw[red, ->, shift={(0.5 * 2, 0)}] (0.5, 0.5) -- (2.5, 1);
+\draw[red, ->, shift={(0.5 * 2, 0)}] (2.5 + 0.5, 1) -- (0.5 - 0.5, 1.5);
+\draw[red, ->, shift={(0.5 * 2, 0)}] (0.5 - 0.5 * 2, 1.5) -- (2.5 + 0.5 * 2, 2);
+\end{tikzpicture}
+}
+\fi
+%
+\hspace{0.1\textwidth}%
+%
+\subfloat[Moving observer]{ % 0.866 is gamma factor for v/c=0.5
+\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]%, opacity=0.7] % opacity for green dots on
+\draw[->] (0, 0) -- (0, 3) node[above left]{$t$};
+\draw[->, blue] (0, 0) -- (0.5 * 3, 3) node[above left]{$t'$};
+\draw[->] (0, 0) -- (4, 0) node[below right]{$x$};
+
+\foreach \i in {0.5, 1, ..., 2.5} {
+\draw[fill] (0.5, \i) circle(0.1); % Left world line
+\draw[fill, blue] (2.5 + 0.5 * \i - 0.5 * 0.5, \i * 0.866) circle(0.1); % Right world line, shifts by multiples of 0.5 (thus subtraction from \i)
+%\draw[fill, green] (2.5 + \i - 0.5, \i) circle(0.1);  % World line of objects with speed of light -> uh, red arrows are light, have different slope...
+}
+
+\draw[red, ->] (0.5, 0.5) -- (2.5 + 0.5 * 0.5, 1 * 0.866);
+\draw[red, ->] (2.5 + 0.5 * 0.5, 1 * 0.866) -- (0.5, 1.5);
+\draw[red, ->] (0.5, 1.5) -- (2.5 + 0.5 * 1.5, 2 * 0.866);
+\end{tikzpicture}
+}
+
+
+\caption{Effect of moving clocks}
+\label{fig:moving_clock}
+
+\end{figure}
+\fi
+% Correct Minkowksi diagram, but not what shall be displayed here
+
+\begin{figure}
+\centering
+
+\subfloat[Observers with no relative velocity]{
+\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]%, opacity=0.7] % opacity for consistency with second plot
+\draw[->] (0, 0) -- (0, 3) node[above left]{$y$};
+\draw[->] (0, 0) -- (3, 0) node[below right]{$x$};
+
+\foreach \i in {0.5, 1, ..., 2.5} {
+\draw[fill] (0.5, \i) circle(0.1); % Left world line
+\draw[fill, blue] (2.5, \i) circle(0.1); % Right world line
+}
+
+\draw[red, ->] (0.5, 0.5) -- (2.5, 1);
+\draw[red, ->] (2.5, 1) -- (0.5, 1.5);
+\draw[red, ->] (0.5, 1.5) -- (2.5, 2);
+\end{tikzpicture}
+}
+%
+%
+\iffalse % both are moving
+\subfloat[Moving observers]{
+\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+\draw[->] (0, 0) -- (0, 3) node[above left]{$t$};
+\draw[->] (0, 0) -- (5, 0) node[below right]{$x$};
+
+\foreach \i in {0.5, 1.5} {
+\draw[fill, shift={(0.5 * 2, 0)}] (0.5 - 0.5 * \i + 0.5 * 0.5, \i) circle[radius=3pt]; % Left world line
+\draw[fill, blue, shift={(0.5 * 2, 0)}] (2.5 + 0.5 * \i - 0.5 * 0.5, \i + 0.5) circle[radius=3pt]; % Right world line, shifts by multiples of 0.5 (thus subtraction from \i)
+}
+
+\draw[red, ->, shift={(0.5 * 2, 0)}] (0.5, 0.5) -- (2.5, 1);
+\draw[red, ->, shift={(0.5 * 2, 0)}] (2.5 + 0.5, 1) -- (0.5 - 0.5, 1.5);
+\draw[red, ->, shift={(0.5 * 2, 0)}] (0.5 - 0.5 * 2, 1.5) -- (2.5 + 0.5 * 2, 2);
+\end{tikzpicture}
+}
+\fi
+%
+\hspace{0.1\textwidth}%
+%
+\subfloat[Observers with relative velocity in $x$-direction]{ % 0.866 is gamma factor for v/c=0.5
+\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]%, opacity=0.7] % opacity for green dots on
+\draw[->] (0, 0) -- (0, 3) node[above left]{$y$};
+\draw[->] (0, 0) -- (4, 0) node[below right]{$x$};
+
+\foreach \i in {0.5, 1, ..., 2.5} {
+\draw[fill] (0.5, \i) circle(0.1); % Left world line
+\draw[fill, blue] (2.5 + 0.5 * \i - 0.5 * 0.5, \i) circle(0.1); % Right world line, shifts by multiples of 0.5 (thus subtraction from \i)
+%\draw[fill, green] (2.5 + \i - 0.5, \i) circle(0.1);  % World line of objects with speed of light -> uh, red arrows are light, have different slope...
+}
+
+\draw[red, ->] (0.5, 0.5) -- (2.5 + 0.5 * 0.5, 1);
+\draw[red, ->] (2.5 + 0.5 * 0.5, 1) -- (0.5, 1.5);
+\draw[red, ->] (0.5, 1.5) -- (2.5 + 0.5 * 1.5, 2);
+\end{tikzpicture}
+}
+
+
+\caption{Effect of relative velocity on clocks. Dots for fixed $y$-value correspond to positions at the same time, the movement of both observers in $y$-direction is upwards. Red arrows schematically represent light signals that the observers exchange.}
+\label{fig:moving_clock}
+
+\end{figure}
+
+
+%From figure \ref{fig:moving_clock} we see that it makes a difference for time measurements if observers are moving -- the results will be different from (a) to (b) despite the same times $t$ that the signals are sent (ah, $t$ is time measured by black observer; $t'$ of blue, i.e.~$x' = x + v t$); this is due to different travel times of the light; however, this imposes a problem for time measurement because this is done by comparing clocks -- if the \enquote{true} interval $\Delta t$ between the pulses is not known, then it is impossible to decide which of the measurements is correct; now, what if the observer is moving at the speed of light (blue parallel to red)? In this case, signals cannot be exchanged between the black and blue observer, so there is no time that can be measured -> uh, do we even need example? Maybe good as further proof that $t$ is not good because $t'$ measures other stuff
+
+%hence, we need a proper notion of time because apparently, the current one $t$ (or $t'$) is not desirable because it depends on the bezugssystem that is used; the \enquote{right} one (in the sense that it has the properties we want) is the \Def{proper time} $\tau$; it fulfils the Minkowski theorem, which tells us how to compute it and plays the role of analogous to the Pythagorean theorem in Minkowski space -> after example with observer with constant speed
+
+%-> ok, idea is different: we want to measure time for event $E$ that occurs to observer $B$ at some time $t'$ from the observer $A$ and thus the time $t$; this is called the proper time of $E$, $\tau(t)$ (measured using $t$); figure 2.2 in Dragon is very nice, 2.8 also because it shows that effects go both ways; it turns out that this is equal to the (square root of the) product of the times $t_+, t_-$ that light would need to reach $E$ and is emitted at the same time (yes, this requires some knowledge like the relative velocity, e.g.~to draw lines in the diagram; but this should be clear)
+
+
+%figure \ref{fig:moving_clock} is almost spacetime diagram, up to scaling ot time axis with $c$ -> nope, changed it; now we can see idea much better, that red arrows are longer, i.e.~time they measure different
+
+
+From figure \ref{fig:moving_clock} we see that it makes a difference for time measurements if observers are moving -- the results will be different from (a) to (b). This is because the red arrows are longer, i.e.~the travel time is greater than in the case of $v = 0$. As a consequence, the notion of simultaneity is not consistent.
+
+Hence, we need a new notion of time and it will be given by the following theorem.
+
+
+\begin{thm}[Minkowski's Theorem]
+For two observers $\mathcal{B}, \mathcal{U}$ that move relative to each other with velocity $v$ and an event $E$ occurring on the worldline of $\mathcal{U}$ at a time $\tau$ (after an event $\mathcal{O}$ at which the clocks of $\mathcal{B}, \mathcal{U}$ have been synchronized),
+\begin{equation}
+\tau^2 = t_+ t_- \, .
+\end{equation}
+$t_-$ is the time that light travels from $\mathcal{B}$ to $E$ and $t_+$ the time that a it travels from $E$ to $\mathcal{B}$.
+\end{thm}
+
+$\tau$ is the \Def{proper time} of the event $E$.
+
+This theorem determines the geometry of spacetime and tells us that in spacetime diagrams, points of the same distance $\tau$ from event $O$ is hyperboloid.
+
+
+% older stuff
+
+from that: we measure time and distances (is time up to factor $c$) by sending light from $A$ to $B$ (events); of course, for moving things there is Doppler-effect
+
+Minkowski theorem tells us something about \enquote{correct} time/a \enquote{better} notion of time
+
+
+end of subsection: following example
+
+\begin{ex}[Moving Observers]\label{ex:mov_obs}
+for both observers at rest of course
+\begin{equation*}
+t = t'
+\end{equation*}
+which we get from $\tau^2 = t_+ t_- = t'_+ t'_-$; but result also intuitive, of course they measure the same time (in \ref{fig:moving_clock}, this can be seen from the fact that red arrows all have same length)
+
+relative velocity $v$:
+\begin{equation*}
+%c^2 t^2 = c^2 t'^2 - v^2 t'^2 \Leftrightarrow t = \sqrt{1 - v^2 / c^2} t' % sqrt of shit does not work, sum is there
+c^2 t'^2 = c^2 t^2 - v^2 t^2 \Leftrightarrow t' = \sqrt{1 - v^2 / c^2} t % this is correct version, right? Because primed coordinates are moving
+\end{equation*}
+-> this is very misleading; here, $t, t'$ are time differences between some events
+
+this should be intuitive, velocity has to be included (was the thing that caused differences); $c$ is included for scaling reasons, have to look at distance covered by light during measurement and thus $c t$ instead of just $t$
+
+explanation: $\tau$ is \enquote{true} time as measured by ideal clock (but we should see it as tool, we have no general, ideal clock and measure $t, t'$ instead; therefore, $\tau$ is tool helping us to relate these times from different bezugssysteme); $t$ and $t'$ are times measured
+
+
+for constant $\tau$, possible events lie on hyperboloid (hm, but this is in terms of coordinates, right? Smh)
+
+-> stuff before 2.40 is really nice
+
+
+
+also note that this effect is mutual, the other observer can claim the same thing; this is no contradiction because when changing the observer, we also change the way we define the notion of a simultaneous event (because we change the clock we use to measure it)
+\end{ex}
+
+
+
+%		\subsection{Formalized Description}%Generalized
+		\subsection{Minkowski Space}
+turns out there is a very convenient way to formulate what we just learned, in terms of manifolds (where we use coordinates only as a tool, similar to what we require for different inertial frames); will also enable to formulate some properties in a very nice manner
+
+ok, this might be nice: in spacetime diagrams, we see the idea how space and time (which are, as we know now, no separate notions) can be combined into one entity -- describe them as coordinates in one space; this space is called Minkowski space and spacetime diagrams can be seen as a visualization of it; SR is basically which geometry Minkowski space possesses and mathematically, we can describe that in metric; this metric we get from invariant notion we have already seen
+
+-> the geometric structure of Minkowski space can be described using the relation $c^2 \qty(\Delta t)^2 = \qty(\Delta x)^2 + \qty(\Delta y)^2 + \qty(\Delta z)^2$ because this naturally gives us a line element $ds^2$ and corresponding metric (these are mathematical tools needed in order to do geometry)
+
+
+solution: end separate description of space and time, go to 4D-Minkowski space; events can then be described using 4-vectors $\mathbf{\xi} = \mqty(c t \\ \vec{x}) = \mqty(c t \\ x \\ y \\ z)$; we choose to scale time such that all components have the same units; factors of $c$ are kind of nasty in relativity, which is why very often $c$ is set to $1$ (this way, first coordinate is simply time but scaling and computations are still convenient)
+
+
+
+to be more general than moving with constant speed, let's use the very general definition of how to measure lengths of curves $\gamma(t)$ defined on some interval $I$: $L(\gamma) = \int_I \sqrt{g_{\mu \nu} v^\mu v^\nu} \, dt = \int_I \sqrt{g(v, v)} \, dt$, $v = \gamma'(t)$ ($t$-dependence omitted); this is done using the metric $g$ and generalizing from the example where we subtract spatial coordinates from time yields
+\begin{equation}
+g = \eta = \mqty(1 & 0 & 0 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & -1 & 0 \\ 0 & 0 & 0 & -1)
+\end{equation}
+in basis $\mathbf{\xi} = \mqty(c t \\ \vec{x}) = \mqty(c t \\ x \\ y \\ z)$; this already determines the (pseudo) metric as a tensor because of invariance when changing the basis
+
+the corresponding line element is
+\begin{equation}
+ds^2 := (ds)^2 = g_{\mu \nu} v^\mu v^\nu = c^2 dt^2 - \norm{d\vec{x}}^2 = c^2 dt^2 - dx^2 - dy^2 - dz^2
+\end{equation}
+
+
+to see equivalence to what was deduced for non-constant speed, we rewrite condition from example \ref{ex:mov_obs}:
+\begin{equation*}
+c^2 t^2 = c^2 t'^2 - v^2 t'^2 = c^2 t'^2 - \norm{\vec{x}}^2
+\end{equation*}
+times $t$, distances $\norm{x}$ are nothing but differences from $0$ and for infinitesimal differences, this reads
+\begin{equation*}
+c^2 dt^2 = c^2 dt'^2 - \norm{d\vec{x}}^2
+\end{equation*}
+which is nothing but $ds^2$ (is invariant, just like $\tau$); this shows us very cool feature of formalized description, effects like time dilation simply follow from demanding that $ds^2$ or $d\tau^2$ (equivalent) do not depend on the inertial/coordinate system they are measured in, i.e.~$ds^2 = ds'^2$
+
+
+
+therefore, we can compute the time elapsed along a world line $\Gamma$ (which is nothing but a curve in Minkowski space) according to
+\begin{equation}
+\tau = \int d\tau = \frac{1}{c} \int ds
+\end{equation}
+if the time $t$ in some frame of reference can be measured, the proper time element can be rewritten as:
+\begin{equation}
+d\tau = \frac{ds}{c} = \frac{\sqrt{ds^2}}{c} = \frac{1}{c} \sqrt{c^2 dt^2 - d\vec{x}^2} = \frac{dt}{c} \sqrt{c^2 - \dv{\vec{x}}{t} \dv{\vec{x}}{t}} = dt \sqrt{1 - \frac{v^2}{c^2}} =: \gamma dt
+\end{equation}
+where $\gamma$ is the \Def{Lorentz-factor}
+
+
+we can see that for constant velocity, $\tau = \gamma t$ as well (where we now talk about differences which are not infinitesimal)
+
+
+
+		\subsection{Lorentz Transformations}
+now that we know how times from different frames of reference are related, we may ask for more general relations between them
+
+
+when interpreting Minkowski space as a manifold and working with coordinates/charts $\xi$, we know the results should be independent of $\xi$; in particular, that means they hold in other charts as well and changing coordinates is an important part; the basis changes even have a distinct name, \Def{Lorentz transformation}; this is basically group theory due to the symmetries that Minkowski space possesses (known from logic and experiments) ?right?
+
+
+
+		\subsection{Relativistic Dynamics}
+idea: new transformation law means we have new dynamics; these can be formulated conveniently using points and vectors in Minkowski space; talk about four-momentum and forces etc.
+
+
+\newpage
+
+
+	\section{General Relativity}
+we have seen how to compute proper times in special relativity, the formula could be broken down to 
+\begin{equation}
+\tau = \int d\tau = \frac{1}{c} \int ds = \frac{1}{c} \int \sqrt{g_{\mu \nu} v^\mu v^\nu} \, dt
+\end{equation}
+
+in fact, this formula also holds for $v = v(t)$, i.e.~when a time-dependent velocity and thus acceleration is present (we can compute dynamics); this is because it does not involve absolute differences like $x - x'$, but infinitesimal ones $dx$ along the whole path, so changes in $v$ are incorporated automatically; however, we have to use other metrics in this case and general relativity presents a general way to compute the metric
+
+
+
+
+\end{document}

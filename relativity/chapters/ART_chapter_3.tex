@@ -1,0 +1,251 @@
+%\documentclass[ART_main.tex]{subfiles}
+\input{../header}
+
+
+\begin{document}
+
+\chapter{General Relativity}
+
+	\section{Gravitational Physics Summary -- Physics Part}
+
+\rem{we use units of $c = G = 1$ (\Def{geometric units})}
+
+\rem{we adopt the Einstein summation convention where repeated indices are summed over, that is abbreviating $\sum_\mu x^\mu y_\mu = x^\mu y_\mu$}
+
+		\subsection{Newtonian Gravity}
+Newtonian gravity can be captured by his famous formula
+\begin{equation}
+\eqbox{
+F_g = - \frac{m_1 m_2}{r^2}
+}
+\end{equation}
+which describes the gravitational force that an object with mass $m_1$ exerts onto another object with mass $m_2$ (from Newton's second law, we know that the same force is exerted from the second object onto the first)
+
+
+this can also be brought into the form
+\begin{equation}\label{eq:newton_potential}
+F_g = m_2 \dv{r}\qty(\frac{m_1}{r}) = - m_2 \dv{\Phi_g}{r}
+\end{equation}
+which tells us that gravitation is a conservative force with potential $\Phi_g = - \frac{m_1}{r}$ (produced by some object with mass $m_1$). This is because it only has a radial and no angular component (thinking in polar/spherical coordinates) such that any derivative with respect to angular coordinates such as $\pdv{\Phi_g}{\theta}$ vanishes. Thus, \eqref{eq:newton_potential} is equivalent to the more general condition for conservative forces,
+\begin{equation}\label{eq:cons_force}
+\eqbox{
+\vec{F} = - \vec{\nabla} \Phi
+}
+\manyqquad
+F^k = - \delta^{k l} \pdv{\Phi}{x^l} \, .
+\end{equation}
+as a consequence, knowing the potential is sufficient to know how gravity acts; for a point particle, we can determine it from $\Delta \Phi = \nabla^2 \Phi = 0$ and for a continuous mass distribution $\rho\qty(\vec{x})$ from
+\begin{equation}
+\eqbox{
+\Delta \Phi\qty(\vec{x}) = 4 \pi \rho\qty(\vec{x})
+}
+\manyqquad
+\delta^{ij} \pdv[2]{\Phi(\vec{x})}{x^i}{x^j} = 4 \phi \rho\qty(\vec{x})
+\end{equation}
+
+on this note, it is important to mention that instead forces $\vec{F}$ are also equivalent to accelerations $\vec{a}$ (due to Newton's second law $\vec{F} = m \vec{a}$) and momenta $\vec{p}$ (due to $\vec{F} = \dv{\vec{p}}{\tau}$)
+
+
+\begin{ex}[Gravity on Earth]
+The gravity exerted by Earth on objects with mass $m$ (assuming they stand on Earth's surface for now) is
+\begin{equation}
+F_g = - m \frac{m_e}{r_e^2} = - m g
+\end{equation}
+Comparing that with Newton's second formula, $F = m a$, we see that such an object experiences an acceleration
+\begin{equation}
+a = - g = - 9.81 \frac{\metre}{\second^2} = - 1.1 \cdot 10^{-16} \frac{1}{\metre} \, .
+\end{equation}
+
+To see how much potential energy is needed to lift objects of mass $m$ to a height $h \ll r_e$ above Earth's surface, we can do a Taylor expansion around $h = 0$:
+\begin{align*}
+\Phi_g = - \frac{m_e}{r_e + h} &\simeq - \eval{\frac{m_e}{r_e + h}}_{h = 0} + h \eval{\dv{h}\qty(- \frac{m_e}{r_e + h})}_{h = 0} + \mathcal{O}(h^2)
+\\
+&= - \frac{m_e}{r_e} + h \eval{\frac{m_e}{(r_e + h)^2}}_{h = 0} + \mathcal{O}(h^2)
+\\
+&= - \frac{m_e}{r_e} + h \frac{m_e}{r_e^2} + \mathcal{O}(h^2) = - \frac{m_e}{r_e} + h g + \mathcal{O}(h^2)
+\end{align*}
+%From that, we obtain the gravitational potential energy at $h$ to first order as the difference
+However, the first contribution is nothing but the energy at Earth's surface. The potential energy that at $h$ and thus the energy which is needed to lift an object of mass $m$ to this height $h$ (which is what one is interested in most of the time) is given to first order by the difference
+\begin{equation}
+\Phi_g =  - \frac{m_e}{r_e} + g h - - \frac{m_e}{r_e} = g h \, .
+\end{equation}
+This corresponds to gauging our measurements such that Earth's surface is the value with zero potential energy.
+\end{ex}
+
+
+problem: the Newtonian description of gravity as a force is not consistent with relativity because it acts instantaneously
+
+
+
+turns out that gravitational mass and inertial mass are equal
+
+
+\begin{ex}[Gravitational Redshift]
+somehow we could build perpetual motion machine is the argument, don't get it
+
+I rather think about it like this (should be equivalent): SR tells us that photons have a certain mass $m = \frac{E}{c^2}$; therefore, it is also affected by a gravitational potential and to move against gravity, some of its energy has to be converted; that corresponds to a change in frequency, (since $f = \frac{E}{h}$):
+\begin{equation}
+\frac{f_\text{top}}{f_\text{bottom}} = \frac{E_\text{top}}{E_\text{bottom}} = \frac{m - m g h}{m} = 1 - g h
+\end{equation}
+\rem{in script, this is only true to first order, so derivation might be wrong... Result there reads $\frac{1}{m + m g h}$. Ahhh, because there things are defined differently: photon starts from top, thus it has more energy at ground}
+\end{ex}
+
+natural consequence because time is inversely proportional to frequency (time differences are): clocks tick faster at higher altitude, i.e.~for a stronger gravitational potential
+
+
+
+%reason for puzzling and seemingly inconsistent results: a frame where gravity acts is \emph{not} inertial (because we have external force in gravity, right?)!
+
+
+
+	\subsection{Special Relativity}
+\begin{defi}[Inertial Frame]
+An \Def{intertial frame of reference} is a coordinate frame where $\vec{F} = m \vec{a}$ holds. In particular, that means objects move with constant speed when no force is acting on them.
+\end{defi}
+
+there is no unique inertial frame; all laws of physics have to hold equally in all inertial frames; therefore, only quantities which are invariant under transformations between inertial frames have physical meaning
+
+we can always get other inertial frames from existing ones by looking at some which move with constant speed with respect to them; as a consequence, coordinates of events have no physical meanings; however, distances between events turn out to have an invariant (and thus physical) meaning:
+\begin{align*}
+\qty(\Delta s)^2 &= - \qty(\Delta t)^2 + \qty(\Delta x)^2 + \qty(\Delta y)^2 + \qty(\Delta z)^2
+\\
+&= \underline{\Delta x} \cdot \eta \cdot \underline{\Delta x} = \mqty(\Delta t & \Delta x & \Delta y & \Delta z) \cdot \mqty(-1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1) \cdot \mqty(\Delta t \\ \Delta x \\ \Delta y \\ \Delta z)
+\\
+&= \eta_{\mu \nu} \qty(\Delta x)^\mu \qty(\Delta x)^\nu = \qty(\Delta x)^\mu \qty(\Delta x)_\mu
+\end{align*}
+making these differences $\Delta$ infinitesimally small, i.e.~by going to $ds^2 := \qty(ds)^2$, we obtain the line element of the metric $\eta$
+
+
+
+let us now think about gravity in special relativity; in principle, we keep the Newtonian description, but some effects can be examined in different manner now (we have new notion/tool of inertial frame for example)
+
+regarding gravitational redshift: reason for puzzling and seemingly inconsistent results: a frame where gravity acts is \emph{not} inertial (because we have external force in gravity, right?)!
+
+task: finding a reference frame where the effect of gravity is not present; obviously, earths surface is not sufficient and neither is a uniformly moving one; however, in free fall we experience no gravity, that is a freely falling frame cancels out the effect of gravity
+
+we now state this more formally
+
+\begin{prop}[Weak Equivalence Principle]
+The effects of a gravitational field are indistinguishable from an accelerated frame of reference.
+\end{prop}
+so basically: only in a freely falling frame we can cancel out the effect of gravity and create an inertial frame on earth
+
+
+\begin{prop}[Einstein Equivalence Principle]
+The laws of physics in a freely falling frame are locally described by SR without gravity. Such a frame is called \Def[local inertial frame]{local inertial frame (LIF)}.
+\end{prop}
+speaking strictly mathematically, \enquote{locally} means in an infinitesimally small neighbourhood of points; how much this can be extended in practice depends on the physical effects of interest
+
+moreover, there is no global frame for Earth and no uniform direction of acceleration
+
+
+
+from experience we know about gravity that
+\begin{itemize}
+\item[(a)] all bodies which start with the same initial velocity move through a gravitational field along the same curve
+
+\item[(b)] bodies which move initially parallel to each other in a freely falling frame do not necessarily move parallel at all times if an external gravitational field is present (this effect is due to \Def{tidal forces} acting on them)
+\end{itemize}
+
+
+
+
+Now further examination of property (b)
+
+for a particle with worldline $x^k(\tau)$ we have
+\begin{equation*}
+\dv[2]{x^k}{\tau} = - \delta^{k l} \pdv{\Phi}{x^l} = - \delta^{k l} \eval{\pdv{\Phi}{x^l}}_{\vec{x}}
+\end{equation*}
+because of \eqref{eq:cons_force} and Newton's second law $F^k = m \dv[2]{x^k}{\tau}$
+
+similarly, for another particle starting close to the first one (i.e.~with worldline $x^k + \xi^k$, where $\abs{\xi^k \xi_k} \ll 1$)
+\begin{align*}
+\dv[2]{\qty(x^k + \xi^k)}{\tau} &= - \delta^{k l} \eval{\pdv{\Phi}{x^l}}_{\vec{x} + \vec{\xi}}
+\\
+&\simeq - \delta^{k l} \eval{\pdv{\Phi}{x^l}}_{\vec{x}} - \delta^{k l} \xi^m \pdv{x^m} \eval{\pdv{\Phi}{x^l}}_{\vec{x}}
+\end{align*}
+where we made use of a Taylor approximation to first order
+
+since derivatives are linear, we obtain
+\begin{equation}
+\eqbox{
+\dv[2]{\xi}{\tau} = \dv[2]{\qty(x^k + \xi^k)}{\tau} - \dv[2]{x^k}{\tau} = - \delta^{k l} \pdv[2]{\Phi}{x^m}{x^l} \, \xi^m
+}
+\end{equation}
+This is the \Def{Newtonian deviation equation}. We see that tidal forces are governed by the tidal acceleration tensor $\pdv[2]{\Phi}{x^m}{x^l}$.
+
+tidal forces are a way to detect gravity as opposed to constant acceleration (which would affect the worldlines $x^k$ and $x^k + \xi^k$ equally)
+
+
+
+	\subsection{Curved Spacetime}
+problem: Newtonian gravity and SR are not entirely consistent, e.g.~due to instantaneous effect of gravity (redshift also strange); however, we can come up with generalized description: for anybody familiar with differential/Riemannian geometry, the effects of gravity sound very much like the ones associated with a curved space; this motivates the (mathematical) description of gravity as a geometrical effect in Minkowskian spacetime (which will become a curved space in this process)
+
+derive geodesic equation; motivation: path which extremizes proper distance between events/points $A, B$; because proper time is proportional to infinitesimal line element, this tells us that the worldlines of test particles are governed by the geodesic equation, which generalizes the notion of a straight line; it makes sense to demand that because in a LIF, we have to reproduce SR where test particles move along straight lines (if no force is acting on them)
+
+
+
+
+		\subsection{Weakly Curved Spacetimes}
+re-derive first subsection from GR, that is using the spacetime metric
+\begin{equation}
+ds^2 = - \qty(1 + 2 \Phi) dt^2 + \qty(1 - 2\Phi) \qty(dx^2 + dy^2 + dz^2)
+\end{equation}
+which is the first order approximation in case the Newtonian potential $\Phi = - \frac{m}{r}$ fulfils $\abs{\Phi} \ll 1$; we will see where it comes from later on, will be used as motivation for now
+
+
+
+	\subsection{Einstein Equation}
+
+\begin{equation}
+\eqbox{
+G^{\alpha \beta} + \Lambda g^{\alpha \beta} = 8 \pi T^{\alpha \beta}
+}
+\end{equation}
+with
+\begin{equation}
+\eqbox{
+G^{\alpha \beta} = R^{\alpha \beta} - \frac{1}{2} g^{\alpha \beta} R
+}
+\end{equation}
+
+
+often, we will use
+\begin{equation}
+G^{\alpha \beta} = 8 \pi T^{\alpha \beta}
+\end{equation}
+where the contribution of the cosmological constant is thought of as stress-energy \enquote{of empty space} and absorbed in $T^{\alpha \beta}$
+
+in vacuum, this becomes
+\begin{equation}
+G^{\alpha \beta} = 0
+\end{equation}
+but since taking the trace of the Einstein equations yields $R = - 8 \pi T$, we obtain the vacuum Einstein equation
+\begin{equation}
+\eqbox{
+R^{\alpha \beta} = 0
+}
+\end{equation}
+
+
+now few examples of solutions that come out of the Einstein equations (there are not too many)
+
+\begin{ex}
+weak Newtonian potential is Schwarzschild far away from source (we define a certain potential and make a gauge transformation)
+\end{ex}
+
+
+
+		\subsection{Existence of Gravitational Waves}
+
+
+
+		\subsection{Effect of Gravitational Waves}
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,203 @@
+%\documentclass[ART_main.tex]{subfiles}
+\input{../header}
+
+
+\begin{document}
+
+\chapter{Mathematics}
+
+
+	\section{Gravitational Physics Summary -- Math Part}
+		\subsection{Basics of Manifolds}
+to describe curved spacetime, we need a coordinate-independent notion of spaces; this is given by manifolds, which are described using charts=coordinates but have an independent, invariant meaning; similarly, they can often be pictured to be embedded in some higher-dimensional Euclidian space, but that need not be the case
+
+therefore, physics happens on manifolds, so events are points on it and more
+
+
+defining vectors on manifolds is a non-trivial topic, they are now completely distinct notion from points and cannot be visualized as pointing from some origin to this point (problem: thinking of an embedded manifold for now, the vectors would point out of the manifold); instead, we can define vectors locally (infinitesimally) via derivatives of curves (i.e.~as \Def{tangent vectors}; the corresponding set of all tangent vectors is called \Def{tangent space} $V$); for a function $f(x^\alpha)$ on the manifold, we can calculate the derivative along a curve $\gamma = \gamma(\sigma)$ ($\sigma \in \mathbb{R}$ parametrizes $\gamma$):
+\begin{equation}
+\dv{f}{\sigma} = \dv{f(x^\alpha(\sigma))}{\sigma} = \pdv{f}{x^\alpha} \dv{x^\alpha}{\sigma}
+\end{equation}
+this is a simply application of the chain rule and it yields the tangent vector components
+\begin{equation}
+t^\alpha = \dv{x^\alpha}{\sigma}
+\end{equation}
+because the vector is supposed to act as
+\begin{equation}
+\underline{t} \cdot f = \qty(t^\alpha \pdv{x^\alpha}) \cdot f = \pdv{f}{x^\alpha} t^\alpha
+\end{equation}
+(remember: we identify it with a derivative, which can in turn be expressed using partial derivatives with respect to the coordinates)
+
+formally, we can express this as
+\begin{equation}
+\underline{t} = t^\alpha \underline{e_\alpha} = t^\alpha \pdv{x^\alpha} = \dv{\sigma}
+\end{equation}
+(note: $\pdv{x^\alpha}$ is often abbreviated as $\partial_\alpha$)
+
+
+tangent vectors are invariant quantities, they do not (and should not!) depend on the coordinates we use to express them; their components, on the other hand, are \emph{not} invariant; they obey the following transformation rule:
+\begin{equation}
+\underline{t} = t^\alpha \pdv{x^\alpha} = t^\alpha \pdv{x'^\beta}{x^\alpha} \pdv{x'^\beta} = t'^\beta \pdv{x'^\beta} \qquad \Leftrightarrow \qquad \eqbox{t'^\beta = t^\alpha \pdv{x'^\beta}{x^\alpha}}
+\end{equation}
+once again, this is basically just an application of the chain rule
+
+
+next natural step: linear maps on tangent space $V$ (= set/space of tangent vectors); these are called \Def{covectors} or \Def{one forms} (elements of the dual space or \Def{cotangent space} $V^*$) and it turns out that we can identify them with differentials/gradients of functions
+\begin{equation}
+df = \pdv{f}{x^\alpha} dx^\alpha
+\end{equation}
+where we chose a convenient basis $\qty{\underline{e^\alpha}}_\alpha$ of the dual vector space; the $\qty{dx^\alpha}_\alpha$ satisfy
+\begin{equation}
+dx^\alpha\qty(\pdv{x^\beta}) = \pdv{x^\alpha}{x^\beta} = \delta^\alpha_\beta
+\end{equation}
+
+more generally, such covectors $w: V \rightarrow \mathbb{R}$ obey
+\begin{equation}
+w\qty(\alpha \underline{a} + \beta \underline{b}) = \alpha w\qty(\underline{a}) + \beta w\qty(\underline{b}), \qquad \qquad \forall a, b \in \mathbb{R}, \; \underline{a}, \underline{b} \in V
+\end{equation}
+we can also characterize covectors via tuples of components
+\begin{equation}
+w_\alpha = w\qty(\underline{e_\alpha}) = w\qty(\partial_\alpha)
+\end{equation}
+
+in general, we can also write
+\begin{equation}
+w\qty(\underline{a}) = w_\alpha \underline{e^\alpha}\qty(a^\beta \underline{e_\beta}) = w_\alpha a^\alpha
+\end{equation}
+
+
+
+		\subsection{Tensors}
+generalization of vectors and covectors
+
+
+
+		\subsection{Covariant Derivative}
+
+
+
+\newpage
+
+
+
+	\section{Notes \& Thoughts}
+to be able to develop an appropriate/meaningful notion of parallelism, we need a \enquote{better} derivative. This will be provided by a connection
+
+
+
+\subsection{Giulini GR lectures May 19 and 26}
+in Riemann normal coordinates, all Christoffel symbols vanish; but they only exist in neighbourhoods around points $p$ (are Riemann normal coordinates \emph{at $p$}); they are \emph{very} helpful in calculations because tensor equations only have to be proven in a single coordinate system, which we can choose to be Riemann normal coordinates because we have just shown that they do exist
+
+uhh, Christoffel symbols satisfy an affine transformation law, not linear (indicator of not tensorial) because there is term without $\Gamma_{\mu \nu}^\sigma$
+
+
+formel of Koszul only holds like this for torsion-free and metric connections; and by substituting $X = e_\alpha, Y = e_\beta, Z = e_\gamma$ into it and then contracting with certain component of inverse metric gives rise to formula for connection coefficients (commonly called Christoffel symbols for Levi-Civita connection) and these uniquely determine the connection (which is proof for uniqueness); note that connection coefficients (= covariant derivative with only basis vectors) already determines the connection because connection is $\mathbb{R}$-linear, tensorial ($C^\infty$-linear) and obeys the Leibniz rule
+
+$\nabla_X Y = X^\alpha \qty(\nabla_\alpha Y^\beta) \pdv{x^\beta}$, so components of $\nabla_X Y$ are partial derivatives of components plus extra term, i.e.~$\nabla_{\pdv{x^\alpha}} Y =: \qty(\nabla_\alpha Y^\beta) \pdv{x^\alpha}$; however, they to read this is \emph{not} covariant derivative of $Y^\beta$ since this would be the covariant derivative of a function, but instead as the $\beta$-component of the covariant derivative $\nabla_\alpha Y$
+
+
+here it is, reason why covariant derivative of covector (with respect to some vector field $X$) looks the way it looks:
+\begin{align*}
+\nabla_X \omega &= \nabla_{X^\alpha \pdv{x^\alpha}} \qty(\omega_\beta dx^\beta)
+\\
+&= X^\alpha \qty(dx^\beta \nabla_{\pdv{x^\alpha}} \omega_\beta + \omega_\beta \nabla_{\pdv{x^\alpha}} dx^\beta)
+\\
+&= X^\alpha \pdv{\omega_\beta}{x^\alpha} dx^\beta
+\end{align*}
+but $dx^\beta\qty(\pdv{x^\alpha}) = \delta_\alpha^\beta$, so by taking the derivative of this equation we see that ... $\qty(\nabla_{\pdv{x^\gamma}} dx^\beta)\qty(\pdv{x^\alpha}) = \qty(\nabla_{\pdv{x^\gamma}} dx^\beta)^\alpha = - \Gamma_{\gamma \alpha}^\beta$
+
+from that we get general formula for tensors of arbitrary rank because of Leibniz rule; therefore, we get the \enquote{master formula}
+\begin{align}
+\nabla_X T &= T^{\alpha_1 \dots \alpha_k}_{\beta_1 \dots \beta_m} \, \pdv{x^{\alpha_1}} \otimes \dots \otimes \pdv{x^{\alpha_k}} \otimes dx^{\beta_1} \otimes \dots \otimes dx^{\beta_m}
+\notag\\
+&= X^\gamma \qty(\nabla_\gamma T^{\alpha_1 \dots \alpha_k}_{\beta_1 \dots \beta_m}) \, \pdv{x^{\alpha_1}} \otimes \dots \otimes \pdv{x^{\alpha_k}} \otimes dx^{\beta_1} \otimes \dots \otimes dx^{\beta_m}
+\notag\\
+\nabla_\gamma T^{\alpha_1 \dots \alpha_k}_{\beta_1 \dots \beta_m} &= \qty(\pdv{T^{\alpha_1 \dots \alpha_k}_{\beta_1 \dots \beta_m}}{x^\gamma} + \sum_{i = 1}^k \Gamma_{\gamma \lambda}^{\alpha_i} T^{\alpha_1 \dots \alpha_{i - 1} \lambda \alpha_{i + 1} \alpha_k}_{\beta_1 \dots \beta_m} - \sum_{j = 1}^m \Gamma_{\gamma \beta_j}^\lambda T^{\alpha_1 \dots \alpha_k}_{\beta_1 \dots \beta_{j - 1} \lambda \beta_{j + 1} \dots \beta_m})
+\end{align}
+
+
+there is also another notion of derivative on manifolds, the Lie derivative; to define it, we do not need any additional structure (unlike for connection, connection coefficients need metric); the Lie derivative can often be used to express symmetries; components of it are
+\begin{equation}
+\qty(\mathcal{L}_X T)^{\alpha_1 \dots \alpha_k}_{\beta_1 \dots \beta_m} = X^\alpha \pdv{x^\alpha} T^{\alpha_1 \dots \alpha_k}_{\beta_1 \dots \beta_m} - \sum_{i = 1}^k \pdv{X^{\alpha_i}}{x^\lambda} T^{\alpha_1 \dots \alpha_{i - 1} \lambda \alpha_{i + 1} \dots \alpha_k}_{\beta_1 \dots \beta_m} + \sum_{j = 1}^m \pdv{X^\lambda}{x^{\beta_i}} T^{\alpha_1 \dots \alpha_k}_{\beta_1 \dots \beta_{i - 1} \lambda \beta_{i + 1} \dots \beta_m}
+\end{equation}
+we notice: for upper index we now have minus, lower index has plus (reversed compared to connection); interesting property: all partial derivatives could be replaced by covariant derivatives without changing the formula (despite them being defined independently of each other!); if a certain vector field defines a symmetry, i.e.~the metric does not change under the flow of that vector field (stays constant along it/integral curves defined by it), then we can express that as the vanishing of the Lie-derivative of this symmetry-generating vector field; these vector fields are called Killing fields; note that $\qty(\mathcal{L}_X g)_{\alpha \beta} = \qty(\nabla_\alpha X^\gamma) g_{\gamma \beta} + \qty(\nabla_\beta X^\gamma) g_{\alpha \gamma} = \nabla_\alpha X_\beta + \nabla_\beta X_\alpha$ (we just use writing in terms of covariant derivative for first equality) -> shouldn't that be equal to $\nabla_{[\alpha} X_{\beta]}$; would also explain $\mathcal{L} = \text{Alt}(\nabla)$ statement I heard; ah no, this is the \emph{symmetrized} part... But maybe that supports view, symmetric part is zero for Killing field (but this has vanishing Lie derivative, so antisymmetric part also zero, right?)
+
+
+
+very interesting: Einstein tensor is divergence-free, i.e.~$\nabla_\alpha G^{\alpha \beta} = 0$
+
+we know that, in general, $\qty[\nabla_\mu, \nabla_\nu] T^{\alpha_1 \dots \alpha_k}_{\beta_1 \dots \beta_m} \neq 0$; expanding this quantity for an arbitrary vector field $X^\alpha$, $\qty[\nabla_\mu, \nabla_\nu] X^\alpha = \dots = \qty(\pdv{x^\mu} \Gamma_{\nu \beta}^\alpha - \pdv{x^\nu} \Gamma_{\mu \beta}^\alpha) X^\beta + \text{terms proportional to } \Gamma = R^\alpha_{\beta \mu \nu} X^\beta + \text{terms proportional to } \Gamma$; in Riemann-normal coordinates, $\Gamma = 0$ and $\qty[\nabla_\mu, \nabla_\nu] X^\alpha = R^\alpha_{\beta \mu \nu} X^\beta$ and since both sides are tensors, this equation holds in general; curvature is related to (Giulini said \enquote{obstruction}) commutivity of second derivatives; furthermore, pulling down the index $\alpha$ yields $\qty[\nabla_\mu, \nabla_\nu] X_\alpha = - R^\beta_{\alpha \mu \nu} X_\beta$, which tells us how this quantity acts on a covector (again, has on other sign and acts on other index, like it was for covariant derivative itself); thus, we get the general formula $\qty[\nabla_\mu, \nabla_\nu] T^{\alpha_1 \dots \alpha_k}_{\beta_1 \dots \beta_m} = \sum_{i = 1}^k R^{\alpha_i}_{\lambda \mu \nu} T^{\alpha_1 \dots \alpha_{i - 1} \lambda \alpha_{i + 1} \dots \alpha_k}_{\beta_1 \dots \beta_m} - \sum_{j = 1}^m R^\lambda_{\beta_j \mu \nu} T^{\alpha_1 \dots \alpha_k}_{\beta_1 \dots \beta_{i - 1} \lambda \beta_{i + 1} \dots \beta_m}$
+
+application of that formula: $\nabla_\mu \nabla_\nu X_\beta = R^\alpha_{\mu \nu \beta} X_\alpha$ holds for any Killing vector field $X$; second derivatives are determined by vector field itself; similarly, $\pdv{x^\alpha} X_\beta + \pdv{x^\beta} X_\alpha = 2 \Gamma_{\alpha \beta}^\gamma X_\gamma$, the symmetric part of first derivative of Killing vector field is determined by field itself as well; the only free parameters are value of the field itself and anti-symmetric part $\pdv{x^\alpha} X_\beta - \pdv{x^\beta} X_\alpha$ of first derivative (all derivatives of higher order are determined by relation to curvature tensor); solutions of linear differential equations (no matter of partial or not) constitute a vector space because we can add them together and multiply with numbers and maximum number of dimensions is given by number of freely specifiable initial conditions; here, these are values $\eval{X^\alpha}_p$ of Killing field at a specific point, i.e.~$n = \dim(M)$, and $\eval{\pdv{x^\alpha} X_\beta - \pdv{x^\beta} X_\alpha}_p$, i.e.~$\frac{1}{2} n (n + 1)$; in total, that means there are at most $n + \frac{1}{2} n (n + 1)$ independent solutions to the Killing equation; in Minkowski space there are indeed $10$, in that sense it is maximally symmetric (these generate symmetries of the space, which are given by Poincare group)
+
+
+Riemann tensor has $20$ components and there are $10$ different traces (because of antisymmetry in first two indices, which means trace is always zero); our goal is now decomposing it into trace and traceless parts, both contain information about Riemann tensor; the trace part is nothing but the Ricci tensor $R_{\alpha \beta} = R^\lambda_{\alpha \lambda \beta}$, the \enquote{rest} (trace-free part) is the Weyl tensor (which he writes down in terms of some weird product); this product has the same symmetries as the Riemann tensor, so Weyl tensor also has them and it is trace free in addition, i.e.~$W^\lambda_{\alpha \lambda \beta} = 0$ (taking these conditions into account, the Weyl tensor has $10$ independent components in $4$ dimensions; very interesting property is that \emph{only} in $4$ dimensions, the amount of information in Weyl, Ricci Tensor is the same; in $3$ dimensions, Weyl tensor has no information and in higher ones much more than Ricci); in index-form it is given by $W^\alpha_{\beta \mu \nu}$
+
+
+long talk about constant curvature; interesting statement (Schur's theorem): constant curvature $\Leftrightarrow$ Gaussian/sectional curvature of each point does not depend on the choice of the $2$-tangent-plane through the point
+
+the Weyl curvature $W^\alpha_{\beta \mu \nu}$ (which is a function of the metric $g$) has the important property of being conformally invariant, i.e.~$W^\alpha_{\beta \mu \nu}(\Omega^2 g) = W^\alpha_{\beta \mu \nu}(g)$ for some function $\Omega$ and even the reverse statement is true: if $W^\alpha_{\beta \mu \nu}(g_1) = W^\alpha_{\beta \mu \nu}(g_2)$, then $\exists$ locally a function $\Omega \in C^\infty(M; \mathbb{R})$ without zeros such that $g_1 = \Omega^2 g_2$; for example, a vanishing Weyl tensor means that the space is locally, conformally flat -> all of these statements are valid only for $n \geq 3$
+
+
+
+
+
+
+
+		\subsection{Order}
+basically take order from Penrose?; other way to put it: from summary H\_Analysis, but with less math; also Carroll?
+
+
+
+first: do manifolds; then go to tangent space (we want vectors); then go to bundles (first tangent bundle, then more general vector bundles); then define tensors and tensor bundle; then go to differential geometry
+
+
+
+	\subsection{General Thoughts}
+Schwarzschild metric contains information on many effects of BHs in its components! coefficient $1 - \frac{2 M}{r}$ in front of $dt^2$ tells us about time dilation close to BH (more $t$ goes by the closer you get) and $\frac{1}{1 - \frac{2 M}{r}}$ in front of $dr^2$ tells us about curvature of space (increases as $r$ decreases)
+
+
+
+		\subsection{Math Stuff}
+regarding tensor product: throughout the discussions, linearity of objects was very important (we have used it for the differential, many mappings, etc.); however, a very important notion that is not linear is the underlying spaces we have looked at; take for example $\mathbb{R}^2 = \mathbb{R} \cross \mathbb{R}$: here, we do not have linearity, which would require $(2, 1) = 2 \cdot (1, 1)$ and clearly, this is not true; however, we might be interested in such a space and this is what is called a tensor product space; there are more tensor products, we also have to make sense of the one of objects in this space, but this is a good motivation
+
+
+goal of derivatives is approximation to first order, which is expressed in demanding linearity of operators
+
+
+differentiation is linear and has Leibniz rule, so it already fulfils requirements for tensor derivative (thus it makes sense to demand $\nabla, d$ acting like $D$ on functions); multiple generalizations of $Df$ to something like \enquote{$Ds$} for sections $s$ exist, which is fine because from $\nabla$ we can easily get many others e.g.~by $d = \text{Alt}(\nabla)$ (not sure if equality is true, but from Carroll eq 1.82 it looks like this), that is by suitable mappings
+
+
+
+	\subsection{From Wald}
+the notion of curvature, intuitively, corresponds to the one of a $2$-sphere in 3D space; however, this is extrinsic curvature which is only visible in embeddings, but what we are interested in is something like intrinsic curvature; how can we detect that?
+
+
+
+		\subsection{From Penrose}
+tangent space in point $p \in M$ is immediate/infinitesimal vicinity of $M$ \enquote{stretched out}; more formally, a linearisation of the manifold
+
+to do physics, we cannot just work with vector spaces or affine spaces like the Euclidian space (basically $\mathbb{R}^n$, but no need to fix origin), but we need manifolds; however, manifolds do not have enough natural structure to build up the theory that is needed to describe physics, so we need some additional (local) structure (e.g.~enabling us to measure infinitesimal distances in case of a metric structure); this structure is often encoded to/using the tangent spaces (which are present naturally for manifolds), which are vector spaces again
+
+problem of abstract notion of \enquote{no structure} is for example: no general, meaningful (well-defined) notion of differentiation (does exist for functions, but not for vector fields, 1-forms or other tensors); exterior derivative is something like that, but it does not really give information about varying of the forms (nice is that it maps $p$-forms to $p + 1$-forms)
+
+
+some structure can also be provided by connection; although not every structure can reproduced, metrics uniquely determine a connection (Levi-Civita connection)
+
+
+goal of derivative operators: measure constancy and deviations from it; in case of vectors, this is equivalent to a notion of parallelism; note: we will go reverse route, define derivative and get parallelism from that; this notion will have the unusual feature of path-dependence, where unusual is meant with respect to what we know from Euclidian space; while it is possible to do this (see Wald), but this is mainly by making the \enquote{right} guess and thus not really helpful (idea is to say we want something where change of $v$ is proportional to difference $\Delta x$ and then we say: this works; welp)
+
+
+which requirements make sense? since tangent space is linearisation of manifold, there should also be linear dependence on direction that we differentiate along; more generally, pointwise linearity means that functions can be dragged across the operator; when acting on tensors however, a product rule has to be specified: $\nabla_X (f s) = (\nabla_X f) s + f \nabla_X s$ makes sense (without argument $X$, this becomes $\nabla (f s) = (\nabla f) \otimes s + f \nabla s$) (?)
+
+
+ideas come from the fact that our goal is to generalize action of derivative $D$; therefore, demanding $\nabla f = df$ also makes a lot of sense
+
+extension to more than one tensor field is possible by demanding additivity $\nabla (s + t) = \nabla s + \nabla t$ and by specifying product/Leibniz rule $\nabla (s \otimes t) = (\nabla s) \otimes t + s \otimes (\nabla t)$; to uniquely determine this generalization, it is also necessary to demand compatibility with trace/contraction (which also helps with defining these things in the first place)
+
+
+interesting: local connection can be defined uniquely from Gaussian basis vectors
+
+
+
+\end{document}
