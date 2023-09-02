@@ -78,7 +78,7 @@ For the latest version of this file, see \url{https://github.com/MaxMelching/phy
 \textbf{Important Note}: of course, I tried my best to avoid mistakes. However, I can not guarantee that all statements in these notes are actually correct!
 
 
-\textbf{Motivation}: often there is stochastic element to data, e.g.~noise, so we need statistics -> often use same, simple examples, e.g.~coin flips
+\textbf{Motivation}: often there is stochastic element to data, e.g.~noise, so we need statistics $\rightarrow$ often use same, simple examples, e.g.~coin flips
 
 
 \textbf{Goal of this course}: learn to ask the right questions
@@ -521,7 +521,7 @@ A direct corollary of these is $P(A) \leq 1, \forall A$. Property (iii) reflects
 These properties put constraints on probability values and explain how we may infer probabilities of combined events, but they say nothing about how to actually assign them.
 
 \begin{ex}[Assigning Probabilities]
-In the example of throwing a four-faced die twice the probability of each outcome $(x, y), \; 1 \leq x, y \leq 4$ is simply $1 / 16$ (the sample space is uniform), assuming there is no reason to believe the die is rigged. From that, one can assign more abstract probabilities like $P(\qty{x = 1})$ or $P(\qty{\min(x, y) = 2})$ by looking at how many outcomes lead to this event being realized and then dividing by the total number of outcomes.
+In the example of throwing a four-faced die twice, the probability of each outcome $(x, y), \; 1 \leq x, y \leq 4$ is simply $1 / 16$ (the sample space is uniform), assuming there is no reason to believe the die is rigged. From that, one can assign more abstract probabilities like $P(\qty{x = 1})$ or $P(\qty{\min(x, y) = 2})$ by looking at how many outcomes lead to this event being realized and then dividing by the total number of outcomes.
 
 The reason that one has to divide by this total number is that probabilities have to be normalized such that the closure rule is fulfilled. Since $\Omega = A \cup A^c$ ($A \cap A^c = \emptyset$) for each event $A$, the axioms of probability tell us that
 \begin{equation}
@@ -620,7 +620,7 @@ To define them we use the fact that new information, e.g.~that an event $B$ has 
 \begin{equation*}
 P'(A) = \frac{\abs{A'}}{\abs{\Omega'}} = \frac{\abs{A \cap \Omega'}}{\abs{\Omega'}} \, .
 \end{equation*}
-Using $A' = A \cap \Omega'$ ensures only outcomes in the conditioned universe $\Omega'$ occur, just like $\Omega'$ was defined as $\Omega \cap B$\footnote{Implicitly, this is done before when using $P$ as well, but always omitted since $A \cap \Omega = A, \; \forall A$. After all, $\Omega$ contains all outcomes which are in $A$, too (by definition).} This definition allows to find an expression for $P'(A)$ using $P$ (also see figure \ref{fig:cond_prob}):
+Using $A' = A \cap \Omega'$ ensures only outcomes in the conditioned universe $\Omega'$ occur, just like $\Omega'$ was defined as $\Omega \cap B$.\footnote{Implicitly, this is done before when using $P$ as well, but always omitted since $A \cap \Omega = A, \; \forall A$. After all, $\Omega$ contains all outcomes which are in $A$, too (by definition).} This definition allows to find an expression for $P'(A)$ using $P$ (also see figure \ref{fig:cond_prob}):
 \begin{equation}
 P(A | B) := P'(A) = \frac{\abs{A \cap \Omega'}}{\abs{\Omega}} \frac{\abs{\Omega}}{\abs{\Omega'}} = \frac{\abs{A \cap B}}{\abs{\Omega}} \frac{1}{\abs{B} / \abs{\Omega}} = \frac{P(A \cap B)}{P(B)} \, .
 \end{equation}
@@ -702,7 +702,7 @@ To see another viewpoint on this definition, let us rearrange it to read $P(A \c
 
 
 \begin{ex}[Four-faced Die]\label{ex:four_faced_die}
-Consider the case of two ordered rolls of a four-faced die, which is assumed to be fair (so the sample space is uniform with each event having probability $1 / 16$). The corresponding sample space has already been constructed (table \ref{tab:ss_double_roll}).
+Consider the case of two ordered rolls of a four-faced die, which is assumed to be fair (so the sample space is uniform with each event having probability $1 / 16$). The corresponding sample space has already been constructed in table \ref{tab:ss_double_roll}.
 
 Let $M = \max(x, y), \, m = \min(x, y)$ (recall: $x$ is the index for the first throw, $y$ for the second). Knowing that $m = 2$, what is the probability that $M$ takes a certain value?%, i.e.~what is $P(M | m = 2)$?
 
@@ -823,7 +823,7 @@ Now we can finally compute
 \begin{equation*}
 P(A | R) = \frac{99\% \cdot 5\%}{99\% \cdot 5\% + 10\% \cdot 95\%} = 34.26\% \, ,
 \end{equation*}
-which is surprisingly small, considering the detection efficiency of $99\%$. This is due to the false alarm rate being relatively high, which becomes relevant because there is no airplane in the majority of time ($95\%$), so the majority of clicks will be caused by false alarms. To be more precise,
+which is surprisingly small, considering the detection efficiency of $99\%$. This is due to the false alarm rate being relatively high, which becomes relevant because there is no airplane for the majority of time ($95\%$), so the majority of clicks will be caused by false alarms. To be more precise,
 \begin{equation*}
 P(A^c | R) = \frac{P(R | A^c) P(A^c)}{P(R | A) P(A) + P(R | A^c) P(A^c)} = 65.74\%
 \end{equation*}
@@ -860,7 +860,7 @@ These properties allow formulating slightly more general versions of Bayes' theo
 P(A_i | E) = \frac{P(A_i \cap E)}{P(E)} = \frac{P(A_i) P(E | A_i)}{\sum_j P(A_j) P(E | A_j)} \, .
 \end{equation}
 
-One of the major difficulties in real-world inference is assigning the priors $P(A_i)$. This is especially problematic if the data does not contain much helpful information regarding the problem. In this case, the posterior will be prior-dominated (i.e.~a change in the prior also changes the posterior substantially), which means it plays an even more important role. This is less relevant if the data contains a lot of information because the likelihood will dominate the posterior values. In the example of radar and airplane, changing the prior from $5\%$ to $10\%$ causes the posterior to go from $34.26\%$ to $52.38\%$, which means there is a clear sensitivity to it. More informative data would lead to a likelihood with a sharper peak, i.e.~the difference between detection efficiency $P(R | A)$ and false alarm rate $P(R | A^c)$ would be bigger (as already stated, the likelihood is a function of the scenario we condition on, \emph{not} the input data; nonetheless, its shape depends on the data as well).
+One of the major difficulties in real-world inference is assigning the priors $P(A_i)$. This is especially problematic if the data does not contain much helpful information regarding the problem. In this case, the posterior will be prior-dominated (i.e.~a change in the prior also changes the posterior substantially), which means it plays an even more important role. This is less relevant if the data contains a lot of information because the likelihood will dominate the posterior values. In the example of radar and airplane, changing the prior from $5\%$ to $10\%$ causes the posterior to go from $34.26\%$ to $52.38\%$, which means there is a clear sensitivity to it. More informative data would lead to a likelihood with a sharper peak, i.e.~the difference between detection efficiency $P(R | A)$ and false alarm rate $P(R | A^c)$ would be bigger (as already stated, the likelihood is a function of the scenario we condition on, \emph{not} the input data, so no closure rule needs like $P(R | A) + P(R | A^c) = 1$ has to be fulfilled).
 
 
 %for radar example with more scenarios $A_i$, we have $P(A_i | R) = \frac{P(A_i \cap R)}{P(R)} = \frac{P(A_i) P(R | A_i)}{\sum_j P(A_j) P(R | A_j)}$, which is another form of Bayes' theorem; this is very powerful as it allows to reverse the order of conditioning, i.e.~it allows to go from a causal model $P(R | A_i)$ (like specs of a radar) to $P(A_i | R)$ using a prior $P(A_i)$; that means Bayes' theorem allows to interpret measurements of $R$ in terms of the likelihood of $A_i$; instead of going $A_i \rightarrow R$ (causal order), it allows us to infer $R \rightarrow P(A_i | R)$
@@ -868,7 +868,7 @@ One of the major difficulties in real-world inference is assigning the priors $P
 
 
 \begin{ex}[Monty-Hall Problem]
-A very famous problem in probability theory was the Monty-Hall problem from a TV-show in the US. The basic setting are three doors, two of which hide a goat and one hiding a car. Each participant of the show can keep whatever is behind the door he chooses to open. However, the door is not opened immediately after the participant makes his first choice. Instead, the host (who knows where the car is) opens a door that reveals a goat (and that was not chosen by the participant). After that, there is a possibility to switch doors or keep the chosen one. The relevant question in this context is: what is the best strategy, switching or keeping?
+A very famous problem in probability theory is the Monty-Hall problem from a TV-show in the US. The basic setting consists of three doors, two of which hide a goat and one of which hides a car. Each participant of the show can keep whatever is behind the door he chooses to open. However, the door is not opened immediately after the participant makes his first choice. Instead, the host (who knows where the car is) opens a door that reveals a goat (and that was not chosen by the participant). After that, there is a possibility to switch doors or keep the chosen one. The relevant question in this context is: what is the best strategy, switching or keeping?
 
 
 It might seem unintuitive, but the best way to go is switching. A priori, each door has probability $1 / 3$ of hiding the car. However, the host has additional information that he partly reveals when opening the door. This is due to the constraints that he must not open the participant's door, but also not the door with the car. As a consequence, by opening one of the other doors its probability transfers to the other non-opened door, so all of a sudden this door has a probability of $2 / 3$ to hide the car (while the participant's door remains at $1 / 3$). Therefore, switching is best strategy.
@@ -957,15 +957,15 @@ Bayes' theorem is widely used for inferences and the idea how to apply it will b
 \begin{equation*}
 p(\tau_s) = \begin{cases} \frac{1}{\tau_\text{max} - \tau_\text{min}}, & \tau_\text{min} \leq \tau_s \leq \tau_\text{max} \\ 0, & \text{else} \end{cases}
 \end{equation*}
-where $\tau_\text{min} = \min(\qty{\tau_i}), \tau_\text{max} = \max(\qty{\tau_i})$ (which is motivated by the fact that the \enquote{true} waiting time can be neither smaller than the smallest measured one nor bigger than the biggest one). The other ingredient needed is the likelihood and we can specify that by using our knowledge that decays follow an exponential distribution \eqref{eq:exp_distr}. By making the rate $\lambda = \frac{1}{\tau_s}$ a parameter of the distribution, we can assign a likelihood
+where $\tau_\text{min} = \min(\qty{\tau_i}), \tau_\text{max} = \max(\qty{\tau_i})$ (for a sufficient amount of samples, the \enquote{true} waiting time should not neither be smaller than the smallest measured one nor bigger than the biggest one). The other ingredient needed is the likelihood and we can specify that by using our knowledge that decays follow an exponential distribution \eqref{eq:exp_distr}. By making the rate $\lambda = \frac{1}{\tau_s}$ a parameter of the distribution, we can assign a likelihood
 \begin{equation*}
 p(\tau_i | \tau_s) = \flatfrac{e^{- \flatfrac{\tau_i}{\tau_s}}}{\tau_s}
 \end{equation*}
-of each value in $\qty{\tau_i}$ being measured, assuming $\tau_s$ is the parameter of the underlying distribution. Since each decay is independent of the others, the total likelihood is
+of each value in $\qty{\tau_i}$ being measured, assuming $\tau_s$ is the parameter of the underlying process. Since each decay is independent of the others, the total likelihood is
 \begin{equation*}
 p(\{\tau_i\} | \tau_s) = \prod_{i = 1}^N p(\tau_i | \tau_s) = \flatfrac{e^{- \frac{1}{\tau_s} \sum_{i = 1}^n \tau_i}}{\tau_s^N} \, .
 \end{equation*}
-After all, the likelihood is still a probability, so the same rules regarding independence etc. apply (although it has to be emphasized that it is \emph{not} a PDF with respect to $\tau_s$ as it does not necessarily fulfil the closure rule; it is, in principle, a PDF with respect to $\tau$, but we evaluate it in some fixed value $\tau_i$).
+After all, the likelihood is still a probability, so the same rules regarding independence etc.~apply (although it has to be emphasized that it is \emph{not} a PDF with respect to $\tau_s$ as it does not necessarily fulfil the closure rule; it is, in principle, a PDF with respect to $\tau$, but we evaluate it in some fixed value $\tau_i$).
 
 This is all we need because these quantities allow the computation of the normalization constant (sometimes called \Def{evidence}) by expressing it as a marginal probability\footnotemark:
 \begin{equation*}
@@ -981,7 +981,7 @@ Results for some example data are visualized in figure \ref{fig:posteriors}. We 
 \begin{equation*}
 \tau_{s, \text{max}} = \max_{\tau_s} p(\tau_s | \{\tau_i\}) = 4.01 \, .
 \end{equation*}
-We could also other quantities for estimation (e.g.~mean or median), but the maximum is the most straightforward one.
+We could also use other quantities for estimation (e.g.~mean or median), but the maximum is the most straightforward one.
 %now: blueprint for general inferences by using Bayes' theorem; example we deal with here is radioactive decay, i.e.~we detect different waiting times $\tau_i$; we know that $p(\tau) = \frac{e^{- \tau/ \tau_h}}{\tau_h}$ where $\tau_h$ is the half life; if we knew $\tau_h$, then we would know $p(\tau) = p(\tau | \tau_h)$ (the \enquote{true} distribution); however, when we measure a set $\qty{\tau_i}$, we do not know $\tau_h$ but rather want to infer it, i.e.~we are interested in the \Def{posterior} $p(\tau_h | \qty{\tau_i})$ for $\tau_h$; we can compute the posterior according to Bayes' theorem as $p(\tau_h | \{\tau_i\}) = \frac{p(\tau_h) p(\{\tau_i\} | \tau_h)}{\int p(\tau_h) p(\{\tau_i\} | \tau_h) d\tau_h}$; usually, we have some prior information and a very common choice is $p(\tau_h) = \begin{cases} \frac{1}{\tau_\text{max} - \tau_\text{min}}, & \tau_\text{min} \leq \tau_h \leq \tau_\text{max} \\ 0, & \text{else} \end{cases}$; since the measurements $\tau_i$ are independent, we have $p(\qty{\tau_i} | \tau_h) = \prod_i p(\tau_i | \tau_h) = \prod_{i = 1}^N \frac{e^{- \tau_i/ \tau_h}}{\tau_h} = \frac{e^{- 1/ \tau_h \sum_{i = 1}^N \tau_i}}{\tau_h^N}$; the more $N$, the sharper the posterior will be peaked more sharply (goes from uniform prior to posterior with clear peak)
 \end{ex}
 \footnotetext{Throughout this example, we made use of notions that are introduced when dealing with continuous random variables in \ref{subsec:crvs}. Examples are PDF and marginalized probability.}
@@ -992,7 +992,8 @@ We could also other quantities for estimation (e.g.~mean or median), but the max
 \begin{figure}[t]
 \centering
 
-\includegraphics[width=0.6\textwidth]{pictures/posteriors_no_max.pdf}
+%\includegraphics[width=0.6\textwidth]{pictures/posteriors_no_max.pdf}
+\includegraphics[width=0.9\textwidth]{pictures/posteriors_no_max_v2.pdf}
 
 \caption{Evolution of posterior as the number of data points $N$ is increased. For $N = 0$, the posterior is nothing but the prior.}
 \label{fig:posteriors}
@@ -1021,9 +1022,9 @@ P(\Omega \cap B) &= P(B) = 1 \cdot P(B) = P(\Omega) P(B), \; \forall B \, .
 \end{align*}
 
 
-Despite a very intuitive definition, one has to be a bit careful about this notion. One reason is that disjoint events $A, B$ (where we assume $A, B \neq \emptyset\; \Rightarrow \; P(A), P(B) > 0$) are not independent since $P(A \cap B) = P(\emptyset) = 0 \neq P(A) P(B)$. In fact, this is a poster-child of non-independent events. On the other hand, if $A, B$ have a finite overlap $A \cap B$, it does not necessarily mean that they are independent. To be really sure, one has to verify it via calculation each time.
+Despite a very intuitive definition, one has to be a bit careful about this notion. One reason is that disjoint events $A, B$ (where we assume $A, B \neq \emptyset\; \Rightarrow \; P(A), P(B) > 0$) are not independent since $P(A \cap B) = P(\emptyset) = 0 \neq P(A) P(B)$. In fact, this is a poster-child of non-independent events as measuring one of them excludes the possibility of the other event occurring. On the other hand, if $A, B$ have a finite overlap $A \cap B$, it does not necessarily mean that they are independent. To be really sure, one has to verify it via calculation each time.
 
-Another source of confusion is that the independence of events is not really related to the events themselves, but rather to their probabilities (therefore, the wording is kind of unfortunate). At first, it might seem unintuitive that this makes a difference and indeed, it is subtle. Nonetheless, it is important and we can see that this is really the case by looking at \Def{conditional independence}. In a conditional universe, demanding $P(A \cap B) = P(A) P(B)$ takes the form $P(A \cap B | C) = P(A | C) P(B | C)$. It is now very easy to construct an example where $A, B$ are independent in the non-conditioned universe, but not independent in the conditioned one. For $A, B$ with $A \cap B, A \cap C, B \cap C \neq \emptyset$ it is still possible that $A \cap B \cap C = \emptyset$, which implies $P(A \cap B | C) = 0 \neq P(A | C) P(B | C)$. Hence, $A, B$ are not independent when we look at probabilities conditioned on $C$. This example shows that for the same events $A, B$, them being independent depends on the probabilities $P(A), P(B) / P(A | C), P(B | C)$ rather than just on $A, B$ as events. An illustration of the situation is provided in figure \ref{fig:indep_cond}.
+Another source of confusion is that the independence of events is not really related to the events themselves, but rather to their probabilities (therefore, the wording is kind of unfortunate). At first, it might seem unintuitive that this makes a difference and indeed, it is subtle. Nonetheless, it is important and we can see that this is really the case by looking at \Def{conditional independence}. In a conditional universe, demanding $P(A \cap B) = P(A) P(B)$ takes the form $P(A \cap B | C) = P(A | C) P(B | C)$. It is now very easy to construct an example where $A, B$ are independent in the non-conditioned universe, but not independent in the conditioned one. For $A, B$ with $A \cap B, A \cap C, B \cap C \neq \emptyset$ it is still possible that $A \cap B \cap C = \emptyset$, which implies $P(A \cap B | C) = 0 \neq P(A | C) P(B | C)$. Hence, $A, B$ are not independent when we look at probabilities conditioned on $C$. This example shows that for the same events $A, B$, them being independent depends on the probabilities $P(A), P(B)$ vs.~$P(A | C), P(B | C)$ rather than just $A, B$ as events. An illustration of the situation is provided in figure \ref{fig:indep_cond}.
 
 
 
@@ -1128,36 +1129,41 @@ which is higher than $P(HH) = 0.25$ in the case of fair coins.
 
 A very interesting observation can be made when examining the results of $P(H)^2$, which is the probability of getting two heads when treating the coin flips as independent events. Using the total probability rule again, we can calculate
 \begin{align*}
-P(H_1) &= P(C_1) P(H | C_1) + P(C_2) P(H | C_2) = \frac{1}{2} \cdot 0.9 + \frac{1}{2} \cdot 0.1 = 0.5
+P(H) &= P(C_1) P(H | C_1) + P(C_2) P(H | C_2) = \frac{1}{2} \cdot 0.9 + \frac{1}{2} \cdot 0.1 = 0.5
 %\\
 %P(H_1) &= P(C_1) \qty(P(T | C_1) P(H | C_1) + P(H | C_1)^2) + P(C_2) \qty(P(T | C_2) P(H | C_2) + P(H | C_2)^2) = \frac{1}{2} \cdot \qty(0.1 \cdot 0.9 + 0.9^2) + \frac{1}{2} \cdot \qty(0.9 \cdot 0.1 + 0.1^2) = 0.5
 \end{align*}
 which implies
 \begin{equation*}
-P(H)^2 = \frac{1}{4} \neq 0.41 = P(HH) \, .
+%P(H)^2 = \frac{1}{4} \neq 0.41 = P(HH) \, .
+P(H)^2 = 0.25 \neq 0.41 = P(HH) \, .
 \end{equation*}
-This result is very interesting because it tells us that the coin flips are not independent. How does that come about? We can answer this question by thinking in terms of information and extending the experiment to more flips. If, for example, $90$ out of $100$ flips gave $H$, it is much more likely that we are flipping the first coin rather than the second one. Keeping that in mind, we would also assign the probability for the $101$-st coin flip differently than we would for the first one, i.e.~change the prior probabilities $P(C_1), P(C_2)$. In the conditional universe on the other hand, we would already know which coin is flipped, so the results of previous coin flips do not add any information and the probability we assign does not change (which makes sense because we already know the true one). The same argument also applies tp the second flip, where information coming from the first flip can be used (which causes $P(H)^2 \neq P(HH)$). The only difference is that the actual amount of information contained is smaller for one flip, the idea becomes more clear for $100$ flips.
+This result is very interesting because it tells us that the coin flips are not independent. How does that come about? We can answer this question by thinking in terms of information and extending the experiment to more flips. If, for example, $90$ out of $100$ flips gave $H$, it is much more likely that we are flipping the first coin rather than the second one. 
+%Keeping that in mind, we would also assign the probability for the $101$-st coin flip differently than we would for the first one, i.e.~change the prior probabilities $P(C_1), P(C_2)$.
+For this reason, it makes a lot of sense that the probability of the $101$-st flip to give $H$ differs from the probability of the first flip giving $H$. The same argument also applies to the second flip, where information coming from the first flip can be used (which causes $P(H)^2 \neq P(HH)$), with the only difference being that the amount of information gained is smaller.
+%\footnotemark ~In the conditional universe on the other hand, we would already know which coin is flipped, so the results of previous coin flips do not add any information and the probability we assign does not change (which makes sense because we already know the true one). The same argument also applies to the second flip, where information coming from the first flip can be used (which causes $P(H)^2 \neq P(HH)$). The only difference is that the actual amount of information contained is smaller for one flip, the idea becomes more clear for $100$ of them.
 
-As always, one could obtain the same result from looking at the corresponding sequential diagram (the total one or only the conditioned branch). The bottom line of this example is that independence is about knowledge as well! To really understand this, one also has to remember that probabilities are assigned by us, they are not necessarily intrinsic properties (so they might as well be wrong if we do not understand the problem or knowledge is missing, e.g.~if the coin we flip is fair or not).
+As always, one could obtain the same result from looking at the corresponding sequential diagram (the total one or only the conditioned branch). The bottom line of this example is that independence is about knowledge as well! To really understand this, one also has to remember that probabilities are assigned by us, they are not necessarily intrinsic properties (so they might as well be wrong if we do not understand the problem or if knowledge is missing, e.g.~whether the coin we flip is fair or not).
 %very nice example: flipping unfair coins and knowing/ not knowing which coin we flip; the reason is that we have to think of independence differently and they way we see that is to realize that after many coin tosses we already have information, e.g.~if we look at the event in the $101$-th toss when $90$ out of $100$ of the previous tosses, we have good reason that we hold coin A; however, if we already know that we hold, these $100$ previous tosses do not add any information because we already know which coin we are holding; independence is about our knowledge also! this can be seen from sequential diagram by looking at whole universe and conditioned universe (which is only one branch of whole one, so we have very different behaviour, we can exclude some paths)
 \end{ex}
+%\footnotetext{For example to the posteriors $P(C_1 | S), P(C_2 | S)$ where $S$ is the sequence of all previous flip results.}
 
 
 The second condition for independence can be extended very easily to more than two events, where it takes the form
 \begin{equation}
 P(A_1 \cap \dots \cap A_n) = P(A_1) \dots P(A_n) \, .
 \end{equation}
-Although it might not be obvious, this is equivalent to demanding independence for any subset of events $\qty{A_i}$, pair-wise independence is not sufficient.
+Although it might not be obvious, this is equivalent to demanding independence for any subset of events $\qty{A_i}$. Pair-wise independence on the other hand is \emph{not} sufficient.
 
 
 \begin{ex}[Coin Flips]
-To validate the claim that pair-wise independence of events is not a sufficient condition for independence, we can look at the example of two coin flips again (where we assume a fair coin now). Consider the event $A$ that the result of the first flip is $H$ and $B$ that the result of the second flip is $H$. Clearly, $P(A) = \frac{1}{2} = P(B)$ and thus
+To validate the claim that pair-wise independence of events is not a sufficient condition for independence, we can look at the example of two coin flips again (where we assume a fair coin now). Consider the event $A = \{\text{result of the first flip is} \; H\}$ and $B = \{\text{result of the second flip is} \; H\}$. Clearly, $P(A) = \frac{1}{2} = P(B)$ and thus
 \begin{equation*}
 P(A) \cdot P(B) = \frac{1}{2} \cdot \frac{1}{2} = \frac{1}{4} \, .
 \end{equation*}
 As we can see from table \ref{tab:ss_double_coinflip}, this coincides with $P(HH)$ since the sample space is uniform and $A, B$ are independent (as expected).
 
-Consider now the additional event $C$ that the first \emph{and} second flip give the same result. First of all, $P(C) = \frac{1}{2}$ as two of the four outcomes fulfil the condition (see table \ref{tab:ss_double_coinflip}). Also, since there is only one way to get $H$ in both flips,
+Consider now the additional event $C = \{\text{first \emph{and} second flip give the same result}\}$. First of all, $P(C) = \frac{1}{2}$ as two of the four outcomes fulfil the condition (see table \ref{tab:ss_double_coinflip}). Also, since there is only one way to get $H$ in both flips,
 \begin{equation*}
 P(A \cap C) = P(B \cap C) = \frac{1}{4} = P(A) \cdot P(C) = P(B) \cdot P(C) \, .
 \end{equation*}
@@ -1215,11 +1221,11 @@ Hence, there is a non-independent connection between $A, B, C$ and this shows th
 
 
 	\subsection{Counting}
-A very important task in assigning probabilities is counting, which is basically combinatorics. This is especially important in case of a uniform sample space $\Omega$ with $N$ elements (i.e.~there is a finite number of outcomes each occurring with equal probability $1 / N$). The \Def{cardinality} of a set is the number of elements in it, e.g.~$\abs{\Omega} = N$. The reason why counting is important in this case is that for an event $A$ that can be realized in $\abs{A} = n$ ways,
+A very important task in assigning probabilities is counting, which is basically combinatorics. This is especially important in case of a uniform sample space $\Omega$ with $N$ elements (i.e.~there is a finite number of outcomes, each occurring with equal probability $1 / N$). The \Def{cardinality} of a set is the number of elements in it, e.g.~$\abs{\Omega} = N$. The reason why counting is important in this case is that for an event $A$ that can be realized in $\abs{A} = n$ ways,
 \begin{equation}
 P(A) = \sum_{i = 1}^n \frac{1}{N} = \frac{n}{N} = \frac{\abs{A}}{\abs{\Omega}} \, ,
 \end{equation}
-as already mentioned previously. This is one of the reasons why Monte-Carlo methods are used so widely to simulate probabilities and statistical quantities.
+as mentioned previously. This is one of the reasons why Monte-Carlo methods are used so widely to simulate probabilities and statistical quantities.
 
 
 Sometimes though, sets are defined implicitly, so counting is tricky. Luckily, some very useful shortcuts exist.
@@ -1271,7 +1277,7 @@ The answer is $2/ 3$ (thus, $1/ 3$ that sibling is a boy) and this is because we
 
 
 \begin{ex}[Die Roll]
-For a fair six-faced die, the probability of each outcome $1, 2, 3, 4, 5, 6$ is $P(A) = \frac{1}{6}$. For six rolls, each outcome therefore has a probability $P(A) = \frac{1}{6^6} \; \Leftrightarrow \; \abs{\Omega} = 6^6$.
+For a fair six-faced die, the probability of each outcome $1, 2, 3, 4, 5, 6$ is $P(A) = \frac{1}{6}$. For six rolls, each outcome like six times $6$ therefore has a probability $P(A) = \frac{1}{6^6} \; \Leftrightarrow \; \abs{\Omega} = 6^6$.
 
 If we are now interested in the event $B = \qty{\text{all six rolls yield different numbers}}$, we have to count the number of times this can happen. Obviously, the sequence $(1, 2, 3, 4, 5, 6) \in B$. From the definition of $B$, we know that every other element in it has to be a permutation of this sequence, i.e.~$\abs{B} = 6!$ and
 \begin{equation*}
@@ -1292,11 +1298,11 @@ The \Def{binomial coefficient} $\binom{n}{k}$ is the quantity that answers the q
 \end{defi}
 
 \begin{proof}
-The basic idea is to solve a simpler problem involving the binomial coefficient. This problem is how many $k$-element ordered lists one can make, which turns out to be precisely $\frac{n!}{(n - k)!}$. On the other hand, there are $\binom{n}{k}$ ways to choose $k$ different lists out of these $n$ elements. For each of these lists, there are $k!$ different ways to order them, i.e.$\binom{n}{k} k! = \frac{n!}{(n - k)!}$.
+The basic idea is to solve a simpler problem involving the binomial coefficient. This problem is how many $k$-element ordered lists one can make, which turns out to be precisely $\frac{n!}{(n - k)!}$. On the other hand, there are $\binom{n}{k}$ ways to choose $k$ different lists out of these $n$ elements. For each of these lists, there are $k!$ different ways to order them, i.e.~$\binom{n}{k} k! = \frac{n!}{(n - k)!}$.
 \end{proof}
 
 
-As always when deriving and defining a new quantity, some sanity checks should be done. These include the cases $k = n$, where we expect $1 = \binom{n}{n}$ (one way to choose all elements), and $k = 0$, where we expect $1 = \binom{n}{0}$ as well (since the only choice is $\emptyset$; still, a choice has to be made, but there is only one possible). Both are indeed fulfilled.
+As always when deriving and defining a new quantity, some sanity checks should be done. These include the cases $k = n$, where we expect $1 = \binom{n}{n}$ (one way to choose all elements), and $k = 0$, where we expect $1 = \binom{n}{0}$ as well (since the only choice is $\emptyset$, which still forms an element of the sample space and thus requires to be \enquote{chosen}). Both are indeed fulfilled.
 
 
 Properties of the binomial coefficient can be derived using algebra (messy and lengthy) or using the definition and our intuition about it. An example is that the number of subsets that can be created using $n$ elements is known to be $2^n$. But this is also exactly what the sum of all $k$-element subsets out of $n$ objects represents, so we have derived
@@ -1309,7 +1315,7 @@ A more general version of the binomial coefficient is
 \begin{equation}
 \frac{N!}{\prod_i^p n_i!} \, .
 \end{equation}
-It answers the question in how many ways $N$ elements can be divided into $p$ sets with cardinality $n_i$ (for $p = 2$, the cardinalities are $k$ and $N - k$ and the definition reduces to $\binom{n}{k}$).
+It answers the question in how many ways $N$ elements can be divided into $p$ sets with cardinality $n_i$ (reduces to $\binom{n}{k}$ for $p = 2$ and cardinalities $k, N - k \equiv$ chosen, not chosen).
 
 
 \begin{ex}[Two Heads in Ten Coin Flips]
@@ -1356,7 +1362,7 @@ This is what \Def{random variables} (RVs) do, which are defined as functions $X:
 \begin{equation}\label{eq:RV_distr}
 P_X(x) := P(X = x) := P(\qty{\omega \in \Omega: \; X(\omega) = x}) = \sum_{\omega \in \Omega: \; X(\omega) = x} P(\qty{\omega}) \, .
 \end{equation}
-$P_X$ is called \Def{probability mass function} (PMF) in case of discrete RVs (that map from and to a finite number of $x$'s) and we will use $p_X$ synonymously to $P_X$. More generally, this is also what the notion of a \Def{probability distribution} (or simply: distribution) of a RV refers to and it is based on the distribution $P$ that belongs to the sample space. The distribution of a RV also inherits some properties of this $P$:
+$P_X$ is called \Def{probability mass function} (PMF) in case of discrete RVs (that map from and to a finite number of $x$'s) and we will use $p_X$ synonymously to $P_X$. More generally, this is also what the notion of a \Def{probability distribution} (or simply: distribution) of a RV refers to and it is based on the distribution $P$ that belongs to the sample space. The distribution of a RV also inherits some properties of $P$:
 \begin{equation}
 P_X(x) \geq 0 \qquad \qquad \sum_x P_X(x) = 1 \, .
 \end{equation}
@@ -1378,7 +1384,7 @@ which still corresponds to the green part of table \ref{tab:ss_double_roll_event
 
 
 \begin{ex}[Coin Flip]\label{ex:coin_flip_rvs}
-We will now treat the very simple experiment of a coin flip with two outcomes $H, T$ and $P(H) = p \Rightarrow P(T) = 1 - p$. We may be interested in the question how often we have to flip the coin in order to get a head $H$. The corresponding RV $X$ is basically just a counter, it maps a series of flips as follows:
+We will now treat the very simple experiment of a coin flip with two outcomes $H, T$ and $P(H) = p \Rightarrow P(T) = 1 - p$. We may be interested in the question how often we have to flip the coin in order to get a head $H$. The corresponding RV $X$ is basically just a counter, it maps a series of flips (which always end at first $H$) as follows:
 \begin{equation*}
 X(T^{k - 1} H) = k \, .
 \end{equation*}
@@ -1400,7 +1406,7 @@ Instead of looking for the first $H$, we can also look at the whole series of ou
 \begin{equation*}
 P_X(H^i T^j) = p^i (1 - p)^j \, .
 \end{equation*}
-Since consecutive coin tosses are independent events, it does not make too much sense to assign probabilities to a specific series like $H^i T^j$, but rather to the number $k$ of $H$ in it. This number can also be measured by a RV $Y$ and denoting the series length with $n$, there are $\binom{n}{k}$ series' producing the same realization $k$ of $Y$ (by definition of the binomial coefficient, we are interested in all permutations of $H^k T^{n - k}$). Hence,
+Since consecutive coin tosses are independent events, it does not make too much sense to assign probabilities to a specific series like $H^i T^j$, but rather to the number $k$ of $H$ in it. This number can also be measured by a RV $Y$ and denoting the series length with $n$, there are $\binom{n}{k}$ series' producing the same realization $k$ of $Y$ (by definition of the binomial coefficient, we are interested in \emph{different} permutations of $H^k T^{n - k}$, not all). Hence,
 \begin{equation*}
 P_Y(k) = \sum_{\qty{H, T}^{\cross n}: \; \#\qty{H} = k} p^k (1 - p)^{n - k} = \binom{n}{k} p^k (1 - p)^{n - k} \, .
 \end{equation*}
@@ -1414,11 +1420,11 @@ The \Def[expectation]{expected value/expectation} of a RV is
 E[X] = \sum_x x P_X(x) \, .
 \end{equation}
 \end{defi}
-This is essentially a weighted average of all realizations of a RV and gives us a statement on the realizations that are most likely to occur. There is no analogue of this for events in samples spaces because it does not make sense to speak of half heads. In the interpretation of probability as mass, the expectation is the center of mass.
+This is essentially a weighted average of all realizations of a RV and gives us a statement about the realizations that are most likely to occur. There is no analogue of this for events in samples spaces because it does not make sense to speak of half heads. In the interpretation of probability as mass, the expectation is the center of mass.
 
 
 \begin{ex}[Wheel of Fortune]
-Depending on the experiment, the expectation as a weighted average has different meanings. We now treat the example of a wheel of fortune (figure \ref{fig:wheel_of_fortune}), where we get the reward that the black thick line stops on after spinning the wheel. In this case, the probabilities for each reward $X$ are nothing but its fraction of area occupied and thus
+Depending on the experiment, the expectation as a weighted average has different meanings. We now treat the example of a wheel of fortune (figure \ref{fig:wheel_of_fortune}), where we get the reward that the thick black line stops on after spinning the wheel. In this case, the probabilities for each reward $X$ are nothing but its fraction of area occupied and thus
 \begin{equation*}
 E[X] = \frac{1}{6} \cdot 1\$ + \frac{1}{2} \cdot 2\$ + \frac{1}{3} \cdot 4\$ = \frac{15}{6} \$ = 2.5\$ \, .
 \end{equation*}
@@ -1471,13 +1477,13 @@ Since $P_X(x)$ can be interpreted as a frequency of occurrence, $2.5\$$ is the a
 
 
 
-When thinking of the expectation as an average, we can think of many interesting quantities to compute it for. A simple idea, which is complementary to the expectation itself, is the average deviation of realizations from their average. However, measuring linear deviations turns out to make no sense because
+When thinking of the expectation as an average, we can think of many interesting quantities to compute it for. A simple idea, which is complementary to the expectation itself, is the average deviation of realizations from their expectation $\equiv$ average. However, measuring linear deviations turns out to make no sense because
 \begin{equation*}
 E[X - E[X]] = E[X] - E[X] = 0 \, .
 \end{equation*}
 When looking for a quantity that is not trivially vanishing, it makes sense to go to quadratic deviations, which leads to the \Def{variance}
 \begin{equation}
-\Var(X) := E[(X - E[X])^2] \, .
+\Var(X) := E[(X - E[X])^2] = E[X^2] - E[X]^2 \, .
 \end{equation}
 
 
@@ -1543,7 +1549,7 @@ That means we should rather play it safe in the first stage to make sure we get 
 \subfloat[Strategy 1]{
 \begin{tikzpicture}[grow=right,level 1/.style={level distance=5\baselineskip}]
 \node[circle, fill]{}
-    child{node{$100\$$}
+    child{node{}%{$100\$$} % Only confuses
 	    child{node{$300\$$}
 	    edge from parent[below]node{$0.5$}
 		}
@@ -1563,7 +1569,7 @@ That means we should rather play it safe in the first stage to make sure we get 
 \subfloat[Strategy 2]{
 \begin{tikzpicture}[grow=right,level 1/.style={level distance=5\baselineskip}]
 \node[circle, fill]{}
-    child{node{$200\$$}
+    child{node{}%{$200\$$} % Only confuses
 	    child{node{$300\$$}
 	    edge from parent[below]node{$0.8$}
 		}
@@ -1585,10 +1591,9 @@ That means we should rather play it safe in the first stage to make sure we get 
 
 
 
-
 RVs are still defined on a sample space $\Omega$. That means we should be able to condition them on events $A$. This is indeed possible because elements of the sample space $\Omega' = \Omega \cap A$ can still be mapped after that.\footnote{All others have probability zero, so they are not relevant.} From the definition in equation \eqref{eq:RV_distr} we can also make sense of the distribution of such a RV,
 \begin{equation}
-P_{X | A}(x) := P(\qty{\omega' \in \Omega': \; X(\omega') = x}) = \sum_{\omega' \in \Omega': \; X(\omega') = x} P(\qty{\omega'}) = \sum_{\omega \in \Omega: \; X(\omega) = x} P(\{\omega\} | A) \, .
+P_{X | A}(x) := P'(\qty{\omega' \in \Omega': \; X(\omega') = x}) = \sum_{\omega' \in \Omega': \; X(\omega') = x} P'(\qty{\omega'}) = \sum_{\omega \in \Omega: \; X(\omega) = x} P(\{\omega\} | A) \, .
 \end{equation}
 Thus, we can define an expectation using this conditional PMF, the \Def{conditional expectation}
 \begin{equation}
@@ -1616,18 +1621,22 @@ which describes the probability of getting $H$ in the $k$-th flip (not at least 
 \begin{equation*}
 E[X] = \sum_{k = 1}^\infty k p (1 - p)^k \, .
 \end{equation*}
-
-A convenient way to compute it while avoiding the evaluation of this series, is to once again use the fact that consecutive coin flips are independent. That means if we know there is no $H$ in the first toss, then we can also look at the RV $Y = X - 1 | X > 2$. The distribution of this $Y$ is
+A convenient way to compute it while avoiding the evaluation of this series, is to once again use the fact that consecutive coin flips are independent. If we know there is no $H$ in the first toss, we can also look at the RV $Y = X - 1 | X > 1$. The distribution of this $Y$ is
 \begin{equation*}
-P_Y(k) = p (1 - p)^k  = P_X(k)
-\end{equation*}
-because the coin does not care about previous results and each toss is a new experiment - geometric RVs are \Def[memorylessness]{memoryless}. A very illustrative example would be two persons flipping coins, but one starting later. For each flip, they have the same probabilities to get $H, T$, despite one person starting earlier.%this is now a conditioned universe due to the additional \enquote{information}, which means that relative height stays the same between different bins, but they still have to sum to $1$ (which means higher bins since we have less elements that are non-zero, first $x$ are zero)
-
-More formally, we can define $A_1 = \qty{X = 1}, A_2 = \qty{X > 1}$ (first toss is head, tail). $A_1 \cup A_2$ includes all possible outcomes, so we can write
+P_Y(k) = p (1 - p)^k = P_X(k)
+%\begin{split}
+%P_Y(k) &= P_{X - 1 | X - 1 > 0}(k) = \sum_{\omega \in \Omega: X(\omega) - 1 = k} P(\{\omega\} | \{\omega = T \omega'\}) = \sum_{\omega: X(\omega) - 1 = k} \frac{P(\{\omega\} \cap \{\omega = T \omega'\})}{P(\{\omega = T \omega'\})}
+%\\
+%&= \sum_{\omega: X(\omega) - 1 = k \, \wedge \, \omega = T \omega'} \frac{(1 - p) \, P(\{\omega'\})}{1 - p} = \sum_{\omega': X(\omega') = k} P(\{\omega'\}) = P_X(k) \, .
+%\end{split}
+\end{equation*} 
+% Logical explanation: only the number of tosses we do matters for distribution, not the starting point; one starting later will NOT have different probability in each toss, but total distribution may be different, if we count differently; however, if we have the additional information that no H in first toss, then person starting one toss later will have EXACTLY THE SAME distribution as initial person we are looking at (because first toss of initial person is not random anymore, we have information about its outcome)
+because the probability of a single coin toss does not depend on the number of previous tosses -- geometric RVs are \Def[memorylessness]{memoryless}. A very illustrative example would be two persons flipping coins, but one starting later. For each flip, they have the same probabilities to get $H, T$, despite one person starting earlier.\footnotemark%this is now a conditioned universe due to the additional \enquote{information}, which means that relative height stays the same between different bins, but they still have to sum to $1$ (which means higher bins since we have less elements that are non-zero, first $x$ are zero)
+~More formally, we can define $A_1 = \qty{X = 1}, A_2 = \qty{X > 1}$ (first toss is $H, T$). $A_1 \cup A_2$ includes all outcomes, so
 \begin{equation*}
 E[X] = P(A_1) E[X | A_1] + P(A_2) E[X | A_2] = p E[X | A_1] + (1 - p) E[X | A_2] \, .
 \end{equation*}
-Since $P_{X | A_1}(1) = 1$, the first term is simply $p$. To simplify the second term, we rewrite:
+Since $P_{X | A_1}(1) = 1$, the first term equals $p$. To simplify the second term, we rewrite:
 \begin{align*}
 E[X | A_2] &= E[X | X > 1] = E[X - 1 + 1 | X - 1 > 0]
 \\
@@ -1644,6 +1653,7 @@ E[X] = p + (1 - p) \qty(E[X] + 1) \quad \Leftrightarrow \quad E[X] = \frac{1}{p}
 \end{equation*}
 which should be very intuitive since it expresses the average number of tosses to get $H$ for the first time. This will be small if $p = P(H)$ is very high (and vice versa).
 \end{ex}
+\footnotetext{Note that the results of putting series' like $TTTH$ into $X, Y$ are not the same. However, $P_X(k) = P_Y(k)$ because of the additional information $X > 1$ that is included in $Y$ and the independence of consecutive flips.}
 
 
 
@@ -1724,7 +1734,7 @@ Since $P_{Y | X = x}(y | x)$ is defined in the same manner as $P_{X | Y = y}(x |
 \begin{equation}\label{eq:joint_pmf}
 P_{X, Y}(x, y) =  P_X(x) P_{Y | X}(y | x) = P_Y(y) P_{X | Y}(x | y) \, .
 \end{equation}
-Additionally, as we might suspect from conditional probabilities of events, the joint PMF naturally leads to the notion of \Def{independence} of RVs. And just like before, while
+Additionally, as we might guess from conditional probabilities of events, the joint PMF naturally leads to the notion of \Def{independence} of RVs. And just like before, while
 \begin{equation}
 P_{X | Y = y}(x | y) = P_X(x) \qquad \qquad P_{Y | X = x}(y | x) = P_Y(y)
 \end{equation}
@@ -1736,14 +1746,14 @@ Using this condition, we can see that the RVs in table \ref{tab:ss_rv} are not i
 \begin{equation*}
 P_X(3) P_Y(2) = \qty(\frac{2}{20} + \frac{1}{20} + \frac{3}{20}) \cdot \qty(\frac{1}{20} + \frac{3}{20} + \frac{1}{20}) = \frac{6}{20} \cdot \frac{5}{20} = \frac{3}{40} \neq \frac{3}{20} = P_{X, Y}(3, 2) \, .
 \end{equation*}
-However, one can verify that conditioning on the event $A = \qty{(x, y): \; x \leq 2, y \geq 3}$ (yellow part of table \ref{tab:ss_rv}) produces independent RVs with joint PMF $P_{X, Y | A} = P_{X | A} P_{Y | A}$.\\
+However, one can verify that conditioning on the event $A = \qty{(x, y): \; x \leq 2, y \geq 3}$ (yellow part of table \ref{tab:ss_rv}) produces independent RVs with joint PMF $P_{X | A, Y | A} = P_{X | A} P_{Y | A}$.\\
 
 
 Having developed the formalism for two random RVs, we can now generalize it to an arbitrary number $k$ of them. For example, in case of $k = 3$, the condition for independence would read $P_{X, Y, Z}(x, y, z) = P_X(x) P_Y(y) P_Z(z)$, conditional PMFs $P_{X | Y, Z}(x | y, z)$ etc. The most general versions are analogues of the summation/total probability and multiplication rule:
 \begin{align}
 P_{X_i}(x_i) &= \sum_{x_1, \dots x_{i - 1}, x_{i + 1}, \dots, x_k} P_{X_1, \dots, X_k}(x_1, \dots, x_k)
 \\
-P_{X_1, \dots, X_k}(x_1, \dots, x_k) &= P_{X_1}(x_1) P_{X_2 | X_1}(x_2 | x_1) \dots P_{X_k | X_1, \dots X_{k - 1}}(x_k | x_1, \dots, x_{k - 1}) \, .
+P_{X_1, \dots, X_k}(x_1, \dots, x_k) &= P_{X_1}(x_1) P_{X_2 | X_1}(x_2 | x_1) \dots P_{X_k | X_1, \dots, X_{k - 1}}(x_k | x_1, \dots, x_{k - 1}) \, .
 \end{align}
 The former is nothing but the definition of marginal PMFs.
 
@@ -1752,9 +1762,9 @@ The former is nothing but the definition of marginal PMFs.
 	\subsection{Functions of RVs}
 Often, it is possible to measure certain RVs like height or weight, but the quantity we are really interested in is a combination of them, for example the $\text{BMI} = \frac{\text{weight}}{\text{height}^2}$. For a mathematical description of this, we have to consider RVs $Z = g(X, Y)$ obtained from two RVs $X, Y$ via a mapping $g: \mathbb{R}^2 \rightarrow \mathbb{R}$. The corresponding PMF is
 \begin{equation}
-P_Z(z) = \sum_{\omega \in \Omega: \; Z(\omega) = z = g\qty(X(\omega), Y(\omega))} P(\qty{\omega}) = \sum_{(x, y): \; g(x, y) = z} P_{X, Y}(x, y) \, ,
+P_Z(z) = \sum_{\omega \in \Omega: \; Z(\omega) = g\qty(X(\omega), Y(\omega)) = z} P(\qty{\omega}) = \sum_{(x, y): \; g(x, y) = z} P_{X, Y}(x, y) \, .
 \end{equation}
-and hence the expectation reads
+Hence the expectation reads
 \begin{equation}
 E[Z] = \sum_z z P_Z(z) = \sum_{g(x, y)} g(x, y) \sum_{(x, y): \; g(x, y) = z} P_{X, Y}(x, y) = \sum_{x, y} g(x, y) P_{X, Y}(x, y) \, .
 \end{equation}
@@ -1773,7 +1783,7 @@ E[a X + b Y + c] &= \sum_{x, y} (a x + b y + c) P_{X, Y}(x, y)
 \\
 &= a \sum_x x \sum_y P_{X, Y}(x, y) + b \sum_y y \sum_x P_{X, Y}(x, y) + c
 \\
-&= a \sum_x x P_X(x) + b \sum_y y P_Y(y) + c \, .
+&= a \sum_x x P_X(x) + b \sum_y y P_Y(y) + c = a E[X] + b E[Y] + c \, .
 \end{align*}
 %
 %Similarly,
@@ -1784,7 +1794,7 @@ E[X Y] &= \sum_{x, y} x y P_{X, Y}(x, y) = \sum_{x, y} x y P_X(x) P_Y(y)
 \end{align*}
 \end{proof}
 
-It is even possible to proof the extension (still assuming independent $X, Y$)
+It is even possible to prove the extension (still assuming independent $X, Y$)
 \begin{equation}
 E[g(X) h(Y)] = E[g(X)] E[h(Y)] \,. 
 \end{equation}
@@ -1799,11 +1809,11 @@ Until this point, we have dealt with RVs that map from and to a discrete number 
 \begin{equation}
 P(a \leq X \leq b) = \sum_{x \in [a, b]} P_X(x) \, .
 \end{equation}
-In the continuous case however, an interval contains infinitely many points $x$ and if they all have a non-zero probability $P_X(x) > 0$,
+In the continuous case however, intervals contain an infinite number of points $x_i$ and if they all have a non-zero probability $P_X(x_i) > 0$,
 \begin{equation}
 P(a \leq X \leq b) = \sum_{x \in [a, b]} P_X(x) = \sum_{i = 1}^\infty P_X(x_i) = \infty \, .
 \end{equation}
-This is a violation of the closure rule. To solve this problem, we have to move on from assigning probabilities to points and instead assign them to intervals. A tool that naturally assigns numbers to intervals and is also the natural limit of sums is the integral. Consequently, we write the probability of some range of values $S = [a, b] \subset \mathbb{R}$ being realized by a continuous RV (CRV) $X$ as
+This is a (unsolvable!) violation of the closure rule. To fix this problem, we have to move on from assigning probabilities to points and instead assign them to intervals. A tool that naturally assigns numbers to intervals and is also the natural limit of sums is the integral. Consequently, we write the probability of some range of values $S = [a, b] \subset \mathbb{R}$ being realized by a continuous RV (CRV) $X$ as
 \begin{equation}\label{eq:distr_crv}
 %P_X(S) = \int_S f_X(x) \, dx = \int_a^b f_X(x) \, dx = P\qty(\qty{\omega \in \Omega: \; a \leq X(\omega) \leq b}) = P(a \leq X \leq b) \, .
 P_X(S) = \int_a^b f_X(x) \, dx = \int_{X^{-1} S} dP = P\qty(\qty{\omega \in \Omega: \; a \leq X(\omega) \leq b}) =: P(a \leq X \leq b) \, .
@@ -1814,13 +1824,13 @@ P_X(S) = \int_a^b f_X(x) \, dx = \int_{X^{-1} S} dP = P\qty(\qty{\omega \in \Ome
 These are different ways in which probabilities involving CRVs can be computed, either using its distribution $P_X$ or the distribution $P$ on the sample space. $P(a \leq X \leq b)$ is just a general way to denote them. 
 For a single point $S = \qty{x}$, $P_X(\qty{x}) = 0$ because points are null sets, $\int_x^x f_X(x') \, dx' = 0$. The object that assigns non-zero values to points $x \in \mathbb{R}$ now is the function $f_X(x)$, which is called \Def{probability density function} (PDF) or just density. It may be thought of as a non-normalized probability of points. In the discrete case, density and probability are equal (the PMF $P_X$ assigns probabilities to points $x$)\footnote{In the language of measure theory, discrete RVs are just a special case of CRVs occurring in discrete sample spaces, where the counting measure and hence sums are used.}, whereas for CRVs
 \begin{equation}\label{eq:def_PDF}
-f_X(x) = \frac{P(x \leq X \leq x + dx)}{dx}, \quad dx \text{ small} \, .
+f_X(x) = \frac{P(x \leq X \leq x + dx)}{dx}, \quad dx~\text{ small} \, .
 \end{equation}
 In contrast to PMFs, the interval length/distance of points $dx$ has to be taken into account for proper normalization of PDFs. Symbolically, by setting $dx = 1$, we retrieve the claim
 \begin{equation}
 f_X(x) = \frac{P(x \leq X < x + 1)}{1} = P(X = x) = P_X(x)
 \end{equation}
-that was made about discrete RVs (it has been assumed that $X$ takes values on $\mathbb{N}$).\footnote{Here, we use a definition/convention where the point $x + dx$ is excluded in order to have this equivalence. This does not change the probability in the CRV case because points are null sets.}
+about discrete RVs (it has been assumed that $X$ takes values on $\mathbb{N}$, so $x_{i + 1} - x_i = 1$).\footnote{Here, we use a definition/convention where the point $x + dx$ is excluded in order to have this equivalence. This does not change the probability in the CRV case because points are null sets.}
 %regarding the assumption"; this can be achieved for all discrete RVs by adjusting their mapping" -> right?
 
 
@@ -1828,7 +1838,7 @@ We can now introduce certain quantities known from discrete RVs and also state p
 \begin{prop}
 
 \begin{enumerate}
-\item Non-zero probabilities: $f_X(x) > 0, \, \forall x$
+\item Non-negative probabilities: $f_X(x) \geq 0, \, \forall x$
 
 \item Closure rule: $\int_{- \infty}^\infty f_X(x) \, dx = 1$
 
@@ -1863,18 +1873,18 @@ Although the CDF still does not assign values to every point $x \in \mathbb{R}$ 
 
 
 
-Furthermore, from $f_X(x) > 0$ we see that $F_X$ is a monotonically increasing function and it also fulfils (assuming $a \leq b$)
+Furthermore, from $f_X(x) \geq 0$ we see that $F_X$ is a monotonically increasing function and it also fulfils (assuming $a \leq b$)
 \begin{equation}
 P(a \leq X \leq b) = \int_a^b f_X(x) \, dx = \int_{-\infty}^b f_X(x) \, dx - \int_{-\infty}^a f_X(x) \, dx = F_X(b) - F_X(a) \, .
 \end{equation}
-Both properties translate to the discrete case as well because $P_X(x) > 0$ and sums can be split accordingly. In the continuous case, combining them with equation \eqref{eq:def_PDF} yields
+Both properties translate to the discrete case as well because $P_X(x) \geq 0$ and sums can be split accordingly. In the continuous case, combining them with equation \eqref{eq:def_PDF} yields
 \begin{equation}
 f_X(x) = \frac{F_X(x + dx) - F_X(x)}{dx} = \frac{F_X(x + dx) - F_X(x)}{x + dx - x} \underset{dx \rightarrow 0}{=} \dv{F_X(x)}{x} \, .
 \end{equation}
 For discrete RVs with $f_X = P_X$, this relationship only holds in points where $F_X$ is defined. Still, it makes sense to write the relationship in this way since $P_X$ is defined only in these points as well. Hence, we have found a quantity that shows no conceptual differences between discrete/continuous RVs and is, in principle, sufficient to describe them.\\
 
 
-We will now put into perspective what happened in the previous paragraphs and how we ended up with the notion of a density. Basically, we explained how sums do not work for CRVs, which motivates the replacement $\sum P \rightarrow \int dP$. In \eqref{eq:distr_crv}, we have written out this integral in terms of $f_x dx =  P(x \leq X \leq x + dx)$ at first, $dP$ on $\Omega$ was only used after that. Mathematically, this transition can be made thanks to the concept of pushforward measure $d\qty(X_* P)$ (i.e.~using measure theory) and by applying the transformation rule. This is why another function $f_X$ suddenly shows up in addition to $P_X$. Since the PDF is an object determining probabilities, expectations and therefore basically all other objects of interest, the theory of CRVs mostly deals with finding and manipulating PDFs. To make ourselves more familiar with PDFs, we will now treat important examples of them. % thought $dP = P(x \leq X \leq x + dx)$, but that does not make sense right? Because $dP$ is on sample space; is rather the case that $\int_{X^{-1} S} dP = \int_S P(x \leq X \leq x + dx)$, right?
+We will now put into perspective what happened in the previous paragraphs and how we ended up with the notion of a density. Basically, we explained how sums do not work for CRVs, which motivates the replacement $\sum P \rightarrow \int dP$. In \eqref{eq:distr_crv}, we have written out this integral in terms of $f_x dx =  P(x \leq X \leq x + dx)$ at first, $dP$ on $\Omega$ was only used after that. Mathematically, this transition can be made thanks to the concept of pushforward measure $d\qty(X_* P)$ (i.e.~using measure theory) and by applying the transformation rule, rewriting $d\qty(X_* P) = f_X dx$. This is why another function $f_X$ suddenly shows up in addition to $P_X$. Since the PDF is an object determining probabilities, expectations and therefore basically all other objects of interest, the theory of CRVs mostly deals with finding and manipulating PDFs. To make ourselves more familiar with them, we will now treat important examples. % thought $dP = P(x \leq X \leq x + dx)$, but that does not make sense right? Because $dP$ is on sample space; is rather the case that $\int_{X^{-1} S} dP = \int_S P(x \leq X \leq x + dx)$, right?
 
 
 \begin{ex}[Important Distributions]
@@ -1894,7 +1904,7 @@ E[X] = \frac{a + b}{2} \qquad \qquad \Var(X) = \frac{(b - a)^2}{12} \, .
 \begin{equation}\label{eq:exp_distr}
 f_X(x) = \lambda e^{- \lambda x}
 \end{equation}
-where $0 \leq x \leq \infty$ is the parameter of the distribution and $\lambda > 0$.% (e.g.~time $t = x$ and lag time $\tau = \frac{1}{\lambda}$ in case of the Geiger-Müller-counter).
+where $0 \leq x \leq \infty$ is the input parameter of the distribution and $\lambda > 0$.% (e.g.~time $t = x$ and lag time $\tau = \frac{1}{\lambda}$ in case of the Geiger-Müller-counter).
 
 Properties of an exponential RV $X$ are
 \begin{equation}
@@ -1906,13 +1916,13 @@ Therefore, we can interpret $\lambda$ as a rate parameter that e.g.~encodes when
 %$\Rightarrow$ one of favourite distributions of her
 
 
-\item \Def{Poisson distribution}: originates from similar idea to exponential, but instead of dealing with waiting time between events and assigning probabilities to them, it deals with the expected (average) number of events in a given time interval.
+\item \Def{Poisson distribution}: originates from similar idea to exponential, but instead of dealing with waiting time between events and assigning probabilities to them, it deals with the expected/average number of events in a given time interval.
 
-One can describe this mathematically by dividing the time interval of length $T$ into $N$ smaller intervals of length $\Delta t = \frac{T}{N}$ and then looking at the limit $N \rightarrow \infty$. The probability of observing exactly one event in $T$ is probability of observing in one time interval $\Delta t$ multiplied with probability not to observe it in the other time intervals. Since there are $N$ possible ways this can occur,
+One can describe this mathematically by dividing the time interval of length $T$ into $N$ smaller intervals of length $\Delta t = \frac{T}{N}$ and then looking at the limit $N \rightarrow \infty$. The probability of observing exactly one event in $T$ is the probability $\lambda \Delta t$ of observing it in a certain time interval $\Delta t$ multiplied with the probability not to observe it in the other time intervals. Since there are $N$ possible ways this can occur,
 \begin{equation*}
 p_X(1) = N \lambda \Delta t (1 - \lambda \Delta t)^{N - 1} = \frac{\lambda T}{1 - \lambda T/ N} (1 - \lambda T/ N)^N \, .
 \end{equation*}
-In the limit $N \rightarrow \infty$, this reads
+In the continuum limit $N \rightarrow \infty$, this reads
 \begin{equation*}
 p_X(1) = \lambda T e^{- \lambda T} \, .
 \end{equation*}
@@ -1931,7 +1941,7 @@ Properties of a Poissonian RV $X$ are
 \begin{equation}
 E[X] = \alpha \qquad \qquad \Var(X) = \alpha \, .
 \end{equation}
-Since $\alpha$ is related to the expectation and its width, it is also a parameter that moves the distribution on the $x$-axis.% (to be more precise, it moves the non-zero part/support of the distribution). -> ah problem: is only zero in $0$ itself, otherwise simply very small
+Since $\alpha$ is the expectation (makes sense, is rate $\times$ time span = number) and its width, it is also a parameter that moves the distribution on the $x$-axis.% (to be more precise, it moves the non-zero part/support of the distribution). -> ah problem: is only zero in $0$ itself, otherwise simply very small
 
 
 \item \Def{Binomial distribution}: describes the outcomes of Bernoulli experiments, i.e.~experiments with two outcomes $0, 1$ that have probabilities $p, q = 1 - p$, respectively. When performing $N$ of these experiments, the probability to get outcome $0$ the first $n$ times and outcome $1$ the next $N - n$ times is $p^n q^{N - n}$. Since there are $\binom{N}{n}$ ways to get $n$ outcomes $0$ in different orders, we have derived
@@ -1949,7 +1959,7 @@ Again, we can see that the $N$ is a parameter that moves the distribution.
 
 \item \Def{Gaussian/normal distribution}: also nice derivation, result is
 \begin{equation}
-f_X(x) = \frac{1}{\sqrt{2 \pi} \sigma^2} e^{- \frac{(x - \mu)^2}{\sigma^2}} =: \mathcal{G}(\mu, \sigma) = \mathcal{N}(\mu, \sigma) \, .
+f_X(x) = \frac{1}{\sqrt{2 \pi} \sigma^2} e^{- \frac{(x - \mu)^2}{2 \sigma^2}} =: \mathcal{G}(\mu, \sigma) = \mathcal{N}(\mu, \sigma) \, .
 \end{equation}
 
 Properties of a Gaussian RV $X$ are
@@ -1989,24 +1999,24 @@ All of the distributions mentioned here are visualized in figure \ref{fig:pdf_pl
 
 
 
-Although many of these distributions are important, there is one that clearly stands out and forms some kind of prime example of a PDF. This is the Gaussian distribution and we will now deal with it in more detail.
+Although many of these distributions are important in the real world, there is one that clearly stands out and forms some kind of prime example of a PDF. This is the Gaussian distribution and we will now deal with it in more detail.
 
 \begin{ex}[Gaussian Distribution]
 The Gaussian/normal distribution
 \begin{equation*}
 \mathcal{G}(\mu, \sigma) = \mathcal{N}(\mu, \sigma) = \frac{1}{\sqrt{2 \pi} \sigma^2} e^{- \frac{(x - \mu)^2}{2\sigma^2}}
 \end{equation*}
-is particularly interesting because it has many convenient properties. One of them is that it describes a superposition of many random events (in the limit of infinite trials), such as many samples drawn from a binomial distribution or noise in experiments. To be a bit more precise, it describes the superposition of many CRVs and a remarkable feature is that this is independent of the distribution the CRVs have (see \ref{subsec:limit_thms}).
+is particularly interesting because it has many convenient properties. One of them is that it describes a superposition of many random events or rather CRVs (in the limit of infinite trials), such as noise in experiments. A remarkable feature is that this holds independently of the distribution the CRVs have (see \ref{subsec:limit_thms}).
 
 Moreover, the linear combination $Y = a X + b$ of a Gaussian CRV $X$ is still Gaussian with
 \begin{equation}
 f_Y(y) = \mathcal{G}(a \mu + b, a^2 \sigma^2) \, .
 \end{equation}
-Mean and variance can be computed from the law of the unconscious statistician \eqref{eq:unc_stat_crv}, shape not. This property is very useful because it allows to perform many calculations involving expectations of Gaussians only for the \Def{standard normal distribution}
+This is because the parameters $\mu, \sigma$ of a Gaussian are precisely its mean and variance, so the law of the unconscious statistician \eqref{eq:unc_stat_crv} can be applied directly (gives whole shape in this case). This property is very useful because it allows to perform many calculations involving Gaussians only for the \Def{standard normal distribution}
 \begin{equation}
 \mathcal{G}(0, 1) = \frac{1}{\sqrt{2 \pi}} e^{- \frac{x^2}{2}} \, .
 \end{equation}
-Integrals for this function are mostly standard integrals, which have a general closed-form solution or tabluated values. While this might also be the case for other Gaussians, the calculations often involve much more algebra.
+Integrals for this function are mostly standard integrals, which have a general closed-form solution or tabulated values. While this might also be the case for other Gaussians, the calculations often involve much more algebra.
 
 For example, say we want to compute $P(X \leq 3)$ for a Gaussian CRV $X$. This can be done rather quickly by rewriting $P(X \leq 3) = P\qty(X' \leq \frac{3 - \mu}{\sigma})$ where $X' = \frac{X - \mu}{\sigma}$ is the \enquote{standardized version} of $X$. Since $X'$ has a standard normal distribution, one can look at the tabulated results of $P\qty(X' \leq \frac{3 - \mu}{\sigma})$ for the given $\mu, \sigma$ and thereby avoid tedious calculations.
 \end{ex}
@@ -2017,7 +2027,7 @@ We can now go on to treat other probabilities, which will also involve densities
 \begin{itemize}
 \item The \Def{joint probability} of two CRVs $X, Y$ is
 \begin{equation}
-P\qty((x, y) \in S) = \int_{- \infty}^\infty \int_{- \infty}^\infty f_{X, Y}(x, y) \, dx dy
+P\qty((x, y) \in S) = \int_S f_{X, Y}(x, y) \, dx dy
 \end{equation}
 where $f_{X, Y}$ is the \Def{joint PDF} of $X, Y$.
 %and basically computes volumes given by the joint PDF $f_{X, Y}$ over areas in the $xy$-plane.
@@ -2043,7 +2053,7 @@ f_{X, Y}(x, y) = f_X(x) f_Y(y) \, .
 \end{equation}
 
 
-\item The \Def{law of the unconscious statistician} is
+\item The \Def{law of the unconscious statistician} is (also shows how to compute expectations)
 \begin{equation}\label{eq:unc_stat_crv}
 E[g(X, Y)] = \int g(x, y) f_{X, Y}(x, y) \, dx dy \, .
 \end{equation}
@@ -2052,7 +2062,7 @@ E[g(X, Y)] = \int g(x, y) f_{X, Y}(x, y) \, dx dy \, .
 Just like before, this can be generalized to multiple CRVs and from each PDF, an expectation can be computed (e.g.~a conditional expectation $E[X | Y]$).
 \end{defi}
 \footnotetext{Note that we can not demand $Y = y$ anymore because $P(Y = y) = 0$.}
-Although one can think of the marginals as projections of the joint PDF, they do not have the same height (confer figure \ref{fig:joint_marginal_PDF}). Intuitively, we can understand this from the fact that the joint PDF is normalized over the whole square $[-5, 5]^{\cross 2}$, whereas the marginals are normalized over the interval $[-5, 5]$. The same idea is true for $f_{X | Y}(x | y)$. It can be thought of as slices of the joint PDF $f_{X, Y}(x, y)$ for some fixed $y$, which are then normalized by dividing by all possible values $f_{X, Y}$ can take when varying $x$, i.e.~$\int_{- \infty}^\infty f_{X, Y}(x, y) \, dx = f_Y(y)$.
+Although one can think of the marginals as projections of the joint PDF, they do not have the same height (confer figure \ref{fig:joint_marginal_PDF}). Intuitively, we can understand this from the fact that the joint PDF is normalized over the whole square $[-5, 5]^2$, whereas the marginals are normalized over the interval $[-5, 5]$. The same idea is true for $f_{X | Y}(x | y)$. It can be thought of as slices of the joint PDF $f_{X, Y}(x, y)$ for some fixed $y$, which are then normalized by dividing by all possible values $f_{X, Y}$ can take on this slice when varying $x$, i.e.~$\int_{- \infty}^\infty f_{X, Y}(x, y) \, dx = f_Y(y)$.
 
 
 
@@ -2074,12 +2084,12 @@ Although one can think of the marginals as projections of the joint PDF, they do
 
 
 
-Direct corollaries of the law of the unconscious statistician are
-\begin{align}
+Direct corollaries of the law of the unconscious statistician are (just like for discrete RVs)
+\begin{align*}
 E[a X + b Y + c] &= a E[X] + b E[Y] + c
 \\
 \Var(a X + b) &= a^2 \Var(X) \, .
-\end{align}
+\end{align*}
 However, $\Var(X + Y) = \Var(X) + \Var(Y)$ only holds if $X, Y$ are independent. To see how the general version looks like, we have to deal with the notion of dependence and find a way to quantify it. Intuitively, a systematic relation between RVs should result in simultaneous deviations from their respective mean. Hence, the \Def{covariance}
 \begin{equation}
 \Cov(X, Y) = E[(X - E[X]) (Y - E[Y])] = E[X Y] - E[X] E[Y]
@@ -2103,9 +2113,11 @@ Furthermore, it is a linear quantity:
 which also explains why $\Var(X + Y) = \Var(X) + \Var(Y)$ only holds for independent $X, Y$.\\
 
 
-Nonetheless, the covariance also has issues. Firstly, it contains the units of $X, Y$. If those are different, it may not make much sense to add $X, Y$ in the first place. That also means its value depends on the representation of the data (e.g.~meter or inch). Secondly, if a RV $X$ has very high deviations from its mean, then its covariance with other RVs can be very large, no matter how strong the relation between them is. If these are issues that occur, a more useful and informative quantity is the \Def[correlation]{correlation (coefficient)}
+Nonetheless, the covariance also has issues. First, it contains the units of $X, Y$. If those are different, it may not make much sense to add $X, Y$ in the first place. That also means its value depends on the representation of the data (e.g.~meter or inch). Second, if a RV $X$ has very high deviations from its mean, then its covariance with other RVs can be very large, no matter how strong the relation between them is. If these are issues that occur, a more useful and informative quantity is the \Def[correlation]{correlation (coefficient)}
 \begin{equation}
-\Corr(X, Y) = \frac{\Cov(X, Y)}{\sigma_X \sigma_Y} = \Cov\qty(\frac{X}{\sigma_X}, \frac{Y}{\sigma_Y}) = E\qty[\frac{X - E[X]}{\sigma_X}, \frac{Y - E[Y]}{\sigma_Y}] \, .
+\Corr(X, Y) = \frac{\Cov(X, Y)}{\sigma_X \sigma_Y} = \Cov\qty(\frac{X}{\sigma_X}, \frac{Y}{\sigma_Y})
+%= E\qty[\qty(\frac{X}{\sigma_X} - E\qty[\frac{X}{\sigma_X}]) \qty(\frac{Y}{\sigma_Y} - E\qty[\frac{Y}{\sigma_Y}])]
+= E\qty[\frac{X - E[X]}{\sigma_X} \frac{Y - E[Y]}{\sigma_Y}] \, .
 \end{equation}
 Basically, the idea is to express the RVs as their standardized versions and hence in deviations from the mean and in numbers of standard deviations. That allows to make statement which are independent of units and scales.\\
 
@@ -2192,9 +2204,9 @@ x \leq \frac{L}{2} \sin(\theta) \, .
 
 4. To compute the probability of intersection, we use the condition for intersection that has just been derived and incorporate it into the integral boundaries. Since it is not necessary to have certain $x$- and $\theta$-values at once (only their combination is important), we can let one parameter vary freely and use the condition to get boundaries for the other parameter. In the end,
 \begin{align*}
-P(\text{needle intersects line}) &= \int_0^{\pi / 2} \int_0^{l / 2 \sin(\theta)} f_{X, \Theta}(x, \theta) \, dx d\theta = \int_0^{\pi / 2} \int_0^{l / 2 \sin(\theta)} \frac{4}{d \pi} \, dx d\theta
+P(\text{needle intersects line}) &= \int_0^{\pi / 2} \int_0^{L / 2 \sin(\theta)} f_{X, \Theta}(x, \theta) \, dx d\theta = \int_0^{\pi / 2} \int_0^{L / 2 \sin(\theta)} \frac{4}{d \pi} \, dx d\theta
 \\
-&= \frac{2 L}{\pi d} (- 1) \eval{\cos(\theta)}_0^{\pi / 2} = \frac{2 L}{\pi d} \, .
+&= \frac{2 L}{\pi d} \qty[-\cos(\theta)]_0^{\pi / 2} = \frac{2 L}{\pi d} \, .
 \end{align*}
 
 Now we can see how this experiment might have been useful in the past: it provides a way to approximate $\pi$ by simply performing a real-world experiment to estimate a probability. A convenient setup choice is $L = d / 2$ because in this case,
@@ -2232,7 +2244,8 @@ Now we can see how this experiment might have been useful in the past: it provid
 
 
 
-This method is called \Def{Monte-Carlo integration}. Basically, the idea is to interpret the result of an integral as a probability, which makes the integrand a PDF. We can sample from this PDF (e.g.~by repeatedly performing a suited experiment) and then approximate the integral by counting how many samples lie in the boundaries that determine the domain of integration. Using this instead of numerical/analytical approaches can be much more efficient computationally, in particular for very complicated, high-dimensional integrals. This is only one example of many existing Monte-Carlo methods, but the idea of how they work is always the same.% This is only one example of many existing Monte-Carlo methods, which are often much more efficient than other methods like numerical integration.% for this reason, inverse transform method is important because it allows drawing samples from arbitrary distribution
+This method is called \Def{Monte-Carlo integration}. Basically, the idea is to interpret the result of an integral as a probability, which makes the integrand a PDF. We can sample from this PDF (e.g.~by repeatedly performing a suited experiment) and then approximate the integral by counting how many samples lie in the boundaries that determine the domain of integration. Using this instead of numerical/analytical approaches can be much more efficient computationally, in particular for very complicated, high-dimensional integrals. This is only one example of many existing Monte-Carlo methods, but the idea of how they work is always the same (exploit properties of randomness).
+% This is only one example of many existing Monte-Carlo methods, which are often much more efficient than other methods like numerical integration.% for this reason, inverse transform method is important because it allows drawing samples from arbitrary distribution
 
 
 
@@ -2255,7 +2268,7 @@ f_{Y | X}(y | x) = \begin{cases} \frac{1}{x}, & 0 \leq y \leq x \\ 0, & \text{el
 \end{equation*}
 From that, we can also compute the conditional expectation
 \begin{equation*}
-E[Y | X] = \int_0^x y f_{Y | X}(y | x) \, dy = \int_0^x y \frac{1}{x} \, dy = \eval{\frac{1}{x} \frac{y^2}{2}}_0^x = \frac{x}{2} \, .
+E[Y | X = x] = \int_0^x y f_{Y | X}(y | x) \, dy = \int_0^x y \frac{1}{x} \, dy = \eval{\frac{1}{x} \frac{y^2}{2}}_0^x = \frac{x}{2} \, .
 \end{equation*}
 This result is totally what we expect, the stick will break at half of its remaining length.
 
@@ -2303,7 +2316,7 @@ As an example, we will now deal with the analysis of an apparatus like it is sho
 
 Equation \eqref{eq:bayes_events_general} demonstrated how Bayes' rule applies to events in sample spaces. However, from the joint likelihoods \eqref{eq:joint_pmf}, \eqref{eq:joint_pdf} we see that there is an analogous relationship for discrete and continuous RVs:
 \begin{equation}
-P_{X | Y}(x |  y) = \frac{P_{Y | X}(y | x) P_X(x)}{P_Y(y)} \qquad \qquad f_{X | Y}(x |  y) = \frac{f_{Y | X}(y | x) f_X(x)}{f_Y(y)} \, .
+P_{X | Y}(x |  y) = \frac{P_X(x) \, P_{Y | X}(y | x)}{P_Y(y)} \qquad \qquad f_{X | Y}(x |  y) = \frac{f_X(x) \, f_{Y | X}(y | x)}{f_Y(y)} \, .
 \end{equation}
 For PMFs, this should be rather intuitive because they are defined via probabilities that are computed in the sample space. From that, we get the continuous version in the usual manner by replacing PMF $\rightarrow$ PDF and $\sum \rightarrow \int$. Mathematically, this is how one can estimate discrete (continuous) RVs from measurements of discrete (continuous) RVs.
 
@@ -2311,7 +2324,7 @@ However, this is not the end of the story. It is actually possible to make sense
 \begin{prop}[Bayes' Theorem for Mix of Discrete, Continuous RVs]
 For a continuous RV $X$ and a discrete RV $Y$
 \begin{equation}
-f_{X | Y}(x | y) = \frac{f_X(x) P_{Y | X}(y | x)}{P_Y(y)} \quad \Leftrightarrow \quad P_{Y | X}(y | x) = \frac{f_{X | Y}(x | y) P_Y(y)}{f_X(x)} \, .
+f_{X | Y}(x | y) = \frac{f_X(x) \, P_{Y | X}(y | x)}{P_Y(y)} \quad \Leftrightarrow \quad P_{Y | X}(y | x) = \frac{P_Y(y) \, f_{X | Y}(x | y)}{f_X(x)} \, .
 %f_{X | Y}(x | y) = \frac{f_X(x) P_{Y | X}(y | x)}{P_Y(y)} \qquad \qquad P_{X | Y}(x | y) = \frac{f_{y | X}(y | x) P_X(x)}{f_Y(y)} \, .
 \end{equation}
 \end{prop}
@@ -2407,13 +2420,13 @@ F_Z(z) &= P(Z \leq z) = P(Y / X \leq z) = P(Y \leq x z) = F_Y(x z)
 \\
 &= \int_0^1 \eval{y}_0^{x z} \, dx = \eval{\frac{z x^2}{2}}_0^1 = \frac{z}{2} \, .
 \end{align*}
-However, when looking closer at the steps, this calculation assumes $z \leq 1$ (boundaries for $y$ have to be $\leq 1$ due to domain and probabilities, thus result, as well). For $z > 1$,
+However, when looking closer at the steps, this calculation assumes $z \leq 1$ (boundaries for $y$ have to be $\leq 1$ due to domain; same for resulting probability). For $z > 1$,
 \begin{align*}
 F_Z(z) &= P(Y / X \leq z) = P(X / Y \geq 1 / z) = P(X \geq y / z) = 1 - F_X(y / z)
 \\
 &= 1 - \int_0^{y / z} f_X(x) \, dx = 1 - \int_0^{y / z} \int_0^1 f_{X, Y} \, dy dx
 \\
-&= 1 - \int_0^1 \eval{y}_0^{y / z} \, dy = 1 - \int_0^1 \frac{y}{z} \, dy = 1 - \eval{\frac{y^2}{2 z}}_0^1 = 1 - \frac{1}{2 z} \, .
+&= 1 - \int_0^1 \qty[x]_0^{y / z} \, dy = 1 - \int_0^1 \frac{y}{z} \, dy = 1 - \eval{\frac{y^2}{2 z}}_0^1 = 1 - \frac{1}{2 z} \, .
 \end{align*}
 
 Now we can compute
@@ -2424,7 +2437,7 @@ That allows calculations of other properties of the CRV $Z$, such as
 \begin{align*}
 E[Z] &= \int_0^\infty z \cdot f_Z(z) \, dz = \int_0^1 \frac{z}{2} \, dz + \int_1^\infty \frac{1}{2 z} \, dz = \eval{\frac{z^2}{4}}_0^1 + \eval{\frac{\ln(z)}{2}}_1^\infty = \infty \, .
 \end{align*}
-This seems odd and thus we might wish for a verification of this result. We can indeed get that by recalling this due to the independence of $X, Y$,
+This seems odd and thus we might wish for a verification of this result. We can indeed get this by recalling that due to the independence of $X, Y$,
 \begin{equation*}
 E[Y / X] = E[Y] E[1 / X] = \infty
 \end{equation*}
@@ -2436,12 +2449,13 @@ Apparently, although the basic idea is \enquote{just} inverting and deriving, de
 For a monotonic function $g$ and $Y = g(X)$,
 \begin{equation}\label{eq:pdf_mono_func}
 %f_Y(y) = \flatfrac{f_X(x)}{\abs{\dv{g(x)}{x}}}, \quad y = g(x) \, .
-f_Y(y) = \eval{\flatfrac{f_X(x)}{\abs{\dv{g(x)}{x}}}}_{x = g^{-1}(y)} \, .
+f_Y(y) = \eval{\frac{f_X(x)}{\abs{\dv{g(x)}{x}}}}_{x = g^{-1}(y)} = f_X(g^{-1}(y)) \, \abs{\dv{g^{-1}(y)}{y}} \, .
 \end{equation}
 \end{prop}
-Again, this should make sense intuitively because for a function with small (high) slope in a certain point, many (few) neighbouring points get mapped close to (far from) where this point is mapped and the result is a higher (lower) density. This inverse relationship is expressed in \eqref{eq:pdf_mono_func}. The same arguing can be done for non-monotonic functions, but the formula does not hold due to difficulties with inverting them.
+% seems to be direct corollary of transformation rule, basically tells us: $\abs{f_Y dY} = \abs{f_Y dg} = \abs{f_X dX}$ (omitting evaluations here), where absolute values around densities can be omitted in further steps due to their positivity (so they only stay around dx, dy)
+Again, this should make sense intuitively because for a function with small (high) slope in a certain point, many (few) neighbouring points get mapped close to where this point is mapped and the result is a higher (lower) density. This inverse relationship is expressed in the first equality of \eqref{eq:pdf_mono_func}. The same arguing can be done for non-monotonic functions, but the formula does not hold due to difficulties with inverting them.
 
-In the end, a very compact workflow often looks like this: arguing that the function is monotonic (not globally, only on domain that is treated) and then using property \ref{prop:pdf_mono_func}.
+In the end, a very compact workflow often looks like this: arguing that the function is monotonic (not globally, only on domain that is treated) and then using property \ref{prop:pdf_mono_func}.\\
 
 
 
@@ -2487,11 +2501,10 @@ Using the convolution formula, a rather lengthy calculation yields
 \begin{equation}
 f_Z(z) = \frac{1}{\sqrt{2 \pi \qty(\sigma_X^2 + \sigma_Y^2)}} e^{- \frac{1}{2} \frac{\qty(z - \qty(\mu_X + \mu_Y))^2}{\sigma_X^2 + \sigma_Y^2}}
 \end{equation}
-where $Z = X + Y$. This is also a normal RV, $Z \sim \mathcal{G}(\mu_X + \mu_Y, \sigma_X^2 + \sigma_Y^2)$
+where $Z = X + Y$. This is also a normal RV, $Z \sim \mathcal{G}(\mu_X + \mu_Y, \sigma_X^2 + \sigma_Y^2)$, as expected from the law of the unconscious statistician (for the case of independent CRVs).
 
 Put differently, the convolution of two exponentials is an exponential again.
-
-%What are the iso-lines of the PDF? Well, definition is (use law for exponentials) $- \frac{(x - \mu_X)^2}{2 \sigma_X} + \frac{- (y - \mu_Y)^2}{2 \sigma_Y} = 0$
+%What are the iso-lines of the PDF (points $z$ with same $f_Z(z)$)? Well, definition is (use law for exponentials) $- \frac{(x - \mu_X)^2}{2 \sigma_X} + \frac{- (y - \mu_Y)^2}{2 \sigma_Y} = 0$
 \end{ex}
 
 
@@ -2560,6 +2573,7 @@ For two RVs $X, Y$
 \Var(X) = E_Y\qty[\Var(X | Y)] + \Var\qty(E_Y[X | Y]) \, .
 \end{equation}
 \end{prop}
+Basically, that means the variance of $X$ is the average conditional variance plus some extra term that represents the variance of the average conditioned RV $X$.
 
 
 
@@ -2588,6 +2602,16 @@ The natural additional information besides average/expectation is the uncertaint
 \\
 &= \frac{1}{3} \cdot \qty(90 - 70)^2 + \frac{2}{3} \cdot \qty(60 - 70)^2 = \frac{400}{3} + \frac{200}{3} = 200 \, .
 \end{align*}
+%-> hmmm, don't we want var(X)? Here we compute something like variance of the sections, right? Would also make sense because we utilize law of total variance...
+%\begin{align*}
+%\Var(X) &= E_Y\qty[\Var(X | Y)] + \Var(E_Y[X | Y])
+%\\
+%&= E_Y[E_X[(X - E_X[X | Y])^2]] + E_X[(E_Y[X | Y] - E_X[E_Y[X | Y]])^2]
+%\\
+%&= 
+%\end{align*}
+%-> makes even less sense, nothing can be computed any further...
+
 It might be surprising that this result is so much bigger than the average score of $70$, but this simply comes from the quadratic nature of the variance. The corresponding standard deviation would be $\sqrt{\Var(E[X | Y])} = 14.14$, a much more reasonable/comparable result. %It reflects the fact that more students are in section $1$ where the average score is lower, which means that an above-average score greater than
 %\begin{equation*}
 %E[E[X | Y]] + \sqrt{\Var(E[X | Y])} = 70 + 14.14 = 84.14 < 90 = E[X | Y = 2]
@@ -2651,7 +2675,7 @@ where we abbreviate $\mu = E[X]$. Another interesting statement can be obtained 
 \begin{equation}
 P\qty(\abs{X - \mu} \geq k \sigma_X) \leq \frac{1}{k^2} \, .
 \end{equation}
-Therefore, the Chebyshev inequality tells us that the probability of $X$ landing $k$ standard deviations away from the mean goes as $1 / k^2$. Therefore, it is a very useful way to characterize outliers, even if the distribution itself is unknown (only mean and standard deviation are needed in order to make such statements).\\
+Therefore, the Chebyshev inequality tells us that the probability of $X$ landing $k$ standard deviations away from the mean goes as $1 / k^2$. This is a very useful way to characterize outliers, even if the distribution itself is unknown (only mean and standard deviation are needed in order to make such statements).\\
 
 
 These are the tools that we need for now. Since our initial goal was to formulate limit theorems, we need a notion of convergence first.
@@ -2663,10 +2687,9 @@ A sequence $\qty{X_n}_{n \in \mathbb{N}}$ of RVs \Def[convergence in probability
 \end{defi}
 This definition looks very complicated, but the basic idea is that $X_n$ is said to converge to $e$ if the probability of their difference being greater than zero vanishes as $n$ increases, i.e.
 \begin{equation}
-\lim_{n \rightarrow \infty} P\qty(\abs{X_n - e} \geq \epsilon) = 0 \, .
+\lim_{n \rightarrow \infty} P\qty(\abs{X_n - e} \geq \epsilon) \rightarrow 0 \, .
 \end{equation}
-
-This is another quantity that is defined using the CDF, not PMF/PDF.
+Note that this is another definition using the CDF, not PMF/PDF.
 
 
 \begin{ex}[Simple Sequence]
@@ -2733,7 +2756,7 @@ Apparently, $f$ is what answers our question and hence what we want to know. Sin
 \begin{equation*}
 f_n = \frac{1}{n} \sum_{i = 1}^n x_i \, .
 \end{equation*}
-It is very reasonable to demand that $n$ shall be big enough that $f_n$ is accurate to a certain degree, for example $1\%$. Of course, due to the stochastic nature of taking a finite sample, it is impossible to guarantee this accuracy. Instead, we can only make statements at a certain level of confidence by using the Markov inequality. Setting the desired confidence level to $95\%$, we want the probability of $\abs{f_n - f}$ exceeding $1\%$ to be smaller than $5\% = 100\% - 95\%$. This is surely the case if
+It is very reasonable to demand that $n$ shall be big enough that $f_n$ is accurate to a certain degree, for example $1\%$. Of course, due to the stochastic nature of taking a finite sample, it is impossible to guarantee this accuracy. Instead, we can only make statements at a certain level of confidence by using the Markov inequality. Setting the desired confidence level to $95\%$, we want the probability of $\abs{f_n - f}$ exceeding $1\%$ to be smaller than $5\% = 100\% - 95\%$. This is surely the case if (note that $E[X] = f$)
 \begin{equation*}
 P(\abs{f_n - f} \geq 0.01) \leq \frac{\sigma_{f_n}^2}{0.01^2} = \frac{\sigma_X^2}{n \cdot 0.01^2} \leq 1 - 0.95 = 0.05 \, .
 \end{equation*}
@@ -2746,12 +2769,12 @@ $50 000$ people have to be asked for $95\%$ confidence that $f_n$ estimates $f$ 
 \end{ex}
 
 
-There is another statement that tells us more about samples -- this time, however, it is about their whole distribution and not only mean:
+There is another statement that tells us more about samples -- this time, however, it is about the whole distribution of their sample mean and not only the mean value of sample means:
 \begin{prop}[Central Limit Theorem]
 For i.i.d.~RVs $X_i$ with finite mean, variance $\mu, \sigma^2$ and their mean $M_n = \frac{1}{n} \sum_i X_i$, the distribution of the RV $\sqrt{n} \qty(M_n - \mu)$ converges to $\mathcal{G}(0, \sigma^2)$.\footnotemark
 \end{prop}
 \footnotetext{This is convergence in distribution, which was not defined here. It describes the behaviour of the CDF. More details are not important here because it is just a mathematical way to state the intuitive understanding.}
-As we had already seen, the mean of $M_n$ is equal to $\mu$ and its variance decreases as $1 / n$. However, we now know that the corresponding distribution of $M_n$ is Gaussian, regardless of the underlying distribution of the $X_i$. An illustration of this is shown in figure \ref{fig:central_limit} for the case where the $X_i$ are Gaussian themselves.
+As we had already seen, the mean of $M_n$ is equal to $\mu$ and its variance decreases as $1 / n$. However, we now know that the corresponding distribution of $M_n$ is Gaussian, regardless of the underlying distribution of the $X_i$. Similar to the law of large numbers, this is a very interesting statement in case we only have one realization of $M_n$ computed from a fixed set of samples $\qty{x_i}$ available, since it tells us something about how likely it is to have a certain deviation from the \enquote{true} result $\mu$ (depending on the number of samples $n$ that are used). An illustration of this is shown in figure \ref{fig:central_limit} for the case where the $X_i$ are Gaussian themselves.
 
 % ah, we cannot say something about distribution when dividing by $\sqrt{n}$ probably, but for variance we can use linearity of Gaussians to see $1 / n$ decrease
 
