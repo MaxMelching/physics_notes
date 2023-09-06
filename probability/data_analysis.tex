@@ -510,9 +510,9 @@ Logically, some properties have to hold for the notion of probability to make se
 \begin{enumerate}[(i)]
 \item $P(A) \geq 0$ for all events $A \subset \Omega$
 
-\item $P(\Omega) = 1$ (closure rule)
+\item $P(\Omega) = 1$ (\Def{closure rule})
 
-\item $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ (total probability rule)
+\item $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ (\Def{total probability rule})
 \end{enumerate}
 \end{prop}
 A direct corollary of these is $P(A) \leq 1, \forall A$. Property (iii) reflects that the probability of $A$ or $B$ occurring is nothing but the probability of $A$ occurring plus the probability of $B$ occurring, but one has to subtract the probability of $A$ and $B$ occurring simultaneously (their \Def{joint probability}) to avoid double counting. It also motivates the analogy that probability behaves like mass.\\
@@ -613,14 +613,15 @@ which is a very useful way to compute probabilities in uniform sample spaces.
 
 
 	\subsection{Conditional Probability}
-A belief in the likelihood of some event defines they way we assign probabilities of it occurring, i.e.~the \Def{model} we use. However, as soon as new information such as data from measurements comes in, this initial belief/assignment has to be updated. A very easy example is that a priori, we would assign a probability of $1 / 6$ to each face of a die, but that changes if we get to know that it is rigged. To incorporate new information into probabilities, \Def{conditional probabilities} $P(A | B)$ can be used.
+A belief in the likelihood of some event defines the way we assign probabilities of it occurring, i.e.~the \Def{model} we use. However, as soon as new information such as data from measurements comes in, this initial belief/assignment has to be updated. A very easy example is that a priori, we would assign a probability of $1 / 6$ to each face of a die, but that changes if we get to know that it is rigged. To incorporate new information into probabilities, \Def{conditional probabilities} $P(A | B)$ can be used.
 
 
-To define them we use the fact that new information, e.g.~that an event $B$ has been measured, should affect the way one assigns probabilities to other events $A$ (that potentially have some finite overlap with $B$, i.e.~$A \cap B \neq \emptyset$). To distinguish \enquote{old} and \enquote{new} probabilities, $P$ and $P'$ will be used. Since it is known that $B$ was measured, $P'(B) = 1$ regardless of the value of $P(B)$. As a consequence, all events $C$ with $C \cap B = \emptyset$ are ruled out because $P'(C) = 0$. Basically, this means there is a new sample space, namely $\Omega' = \Omega \cap B = B$. Assigning probabilities in this new, conditioned universe works just like before (assuming a uniform sample space),
+To define them we use the fact that new information, e.g.~that an event $B$ has been measured, should affect the way one assigns probabilities to other events $A$ (that potentially have some finite overlap with $B$, i.e.~$A \cap B \neq \emptyset$).\footnote{It is important to emphasize that events remain unchanged under conditioning, only probabilities change.} To distinguish \enquote{old} and \enquote{new} probabilities, $P$ and $P'$ will be used. Since it is known that $B$ was measured, $P'(B) = 1$ regardless of the value of $P(B)$. As a consequence, all events $C$ with $C \cap B = \emptyset$ are ruled out because $P'(C) = 0$. Basically, this means there is a new sample space, namely $\Omega' = \Omega \cap B = B$. Assigning probabilities in this new, conditioned universe works just like before (assuming a uniform sample space),
 \begin{equation*}
 P'(A) = \frac{\abs{A'}}{\abs{\Omega'}} = \frac{\abs{A \cap \Omega'}}{\abs{\Omega'}} \, .
 \end{equation*}
-Using $A' = A \cap \Omega'$ ensures only outcomes in the conditioned universe $\Omega'$ occur, just like $\Omega'$ was defined as $\Omega \cap B$.\footnote{Implicitly, this is done before when using $P$ as well, but always omitted since $A \cap \Omega = A, \; \forall A$. After all, $\Omega$ contains all outcomes which are in $A$, too (by definition).} This definition allows to find an expression for $P'(A)$ using $P$ (also see figure \ref{fig:cond_prob}):
+Using $A' = A \cap \Omega'$ ensures only outcomes in the conditioned universe $\Omega'$ occur, just like $\Omega'$ was defined as $\Omega \cap B$.\footnote{Implicitly, this is done before when using $P$ as well, but always omitted since $A \cap \Omega = A, \; \forall A$.}% After all, $\Omega$ contains all outcomes which are in $A$, too (by definition).}
+This definition allows to find an expression for $P'(A)$ using $P$ (also see figure \ref{fig:cond_prob}):
 \begin{equation}
 P(A | B) := P'(A) = \frac{\abs{A \cap \Omega'}}{\abs{\Omega}} \frac{\abs{\Omega}}{\abs{\Omega'}} = \frac{\abs{A \cap B}}{\abs{\Omega}} \frac{1}{\abs{B} / \abs{\Omega}} = \frac{P(A \cap B)}{P(B)} \, .
 \end{equation}
@@ -712,7 +713,7 @@ P(\{M = 1\} | \{m = 2\}) = \frac{0}{5} = 0 \, , \qquad P(\{M = 2\} | \{m = 2\}) 
 \end{equation*}
 
 
-On the other hand, we can use the definition and not work in the conditioned universe explicitly (to check that the definition works). This approach confirms
+On the other hand, we can use the definition and not work in the conditioned universe explicitly (to check that the definition works). This approach confirms that
 \begin{align*}
 P(\{M = 1\} | \{m = 2\}) &= \frac{P(\{M = 1\} \cap \{m = 2\})}{P(\{m = 2\})} = \frac{0 / 16}{5 / 16} = 0
 \\
@@ -871,7 +872,7 @@ One of the major difficulties in real-world inference is assigning the priors $P
 A very famous problem in probability theory is the Monty-Hall problem from a TV-show in the US. The basic setting consists of three doors, two of which hide a goat and one of which hides a car. Each participant of the show can keep whatever is behind the door he chooses to open. However, the door is not opened immediately after the participant makes his first choice. Instead, the host (who knows where the car is) opens a door that reveals a goat (and that was not chosen by the participant). After that, there is a possibility to switch doors or keep the chosen one. The relevant question in this context is: what is the best strategy, switching or keeping?
 
 
-It might seem unintuitive, but the best way to go is switching. A priori, each door has probability $1 / 3$ of hiding the car. However, the host has additional information that he partly reveals when opening the door. This is due to the constraints that he must not open the participant's door, but also not the door with the car. As a consequence, by opening one of the other doors its probability transfers to the other non-opened door, so all of a sudden this door has a probability of $2 / 3$ to hide the car (while the participant's door remains at $1 / 3$). Therefore, switching is best strategy.
+It might seem unintuitive, but the best way to go is switching. A priori, each door has probability $1 / 3$ of hiding the car. However, the host has additional information that he reveals when opening the door. This is due to the constraints that he must not open the participant's door, but also not the door hiding the car. As a consequence, by opening one of the other doors its probability transfers to the other non-opened door, so all of a sudden this door has a probability of $2 / 3$ to hide the car (while the participant's door remains at $1 / 3$). Therefore, switching is best strategy.
 
 One can also derive this mathematically, e.g.~from the corresponding sequential diagram (figure \ref{fig:montyhall_sequ}). Without loss of generality, one can assume that the participant chooses door $1$ (which is denoted as $P_1$). This is because the car is in a random spot anyway, so randomly choosing the participant's door as well is not required (this choice removes one level from the sequential diagram, which makes it much smaller and less confusing). First of all, there are three spots $C_i$ where the car can be and all have equal probability $1 / 3$ (and they are independent of the participant's choice, $P(C_i | P_1) = P(C_i)$). In the next step/level, the host chooses a door $D_i$. This choice is based on the participant's choice $P_1$ as well as the location of the car $C_i$, i.e.~conditioned on them. As one can see, in many cases the host has no real choice other than selecting one specific door because he would open the car's door otherwise. From the probabilities on each path one can compute the relevant probabilities of success according to:
 \begin{align*}
@@ -1026,6 +1027,8 @@ Despite a very intuitive definition, one has to be a bit careful about this noti
 
 Another source of confusion is that the independence of events is not really related to the events themselves, but rather to their probabilities (therefore, the wording is kind of unfortunate). At first, it might seem unintuitive that this makes a difference and indeed, it is subtle. Nonetheless, it is important and we can see that this is really the case by looking at \Def{conditional independence}. In a conditional universe, demanding $P(A \cap B) = P(A) P(B)$ takes the form $P(A \cap B | C) = P(A | C) P(B | C)$. It is now very easy to construct an example where $A, B$ are independent in the non-conditioned universe, but not independent in the conditioned one. For $A, B$ with $A \cap B, A \cap C, B \cap C \neq \emptyset$ it is still possible that $A \cap B \cap C = \emptyset$, which implies $P(A \cap B | C) = 0 \neq P(A | C) P(B | C)$. Hence, $A, B$ are not independent when we look at probabilities conditioned on $C$. This example shows that for the same events $A, B$, them being independent depends on the probabilities $P(A), P(B)$ vs.~$P(A | C), P(B | C)$ rather than just $A, B$ as events. An illustration of the situation is provided in figure \ref{fig:indep_cond}.
 
+% example with numbers: each $A, B$ have probability $1 / 4$, with $1 / 16$ of that being in $A \cap B$; then, $P(A) P(B) = 1 / 16 = P(A \cap B)$ (independence), but since $A \cap B \cap C = \emptyset$ they are not independent when conditioned on $C$ (which can hold the remaining $1 / 2$ of probability) since $P(A) P(B) P(C) = 1 / 4 \cdot 1 / 4 \cdot 1 / 2 = 1 / 32 \neq 0 = P(A \cap B \cap C)$
+
 
 
 \begin{figure}[t]
@@ -1120,7 +1123,7 @@ The prior probability to get each coin is $P(C_1) = 0.5 = P(C_2)$. To calculate 
 \begin{equation*}
 P(HH | C_1) = P(H |C_1)^2 = 0.9^2 = 0.81, \qquad P(HH | C_1) = P(H |C_2)^2 = 0.1^2 = 0.01 \, .
 \end{equation*}
-Combining these results then yields
+Combining these results yields
 \begin{equation*}
 P(HH) = \frac{1}{2} \cdot 0.81 + \frac{1}{2} \cdot 0.01 = 0.41 \, ,
 \end{equation*}
@@ -1305,7 +1308,7 @@ The basic idea is to solve a simpler problem involving the binomial coefficient.
 As always when deriving and defining a new quantity, some sanity checks should be done. These include the cases $k = n$, where we expect $1 = \binom{n}{n}$ (one way to choose all elements), and $k = 0$, where we expect $1 = \binom{n}{0}$ as well (since the only choice is $\emptyset$, which still forms an element of the sample space and thus requires to be \enquote{chosen}). Both are indeed fulfilled.
 
 
-Properties of the binomial coefficient can be derived using algebra (messy and lengthy) or using the definition and our intuition about it. An example is that the number of subsets that can be created using $n$ elements is known to be $2^n$. But this is also exactly what the sum of all $k$-element subsets out of $n$ objects represents, so we have derived
+Properties of the binomial coefficient can be derived using algebra (messy and lengthy) or using the definition and our intuition about it. An example is that the number of subsets that can be created using $n$ elements is known to be $2^n$. But this is also exactly what the sum over the number of all $k$-element subsets out of $n$ objects represents, so we have derived
 \begin{equation}
 \sum_{k = 0}^n \binom{n}{k} = 2^n \, .
 \end{equation}
@@ -1321,7 +1324,7 @@ It answers the question in how many ways $N$ elements can be divided into $p$ se
 \begin{ex}[Two Heads in Ten Coin Flips]
 A more complex scenario is tossing a coin ten times (independently) with someone telling us that heads occurred three times (without us having seen the outcomes). What is the probability that heads occurred in the first two throws?
 
-Mathematically, this is a conditional probability $P\qty(\{S = HH \dots\} | \{\#\{H \in S\} = 3\})$ ($S$ denotes the sequence of results of the ten coin flips), so we have to count in the conditional universe. The number of ways to get three $H$ is simply $\binom{10}{3}$. Considering the case where the first two slots are $H$, there is one $H$ left to distribute over eight slots, which means there are eight possibilities. In the end,
+Mathematically, this is a conditional probability $P\qty(\{S = HH \dots\} | \{\#\{H \in S\} = 3\})$ ($S$ denotes the sequence of results of the ten coin flips), so we have to count in the conditional universe. The number of different ways to get three $H$ is simply $\binom{10}{3}$. Considering the case where the first two slots are $H$, there is one $H$ left to distribute over eight slots, which means there are eight possibilities. In the end,
 \begin{equation*}
 P\qty(\{S = HH \dots\} | \{\#\{H \in S\} = 3\}) = \frac{\abs{\qty{S = HH \dots} \cap \qty{\#\qty{H} \in S = 3}}}{\abs{\qty{\#\qty{H} \in S = 3}}} = \frac{8}{\binom{10}{3}} = \frac{1}{15} \, .
 \end{equation*}
@@ -1330,9 +1333,9 @@ P\qty(\{S = HH \dots\} | \{\#\{H \in S\} = 3\}) = \frac{\abs{\qty{S = HH \dots} 
 
 
 \begin{ex}[Four Aces for Four Players]
-The task of this example is to compute the probability that each of four players gets an ace (four of which exist in a deck).
+The task in this example is to compute the probability that each of four players gets an ace (four of which exist in a deck of $52$ cards).
 
-Firstly, it is important to  know in how many different ways one can distribute the aces and this is $4!$ (by definition of the factorial). The number of ways the $48$ remaining cards can be distributed over the remaining twelve spots for each player is
+First of all, it is important to  know in how many different ways one can distribute the aces and this is $4!$ (by definition of the factorial). The number of ways the $48$ remaining cards can be distributed over the remaining twelve spots for each player is
 \begin{equation*}
 \binom{48}{12} \cdot \binom{36}{12} \cdot \binom{24}{12} \cdot \binom{12}{12} = \frac{48!}{(12!)^4} \, .
 \end{equation*}
@@ -1408,7 +1411,7 @@ P_X(H^i T^j) = p^i (1 - p)^j \, .
 \end{equation*}
 Since consecutive coin tosses are independent events, it does not make too much sense to assign probabilities to a specific series like $H^i T^j$, but rather to the number $k$ of $H$ in it. This number can also be measured by a RV $Y$ and denoting the series length with $n$, there are $\binom{n}{k}$ series' producing the same realization $k$ of $Y$ (by definition of the binomial coefficient, we are interested in \emph{different} permutations of $H^k T^{n - k}$, not all). Hence,
 \begin{equation*}
-P_Y(k) = \sum_{\qty{H, T}^{\cross n}: \; \#\qty{H} = k} p^k (1 - p)^{n - k} = \binom{n}{k} p^k (1 - p)^{n - k} \, .
+P_Y(k) = \sum_{\qty{H, T}^{\cross n}: \; \# H = k} p^k (1 - p)^{n - k} = \binom{n}{k} p^k (1 - p)^{n - k} \, .
 \end{equation*}
 This is the \Def{binomial distribution}.
 \end{ex}
@@ -1420,7 +1423,7 @@ The \Def[expectation]{expected value/expectation} of a RV is
 E[X] = \sum_x x P_X(x) \, .
 \end{equation}
 \end{defi}
-This is essentially a weighted average of all realizations of a RV and gives us a statement about the realizations that are most likely to occur. There is no analogue of this for events in samples spaces because it does not make sense to speak of half heads. In the interpretation of probability as mass, the expectation is the center of mass.
+This is essentially a weighted average of all realizations of a RV and gives us a statement about the realizations that are most likely to occur. There is no analogue of this for events in sample spaces because it does not make sense to speak of half heads. In the interpretation of probability as mass, the expectation is the center of mass.
 
 
 \begin{ex}[Wheel of Fortune]
@@ -1496,24 +1499,8 @@ E\qty[\sum_i a_i X_i + b] = \sum_i a_i E[X_i] + b \qquad \qquad \Var(a X + b) = 
 
 Expected values are widely used as simple quantities to shrink down the information contained in a probability distribution into numbers. Of course, that means we discard information, but it is very helpful as a rough overview (e.g.~if the distribution is unknown and only samples are available). For more information, higher order \Def[moment]{moments} can be computed.
 
-\begin{ex}[Maximum Reward Strategy]
-We will now illustrate how expected values can be used to make decisions and even choose strategies. The setting we choose is visualized in figure \ref{fig:decision_blocks}. There are two blocks with different probabilities of success/failure and different rewards, which we go through one after the other. We want to find out which order of blocks maximizes the average reward, i.e.~whether to choose strategy 1 or 2. An additional rule is that in case of no reward in the first stage, there is no second stage.
 
-To do that, we use the definition of the expected value and sum up the rewards from all outcomes/paths multiplied with the probability of this path (which is merely the product of the probabilities on this path):
-\begin{align*}
-E_{S1}[\text{reward}] &= 0.2 \cdot 0\$ + 0.8 \cdot 0.5 \cdot 100\$ + 0.8 \cdot 0.5 \cdot 300\$
-\\
-&= 0.4 \cdot 100\$ + 0.4 \cdot 300\$ = 160\$
-\\
-E_{S2}[\text{reward}] &= 0.5 \cdot 0\$ + 0.5 \cdot 0.2 \cdot 200\$ + 0.5 \cdot 0.8 \cdot 300\$
-\\
-&= 0.1 \cdot 200\$ + 0.4 \cdot 300\$ = 140\$ \, .
-\end{align*}
-That means we should rather play it safe in the first stage to make sure we get at least some reward and not take the $50\%$ risk of getting no reward.
-\end{ex}
-
-
-
+% To put two figures on one side, better readability
 \begin{figure}
 \centering
 
@@ -1591,7 +1578,25 @@ That means we should rather play it safe in the first stage to make sure we get 
 
 
 
-RVs are still defined on a sample space $\Omega$. That means we should be able to condition them on events $A$. This is indeed possible because elements of the sample space $\Omega' = \Omega \cap A$ can still be mapped after that.\footnote{All others have probability zero, so they are not relevant.} From the definition in equation \eqref{eq:RV_distr} we can also make sense of the distribution of such a RV,
+\begin{ex}[Maximum Reward Strategy]
+We will now illustrate how expected values can be used to make decisions and even choose strategies. The setting we choose is visualized in figure \ref{fig:decision_blocks}. There are two blocks with different probabilities of success/failure and different rewards, which we go through one after the other. We want to find out which order of blocks maximizes the average reward, i.e.~whether to choose strategy 1 or 2. An additional rule is that in case of no reward in the first stage, there is no second stage.
+
+To do that, we use the definition of the expected value and sum up the rewards from all outcomes/paths multiplied with the probability of this path (which is merely the product of the probabilities on this path):
+\begin{align*}
+E_{S1}[\text{reward}] &= 0.2 \cdot 0\$ + 0.8 \cdot 0.5 \cdot 100\$ + 0.8 \cdot 0.5 \cdot 300\$
+\\
+&= 0.4 \cdot 100\$ + 0.4 \cdot 300\$ = 160\$
+\\
+E_{S2}[\text{reward}] &= 0.5 \cdot 0\$ + 0.5 \cdot 0.2 \cdot 200\$ + 0.5 \cdot 0.8 \cdot 300\$
+\\
+&= 0.1 \cdot 200\$ + 0.4 \cdot 300\$ = 140\$ \, .
+\end{align*}
+That means we should rather play it safe in the first stage to make sure we get at least some reward and not take the $50\%$ risk of getting no reward.
+\end{ex}
+
+
+
+RVs are still defined on a sample space $\Omega$. That means we should be able to condition them on events $A$. This is indeed possible because elements of the sample space $\Omega' = A$ can still be mapped after conditioning.\footnote{All others have probability zero, so they are not relevant for $P'$.} From the definition in equation \eqref{eq:RV_distr} we can also make sense of the distribution of such a RV,
 \begin{equation}
 P_{X | A}(x) := P'(\qty{\omega' \in \Omega': \; X(\omega') = x}) = \sum_{\omega' \in \Omega': \; X(\omega') = x} P'(\qty{\omega'}) = \sum_{\omega \in \Omega: \; X(\omega) = x} P(\{\omega\} | A) \, .
 \end{equation}
@@ -1609,7 +1614,7 @@ For a partition $\qty{A_i}_i$ of the sample space,
 P_X(x) = \sum_i P(A_i) P_{X | A_i}(x) \qquad \qquad E[X] = \sum_i P(A_i) E[X | A_i] \, .
 \end{equation}
 \end{prop}
-These are the total probability rule for RVs and the total expectation theorem (a simple corollary of the former). Note that the conditioning is on events, not other RVs.
+These are the total probability rule for RVs and the \Def{total expectation theorem} (a simple corollary of the former). Note that the conditioning is on events, not other RVs.
 
 
 \begin{ex}[Memorylessness]
@@ -1631,7 +1636,7 @@ P_Y(k) = p (1 - p)^k = P_X(k)
 %\end{split}
 \end{equation*} 
 % Logical explanation: only the number of tosses we do matters for distribution, not the starting point; one starting later will NOT have different probability in each toss, but total distribution may be different, if we count differently; however, if we have the additional information that no H in first toss, then person starting one toss later will have EXACTLY THE SAME distribution as initial person we are looking at (because first toss of initial person is not random anymore, we have information about its outcome)
-because the probability of a single coin toss does not depend on the number of previous tosses -- geometric RVs are \Def[memorylessness]{memoryless}. A very illustrative example would be two persons flipping coins, but one starting later. For each flip, they have the same probabilities to get $H, T$, despite one person starting earlier.\footnotemark%this is now a conditioned universe due to the additional \enquote{information}, which means that relative height stays the same between different bins, but they still have to sum to $1$ (which means higher bins since we have less elements that are non-zero, first $x$ are zero)
+because the probability of a single coin toss does not depend on the number of previous tosses -- geometric RVs are \Def[memorylessness]{memoryless}. A very illustrative example would be two persons flipping coins, but one starting later. For each flip, they have the same probabilities of getting $H, T$, despite one person starting earlier.\footnotemark%this is now a conditioned universe due to the additional \enquote{information}, which means that relative height stays the same between different bins, but they still have to sum to $1$ (which means higher bins since we have less elements that are non-zero, first $x$ are zero)
 ~More formally, we can define $A_1 = \qty{X = 1}, A_2 = \qty{X > 1}$ (first toss is $H, T$). $A_1 \cup A_2$ includes all outcomes, so
 \begin{equation*}
 E[X] = P(A_1) E[X | A_1] + P(A_2) E[X | A_2] = p E[X | A_1] + (1 - p) E[X | A_2] \, .
@@ -1666,7 +1671,7 @@ After all, an intersection of realizations is not what we intend to measured her
 
 
 
-\begin{table}
+\begin{table}[t]
 \centering
 
 \begin{tikzpicture}
@@ -1727,7 +1732,7 @@ There is also another way to construct a function of only one RV from $P_{X, Y}(
 \begin{equation}
 P_{X | Y = y}(x | y) = \frac{P_{X, Y}(x, y)}{P_Y(y)} = \frac{P_{X, Y}(x, y)}{\sum_x P_{X, Y}(x, y)} \, .\footnote{Of course, this is only defined for $P_Y(y) \neq 0$. However, conditioning does only make sense in this case since we assume $y$ was realized.}
 \end{equation}
-This definition is analogously to the one for events, but we can also see in a different way that it has to be like that: taking only $P_{X, Y}(x, y)$ for some fixed value $Y = y$ would not produce a \enquote{real} PMF because this function does not fulfil the closure rule. To normalize it properly, we divide by all values it can take for this fixed $y$, i.e.~$\sum_x P_{X, Y}(x, y)$. In table \ref{tab:ss_rv}, the conditional PMF $P_{X | Y = 2}(x | y = 2)$ is colored green (up to normalization, which can be achieved by multiplying the probabilities with a factor $\frac{1}{\sum_x P_{X | Y = 2}(x | y = 2)} = \frac{1}{5 / 20} = 4$).
+This definition is analogous to the one for events, but we can also see in a different way that it has to be like that: taking only $P_{X, Y}(x, y)$ for some fixed value $Y = y$ would not produce a \enquote{real} PMF because this function does not fulfil the closure rule. To normalize it properly, we divide by all values it can take for this fixed $y$, i.e.~$\sum_x P_{X, Y}(x, y)$. In table \ref{tab:ss_rv}, the conditional PMF $P_{X | Y = 2}(x | y = 2)$ is colored green (up to normalization, which can be achieved by multiplying the probabilities with a factor $\frac{1}{\sum_x P_{X | Y = 2}(x | y = 2)} = \frac{1}{5 / 20} = 4$).
 
 
 Since $P_{Y | X = x}(y | x)$ is defined in the same manner as $P_{X | Y = y}(x | y)$, we also know how to construct the joint PMF from marginal and conditional PMFs. Some rearranging yields the already well-known relation
@@ -1838,7 +1843,7 @@ We can now introduce certain quantities known from discrete RVs and also state p
 \begin{prop}
 
 \begin{enumerate}
-\item Non-negative probabilities: $f_X(x) \geq 0, \, \forall x$
+\item Non-negativity: $f_X(x) \geq 0, \, \forall x$
 
 \item Closure rule: $\int_{- \infty}^\infty f_X(x) \, dx = 1$
 
@@ -1846,9 +1851,10 @@ We can now introduce certain quantities known from discrete RVs and also state p
 
 \item Variance: $\Var(X) = \sigma_X^2 = \int_{- \infty}^\infty (x - E[X])^2 f_X(x) \, dx = E[X^2] - E[X]^2$
 
-\item Law of the unconscious statistician: $E[g(X)] = \int_{-\infty}^\infty g(x) f_X(x) \, dx$
+\item Law of the unconscious statistician\footnotemark{}: $E[g(X)] = \int_{-\infty}^\infty g(x) f_X(x) \, dx$
 \end{enumerate}
 \end{prop}
+\footnotetext{This is a theorem of profound importance and it is not as straightforward as it looks at first glance (in particular, it does \emph{not} hold by definition of the expectation). It states $E_Y[Y] = \int y f_Y(y) \, dy = \int g(X) f_X \, dx = E_X[g(X)]$ (where we write $Y = g(X)$), which follows from the transformation rule in measure theory.}
 %Clearly, PMF and PDF have analogous roles. It is possible to make the connection between discrete and continuous RVs even more apparent using \Def{cumulative distribution functions} (CDFs)
 Clearly, PMF and PDF have analogous roles. It is even possible to further extend this connection by using \Def{cumulative distribution functions} (CDFs)
 \begin{equation}
@@ -1875,7 +1881,7 @@ Although the CDF still does not assign values to every point $x \in \mathbb{R}$ 
 
 Furthermore, from $f_X(x) \geq 0$ we see that $F_X$ is a monotonically increasing function and it also fulfils (assuming $a \leq b$)
 \begin{equation}
-P(a \leq X \leq b) = \int_a^b f_X(x) \, dx = \int_{-\infty}^b f_X(x) \, dx - \int_{-\infty}^a f_X(x) \, dx = F_X(b) - F_X(a) \, .
+P(a \leq X \leq b) = \int_a^b f_X(x) \, dx = \int_{-\infty}^b f_X(x) \, dx - \int_{-\infty}^a f_X(x) \, dx = F_X(b) - F_X(a) \, .% = \int_a^b dF_X \, .
 \end{equation}
 Both properties translate to the discrete case as well because $P_X(x) \geq 0$ and sums can be split accordingly. In the continuous case, combining them with equation \eqref{eq:def_PDF} yields
 \begin{equation}
@@ -1884,19 +1890,20 @@ f_X(x) = \frac{F_X(x + dx) - F_X(x)}{dx} = \frac{F_X(x + dx) - F_X(x)}{x + dx - 
 For discrete RVs with $f_X = P_X$, this relationship only holds in points where $F_X$ is defined. Still, it makes sense to write the relationship in this way since $P_X$ is defined only in these points as well. Hence, we have found a quantity that shows no conceptual differences between discrete/continuous RVs and is, in principle, sufficient to describe them.\\
 
 
-We will now put into perspective what happened in the previous paragraphs and how we ended up with the notion of a density. Basically, we explained how sums do not work for CRVs, which motivates the replacement $\sum P \rightarrow \int dP$. In \eqref{eq:distr_crv}, we have written out this integral in terms of $f_x dx =  P(x \leq X \leq x + dx)$ at first, $dP$ on $\Omega$ was only used after that. Mathematically, this transition can be made thanks to the concept of pushforward measure $d\qty(X_* P)$ (i.e.~using measure theory) and by applying the transformation rule, rewriting $d\qty(X_* P) = f_X dx$. This is why another function $f_X$ suddenly shows up in addition to $P_X$. Since the PDF is an object determining probabilities, expectations and therefore basically all other objects of interest, the theory of CRVs mostly deals with finding and manipulating PDFs. To make ourselves more familiar with them, we will now treat important examples. % thought $dP = P(x \leq X \leq x + dx)$, but that does not make sense right? Because $dP$ is on sample space; is rather the case that $\int_{X^{-1} S} dP = \int_S P(x \leq X \leq x + dx)$, right?
+We will now put into perspective what happened in the previous paragraphs and how we ended up with the notion of a density. Basically, we explained how sums do not work for CRVs, which motivates the replacement $\sum P \rightarrow \int dP$. In \eqref{eq:distr_crv}, we have written out this integral in terms of $f_x dx =  P(x \leq X \leq x + dx)$ at first, $dP$ on $\Omega$ was only used after that. Mathematically, this transition can be made thanks to the concept of pushforward measure $d\qty(X_* P)$ (i.e.~using measure theory) and by applying the transformation rule, rewriting $d\qty(X_* P) = dF_X = f_X dx$. This is why another function $f_X$ suddenly shows up in addition to $P_X$. Since the PDF is an object determining probabilities, expectations and therefore basically all other objects of interest, the theory of CRVs mostly deals with finding and manipulating PDFs. To make ourselves more familiar with them, we will now treat important examples. % thought $dP = P(x \leq X \leq x + dx)$, but that does not make sense right? Because $dP$ is on sample space; is rather the case that $\int_{X^{-1} S} dP = \int_S P(x \leq X \leq x + dx)$, right?
 
 
 \begin{ex}[Important Distributions]
 \begin{itemize}
-\item \Def{Uniform distribution}: the simplest distribution one can think of is a constant one, $f_X(x) = k$ on some interval $[a, b]$. It is possible to give a more explicit expression of $k$ by exploiting that $p$ has to fulfil the closure rule:
+\item \Def{Uniform distribution}: the simplest distribution one can think of is a constant one, $f_X(x) = k$ on some interval $[a, b]$. More explicitly we can calculate $k$:
+% It is possible to give a more explicit expression of $k$ by exploiting that $p$ has to fulfil the closure rule:
 \begin{equation}
 1 = \int_a^b f_X(x) \, dx = \int_a^b k \, dx = k (b - a) \quad \Leftrightarrow \quad f_X(x) = \frac{1}{b - a} =: \mathcal{U}(a, b) \, .
 \end{equation}
 
 This also shows that $- \infty < a < b < \infty$ is a necessary condition, otherwise the closure rule could not be fulfilled. By evaluating the corresponding integrals, we obtain the following properties of a uniform RV $X$:
 \begin{equation}
-E[X] = \frac{a + b}{2} \qquad \qquad \Var(X) = \frac{(b - a)^2}{12} \, .
+E[X] = a + \frac{b - a}{2} = \frac{a + b}{2} \qquad \qquad \Var(X) = \frac{(b - a)^2}{12} \, .
 \end{equation}
 
 
@@ -1918,7 +1925,7 @@ Therefore, we can interpret $\lambda$ as a rate parameter that e.g.~encodes when
 
 \item \Def{Poisson distribution}: originates from similar idea to exponential, but instead of dealing with waiting time between events and assigning probabilities to them, it deals with the expected/average number of events in a given time interval.
 
-One can describe this mathematically by dividing the time interval of length $T$ into $N$ smaller intervals of length $\Delta t = \frac{T}{N}$ and then looking at the limit $N \rightarrow \infty$. The probability of observing exactly one event in $T$ is the probability $\lambda \Delta t$ of observing it in a certain time interval $\Delta t$ multiplied with the probability not to observe it in the other time intervals. Since there are $N$ possible ways this can occur,
+One can describe this mathematically by dividing the interval of length $T$ into $N$ smaller ones of length $\Delta t = \frac{T}{N}$ and then looking at the limit $N \rightarrow \infty$. The probability of observing exactly one event in $T$ is the probability $\lambda \Delta t$ of observing it in a certain time interval $\Delta t$ multiplied with the probability not to observe it in the other time intervals. Since there are $N$ possible ways this can occur,
 \begin{equation*}
 p_X(1) = N \lambda \Delta t (1 - \lambda \Delta t)^{N - 1} = \frac{\lambda T}{1 - \lambda T/ N} (1 - \lambda T/ N)^N \, .
 \end{equation*}
@@ -1927,7 +1934,7 @@ In the continuum limit $N \rightarrow \infty$, this reads
 p_X(1) = \lambda T e^{- \lambda T} \, .
 \end{equation*}
 
-Similarly, the probability of observing two events during $T$ is $\binom{N}{2} p(2) = (\lambda \Delta T)^2 (1 - \lambda \Delta T)^{N - 2}$ or $p_X(2) = \frac{1}{2} (\lambda T)^2 e^{- \lambda T}$ in case of $N \rightarrow \infty$. This can be generalized to
+Similarly, the probability of observing two events during $T$ is $\binom{N}{2} (\lambda \Delta T)^2 (1 - \lambda \Delta T)^{N - 2}$ or $p_X(2) = \frac{1}{2} (\lambda T)^2 e^{- \lambda T}$ in case of $N \rightarrow \infty$. This can be generalized to
 \begin{equation}
 p_X(n) = \frac{1}{n!} (\lambda T)^n e^{- \lambda T} = \frac{1}{n!} \alpha^n e^{- \alpha}, \quad \alpha = \lambda T > 0, \; n \in \mathbb{N} \, .
 \end{equation}
@@ -1954,7 +1961,7 @@ Properties of a binomial RV $X$ are
 \begin{equation}
 E[X] = N p \qquad \qquad \Var(X) = N p q \, .
 \end{equation}
-Again, we can see that the $N$ is a parameter that moves the distribution.
+Again, we can see that $N$ is a parameter that moves the distribution.
 
 
 \item \Def{Gaussian/normal distribution}: also nice derivation, result is
@@ -2044,7 +2051,7 @@ i.e.~the joint PDF with one CRV \enquote{integrated out}.
 \begin{equation}\label{eq:joint_pdf}
 f_{X | Y}(x | y) = \frac{f_{X, Y}(x, y)}{f_Y(y)} \qquad \qquad f_{Y | X}(y | x) = \frac{f_{X, Y}(x, y)}{f_X(x)}
 \end{equation}
-and the corresponding probability can be obtained via integration.\footnotemark
+and the corresponding probability can be obtained via integration.\footnotemark{}
 
 
 \item Two CRVs are statistically \Def{independent} if and only if
@@ -2053,15 +2060,19 @@ f_{X, Y}(x, y) = f_X(x) f_Y(y) \, .
 \end{equation}
 
 
-\item The \Def{law of the unconscious statistician} is (also shows how to compute expectations)
+\item The \Def{law of the unconscious statistician} is
 \begin{equation}\label{eq:unc_stat_crv}
 E[g(X, Y)] = \int g(x, y) f_{X, Y}(x, y) \, dx dy \, .
 \end{equation}
+This also shows how to compute expectations like $E[X]$ using joint probabilities ($\neq E_X[X]$, which would be expectation of $X$ using marginal density).%\footnotemark{}
 \end{itemize}
 
 Just like before, this can be generalized to multiple CRVs and from each PDF, an expectation can be computed (e.g.~a conditional expectation $E[X | Y]$).
 \end{defi}
+%\addtocounter{footnote}{-1}
 \footnotetext{Note that we can not demand $Y = y$ anymore because $P(Y = y) = 0$.}
+%\addtocounter{footnote}{1}
+%\footnotetext{This is a theorem of profound importance and it is not as straightforward as it looks at first glance.}
 Although one can think of the marginals as projections of the joint PDF, they do not have the same height (confer figure \ref{fig:joint_marginal_PDF}). Intuitively, we can understand this from the fact that the joint PDF is normalized over the whole square $[-5, 5]^2$, whereas the marginals are normalized over the interval $[-5, 5]$. The same idea is true for $f_{X | Y}(x | y)$. It can be thought of as slices of the joint PDF $f_{X, Y}(x, y)$ for some fixed $y$, which are then normalized by dividing by all possible values $f_{X, Y}$ can take on this slice when varying $x$, i.e.~$\int_{- \infty}^\infty f_{X, Y}(x, y) \, dx = f_Y(y)$.
 
 
@@ -2382,7 +2393,7 @@ Consequently,
 \begin{equation*}
 f_Y(y) = \dv{F_Y(y)}{y} = \frac{y^{- 2 / 3}}{6} = \frac{1}{6 y^{2 / 3}} \, .
 \end{equation*}
-This density is much higher for smaller $y$ than it is for larger ones. The reason is the relationship $y = x^3$, which has an increasingly steep slope. Therefore, many of the smaller values of $x$ get mapped to similar $y$-values, while higher $x$ are mapped to increasingly distant $y$, so the density of $y$-values decreases as $x$ increases.\\
+This density is much higher for smaller $y$ than it is for larger ones. The reason is the relationship $y = x^3$, which has an increasingly steep slope. Therefore, many of the smaller values $x$ get mapped to similar $y$-values, while higher $x$ are mapped to increasingly distant $y$, so the density of $y$-values decreases as $x$ increases.\\
 
 
 If the relationship between $X, Y$ was linear, the distribution would not change because
@@ -2453,7 +2464,7 @@ f_Y(y) = \eval{\frac{f_X(x)}{\abs{\dv{g(x)}{x}}}}_{x = g^{-1}(y)} = f_X(g^{-1}(y
 \end{equation}
 \end{prop}
 % seems to be direct corollary of transformation rule, basically tells us: $\abs{f_Y dY} = \abs{f_Y dg} = \abs{f_X dX}$ (omitting evaluations here), where absolute values around densities can be omitted in further steps due to their positivity (so they only stay around dx, dy)
-Again, this should make sense intuitively because for a function with small (high) slope in a certain point, many (few) neighbouring points get mapped close to where this point is mapped and the result is a higher (lower) density. This inverse relationship is expressed in the first equality of \eqref{eq:pdf_mono_func}. The same arguing can be done for non-monotonic functions, but the formula does not hold due to difficulties with inverting them.
+This is a direct corollary of transformation rules from measure theory and also how one can prove the law of the unconscious statistician. Just like before, the statement should make sense intuitively because for a function with small (high) slope in a certain point, many (few) neighbouring points get mapped close to where this point is mapped and the result is a higher (lower) density. This inverse relationship is expressed in the first equality of \eqref{eq:pdf_mono_func}. The same arguing can be done for non-monotonic functions, but the formula does not hold due to difficulties with inverting them.
 
 In the end, a very compact workflow often looks like this: arguing that the function is monotonic (not globally, only on domain that is treated) and then using property \ref{prop:pdf_mono_func}.\\
 
@@ -2501,7 +2512,7 @@ Using the convolution formula, a rather lengthy calculation yields
 \begin{equation}
 f_Z(z) = \frac{1}{\sqrt{2 \pi \qty(\sigma_X^2 + \sigma_Y^2)}} e^{- \frac{1}{2} \frac{\qty(z - \qty(\mu_X + \mu_Y))^2}{\sigma_X^2 + \sigma_Y^2}}
 \end{equation}
-where $Z = X + Y$. This is also a normal RV, $Z \sim \mathcal{G}(\mu_X + \mu_Y, \sigma_X^2 + \sigma_Y^2)$, as expected from the law of the unconscious statistician (for the case of independent CRVs).
+where $Z = X + Y$. This is also a normal RV, $Z \sim \mathcal{G}(\mu_X + \mu_Y, \sigma_X^2 + \sigma_Y^2)$, as expected from the law of the unconscious statistician (for the case of independent CRVs, otherwise variances could not be added).
 
 Put differently, the convolution of two exponentials is an exponential again.
 %What are the iso-lines of the PDF (points $z$ with same $f_Z(z)$)? Well, definition is (use law for exponentials) $- \frac{(x - \mu_X)^2}{2 \sigma_X} + \frac{- (y - \mu_Y)^2}{2 \sigma_Y} = 0$
@@ -2564,9 +2575,9 @@ which is the same result.
 
 Going one step further, we can also define the notion of a \Def{conditional variance}
 \begin{equation}
-\Var(X | Y = y) = E_X[(X - E_X[X | Y = y])^2] \, .
+\Var(X | Y = y) = E_X[(X - E_X[X | Y = y])^2 | Y = y] \, .
 \end{equation}
-In a very similar manner to what was done before, this can be interpreted as a function of $y$ and thus a RV $\Var(X | Y) = E_X[(X - E_X[X | Y])^2]$.
+In a very similar manner to what was done before, this can be interpreted as a function of $y$ and thus a RV $\Var(X | Y) = E_X[(X - E_X[X | Y])^2 | Y]$.
 \begin{prop}[Law of Total Variance]
 For two RVs $X, Y$
 \begin{equation}
@@ -2646,7 +2657,7 @@ We can see that $E_X[X | Y = 2] = 60$ lies in this interval, while $E_X[X | Y = 
 
 
 	\subsection{Limit Theorems}\label{subsec:limit_thms}
-In reality, it is seldomly possible to actually measure distributions. Instead, one can measure outcomes/realizations and those measurements are commonly called \Def[sample]{samples}. However, that imposes a problem: how to get quantities like expectations and variances from a sample? It turns out that there are sample-analogues of most quantities, for example the \Def{sample mean}
+In reality, it is seldomly possible to actually measure distributions. Instead, one can measure outcomes/realizations and those measurements are commonly called \Def[sample]{samples} and from their density in certain intervals, one can estimate the underlying PDF (this is the idea of a \Def{histogram}). However, not knowing the distribution imposes a problem: how to get quantities like expectations and variances from a sample? It turns out that there are sample-analogues of most quantities, for example the \Def{sample mean}
 \begin{equation}\label{eq:sample_mean}
 M_n := \frac{1}{n} \sum_{i = 1}^n x_i
 \end{equation}
@@ -2671,11 +2682,11 @@ A simple corollary for the RV $(X - \mu)^2$ is the \Def{Chebyshev Inequality}
 \begin{equation}\label{eq:cor_markov}
 \Var(X) \geq c^2 \, P\qty((X - \mu)^2 \geq c^2) = c^2 \, P\qty(\abs{X - \mu} \geq c), \quad c > 0 \, ,
 \end{equation}
-where we abbreviate $\mu = E[X]$. Another interesting statement can be obtained for $c = k \sigma_X$:
+where we abbreviate $\mu = E[X]$ and replaced $c \rightarrow c^2$ for convenience. Another interesting statement can be obtained for $c = k \sigma_X$:
 \begin{equation}
 P\qty(\abs{X - \mu} \geq k \sigma_X) \leq \frac{1}{k^2} \, .
 \end{equation}
-Therefore, the Chebyshev inequality tells us that the probability of $X$ landing $k$ standard deviations away from the mean goes as $1 / k^2$. This is a very useful way to characterize outliers, even if the distribution itself is unknown (only mean and standard deviation are needed in order to make such statements).\\
+Therefore, the Chebyshev inequality tells us that the probability of realizations of $X$ landing $k$ standard deviations away from the mean goes as $1 / k^2$. This is a very useful way to characterize outliers, even if the distribution itself is unknown (only mean and standard deviation are needed in order to make such statements).\\
 
 
 These are the tools that we need for now. Since our initial goal was to formulate limit theorems, we need a notion of convergence first.
@@ -2693,7 +2704,7 @@ Note that this is another definition using the CDF, not PMF/PDF.
 
 
 \begin{ex}[Simple Sequence]
-To gain more understanding, we will now treat the sequence of discrete RVs $X_n$ with $x_n \in \qty{0, n}$ and PMF
+To gain more understanding, we will now treat the sequence of discrete RVs $X_n$ with two realizations $x_n \in \qty{0, n}$ and PMF
 \begin{equation*}
 P_{X_n} = \begin{cases} 1 - \frac{1}{n}, & x_n = 0 \\ \frac{1}{n}, & x_n = n \end{cases} \, .
 \end{equation*}
@@ -2712,7 +2723,7 @@ These results are surprising, after all we have shown that $X_n$ converges to ze
 \lim_{n \rightarrow \infty} \frac{n}{n} = \lim_{n \rightarrow \infty} 1 = 1 \, .
 \end{equation*}
 
-Therefore, this unintuitive behaviour of expectation and variance is caused by the unusual nature of the RV itself, one of its values diverges.
+Therefore, this unintuitive behaviour of expectation and variance is caused by the unusual nature of the RV itself, one of its values/realizations diverges.
 
 %That points to an issue with the notion of \enquote{convergence in probability}: although the probability that $X_n$ takes values other than zero is indeed zero - but that does not mean they are impossible to occur. This may seem like a contradiction, but it is not and simply reflects the fact that probabilities of points are zero in general. Nonetheless, they still have to be -> nope, not the issue here, RV is discrete
 \end{ex}
@@ -2733,7 +2744,7 @@ E[M_n] &= \frac{1}{n} \sum_{i = 1}^n E[X_i] = \frac{1}{n} \cdot n \cdot \mu = \m
 \\
 \Var(M_n) &= \frac{1}{n^2} \sum_{i = 1}^n \Var(X_i) = \frac{1}{n^2} \cdot n \cdot \sigma^2 = \frac{\sigma^2}{n} \, .
 \end{align}
-Therefore, the distribution of $M_n$ has the mean of the RVs it consists of (which is why it is also called an \Def{unbiased estimator}) and a deviation/uncertainty that decreases as the sample size $n$ is increased. Hence, it might be interesting to look at what the Chebyshev inequality tells us about $\abs{M_n - \mu}$:
+Therefore, the distribution of $M_n$ has the mean of the RVs it consists of (which is why it is also called an \Def{unbiased estimator}) and a deviation/uncertainty that decreases as the sample size $n$ is increased.\footnote{The latter is only true due to the assumption of i.i.d.~RVs. Otherwise, covariances would potentially contribute.} Hence, it might be interesting to look at what the Chebyshev inequality tells us about $\abs{M_n - \mu}$:
 \begin{align}
 &\Var(M_n) \geq \epsilon^2 \, P\qty(\abs{M_n - \mu} \geq \epsilon), \; \forall \epsilon > 0
 \notag\\
@@ -2769,7 +2780,7 @@ $50 000$ people have to be asked for $95\%$ confidence that $f_n$ estimates $f$ 
 \end{ex}
 
 
-There is another statement that tells us more about samples -- this time, however, it is about the whole distribution of their sample mean and not only the mean value of sample means:
+There is another statement that tells us more about samples -- this time, however, it is about the whole distribution of their sample mean and not just the average sample mean:
 \begin{prop}[Central Limit Theorem]
 For i.i.d.~RVs $X_i$ with finite mean, variance $\mu, \sigma^2$ and their mean $M_n = \frac{1}{n} \sum_i X_i$, the distribution of the RV $\sqrt{n} \qty(M_n - \mu)$ converges to $\mathcal{G}(0, \sigma^2)$.\footnotemark
 \end{prop}
