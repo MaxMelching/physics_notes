@@ -2,14 +2,30 @@
 \input{../header}
 
 
+
 \begin{document}
 
 \chapter{Special Relativity}
 % -> feel like new organization is needed: make one chapter (rather section) about clocks, but then also one on field equations etc? Because main point of GR. Or maybe even do Newton a bit (relativistic), for sure how we get movement of particles etc -> nope, surely no whole chapter about clocks; maybe one about SR
 
+\begin{center}
+In modern day physics, there are often two competing viewpoints. One is very much based on intuition and the other is based solely on a mathematical description. This shows especially in the theory of special relativity, where one can deal (i) in much detail with groups and transformations or (ii) with a much more pictorial version of the theory, mostly utilizing very basic geometry in so-called spacetime diagrams.
+
+Both approaches can lead to a rich and of course equivalent understanding, but it is often tempting to focus on only one of them. In my personal experience, this is often the mathematical description because students are often more familiar with the required math, so teaching the alternative and rather new intuitive-based approach would actually more complicated. This, however, can often lead to a lack of intuition, which is still fundamental to fully understand relativity as a whole. For this reason, our goal is to learn about both approaches.
+\end{center}
+
+
+% Sources: Dragon, Giulini, Einstein paper and book
+
+
+
+\newpage
+
+
+
 	\section{Newtonian Physics}
 		\subsection{Space \& Time}
-% Good sources: Nolting + Meinel
+% Good sources: Nolting + Meinel; also Giulini + Dragon
 maybe start from argument for speed of light is limit and then say that close to the speed of light, Newtonian description fails; this means we cannot look at time and space as separate concepts anymore, instead look at things like spacetime diagrams; from that, we can also derive something like notion of distance and then we can formalize this using notion of metric (another way to see this: we want invariant notion of distance in Minkowski space and we have already seen one; mathematically, that means we work with pseudo-metric)
 
 
@@ -17,13 +33,13 @@ surely state that Newton is conform with our intuition and holds at small distan
 
 
 
-Maxwell's equation tells us that the speed of light is a constant, $c = \frac{1}{\sqrt{\epsilon_0 \mu_0}}$; or Michelson-Morley experiment, shows that speed of light is the same in all inertial frames (i.e.~that uniform motion does not influence it); therefore, the distance light travels is related to this constant velocity via the well-known formula for uniform motion $c^2 \qty(\Delta t)^2 = \qty(\Delta x)^2 + \qty(\Delta y)^2 + \qty(\Delta z)^2$; any observer in a different inertial frame also has to measure the same velocity, despite having different coordinates, i.e.~$c^2 \qty(\Delta t')^2 = \qty(\Delta x')^2 + \qty(\Delta y')^2 + \qty(\Delta z')^2$
+Maxwell's equation tells us that the speed of light is a constant, $c = \frac{1}{\sqrt{\epsilon_0 \mu_0}}$; or Michelson-Morley experiment, shows that speed of light is the same in all inertial frames (i.e.~that uniform motion does not influence it); therefore, the distance light travels is related to this constant velocity via the well-known formula for uniform motion $c^2 \qty(\Delta t)^2 = \qty(\Delta x)^2 + \qty(\Delta y)^2 + \qty(\Delta z)^2$; any observer in a different inertial frame also has to measure the same velocity, despite having different coordinates, i.e.~$c^2 \qty(\Delta t')^2 = \qty(\Delta x')^2 + \qty(\Delta y')^2 + \qty(\Delta z')^2$; this seemingly simple idea will turn out to be very powerful and fundamental in building the theory of relativity
 
 argument for maximal speed? Ah, we do not even need maximum speed for showing inconsistency: speed of light being constant contradicts Newtonian addition of velocities; maybe this just magically comes out because otherwise, we would violate causality
 
 
 
-as end of this section: however, the Newtonian physics is not complete; as the Michelson-Morley experiment showed, the speed of light is constant (or rather say that Maxwell equations tell us this, M-M was after SR has been developed); in Newtonian physics, however, a photon emitted by an observer moving with velocity $v$ will have velocity $c + v$ in the frame of an observer at rest; to solve this inconsistency, we will have to rethink the Newtonian concepts of time and space
+as end of this section: however, the Newtonian physics is not complete; as the Michelson-Morley experiment showed, the speed of light is constant (or rather say that Maxwell equations tell us this, M-M was after SR has been developed); in Newtonian physics, however, a photon emitted by an observer moving with velocity $v$ will have velocity $c + v$ in the frame of an observer at rest (because of Galilei transform); to solve this inconsistency, we will have to rethink the Newtonian concepts of time and space
 
 
 
@@ -32,6 +48,11 @@ as end of this section: however, the Newtonian physics is not complete; as the M
 
 
 	\section{Relativity}
+		\subsection{What is wrong with Newton?}
+make it subsection here? Or mention in Newton?
+
+
+
 		\subsection{Einstein Postulates}
 
 maybe make one subsection on what SR builds on? Einstein postulates; then go on to what this tells us about time etc
@@ -43,6 +64,177 @@ Dragon shows how this also means $c$ is maximum speed anything can reach
 
 
 this constant speed of light makes it very special because it is independent of the observer/inertial system and thus allows to transform statements between them (make invariant statements?)
+
+
+
+		\subsection{Lorentz Transformation}
+basically follow structure Einstein paper, derive coordinate transformation first; then we can see some of the effects that follow from it, like time dilation for example (is just logical consequence; we demand something in the postulates, then see what implications that has for coordinates and physics)
+
+
+
+		\subsection{Light Cones}
+talk about spacetime diagrams here -> after all, we will use them in section on clocks -> better motivation: can visualize effects of Lorentz transformation very nicely
+
+
+simultaneous events in Minkowski space are one a line parallel to spatial axis
+
+gleichortige events are on a line parallel to time axis
+
+
+
+\begin{figure}
+\centering
+
+\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+	% Add basis for diagram
+	\spacetimediagram{1}{4}
+
+	% Add other observers
+	%\addobserver{0.5}{2}{0.9}{42}
+	\addobserver{1}{3}{0.5}{42}
+	%\addobserver{1}{3}{0.1}{42}
+
+	% Add event in rest frame
+	\draw (0, 2) node[red, circle, fill] {};
+	\draw (2, 2) node[red, circle, fill] {};
+
+	% Add same event in moving frame, i.e. have to evaluate Lorentz transform (but with "wrong" sign in front of v, comes from convention in drawing diagram) -> \gamma=0.86
+	\draw (0.5 * 2 / 0.86, 2 / 0.86) node[blue, circle, fill] {};
+	\draw (2 / 0.86 + 0.5 * 2 / 0.86, 2 / 0.86 + 0.5 * 2 / 0.86) node[blue, circle, fill] {};
+\end{tikzpicture}
+
+\caption{Two events at spacetime points $(0,2), (2,2)$. Red dots show the points with these coordinates in the $(x, ct)$-frame and blue dots show the same coordinates in the $(ct', x')$-frame moving with $v = 0.5 c$.\\
+We can see very nicely how each observer perceives time differently. Events happening simultaneously to both red dots (i.e.~which lie on the line between them at $t = 2$), do \emph{not} happen at $t' = t$, but at $t' = \tau = \sqrt{1 - v^2} \, t$ (which is evident from the fact that the blue dots are at $t' = t$). The same can be said for the moving observer in blue, which sees events at $t = \sqrt{1 - v^2} \, t'$ simultaneous to the blue dots at $t' = 2$.}
+\end{figure}
+
+
+
+		\subsection{Dragon on Measuring Time}
+maybe motivation for whole time measurement: postulates/principles of SR tell us that coordinates do not have an invariant meaning; however, distances have an invariant meaning (mathematically speaking because they are related to a metric; physically speaking because they do not rely on a specific starting point/reference, just as intuition why this is good); we know how to measure distances in Euclidian space, using rulers; however, in 4D spacetime and thus SR, this idea has to be adjusted; this we can see from the way rulers have to be defined for longer distances (physical ones cannot measure cosmic distances; being able to measure them must be goal for general definition of rulers); here, we exploit that speed of light is independent of reference frame, so its travel time can tell us something about the spatial distance of objects, as well as their distance in time (things are intertwined now); when doing that, some unintuitive complications will arise, which we may not be aware of from our everyday experience -> also nice motivation how \enquote{correct} notion of time measurement will allow us to define a metric for spacetime, important tool for further mathematical examination
+
+
+
+hmmm ok, 2.1 is easy: just saying that if observer sees light from other observer, the light he sees at $t_B$ has been sent out at some time $t_U$ (not equal, travel time in between!!); they are proportional, the factor is called \Def{Doppler factor} (and it does not depend on the explicit value of $t_B$)
+
+
+ah, now it is easy: if we send out a pulse at $t_-$ and get it back at $t_+$, then for us the time $t_+ - t_-$ has passed; however, the event that we \enquote{interact} with using these pulses happened at time $\tau'$ which is simultaneous to $\tau = \sqrt{t_+ t_-}$ (because Minkowski theorem states $\tau' = \tau$); note that this allows to measure velocity $v$
+
+
+-> confused right now because Dragon does not explain why time span of length $t$ has length $\tau = \sqrt{1 - v^2} t$ for moving clock, just states... Is it maybe that $\tau = \tau'$, so the time elapsed between $E, E'$ is the same (by definition of referee), but the event that happens simultaneous to $E$ is length $t$ away from origin? Simultaneity here judged from resting system -> ok, I guess the only way to make sense of simultaneity is coordinate transformation into the other frame of reference; when doing that, we see that $E$ and $E'$ are not simultaneous; instead, the event at time $t$ (in resting frame) is simultaneous to $E'$ which happens at $\tau' = \tau = \sqrt{1 - v^2} t$ (i.e.~we can use Minkowski theorem to express the time in other reference frame using time in current frame, right? Does \emph{not} tell us which events are simultaneous); also, these effects go both ways, but this is only due to different notions of simultaneity for both of them; if they get a chance to synchronize their clocks again (i.e.~compare clocks in one event, just like they synchronized them/set them to zero in origin, which we assume all the time; there they also were in same spatial point), all frames of reference will agree that for moving observers less time passes
+
+
+-> ok, so basically we can use this as section where we show how claims from Lorentz transformation can be realized using a setup to measure time; can e.g.~derive time dilation as well (very nice visualization for this is spacetime diagram)
+
+
+\hrule
+
+
+
+say we have to observers who start from same point with same absolute velocity, but different directions; if they have equal clocks which are synchronized at $t = 0$ (i.e.~they show the same time there), then the time $t_p$ at which a light pulse is sent out by one observer is related to the time at which other observer sees pulse by $t_s = t_p + v_r t_p / c$ (where $v_r$ is relative velocity of the observers; simply comes from the observation that their distance after time $t_p$ is $v_r t_p$, which is extra distance light has to travel)
+
+to avoid this, we can look at a referee; this is another observer which is defined to have an equal distance from both observers at all times; therefore, if we always send signals to the referee and compare there, we can neglect any additional terms due to travel time (since by definition, will be equal for both observers); that is, we can meaningfully compare the times at which light pulses from the observers come in, hence this will allow to make sense of simultaneity
+
+the next step to utilize this is to look at which times the clocks of different observers show \enquote{at the same time}, i.e.~for an event that is simultaneous for them -> how we can measure from clock of one observer, which time the clock of the other observer shows for some event (now possible due to simultaneity)
+
+
+it is very logical then that both observers see the same redshift, since light travels same distance for both of them (assuming the pulses are sent out at same time by means of simultaneity we just defined)
+
+-> in example from gravitational physics, we had to use resting observer because for him we could measure one of the times pretty easily, which could then be converted to the one for moving; for moving observer on the other hand, calculating proper time in first place is not as easy (right?)
+
+
+
+hmmm, is it the proper time that really passes? Or coordinate time and proper time is just tool that allows conversion of coordinate times? Maybe nice transition: both resting and moving observer claim less time passes for other, who is right? To appropriately answer the question, we need them to synchronize, get one moving and then get them back together, so we need acceleration (should lead to infinitesimal proper time interval; here we see that less time passed for moving observer)
+
+
+for non-uniform velocity, connection procedure does not work between macroscopic events anymore (because getting distance from velocity is not multiplication, now integration), but only infinitesimally (equivalent: just like we have to integrate velocity for distance, we have to integrate for travel time of light; since time = distance for light -> nice visualization: rectification of curve, works perfect for straight line, but if changing derivative comes into play, not perfect anymore, have to go to infinitesimal distances for that); motivation for $d\tau$
+
+
+{ % Does something, but diagrams are not correct
+\iffalse
+\begin{figure}
+\setlength{\unitlength}{0.77cm}
+\special{em:linewidth 1.0 pt}
+\linethickness{1.0 pt}
+
+
+\begin{picture}(7.2,10.)
+
+\put(3.0,.5){
+\emline{0.125}{-.5}{12}{-2.375}{9.5}{13}
+\emline{-.072949}{-0.5}{16}{1.38603}{9.5}{17}
+\emline{2.}{4.}{9}{-.89443}{3.57771}{3}
+\emline{-.25}{-.5}{14}{4.75}{9.5}{15}
+\emline{2.}{4.}{9}{0.76393}{5.23607}{20}
+\emline{2.}{4.}{9}{.341641}{2.341641}{21}
+\emline{-.89443}{3.57771}{3}{.341641}{2.341641}{21}
+\emline{-.89443}{3.57771}{3}{0.76393}{5.23607}{20}
+\put(-1.9,9.0){\makebox(0,0)[lt]{\large ${\mathcal B}$}}
+\put(0.4,9.0){\makebox(0,0)[lt]{\large ${\mathcal S}$}}
+\put(3.4,9.0){\makebox(0,0)[lt]{\large ${\mathcal U}$}}
+\put(2.3,4.0){\makebox(0,0)[lc]{\large $\tau^\prime$}}
+%\put(2.8,4.0){\makebox(0,0)[lc]{$E$}}
+\put(-1.7,3.6){\makebox(0,0)[lc]{\large $\tau$}}
+\put(.3,0.0){\makebox(0,0)[lc]{\large $O$}}
+}
+\end{picture}
+
+\end{figure}
+
+\begin{figure}
+\setlength{\unitlength}{0.77cm}
+\special{em:linewidth 1.0pt}
+\linethickness{1.0pt}
+\begin{picture}(7.2,10.0)
+\put(3.,.5){
+\emline{0.125}{-.5}{12}{-2.375}{9.5}{13}
+\emline{-.072949}{-0.5}{16}{1.38603}{9.5}{17}
+\emline{2.}{4.}{9}{-.89443}{3.57771}{3}
+\emline{-.25}{-.5}{14}{4.75}{9.5}{15}
+\emline{2.}{4.}{9}{-2.}{8.}{5}
+\emline{2.}{4.}{9}{-.4}{1.6}{2}
+\emline{-.89443}{3.57771}{3}{.341641}{2.341641}{21}
+\emline{-.89443}{3.57771}{3}{0.76393}{5.23607}{20}
+\put(-1.9,9.0){\makebox(0,0)[lt]{\large ${\mathcal B}$}}
+\put(0.4,9.0){\makebox(0,0)[lt]{\large ${\mathcal S}$}}
+\put(3.4,9.0){\makebox(0,0)[lt]{\large ${\mathcal U}$}}
+\put(2.3,4.0){\makebox(0,0)[lc]{\large $\tau^\prime=\sqrt{\vphantom{T^2}t_+t_-}$}}
+\put(0.9,5.3){\makebox(0,0)[lc]{\large $s_+$}}
+\put(0.4,2.15){\makebox(0,0)[lc]{\large $s_-$}}
+\put(-2.3,8.0){\makebox(0,0)[rc]{\large $t_+$}}
+\put(-.5,1.6){\makebox(0,0)[rc]{\large $t_-$}}
+\put(-1.7,3.6){\makebox(0,0)[lc]{\large $\tau$}}
+\put(.3,0.0){\makebox(0,0)[lc]{\large $O$}}
+}
+\end{picture}
+\end{figure}
+\fi
+}
+
+
+{ % Trying to imitate Dragon diagrams
+\iffalse
+
+
+\begin{figure}
+\centering
+
+\include{../pictures/abb21.tex}
+
+\caption{}
+\end{figure}
+
+
+
+\begin{figure}
+\centering
+
+\include{../pictures/abb22.tex}
+
+\caption{}
+\end{figure}
+
+\fi
+}
 
 
 
@@ -321,21 +513,50 @@ also note that this effect is mutual, the other observer can claim the same thin
 
 
 
-%		\subsection{Formalized Description}%Generalized
-		\subsection{Minkowski Space}
+
+
+		\subsection{Synchronization}
+Maybe do that in section before clocks? Or one whole section on time/clocks?
+
+
+
+\newpage
+
+
+
+	\section{Minkowski Space}
+do mathematical stuff; also make interpretation of Lorentz transformation as symmetry group stuff
+
+
+
+		\subsection{Notes}
+
 turns out there is a very convenient way to formulate what we just learned, in terms of manifolds (where we use coordinates only as a tool, similar to what we require for different inertial frames); will also enable to formulate some properties in a very nice manner
 
 ok, this might be nice: in spacetime diagrams, we see the idea how space and time (which are, as we know now, no separate notions) can be combined into one entity -- describe them as coordinates in one space; this space is called Minkowski space and spacetime diagrams can be seen as a visualization of it; SR is basically which geometry Minkowski space possesses and mathematically, we can describe that in metric; this metric we get from invariant notion we have already seen
 
 \hrule
 
--> the geometric structure of Minkowski space can be described using the relation $c^2 \qty(\Delta t)^2 = \qty(\Delta x)^2 + \qty(\Delta y)^2 + \qty(\Delta z)^2$ because this naturally gives us a line element $ds^2$ and corresponding metric (these are mathematical tools needed in order to do geometry; we choose this specific metric because it makes sense from a physics point of view, we can make statements about causality etc.); $ds^2 = 0$ means light, similarly $> 0$ and $< 0$ characterize certain things (here we need argument for $c$ as maximum speed, right? Because for other particles, $v^2 t^2 < c^2 t^2$ for sure, so $ds^2 < 0$ -> is this a valid argument? Because the $\Delta x_i$ will be smaller as well, right?)
+-> the geometric structure of Minkowski space can be described using the relation $c^2 \qty(\Delta t)^2 = \qty(\Delta x)^2 + \qty(\Delta y)^2 + \qty(\Delta z)^2$ because this naturally gives us a line element $ds^2$ and corresponding metric (these are mathematical tools needed in order to do geometry; we choose this specific metric because it makes sense from a physics point of view, we can make statements about causality etc.); $ds^2 = 0$ means light, similarly $> 0$ and $< 0$ characterize certain things (here we need argument for $c$ as maximum speed, right? Because for other particles, $v^2 t^2 < c^2 t^2$ for sure, so $ds^2 < 0$ -> is this a valid argument (I think so, this is how timelike worldlines are defined)? Because the $\Delta x_i$ will be smaller as well, right?)
 
 -> two observers can only communicate if their distance does not increase with a certain critical velocity (something like this), which is motivation for taking this particular metric and inner product (we can check causality)
 
 -> observer-independent statements mean that coordinates have no physical meaning; advantage of metric: statements using that (for example distances and angles) are coordinate-independent, so the metric allows us to make physically meaningful statements
 
 -> just state spacetime diagrams as convenient way to visualize Minkowski space
+
+\hrule
+
+more thoughts inspired by Dragon script: we have seen how to measure time $\tau$ that elapses for observer; we can formalize this into scalar product which takes two tangent vectors as input; the value of this inner product tells us about the properties of the world line we compute the tangent vectors for, if it is timelike/lightlike/spacelike (right?); in particular, by taking the difference between events as an input here, we see if events have a causal connection (which is the case if difference is timelike); hmmm, so basically: the time that an observer measures tells us something about the observer, for example its speed (for light, no time elapses! For fast observers, a smaller amount of time elapses than for a resting one, etc.)
+
+basic question is what the distance between events in spacetime is; this is a non-trivial question because observers might be moving, which means the spatial distance between them is not constant and that makes measuring them more complicated; in fact, it requires to also take time into account (time becomes coordinate time and is no invariant quantity anymore); our way to measure time will exploit that the speed of light is constant and independent of the observer (big advantage!); distance measure in new $4D$ spacetime will be defined based on how long light is travelling between observer and event, that leads to an invariant notion of time which naturally takes velocity of observers into account, the proper time $\tau$; this is then defined into an inner product to give us a systematic way of arguing about causality in relativity because based on the value of this inner product for the difference vector between two events, we can learn something about if they can potentially influence each other
+
+
+$4$-momentum is related to velocity, that is tangent vector; therefore, we can also compute inner product for it
+
+
+physically way to say things: we want observer-independent statements, for example on spatial distances and time; mathematical: coordinate-independent, invariant notions like distance and metric
+
 
 \hrule
 
@@ -379,11 +600,19 @@ d\tau = \frac{ds}{c} = \frac{\sqrt{ds^2}}{c} = \frac{1}{c} \sqrt{c^2 dt^2 - d\ve
 where $\gamma$ is the \Def{Lorentz-factor}
 
 
+if we have some world line $\gamma(\sigma): \sigma \mapsto \qty(t, x, y, z) = \qty(t(\sigma), x(\sigma), y(\sigma), z(\sigma))$ parametrized by a parameter $\sigma \in \qty[a, b]$, we can also compute the proper time using this parametrization:
+\begin{equation}
+%\tau = \frac{1}{c} \int_\Gamma ds = \frac{1}{c} \int_\Gamma \sqrt{c^2 dt^2 - dx^2 - dy^2 - dz^2} = \frac{1}{c} \int
+\tau = \int_\Gamma d\tau = \int_a^b \dv{t}{\sigma} \gamma \, d\sigma = \frac{1}{c} \int_a^b \sqrt{\qty(\dv{t}{\sigma})^2 - \qty(\dv{\vec{x}}{\sigma})^2} \, d\sigma
+\end{equation}
+should be correct, is just transformation law for integrals... last equality from Dragon, should be equivalent to previous ones (guess it just depends on situation which one is used); this formula is valid for accelerated clocks as well (reduces to the previous one for time difference in case of uniformly moving clock/observer)
+
+
 we can see that for constant velocity, $\tau = \gamma t$ as well (where we now talk about differences which are not infinitesimal)
 
 
 
-		\subsection{Lorentz Transformations}
+		\subsection{Lorentz Transformations -- V2}
 now that we know how times from different frames of reference are related, we may ask for more general relations between them
 
 
@@ -391,14 +620,30 @@ when interpreting Minkowski space as a manifold and working with coordinates/cha
 
 
 
+		\subsection{Metric}
+natural measure for distances: use light (just like we did in clocks section); thus, $ds^2 = c^2 d\tau^2$
+
+\enquote{derivation}: $c^2 t^2 = x^2 + y^2 + z^2$ holds for light independently of frame we choose, so it is an invariant object and it also represents what we do with clocks (bad phrasing, but idea good), so rearranging it is good choice for metric; however, that leaves some freedom in sign, physics is of course the same no matter which one we choose, but still we have to select one of them
+
+
+
 		\subsection{Relativistic Dynamics}
 idea: new transformation law means we have new dynamics; these can be formulated conveniently using points and vectors in Minkowski space; talk about four-momentum and forces etc.
+
+
+four-velocity: using chain rule, we can write $U^\alpha = \dv{x^\alpha}{\tau} = \dv{t}{\tau} \dv{x^\alpha}{t} =: \gamma (c, \vec{v})$ in general; this $\gamma = \dv{t}{\tau} = \pdv{t}{\tau}$ then depends on the metric, it is the (negative of, depends on convention that is chosen) component $g_{tt}$; for the Minkowski metric in SR (where only uniform velocities occur), we can further simplify this by using $d\tau^2 = ds^2 / c^2 = (c^2 dt^2 - dx^2 - dy^2 - dz^2) / c^2 = dt^2 (1 - \dv{x^\alpha}{t} \dv{x^\alpha}{t} / c^2) =: dt^2 / \gamma^2$; this $\gamma$ us negligible for many problems, only has significant effects if $v \approx c$ (which is why it is does not show up in daily life)
+
 
 
 \newpage
 
 
-	\section{General Relativity}
+
+%	\section{General Relativity}
+	\section{Acceleration}%{Accelerated Observers} % GR is next chapter, maybe this name more accurate
+using the generalization we just made, we can also deal with accelerations, i.e.~non-uniform movement; this is easier (or at least more straightforward) to do than intuitive version, at least for now
+
+
 we have seen how to compute proper times in special relativity, the formula could be broken down to 
 \begin{equation}
 \tau = \int d\tau = \frac{1}{c} \int ds = \frac{1}{c} \int \sqrt{g_{\mu \nu} v^\mu v^\nu} \, dt

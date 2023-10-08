@@ -20,7 +20,7 @@ defining vectors on manifolds is a non-trivial topic, they are now completely di
 \end{equation}
 this is a simply application of the chain rule and it yields the tangent vector components
 \begin{equation}
-t^\alpha = \dv{x^\alpha}{\sigma}
+t^\alpha = \dv{x^\alpha}{\sigma} = \underline{t} \cdot x^\alpha
 \end{equation}
 because the vector is supposed to act as
 \begin{equation}
@@ -36,8 +36,12 @@ formally, we can express this as
 
 
 tangent vectors are invariant quantities, they do not (and should not!) depend on the coordinates we use to express them; their components, on the other hand, are \emph{not} invariant; they obey the following transformation rule:
-\begin{equation}
-\underline{t} = t^\alpha \pdv{x^\alpha} = t^\alpha \pdv{x'^\beta}{x^\alpha} \pdv{x'^\beta} = t'^\beta \pdv{x'^\beta} \qquad \Leftrightarrow \qquad \eqbox{t'^\beta = t^\alpha \pdv{x'^\beta}{x^\alpha}}
+\begin{equation}\label{eq:vec_trafo}
+\underline{t} = t^\alpha \pdv{x^\alpha} = t^\alpha \pdv{x'^\beta}{x^\alpha} \pdv{x'^\beta} = t'^\beta \pdv{x'^\beta}
+\qquad \Leftrightarrow \qquad
+\eqbox{
+t'^\beta = t^\alpha \pdv{x'^\beta}{x^\alpha}
+}
 \end{equation}
 once again, this is basically just an application of the chain rule
 
@@ -46,7 +50,7 @@ next natural step: linear maps on tangent space $V$ (= set/space of tangent vect
 \begin{equation}
 df = \pdv{f}{x^\alpha} dx^\alpha
 \end{equation}
-where we chose a convenient basis $\qty{\underline{e^\alpha}}_\alpha$ of the dual vector space; the $\qty{dx^\alpha}_\alpha$ satisfy
+where we chose a convenient basis $\qty{\underline{e^\alpha}}_\alpha = \qty{dx^\alpha}_\alpha$ of the dual vector space; these satisfy
 \begin{equation}
 dx^\alpha\qty(\pdv{x^\beta}) = \pdv{x^\alpha}{x^\beta} = \delta^\alpha_\beta
 \end{equation}
@@ -57,7 +61,7 @@ w\qty(\alpha \underline{a} + \beta \underline{b}) = \alpha w\qty(\underline{a}) 
 \end{equation}
 we can also characterize covectors via tuples of components
 \begin{equation}
-w_\alpha = w\qty(\underline{e_\alpha}) = w\qty(\partial_\alpha)
+w_\alpha = w\qty(\underline{e_\alpha}) = w\qty(\partial_\alpha) = \partial_\alpha w
 \end{equation}
 
 in general, we can also write
@@ -66,9 +70,105 @@ w\qty(\underline{a}) = w_\alpha \underline{e^\alpha}\qty(a^\beta \underline{e_\b
 \end{equation}
 
 
+to see how covector components in different coordinates are related, we look at the following inner product (which is also invariant)
+\begin{equation}\label{eq:covec_trafo}
+w\qty(\underline{t}) = w_\alpha t^\alpha \overset{!}{=} w'_\beta t'^\beta = w'_\beta \pdv{x'^\beta}{x^\alpha} t^\alpha
+\qquad \Leftrightarrow \qquad
+\eqbox{
+w'_\beta = w_\alpha \pdv{x^\alpha}{x'^\beta}
+}
+\end{equation}
+
+
 
 		\subsection{Tensors}
-generalization of vectors and covectors
+We have seen how covectors are maps from $V$ to the real numbers. Similarly, one can show that there is a unique identification between vectors from $V$ and maps from the dual space $V^*$ to the real numbers -- vectors are also maps. It is possible to generalize this concept to coordinate-independent entities which map multiple vectors, covectors or mixes of them to the real numbers. Linear maps
+\begin{equation}
+T: V^n \cross \qty(V^*)^m = V \cross \dots \cross V \cross V^* \cross \dots V^* \rightarrow \mathbb{R}
+\end{equation}
+are called \Def{tensors} of rank $m + n$. Due to their invariance under coordinate-transformations, every physical quantity has to be expressed as a tensor.
+
+Just like vectors can be collected in components $t^\alpha = \underline{t} \cdot x^\alpha = \partial_\sigma x^\alpha$ and covectors in components $w_\alpha = w\qty(\partial_\alpha)$, we can characterize a tensor of rank $m + n$ using components
+\begin{equation}
+\eqbox{
+T^{\alpha_1 \dots \alpha_m}{}_{\beta_1 \dots \beta_n} = T\qty(\underline{e_1}, \dots, \underline{e_n}, \underline{e^1}, \dots, \underline{e^m})
+} \, .
+\end{equation}
+	\rem{it is no typo that there are $m$ upper and $n$ lower indices. This reflects the fact that a tensor of rank $m + n$ can map $m$ covectors with its $m$ \enquote{vectorial} indices and $n$ vectors with its $n$ \enquote{covectorial} indices.}
+
+These components do change under coordinate transformations. The corresponding behaviour can be derived from the ones for vectors \eqref{eq:vec_trafo} and covectors \eqref{eq:covec_trafo},
+\begin{equation}
+\eqbox{
+T'^{\alpha \beta \dots}{}_{\gamma \delta \dots} = T^{\mu \nu \dots}{}_{\lambda \sigma \dots} \, \pdv{x'^\alpha}{x^\mu} \pdv{x'^\beta}{x^\nu} \dots \, \pdv{x^\lambda}{x'^\gamma} \pdv{x^\sigma}{x'^\delta} \dots
+} \, .
+\end{equation}
+This is the important \Def{tensor transformation law}.\\
+
+
+The rank of a tensor can be reduced if we insert a fixed object into one of the \enquote{slots}, i.e.~in the example of a rank-$4$-tensor
+\begin{equation}
+T(\cdot, \cdot, \cdot, \cdot) \rightarrow T'(\cdot, \cdot, \cdot) = T(\underline{t}, \cdot, \cdot, \cdot) \manyqquad T^{\alpha \beta}{}_{\gamma \delta} T'^{\alpha \beta}{}_{\delta} = T^{\alpha \beta}{}_{\gamma \delta} t^\gamma
+\end{equation}
+or
+\begin{equation}
+T(\cdot, \cdot, \cdot, \cdot) \rightarrow T'(\cdot, \cdot, \cdot) = T(\cdot, \cdot, w, \cdot)
+\manyqquad
+T^{\alpha \beta}{}_{\gamma \delta} \rightarrow T'^{\beta}{}_{\gamma \delta} = T^{\alpha \beta}{}_{\gamma \delta} w_\alpha
+\end{equation}
+
+	\rem{might be inconsistent to write components like this because vectorial indices come first but the first arguments in $T$ are also vectorial (which they connect to a covectorial index).}
+
+
+\begin{ex}[Known Tensors]
+We have already encountered several examples of tensors. Vectors and covectors are rank-$1$-tensors, which should not be surprising because we used them to derive general tensors. However, scalars are also tensors, namely of rank $0$ -- they can be thought of as mapping the real numbers to themselves without taking any further arguments.
+\end{ex}
+
+
+Another example of a tensor, which plays a great role in geometry on manifolds and thus -- as we will see later -- also in physics, is the \Def{metric}. The following properties can be used as a definition for this $2$-tensor:
+\begin{enumerate}[(1.)]
+\item The metric is symmetric.
+
+
+\item The metric is non-degenerate.
+\end{enumerate}
+Together with the usual properties of a tensor, like linearity, this defines a (pseudo)metric. In case of spacetime, this is characterized by the fact that the metric has three positive and one negative eigenvalue.
+
+Just like any other tensor, the metric can be characterized by their components. These we can also be read off from the line element
+\begin{equation}
+ds^2 = g_{\mu \nu} \, dx^\mu dx^\nu := g_{\mu \nu} \, dx^\mu \otimes dx^\nu
+\end{equation}
+which is a frequently used tool in geometry (for example to measure lengths). Often, one thinks of the covectors $dx^\mu$ in this expression as infinitesimal changes in the coordinate $x^\mu$ and of the corresponding component $a$ in $a dx^\mu$ as the effect of this change. This is justified by the fact that $a dx^\mu(\partial_\nu) = a \delta^\mu_\nu$, the coefficient of $dx^\mu$ indeed contains all information about the direction $\partial_\mu$ which is present in the whole object.
+
+
+Metrics can be used to define inner products, which are not natively present on manifolds, in the following manner:
+\begin{equation}
+\underline{A} \cdot \underline{B} := g\qty(\underline{A}, \underline{B}) = g_{\mu \nu} A^\mu B^\nu \, .
+\end{equation}
+Inner products shall be symmetric, i.e.~$\underline{A} \cdot \underline{B} = \underline{B} \cdot \underline{A}$, which is why we demanded symmetry of $g$. That means
+\begin{equation}
+g\qty(\underline{A}, \underline{B}) = g\qty(\underline{A}, \underline{B})
+\manyqquad
+g_{\mu \nu} A^\mu B^\nu = g_{\nu \mu} A^\nu B^\mu \, .
+\end{equation}
+
+The metric provides us with a natural identification between vectors and covectors because $g\qty(\cdot, \underline{A})$ is nothing but a map which takes a vector and maps it to a real number -- which is the definition of a covector. Similarly, we can identify covectors $w$ with the unique vector $\underline{A}$ that fulfils $w\qty(\underline{B}) = g\qty(\underline{A}, \underline{B})$. In components, these requirements read
+\begin{equation}
+\eqbox{
+A_\mu = g_{\mu \nu} A^\nu
+}
+\manyqquad
+\eqbox{
+A^\mu = g^{\mu \nu} A_\nu
+}
+\end{equation}
+where $g^{\mu \nu}$ denote the components of the inverse metric, which is defined by
+\begin{equation}
+\eqbox{
+g^{\mu \sigma} g_{\sigma \nu} = \delta^\mu_\nu
+} \, .
+\end{equation}
+
+Apparently, it is almost trivial to change from vectors to covectors and vice versa in this component notation. For this reason, the strict distinction between $A^\mu$ and $A_\mu$ is often dropped (at least for interpretation purposes).
 
 
 
