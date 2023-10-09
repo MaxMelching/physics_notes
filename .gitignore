@@ -58,18 +58,22 @@ mechanics/chapters/**
 
 
 
-relativity/Bilder/**
+relativity/pictures/**
 
-relativity/ART_main.**
+relativity/relativity_main.**
 
-!relativity/ART_main.tex
+!relativity/relativity_main.tex
 
-!relativity/ART_main.pdf
+!relativity/relativity_main.pdf
+
+relativity/title_page.**
+
+!relativity/title_page.tex
 
 relativity/chapters/**
 
-!relativity/chapters/ART_chapter_1.tex
+!relativity/chapters/relativity_chapter_1.tex
 
-!relativity/chapters/ART_chapter_2.tex
+!relativity/chapters/relativity_chapter_2.tex
 
-!relativity/chapters/ART_chapter_3.tex
+!relativity/chapters/relativity_chapter_3.tex
