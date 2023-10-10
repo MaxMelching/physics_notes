@@ -6,7 +6,6 @@
 \begin{document}
 
 \chapter{Special Relativity}
-% -> feel like new organization is needed: make one chapter (rather section) about clocks, but then also one on field equations etc? Because main point of GR. Or maybe even do Newton a bit (relativistic), for sure how we get movement of particles etc -> nope, surely no whole chapter about clocks; maybe one about SR
 
 \begin{center}
 In modern day physics, there are often two competing viewpoints. One is very much based on intuition and the other is based solely on a mathematical description. This shows especially in the theory of special relativity, where one can deal (i) in much detail with groups and transformations or (ii) with a much more pictorial version of the theory, mostly utilizing very basic geometry in so-called spacetime diagrams.
@@ -15,7 +14,7 @@ Both approaches can lead to a rich and of course equivalent understanding, but i
 \end{center}
 
 
-% Sources: Dragon, Giulini, Einstein paper and book
+% Sources: Dragon, Giulini, Einstein paper and book, Penrose
 
 
 
@@ -49,63 +48,446 @@ as end of this section: however, the Newtonian physics is not complete; as the M
 
 	\section{Relativity}
 		\subsection{What is wrong with Newton?}
-make it subsection here? Or mention in Newton?
+make it subsection here? Or mention in Newton? -> nope, here is good
 
 
 
 		\subsection{Einstein Postulates}
 
-maybe make one subsection on what SR builds on? Einstein postulates; then go on to what this tells us about time etc
 
 we only demand that physics must not depend on observer (inertial system) and that speed of light is constant
 
+\begin{defi}[Inertial Frame]
+An \Def[inertial frame]{inertial frame of reference} is a frame where $F^k = m a^k = m \ddot{r}^k$ holds.
+\end{defi}
 
-Dragon shows how this also means $c$ is maximum speed anything can reach
+
+\begin{post}[Principle of Relativity]
+All physical observations must hold independently of the inertial frame that is chosen.
+\end{post}
+Einstein was not the first one to notice this, nothing really revolutionary or new compared to Newton
+
+this means we have to abandon notion of universal space, there is no preferred frame of reference!
+
+
+
+second thing we demand (very reasonable, but this is assumption we build theory upon):
+\begin{post}[Speed of Light]
+%The speed of light $c$ is the same for all observers.
+The speed of light $c$ is constant in all inertial frames.
+\end{post}
 
 
 this constant speed of light makes it very special because it is independent of the observer/inertial system and thus allows to transform statements between them (make invariant statements?)
 
 
 
-		\subsection{Lorentz Transformation}
-basically follow structure Einstein paper, derive coordinate transformation first; then we can see some of the effects that follow from it, like time dilation for example (is just logical consequence; we demand something in the postulates, then see what implications that has for coordinates and physics)
+% Taken from Dragon
+\begin{prop}[Maximum Speed]
+The speed of light $c$ is the maximum velocity for all interactions.
+\end{prop}
+no information can be transmitted at higher speed, in particular no particle can travel faster! Follows from relativity principle; in principle, it is still possible to construct theories where speeds greater than light are allowed, but we will use this property as an assumption; there is also experimental evidence which supports this (or at least does not falsify/contradict it): Neutrinos also travel with speed of light (measured to high accuracy) -> thus no real, independent postulate (rather consequence from relativity principle)
 
 
 
-		\subsection{Light Cones}
-talk about spacetime diagrams here -> after all, we will use them in section on clocks -> better motivation: can visualize effects of Lorentz transformation very nicely
 
 
-simultaneous events in Minkowski space are one a line parallel to spatial axis
+to end subsection: we want equivalent results in all frames; if we try to measure a distance, this requires a notion of \enquote{at the same time}; harder than it sounds, but this is why we will deal with measuring time now, i.e.~clocks
 
-gleichortige events are on a line parallel to time axis
+
+
+\newpage
+
+
+
+	\section{Clocks}%{Time Measurement} % Sounds kind of awkward
+making sense of a notion of time on distinct points in space is relatively easy and intuitive -- we just look if the same time is shown on clocks which started ticking at the same time
+
+however, Einstein principle tells us physics must not change in other inertial frames, so we have to make sense of notion of time for moving observer as well; this is harder than it sounds because (again) for speeds comparable to the speed of light, finding a notion of simultaneity is highly non-trivial; to be able to define that, we have to deal with resting observers in more detail and rigour at first
+
+
+
+		\subsection{Einstein Synchronization}
+			\paragraph{Resting Observers}
+referee says event $E'$ at $t'$ happened simultaneous to $E$ at $t$ (i.e.~$t' = t$), where $t = \frac{t_+ + t_-}{2}$
+
+geometric interpretation of this: simultaneous events are on diagonal through what is called a lightangle (\enquote{Lichteck})
+
+
+in \ref{fig:resting_clocks} we show resting clocks; the results obtained from here have to be equivalent if we go in another frame of reference, which moves uniformly with respect to them (see \ref{fig:moving_clocks_resting_wrt}), i.e.~clocks are still resting with respect to each other
+
+
+ah ok, what Giulini refers to is that we reduce simultaneity in different spots to simultaneity in the same spot, i.e.~at referee (?)
+
+
+formally, this defines an equivalence relation on the set of all possible clocks; a representative of that is a family of synchronized clocks which show equivalent times (i.e.~the same, right?)
+
+
+\begin{figure}
+\centering
+
+\subfloat[Time $t'$ measured by observer $\mathcal{O}$]{
+\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+    % Draw lines of observers
+    \draw[->, thick] (-1, 0) -- (-1, 5);
+    \draw[->, thick] (1, 0) -- (1, 5);
+
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] (-1, 0.5) -- (1, 2.5);
+    \draw[->, thick, black!10!yellow] (1, 2.5) -- (-1, 4.5);
+
+    % Make labels
+    \draw (-1, 0) node[left] {$\mathcal{O}$};
+    \draw (-1, 0.5) node[left] {$t_-$};
+    \draw (-1, 4.5) node[left] {$t_+$};
+    \draw (1, 2.5) node[right] {$t'$};
+    \draw (1, 0) node[right] {$\mathcal{O}'$};
+\end{tikzpicture}
+}\hspace*{0.1\textwidth}
+%
+\subfloat[Time $t$ measured by observer $\mathcal{O}'$]{
+\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+    % Draw lines of observers
+    \draw[->, thick] (-1, 0) -- (-1, 5);
+    \draw[->, thick] (1, 0) -- (1, 5);
+
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] (1, 0.5) -- (-1, 2.5);
+    \draw[->, thick, black!10!yellow] (-1, 2.5) -- (1, 4.5);
+
+    % Make labels
+    \draw (-1, 0) node[left] {$\mathcal{O}$};
+    \draw (1, 0) node[right] {$\mathcal{O}'$};
+    \draw (1, 0.5) node[right] {$t'_-$};
+    \draw (1, 4.5) node[right] {$t'_+$};
+    \draw (-1, 2.5) node[left] {$t$};
+\end{tikzpicture}
+}\hspace*{0.1\textwidth}
+%
+\subfloat[Comparison of both observers]{
+\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+    % Draw lines of observers
+    \draw[->, thick] (-1, 0) -- (-1, 5);
+    \draw[->, thick] (1, 0) -- (1, 5);
+    \draw[->, thick] (0, 0) -- (0, 5);
+
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] (-1, 0.5) -- (1, 2.5);
+    \draw[->, thick, black!10!yellow] (1, 2.5) -- (-1, 4.5);
+    \draw[->, thick, black!10!yellow] (1, 0.5) -- (-1, 2.5);
+    \draw[->, thick, black!10!yellow] (-1, 2.5) -- (1, 4.5);
+
+    % Make labels
+    \draw (-1, 0) node[left] {$\mathcal{O}$};
+    \draw (1, 2.5) node[right] {$t'$};
+    \draw (1, 0) node[right] {$\mathcal{O}'$};
+    \draw (-1, 2.5) node[left] {$t$};
+    \draw (0, 0) node[below] {$\mathcal{R}$};
+\end{tikzpicture}
+}
+
+%\caption{Detailed representation of Einstein synchronization for resting observers. Clocks carried by $\mathcal{O}$ and $\mathcal{O}'$ measure the events at times $t' = \frac{t_+ + t_-}{2}$ and $t = \frac{t'_+ + t'_-}{2} = t'$ to be simultaneous, i.e.~$t = t'$ and thus $t = \frac{t_+ + t_-}{2}$ and $t' = \frac{t'_+ + t'_-}{2}$.}
+\caption{Detailed representation of Einstein synchronization for resting observers $\mathcal{O}, \mathcal{O}'$.\\
+Clocks carried by $\mathcal{O}$ and $\mathcal{O}'$ measure the events at times $t = \frac{t_+ + t_-}{2}$ and $t' = \frac{t'_+ + t'_-}{2}$ to be simultaneous, i.e.~$t = t'$. This is because light (represented as yellow lines) sent out simultaneously by the referee $\mathcal{R}$ to $\mathcal{O}$ and $\mathcal{O}'$ \enquote{sees} times $t$ and $t'$ on the clocks before returning simultaneously to $\mathcal{R}$, where the results are \enquote{reported}.}
+\label{fig:resting_clocks}
+\end{figure}
 
 
 
 \begin{figure}
 \centering
 
+\iffalse
+\subfloat[Time $t'$ measured by observer $\mathcal{O}$]{
 \begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
-	% Add basis for diagram
-	\spacetimediagram{1}{4}
+    % Draw lines of observers
+    \draw[->, thick] (-1.0, 0) -- (1.5, 5);
+    \draw[->, thick] (1.0, 0) -- (3.5, 5);
 
-	% Add other observers
-	%\addobserver{0.5}{2}{0.9}{42}
-	\addobserver{1}{3}{0.5}{42}
-	%\addobserver{1}{3}{0.1}{42}
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] (-0.75, 0.5) -- (2.25, 2.5);
+    \draw[->, thick, black!10!yellow] (2.25, 2.5) -- (1.25, 4.5);
 
-	% Add event in rest frame
-	\draw (0, 2) node[red, circle, fill] {};
-	\draw (2, 2) node[red, circle, fill] {};
-
-	% Add same event in moving frame, i.e. have to evaluate Lorentz transform (but with "wrong" sign in front of v, comes from convention in drawing diagram) -> \gamma=0.86
-	\draw (0.5 * 2 / 0.86, 2 / 0.86) node[blue, circle, fill] {};
-	\draw (2 / 0.86 + 0.5 * 2 / 0.86, 2 / 0.86 + 0.5 * 2 / 0.86) node[blue, circle, fill] {};
+    % Make labels
+    \draw (-1, 0) node[left] {$\mathcal{O}$};
+    \draw (0, 1.5) node[below right] {$t_-$};
+    \draw (0, 3.5) node[above right] {$t_+$};
+    \draw (1, 2.5) node[right] {$t$};
+    \draw (1, 0) node[right] {$\mathcal{O}'$};
 \end{tikzpicture}
+}%\hspace*{0.1\textwidth}
+%
+\subfloat[Time $t$ measured by observer $\mathcal{O}'$]{
+\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+    % Draw lines of observers
+    \draw[->, thick] (-1.0, 0) -- (1.5, 5);
+    \draw[->, thick] (1.0, 0) -- (3.5, 5);
 
-\caption{Two events at spacetime points $(0,2), (2,2)$. Red dots show the points with these coordinates in the $(x, ct)$-frame and blue dots show the same coordinates in the $(ct', x')$-frame moving with $v = 0.5 c$.\\
-We can see very nicely how each observer perceives time differently. Events happening simultaneously to both red dots (i.e.~which lie on the line between them at $t = 2$), do \emph{not} happen at $t' = t$, but at $t' = \tau = \sqrt{1 - v^2} \, t$ (which is evident from the fact that the blue dots are at $t' = t$). The same can be said for the moving observer in blue, which sees events at $t = \sqrt{1 - v^2} \, t'$ simultaneous to the blue dots at $t' = 2$.}
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] (1.25, 0.5) -- (0.25, 2.5);
+    \draw[->, thick, black!10!yellow] (0.25, 2.5) -- (3.25, 4.5);
+
+    % Make labels
+    \draw (-1, 0) node[right] {$\mathcal{O}$};
+    \draw (1, 0) node[right] {$\mathcal{O}'$};
+    \draw (0, 1.5) node[below left] {$t'_-$};
+    \draw (0, 3.5) node[above left] {$t'_+$};
+    \draw (-1, 2.5) node[left] {$t'$};
+\end{tikzpicture}
+}%\hspace*{0.1\textwidth}
+%
+\subfloat[Comparison of both observers]{
+\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+    % Draw lines of observers
+    \draw[->, thick] (-1.0, 0) -- (1.5, 5);
+    \draw[->, thick] (1.0, 0) -- (3.5, 5);
+
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] (-0.75, 0.5) -- (2.25, 2.5);
+    \draw[->, thick, black!10!yellow] (2.25, 2.5) -- (1.25, 4.5);
+    \draw[->, thick, black!10!yellow] (1.25, 0.5) -- (0.25, 2.5);
+    \draw[->, thick, black!10!yellow] (0.25, 2.5) -- (3.25, 4.5);
+
+    % Make labels
+    \draw (-1, 0) node[left] {$\mathcal{O}$};
+    \draw (1, 2.5) node[right] {$t$};
+    \draw (1, 0) node[right] {$\mathcal{O}'$};
+    \draw (-1, 2.5) node[left] {$t'$};
+\end{tikzpicture}
+}
+\fi
+
+
+
+\subfloat[Time $t'$ measured by observer $\mathcal{O}$]{
+\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+    % Draw lines of observers
+    \draw[->, thick] (-1.0, 0) -- (0.7999999999999998, 6);
+    \draw[->, thick] (1.0, 0) -- (2.8, 6);
+
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] (-0.85, 0.5) -- (2.007142857142857, 3.357142857142857);
+    \draw[->, thick, black!10!yellow] (2.007142857142857, 3.357142857142857) -- (0.4686813186813188, 4.895604395604396);
+
+    % Make labels
+    \draw (-1.0, 0) node[left] {$\mathcal{O}$};
+    \draw (-0.85, 0.5) node[left] {$t_-$};
+    \draw (0.4686813186813188, 4.895604395604396) node[left] {$t_+$};
+    \draw (2.007142857142857, 3.357142857142857) node[right] {$t'$};
+    \draw (1.0, 0) node[right] {$\mathcal{O}'$};
+\end{tikzpicture}
+}\hspace*{0.025\textwidth}
+%
+\subfloat[Time $t$ measured by observer $\mathcal{O}'$]{
+\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+    % Draw lines of observers
+    \draw[->, thick] (-1.0, 0) -- (0.7999999999999998, 6);
+    \draw[->, thick] (1.0, 0) -- (2.8, 6);
+
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] (1.347802197802198, 1.1593406593406594) -- (-0.19065934065934043, 2.697802197802198);
+    \draw[->, thick, black!10!yellow] (-0.19065934065934065, 2.697802197802198) -- (2.666483516483517, 5.554945054945055);
+
+    % Make labels
+    \draw (-1.0, 0) node[left] {$\mathcal{O}$};
+    \draw (1.0, 0) node[right] {$\mathcal{O}'$};
+    \draw (1.347802197802198, 1.1593406593406594) node[right] {$t'_-$};
+    \draw (2.6664835164835163, 5.554945054945055) node[right] {$t'_+$};
+    \draw (-0.19065934065934065, 2.697802197802198) node[left] {$t$};
+\end{tikzpicture}
+}\hspace*{0.025\textwidth}
+%
+\subfloat[Comparison of both observers]{
+\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+    % Draw lines of observers
+    \draw[->, thick] (-1.0, 0) -- (0.7999999999999998, 6);
+    \draw[->, thick] (1.0, 0) -- (2.8, 6);
+    \draw[->, thick] (0.0, 0) -- (1.7999999999999998, 6);
+
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] (-0.85, 0.5) -- (2.007142857142857, 3.357142857142857);
+    \draw[->, thick, black!10!yellow] (2.007142857142857, 3.357142857142857) -- (0.4686813186813188, 4.895604395604396);
+    \draw[->, thick, black!10!yellow] (1.347802197802198, 1.1593406593406594) -- (-0.19065934065934043, 2.697802197802198);
+    \draw[->, thick, black!10!yellow] (-0.19065934065934065, 2.697802197802198) -- (2.666483516483517, 5.554945054945055);
+
+    % Make labels
+    \draw (-1.0, 0) node[left] {$\mathcal{O}$};
+    \draw (2.007142857142857, 3.357142857142857) node[right] {$t'$};
+    \draw (1.0, 0) node[right] {$\mathcal{O}'$};
+    \draw (-0.19065934065934065, 2.697802197802198) node[left] {$t$};
+    \draw (0.0, 0) node[below] {$\mathcal{R}$};
+\end{tikzpicture}
+}
+
+%\caption{Detailed representation of Einstein synchronization for moving observers, which are at rest with respect to each other. Clocks carried by $\mathcal{O}$ and $\mathcal{O}'$ measure the events at times $t' = \frac{t_+ + t_-}{2}$ and $t= \frac{t'_+ + t'_-}{2} = t'$ to be simultaneous, i.e.~$t = t'$ and thus $t = \frac{t_+ + t_-}{2}$ and $t' = \frac{t'_+ + t'_-}{2}$.}
+\caption{Detailed representation of Einstein synchronization for moving observers $\mathcal{O}, \mathcal{O}'$, which are at rest with respect to each other (essentially \ref{fig:resting_clocks} in other inertial frame).\\
+Clocks carried by $\mathcal{O}$ and $\mathcal{O}'$ measure the events at times $t = \frac{t_+ + t_-}{2}$ and $t' = \frac{t'_+ + t'_-}{2}$ to be simultaneous, i.e.~$t = t'$. This is because light (represented as yellow lines) sent out simultaneously by the referee $\mathcal{R}$ to $\mathcal{O}$ and $\mathcal{O}'$ \enquote{sees} times $t$ and $t'$ on the clocks before returning simultaneously to $\mathcal{R}$, where the results are \enquote{reported}.}
+\label{fig:moving_clocks_resting_wrt_each_other}
 \end{figure}
+
+
+
+
+			\paragraph{Moving Observers}
+problem: light travel time is now different, cannot be cancelled so easily just by summing up
+
+idea: eliminate unequal travel times by setting up referee such that light always travels same way to him for both observers; then the clocks are synchronized if they show equal times to the referee(, something that we can check)
+
+
+I think I finally got it: we know that for the moving observers $\tau = \tau'$ (times of events $E$ and $E'$); now say that we have an observer which is at rest with respect to the observer at rest (so the moving observer also moves with velocity $v$ with respect to it), but intersects the moving observer in $E'$; then we know from the synchronization of clocks at rest to each other that $E'$ is simultaneous to the event at $t = \frac{t_+ + t_-}{2}$; therefore, if a time span $t$ passes in the resting frame, then the time $\tau = \sqrt{1 - v^2} \, t$ has passed simultaneously in the moving frame (where we have used that $E'$ is at $\tau'$ in moving frame and that $\tau' = \tau$); of course, the same can be done for moving observer (taking it to be the one at rest), whence we have to look at another observer which rests with respect to moving frame and intersects $E$ instead of $E'$; this effect is called \Def{time dilation}
+
+this sounds very contradictory, but it follows from the way we have defined simultaneity -- using the referee; for the referee, $E$ and $E'$ are simultaneous when it is constructed for the moving frames; for an observer in the resting frame, however, that is not the case and instead he measures $E'$ to be simultaneous to the event which happened at $t$ (the referee would claim it to be simultaneous to the event at $t'$)
+
+
+
+it all comes down to the fact that (right thing to say here? maybe better: this shows that) there is no universal notion of time anymore, which seems very unintuitive compared to what we experience in everyday life -> nicer phrasing: we have to abandon the idea of an absolute time, i.e.~there is no correct answer to the question \enquote{at which time did event $E$ happen?}
+
+
+\begin{figure}
+\centering
+
+\subfloat[Time $\tau'$ measured by observer $\mathcal{O}$]{
+\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+    % Draw lines of observers
+    \draw[->, thick] (-0.4, -2) -- (-2.5, 5);
+    \draw[->, thick] (0.4, -2) -- (2.5, 5);
+
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] (-0.7, -1) -- (1.3, 1.0);
+    \draw[->, thick, black!10!yellow] (1.3, 1.0) -- (-2.4142857142857137, 4.7142857142857135);
+
+    % Make labels
+    \draw (-0.4, -2) node[left] {$\mathcal{O}$};
+    \draw (-0.7, -1) node[left] {$t_-$};
+    \draw (-2.4142857142857137, 4.7142857142857135) node[left] {$t_+$};
+    \draw (1.3, 1.0) node[right] {$\tau'$};
+    \draw (0.4, -2) node[right] {$\mathcal{O}'$};
+\end{tikzpicture}
+}%\hspace*{0.025\textwidth}
+%
+\subfloat[Time $\tau$ measured by observer $\mathcal{O}'$]{
+\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+    % Draw lines of observers
+    \draw[->, thick] (-0.4, -2) -- (-2.5, 5);
+    \draw[->, thick] (0.4, -2) -- (2.5, 5);
+
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] (0.7, -1.0) -- (-1.3, 1.0);
+    \draw[->, thick, black!10!yellow] (-1.3, 1.0) -- (2.4142857142857137, 4.7142857142857135);
+
+    % Make labels
+    \draw (-0.4, -2) node[left] {$\mathcal{O}$};
+    \draw (0.4, -2) node[right] {$\mathcal{O}'$};
+    \draw (0.7, -1.0) node[right] {$t'_-$};
+    \draw (2.4142857142857137, 4.7142857142857135) node[right] {$t'_+$};
+    \draw (-1.3, 1.0) node[left] {$\tau$};
+\end{tikzpicture}
+}%\hspace*{0.025\textwidth}
+%
+\subfloat[Comparison of both observers]{
+\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+    % Draw lines of observers
+    \draw[->, thick] (-0.4, -2) -- (-2.5, 5);
+    \draw[->, thick] (0.4, -2) -- (2.5, 5);
+    \draw[->, thick] (-0.0, -2) -- (0.0, 5);
+
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] (-0.7, -1) -- (1.3, 1.0);
+    \draw[->, thick, black!10!yellow] (1.3, 1.0) -- (-2.4142857142857137, 4.7142857142857135);
+    \draw[->, thick, black!10!yellow] (0.7, -1.0) -- (-1.3, 1.0);
+    \draw[->, thick, black!10!yellow] (-1.3, 1.0) -- (2.4142857142857137, 4.7142857142857135);
+
+    % Draw lines of simultaneity
+    \draw[thick, blue] (-1.407142857142857, 1.357142857142857) -- (1.407142857142857, 1.357142857142857);
+    \draw[thick, blue] (-1.3, 1.0) -- (1.3, 1.0);
+
+    % Make labels
+    \draw (-0.4, -2) node[left] {$\mathcal{O}$};
+    \draw (1.3, 1.0) node[right] {$\tau'$};
+    \draw (1.407142857142857, 1.357142857142857) node[right] {$t'$};
+    \draw (0.4, -2) node[right] {$\mathcal{O}'$};
+    \draw (-1.3, 1.0) node[left] {$\tau$};
+    \draw (-1.407142857142857, 1.357142857142857) node[left] {$t$};
+    \draw (-0.0, -2) node[below] {$\mathcal{R}$};
+\end{tikzpicture}
+}
+
+\caption{}
+
+
+
+\subfloat[Time $t'$ measured by observer $\mathcal{O}$]{
+\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+    % Draw lines of observers
+    \draw[->, thick] (-0.6, -4) -- (-1.4, 4);
+    \draw[->, thick] (-0.6000000000000001, -4) -- (2.6, 4);
+
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] (-0.8, -2) -- (0.8666666666666667, -0.33333333333333326);
+    \draw[->, thick, black!10!yellow] (0.8666666666666667, -0.33333333333333326) -- (-1.1703703703703705, 1.703703703703704);
+
+    % Make labels
+    \draw (-0.6, -4) node[left] {$\mathcal{O}$};
+    \draw (-0.8, -2) node[left] {$t_-$};
+    \draw (-1.1703703703703705, 1.703703703703704) node[left] {$t_+$};
+    \draw (0.8666666666666667, -0.33333333333333326) node[right] {$\tau'$};
+    \draw (-0.6000000000000001, -4) node[right] {$\mathcal{O}'$};
+\end{tikzpicture}
+}\hspace*{0.025\textwidth}
+%
+\subfloat[Time $t$ measured by observer $\mathcal{O}'$]{
+\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+    % Draw lines of observers
+    \draw[->, thick] (-0.6, -4) -- (-1.4, 4);
+    \draw[->, thick] (-0.6000000000000001, -4) -- (2.6, 4);
+
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] (0.2504201680672269, -1.8739495798319328) -- (-0.930718954248366, -0.6928104575163399);
+    \draw[->, thick, black!10!yellow] (-0.930718954248366, -0.6928104575163399) -- (1.8252723311546843, 2.0631808278867103);
+
+    % Make labels
+    \draw (-0.6, -4) node[left] {$\mathcal{O}$};
+    \draw (-0.6000000000000001, -4) node[right] {$\mathcal{O}'$};
+    \draw (0.2504201680672269, -1.8739495798319328) node[right] {$t'_-$};
+    \draw (1.8252723311546841, 2.0631808278867103) node[right] {$t'_+$};
+    \draw (-0.930718954248366, -0.6928104575163399) node[left] {$\tau$};
+\end{tikzpicture}
+}\hspace*{0.025\textwidth}
+%
+\subfloat[Comparison of both observers]{
+\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+    % Draw lines of observers
+    \draw[->, thick] (-0.6, -4) -- (-1.4, 4);
+    \draw[->, thick] (-0.6000000000000001, -4) -- (2.6, 4);
+    \draw[->, thick] (-0.6000000000000001, -4) -- (0.6000000000000001, 4);
+
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] (-0.8, -2) -- (0.8666666666666667, -0.33333333333333326);
+    \draw[->, thick, black!10!yellow] (0.8666666666666667, -0.33333333333333326) -- (-1.1703703703703705, 1.703703703703704);
+    \draw[->, thick, black!10!yellow] (0.2504201680672269, -1.8739495798319328) -- (-0.930718954248366, -0.6928104575163399);
+    \draw[->, thick, black!10!yellow] (-0.930718954248366, -0.6928104575163399) -- (1.8252723311546843, 2.0631808278867103);
+
+    % Draw lines of simultaneity
+    \draw[thick, blue] (-1.0018518518518518, 0.0185185185185186) -- (1.1764083411142234, 0.4410208527855588);
+    \draw[thick, blue] (-0.930718954248366, -0.6928104575163399) -- (0.8666666666666667, -0.33333333333333326);
+
+    % Make labels
+    \draw (-0.6, -4) node[left] {$\mathcal{O}$};
+    \draw (0.8666666666666667, -0.33333333333333326) node[right] {$\tau'$};
+    \draw (1.1764083411142234, 0.4410208527855588) node[right] {$t'$};
+    \draw (-0.6000000000000001, -4) node[right] {$\mathcal{O}'$};
+    \draw (-0.930718954248366, -0.6928104575163399) node[left] {$\tau$};
+    \draw (-1.0018518518518518, 0.0185185185185186) node[left] {$t$};
+    \draw (-0.6000000000000001, -4) node[below] {$\mathcal{R}$};
+\end{tikzpicture}
+}
+
+\caption{\protect\footnotemark}
+\end{figure}
+
+\footnotetext{Beware that the diagrams are not perfect, the referee should be exactly where the light beams cross again. This is most likely due to an error in my code, which I was unable to locate. Nonetheless, the most important ideas should still be conveyed, which is why I decided to keep the graphic.}
+
+
 
 
 
@@ -211,7 +593,7 @@ for non-uniform velocity, connection procedure does not work between macroscopic
 }
 
 
-{ % Trying to imitate Dragon diagrams
+{ % Trying to imitate Dragon diagrams -> note on that: light does not have to be at 45 degrees here, is not meant to be spacetime diagram I think
 \iffalse
 
 
@@ -238,7 +620,7 @@ for non-uniform velocity, connection procedure does not work between macroscopic
 
 
 
-		\subsection{Clocks}
+		\subsection{Light as a Clock}
 % Great source for this: Dragon script
 ok, time is different in relativity than it is in Newtonian case; so let's examine it further, in particular how to measure it, i.e.~let's deal with clocks
 
@@ -515,8 +897,68 @@ also note that this effect is mutual, the other observer can claim the same thin
 
 
 
-		\subsection{Synchronization}
-Maybe do that in section before clocks? Or one whole section on time/clocks?
+
+
+
+
+\newpage
+
+
+
+	\section{Lorentz Transformation}
+%		\subsection{Derivation} % I don't think we need name, just explain it at beginning et (maybe just state result without derivation)
+basically follow structure Einstein paper, derive coordinate transformation first; then we can see some of the effects that follow from it, like time dilation for example (is just logical consequence; we demand something in the postulates, then see what implications that has for coordinates and physics) -> better structure: do time measurement first, which shows that time and space are not independent anymore, then talk about how we need transformation between equivalent frames (mention at the end that one can also impose this straight from relativity principle, derive Lorentz and then examine effects like time dilation)
+
+
+mention that, as we have seen, time is now a notion which depends on the observer, so it is just natural that we also have to transform it
+
+
+another motivation: speed of light constant, so adding velocities like in Galilei transform cannot be right anymore; thus, we need new way to transform between frames of reference, one that respects relativity principle
+
+
+
+		\subsection{Light Cones}
+talk about spacetime diagrams here -> after all, we will use them in section on clocks (not really anymore) -> better motivation: can visualize effects of Lorentz transformation very nicely
+
+spacetime diagram is basically intersection in light cone, right? Where we only show one spatial dimension
+
+
+simultaneous events in Minkowski space are one a line parallel to spatial axis; gleichortige (-> equilocal?) events are on a line parallel to time axis
+
+
+
+explanation why primed axes are shifted inwards in Minkowski diagrams: we wish to express these axes in the unprimed coordinate system, i.e.~we do not apply the Lorentz transform from unprimed (at rest) to primed (moving with $v$), but rather the inverse one (thus we have to use $-v$ in transformation)
+
+
+
+\begin{figure}
+\centering
+
+\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+	% Add basis for diagram
+	\spacetimediagram{1}{4}
+
+	% Add other observers
+	%\addobserver{0.5}{2}{0.9}{42}
+	\addobserver{1}{3}{0.5}{42}
+	%\addobserver{1}{3}{0.1}{42}
+
+	% Add event in rest frame
+	\draw (0, 2) node[red, circle, fill] {};
+	\draw (2, 2) node[red, circle, fill] {};
+
+	% Add same event in moving frame, i.e. have to evaluate Lorentz transform (but with different sign of v; comes from the fact that we want to express the x' coordinates in the x frame; after all, we do not really draw ct' and x' axis as the usual cartesian axes, they are tilted here) -> \gamma=1/0.86
+	%\draw (0.5 * 2 / 0.86, 2 / 0.86) node[blue, circle, fill] {};
+	%\draw (2 / 0.86 + 0.5 * 2 / 0.86, 2 / 0.86 + 0.5 * 2 / 0.86) node[blue, circle, fill] {};
+
+	% With better code (similar to the one used for spacetime diagram) -> does exactly what we want because it corresponds to transforming coordinates from x' to x, which is also why we have to use -v in Lorentz transform
+	\draw[cm={1/0.86,0.5/0.86,0.5/0.86,1/0.86,(0,0)}] (0, 2) node[blue, circle, fill] {};
+	\draw[cm={1/0.86,0.5/0.86,0.5/0.86,1/0.86,(0,0)}] (2, 2) node[blue, circle, fill] {};
+\end{tikzpicture}
+
+\caption{Two events at spacetime points $(0,2), (2,2)$. Red dots show the points with these coordinates in the $(x, ct)$-frame and blue dots show the same coordinates in the $(ct', x')$-frame moving with $v = 0.5 c$.\\
+We can see very nicely how each observer perceives time differently. Events happening simultaneously to both red dots (i.e.~which lie on the line between them at $t = 2$), do \emph{not} happen at $t' = t$, but at $t' = \tau = \sqrt{1 - v^2} \, t$ (which is evident from the fact that the blue dots are at $t' = t$). The same can be said for the moving observer in blue, which sees events at $t = \sqrt{1 - v^2} \, t'$ simultaneous to the blue dots at $t' = 2$.}
+\end{figure}
 
 
 
@@ -525,7 +967,10 @@ Maybe do that in section before clocks? Or one whole section on time/clocks?
 
 
 	\section{Minkowski Space}
-do mathematical stuff; also make interpretation of Lorentz transformation as symmetry group stuff
+do mathematical stuff; also make interpretation of Lorentz transformation as symmetry group stuff (?)
+
+
+Einstein's insights and Lorentz transform show how clocks work differently than their Newtonian pendants once relativity principle is incorporated, they are not independent anymore; but it is only with the Minkowskian viewpoint that this connection is fully unveiled/completed by uniting them into one spacetime (which goes along with unified mathematical formulation on sound/fond footing)
 
 
 
@@ -626,9 +1071,28 @@ natural measure for distances: use light (just like we did in clocks section); t
 \enquote{derivation}: $c^2 t^2 = x^2 + y^2 + z^2$ holds for light independently of frame we choose, so it is an invariant object and it also represents what we do with clocks (bad phrasing, but idea good), so rearranging it is good choice for metric; however, that leaves some freedom in sign, physics is of course the same no matter which one we choose, but still we have to select one of them
 
 
+how Dragon phrases it: Minkowski theorem gives us a geometrical structure of spacetime, tells us about distances in them (2.5 Uhrzeit); in particular, time elapsed on uniformly moving clock between $(0, 0, 0, 0)$ and $(ct, x, y, z) = t (c, v_x, v_y, v_z)$ is $\tau = \sqrt{1 - v^2 / c^2} \, t = t^2 - (x^2 + y^2 + z^2) / c^2$; for example, a clock at rest will measure the difference $\tau = t$ (which makes sense, after all the difference is measured between $(0, 0, 0, 0)$ and $(ct, 0, 0, 0)$, only temporal distance); these results are all coordinate-independent, i.e.~a clock moving with velocity $v$ will measure $\tau = \tau' = \sqrt{1 - v^2} \, t'$ for the time elapsed on the resting clock (i.e.~will see it simultaneous to the event $(ct', x', y', z') = t' (c, v_x, v_y, v_z)$, where it is simultaneous to $(ct, 0, 0, 0)$; in the language of clock section, $t' = \frac{t'_+ + t'_-}{2}$ with light travel times $t'_+, t'_-$; $t' \geq \tau$, which once again shows that time dilation is mutual effect); this shows how $c^2 t^2 - x^2 - y^2 - z^2 = c^2 t'^2 - x'^2 - y'^2 - z'^2$, the time $\tau$ is an invariant quantity that measures the distance between events (by measuring time elapsed on clock that moves uniformly from origin to this event); only possible by use of Einstein synchronization, properly synchronized clocks will measure the same time $\tau$ for events
+
+geometric interpretation: equidistant events in Minkowski space lie on hyperboloid of constant $\tau^2 = c^2 t^2 - x^2 - y^2 - z^2$ -> can show that as Eichhyperbel (gauge hyperbola?) in Minkowski diagram; of course, choosing the origin was only conventional (we have this freedom in choice of coordinates), so more generally we would write $(\Delta \tau)^2 = c^2 (\Delta t)^2 - (\Delta x)^2 - (\Delta y)^2 - (\Delta z)^2$
+
+-> shows even more clearly how time and space are intertwined in special relativity, there is no distinction anymore, just one 4D-spacetime
+
+
+therefore, it makes sense to choose this (or rather the infinitesimal version; equivalent for uniform movement, but more rigorous and as it turns out, more general) as a line element: $d\tau^2 = c^2 dt^2 - dx^2 - dy^2 - dz^2$ (where we abbreviate $(dx)^2 =: dx^2$, is customary); we note that only opposite sign in front of time and spatial coordinates is fixed, so we have freedom in choosing the overall sign); we note that $ds^2 = c^2 d\tau^2$ is also a line element (dimensions of time are not really what we would associate with metric and spatial distances); allows to compute proper times and proper distances, respectively
+
+
+metric also allows very compact formulations of causality (light cone structure): world lines of light (and in general particles moving at light speed) are characterized by $ds^2 = 0$ (these trajectories are called \Def{null} or \Def{lightlike}), the ones for massive particles by $ds^2 > 0$ ($<$ for convention with other sign; also called \Def{timelike}), while $ds^2 < 0 \quad \Leftrightarrow \quad c < v$ and this is a violation of principles we used to build the theory (\Def{spacelike}); timelike means trajectories are always in light/null cone (Penrose continues to make interesting point on that on page 407: light cones more fundamental than metric)
+
+
+
+note for the end: all of these effects only become relevant for $v \approx c$; otherwise, $t = \tau \approx t'$ for all observers (they measure the same time, just like our experience and intuition tells us; this is something like universal time then once we synchronize them)
+
+
+
 
 		\subsection{Relativistic Dynamics}
 idea: new transformation law means we have new dynamics; these can be formulated conveniently using points and vectors in Minkowski space; talk about four-momentum and forces etc.
+
 
 
 four-velocity: using chain rule, we can write $U^\alpha = \dv{x^\alpha}{\tau} = \dv{t}{\tau} \dv{x^\alpha}{t} =: \gamma (c, \vec{v})$ in general; this $\gamma = \dv{t}{\tau} = \pdv{t}{\tau}$ then depends on the metric, it is the (negative of, depends on convention that is chosen) component $g_{tt}$; for the Minkowski metric in SR (where only uniform velocities occur), we can further simplify this by using $d\tau^2 = ds^2 / c^2 = (c^2 dt^2 - dx^2 - dy^2 - dz^2) / c^2 = dt^2 (1 - \dv{x^\alpha}{t} \dv{x^\alpha}{t} / c^2) =: dt^2 / \gamma^2$; this $\gamma$ us negligible for many problems, only has significant effects if $v \approx c$ (which is why it is does not show up in daily life)

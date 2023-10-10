@@ -1,6 +1,448 @@
 import numpy as np
 
 
+
+def resting_clocks_v1(tstart, tend, t1):
+    """
+    Draw clock diagram for two observers at rest.
+    """
+    def line1(t):
+        return (-1, t)
+    
+    def line2(t):
+        return (1, t)
+    
+    light_travel_time = 2
+    t_intersect = t1 + light_travel_time
+    tprime_intersect = t1 + light_travel_time
+    t_return = t1 + 2 * light_travel_time
+
+    
+    return fr'''
+\subfloat[Time $t$ measured by observer $\mathcal{{O}}$]{{
+\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+    % Draw lines of observers
+    \draw[->, thick] {line1(tstart)} -- {line1(tend)};
+    \draw[->, thick] {line2(tstart)} -- {line2(tend)};
+
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] {line1(t1)} -- {line2(t_intersect)};
+    \draw[->, thick, black!10!yellow] {line2(t_intersect)} -- {line1(t_return)};
+
+    % Make labels
+    \draw (-1, {tstart}) node[left] {{$\mathcal{{O}}$}};
+    \draw (0, {(t1 + t_intersect) / 2}) node[below right] {{$t_-$}};
+    \draw (0, {(t_intersect + t_return) / 2}) node[above right] {{$t_+$}};
+    \draw (1, {t_intersect}) node[right] {{$t$}};
+    \draw (1, {tstart}) node[right] {{$\mathcal{{O}}'$}};
+\end{{tikzpicture}}
+}}\hspace*{{0.1\textwidth}}
+%
+\subfloat[Time $t'$ measured by observer $\mathcal{{O}}'$]{{
+\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+    % Draw lines of observers
+    \draw[->, thick] {line1(tstart)} -- {line1(tend)};
+    \draw[->, thick] {line2(tstart)} -- {line2(tend)};
+
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] {line2(t1)} -- {line1(t_intersect)};
+    \draw[->, thick, black!10!yellow] {line1(t_intersect)} -- {line2(t_return)};
+
+    % Make labels
+    \draw (-1, {tstart}) node[right] {{$\mathcal{{O}}$}};
+    \draw (1, {tstart}) node[right] {{$\mathcal{{O}}'$}};
+    \draw (0, {(t1 + t_intersect) / 2}) node[below left] {{$t'_-$}};
+    \draw (0, {(tprime_intersect + t_return) / 2}) node[above left] {{$t'_+$}};
+    \draw (-1, {tprime_intersect}) node[left] {{$t'$}};
+\end{{tikzpicture}}
+}}\hspace*{{0.1\textwidth}}
+%
+\subfloat[Comparison of both observers]{{
+\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+    % Draw lines of observers
+    \draw[->, thick] {line1(tstart)} -- {line1(tend)};
+    \draw[->, thick] {line2(tstart)} -- {line2(tend)};
+
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] {line1(t1)} -- {line2(t_intersect)};
+    \draw[->, thick, black!10!yellow] {line2(t_intersect)} -- {line1(t_return)};
+    \draw[->, thick, black!10!yellow] {line2(t1)} -- {line1(tprime_intersect)};
+    \draw[->, thick, black!10!yellow] {line1(tprime_intersect)} -- {line2(t_return)};
+
+    % Make labels
+    \draw (-1, {tstart}) node[left] {{$\mathcal{{O}}$}};
+    \draw (1, {t_intersect}) node[right] {{$t$}};
+    \draw (1, {tstart}) node[right] {{$\mathcal{{O}}'$}};
+    \draw (-1, {tprime_intersect}) node[left] {{$t'$}};
+\end{{tikzpicture}}
+}}
+    '''
+
+
+def resting_clocks(tstart, tend, t0):
+    """
+    Draw clock diagram for two observers at rest.
+
+    tstart: starting time for observers
+    tend: ending time for observers
+    t0: time where light first ray is sent out from both observers
+    """
+    def line1(t):  # Observer 1
+        return (-1, t)
+    
+    def line2(t):  # Observer 2
+        return (1, t)
+    
+    def line3(t):  # Referee
+        return (0, t)
+    
+    light_travel_time = 2
+    t_intersect = t0 + light_travel_time
+    tprime_intersect = t0 + light_travel_time
+    t_return = t0 + 2 * light_travel_time
+
+    
+    return fr'''
+\subfloat[Time $t'$ measured by observer $\mathcal{{O}}$]{{
+\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+    % Draw lines of observers
+    \draw[->, thick] {line1(tstart)} -- {line1(tend)};
+    \draw[->, thick] {line2(tstart)} -- {line2(tend)};
+
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] {line1(t0)} -- {line2(t_intersect)};
+    \draw[->, thick, black!10!yellow] {line2(t_intersect)} -- {line1(t_return)};
+
+    % Make labels
+    \draw {line1(tstart)} node[left] {{$\mathcal{{O}}$}};
+    \draw {line1(t0)} node[left] {{$t_-$}};
+    \draw {line1(t_return)} node[left] {{$t_+$}};
+    \draw {line2(t_intersect)} node[right] {{$t'$}};
+    \draw {line2(tstart)} node[right] {{$\mathcal{{O}}'$}};
+\end{{tikzpicture}}
+}}\hspace*{{0.1\textwidth}}
+%
+\subfloat[Time $t$ measured by observer $\mathcal{{O}}'$]{{
+\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+    % Draw lines of observers
+    \draw[->, thick] {line1(tstart)} -- {line1(tend)};
+    \draw[->, thick] {line2(tstart)} -- {line2(tend)};
+
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] {line2(t0)} -- {line1(t_intersect)};
+    \draw[->, thick, black!10!yellow] {line1(t_intersect)} -- {line2(t_return)};
+
+    % Make labels
+    \draw {line1(tstart)} node[left] {{$\mathcal{{O}}$}};
+    \draw {line2(tstart)} node[right] {{$\mathcal{{O}}'$}};
+    \draw {line2(t0)} node[right] {{$t'_-$}};
+    \draw {line2(t_return)} node[right] {{$t'_+$}};
+    \draw {line1(tprime_intersect)} node[left] {{$t$}};
+\end{{tikzpicture}}
+}}\hspace*{{0.1\textwidth}}
+%
+\subfloat[Comparison of both observers]{{
+\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+    % Draw lines of observers
+    \draw[->, thick] {line1(tstart)} -- {line1(tend)};
+    \draw[->, thick] {line2(tstart)} -- {line2(tend)};
+    \draw[->, thick] {line3(tstart)} -- {line3(tend)};
+
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] {line1(t0)} -- {line2(t_intersect)};
+    \draw[->, thick, black!10!yellow] {line2(t_intersect)} -- {line1(t_return)};
+    \draw[->, thick, black!10!yellow] {line2(t0)} -- {line1(tprime_intersect)};
+    \draw[->, thick, black!10!yellow] {line1(tprime_intersect)} -- {line2(t_return)};
+
+    % Make labels
+    \draw {line1(tstart)} node[left] {{$\mathcal{{O}}$}};
+    \draw {line2(t_intersect)} node[right] {{$t'$}};
+    \draw {line2(tstart)} node[right] {{$\mathcal{{O}}'$}};
+    \draw {line1(tprime_intersect)} node[left] {{$t$}};
+    \draw {line3(tstart)} node[below] {{$\mathcal{{R}}$}};
+\end{{tikzpicture}}
+}}
+    '''
+
+
+
+def moving_clocks_resting_wrt_each_other(v, tstart, tend, t0, t0prime=None):
+    """
+    Draw clock diagram for two moving observers which are at rest with
+    respect to each other.
+
+    v: velocity that both observers move with
+    tstart: starting time for observers
+    tend: ending time for observers
+    t0: time where first light ray is sent out from first observer.
+    t0prime: time where first light ray is sent out from second observer.
+    If it is None, we choose it such that clocks are synchronized.
+    """
+    def line1(t):  # Observer 1
+        return (-1 + v * t, t)
+    
+    def line2(t):  # Observer 2
+        return (1 + v * t, t)
+    
+    def line3(t):  # Referee
+        return (v * t, t)
+
+    def light_l_to_r(t, t0):
+        return (-1 + v * t0 + t, t0 + t)
+
+    def light_r_to_l(t, t0):
+        return (1 + v * t0 - t, t0 + t)
+    
+
+    if t0prime is None:
+        # Set value such that clocks are synchronizeds
+        t_ref = 1 / (1 - v)  # Time where light from left observer reaches referee
+        tprime_ref = 1 / (1 + v)  # Time where light from right observer reaches referee
+        # t1prime = (2 + v * t1 - t_ref) / v - t_ref
+        # t1prime = t1 - t_ref + tprime_ref
+        t0prime = t0 + t_ref - tprime_ref  # No idea why this works, found it by testing -> ah, t0 + tref = t0prime + t0ref
+    
+
+    # t = (2 - v * t1) / (1 - v)  # t1 = t_-
+    t = 2 / (1 - v)  # t1 = t_-
+    # t_return = (2 + v * (t1 + t)) / (1 + v)  # = t_+
+    t_return = 2 / (1 + v)  # = t_+
+    # tprime = (2 + v * t1) / (1 + v)
+    tprime = 2 / (1 + v)
+    # tprime_return = (2 - v * t1) / (1 - v)
+    tprime_return = 2 / (1 - v)
+
+    
+    return fr'''
+\subfloat[Time $t'$ measured by observer $\mathcal{{O}}$]{{
+\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+    % Draw lines of observers
+    \draw[->, thick] {line1(tstart)} -- {line1(tend)};
+    \draw[->, thick] {line2(tstart)} -- {line2(tend)};
+
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] {light_l_to_r(0, t0)} -- {light_l_to_r(t, t0)};
+    \draw[->, thick, black!10!yellow] {light_r_to_l(0, t0 + t)} -- {light_r_to_l(t_return, t0 + t)};
+
+    % Make labels
+    \draw {line1(tstart)} node[left] {{$\mathcal{{O}}$}};
+    \draw {line1(t0)} node[left] {{$t_-$}};
+    \draw {line1(t0 + t + t_return)} node[left] {{$t_+$}};
+    \draw {line2(t0 + t)} node[right] {{$t'$}};
+    \draw {line2(tstart)} node[right] {{$\mathcal{{O}}'$}};
+\end{{tikzpicture}}
+}}\hspace*{{0.025\textwidth}}
+%
+\subfloat[Time $t$ measured by observer $\mathcal{{O}}'$]{{
+\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+    % Draw lines of observers
+    \draw[->, thick] {line1(tstart)} -- {line1(tend)};
+    \draw[->, thick] {line2(tstart)} -- {line2(tend)};
+
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] {light_r_to_l(0, t0prime)} -- {light_r_to_l(tprime, t0prime)};
+    \draw[->, thick, black!10!yellow] {light_l_to_r(0, t0prime + tprime)} -- {light_l_to_r(tprime_return, t0prime + tprime)};
+
+    % Make labels
+    \draw {line1(tstart)} node[left] {{$\mathcal{{O}}$}};
+    \draw {line2(tstart)} node[right] {{$\mathcal{{O}}'$}};
+    \draw {line2(t0prime)} node[right] {{$t'_-$}};
+    \draw {line2(t0prime + tprime + tprime_return)} node[right] {{$t'_+$}};
+    \draw {line1(t0prime + tprime)} node[left] {{$t$}};
+\end{{tikzpicture}}
+}}\hspace*{{0.025\textwidth}}
+%
+\subfloat[Comparison of both observers]{{
+\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+    % Draw lines of observers
+    \draw[->, thick] {line1(tstart)} -- {line1(tend)};
+    \draw[->, thick] {line2(tstart)} -- {line2(tend)};
+    \draw[->, thick] {line3(tstart)} -- {line3(tend)};
+
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] {light_l_to_r(0, t0)} -- {light_l_to_r(t, t0)};
+    \draw[->, thick, black!10!yellow] {light_r_to_l(0, t0 + t)} -- {light_r_to_l(t_return, t0 + t)};
+    \draw[->, thick, black!10!yellow] {light_r_to_l(0, t0prime)} -- {light_r_to_l(tprime, t0prime)};
+    \draw[->, thick, black!10!yellow] {light_l_to_r(0, t0prime + tprime)} -- {light_l_to_r(tprime_return, t0prime + tprime)};
+
+    % Make labels
+    \draw {line1(tstart)} node[left] {{$\mathcal{{O}}$}};
+    \draw {line2(t0 + t)} node[right] {{$t'$}};
+    \draw {line2(tstart)} node[right] {{$\mathcal{{O}}'$}};
+    \draw {line1(t0prime + tprime)} node[left] {{$t$}};
+    \draw {line3(tstart)} node[below] {{$\mathcal{{R}}$}};
+\end{{tikzpicture}}
+}}
+    '''
+
+
+
+def moving_clocks(v1, v2, tstart, tend, t0, t0prime=None):
+    """
+    Draw clock diagram for two moving observers which are at rest with
+    respect to each other.
+
+    If t1prime is None, we choose it such that clocks are synchronized.
+    """
+    v_avg = (v1 + v2) / 2
+    # v_rel = np.abs(v1 - v2)
+
+    def line1(t):  # Observer 1
+        return (-1 + v1 * t, t)
+    
+    def line2(t):  # Observer 2
+        return (1 + v2 * t, t)
+    
+    def line3(t):  # Referee
+        # if v_avg != 0:
+        #     return (v1 * v2 / v_avg * t, t)
+        #     # return (t, t * v_avg / v1 / v2)
+        # else:
+        #     return (t, 0)
+
+        # With formula from Mathematica, input was:
+        # Solve[Norm[{v3*t, t}/Norm[{v3*t, t}] - {v2*t, t}/Norm[{v2*t, t}]] == 
+        # Norm[{v3*t, t}/Norm[{v3*t, t}] - {v1*t, t}/Norm[{v1*t, t}]], v3, Reals, 
+        # Assumptions ->  v1 \[Element] Reals && v2 \[Element] Reals && v3 \[Element] Reals && t \[Element] Reals]
+        # if v_avg < 0:
+        #     v3 = (-1 + v1 * v2) / (v1 + v2) - np.sqrt(1 + v1**2 + v2**2 + v1**2 * v2**2) / np.abs(v1 + v2)
+        #     # print(v3)
+        #     return (v3 * t, t)
+        # elif v_avg > 0:
+        #     v3 = (-1 + v1 * v2) / (v1 + v2) + np.sqrt(1 + v1**2 + v2**2 + v1**2 * v2**2) / np.abs(v1 + v2)
+        #     # print(v3)
+        #     return (v3 * t, t)
+        # else:
+        #     return (0, t)
+        
+        return (v_avg * t, t)
+
+    def light_l_to_r(t, t0):
+        return (-1 + v1 * t0 + t, t0 + t)
+
+    def light_r_to_l(t, t0):
+        return (1 + v2 * t0 - t, t0 + t)
+    
+
+    if t0prime is None:
+        # Set value such that clocks are synchronizeds
+        t_ref = (1 + v_avg * t0 - v1 * t0) / (1 - v_avg)  # Time where light from left observer reaches referee
+        # tprime_ref = (1 + v2 * t0 + v1 * t0) / (1 + v2)  # Time where light from right observer reaches referee
+        # tprime_ref = 1 / (1 + v2)  # Time where light from right observer reaches referee
+        # t0prime = t0 + t_ref - tprime_ref
+        t0prime = (t0 + t_ref - 1 / (1 + v_avg)) / (1 + (v2 - v_avg) / (1 + v_avg))
+    
+
+    # t = (2 + v2 * t0 - v1 * t0) / (1 - v2)  # t1 = t_-
+    # # t = 2 / (1 - v2)  # t1 = t_-
+    # # t_return = (2 + v1 * (t0 + t) - v2 * (t0 + t)) / (1 + v2)  # = t_+
+    # t_return = (2 + v1 * (t0 + t) + v2 * (t0 + t)) / (1 + v2)  # = t_+; Not sure why +v2 * t0prime, but works
+    # # t_return = 2 / (1 + v2)  # = t_+
+    # tprime = (2 + v1 * t0prime + v2 * t0prime) / (1 + v2)  # Not sure why +v2 * t0prime, but works
+    # # tprime = 2 / (1 + v2)
+    # tprime_return = (2 + v2 * (t0prime + tprime) - v1 * (t0prime + tprime)) / (1 - v2)
+    # # tprime_return = 2 / (1 - v2)
+
+
+    # t = (2 + v2 * t0 - v1 * t0) / (1 - v2)  # t1 = t_-
+    # tprime = (2 + v1 * t0 + v2 * t0prime) / (1 + v2)  # Not sure why +v2 * t0prime, but works
+    # t_return = (2 + v1 * (t0 + t) + v2 * (t0prime + tprime)) / (1 + v2)  # = t_+; Not sure why +v2 * t0prime, but works
+    # tprime_return = (2 + v2 * (t0prime + tprime) - v1 * (t0 + t)) / (1 - v2)
+
+
+    # t = (2 + v_rel * t0) / (1 - v2)  # t1 = t_-
+    # # t = 2 / (1 - v2)  # t1 = t_-
+    # # t_return = (2 + v1 * (t0 + t) - v2 * (t0 + t)) / (1 + v2)  # = t_+
+    # t_return = (2 + 2 * v_avg * (t0 + t)) / (1 + v2)  # = t_+; Not sure why +v2 * t0prime, but works
+    # # t_return = 2 / (1 + v2)  # = t_+
+    # tprime = (2 + 2 * v_avg * t0prime) / (1 + v2)  # Not sure why +v2 * t0prime, but works
+    # # tprime = 2 / (1 + v2)
+    # tprime_return = (2 + v_rel * (t0prime + tprime)) / (1 - v2)
+
+
+    # This here seems to work
+    # t0, t0prime = t0prime, t0  # Testing
+    tau = (2 + v2 * t0 - v1 * t0) / (1 - v2)  # t0 = t_-
+    tauprime = (2 - v1 * t0prime + v2 * t0prime) / (1 + v1)
+    # tau, tauprime = tauprime, tau  # Not needed if we switch t0 and t'0
+    t_return = (2 - v1 * (t0 + tau) + v2 * (t0 + tau)) / (1 + v1)  # = t_+; Not sure why +v2 * t0prime, but works
+    tprime_return = (2 + v2 * (t0prime + tauprime) - v1 * (t0prime + tauprime)) / (1 - v2)  # = t'_+
+    # t_return, tprime_return = tprime_return, t_return  # Not needed if we switch t0 and t'0
+
+
+    t = (t0 + t_return) / 2
+    tprime = (t0prime + tprime_return) / 2
+
+    
+    return fr'''
+\subfloat[Time $\tau'$ measured by observer $\mathcal{{O}}$]{{
+\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+    % Draw lines of observers
+    \draw[->, thick] {line1(tstart)} -- {line1(tend)};
+    \draw[->, thick] {line2(tstart)} -- {line2(tend)};
+
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] {light_l_to_r(0, t0)} -- {light_l_to_r(tau, t0)};
+    \draw[->, thick, black!10!yellow] {light_r_to_l(0, t0 + tau)} -- {light_r_to_l(t_return, t0 + tau)};
+
+    % Make labels
+    \draw {line1(tstart)} node[left] {{$\mathcal{{O}}$}};
+    \draw {line1(t0)} node[left] {{$t_-$}};
+    \draw {line1(t0 + tau + t_return)} node[left] {{$t_+$}};
+    \draw {line2(t0 + tau)} node[right] {{$\tau'$}};
+    \draw {line2(tstart)} node[right] {{$\mathcal{{O}}'$}};
+\end{{tikzpicture}}
+}}\hspace*{{0.025\textwidth}}
+%
+\subfloat[Time $\tau$ measured by observer $\mathcal{{O}}'$]{{
+\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+    % Draw lines of observers
+    \draw[->, thick] {line1(tstart)} -- {line1(tend)};
+    \draw[->, thick] {line2(tstart)} -- {line2(tend)};
+
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] {light_r_to_l(0, t0prime)} -- {light_r_to_l(tauprime, t0prime)};
+    \draw[->, thick, black!10!yellow] {light_l_to_r(0, t0prime + tauprime)} -- {light_l_to_r(tprime_return, t0prime + tauprime)};
+
+    % Make labels
+    \draw {line1(tstart)} node[left] {{$\mathcal{{O}}$}};
+    \draw {line2(tstart)} node[right] {{$\mathcal{{O}}'$}};
+    \draw {line2(t0prime)} node[right] {{$t'_-$}};
+    \draw {line2(t0prime + tauprime + tprime_return)} node[right] {{$t'_+$}};
+    \draw {line1(t0prime + tauprime)} node[left] {{$\tau$}};
+\end{{tikzpicture}}
+}}\hspace*{{0.025\textwidth}}
+%
+\subfloat[Comparison of both observers]{{
+\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+    % Draw lines of observers
+    \draw[->, thick] {line1(tstart)} -- {line1(tend)};
+    \draw[->, thick] {line2(tstart)} -- {line2(tend)};
+    \draw[->, thick] {line3(tstart)} -- {line3(tend)};
+
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] {light_l_to_r(0, t0)} -- {light_l_to_r(tau, t0)};
+    \draw[->, thick, black!10!yellow] {light_r_to_l(0, t0 + tau)} -- {light_r_to_l(t_return, t0 + tau)};
+    \draw[->, thick, black!10!yellow] {light_r_to_l(0, t0prime)} -- {light_r_to_l(tauprime, t0prime)};
+    \draw[->, thick, black!10!yellow] {light_l_to_r(0, t0prime + tauprime)} -- {light_l_to_r(tprime_return, t0prime + tauprime)};
+
+    % Draw lines of simultaneity
+    \draw[thick, blue] {line1(t)} -- {line2(tprime)};
+    \draw[thick, blue] {line1(t0prime + tauprime)} -- {line2(t0 + tau)};
+
+    % Make labels
+    \draw {line1(tstart)} node[left] {{$\mathcal{{O}}$}};
+    \draw {line2(t0 + tau)} node[right] {{$\tau'$}};
+    \draw {line2(tprime)} node[right] {{$t'$}};
+    \draw {line2(tstart)} node[right] {{$\mathcal{{O}}'$}};
+    \draw {line1(t0prime + tauprime)} node[left] {{$\tau$}};
+    \draw {line1(t)} node[left] {{$t$}};
+    \draw {line3(tstart)} node[below] {{$\mathcal{{R}}$}};
+\end{{tikzpicture}}
+}}
+    '''
+
+
 def abb21(slope1, slope2, tstart, tend, t1, t2):
     def line1(t):
         return (slope1 * t, t)
@@ -30,24 +472,24 @@ def abb21(slope1, slope2, tstart, tend, t1, t2):
 
 
     return fr'''
-    \begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
-        % Draw lines of observers
-	    \draw[->, thick] {line1(tstart)} -- {line1(tend)};
-	    \draw[->, thick] {line2(tstart)} -- {line2(tend)};
+\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+    % Draw lines of observers
+    \draw[->, thick] {line1(tstart)} -- {line1(tend)};
+    \draw[->, thick] {line2(tstart)} -- {line2(tend)};
 
-        % Draw trajectories of light
-        \draw[->, thick, black!10!yellow] {line1(t1)} -- {line2(t1intersect)};
-        \draw[->, thick, black!10!yellow] {line1(t2)} -- {line2(t2intersect)};
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] {line1(t1)} -- {line2(t1intersect)};
+    \draw[->, thick, black!10!yellow] {line1(t2)} -- {line2(t2intersect)};
 
-        % Make labels
-        \draw (0, {tstart}) node[below] {{$\mathcal{{O}}$}};
-        \draw {line1(tend)} node[left] {{$\mathcal{{U}}$}};
-        \draw {line1(t1)} node[left] {{$t_\mathcal{{U}}$}};
-        \draw {line1(t2)} node[left] {{$t'_\mathcal{{U}}$}};
-        \draw {line2(tend)} node[right] {{$\mathcal{{B}}$}};
-        \draw {line2(t1intersect)} node[right] {{$t_\mathcal{{B}}$}};
-        \draw {line2(t2intersect)} node[right] {{$t'_\mathcal{{B}}$}};
-    \end{{tikzpicture}}
+    % Make labels
+    \draw (0, {tstart}) node[below] {{$\mathcal{{O}}$}};
+    \draw {line1(tend)} node[left] {{$\mathcal{{U}}$}};
+    \draw {line1(t1)} node[left] {{$t_\mathcal{{U}}$}};
+    \draw {line1(t2)} node[left] {{$t'_\mathcal{{U}}$}};
+    \draw {line2(tend)} node[right] {{$\mathcal{{B}}$}};
+    \draw {line2(t1intersect)} node[right] {{$t_\mathcal{{B}}$}};
+    \draw {line2(t2intersect)} node[right] {{$t'_\mathcal{{B}}$}};
+\end{{tikzpicture}}
     '''
 
 
@@ -150,31 +592,44 @@ def abb23(slope1, slope2, tstart, tend, t1, t2):
 
 
     return fr'''
-    \begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
-        % Draw lines of observers
-	    \draw[->, thick] {line1(tstart)} -- {line1(tend)};
-	    \draw[->, thick] {line2(tstart)} -- {line2(tend)};
+\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+    % Draw lines of observers
+    \draw[->, thick] {line1(tstart)} -- {line1(tend)};
+    \draw[->, thick] {line2(tstart)} -- {line2(tend)};
 
-        % Draw trajectories of light
-        \draw[->, thick, black!10!yellow] {line1(t1)} -- {line2(t1intersect)};
-        \draw[->, thick, black!10!yellow] {line1(t2)} -- {line2(t2intersect)};
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] {line1(t1)} -- {line2(t1intersect)};
+    \draw[->, thick, black!10!yellow] {line1(t2)} -- {line2(t2intersect)};
 
-        % Make labels
-        \draw (0, {tstart}) node[below] {{$\mathcal{{O}}$}};
-        \draw {line1(tend)} node[left] {{$\mathcal{{U}}$}};
-        \draw {line1(t1)} node[left] {{$t_\mathcal{{U}}$}};
-        \draw {line1(t2)} node[left] {{$t'_\mathcal{{U}}$}};
-        \draw {line2(tend)} node[right] {{$\mathcal{{B}}$}};
-        \draw {line2(t1intersect)} node[right] {{$t_\mathcal{{B}}$}};
-        \draw {line2(t2intersect)} node[right] {{$t'_\mathcal{{B}}$}};
-    \end{{tikzpicture}}
+    % Make labels
+    \draw (0, {tstart}) node[below] {{$\mathcal{{O}}$}};
+    \draw {line1(tend)} node[left] {{$\mathcal{{U}}$}};
+    \draw {line1(t1)} node[left] {{$t_\mathcal{{U}}$}};
+    \draw {line1(t2)} node[left] {{$t'_\mathcal{{U}}$}};
+    \draw {line2(tend)} node[right] {{$\mathcal{{B}}$}};
+    \draw {line2(t1intersect)} node[right] {{$t_\mathcal{{B}}$}};
+    \draw {line2(t2intersect)} node[right] {{$t'_\mathcal{{B}}$}};
+\end{{tikzpicture}}
     '''
 
 
 
-print(abb21(-0.4, 0.75, -0.5, 5, 1, 2))
+print(resting_clocks(0, 5, 0.5))
 
-print(abb22(-0.4, 0.75, -0.5, 5, 2))
+print(moving_clocks_resting_wrt_each_other(0.3, 0, 6, 0.5))
+
+# print(moving_clocks(0.1, 0.4, 0, 6, 0.5))
+# print(moving_clocks(-0.1, 0.4, -1, 7, -0.5))  # Does not work with negative velocities yet -> does now
+print(moving_clocks(-0.3, 0.3, -2, 5, -1))
+# print(moving_clocks(-0.2, 0.4, -4, 4, -2, -2 * np.sqrt(1 - 0.4**2)))
+print(moving_clocks(-0.1, 0.4, -4, 4, -2))
+# print(moving_clocks(0.0, 0.5, -4, 4, -2))
+# print(moving_clocks(0.1, 0.4, -1, 7, 0.5, np.sqrt(1 - 0.3**2) * 0.5))
+# print(moving_clocks(0.1, 0.4, -1, 7, 0.5))
+
+# print(abb21(-0.4, 0.75, -0.5, 5, 1, 2))
+
+# print(abb22(-0.4, 0.75, -0.5, 5, 2))
 
 # with open('../pictures/abb21.tex', 'w') as file:
 #     file.write(abb21(-0.5, 0.5, -0.5, 5, 1, 2))
