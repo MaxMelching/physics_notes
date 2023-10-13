@@ -194,7 +194,6 @@ def resting_clocks_single_fig(tstart, tend, t0, x_distance=1.0, x_shift=0.0):
 
     
     return fr'''
-\subfloat[Comparison of both observers]{{
 \begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
     % Draw lines of observers
     \draw[->, thick] {line1(tstart)} -- {line1(tend)};
@@ -218,7 +217,6 @@ def resting_clocks_single_fig(tstart, tend, t0, x_distance=1.0, x_shift=0.0):
     \draw {line1(tprime_intersect)} node[left] {{$t$}};
     \draw {line3(tstart)} node[below] {{$\mathcal{{R}}$}};
 \end{{tikzpicture}}
-}}
     '''
 
 
@@ -390,7 +388,6 @@ def moving_clocks_resting_wrt_each_other_single_fig(v, tstart, tend, t0, t0prime
 
     
     return fr'''
-\subfloat[Comparison of both observers]{{
 \begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
     % Draw lines of observers
     \draw[->, thick] {line1(tstart)} -- {line1(tend)};
@@ -414,12 +411,11 @@ def moving_clocks_resting_wrt_each_other_single_fig(v, tstart, tend, t0, t0prime
     \draw {line1(t0prime + tprime)} node[left] {{$t$}};
     \draw {line3(tstart)} node[below] {{$\mathcal{{R}}$}};
 \end{{tikzpicture}}
-}}
     '''
 
 
 
-def resting_clocks_fitted(tstart, tend, t0, v, x_distance=1.0, x_shift=0.0):
+def resting_clocks_fitted_single_fig(tstart, tend, t0, v, x_distance=1.0, x_shift=0.0):
     """
     Draw clock diagram for two observers at rest.
     Now with unequal distances and positions
@@ -445,7 +441,7 @@ def resting_clocks_fitted(tstart, tend, t0, v, x_distance=1.0, x_shift=0.0):
     tprime_ref = x_distance / (1 + v)  # Time where light from right observer reaches referee
     t0prime = t0 + t_ref - tprime_ref  # No idea why this works, found it by testing -> ah, t0 + tref = t0prime + t0ref
 
-    x_shift1, x_shift2, x_shift3 = -x_distance + v * (t0prime + tprime), v * (tend - tstart) / 2, x_distance + v * (t0 + t)
+    x_shift1, x_shift2, x_shift3 = x_shift - x_distance + v * (t0prime + tprime), x_shift + v * (tend - tstart) / 2, x_shift + x_distance + v * (t0 + t)
 
     def line1(t):  # Observer 1
         return (x_shift1, t)
@@ -705,6 +701,105 @@ def moving_clocks(v1, v2, tstart, tend, t0, t0prime=None):
     # \draw {line2(tprime)} node[circle, red, fill] {{}};
     # \draw {line2(tprime_return)} node[circle, red, fill] {{}};
 
+
+
+def moving_clocks_single_fig(v1, v2, tstart, tend, t0, t0prime=None):
+    """
+    Draw clock diagram for two moving observers which are at rest with
+    respect to each other.
+
+    If t1prime is None, we choose it such that clocks are synchronized.
+    """
+    v_avg = (v1 + v2) / 2
+    # v_rel = np.abs(v1 - v2)
+
+    def line1(t):  # Observer 1
+        return (-1 + v1 * t, t)
+        # return tuple([-1, 0] + [v1, 1] / np.sqrt(v1**2 + 1) * t)
+    
+    def line2(t):  # Observer 2
+        return (1 + v2 * t, t)
+        # return tuple([1, 0] + [v2, 1] / np.sqrt(v2**2 + 1) * t)
+    
+    def line3(t):  # Referee
+        
+        return (v_avg * t, t)
+
+    def light_l_to_r(t, t0):
+        return (-1 + v1 * t0 + t, t0 + t)
+
+    def light_r_to_l(t, t0):
+        return (1 + v2 * t0 - t, t0 + t)
+    
+
+    # v1 /= np.sqrt(v1**2 + 1)
+    # v2 /= np.sqrt(v2**2 + 1)
+    
+
+    if t0prime is None:
+        # Set value such that clocks are synchronizeds
+        t_ref = (1 + v_avg * t0 - v1 * t0) / (1 - v_avg)  # Time where light from left observer reaches referee
+        # tprime_ref = (1 + v2 * t0 + v1 * t0) / (1 + v2)  # Time where light from right observer reaches referee
+        # tprime_ref = 1 / (1 + v2)  # Time where light from right observer reaches referee
+        # t0prime = t0 + t_ref - tprime_ref
+        t0prime = (t0 + t_ref - 1 / (1 + v_avg)) / (1 + (v2 - v_avg) / (1 + v_avg))
+
+
+    # This here seems to work
+    # t0, t0prime = t0prime, t0  # Testing
+    tau = (2 + v2 * t0 - v1 * t0) / (1 - v2)  # t0 = t_-
+    tauprime = (2 - v1 * t0prime + v2 * t0prime) / (1 + v1)
+    # tau, tauprime = tauprime, tau  # Not needed if we switch t0 and t'0
+    t_return = (2 - v1 * (t0 + tau) + v2 * (t0 + tau)) / (1 + v1)  # = t_+; Not sure why +v2 * t0prime, but works
+    tprime_return = (2 + v2 * (t0prime + tauprime) - v1 * (t0prime + tauprime)) / (1 - v2)  # = t'_+
+    # t_return, tprime_return = tprime_return, t_return  # Not needed if we switch t0 and t'0
+
+
+    t = (t0 + t_return) / 2
+    tprime = (t0prime + tprime_return) / 2
+    # Hmmm, but drawing them on line makes them not lie exactly between t_+, t_-
+    # -> just take average of the t_+, t_- coordinates?
+    # -> problem: then lines of simultaneity are not parallel anymore...
+    t_coords = tuple((np.array(light_l_to_r(0, t0)) + np.array(light_r_to_l(t_return, t0 + tau))) / 2)
+    tprime_coords = tuple((np.array(light_r_to_l(0, t0prime)) + np.array(light_l_to_r(tprime_return, t0prime + tauprime))) / 2)
+
+
+
+    
+    return fr'''
+\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+    % Draw lines of observers
+    \draw[->, thick] {line1(tstart)} -- {line1(tend)};
+    \draw[->, thick] {line2(tstart)} -- {line2(tend)};
+    \draw[->, thick] {line3(tstart)} -- {line3(tend)};
+
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] {light_l_to_r(0, t0)} -- {light_l_to_r(tau, t0)};
+    \draw[->, thick, black!10!yellow] {light_r_to_l(0, t0 + tau)} -- {light_r_to_l(t_return, t0 + tau)};
+    \draw[->, thick, black!10!yellow] {light_r_to_l(0, t0prime)} -- {light_r_to_l(tauprime, t0prime)};
+    \draw[->, thick, black!10!yellow] {light_l_to_r(0, t0prime + tauprime)} -- {light_l_to_r(tprime_return, t0prime + tauprime)};
+
+    % Draw lines of simultaneity
+    \draw[thick, blue] {line1(t)} -- {line2(tprime)};
+    %\draw[thick, blue] {t_coords} -- {tprime_coords};
+    \draw[thick, blue] {line1(t0prime + tauprime)} -- {line2(t0 + tau)};
+
+    % Make labels
+    \draw {line1(tstart)} node[left] {{$\mathcal{{O}}$}};
+    \draw {line1(t0)} node[left] {{$t_-$}};
+    \draw {line1(t0 + tau + t_return)} node[left] {{$t_+$}};
+    \draw {line2(t0 + tau)} node[right] {{$\tau'$}};
+    \draw {line2(tprime)} node[right] {{$t'$}};
+    %\draw {tprime_coords} node[right] {{$t'$}};
+    \draw {line2(tstart)} node[right] {{$\mathcal{{O}}'$}};
+    \draw {line2(t0prime)} node[right] {{$t'_-$}};
+    \draw {line2(t0prime + tauprime + tprime_return)} node[right] {{$t'_+$}};
+    \draw {line1(t0prime + tauprime)} node[left] {{$\tau$}};
+    \draw {line1(t)} node[left] {{$t$}};
+    %\draw {t_coords} node[left] {{$t$}};
+    \draw {line3(tstart)} node[below] {{$\mathcal{{R}}$}};
+\end{{tikzpicture}}
+    '''
 
 
 

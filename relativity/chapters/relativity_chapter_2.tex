@@ -70,6 +70,9 @@ Einstein was not the first one to notice this, nothing really revolutionary or n
 this means we have to abandon notion of universal space, there is no preferred frame of reference!
 
 
+This means that if you are in a closed room without any windows, you cannot perform any experiment to determine if you are at rest or moving at a constant velocity. In other words, there is no absolute notion of rest; it's all relative (hence the name \enquote{relativity principle}).
+
+
 
 second thing we demand (very reasonable, but this is assumption we build theory upon):
 \begin{post}[Relativity Principle]%[Universality of Speed of Light]
@@ -147,7 +150,7 @@ All of that motivates the need for a synchronization procedure of clocks. We wil
 
 		\subsection{Synchrony of Clocks}
 			\paragraph{Resting Observers}
-Our setting is identical copies of an ideal clock being attached event/point in space. For a consistent, well-defined notion of \enquote{time}, however, we now have to make sure these clocks show equivalent times. To do that, we will synchronize them by adopting the following definition, originally proposed by Einstein.
+Our setting is identical copies of an ideal clock being attached event/ point in space. For a consistent, well-defined notion of \enquote{time}, however, we now have to make sure these clocks show equivalent times. To do that, we will synchronize them by adopting the following definition, originally proposed by Einstein.
 
 \begin{defi}[Einstein Synchronization]\label{defi:einstein_synchrony}
 %Two clocks $\mathcal{C}, \mathcal{C}'$ with times $t, t'$ attached to observers $\mathcal{O}, \mathcal{O}'$ are \Def{synchronized}/\Def{equal} if they show the same times to their referee $\mathcal{R}$, i.e.~$t = t'$.
@@ -156,12 +159,12 @@ Two clocks $\mathcal{C}, \mathcal{C}'$ with times $t, t'$ attached to observers 
 In principle, there is no unique procedure to synchronize clocks. However, in accordance with the equivalence principle, it would be desirable to for the procedure to work independently of the chosen inertial frame. A very straightforward idea is to exploit the relativity principle and use light to communicate times between different observers and their respective clocks. That is what lead Einstein to this definition of synchrony.\footnote{As Giulini elaborates on in 2.1 of \cite{giulini_srt}, this freedom in defining synchronization indeed exists.} It gives rise to the following notion of simultaneity.
 \begin{defi}[Simultaneity]\label{defi:simultaneity}
 %The corresponding events $E$ at $t$ and $E'$ at $t'$ are then said to be \Def{simultaneous}. % When it was in definition of synchronization
-Two events $E$ at $t$ and $E'$ at $t'$ are called \Def{simultaneous} if the locally simultaneous clock readings of synchronized clocks at these events are identical, i.e.~$t = t'$.
+Two events $E$ at $t$ and $E'$ at $t'$ are called \Def{simultaneous} if the locally simultaneous clock readings of synchronized clocks at these events are identical.%, i.e.~$t = t'$. % Not sure about last part, maybe it is good to be less explicit here
 \end{defi}
 
 Essentially by definition, the following properties hold.
 \begin{prop}[Simultaneity as an Equivalence Relation]
-Simultaneity defines an equivalence relation on the set of all clocks, i.e.~the following properties hold:
+Simultaneity defines an equivalence relation on the set of all clocks in an inertial frame, i.e.~the following properties hold:
 \begin{enumerate}
 \item Every event is simultaneous to itself.
 
@@ -190,7 +193,7 @@ t = \frac{t_+ + t_-}{2}
 } \, .
 \end{equation}
 Here, $t_+$ is the time on $\mathcal{C}$ when the first signal is sent out and $t_+$ the time on $\mathcal{C}$ when the second signal arrives. In just the same manner,
-\begin{equation}
+\begin{equation}\label{eq:time_synchr_primed}
 \eqbox{
 t' = \frac{t'_+ + t'_-}{2}
 }
@@ -200,131 +203,134 @@ which should also be clear since $t'_- = t_-, t'_+ = t_+$.\\
 
 In the definition of synchrony, we have assumed to be the observers $\mathcal{O}, \mathcal{O}'$ to be at rest, which is also what \ref{fig:clocks_at_rest_wrt_each_other} (a) represents. However, one requirement was that synchronization should also work in other inertial systems. This situation where $\mathcal{O}, \mathcal{O}'$ are at rest with respect to each other, but move uniformly with respect to another observer, is shown in \ref{fig:clocks_at_rest_wrt_each_other} (b).\footnote{For a better distinction between the situations, the observers are named $\mathcal{O}'', \mathcal{O}'''$ instead of $\mathcal{O}, \mathcal{O}'$. This does not change any interpretations that were mentioned.} Indeed, by constructing the referee $\mathcal{R}'$ and drawing the light signals sent to and from each observer (which form a rectangle, sometimes named \Def{lightangle}), one obtains the times $t''_-, t''_+, t'''_-, t'''_+$ by prolonging the edges of the lightangle. This is equivalent to what has been done for resting observers in \ref{fig:clocks_at_rest_wrt_each_other} (a) and likewise,
 \begin{equation}
-\frac{t''_+ + t''_2}{2} = t'' = t''' = \frac{t'''_+ + t'''_-}{2} \, ,
+t'' = \frac{t''_+ + t''_2}{2}
+\manyqquad
+t''' = \frac{t'''_+ + t'''_-}{2}
+\, ,
 \end{equation}
-just as before (to verify that, we can also look at the distance of $t_-, t, t_+$ on the vertical axis we use to depict time). But nonetheless, something seems off. Figure \ref{fig:clocks_at_rest_wrt_each_other} (c), where for simplicity we assumed that $t = t''$ in the event where $\mathcal{O}, \mathcal{O}''$ intersect, shows this more clearly. While the synchronization process still works, its induced notion of simultaneity for $\mathcal{C}'', \mathcal{C}'''$ is \emph{not} the same as the one for $\mathcal{C}, \mathcal{C}'$. Geometrically speaking, the \enquote{lines of simultaneity} (diagonal from left to right in lightangle) change from being horizontal in figure \ref{fig:clocks_at_rest_wrt_each_other} (a) to being tilted in (b).
+just as before, so the observers agree on $ t'' = t'''$ (to verify that, we can also look at the distance of $t_-, t, t_+$ on the vertical axis we use to depict time). But nonetheless, something seems off. Figure \ref{fig:clocks_at_rest_wrt_each_other} (c), where for simplicity we assumed that $t = t''$ in the event where $\mathcal{O}, \mathcal{O}''$ intersect, shows this more clearly. While the synchronization process still works, its induced notion of simultaneity for $\mathcal{C}'', \mathcal{C}'''$ is \emph{not} the same as the one for $\mathcal{C}, \mathcal{C}'$. Geometrically speaking, the \enquote{lines of simultaneity} (diagonal from left to right in lightangle) change from being horizontal in figure \ref{fig:clocks_at_rest_wrt_each_other} (a) to being tilted in (b).
 
 
-The origin of this difference is that the time of flight for light on $\overline{\mathcal{O} \mathcal{O}'}$ is different from the one on $\overline{\mathcal{O}' \mathcal{O}}$ (equivalent: time on $\overline{\mathcal{O} \mathcal{R}}$ differs from the one on $\overline{\mathcal{R} \mathcal{O}'}$) because the observers are moving uniformly in the same direction. Does that point to an inconsistency and thus error in the synchronization procedure? The answer is no because the roundtrip time is equal for $\overline{\mathcal{R} \mathcal{O} \mathcal{R}}$ and $\overline{\mathcal{R} \mathcal{O}' \mathcal{R}}$ -- and this is the only distance/time that can be quantified using a single clock like the one at $\mathcal{R}$.\footnote{To do that, synchronized clocks would be required. However, our synchronization procedure is based on this roundtrip time light needs } The events at $t''$ and $t'''$ are said to be simultaneous because they do have the same roundtrip time of light signals, as one can verify in figure \ref{fig:clocks_at_rest_wrt_each_other} (b).
+The origin of this difference is that the time of flight for light on $\overline{\mathcal{O} \mathcal{O}'}$ is different from the one on $\overline{\mathcal{O}' \mathcal{O}}$ (equivalent: time on $\overline{\mathcal{O} \mathcal{R}}$ differs from the one on $\overline{\mathcal{R} \mathcal{O}'}$) because the observers are moving uniformly in the same direction. Does that point to an inconsistency and thus error in the synchronization procedure? The answer is no because the roundtrip time is equal for $\overline{\mathcal{R} \mathcal{O} \mathcal{R}}$ and $\overline{\mathcal{R} \mathcal{O}' \mathcal{R}}$ -- and this is the only distance/time that can be quantified using a single clock like the one at $\mathcal{R}$.\footnote{To do that, synchronized clocks would be required. However,  we wish to accomplish synchronization using the referee and the roundtrip time for him, so reasoning in this way does not work.} The events at $t''$ and $t'''$ are said to be simultaneous because they do have the same roundtrip time of light signals, as one can verify in figure \ref{fig:clocks_at_rest_wrt_each_other} (b).
 
 
 
 \begin{figure}
-\centering
-%\thisfloatpagestyle{onlyheader} % Not needed with caption on side
-
-\subfloat[Observers at rest]{
-%\hspace*{0.05\textwidth}
-\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
-    % Draw lines of observers
-    \draw[->, thick] (-1.0, 0) -- (-1.0, 6);
-    \draw[->, thick] (1.0, 0) -- (1.0, 6);
-    \draw[->, thick] (0.0, 0) -- (0.0, 6);
-
-    % Draw trajectories of light
-    \draw[->, thick, black!10!yellow] (-1.0, 0.5) -- (1.0, 2.5);
-    \draw[->, thick, black!10!yellow] (1.0, 2.5) -- (-1.0, 4.5);
-    \draw[->, thick, black!10!yellow] (1.0, 0.5) -- (-1.0, 2.5);
-    \draw[->, thick, black!10!yellow] (-1.0, 2.5) -- (1.0, 4.5);
-
-    % Make labels
-    \draw (-1.0, 0) node[left] {$\mathcal{O}$};
-    \draw (-1.0, 0.5) node[left] {$t_-$};
-    \draw (-1.0, 4.5) node[left] {$t_+$};
-    \draw (1.0, 2.5) node[right] {$t'$};
-    \draw (1.0, 0) node[right] {$\mathcal{O}'$};
-    \draw (1.0, 0.5) node[right] {$t'_-$};
-    \draw (1.0, 4.5) node[right] {$t'_+$};
-    \draw (-1.0, 2.5) node[left] {$t$};
-    \draw (0.0, 0) node[below] {$\mathcal{R}$};
-\end{tikzpicture}
-}\hspace*{0.2\textwidth}
-%
-\subfloat[Moving observers a rest with respect to each other]{
-%\hspace*{0.05\textwidth}
-\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
-    % Draw lines of observers
-    \draw[->, thick] (-1.0, 0) -- (0.7999999999999998, 6);
-    \draw[->, thick] (1.0, 0) -- (2.8, 6);
-    \draw[->, thick] (0.0, 0) -- (1.7999999999999998, 6);
-
-    % Draw trajectories of light
-    \draw[->, thick, black!10!yellow] (-0.85, 0.5) -- (2.007142857142857, 3.357142857142857);
-    \draw[->, thick, black!10!yellow] (2.007142857142857, 3.357142857142857) -- (0.4686813186813188, 4.895604395604396);
-    \draw[->, thick, black!10!yellow] (1.347802197802198, 1.1593406593406594) -- (-0.19065934065934043, 2.697802197802198);
-    \draw[->, thick, black!10!yellow] (-0.19065934065934065, 2.697802197802198) -- (2.666483516483517, 5.554945054945055);
-
-    % Make labels
-    \draw (-1.0, 0) node[left] {$\mathcal{O}''$};
-    \draw (-0.85, 0.5) node[left] {$t''_-$};
-    \draw (0.4686813186813188, 4.895604395604396) node[left] {$t''_+$};
-    \draw (2.007142857142857, 3.357142857142857) node[right] {$t'''$};
-    \draw (1.0, 0) node[right] {$\mathcal{O}'''$};
-    \draw (1.347802197802198, 1.1593406593406594) node[right] {$t'''_-$};
-    \draw (2.6664835164835163, 5.554945054945055) node[right] {$t'''_+$};
-    \draw (-0.19065934065934065, 2.697802197802198) node[left] {$t''$};
-    \draw (0.0, 0) node[below] {$\mathcal{R}'$};
-\end{tikzpicture}
-}%\hspace*{0.025\textwidth}
-
-\vspace*{4\baselineskip}
-
-\begin{minipage}{0.5\textwidth}
-\centering
-
-\subfloat[Comparison of all observers from (a) and (b). For simplicity, we assume that the clock $\mathcal{C}$ and $\mathcal{C}''$ show the same time $t = t''$ on intersection. Despite this fact, they cannot agree on notion of simultaneity.]{
-%\hspace*{0.05\textwidth}
-\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
-	% First resting observers
-
-	% Draw lines of observers
-    \draw[->, thick] (-0.19065934065934065, 0) -- (-0.19065934065934065, 6);
-    \draw[->, thick] (2.007142857142857, 0) -- (2.007142857142857, 6);
-    \draw[->, thick] (0.8999999999999999, 0) -- (0.8999999999999999, 6);
-
-    % Draw trajectories of light
-    \draw[->, thick, black!10!yellow] (-0.19065934065934065, 0.5) -- (2.007142857142857, 2.697802197802198);
-    \draw[->, thick, black!10!yellow] (2.007142857142857, 2.697802197802198) -- (-0.19065934065934065, 4.895604395604396);
-    \draw[->, thick, black!10!yellow] (2.007142857142857, 0.5) -- (-0.19065934065934065, 2.697802197802198);
-    \draw[->, thick, black!10!yellow] (-0.19065934065934065, 2.697802197802198) -- (2.007142857142857, 4.895604395604396);
-
-    % Make labels
-    \draw (-0.19065934065934065, 0) node[left] {$\mathcal{O}''$};
-    \draw (2.007142857142857, 2.697802197802198) node[right] {$t'$};
-    \draw (2.007142857142857, 0) node[right] {$\mathcal{O}'''$};
-    \draw (-0.19065934065934065, 2.697802197802198) node[left] {$t = t''$};
-    \draw (0.8999999999999999, 0) node[below] {$\mathcal{R}'$};
-
-
-
-	% Now moving observers
-
-
-    % Draw lines of observers
-    \draw[->, thick] (-1.0, 0) -- (0.7999999999999998, 6);
-    \draw[->, thick] (1.0, 0) -- (2.8, 6);
-    \draw[->, thick] (0.0, 0) -- (1.7999999999999998, 6);
-
-    % Draw trajectories of light
-    \draw[->, thick, black!10!yellow] (-0.85, 0.5) -- (2.007142857142857, 3.357142857142857);
-    \draw[->, thick, black!10!yellow] (2.007142857142857, 3.357142857142857) -- (0.4686813186813188, 4.895604395604396);
-    \draw[->, thick, black!10!yellow] (1.347802197802198, 1.1593406593406594) -- (-0.19065934065934043, 2.697802197802198);
-    \draw[->, thick, black!10!yellow] (-0.19065934065934065, 2.697802197802198) -- (2.666483516483517, 5.554945054945055);
-
-    % Make labels
-    \draw (-1.0, 0) node[left] {$\mathcal{O}$};
-    \draw (2.007142857142857, 3.357142857142857) node[right] {$t'''$};
-    \draw (1.0, 0) node[right] {$\mathcal{O}'$};
-    %\draw (-0.19065934065934065, 2.697802197802198) node[left] {$t$};
-    \draw (0.0, 0) node[below] {$\mathcal{R}$};
-\end{tikzpicture}
-}
-\end{minipage}%\hfill
-\begin{minipage}{0.5\textwidth}
-\caption{Spacetime diagrams for different sets of observers. We draw the observers $\mathcal{O}, \mathcal{O}'$ whose clocks we wish to synchronize, the referee $\mathcal{R}$ for them and the light pulses they exchange in order to achieve the synchronization.\\
-Clocks carried by $\mathcal{O}$ and $\mathcal{O}'$ measure the events at times $t = \frac{t_+ + t_-}{2}$ and $t' = \frac{t'_+ + t'_-}{2}$ to be simultaneous, i.e.~$t = t'$. This is because light (represented as yellow lines) sent out simultaneously by the referee $\mathcal{R}$ to $\mathcal{O}$ and $\mathcal{O}'$ \enquote{sees} times $t$ and $t'$ on the clocks before returning simultaneously to $\mathcal{R}$, where the results are \enquote{reported}.}
-\label{fig:clocks_at_rest_wrt_each_other}
-\end{minipage}
+	\centering
+	%\thisfloatpagestyle{onlyheader} % Not needed with caption on side
+	
+	\subfloat[Observers at rest]{
+	%\hspace*{0.05\textwidth}
+	\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+	    % Draw lines of observers
+	    \draw[->, thick] (-1.0, 0) -- (-1.0, 6);
+	    \draw[->, thick] (1.0, 0) -- (1.0, 6);
+	    \draw[->, thick] (0.0, 0) -- (0.0, 6);
+	
+	    % Draw trajectories of light
+	    \draw[->, thick, black!10!yellow] (-1.0, 0.5) -- (1.0, 2.5);
+	    \draw[->, thick, black!10!yellow] (1.0, 2.5) -- (-1.0, 4.5);
+	    \draw[->, thick, black!10!yellow] (1.0, 0.5) -- (-1.0, 2.5);
+	    \draw[->, thick, black!10!yellow] (-1.0, 2.5) -- (1.0, 4.5);
+	
+	    % Make labels
+	    \draw (-1.0, 0) node[left] {$\mathcal{O}$};
+	    \draw (-1.0, 0.5) node[left] {$t_-$};
+	    \draw (-1.0, 4.5) node[left] {$t_+$};
+	    \draw (1.0, 2.5) node[right] {$t'$};
+	    \draw (1.0, 0) node[right] {$\mathcal{O}'$};
+	    \draw (1.0, 0.5) node[right] {$t'_-$};
+	    \draw (1.0, 4.5) node[right] {$t'_+$};
+	    \draw (-1.0, 2.5) node[left] {$t$};
+	    \draw (0.0, 0) node[below] {$\mathcal{R}$};
+	\end{tikzpicture}
+	}\hspace*{0.2\textwidth}
+	%
+	\subfloat[Moving observers a rest with respect to each other]{
+	%\hspace*{0.05\textwidth}
+	\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+	    % Draw lines of observers
+	    \draw[->, thick] (-1.0, 0) -- (0.7999999999999998, 6);
+	    \draw[->, thick] (1.0, 0) -- (2.8, 6);
+	    \draw[->, thick] (0.0, 0) -- (1.7999999999999998, 6);
+	
+	    % Draw trajectories of light
+	    \draw[->, thick, black!10!yellow] (-0.85, 0.5) -- (2.007142857142857, 3.357142857142857);
+	    \draw[->, thick, black!10!yellow] (2.007142857142857, 3.357142857142857) -- (0.4686813186813188, 4.895604395604396);
+	    \draw[->, thick, black!10!yellow] (1.347802197802198, 1.1593406593406594) -- (-0.19065934065934043, 2.697802197802198);
+	    \draw[->, thick, black!10!yellow] (-0.19065934065934065, 2.697802197802198) -- (2.666483516483517, 5.554945054945055);
+	
+	    % Make labels
+	    \draw (-1.0, 0) node[left] {$\mathcal{O}''$};
+	    \draw (-0.85, 0.5) node[left] {$t''_-$};
+	    \draw (0.4686813186813188, 4.895604395604396) node[left] {$t''_+$};
+	    \draw (2.007142857142857, 3.357142857142857) node[right] {$t'''$};
+	    \draw (1.0, 0) node[right] {$\mathcal{O}'''$};
+	    \draw (1.347802197802198, 1.1593406593406594) node[right] {$t'''_-$};
+	    \draw (2.6664835164835163, 5.554945054945055) node[right] {$t'''_+$};
+	    \draw (-0.19065934065934065, 2.697802197802198) node[left] {$t''$};
+	    \draw (0.0, 0) node[below] {$\mathcal{R}'$};
+	\end{tikzpicture}
+	}%\hspace*{0.025\textwidth}
+	
+	\vspace*{4\baselineskip}
+	
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		
+		\subfloat[Comparison of all observers from (a) and (b). For simplicity, we assume that the clock $\mathcal{C}$ and $\mathcal{C}''$ show the same time $t = t''$ on intersection. Despite this fact, they cannot agree on notion of simultaneity.]{
+		%\hspace*{0.05\textwidth}
+		\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+			% First resting observers
+		
+			% Draw lines of observers
+		    \draw[->, thick] (-0.19065934065934065, 0) -- (-0.19065934065934065, 6);
+		    \draw[->, thick] (2.007142857142857, 0) -- (2.007142857142857, 6);
+		    \draw[->, thick] (0.8999999999999999, 0) -- (0.8999999999999999, 6);
+		
+		    % Draw trajectories of light
+		    \draw[->, thick, black!10!yellow] (-0.19065934065934065, 0.5) -- (2.007142857142857, 2.697802197802198);
+		    \draw[->, thick, black!10!yellow] (2.007142857142857, 2.697802197802198) -- (-0.19065934065934065, 4.895604395604396);
+		    \draw[->, thick, black!10!yellow] (2.007142857142857, 0.5) -- (-0.19065934065934065, 2.697802197802198);
+		    \draw[->, thick, black!10!yellow] (-0.19065934065934065, 2.697802197802198) -- (2.007142857142857, 4.895604395604396);
+		
+		    % Make labels
+		    \draw (-0.19065934065934065, 0) node[left] {$\mathcal{O}''$};
+		    \draw (2.007142857142857, 2.697802197802198) node[right] {$t'$};
+		    \draw (2.007142857142857, 0) node[right] {$\mathcal{O}'''$};
+		    \draw (-0.19065934065934065, 2.697802197802198) node[left] {$t = t''$};
+		    \draw (0.8999999999999999, 0) node[below] {$\mathcal{R}'$};
+		
+		
+		
+			% Now moving observers
+		
+		
+		    % Draw lines of observers
+		    \draw[->, thick] (-1.0, 0) -- (0.7999999999999998, 6);
+		    \draw[->, thick] (1.0, 0) -- (2.8, 6);
+		    \draw[->, thick] (0.0, 0) -- (1.7999999999999998, 6);
+		
+		    % Draw trajectories of light
+		    \draw[->, thick, black!10!yellow] (-0.85, 0.5) -- (2.007142857142857, 3.357142857142857);
+		    \draw[->, thick, black!10!yellow] (2.007142857142857, 3.357142857142857) -- (0.4686813186813188, 4.895604395604396);
+		    \draw[->, thick, black!10!yellow] (1.347802197802198, 1.1593406593406594) -- (-0.19065934065934043, 2.697802197802198);
+		    \draw[->, thick, black!10!yellow] (-0.19065934065934065, 2.697802197802198) -- (2.666483516483517, 5.554945054945055);
+		
+		    % Make labels
+		    \draw (-1.0, 0) node[left] {$\mathcal{O}$};
+		    \draw (2.007142857142857, 3.357142857142857) node[right] {$t'''$};
+		    \draw (1.0, 0) node[right] {$\mathcal{O}'$};
+		    %\draw (-0.19065934065934065, 2.697802197802198) node[left] {$t$};
+		    \draw (0.0, 0) node[below] {$\mathcal{R}$};
+		\end{tikzpicture}
+		}
+	\end{minipage}%\hfill
+	\begin{minipage}{0.5\textwidth}
+		\caption{Spacetime diagrams for different sets of observers. We draw the observers $\mathcal{O}, \mathcal{O}'$ whose clocks we wish to synchronize, the referee $\mathcal{R}$ for them and the light pulses they exchange in order to achieve the synchronization.\\
+		Clocks carried by $\mathcal{O}$ and $\mathcal{O}'$ measure the events at times $t = \frac{t_+ + t_-}{2}$ and $t' = \frac{t'_+ + t'_-}{2}$ to be simultaneous, i.e.~$t = t'$. This is because light (represented as yellow lines) sent out simultaneously by the referee $\mathcal{R}$ to $\mathcal{O}$ and $\mathcal{O}'$ \enquote{sees} times $t$ and $t'$ on the clocks before returning simultaneously to $\mathcal{R}$, where the results are \enquote{reported}.}
+		\label{fig:clocks_at_rest_wrt_each_other}
+	\end{minipage}
 \end{figure}
 
 
@@ -663,129 +669,112 @@ Clocks carried by $\mathcal{O}$ and $\mathcal{O}'$ measure the events at times $
 			\paragraph{Moving Observers}
 We have already seen how uniform movement changes the notion of simultaneity, even if the corresponding observers remain at rest with respect to each other (which means it is a relative notion, dependent on the motional state of the observer). Now, we will deal with the case where $\mathcal{O}$ and $\mathcal{O}'$ move with respect to each other with a relative velocity $v$ (see figure \ref{fig:moving_clocks} for examples of that).
 
-This implies that the event $E'$, which is simultaneous to $t = \frac{t_+ + t_-}{2}$, is \emph{not} at $t' = \frac{t_+ + t_-}{2}$ anymore, but some other time $\tau'$. This is simply because the distance between $\mathcal{O}$ and $\mathcal{O}'$ increases with time, so computing the time like it was done in \eqref{eq:time_synchr} is not possible anymore. Instead, $\tau'$ is given by the following theorem.
-\begin{thm}[Minkowski's Theorem]
-%For two observers $\mathcal{O}, \mathcal{O}'$ that move relative to each other with velocity $v$ and an event $E'$ occurring on the world line of $\mathcal{O}'$ at time $\tau$,
-For two observers $\mathcal{O}, \mathcal{O}'$ that move relative to each other with velocity $v$ and an event $E'$ occurring on the world line of $\mathcal{O}'$ at time $\tau'$,
-\begin{equation}
-\tau'^2 = t_+ t_- = \sqrt{1 - v^2} \, t \, .
-\end{equation}
-Here, $t_-, t_+$ are the times measured by a synchronized clock on $\mathcal{O}$ where light signals to $E'$ have been sent out and received back.
+%This implies that the event $E'$, which is simultaneous to $t = \frac{t_+ + t_-}{2}$, is \emph{not} at $t' = \frac{t_+ + t_-}{2}$ anymore, but some other time $\tau'$. This is simply because the distance between $\mathcal{O}$ and $\mathcal{O}'$ increases with time, so computing the time like it was done in \eqref{eq:time_synchr} is not possible anymore. Instead, $\tau'$ is given by the following theorem.
+This relative velocity results in a change of the distance $\overline{\mathcal{O} \mathcal{O}'}$ over time, making comparisons of clock readings much harder than before. One can prove the following theorem.
+\begin{thm}[Minkowski's Theorem]\label{thm:minkowski_moving_clocks}
+	%For two observers $\mathcal{O}, \mathcal{O}'$ that move relative to each other with velocity $v$ and an event $E'$ occurring on the world line of $\mathcal{O}'$ at time $\tau$,
+	For two observers $\mathcal{O}, \mathcal{O}'$ that move relative to each other with velocity $v$ and an event $E'$ occurring on the world line of $\mathcal{O}'$ at time $\tau'$,
+	\begin{equation}
+	\tau' = \sqrt{t_+ t_-} = \sqrt{1 - v^2 / c^2} \, t \, .
+	\end{equation}
+	Here, $t_-, t_+$ are the times measured by a synchronized clock on $\mathcal{O}$ where light signals to $E'$ have been sent out and received back.
 \end{thm}
-We assume that the synchronization when world lines of $\mathcal{O}, \mathcal{O}'$ intersected and that clocks have been set to $t = 0 = t'$ there. % destroys argument with third observer, which is at rest and goes trhough $\tau'$; then we would use our definition of simultaneity for resting observers and would be done; but if we did that, this other observer would also have to be synchronized to $\mathcal{O}'$, so we would have $\frac{t_+ + t_-}{2} = t = \tau = \sqrt{t_+ t_-}$, right? Which only holds for $v = 0$
+We assume that the synchronization when world lines of $\mathcal{O}, \mathcal{O}'$ intersected and that clocks have been set to $t = 0 = t'$ there (although it is not necessary that this happened at $t = 0$, just at any time smaller than $\tau'$). Just like before, we can visualize the synchronization process in terms of a referee $\mathcal{R}$ (figure \ref{fig:moving_clocks}). For him, the time passing between emitting light and receiving it back is equal for $\mathcal{O}$ and $\mathcal{O}'$, i.e.~$\tau = \tau'$ for synchronized clocks and the corresponding events are simultaneous.
 
--> lets take another observer $\mathcal{O}''$
+However, we have already seen that observers in other inertial frames can perceive simultaneity differently. Indeed, the travel time seen by $\mathcal{O}$ is $t_+ - t_-$. By the synchronization procedure we have employed, he assumes an equal light travel time and hence that the time $\tau$ light signals sent out by him \enquote{saw} is the same as the time $t$ defined by
+\begin{equation*}
+t - t_- = t_+ - t
+\qquad \Leftrightarrow \qquad
+t = \frac{t_+ + t_-}{2}
+\, ,
+\end{equation*}
+just like \eqref{eq:time_synchr}. However, theorem \ref{thm:minkowski_moving_clocks} shows that
+\begin{equation}
+\eqbox{
+\tau' = \sqrt{t_+ t_-} = \sqrt{1 - v^2 / c^2} \, t \leq t = \frac{t_+ + t_-}{2}
+} \, .
+\end{equation}
+For the observer $\mathcal{O}$, a time $t$ has passed since the synchronization at $t = 0 = t'$, while for $\mathcal{O}'$ the \emph{smaller} time $\tau'$ has passed -- moving clocks tick slower.
 
-
--> to see which time $t$ is simultaneous to $\tau'$, let us assume $\tau'$ has passed on a resting observer in event $E'$ (then, we would \emph{not} have $\tau' = \sqrt{t_+ t_-}$, this relation has been derived for a moving observer!); in this case, $\tau' = \frac{t_+ + t_-}{2} = t$, so $t$ and $\tau$ are simultaneous; since, however, $\tau' = \sqrt{1 - v^2} \, t$, less time has passed on the clock of the 
-
--> we know which time clock of $\mathcal{O}$ shows for $\tau'$, namely $t = \frac{t_+ + t_-}{2}$; but because of unequal travel time, this is not what other clock showed, instead it was $\tau' < \sqrt{1 - v^2} \, t$
-
--> for referee, $\tau = \tau'$, these events are simultaneous; for the observer $\mathcal{O}$ however, we know that $\tau$ is simultaneous to $t$!!!! Simultaneity is defined for resting observers, so the time $\tau$ where event is happening (where we can also put intersect world line of observer at rest) -> lets say it was a resting observer that measured $\tau$ (which is how we defined simultaneity); from that we see $t$ is simultaneous to $\tau$ -> just say that our definition of simultaneity is based on roundtrip time and taking half of that, while the time $\tau$ that moving clock shows is now not equal to that anymore (instead it is geometric mean instead of arithmetic)
-
--> $\frac{x + y}{2} \geq \sqrt{x y}$ with equality if and only if $x = y$; therefore, in case of $v = 0$ this reduces to \eqref{eq:time_synchr}
-
-
-\hrule
-
-
-problem: light travel time is now different, cannot be cancelled so easily just by summing up -> roundtrip time is not equal anymore
-
-
-maybe mention Doppler factors? because that can explain things in terms of redshift, useful terminology
-
-
-simultaneity is equivalence class of resting observers!!! thus different for referee compared to others, right? After all, they move with respect to each other
-
-idea: eliminate unequal travel times by setting up referee such that light always travels same way to him for both observers; then the clocks are synchronized if they show equal times to the referee(, something that we can check)
-
-
-I think I finally got it: we know that for the moving observers $\tau = \tau'$ (times of events $E$ and $E'$); now say that we have an observer which is at rest with respect to the observer at rest (so the moving observer also moves with velocity $v$ with respect to it), but intersects the moving observer in $E'$; then we know from the synchronization of clocks at rest to each other that $E'$ is simultaneous to the event at $t = \frac{t_+ + t_-}{2}$; therefore, if a time span $t$ passes in the resting frame, then the time $\tau = \sqrt{1 - v^2} \, t$ has passed simultaneously in the moving frame (where we have used that $E'$ is at $\tau'$ in moving frame and that $\tau' = \tau$); of course, the same can be done for moving observer (taking it to be the one at rest), whence we have to look at another observer which rests with respect to moving frame and intersects $E$ instead of $E'$; this effect is called \Def{time dilation}
-
-this sounds very contradictory, but it follows from the way we have defined simultaneity -- using the referee; for the referee, $E$ and $E'$ are simultaneous when it is constructed for the moving frames; for an observer in the resting frame, however, that is not the case and instead he measures $E'$ to be simultaneous to the event which happened at $t$ (the referee would claim it to be simultaneous to the event at $t'$)
-
-
-
-it all comes down to the fact that (right thing to say here? maybe better: this shows that) there is no universal notion of time anymore, which seems very unintuitive compared to what we experience in everyday life -> nicer phrasing: we have to abandon the idea of an absolute time, i.e.~there is no correct answer to the question \enquote{at which time did event $E$ happen?}
 
 
 \begin{figure}
-\centering
-%\thisfloatpagestyle{onlyheader} % Not needed with caption on side
-
-\subfloat[Observers moving with relative velocity $v = 0.6 c$]{
-\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
-    % Draw lines of observers
-    \draw[->, thick] (-0.55, -1.5) -- (-2.5, 5);
-    \draw[->, thick] (0.55, -1.5) -- (2.5, 5);
-    \draw[->, thick] (-0.0, -1.5) -- (0.0, 5);
-
-    % Draw trajectories of light
-    \draw[->, thick, black!10!yellow] (-0.7, -1) -- (1.3, 1.0);
-    \draw[->, thick, black!10!yellow] (1.3, 1.0) -- (-2.4142857142857137, 4.7142857142857135);
-    \draw[->, thick, black!10!yellow] (0.7, -1.0) -- (-1.3, 1.0);
-    \draw[->, thick, black!10!yellow] (-1.3, 1.0) -- (2.4142857142857137, 4.7142857142857135);
-
-    % Draw lines of simultaneity
-    \draw[thick, blue] (-1.407142857142857, 1.357142857142857) -- (1.407142857142857, 1.357142857142857);
-    %\draw[thick, blue] (-1.557142857142857, 1.8571428571428568) -- (1.557142857142857, 1.8571428571428568);
-    \draw[thick, blue] (-1.3, 1.0) -- (1.3, 1.0);
-
-    % Make labels
-    \draw (-0.55, -1.5) node[left] {$\mathcal{O}$};
-    \draw (-0.7, -1) node[left] {$t_-$};
-    \draw (-2.4142857142857137, 4.7142857142857135) node[left] {$t_+$};
-    \draw (1.3, 1.0) node[right] {$\tau'$};
-    \draw (1.407142857142857, 1.357142857142857) node[right] {$t'$};
-    %\draw (1.557142857142857, 1.8571428571428568) node[right] {$t'$};
-    \draw (0.55, -1.5) node[right] {$\mathcal{O}'$};
-    \draw (0.7, -1.0) node[right] {$t'_-$};
-    \draw (2.4142857142857137, 4.7142857142857135) node[right] {$t'_+$};
-    \draw (-1.3, 1.0) node[left] {$\tau$};
-    \draw (-1.407142857142857, 1.357142857142857) node[left] {$t$};
-    %\draw (-1.557142857142857, 1.8571428571428568) node[left] {$t$};
-    \draw (-0.0, -1.5) node[below] {$\mathcal{R}$};
-\end{tikzpicture}
-}\hspace*{0.2\textwidth}
-%
-\subfloat[Observers moving with relative velocity $v = 0.5 c$]{
-%\hspace*{0.05\textwidth}
-\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
-    % Draw lines of observers
-    \draw[->, thick] (-0.6, -4) -- (-1.3, 3);
-    \draw[->, thick] (-0.6000000000000001, -4) -- (2.2, 3);
-    \draw[->, thick] (-0.6000000000000001, -4) -- (0.45000000000000007, 3);
-
-    % Draw trajectories of light
-    \draw[->, thick, black!10!yellow] (-0.8, -2) -- (0.8666666666666667, -0.33333333333333326);
-    \draw[->, thick, black!10!yellow] (0.8666666666666667, -0.33333333333333326) -- (-1.1703703703703705, 1.703703703703704);
-    \draw[->, thick, black!10!yellow] (0.2504201680672269, -1.8739495798319328) -- (-0.930718954248366, -0.6928104575163399);
-    \draw[->, thick, black!10!yellow] (-0.930718954248366, -0.6928104575163399) -- (1.8252723311546843, 2.0631808278867103);
-
-    % Draw lines of simultaneity
-    \draw[thick, blue] (-1.0018518518518518, 0.0185185185185186) -- (1.1764083411142234, 0.4410208527855588);
-    %\draw[thick, blue] (-0.9851851851851853, -0.14814814814814803) -- (1.0378462496109555, 0.09461562402738877);
-    \draw[thick, blue] (-0.930718954248366, -0.6928104575163399) -- (0.8666666666666667, -0.33333333333333326);
-
-    % Make labels
-    \draw (-0.6, -4) node[left] {$\mathcal{O}$};
-    \draw (-0.8, -2) node[left] {$t_-$};
-    \draw (-1.1703703703703705, 1.703703703703704) node[left] {$t_+$};
-    \draw (0.8666666666666667, -0.33333333333333326) node[right] {$\tau'$};
-    \draw (1.1764083411142234, 0.4410208527855588) node[right] {$t'$};
-    %\draw (1.0378462496109555, 0.09461562402738877) node[right] {$t'$};
-    \draw (-0.6000000000000001, -4) node[right] {$\mathcal{O}'$};
-    \draw (0.2504201680672269, -1.8739495798319328) node[right] {$t'_-$};
-    \draw (1.8252723311546841, 2.0631808278867103) node[right] {$t'_+$};
-    \draw (-0.930718954248366, -0.6928104575163399) node[left] {$\tau$};
-    \draw (-1.0018518518518518, 0.0185185185185186) node[left] {$t$};
-    %\draw (-0.9851851851851853, -0.14814814814814803) node[left] {$t$};
-    \draw (-0.6000000000000001, -4) node[below] {$\mathcal{R}$};
-\end{tikzpicture}
-}
-
-\caption{\protect\footnotemark}
-\label{fig:moving_clocks}
+	\centering
+	%\thisfloatpagestyle{onlyheader} % Not needed with caption on side
+	
+	\subfloat[Observers moving with relative velocity $v = 0.6 c$]{
+	\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+	    % Draw lines of observers
+	    \draw[->, thick] (-0.55, -1.5) -- (-2.5, 5);
+	    \draw[->, thick] (0.55, -1.5) -- (2.5, 5);
+	    \draw[->, thick] (-0.0, -1.5) -- (0.0, 5);
+	
+	    % Draw trajectories of light
+	    \draw[->, thick, black!10!yellow] (-0.7, -1) -- (1.3, 1.0);
+	    \draw[->, thick, black!10!yellow] (1.3, 1.0) -- (-2.4142857142857137, 4.7142857142857135);
+	    \draw[->, thick, black!10!yellow] (0.7, -1.0) -- (-1.3, 1.0);
+	    \draw[->, thick, black!10!yellow] (-1.3, 1.0) -- (2.4142857142857137, 4.7142857142857135);
+	
+	    % Draw lines of simultaneity
+	    \draw[thick, blue] (-1.407142857142857, 1.357142857142857) -- (1.407142857142857, 1.357142857142857);
+	    %\draw[thick, blue] (-1.557142857142857, 1.8571428571428568) -- (1.557142857142857, 1.8571428571428568);
+	    \draw[thick, blue] (-1.3, 1.0) -- (1.3, 1.0);
+	
+	    % Make labels
+	    \draw (-0.55, -1.5) node[left] {$\mathcal{O}$};
+	    \draw (-0.7, -1) node[left] {$t_-$};
+	    \draw (-2.4142857142857137, 4.7142857142857135) node[left] {$t_+$};
+	    \draw (1.3, 1.0) node[right] {$\tau'$};
+	    \draw (1.407142857142857, 1.357142857142857) node[right] {$t'$};
+	    %\draw (1.557142857142857, 1.8571428571428568) node[right] {$t'$};
+	    \draw (0.55, -1.5) node[right] {$\mathcal{O}'$};
+	    \draw (0.7, -1.0) node[right] {$t'_-$};
+	    \draw (2.4142857142857137, 4.7142857142857135) node[right] {$t'_+$};
+	    \draw (-1.3, 1.0) node[left] {$\tau$};
+	    \draw (-1.407142857142857, 1.357142857142857) node[left] {$t$};
+	    %\draw (-1.557142857142857, 1.8571428571428568) node[left] {$t$};
+	    \draw (-0.0, -1.5) node[below] {$\mathcal{R}$};
+	\end{tikzpicture}
+	}\hspace*{0.2\textwidth}
+	%
+	\subfloat[Observers moving with relative velocity $v = 0.5 c$]{
+	%\hspace*{0.05\textwidth}
+	\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+	    % Draw lines of observers
+	    \draw[->, thick] (-0.6, -4) -- (-1.3, 3);
+	    \draw[->, thick] (-0.6000000000000001, -4) -- (2.2, 3);
+	    \draw[->, thick] (-0.6000000000000001, -4) -- (0.45000000000000007, 3);
+	
+	    % Draw trajectories of light
+	    \draw[->, thick, black!10!yellow] (-0.8, -2) -- (0.8666666666666667, -0.33333333333333326);
+	    \draw[->, thick, black!10!yellow] (0.8666666666666667, -0.33333333333333326) -- (-1.1703703703703705, 1.703703703703704);
+	    \draw[->, thick, black!10!yellow] (0.2504201680672269, -1.8739495798319328) -- (-0.930718954248366, -0.6928104575163399);
+	    \draw[->, thick, black!10!yellow] (-0.930718954248366, -0.6928104575163399) -- (1.8252723311546843, 2.0631808278867103);
+	
+	    % Draw lines of simultaneity
+	    \draw[thick, blue] (-1.0018518518518518, 0.0185185185185186) -- (1.1764083411142234, 0.4410208527855588);
+	    %\draw[thick, blue] (-0.9851851851851853, -0.14814814814814803) -- (1.0378462496109555, 0.09461562402738877);
+	    \draw[thick, blue] (-0.930718954248366, -0.6928104575163399) -- (0.8666666666666667, -0.33333333333333326);
+	
+	    % Make labels
+	    \draw (-0.6, -4) node[left] {$\mathcal{O}$};
+	    \draw (-0.8, -2) node[left] {$t_-$};
+	    \draw (-1.1703703703703705, 1.703703703703704) node[left] {$t_+$};
+	    \draw (0.8666666666666667, -0.33333333333333326) node[right] {$\tau'$};
+	    \draw (1.1764083411142234, 0.4410208527855588) node[right] {$t'$};
+	    %\draw (1.0378462496109555, 0.09461562402738877) node[right] {$t'$};
+	    \draw (-0.6000000000000001, -4) node[right] {$\mathcal{O}'$};
+	    \draw (0.2504201680672269, -1.8739495798319328) node[right] {$t'_-$};
+	    \draw (1.8252723311546841, 2.0631808278867103) node[right] {$t'_+$};
+	    \draw (-0.930718954248366, -0.6928104575163399) node[left] {$\tau$};
+	    \draw (-1.0018518518518518, 0.0185185185185186) node[left] {$t$};
+	    %\draw (-0.9851851851851853, -0.14814814814814803) node[left] {$t$};
+	    \draw (-0.6000000000000001, -4) node[below] {$\mathcal{R}$};
+	\end{tikzpicture}
+	}
+	
+	\caption{\protect\footnotemark}
+	\label{fig:moving_clocks}
 \end{figure}
 
 \footnotetext{Beware that the diagrams are not perfect, e.g.~the referee should be exactly where the light beams cross again. This is most likely due to an error in my code, which I was unable to locate. Nonetheless, the most important ideas should still be conveyed, which is why I decided to keep the graphics.}
@@ -954,10 +943,29 @@ On the other hand, a clock carried by $\mathcal{O}$ measures the events at times
 
 
 
-		\subsection{Time Dilation}
-Moving clocks tick slower -- observer-independent statement! Can be obtained by looking at world lines of different observers, which start and end in same spatial point; we can then compare times $t, \tau$ elapsed on their clocks and obtain $\tau = \sqrt{1 - v^2} t$ for the uniformly moving one
+This seems very puzzling. How does the situation look from the inertial frame where $\mathcal{O}'$ is at rest? For a clock attached to $\mathcal{O}'$ the time $t' = \frac{t'_+ + t'_-}{2}$ has passed, while for one attached to $\mathcal{O}$ it is $\tau = \sqrt{t'_+ t'_-} = \sqrt{1 - v^2 / c^2} \, t' \leq t'$ -- the effect is mutual. That makes things even more puzzling and in fact seems paradoxical: how can both claim that less time went by for the other observer? The answer lies in the fact that in (special) relativity, there is no absolute, universal time anymore. Time standard become relative and so do notions like simultaneity. As a consequence, both observers have the right to claim less time went by for the other and both are right in doing so. This is a key fact to understand in relativity and no different from the uniform motion of observers relative to each other. Both can claim that they are at rest, while the other one moves because it does not change the physics exhibited by the situation.
 
--> if resting clock measures time span to have length $t$, in the same time the time span $\tau$ has passed for moving observer
+
+The same observation can explain why the synchronization procedure for the referee, who does indeed see $E'$ at $\tau'$ simultaneous to $E$ at $\tau$ (which are the events and times light signals see which are sent out by him), does not yield the same notions of simultaneity for $\mathcal{O}, \mathcal{O}'$: both of them are not at rest to $\mathcal{R}$ anymore and this differing motional state leads to the effects observed now. If this was the case, the relative velocity $v$ would be $v = 0$ and the geometric mean $\sqrt{t_+ t_-}$ would reduce back to the arithmetic mean $\frac{t_+ + t_-}{2}$, yielding the familiar result
+\begin{equation}
+t = \tau = \tau' = t' \, .
+\end{equation}
+Apparently, Minkowski's theorem is a more general version of the results \eqref{eq:time_synchr}, \eqref{eq:time_synchr_primed} and it reduces back to them in case of $v = 0$.
+
+
+
+%-> we still employ referee method to synchronize them; however, now they do not agree on notion of simultaneity anymore!!! Before, light emitted at $t_+$ saw $t'$, came back at $t_-$ and observer concluded (by synchronization procedure) that $t'$ is equal the time $t$ determined from $t_+ - t \overset{!}{=} t - t_-$, i.e.~$t = \frac{t_+ + t_-}{2}$. Likewise, the other observer concluded that $t$ is equal to $t' = \frac{t'_+ + t'_-}{2}$ and so does the referee. Here, it is clear that they all agree on simultaneity, the result is consistent. Therefore, they all agree on the same time standard and we can state: $t = t'$. -> in principle, we cannot know if other observer is moving, so knowing the clocks are synchronized, we assume that light travel time has been equal
+
+
+
+		\subsection{Time Dilation}
+The behaviour of time for moving observers seems puzzling at first, one may ask: is this a bug or a feature? In other words, is this effect that less time seems to pass on moving clocks a real physical effect or is it caused by our choice of synchronization? It is especially the mutuality of effect that may add to these doubts. However, as it was also argued in the last subsection, this phenomenon is fundamental \emph{feature} of time. Resting observers agree on times elapsed along clocks carried by them, moving observers do not. Abandoning this idea of universal time may seem very unintuitive compared to what we experience in everyday life, but it turns out to hold true. Just like the answer to \enquote{where does event $E$ happen?} depends on the coordinates we choose, the answer to \enquote{at which time did event $E$ happen?} depends on the (world line of the) clock we use in our measurements.
+
+There are multiple ways to see that this is not a consequence of our notion of simultaneity being flawed, causing the inconsistent result. A very striking one, at least in my personal opinion, is that what we have shown here as a synchronization procedure is equivalent to setting the same time on clocks and then moving them to different points in space (in the slow transport limit, such that no time dilation occurs -> mention time dilation previously maybe? Fits very well here, but mentioning for the first time is not good). This is what we would do intuitively to synchronize clocks on Earth, which shows us that our unfamiliarity with these effects comes from our lack of experience with velocities $v \approx c$ or cosmic distances rather than pointing to unphysical effects.
+
+
+-> Maybe nice transition: both resting and moving observer claim less time passes for other, who is right? To appropriately answer the question, we need them to synchronize, get one moving and then get them back together, so we need acceleration (should lead to infinitesimal proper time interval; here we see that less time passed for moving observer) -> but: we can see that it is in fact not needed because we can also accelerate resting observer for the time (so whatever effect that has cancels out and we can really attribute it to uniform motion)
+
 
 
 -> we have seen how simultaneity depends on the observer; however, time itself fundamentally does as well! This is shown very instructively by an effect called \Def{time dilation}. -> let's take two observers starting in origin; one moves uniformly to some other point in space and comes back; let's say they meet again in some event for which resting observer/clock measures time $t$; clearly, they meet simultaneous in this event (by definition, otherwise they would not meet); however, by our notion of simultaneity, we now know that the clock of the moving observer shows the time $\tau = \sqrt{1 - v^2} \, t$!!!
@@ -966,10 +974,15 @@ Moving clocks tick slower -- observer-independent statement! Can be obtained by 
 ahhh, direction in which observer moves does not matter for $\tau = \sqrt{1 - v^2} \, t$ because we can always go in inertial frame where one of them is at rest to see that only the relative velocity of the observers matters (this is equally true in all other frames, where both are moving, but more clear in this example)
 
 
-time measured by clocks does not only depend on the events we look at, but also on the world line that connects them
+
+now, what in case an observer that moves with the speed of light? No other light pulse sent from some distance can ever reach him, so how can they agree on time measurements? Well, they cannot because speed of light is universal limit (no signal can reach light), from which we conclude that no time passes for this observer. This is confirmed by $\tau = \sqrt{1 - c^2 / c^2} \, t = 0$
 
 
-reason/justification why this is real physical effect and does not simply come from \enquote{bad} definition of synchronization: what we have shown here is equivalent to setting same time on clocks and then moving them to distinct places (in slow transport limit, such that no time dilation occurs)
+
+
+
+		\subsection{Doppler Shift}
+do it? Or maybe do in time dilation section? But I do think it is not 100\% necessary, so should not be priority
 
 
 
@@ -980,413 +993,23 @@ there is an induced effect on lengths, which are defined as distances measured \
 
 
 
-		\subsection{Dragon on Measuring Time}
-maybe motivation for whole time measurement: postulates/principles of SR tell us that coordinates do not have an invariant meaning; however, distances have an invariant meaning (mathematically speaking because they are related to a metric; physically speaking because they do not rely on a specific starting point/reference, just as intuition why this is good); we know how to measure distances in Euclidian space, using rulers; however, in 4D spacetime and thus SR, this idea has to be adjusted; this we can see from the way rulers have to be defined for longer distances (physical ones cannot measure cosmic distances; being able to measure them must be goal for general definition of rulers); here, we exploit that speed of light is independent of reference frame, so its travel time can tell us something about the spatial distance of objects, as well as their distance in time (things are intertwined now); when doing that, some unintuitive complications will arise, which we may not be aware of from our everyday experience -> also nice motivation how \enquote{correct} notion of time measurement will allow us to define a metric for spacetime, important tool for further mathematical examination
+%		\subsection{Dragon on Measuring Time}
+%maybe motivation for whole time measurement: postulates/principles of SR tell us that coordinates do not have an invariant meaning; however, distances have an invariant meaning (mathematically speaking because they are related to a metric; physically speaking because they do not rely on a specific starting point/reference, just as intuition why this is good); we know how to measure distances in Euclidian space, using rulers; however, in 4D spacetime and thus SR, this idea has to be adjusted; this we can see from the way rulers have to be defined for longer distances (physical ones cannot measure cosmic distances; being able to measure them must be goal for general definition of rulers); here, we exploit that speed of light is independent of reference frame, so its travel time can tell us something about the spatial distance of objects, as well as their distance in time (things are intertwined now); when doing that, some unintuitive complications will arise, which we may not be aware of from our everyday experience -> also nice motivation how \enquote{correct} notion of time measurement will allow us to define a metric for spacetime, important tool for further mathematical examination
 
+%hmmm ok, 2.1 is easy: just saying that if observer sees light from other observer, the light he sees at $t_B$ has been sent out at some time $t_U$ (not equal, travel time in between!!); they are proportional, the factor is called \Def{Doppler factor} (and it does not depend on the explicit value of $t_B$)
 
 
-hmmm ok, 2.1 is easy: just saying that if observer sees light from other observer, the light he sees at $t_B$ has been sent out at some time $t_U$ (not equal, travel time in between!!); they are proportional, the factor is called \Def{Doppler factor} (and it does not depend on the explicit value of $t_B$)
+%\hrule
 
 
-ah, now it is easy: if we send out a pulse at $t_-$ and get it back at $t_+$, then for us the time $t_+ - t_-$ has passed; however, the event that we \enquote{interact} with using these pulses happened at time $\tau'$ which is simultaneous to $\tau = \sqrt{t_+ t_-}$ (because Minkowski theorem states $\tau' = \tau$); note that this allows to measure velocity $v$
+%say we have to observers who start from same point with same absolute velocity, but different directions; if they have equal clocks which are synchronized at $t = 0$ (i.e.~they show the same time there), then the time $t_p$ at which a light pulse is sent out by one observer is related to the time at which other observer sees pulse by $t_s = t_p + v_r t_p / c$ (where $v_r$ is relative velocity of the observers; simply comes from the observation that their distance after time $t_p$ is $v_r t_p$, which is extra distance light has to travel)
 
+%to avoid this, we can look at a referee; this is another observer which is defined to have an equal distance from both observers at all times; therefore, if we always send signals to the referee and compare there, we can neglect any additional terms due to travel time (since by definition, will be equal for both observers); that is, we can meaningfully compare the times at which light pulses from the observers come in, hence this will allow to make sense of simultaneity
 
--> confused right now because Dragon does not explain why time span of length $t$ has length $\tau = \sqrt{1 - v^2} t$ for moving clock, just states... Is it maybe that $\tau = \tau'$, so the time elapsed between $E, E'$ is the same (by definition of referee), but the event that happens simultaneous to $E$ is length $t$ away from origin? Simultaneity here judged from resting system -> ok, I guess the only way to make sense of simultaneity is coordinate transformation into the other frame of reference; when doing that, we see that $E$ and $E'$ are not simultaneous; instead, the event at time $t$ (in resting frame) is simultaneous to $E'$ which happens at $\tau' = \tau = \sqrt{1 - v^2} t$ (i.e.~we can use Minkowski theorem to express the time in other reference frame using time in current frame, right? Does \emph{not} tell us which events are simultaneous); also, these effects go both ways, but this is only due to different notions of simultaneity for both of them; if they get a chance to synchronize their clocks again (i.e.~compare clocks in one event, just like they synchronized them/set them to zero in origin, which we assume all the time; there they also were in same spatial point), all frames of reference will agree that for moving observers less time passes
+%the next step to utilize this is to look at which times the clocks of different observers show \enquote{at the same time}, i.e.~for an event that is simultaneous for them -> how we can measure from clock of one observer, which time the clock of the other observer shows for some event (now possible due to simultaneity)
 
 
--> ok, so basically we can use this as section where we show how claims from Lorentz transformation can be realized using a setup to measure time; can e.g.~derive time dilation as well (very nice visualization for this is spacetime diagram)
-
-
-\hrule
-
-
-
-say we have to observers who start from same point with same absolute velocity, but different directions; if they have equal clocks which are synchronized at $t = 0$ (i.e.~they show the same time there), then the time $t_p$ at which a light pulse is sent out by one observer is related to the time at which other observer sees pulse by $t_s = t_p + v_r t_p / c$ (where $v_r$ is relative velocity of the observers; simply comes from the observation that their distance after time $t_p$ is $v_r t_p$, which is extra distance light has to travel)
-
-to avoid this, we can look at a referee; this is another observer which is defined to have an equal distance from both observers at all times; therefore, if we always send signals to the referee and compare there, we can neglect any additional terms due to travel time (since by definition, will be equal for both observers); that is, we can meaningfully compare the times at which light pulses from the observers come in, hence this will allow to make sense of simultaneity
-
-the next step to utilize this is to look at which times the clocks of different observers show \enquote{at the same time}, i.e.~for an event that is simultaneous for them -> how we can measure from clock of one observer, which time the clock of the other observer shows for some event (now possible due to simultaneity)
-
-
-it is very logical then that both observers see the same redshift, since light travels same distance for both of them (assuming the pulses are sent out at same time by means of simultaneity we just defined)
-
--> in example from gravitational physics, we had to use resting observer because for him we could measure one of the times pretty easily, which could then be converted to the one for moving; for moving observer on the other hand, calculating proper time in first place is not as easy (right?)
-
-
-
-hmmm, is it the proper time that really passes? Or coordinate time and proper time is just tool that allows conversion of coordinate times? Maybe nice transition: both resting and moving observer claim less time passes for other, who is right? To appropriately answer the question, we need them to synchronize, get one moving and then get them back together, so we need acceleration (should lead to infinitesimal proper time interval; here we see that less time passed for moving observer)
-
-
-for non-uniform velocity, connection procedure does not work between macroscopic events anymore (because getting distance from velocity is not multiplication, now integration), but only infinitesimally (equivalent: just like we have to integrate velocity for distance, we have to integrate for travel time of light; since time = distance for light -> nice visualization: rectification of curve, works perfect for straight line, but if changing derivative comes into play, not perfect anymore, have to go to infinitesimal distances for that); motivation for $d\tau$
-
-
-{ % Does something, but diagrams are not correct
-\iffalse
-\begin{figure}
-\setlength{\unitlength}{0.77cm}
-\special{em:linewidth 1.0 pt}
-\linethickness{1.0 pt}
-
-
-\begin{picture}(7.2,10.)
-
-\put(3.0,.5){
-\emline{0.125}{-.5}{12}{-2.375}{9.5}{13}
-\emline{-.072949}{-0.5}{16}{1.38603}{9.5}{17}
-\emline{2.}{4.}{9}{-.89443}{3.57771}{3}
-\emline{-.25}{-.5}{14}{4.75}{9.5}{15}
-\emline{2.}{4.}{9}{0.76393}{5.23607}{20}
-\emline{2.}{4.}{9}{.341641}{2.341641}{21}
-\emline{-.89443}{3.57771}{3}{.341641}{2.341641}{21}
-\emline{-.89443}{3.57771}{3}{0.76393}{5.23607}{20}
-\put(-1.9,9.0){\makebox(0,0)[lt]{\large ${\mathcal B}$}}
-\put(0.4,9.0){\makebox(0,0)[lt]{\large ${\mathcal S}$}}
-\put(3.4,9.0){\makebox(0,0)[lt]{\large ${\mathcal U}$}}
-\put(2.3,4.0){\makebox(0,0)[lc]{\large $\tau^\prime$}}
-%\put(2.8,4.0){\makebox(0,0)[lc]{$E$}}
-\put(-1.7,3.6){\makebox(0,0)[lc]{\large $\tau$}}
-\put(.3,0.0){\makebox(0,0)[lc]{\large $O$}}
-}
-\end{picture}
-
-\end{figure}
-
-\begin{figure}
-\setlength{\unitlength}{0.77cm}
-\special{em:linewidth 1.0pt}
-\linethickness{1.0pt}
-\begin{picture}(7.2,10.0)
-\put(3.,.5){
-\emline{0.125}{-.5}{12}{-2.375}{9.5}{13}
-\emline{-.072949}{-0.5}{16}{1.38603}{9.5}{17}
-\emline{2.}{4.}{9}{-.89443}{3.57771}{3}
-\emline{-.25}{-.5}{14}{4.75}{9.5}{15}
-\emline{2.}{4.}{9}{-2.}{8.}{5}
-\emline{2.}{4.}{9}{-.4}{1.6}{2}
-\emline{-.89443}{3.57771}{3}{.341641}{2.341641}{21}
-\emline{-.89443}{3.57771}{3}{0.76393}{5.23607}{20}
-\put(-1.9,9.0){\makebox(0,0)[lt]{\large ${\mathcal B}$}}
-\put(0.4,9.0){\makebox(0,0)[lt]{\large ${\mathcal S}$}}
-\put(3.4,9.0){\makebox(0,0)[lt]{\large ${\mathcal U}$}}
-\put(2.3,4.0){\makebox(0,0)[lc]{\large $\tau^\prime=\sqrt{\vphantom{T^2}t_+t_-}$}}
-\put(0.9,5.3){\makebox(0,0)[lc]{\large $s_+$}}
-\put(0.4,2.15){\makebox(0,0)[lc]{\large $s_-$}}
-\put(-2.3,8.0){\makebox(0,0)[rc]{\large $t_+$}}
-\put(-.5,1.6){\makebox(0,0)[rc]{\large $t_-$}}
-\put(-1.7,3.6){\makebox(0,0)[lc]{\large $\tau$}}
-\put(.3,0.0){\makebox(0,0)[lc]{\large $O$}}
-}
-\end{picture}
-\end{figure}
-\fi
-}
-
-
-{ % Trying to imitate Dragon diagrams -> note on that: light does not have to be at 45 degrees here, is not meant to be spacetime diagram I think
-\iffalse
-
-
-\begin{figure}
-\centering
-
-\include{../pictures/abb21.tex}
-
-\caption{}
-\end{figure}
-
-
-
-\begin{figure}
-\centering
-
-\include{../pictures/abb22.tex}
-
-\caption{}
-\end{figure}
-
-\fi
-}
-
-
-
-		\subsection{Light as a Clock}
-% Great source for this: Dragon script
-ok, time is different in relativity than it is in Newtonian case; so let's examine it further, in particular how to measure it, i.e.~let's deal with clocks
-
-
-The basic goal of special relativity is measuring the time between events. This may seem trivial for times in everyday life, but for more extreme situations (e.g.~speeds close to the speed of light), this notion of time turns out to be coordinate-dependent (and world-line dependent). -> motivate by thought experiment
--> hm, maybe not say that it is basic goal? But just motivate by: what happens if we reach speeds to the ones close to light (suddenly, time cannot be viewed separately of space anymore)
-
-
-Which one of the observers is right? The, presumably unintuitive, answer is: both! This is one of the key results of relativity. -> they have to get in the same frame of reference, then clocks would show the same time (but not if one of them keeps moving relative to the other)
-
-
-
-uhhh, nice motivation why measuring time does not work for moving clocks: say we measure time using light pulses that are sent between events/observers (works because speed of light is constant); but what in case of a observer that moves with the speed of light? No other light pulse sent from some distance can ever reach him, so how can they agree on time measurements; one could argue now that this is due to the idea we had and this may be solved by measuring time differently -- however, it turns out that the speed of light is the highest speed that can is allowed in our universe/by the laws of physics
-
-\iffalse % Wrong spacetime diagram!
-\begin{figure}
-\centering
-
-\subfloat[Observers at rest]{
-\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
-\draw[->] (0, 0) -- (0, 3) node[above left]{$t$};
-\draw[->] (0, 0) -- (3, 0) node[below right]{$x$};
-
-\foreach \i in {0.5, 1.5, 2.5} {
-\draw[fill] (0.5, \i) circle[radius=3pt]; % Left world line
-\draw[fill, blue] (2.5, \i) circle[radius=3pt]; % Right world line
-}
-
-\draw[red, ->] (0.5, 0.5) -- (2.5, 0.5);
-\draw[red, ->] (2.5, 1.5) -- (0.5, 1.5);
-\draw[red, ->] (0.5, 2.5) -- (2.5, 2.5);
-\end{tikzpicture}
-}
-%
-%
-\iffalse % both are moving
-\subfloat[Moving observers]{
-\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
-\draw[->] (0, 0) -- (0, 3) node[above left]{$t$};
-\draw[->] (0, 0) -- (5, 0) node[below right]{$x$};
-
-\foreach \i in {0.5, 1.5, 2.5} {
-\draw[fill, shift={(0.5 * 2, 0)}] (0.5 - 0.5 * \i + 0.5 * 0.5, \i) circle[radius=3pt]; % Left world line
-\draw[fill, blue, shift={(0.5 * 2, 0)}] (2.5 + 0.5 * \i - 0.5 * 0.5, \i) circle[radius=3pt]; % Right world line, shifts by multiples of 0.5 (thus subtraction from \i)
-}
-
-\draw[red, ->, shift={(0.5 * 2, 0)}] (0.5, 0.5) -- (2.5, 0.5);
-\draw[red, ->, shift={(0.5 * 2, 0)}] (2.5 + 0.5, 1.5) -- (0.5 - 0.5, 1.5);
-\draw[red, ->, shift={(0.5 * 2, 0)}] (0.5 - 0.5 * 2, 2.5) -- (2.5 + 0.5 * 2, 2.5);
-\end{tikzpicture}
-}
-\fi
-%
-\subfloat[Moving observer]{
-\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
-\draw[->] (0, 0) -- (0, 3) node[above left]{$t$};
-\draw[->] (0, 0) -- (4, 0) node[below right]{$x$};
-
-\foreach \i in {0.5, 1.5, 2.5} {
-\draw[fill] (0.5, \i) circle[radius=3pt]; % Left world line
-\draw[fill, blue] (2.5 + 0.5 * \i - 0.5 * 0.5, \i) circle[radius=3pt]; % Right world line, shifts by multiples of 0.5 (thus subtraction from \i)
-}
-
-\draw[red, ->] (0.5, 0.5) -- (2.5, 0.5);
-\draw[red, ->] (2.5 + 0.5, 1.5) -- (0.5, 1.5);
-\draw[red, ->] (0.5, 2.5) -- (2.5 + 0.5 * 2, 2.5);
-\end{tikzpicture}
-}
-
-
-\caption{Effect of moving clocks}
-\label{fig:moving_clock}
-
-\end{figure}
-\fi
-
-\iffalse
-\begin{figure}
-\centering
-
-\subfloat[Observers at rest]{
-\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]%, opacity=0.7] % opacity for consistency with second plot
-\draw[->] (0, 0) -- (0, 3) node[above left]{$t$, {\color{blue} $t'$}};
-\draw[->] (0, 0) -- (3, 0) node[below right]{$x$};
-
-\foreach \i in {0.5, 1, ..., 2.5} {
-\draw[fill] (0.5, \i) circle(0.1); % Left world line
-\draw[fill, blue] (2.5, \i) circle(0.1); % Right world line
-}
-
-\draw[red, ->] (0.5, 0.5) -- (2.5, 1);
-\draw[red, ->] (2.5, 1) -- (0.5, 1.5);
-\draw[red, ->] (0.5, 1.5) -- (2.5, 2);
-\end{tikzpicture}
-}
-%
-%
-\iffalse % both are moving
-\subfloat[Moving observers]{
-\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
-\draw[->] (0, 0) -- (0, 3) node[above left]{$t$};
-\draw[->] (0, 0) -- (5, 0) node[below right]{$x$};
-
-\foreach \i in {0.5, 1.5} {
-\draw[fill, shift={(0.5 * 2, 0)}] (0.5 - 0.5 * \i + 0.5 * 0.5, \i) circle[radius=3pt]; % Left world line
-\draw[fill, blue, shift={(0.5 * 2, 0)}] (2.5 + 0.5 * \i - 0.5 * 0.5, \i + 0.5) circle[radius=3pt]; % Right world line, shifts by multiples of 0.5 (thus subtraction from \i)
-}
-
-\draw[red, ->, shift={(0.5 * 2, 0)}] (0.5, 0.5) -- (2.5, 1);
-\draw[red, ->, shift={(0.5 * 2, 0)}] (2.5 + 0.5, 1) -- (0.5 - 0.5, 1.5);
-\draw[red, ->, shift={(0.5 * 2, 0)}] (0.5 - 0.5 * 2, 1.5) -- (2.5 + 0.5 * 2, 2);
-\end{tikzpicture}
-}
-\fi
-%
-\hspace{0.1\textwidth}%
-%
-\subfloat[Moving observer]{ % 0.866 is gamma factor for v/c=0.5
-\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]%, opacity=0.7] % opacity for green dots on
-\draw[->] (0, 0) -- (0, 3) node[above left]{$t$};
-\draw[->, blue] (0, 0) -- (0.5 * 3, 3) node[above left]{$t'$};
-\draw[->] (0, 0) -- (4, 0) node[below right]{$x$};
-
-\foreach \i in {0.5, 1, ..., 2.5} {
-\draw[fill] (0.5, \i) circle(0.1); % Left world line
-\draw[fill, blue] (2.5 + 0.5 * \i - 0.5 * 0.5, \i * 0.866) circle(0.1); % Right world line, shifts by multiples of 0.5 (thus subtraction from \i)
-%\draw[fill, green] (2.5 + \i - 0.5, \i) circle(0.1);  % World line of objects with speed of light -> uh, red arrows are light, have different slope...
-}
-
-\draw[red, ->] (0.5, 0.5) -- (2.5 + 0.5 * 0.5, 1 * 0.866);
-\draw[red, ->] (2.5 + 0.5 * 0.5, 1 * 0.866) -- (0.5, 1.5);
-\draw[red, ->] (0.5, 1.5) -- (2.5 + 0.5 * 1.5, 2 * 0.866);
-\end{tikzpicture}
-}
-
-
-\caption{Effect of moving clocks}
-\label{fig:moving_clock}
-
-\end{figure}
-\fi
-% Correct Minkowksi diagram, but not what shall be displayed here
-
-\begin{figure}
-\centering
-
-\subfloat[Observers with no relative velocity]{
-\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]%, opacity=0.7] % opacity for consistency with second plot
-\draw[->] (0, 0) -- (0, 3) node[above left]{$y$};
-\draw[->] (0, 0) -- (3, 0) node[below right]{$x$};
-
-\foreach \i in {0.5, 1, ..., 2.5} {
-\draw[fill] (0.5, \i) circle(0.1); % Left world line
-\draw[fill, blue] (2.5, \i) circle(0.1); % Right world line
-}
-
-\draw[red, ->] (0.5, 0.5) -- (2.5, 1);
-\draw[red, ->] (2.5, 1) -- (0.5, 1.5);
-\draw[red, ->] (0.5, 1.5) -- (2.5, 2);
-\end{tikzpicture}
-}
-%
-%
-\iffalse % both are moving
-\subfloat[Moving observers]{
-\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
-\draw[->] (0, 0) -- (0, 3) node[above left]{$t$};
-\draw[->] (0, 0) -- (5, 0) node[below right]{$x$};
-
-\foreach \i in {0.5, 1.5} {
-\draw[fill, shift={(0.5 * 2, 0)}] (0.5 - 0.5 * \i + 0.5 * 0.5, \i) circle[radius=3pt]; % Left world line
-\draw[fill, blue, shift={(0.5 * 2, 0)}] (2.5 + 0.5 * \i - 0.5 * 0.5, \i + 0.5) circle[radius=3pt]; % Right world line, shifts by multiples of 0.5 (thus subtraction from \i)
-}
-
-\draw[red, ->, shift={(0.5 * 2, 0)}] (0.5, 0.5) -- (2.5, 1);
-\draw[red, ->, shift={(0.5 * 2, 0)}] (2.5 + 0.5, 1) -- (0.5 - 0.5, 1.5);
-\draw[red, ->, shift={(0.5 * 2, 0)}] (0.5 - 0.5 * 2, 1.5) -- (2.5 + 0.5 * 2, 2);
-\end{tikzpicture}
-}
-\fi
-%
-\hspace{0.1\textwidth}%
-%
-\subfloat[Observers with relative velocity in $x$-direction]{ % 0.866 is gamma factor for v/c=0.5
-\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]%, opacity=0.7] % opacity for green dots on
-\draw[->] (0, 0) -- (0, 3) node[above left]{$y$};
-\draw[->] (0, 0) -- (4, 0) node[below right]{$x$};
-
-\foreach \i in {0.5, 1, ..., 2.5} {
-\draw[fill] (0.5, \i) circle(0.1); % Left world line
-\draw[fill, blue] (2.5 + 0.5 * \i - 0.5 * 0.5, \i) circle(0.1); % Right world line, shifts by multiples of 0.5 (thus subtraction from \i)
-%\draw[fill, green] (2.5 + \i - 0.5, \i) circle(0.1);  % World line of objects with speed of light -> uh, red arrows are light, have different slope...
-}
-
-\draw[red, ->] (0.5, 0.5) -- (2.5 + 0.5 * 0.5, 1);
-\draw[red, ->] (2.5 + 0.5 * 0.5, 1) -- (0.5, 1.5);
-\draw[red, ->] (0.5, 1.5) -- (2.5 + 0.5 * 1.5, 2);
-\end{tikzpicture}
-}
-
-
-\caption{Effect of relative velocity on clocks. Dots for fixed $y$-value correspond to positions at the same time, the movement of both observers in $y$-direction is upwards. Red arrows schematically represent light signals that the observers exchange.}
-\label{fig:moving_clock}
-
-\end{figure}
-
-
-%From figure \ref{fig:moving_clock} we see that it makes a difference for time measurements if observers are moving -- the results will be different from (a) to (b) despite the same times $t$ that the signals are sent (ah, $t$ is time measured by black observer; $t'$ of blue, i.e.~$x' = x + v t$); this is due to different travel times of the light; however, this imposes a problem for time measurement because this is done by comparing clocks -- if the \enquote{true} interval $\Delta t$ between the pulses is not known, then it is impossible to decide which of the measurements is correct; now, what if the observer is moving at the speed of light (blue parallel to red)? In this case, signals cannot be exchanged between the black and blue observer, so there is no time that can be measured -> uh, do we even need example? Maybe good as further proof that $t$ is not good because $t'$ measures other stuff
-
-%hence, we need a proper notion of time because apparently, the current one $t$ (or $t'$) is not desirable because it depends on the bezugssystem that is used; the \enquote{right} one (in the sense that it has the properties we want) is the \Def{proper time} $\tau$; it fulfils the Minkowski theorem, which tells us how to compute it and plays the role of analogous to the Pythagorean theorem in Minkowski space -> after example with observer with constant speed
-
-%-> ok, idea is different: we want to measure time for event $E$ that occurs to observer $B$ at some time $t'$ from the observer $A$ and thus the time $t$; this is called the proper time of $E$, $\tau(t)$ (measured using $t$); figure 2.2 in Dragon is very nice, 2.8 also because it shows that effects go both ways; it turns out that this is equal to the (square root of the) product of the times $t_+, t_-$ that light would need to reach $E$ and is emitted at the same time (yes, this requires some knowledge like the relative velocity, e.g.~to draw lines in the diagram; but this should be clear)
-
-
-%figure \ref{fig:moving_clock} is almost spacetime diagram, up to scaling ot time axis with $c$ -> nope, changed it; now we can see idea much better, that red arrows are longer, i.e.~time they measure different
-
-
-From figure \ref{fig:moving_clock} we see that it makes a difference for time measurements if observers are moving -- the results will be different from (a) to (b). This is because the red arrows are longer, i.e.~the travel time is greater than in the case of $v = 0$. As a consequence, the notion of simultaneity is not consistent.
-
-Hence, we need a new notion of time and it will be given by the following theorem.
-
-
-\begin{thm}[Minkowski's Theorem]
-For two observers $\mathcal{B}, \mathcal{U}$ that move relative to each other with velocity $v$ and an event $E$ occurring on the worldline of $\mathcal{U}$ at a time $\tau$ (after an event $\mathcal{O}$ at which the clocks of $\mathcal{B}, \mathcal{U}$ have been synchronized),
-\begin{equation}
-\tau^2 = t_+ t_- \, .
-\end{equation}
-$t_-$ is the time that light travels from $\mathcal{B}$ to $E$ and $t_+$ the time that a it travels from $E$ to $\mathcal{B}$.
-\end{thm}
-
-$\tau$ is the \Def{proper time} of the event $E$. -> hmmm, is it a valid interpretation to say that different observers will not necessarily agree on the time $t$, but will agree on the proper time $\tau$ (i.e.~$\tau$ is invariant?); then, we could also compare the coordinate times $t$ they measure, which would lead to statements like \enquote{moving clocks tick slower}
-
-This theorem determines the geometry of spacetime and tells us that in spacetime diagrams, points of the same distance $\tau$ from event $O$ is hyperboloid.
-
-
-% older stuff
-
-from that: we measure time and distances (is time up to factor $c$) by sending light from $A$ to $B$ (events); of course, for moving things there is Doppler-effect
-
-Minkowski theorem tells us something about \enquote{correct} time/a \enquote{better} notion of time
-
-
-end of subsection: following example
-
-\begin{ex}[Moving Observers]\label{ex:mov_obs}
-for both observers at rest of course
-\begin{equation*}
-t = t'
-\end{equation*}
-which we get from $\tau^2 = t_+ t_- = t'_+ t'_-$; but result also intuitive, of course they measure the same time (in \ref{fig:moving_clock}, this can be seen from the fact that red arrows all have same length)
-
-relative velocity $v$:
-\begin{equation*}
-%c^2 t^2 = c^2 t'^2 - v^2 t'^2 \Leftrightarrow t = \sqrt{1 - v^2 / c^2} t' % sqrt of shit does not work, sum is there
-c^2 t'^2 = c^2 t^2 - v^2 t^2 \Leftrightarrow t' = \sqrt{1 - v^2 / c^2} t % this is correct version, right? Because primed coordinates are moving
-\end{equation*}
--> this is very misleading; here, $t, t'$ are time differences between some events
-
-this should be intuitive, velocity has to be included (was the thing that caused differences); $c$ is included for scaling reasons, have to look at distance covered by light during measurement and thus $c t$ instead of just $t$
-
-explanation: $\tau$ is \enquote{true} time as measured by ideal clock (but we should see it as tool, we have no general, ideal clock and measure $t, t'$ instead; therefore, $\tau$ is tool helping us to relate these times from different bezugssysteme); $t$ and $t'$ are times measured
-
-
-for constant $\tau$, possible events lie on hyperboloid (hm, but this is in terms of coordinates, right? Smh)
-
--> stuff before 2.40 is really nice
-
-
-
-also note that this effect is mutual, the other observer can claim the same thing; this is no contradiction because when changing the observer, we also change the way we define the notion of a simultaneous event (because we change the clock we use to measure it)
-\end{ex}
-
-
-
-
-
-
+%it is very logical then that both observers see the same redshift, since light travels same distance for both of them (assuming the pulses are sent out at same time by means of simultaneity we just defined)
 
 
 
@@ -1405,7 +1028,12 @@ mention that, as we have seen, time is now a notion which depends on the observe
 another motivation: speed of light constant, so adding velocities like in Galilei transform cannot be right anymore; thus, we need new way to transform between frames of reference, one that respects relativity principle
 
 
--> much of clock section was arguing and sort of awkward pictures because they are often hard to interpret (not meant to be 100\% rigorous); now, however, we will come to validation of all the results -> idea: show how transformation for spatial coordinates works, then compute $\Delta t = (x_1 - x_2) / c$ in primed coordinates, i.e.~how $\Delta t' = (x'_1 - x'_2) / c$ is related to $\Delta t$; will turn out that this is in very similar manner to spatial ones; implies that time transforms between observers as well, i.e.~that clock results are correct! -> confirms time dilation as \enquote{real}, physical effect arising from relativity principle rather than induced side-effect from our chosen definition of synchrony/simultaneity
+-> much of clock section was arguing and sort of awkward pictures because they are often hard to interpret (not meant to be 100\% rigorous); now, however, we will come to validation of all the results -> idea: show how transformation for spatial coordinates works, then compute $\Delta t = (x_1 - x_2) / c$ in primed coordinates, i.e.~how $\Delta t' = (x'_1 - x'_2) / c$ is related to $\Delta t$ (no change, again, comes from the fact that $c$ is constant for every observer); will turn out that this is in very similar manner to spatial ones; implies that time transforms between observers as well, i.e.~that clock results are correct! -> confirms time dilation as \enquote{real}, physical effect arising from relativity principle rather than induced side-effect from our chosen definition of synchrony/simultaneity (although this derivation is not as rigorous as the one in clock section, where we set up consistent procedure for time measurement)
+
+
+
+
+definitely include plot of $\gamma$-factor to show that it only becomes significant for speeds close to $c$, otherwise $1$ to good approximation
 
 
 
@@ -1572,6 +1200,10 @@ when interpreting Minkowski space as a manifold and working with coordinates/cha
 
 
 		\subsection{Metric}
+-> time measured by clocks does not only depend on the events we look at, but also on the world line that connects them; thus it is natural as distance measure (but path-dependent)
+
+
+
 natural measure for distances: use light (just like we did in clocks section); thus, $ds^2 = c^2 d\tau^2$
 
 \enquote{derivation}: $c^2 t^2 = x^2 + y^2 + z^2$ holds for light independently of frame we choose, so it is an invariant object and it also represents what we do with clocks (bad phrasing, but idea good), so rearranging it is good choice for metric; however, that leaves some freedom in sign, physics is of course the same no matter which one we choose, but still we have to select one of them
@@ -1607,6 +1239,10 @@ four-velocity: using chain rule, we can write $U^\alpha = \dv{x^\alpha}{\tau} = 
 
 
 
+redshift leads to higher energy, but frequency also changes such that all in all speed of light remains constant (might be wrong this way, but heard something like that)
+
+
+
 \newpage
 
 
@@ -1622,6 +1258,11 @@ we have seen how to compute proper times in special relativity, the formula coul
 \end{equation}
 
 in fact, this formula also holds for $v = v(t)$, i.e.~when a time-dependent velocity and thus acceleration is present (we can compute dynamics); this is because it does not involve absolute differences like $x - x'$, but infinitesimal ones $dx$ along the whole path, so changes in $v$ are incorporated automatically; however, we have to use other metrics in this case and general relativity presents a general way to compute the metric
+
+
+
+
+for non-uniform velocity, connection procedure does not work between macroscopic events anymore (because getting distance from velocity is not multiplication, now integration), but only infinitesimally (equivalent: just like we have to integrate velocity for distance, we have to integrate for travel time of light; since time = distance for light -> nice visualization: rectification of curve, works perfect for straight line, but if changing derivative comes into play, not perfect anymore, have to go to infinitesimal distances for that); motivation for $d\tau$
 
 
 
