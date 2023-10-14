@@ -1,5 +1,5 @@
-%\documentclass[BA_main.tex]{subfiles}
-\input{header}
+\documentclass[BA_main.tex]{subfiles}
+%\input{header}
 
 %\usepackage{subfiles}
 
@@ -27,7 +27,7 @@
 \setlength{\xshiftGW}{0.16\textwidth}
 
 \begin{tikzpicture}
-	\draw[black!50!green, smooth, thick, shift={(\xshiftGW,0)}, xscale=10.0, yscale=1.2] plot file {code/exported_template_2.txt}; % xscale, yscale were found empirically; important: xscale AFTER shift
+	\draw[black!50!green, smooth, thick, shift={(\xshiftGW,0)}, xscale=10.0, yscale=1.2] plot file {code/template_GW150914.txt}; % xscale, yscale were found empirically; important: xscale AFTER shift
 	% Pad signal to left
 	\draw[black!50!green, smooth, thick] (0,0) -- (\xshiftGW,0);
 	\draw[black!50!green, smooth, thick] (0.8\textwidth,0) -- (\textwidth,0);

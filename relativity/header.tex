@@ -48,7 +48,12 @@
 \numberwithin{table}{chapter}%{section}
 \usepackage{empheq}
 \usepackage{tikz-cd}%für Kommutationsdiagramme
+\usepackage{tikz}
+\usepackage{pgfplots}
 \usepackage{mdframed}
+\usepackage{floatpag} % to have clear pages where figures are
+%\usepackage{sidecap} % for caption on side -> not needed in the end
+\usepackage{subfiles} % To put chapters into main file
 
 \usepackage{hyperref}
 \hypersetup{colorlinks=true, breaklinks=true, citecolor=linkblue, linkcolor=linkblue, menucolor=linkblue, urlcolor=linkblue} %sonst z.B. orange bei linkcolor
@@ -76,6 +81,7 @@
 \setkomafont{section}{\fontfamily{qpl}\selectfont\Large}%{\rmfamily\Large\bfseries}
 %\setkomafont{sectionentry}{\rmfamily\large\bfseries} % man kann anscheinend nur das oberste Element aus toc setzen, hier also chapter
 \setkomafont{subsection}{\fontfamily{qpl}\selectfont\large}%{\rmfamily\large}
+\setkomafont{paragraph}{\rmfamily}%\bfseries\itshape}%\underline
 \setkomafont{title}{\fontfamily{qpl}\selectfont\Huge\bfseries}%{\Huge\bfseries}
 \setkomafont{subtitle}{\fontfamily{qpl}\selectfont\LARGE\scshape}%{\LARGE\scshape}
 \setkomafont{author}{\Large\slshape}
@@ -152,9 +158,24 @@ backgroundcolor=gray!8}
 \mdtheorem[style=defistyle]{defi}{Definition}[chapter]%[section]
 \mdtheorem[style=satzstyle]{thm}[defi]{Theorem}
 \mdtheorem[style=satzstyle]{prop}[defi]{Property}
+\mdtheorem[style=satzstyle]{post}[defi]{Postulate}
 \mdtheorem[style=satzstyle]{lemma}[defi]{Lemma}
 \mdtheorem[style=satzstyle]{cor}[defi]{Corollary}
 \mdtheorem[style=bspstyle]{ex}[defi]{Example}
+
+
+
+
+% if float is too long use \thisfloatpagestyle{onlyheader}
+\newpairofpagestyles{onlyheader}{%
+\setlength{\headheight}{\baselineskip}
+\automark[section]{section}
+%\automark*[section]{subsection}
+\ihead[]{\headmark}
+%
+% only change to previous settings is here
+\cfoot{}
+}
 
 
 
@@ -183,8 +204,15 @@ backgroundcolor=gray!8}
     \draw (0,#2*#1+#1+0.2) node {$ct$};
 
 	% Draw light cone
-	\draw[yellow, thick] (-#2, -#2) -- (#2, #2);
-	\draw[yellow, thick] (-#2, #2) -- (#2, -#2);
+	\draw[black!10!yellow, thick] (-#2*#1, -#2*#1) -- (#2*#1, #2*#1);
+	\draw[black!10!yellow, thick] (-#2*#1, #2*#1) -- (#2*#1, -#2*#1);
+}
+
+% Arguments: x-position of event, ct-position of event, cone size
+\newcommand{\lightcone}[3]{
+	% Draw light cone -> idea: go from event location into the directions (1, 1), (-1, 1) for upper part of cone and then in directions (-1, -1), (1, -1) for lower part of cone
+	\draw[yellow, fill, fill opacity=0.42] (#1 - #3, #2 + #3) -- (#1, #2) -- (#1 + #3, #2 + #3);
+	\draw[yellow, fill, fill opacity=0.42] (#1 - #3, #2 - #3) -- (#1, #2) -- (#1 + #3, #2 - #3);
 }
 
 \newcommand{\addobserver}[4]{%
