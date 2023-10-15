@@ -115,18 +115,17 @@ natural idea for visualization: time evolution of events and world lines; thus w
 
 \begin{tikzpicture}
 	% Draw basic grid
-	\spacetimediagram{1}{4}
+	\spacetimediagram{4}
 
 	% Draw event with light cone
-	\lightcone{1}{2}{2}
-	\draw (1, 2) node[red, circle, fill] {};
-	%\draw (1, 2) node[below] {$E$};
+	\lightcone[xpos=1, ypos=2]{2}
+	\addevent[label=$E$, label placement=right]{1}{2} % Otherwise cone in front of circle, looks weird
 
 	% Draw world line, v=0.5c
 	\draw[red, thick] (0.5, 1) -- (-0.5, 3);
 \end{tikzpicture}
 
-\caption{}
+\caption{Ideas of light cones}
 \end{figure}
 
 
@@ -221,7 +220,7 @@ The origin of this difference is that the time of flight for light on $\overline
 	
 	\subfloat[Observers at rest]{
 	%\hspace*{0.05\textwidth}
-	\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+	\begin{tikzpicture}
 	    % Draw lines of observers
 	    \draw[->, thick] (-1.0, 0) -- (-1.0, 6);
 	    \draw[->, thick] (1.0, 0) -- (1.0, 6);
@@ -248,7 +247,7 @@ The origin of this difference is that the time of flight for light on $\overline
 	%
 	\subfloat[Moving observers a rest with respect to each other]{
 	%\hspace*{0.05\textwidth}
-	\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+	\begin{tikzpicture}
 	    % Draw lines of observers
 	    \draw[->, thick] (-1.0, 0) -- (0.7999999999999998, 6);
 	    \draw[->, thick] (1.0, 0) -- (2.8, 6);
@@ -280,7 +279,7 @@ The origin of this difference is that the time of flight for light on $\overline
 		
 		\subfloat[Comparison of all observers from (a) and (b). For simplicity, we assume that the clock $\mathcal{C}$ and $\mathcal{C}''$ show the same time $t = t''$ on intersection. Despite this fact, they cannot agree on notion of simultaneity.]{
 		%\hspace*{0.05\textwidth}
-		\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+		\begin{tikzpicture}
 			% First resting observers
 		
 			% Draw lines of observers
@@ -327,7 +326,7 @@ The origin of this difference is that the time of flight for light on $\overline
 		}
 	\end{minipage}%\hfill
 	\begin{minipage}{0.5\textwidth}
-		\caption{Spacetime diagrams for different sets of observers. We draw the observers $\mathcal{O}, \mathcal{O}'$ whose clocks we wish to synchronize, the referee $\mathcal{R}$ for them and the light pulses they exchange in order to achieve the synchronization.\\
+		\caption{Synchronization procedure in spacetime diagrams for different sets of observers. We draw the observers $\mathcal{O}, \mathcal{O}'$ whose clocks we wish to synchronize, the referee $\mathcal{R}$ for them and the light pulses they exchange in order to achieve the synchronization.\\
 		Clocks carried by $\mathcal{O}$ and $\mathcal{O}'$ measure the events at times $t = \frac{t_+ + t_-}{2}$ and $t' = \frac{t'_+ + t'_-}{2}$ to be simultaneous, i.e.~$t = t'$. This is because light (represented as yellow lines) sent out simultaneously by the referee $\mathcal{R}$ to $\mathcal{O}$ and $\mathcal{O}'$ \enquote{sees} times $t$ and $t'$ on the clocks before returning simultaneously to $\mathcal{R}$, where the results are \enquote{reported}.}
 		\label{fig:clocks_at_rest_wrt_each_other}
 	\end{minipage}
@@ -372,7 +371,7 @@ For the observer $\mathcal{O}$, a time $t$ has passed since the synchronization 
 	%\thisfloatpagestyle{onlyheader} % Not needed with caption on side
 	
 	\subfloat[Observers moving with relative velocity $v = 0.6 c$]{
-	\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+	\begin{tikzpicture}
 	    % Draw lines of observers
 	    \draw[->, thick] (-0.55, -1.5) -- (-2.5, 5);
 	    \draw[->, thick] (0.55, -1.5) -- (2.5, 5);
@@ -408,7 +407,7 @@ For the observer $\mathcal{O}$, a time $t$ has passed since the synchronization 
 	%
 	\subfloat[Observers moving with relative velocity $v = 0.5 c$]{
 	%\hspace*{0.05\textwidth}
-	\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+	\begin{tikzpicture}
 	    % Draw lines of observers
 	    \draw[->, thick] (-0.6, -4) -- (-1.3, 3);
 	    \draw[->, thick] (-0.6000000000000001, -4) -- (2.2, 3);
@@ -442,7 +441,8 @@ For the observer $\mathcal{O}$, a time $t$ has passed since the synchronization 
 	\end{tikzpicture}
 	}
 	
-	\caption{\protect\footnotemark}
+	\caption{Synchronization procedure in spacetime diagrams for moving observers.\protect\footnotemark\\
+	We also note that it is really the relative velocity that matters because we could always go in the rest frame of one of the observers and examine the situation from there. Also, it does not matter which rest frame because the effect is mutual, i.e.it does not change if we replace $v \rightarrow -v$.}
 	\label{fig:moving_clocks}
 \end{figure}
 
@@ -450,7 +450,7 @@ For the observer $\mathcal{O}$, a time $t$ has passed since the synchronization 
 
 
 
-This seems very puzzling. How does the situation look from the inertial frame where $\mathcal{O}'$ is at rest? For a clock attached to $\mathcal{O}'$ the time $t' = \frac{t'_+ + t'_-}{2}$ has passed, while for one attached to $\mathcal{O}$ it is $\tau = \sqrt{t'_+ t'_-} = \sqrt{1 - v^2 / c^2} \, t' \leq t'$ -- the effect is mutual. That makes things even more puzzling and in fact seems paradoxical: how can both claim that less time went by for the other observer? The answer lies in the fact that in (special) relativity, there is no absolute, universal time anymore. Time standard become relative and so do notions like simultaneity. As a consequence, both observers have the right to claim less time went by for the other and both are right in doing so. This is a key fact to understand in relativity and no different from the uniform motion of observers relative to each other. Both can claim that they are at rest, while the other one moves because it does not change the physics exhibited by the situation.
+This seems very puzzling. How does the situation look from the rest frame of $\mathcal{O}'$? For a clock attached to $\mathcal{O}'$ the time $t' = \frac{t'_+ + t'_-}{2}$ has passed, while for one attached to $\mathcal{O}$ it is $\tau = \sqrt{t'_+ t'_-} = \sqrt{1 - v^2 / c^2} \, t' \leq t'$ -- the effect is mutual. That makes things even more puzzling and in fact seems paradoxical: how can both claim that less time went by for the other observer? The answer lies in the fact that in (special) relativity, there is no absolute, universal time anymore. Of course, if the time standard becomes relative, so do notions like simultaneity. As a consequence, both observers have the right to claim less time went by for the other and both are right in doing so. This is a key fact to understand in relativity and no different from the uniform motion of observers relative to each other. Both can claim to be at rest, while the other one moves because it does not change the physics exhibited by the situation.
 
 
 The same observation can explain why the synchronization procedure for the referee, who does indeed see $E'$ at $\tau'$ simultaneous to $E$ at $\tau$ (which are the events and times light signals see which are sent out by him), does not yield the same notions of simultaneity for $\mathcal{O}, \mathcal{O}'$: both of them are not at rest to $\mathcal{R}$ anymore and this differing motional state leads to the effects observed now. If this was the case, the relative velocity $v$ would be $v = 0$ and the geometric mean $\sqrt{t_+ t_-}$ would reduce back to the arithmetic mean $\frac{t_+ + t_-}{2}$, yielding the familiar result
@@ -466,34 +466,40 @@ Apparently, Minkowski's theorem is a more general version of the results \eqref{
 
 
 		\subsection{Time Dilation}
-The behaviour of time for moving observers seems puzzling at first, one may ask: is this a bug or a feature? In other words, is this effect that less time seems to pass on moving clocks a real physical effect or is it caused by our choice of synchronization? It is especially the mutuality of effect that may add to these doubts. However, as it was also argued in the last subsection, this phenomenon is fundamental \emph{feature} of time. Resting observers agree on times elapsed along clocks carried by them, moving observers do not. Abandoning this idea of universal time may seem very unintuitive compared to what we experience in everyday life, but it turns out to hold true. Just like the answer to \enquote{where does event $E$ happen?} depends on the coordinates we choose, the answer to \enquote{at which time did event $E$ happen?} depends on the (world line of the) clock we use in our measurements.
-
-There are multiple ways to see that this is not a consequence of our notion of simultaneity being flawed, causing the inconsistent result. A very striking one, at least in my personal opinion, is that what we have shown here as a synchronization procedure is equivalent to setting the same time on clocks and then moving them to different points in space (in the slow transport limit, such that no time dilation occurs -> mention time dilation previously maybe? Fits very well here, but mentioning for the first time is not good). This is what we would do intuitively to synchronize clocks on Earth, which shows us that our unfamiliarity with these effects comes from our lack of experience with velocities $v \approx c$ or cosmic distances rather than pointing to unphysical effects.
+The behaviour of time for moving observers seems puzzling at first, one may ask: is this a bug or a feature? In other words, is this effect that less time seems to pass on moving clocks a real physical effect or is it caused by our choice of synchronization? It is especially the mutuality of effect that may add to these doubts. However, as it was also argued in the last subsection, this phenomenon is fundamental \emph{feature} of time. Resting observers agree on times elapsed along clocks carried by them, moving observers do not. Abandoning this idea of universal time may seem very unintuitive compared to what we experience in everyday life, but it turns out to hold true. Just like the answer to \enquote{where does event $E$ happen?} depends on the coordinates we choose, the answer to \enquote{at which time did event $E$ happen?} depends on the (world line of the) clock we use in our measurements. The slowing of time for moving observers is called \Def{time dilation}.
 
 
--> Maybe nice transition: both resting and moving observer claim less time passes for other, who is right? To appropriately answer the question, we need them to synchronize, get one moving and then get them back together, so we need acceleration (should lead to infinitesimal proper time interval; here we see that less time passed for moving observer) -> but: we can see that it is in fact not needed because we can also accelerate resting observer for the time (so whatever effect that has cancels out and we can really attribute it to uniform motion)
+There are multiple ways to see that this is not a consequence of our notion of simultaneity being flawed, causing the inconsistent result. A very striking one, at least in my personal opinion, is that what we have shown here as a synchronization procedure is equivalent to setting the same time on clocks and then moving them to different points in space (in the slow transport limit, such that no time dilation occurs). This is what we would do intuitively to synchronize clocks on Earth, which shows us that our unfamiliarity with these effects comes from our lack of experience with velocities $v \approx c$ or cosmic distances rather than pointing to unphysical effects.\\
 
 
+Moreover, time dilation not only occurs for spatially separated events, but also occurs for a scenario where the clocks are read off right next to each other. It is commonly stated in the following form.
+\begin{ex}[Twin Paradox]
+It deals with two observers, one of them at rest and the other one moving uniformly (to some destination, for example Mars $M$). Both start at the same time and at the same point in space and meet again in this point at some later time. In reality, this would involve some kind of acceleration (turning around), but as Dragon points out in \cite{dragon_geometry_srt} this would not change the results because one can accelerate the resting observer in this time as well. Hence, any result we infer from instantaneous accelerations already contain the relevant ingredients and can be attributed to uniform motion.
 
--> we have seen how simultaneity depends on the observer; however, time itself fundamentally does as well! This is shown very instructively by an effect called \Def{time dilation}. -> let's take two observers starting in origin; one moves uniformly to some other point in space and comes back; let's say they meet again in some event for which resting observer/clock measures time $t$; clearly, they meet simultaneous in this event (by definition, otherwise they would not meet); however, by our notion of simultaneity, we now know that the clock of the moving observer shows the time $\tau = \sqrt{1 - v^2} \, t$!!!
-
-
-ahhh, direction in which observer moves does not matter for $\tau = \sqrt{1 - v^2} \, t$ because we can always go in inertial frame where one of them is at rest to see that only the relative velocity of the observers matters (this is equally true in all other frames, where both are moving, but more clear in this example)
-
-
-
-now, what in case an observer that moves with the speed of light? No other light pulse sent from some distance can ever reach him, so how can they agree on time measurements? Well, they cannot because speed of light is universal limit (no signal can reach light), from which we conclude that no time passes for this observer. This is confirmed by $\tau = \sqrt{1 - c^2 / c^2} \, t = 0$
-
-
-
-note for the end: all of these effects only become relevant for $v \approx c$; otherwise, $t = \tau \approx t'$ for all observers (they measure the same time, just like our experience and intuition tells us; this is something like universal time then once we synchronize them)
+From now on, $\mathcal{O}_R$ will be used to denote the resting observer and $\mathcal{O}_M$ to denote the moving observer. If $\mathcal{O}_R$ resting in Earth's orbit measures $\mathcal{O}_M$ to reach $M$ at time $t$, then $\tau = \sqrt{1 - v^2 / c^2} \, t$ has elapsed on a clock carried by $\mathcal{O}_M$ ($v$ denotes the velocity of $\mathcal{O}_M$). Immediately turning around at Mars and travelling back with velocity $v'$ (could be $v' = -v$, but no need for that), then times $t'$ and $\tau' = \sqrt{1 - v'^2 / c^2} \, t'$ elapse for $\mathcal{O}_R$ and $\mathcal{O}_M$, respectively. All in all, for the roundtrip times we have
+\begin{equation*}
+t + t' = \frac{\tau}{\sqrt{1 - v^2 / c^2}} + \frac{\tau'}{\sqrt{1 - v'^2 / c^2}} \geq \tau + \tau' \, .
+\end{equation*}
+Furthermore, there is no ambiguity here in the perception of $\mathcal{O}_M$ because they end up witnessing the same event, $E = E'$, so there can be no ambiguity in simultaneity.
+\end{ex}
+Therefore, it is indeed true that less time goes by on moving clocks. This effect has also been verified experimentally. It should be noted, though, that this effect only becomes relevant for velocities $v \approx c$, otherwise $\sqrt{1 - v^2 / c^2} \approx 1$ and $\tau \approx t$. Once again, we emphasize that this is the reason why the Newtonian way of describing time as an absolute, universal notion has worked for so long and is perhaps also more intuitive.\\
 
 
+An interesting consequence of time dilation arises for observers moving with the speed of light, like e.g.~photons. No other light pulse sent from some distance can ever reach him, so how can this observer agree on time measurements with others? Well, they cannot agree because the speed of light is a universal limit, no signal can reach the moving observer, from which we conclude that no time passes for this observer. This result is in accordance with
+\begin{equation}
+\tau = \sqrt{1 - c^2 / c^2} \, t = 0 \, .
+\end{equation}
 
 
 
 		\subsection{Doppler Shift}
 do it? Or maybe do in time dilation section? But I do think it is not 100\% necessary, so should not be priority
+
+
+ah, while $\kappa(-v) = 1 / \kappa(v)$, this is not true for times: $\tau(-v) = \tau(v)$; thus it is not needed to explain time shifts, but instead it is useful for frequencies
+
+
+Doppler factors could be helpful because frequencies are inverse time intervals, i.e.~through arriving of light signals (thus blue-, redshift), one can argue for time intervals that the observers see as well! Due to longer travel time of light, light signals reach at different times, leading to different perceptions of simultaneity (Wikipedia on twin paradox is nice for that)
 
 
 
@@ -574,28 +580,24 @@ explanation why primed axes are shifted inwards in Minkowski diagrams: we wish t
 \begin{figure}
 	\centering
 	
-	\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+	\begin{tikzpicture}
 		% Add basis for diagram
-		\spacetimediagram{1}{4}
+		\spacetimediagram{4}
 	
 		% Add other observers
-		%\addobserver{0.5}{2}{0.9}{42}
-		\addobserver{1}{3}{0.5}{42}
-		%\addobserver{1}{3}{0.1}{42}
+		%\addobserver{3}{0.9}
+		\addobserver{3}{0.5}
+		%\addobserver{3}{0.1}
 	
-		%\lightcone{-1}{1}{2}
+		%\lightcone{1}{-1}{1}{2}
 	
 		% Add event in rest frame
-		\draw (0, 2) node[red, circle, fill] {};
-		\draw (2, 2) node[red, circle, fill] {};
+		\addevent{0}{2}
+		\addevent{2}{2}
 	
-		% Add same event in moving frame, i.e. have to evaluate Lorentz transform (but with different sign of v; comes from the fact that we want to express the x' coordinates in the x frame; after all, we do not really draw ct' and x' axis as the usual cartesian axes, they are tilted here) -> \gamma=1/0.86
-		%\draw (0.5 * 2 / 0.86, 2 / 0.86) node[blue, circle, fill] {};
-		%\draw (2 / 0.86 + 0.5 * 2 / 0.86, 2 / 0.86 + 0.5 * 2 / 0.86) node[blue, circle, fill] {};
-	
-		% With better code (similar to the one used for spacetime diagram) -> does exactly what we want because it corresponds to transforming coordinates from x' to x, which is also why we have to use -v in Lorentz transform
-		\draw[cm={1/0.86,0.5/0.86,0.5/0.86,1/0.86,(0,0)}] (0, 2) node[blue, circle, fill] {};
-		\draw[cm={1/0.86,0.5/0.86,0.5/0.86,1/0.86,(0,0)}] (2, 2) node[blue, circle, fill] {};
+		% Add same event in moving frame
+		\addevent[v=0.5, color=blue]{0}{2}
+		\addevent[v=0.5, color=blue]{2}{2}
 	\end{tikzpicture}
 	
 	\caption{Two events at spacetime points $(0,2), (2,2)$. Red dots show the points with these coordinates in the $(x, ct)$-frame and blue dots show the same coordinates in the $(ct', x')$-frame moving with $v = 0.5 c$.\\
@@ -710,6 +712,30 @@ when interpreting Minkowski space as a manifold and working with coordinates/cha
 
 
 
+
+
+-> introduce spacetime diagrams with multiple observers, can also explain twin paradox very nicely
+\begin{figure}
+	\centering
+
+	\begin{tikzpicture}
+		% Add basis for diagram
+		\spacetimediagram{4}
+	
+		% Add other observers
+		\addobserver{2}{0.7}
+		\addobserver[xpos=0.7 * 2, ypos=2]{2}{(-1) * 0.7}
+
+		% Add worldline
+		\draw[red, thick] (0, 0) -- (0.7 * 2, 2) -- (0, 4);
+	\end{tikzpicture}
+
+	\caption{Visual explanation of twin paradox}
+	\label{fig:twin_paradoxs}
+\end{figure}
+
+
+
 		\subsection{Metric}
 We have now seen how physics can be conveniently described using a 4D manifold, which we called spacetime. Points on this manifold are events and we can change coordinates or inertial frames using Lorentz-transformations. Moreover, there are several quantities that can be defined naturally on manifolds, for example curves, vectors, and covectors (maps that take vectors as input). While manifolds do have an additional natural structure, this is given by topology. In physics, however, we are also interested in statements concerned with distances between events and to measure them we need additional structure. More specifically, we have to specify a metric that will allow measuring distances, as well as norms of vectors via the induced inner product.
 
@@ -753,13 +779,13 @@ Setting $\tau = 1$ yields a hyperbola, whose intersection with time axes in spac
 \begin{figure}
 	\centering
 
-	\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+	\begin{tikzpicture}
 		% Add basis for diagram
-		\spacetimediagram{1}{4}
+		\spacetimediagram{4}
 	
 		% Add other observers
-		%\addobserver{1}{3}{0.5}{42}
-		\addobserver{1}{2}{0.7}{42}
+		\addobserver{2}{0.5}
+		%\addobserver{2}{0.7}
 
 		% Add eichhyperbel. From $1 = c^2 t^2 - x^2$ we get parametrization $(x, ct) = (x, \sqrt{1 + x^2})$
 		\draw[domain=-4:4, smooth, variable=\x, color=black!30!green] plot ({\x}, {sqrt(1 + \x * \x)});

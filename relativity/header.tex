@@ -181,6 +181,11 @@ backgroundcolor=gray!8}
 
 
 % Spacetime diagrams
+%\usepackage{tikz}
+%\usetikzlibrary{arrows.meta}
+% -> setting styles sufficient
+%\tikzset{>={Latex[scale=1.2]}}
+\tikzset{>={Stealth[inset=0,angle'=27]}}
 
 %\usepackage{tsemlines}  % To draw Dragon stuff; Bard says this works with emline, not pstricks
 %\def\emline#1#2#3#4#5#6{%
@@ -195,7 +200,7 @@ backgroundcolor=gray!8}
 
 
 \pgfkeys{
-	/spacetimediagramnew/.is family, /spacetimediagramnew,
+	/spacetimediagram/.is family, /spacetimediagram,
 	default/.style = {stepsize = 1, xlabel = $x$, ylabel = $c t$},
 	stepsize/.estore in = \diagramStepsize,
 	xlabel/.estore in = \diagramxlabel,
@@ -206,8 +211,8 @@ backgroundcolor=gray!8}
 
 % Mandatory argument: grid size
 % Optional arguments: stepsize (sets grid scale), xlabel, ylabel
-\newcommand{\spacetimediagramnew}[2][]{%
-	\pgfkeys{/spacetimediagramnew, default, #1}
+\newcommand{\spacetimediagram}[2][]{%
+	\pgfkeys{/spacetimediagram, default, #1}
 
     % Draw the x ct grid
     \draw[step=\diagramStepsize, gray!30, very thin] (-#2 * \diagramStepsize, -#2 * \diagramStepsize) grid (#2 * \diagramStepsize, #2 * \diagramStepsize);
@@ -228,7 +233,7 @@ backgroundcolor=gray!8}
 
 
 \pgfkeys{
-	/addobservernew/.is family, /addobservernew,
+	/addobserver/.is family, /addobserver,
 	default/.style = {grid = true, stepsize = 1, xpos = 0, ypos = 0, xlabel = $x'$, ylabel = $c t'$},
 	grid/.estore in = \observerGrid,
 	stepsize/.estore in = \observerStepsize,
@@ -238,10 +243,10 @@ backgroundcolor=gray!8}
 	ylabel/.estore in = \observerylabel
 }
 
-% Mandatory argument: grid size, relative velocity
+% Mandatory argument: grid size, relative velocity (important: if negative, must be given as (-1) * v where v is the absolute value, otherwise error)
 % Optional arguments: stepsize (sets grid scale), xlabel, ylabel
-\newcommand{\addobservernew}[3][]{%
-	\pgfkeys{/addobservernew, default, #1}
+\newcommand{\addobserver}[3][]{%
+	\pgfkeys{/addobserver, default, #1}
 
     % Evaluate the Lorentz transformation
     %\FPeval{\calcgamma}{1/((1-(#3)^2)^.5)}
@@ -253,17 +258,10 @@ backgroundcolor=gray!8}
     \draw[->, thick, cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(\observerxpos,\observerypos)}, blue] (0, -#2 * \observerStepsize - \observerStepsize) -- (0, #2 * \observerStepsize + \observerStepsize);
 
 	% Check if grid shall be drawn
-	%\newboolean{\gridTest}
-	%\setboolean{\gridTest}{\observerGrid}
-	%\ifthenelse{\gridTest = true}{%
-	\ifthenelse{\equal{\observerGrid}{true}}{%
-	% Draw the vertical transformed grid lines
-    \foreach \x in {-#2,...,#2}
-        \draw[cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(\observerxpos,\observerypos)}, blue, very thin] (\x * \observerStepsize, -#2 * \observerStepsize) -- (\x * \observerStepsize, #2 * \observerStepsize);%
-    % Draw the horizontal transformed grid lines
-    \foreach \y in {-#2,...,#2}
-        \draw[cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(\observerxpos,\observerypos)}, blue, very thin] (-#2 * \observerStepsize,\y * \observerStepsize) -- (#2 * \observerStepsize, \y * \observerStepsize);%
-	}{}
+	\ifthenelse{\equal{\observerGrid}{true}}{%#
+		% Draw transformed grid
+		\draw[step=\diagramStepsize, blue, very thin, cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(\observerxpos,\observerypos)}] (-#2 * \diagramStepsize, -#2 * \diagramStepsize) grid (#2 * \diagramStepsize, #2 * \diagramStepsize);
+	}{} % Do nothing in else case
 
 	% Draw the x' and ct' axes labels
     \draw[cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(\observerxpos,\observerypos)}, blue] (#2 * \observerStepsize + \observerStepsize + 0.2, 0) node {\observerxlabel};
@@ -272,115 +270,49 @@ backgroundcolor=gray!8}
 
 
 
-
-% Old commands
-
-
-
-\newcommand{\spacetimediagram}[2]{%
-    % Draw the x ct grid
-    \draw[step=#1,gray!30,very thin] (-#2*#1, -#2*#1) grid (#2*#1, #2*#1);
-
-    % Draw the x and ct axes
-    \draw[->,thick] (-#2*#1-#1, 0) -- (#2*#1+#1, 0);
-    \draw[->,thick] (0, -#2*#1-#1) -- (0, #2*#1+#1);
-
-	% Draw the x and ct axes labels
-    \draw (#2*#1+#1+0.2,0) node {$x$};
-    \draw (0,#2*#1+#1+0.2) node {$ct$};
-
-	% Draw light cone
-	\draw[black!10!yellow, thick] (-#2*#1, -#2*#1) -- (#2*#1, #2*#1);
-	\draw[black!10!yellow, thick] (-#2*#1, #2*#1) -- (#2*#1, -#2*#1);
+\pgfkeys{
+	/addevent/.is family, /addevent,
+	default/.style = {v = 0, label =, color = red, label placement = below, radius = 5pt},
+	v/.estore in = \eventVelocity,
+	label/.estore in = \eventLabel,
+	color/.estore in = \eventColor,
+	label placement/.estore in = \eventLabelPlacement,
+	radius/.estore in = \circleEventRadius
 }
 
-% Arguments: scale of grid, cone size, x-position of event, ct-position of event
-% Arguments: x-position of event, ct-position of event, cone size
-\newcommand{\lightcone}[4][1]{
+% Mandatory argument: x position, y position
+% Optional arguments: relative velocity (important: if negative, must be given as (-1) * v where v is the absolute value, otherwise error), label, color, label placement
+\newcommand{\addevent}[3][]{%
+	\pgfkeys{/addevent, default, #1}
+
+    % Evaluate the Lorentz transformation
+    %\FPeval{\calcgamma}{1/((1-(#3)^2)^.5)}
+    \FPeval{\calcgamma}{1/((1-((\eventVelocity)*(\eventVelocity)))^.5)} % More robust, allows negative v
+    \FPeval{\calcbetagamma}{\calcgamma*\eventVelocity}
+
+	% Draw event
+	\draw[cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(0,0)}, red] (#2,#3) node[circle, fill, \eventColor, minimum size=\circleEventRadius, label=\eventLabelPlacement:\eventLabel] {};
+}
+
+
+
+\pgfkeys{
+	/lightcone/.is family, /lightcone,
+	default/.style = {stepsize = 1, xpos = 0, ypos = 0, color = yellow, fill opacity = 0.42},
+	stepsize/.estore in = \lightconeStepsize,
+	xpos/.estore in = \lightconexpos,
+	ypos/.estore in = \lightconeypos,
+	color/.estore in = \lightconeColor,
+	fill opacity/.estore in = \lightconeFillOpacity
+}
+
+% Mandatory arguments: cone size
+% Optional arguments: stepsize (scale of grid), xpos, ypos, color, fill opacity
+\newcommand{\lightcone}[2][]{
+	\pgfkeys{/lightcone, default, #1}
 	% Draw light cone -> idea: go from event location into the directions (1, 1), (-1, 1) for upper part of cone and then in directions (-1, -1), (1, -1) for lower part of cone
-	%\draw[yellow, fill, fill opacity=0.42] (#1 - #3, #2 + #3) -- (#1, #2) -- (#1 + #3, #2 + #3);
-	%\draw[yellow, fill, fill opacity=0.42] (#1 - #3, #2 - #3) -- (#1, #2) -- (#1 + #3, #2 - #3);
-
-	\draw[yellow, fill, fill opacity=0.42] (#3*#1-#2*#1, #4*#1+#2*#1) -- (#3, #4) -- (#3*#1+#2*#1, #4*#1+#2*#1);
-	\draw[yellow, fill, fill opacity=0.42] (#3*#1-#2*#1, #4*#1-#2*#1) -- (#3, #4) -- (#3*#1+#2*#1, #4*#1-#2*#1);
-}
-
-\newcommand{\addobserver}[4]{%
-    % Evaluate the Lorentz transformation
-    %\FPeval{\calcgamma}{1/((1-(#3)^2)^.5)}
-    \FPeval{\calcgamma}{1/((1-((#3)*(#3)))^.5)} % More robust, allows negative v
-    \FPeval{\calcbetagamma}{\calcgamma*#3}
-
-	% Draw the x' and ct' axes
-	\draw[->,thick,cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(0,0)},blue] (-#2*#1-#1, 0) -- (#2*#1+#1, 0);
-    \draw[->,thick,cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(0,0)},blue] (0, -#2*#1-#1) -- (0, #2*#1+#1);
-
-	% Check if grid shall be drawn
-	\ifthenelse{\isempty{#4}}{}{%
-	% Draw the vertical transformed grid lines
-    \foreach \x in {-#2,...,#2}
-        \draw[cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(0,0)},blue,very thin] (\x*#1,-#2*#1) -- (\x*#1,#2*#1);%
-    % Draw the horizontal transformed grid lines
-    \foreach \y in {-#2,...,#2}
-        \draw[cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(0,0)},blue,very thin] (-#2*#1,\y*#1) -- (#2*#1,\y*#1);%
-	}
-
-	% Draw the x' and ct' axes labels
-    \draw[cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(0,0)},blue] (#2*#1+#1+0.2,0) node {$x^\prime$};
-    \draw[cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(0,0)},blue] (0,#2*#1+#1+0.2) node {$ct^\prime$};
+	\draw[\lightconeColor, fill, fill opacity=\lightconeFillOpacity] (\lightconexpos * \lightconeStepsize - #2 * \lightconeStepsize, \lightconeypos * \lightconeStepsize + #2 * \lightconeStepsize) -- (\lightconexpos, \lightconeypos) -- (\lightconexpos * \lightconeStepsize + #2 * \lightconeStepsize, \lightconeypos * \lightconeStepsize + #2 * \lightconeStepsize);
+	\draw[\lightconeColor, fill, fill opacity=\lightconeFillOpacity] (\lightconexpos * \lightconeStepsize - #2 * \lightconeStepsize, \lightconeypos * \lightconeStepsize - #2 * \lightconeStepsize) -- (\lightconexpos, \lightconeypos) -- (\lightconexpos * \lightconeStepsize + #2 * \lightconeStepsize, \lightconeypos * \lightconeStepsize - #2 * \lightconeStepsize);
 }
 
 
-\newcommand{\addshiftedobserver}[6]{%
-    % Evaluate the Lorentz transformation
-    %\FPeval{\calcgamma}{1/((1-(#3)^2)^.5)}
-    \FPeval{\calcgamma}{1/((1-((#3)*(#3)))^.5)} % More robust, allows negative v
-    \FPeval{\calcbetagamma}{\calcgamma*#3}
-
-	% Draw the x' and ct' axes
-	\draw[->,thick,cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(#5,#6)},blue] (-#2*#1-#1, 0) -- (#2*#1+#1, 0);
-    \draw[->,thick,cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(#5,#6)},blue] (0, -#2*#1-#1) -- (0, #2*#1+#1);
-
-	% Check if grid shall be drawn
-	\ifthenelse{\isempty{#4}}{}{%
-	% Draw the vertical transformed grid lines
-    \foreach \x in {-#2,...,#2}
-        \draw[cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(#5,#6)},blue,very thin] (\x*#1,-#2*#1) -- (\x*#1,#2*#1);%
-    % Draw the horizontal transformed grid lines
-    \foreach \y in {-#2,...,#2}
-        \draw[cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(#5,#6)},blue,very thin] (-#2*#1,\y*#1) -- (#2*#1,\y*#1);%
-	}
-
-	% Draw the x' and ct' axes labels
-    \draw[cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(#5,#6)},blue] (#2*#1+#1+0.2,0) node {$x^\prime$};
-    \draw[cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(#5,#6)},blue] (0,#2*#1+#1+0.2) node {$ct^\prime$};
-}
-
-
-
-
-
-\newcommand{\addobservernewversionone}[6][]{%
-    % Evaluate the Lorentz transformation
-    %\FPeval{\calcgamma}{1/((1-(#3)^2)^.5)}
-    \FPeval{\calcgamma}{1/((1-((#4)*(#4)))^.5)} % More robust, allows negative v
-    \FPeval{\calcbetagamma}{\calcgamma*#4}
-
-	% Draw the x' and ct' axes
-	\draw[->,thick,cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(#5,#6)},blue] (-#3*#2-#2, 0) -- (#3*#2+#2, 0);
-    \draw[->,thick,cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(#5,#6)},blue] (0, -#3*#2-#2) -- (0, #3*#2+#2);
-
-	% Check if grid shall be drawn
-	\ifthenelse{\isempty{#1}}{%
-	% Draw the vertical transformed grid lines
-    \foreach \x in {-#3,...,#3}
-        \draw[cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(#5,#6)},blue,very thin] (\x*#2,-#3*#2) -- (\x*#2,#3*#2);%
-    % Draw the horizontal transformed grid lines
-    \foreach \y in {-#3,...,#3}
-        \draw[cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(#5,#6)},blue,very thin] (-#3*#2,\y*#2) -- (#3*#2,\y*#2);%
-	}{}
-
-	% Draw the x' and ct' axes labels
-    \draw[cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(#5,#6)},blue] (#3*#2+#2+0.2,0) node {$x^\prime$};
-    \draw[cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(#5,#6)},blue] (0,#3*#2+#2+0.2) node {$ct^\prime$};
-}
