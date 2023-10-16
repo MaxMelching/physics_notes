@@ -442,11 +442,11 @@ For the observer $\mathcal{O}$, a time $t$ has passed since the synchronization 
 	}
 	
 	\caption{Synchronization procedure in spacetime diagrams for moving observers.\protect\footnotemark\\
-	We also note that it is really the relative velocity that matters because we could always go in the rest frame of one of the observers and examine the situation from there. Also, it does not matter which rest frame because the effect is mutual, i.e.it does not change if we replace $v \rightarrow -v$.}
+	We also note that it is really the relative velocity that matters because we could always go in the rest frame of one of the observers and examine the situation from there. Also, it does not matter which rest frame because the effect is mutual, i.e.~it does not change if we replace $v \rightarrow -v$.}
 	\label{fig:moving_clocks}
 \end{figure}
 
-\footnotetext{Beware that the diagrams are not perfect, e.g.~the referee should be exactly where the light beams cross again. This is most likely due to an error in my code, which I was unable to locate. Nonetheless, the most important ideas should still be conveyed, which is why I decided to keep the graphics.}
+\footnotetext{Beware that the diagrams are not perfect, e.g.~the referee should be exactly where the light beams cross again. This is most likely due to an error in my code, which I was unable to locate. Nonetheless, the most important ideas should still be conveyed, which is why I decided to keep the graphics. -> ahhh, forgot that addition of velocities works differently in relativity; bug fix still not there, though}
 
 
 
@@ -715,6 +715,110 @@ when interpreting Minkowski space as a manifold and working with coordinates/cha
 
 
 -> introduce spacetime diagrams with multiple observers, can also explain twin paradox very nicely
+
+
+\begin{ex}[Twin Paradox 2]
+we have events start $S$, turning point $T$, end $E$; question: what time elapses along world line connecting them vs.~world line connecting $S$ and $E$ straight (corresponding trajectory lies on $ct$ axis); visualization for $v = 0.5 c$ is in figure \ref{fig:twin_paradox} (and we will also assume this velocity in example here; bigger velocities would make relative velocity of primed and double primed frame $> c$, undesirable -> bullshit, just messed up addition of velocities)
+
+
+first state what each observer measures for roundtrip time; then say that this is \emph{not} what clock moving along trajectory shows, for that we have to combine results from different moving inertial systems; this result then has to be compared to what resting clock measures (which is trivial, four time units)
+
+the thing that makes things make sense is that all observers agree on the time passing along moving clock, even when measured from their coordinates; after all, from the double primed coordinates we can still look at time passing on clock in primed coordinates and simultaneously passing in rest frame; adding that up, we get the total times and these agree between the frames (good, otherwise we would have problem)
+
+
+\hrule
+Explanation:
+
+We have to distinguish between four times: (i) the time $t_{ST}$ passing on the resting clock between $S$ and $T$, (ii) the time $t_{TE}$ passing on the resting clock between $T$ and $E$, (iii) the time $\tau_{ST}$ passing on the moving clock between $S$ and $T$ and (iv) the time $\tau_{TE}$ passing on the moving clock between $T$ and $E$. From that we get the total times for resting and moving clock,
+\begin{equation}
+t_{SE} = t_{ST} + t_{TE}, \tau_{SE} = \tau_{ST} + \tau_{TE} = t'_{ST} + t''_{TE} \, .
+\end{equation}
+
+One final note concerns the velocities involved: the world line is drawn for $v = 0.5 c$ on the way from $S$ to $T$ and $v = -0.5 c$ on the way from $T$ to $E$ (same velocity, different direction), where $v$ is the velocity of the respective moving frame compared to the unprimed, resting one. This implies a relative velocity of $v_2 = - \frac{0.5 c + 0.5 c}{1 + 0.5^2} = -0.8 c$ from primed to double primed frame (note that addition of velocities works differently in relativity).
+
+\begin{itemize}
+	\item \textbf{Unprimed coordinates}
+	
+	Clearly,
+	\begin{equation*}
+	t_{ST} = 2 = t_{TE}
+	\qquad \Leftrightarrow \qquad
+	t_{SE} = 4
+	\end{equation*}
+	in arbitrary time units (where one time unit goes by between two grid lines).
+
+	Simultaneously, by looking at how much time elapses between the intersection of gray grid lines and the blue $ct'$-axis, one can see that as a rough estimate $t'_{ST} \lesssim 2$. For the exact result, we apply Minkowski's theorem:
+	\begin{equation*}
+	t'_{ST} = \tau_{ST} = \sqrt{1 - v^2 / c^2} \, t_{ST} = \sqrt{1 - 0.5^2} \cdot 2 = 1.732 \, .
+	\end{equation*}
+	Applying the same procedure to the double primed coordinates yields
+	\begin{equation*}
+	t''_{TE} = \tau_{TE} = \sqrt{1 - v^2 / c^2} \, t_{TE} = \sqrt{1 - (-0.5)^2} \cdot 2 = 1.732 = \tau_{ST} \, .
+	\end{equation*}
+	
+	This is because time dilation does not depend on the direction, only on the absolute velocity. Therefore, we can confirm that
+	\begin{equation*}
+	t_{SE} = t_{ST} + t_{TE} = 4 > \tau_{SE} = \tau_{ST} + \tau_{TE} = 3.464 \, ,
+	\end{equation*}
+	less time goes by on the moving clock.
+	
+
+
+	\item \textbf{Primed coordinates}
+
+	While from these coordinates one still sees four time units going by on the roundtrip for the resting observer, i.e.~$t_{SE} = 4$, a rough estimate for the roundtrip time measured by a clock resting in the primed coordinates $ct'$ is $t'_{SE} \gtrsim 4$. More precisely, Minkowski's theorem yields
+	\begin{equation*}
+	t_{SE} = \sqrt{1 - v^2 / c^2} \, t'_{SE}
+	\qquad \Leftrightarrow \qquad
+	t'_{SE} = \frac{t_{SE}}{\sqrt{1 - v^2 / c^2}} = \frac{4}{\sqrt{1 - (-0.5)^2}} = 4.589 \, .
+	\end{equation*}
+	This is a consequence from the mutuality of time dilation, an observer resting in primed coordinates sees the unprimed observer moving at $v = -0.49c$ and therefore measures more time passing in his own frame.
+
+
+	However, $t'_{SE}$ is not what the moving clock sees. Instead, 
+	\begin{equation*}
+	\tau_{SE} = \tau_{ST} + \tau_{TE} = t'_{ST} + t''_{TE}
+	\end{equation*}
+	as stated before. Similar to what was done for $t'_{SE}$, we compute
+	\begin{equation}
+	t'_{ST} = \frac{t_{ST}}{\sqrt{1 - v^2 / c^2}} = \frac{2}{\sqrt{1 - (-0.5)^2}} = 2.309 \, .
+	\end{equation}
+	-> shit, don't think this is correct; it is correct that primed observer also measured $t_{SE} = 4$, but for him $t_{TE} \approx 2.6 > t_{ST} \approx 1.5$ (from looking at diagram) and in particular, he does not agree on times that unprimed coordinates measure here (formula still holds, but we now measure primed times from primed coordinates and infer from that the unprimed ones -> bad, I don't think it is so easy to compute the time that passes between events now; maybe using Lorentz-transform)
+
+	To get $t''_{TE}$, we have to prolong the axes of simultaneity of the primed coordinates and count the number of time units which go by between the intersections of them with $ct''$ (i.e.~the number of intersections with green lines on the way). This yields roughly $t''_{TE} \lesssim 1.5$ again. For the time passing simultaneously on a clock in primed coordinates, we can read off roughly $t'_{TE} \approx 4$. The correct numbers can be obtained from Minkowski's theorem again:
+	\begin{equation*}
+	t''_{TE} = \sqrt{1 - v_2^2 / c^2} \, t'_{TE} = \sqrt{1 - (-0.8)^2} \, \frac{t_{TE}}{\sqrt{1 - 0.5^2}} = 1.386 \, .
+	\end{equation*}
+
+	All together, the primed observer measures a roundtrip time
+	\begin{equation}
+	\tau_{SE} = \tau_{ST} + \tau_{TE} = 2.751 < t'_{SE} = 3.695 \, .
+	\end{equation}
+	We find the same result that less time has passed on the moving clock. It should not be surprising that the absolute values measured for $\tau_{SE}$ do not agree, though. After all, they are still measured from different inertial frames and they measure with respect to frames moving with different relative velocities ($\pm 0.5$ for primed; $0.5, 0.8$ for unprimed).
+
+	
+	% for v=0.7 c
+	%on own clock, six time units go by for roundtrip; however, he agrees that just four go by on resting clock
+	
+	%on own clock, it is again roughly $3 / 2$ which pass by; on $ct''$ he sees $3 / 2$ passing by as well (way to see that: look at which lines parallel to $x'$ intersect the relevant events, i.e.~starting point and turning point; then look at points where these lines intersect $ct''$ and count number of ticks on $ct''$ between these intersections); in the same manner, we see that four time units pass on $ct$
+	
+	\item \textbf{Double primed coordinates}
+
+	Just as before, $t_{SE} = 4$ is measured, while roughly $t''_{SE} \gtrsim 4$ and precisely
+	\begin{equation*}
+	t''_{SE} = \frac{t_{SE}}{\sqrt{1 - v^2 / c^2}} = \frac{4}{\sqrt{1 - (-0.5)^2}} = 4.589 \, .
+	\end{equation*}
+	are measured by a clock resting in the double primed coordinates. As one can confirm by looking at the result above, this is the same time a clock resting in primed coordinates measures. We expect more of these equal results since the double primed coordinate system is moves with the same relative velocity as the primed one, just in the other direction (sign of velocity is different).
+
+	A rough estimate for $t''_{TE}$ is $t''_{TE} \lesssim 1.5$ and the exact result is
+	\begin{equation}
+	t''_{TE} = \sqrt{} \, 
+	\end{equation}
+\end{itemize}
+
+roundtrip times measured only from each inertial system (for comparison): primed and double primed coordinate system measure almost six time units for whole roundtrip, which means they see less time passing on resting observer (time dilation is mutual); however, this does not coincide with time shown on clock moving along red trajectory because not the entirety of the trajectory happens in the respective frame (they measure more than four of these time units for part that happens in other frame, which makes sense given that they move at $2 v$ with respect to each other)
+\end{ex}
+
 \begin{figure}
 	\centering
 
@@ -723,17 +827,83 @@ when interpreting Minkowski space as a manifold and working with coordinates/cha
 		\spacetimediagram{4}
 	
 		% Add other observers
-		\addobserver{2}{0.7}
-		\addobserver[xpos=0.7 * 2, ypos=2]{2}{(-1) * 0.7}
+		\addobserver{3}{0.5}
+		%\addobserver[xpos=0.7 * 2, ypos=0, xlabel=$x''$, ylabel=$ct''$, color=black!40!green]{3}{(-1) * 0.7}
+		\addobserver[xlabel=$x''$, ylabel=$ct''$, color=black!40!green]{3}{(-1) * 0.5}
 
-		% Add worldline
-		\draw[red, thick] (0, 0) -- (0.7 * 2, 2) -- (0, 4);
+		% Add worldlines of clocks and start, end events
+		%\draw[red, thick] (0, -2) -- (0, 2); % Resting clock
+		\addworldline{0}{-2}{0}{2}
+		%\draw[red, thick] (0, -2) -- (0.5 * 2, 0) -- (0, 2); % Moving clock
+		\addworldline{0}{-2}{0.5 * 2}{0}
+		\addworldline{0.5 * 2}{0}{0}{2}
+		\addevent[radius=2pt, label=$S$, label placement=right]{0}{-2}
+		\addevent[radius=2pt, label=$T$, label placement=right]{0.5 * 2}{0}
+		\addevent[radius=2pt, label=$E$, label placement=right]{0}{2}
 	\end{tikzpicture}
 
-	\caption{Visual explanation of twin paradox}
-	\label{fig:twin_paradoxs}
+	\caption{Visual explanation of twin paradox.\\
+	We can measure times passing between events in a certain frame by looking at the lines of simultaneity (parallel to spatial axis of this frame), prolonging them from event to time axis of the frame and then count the number of time units passing on the time axis between the intersection points.}
+	\label{fig:twin_paradox}
 \end{figure}
 
+
+\iffalse
+{ % Idea was to explain situation from every frame
+\begin{figure}
+	\centering
+
+	\begin{tikzpicture}
+		% Add basis for diagram
+		\spacetimediagram[xlabel=$x'$, ylabel=$ct'$, color=blue]{4}
+	
+		% Add other observers
+		\addobserver[xlabel=$x$, ylabel=$ct$, color=black]{3}{(-1) * 0.5}
+		\addobserver[xlabel=$x''$, ylabel=$ct''$, color=black!40!green]{3}{(-1) * 0.8}
+
+		% Add worldlines of clocks and start, end events
+		%\draw[red, thick, cm={1/0.866,-0.5/0.866,-0.5/0.866,1/0.866,(0,0)}] (0, -2) -- (0, 2); % Resting clock
+		\addworldline[v=-0.5]{0}{-2}{0}{2}
+		%\draw[red, thick, cm={1/0.866,-0.5/0.866,-0.5/0.866,1/0.866,(0,0)}] (0, -2) -- (0.5 * 2, 0) -- (0, 2); % Moving clock
+		\addworldline[v=-0.5]{0}{-2}{0.5 * 2}{0}
+		\addworldline[v=-0.5]{0.5 * 2}{0}{0}{2}
+		\addevent[v=-0.5, radius=2pt, label=$S$, label placement=right]{0}{-2}
+		\addevent[v=-0.5, radius=2pt, label=$T$, label placement=right]{0.5 * 2}{0}
+		\addevent[v=-0.5, radius=2pt, label=$E$, label placement=right]{0}{2}
+	\end{tikzpicture}
+
+	\caption{Visual explanation of twin paradox.\\
+	We can measure times passing between events in a certain frame by looking at the lines of simultaneity (parallel to spatial axis of this frame), prolonging them from event to time axis of the frame and then count the number of time units passing on the time axis between the intersection points.}
+	\label{fig:twin_paradox_prime}
+\end{figure}
+
+\begin{figure}
+	\centering
+
+	\begin{tikzpicture}
+		% Add basis for diagram
+		\spacetimediagram[xlabel=$x''$, ylabel=$ct''$, color=black!40!green]{4}
+	
+		% Add other observers
+		\addobserver[xlabel=$x$, ylabel=$ct$, color=black]{3}{0.5}
+		\addobserver[xlabel=$x'$, ylabel=$ct'$, color=blue]{3}{0.8}
+
+		% Add worldlines of clocks and start, end events
+		\addworldline[v=0.5]{0}{-2}{0}{2}  % Resting clock
+		\addworldline[v=0.5]{0}{-2}{0.5 * 2}{0} % Moving clock
+		\addworldline[v=0.5]{0.5 * 2}{0}{0}{2}
+		\addevent[v=0.5, radius=2pt, label=$S$, label placement=right]{0}{-2}
+		\addevent[v=0.5, radius=2pt, label=$T$, label placement=right]{0.5 * 2}{0}
+		\addevent[v=0.5, radius=2pt, label=$E$, label placement=right]{0}{2}
+	\end{tikzpicture}
+
+	\caption{Visual explanation of twin paradox.\\
+	We can measure times passing between events in a certain frame by looking at the lines of simultaneity (parallel to spatial axis of this frame), prolonging them from event to time axis of the frame and then count the number of time units passing on the time axis between the intersection points.}
+	\label{fig:twin_paradox_doubleprime}
+\end{figure}
+
+}
+\fi
 
 
 		\subsection{Metric}
