@@ -473,14 +473,14 @@ There are multiple ways to see that this is not a consequence of our notion of s
 
 
 Moreover, time dilation not only occurs for spatially separated events, but also occurs for a scenario where the clocks are read off right next to each other. It is commonly stated in the following form.
-\begin{ex}[Twin Paradox]
+\begin{ex}[Twin Paradox]\label{ex:twin_paradox_1}
 It deals with two observers, one of them at rest and the other one moving uniformly (to some destination, for example Mars $M$). Both start at the same time and at the same point in space and meet again in this point at some later time. In reality, this would involve some kind of acceleration (turning around), but as Dragon points out in \cite{dragon_geometry_srt} this would not change the results because one can accelerate the resting observer in this time as well. Hence, any result we infer from instantaneous accelerations already contain the relevant ingredients and can be attributed to uniform motion.
 
 From now on, $\mathcal{O}_R$ will be used to denote the resting observer and $\mathcal{O}_M$ to denote the moving observer. If $\mathcal{O}_R$ resting in Earth's orbit measures $\mathcal{O}_M$ to reach $M$ at time $t$, then $\tau = \sqrt{1 - v^2 / c^2} \, t$ has elapsed on a clock carried by $\mathcal{O}_M$ ($v$ denotes the velocity of $\mathcal{O}_M$). Immediately turning around at Mars and travelling back with velocity $v'$ (could be $v' = -v$, but no need for that), then times $t'$ and $\tau' = \sqrt{1 - v'^2 / c^2} \, t'$ elapse for $\mathcal{O}_R$ and $\mathcal{O}_M$, respectively. All in all, for the roundtrip times we have
 \begin{equation*}
 t + t' = \frac{\tau}{\sqrt{1 - v^2 / c^2}} + \frac{\tau'}{\sqrt{1 - v'^2 / c^2}} \geq \tau + \tau' \, .
 \end{equation*}
-Furthermore, there is no ambiguity here in the perception of $\mathcal{O}_M$ because they end up witnessing the same event, $E = E'$, so there can be no ambiguity in simultaneity.
+Furthermore, there is no ambiguity here in the perception of $\mathcal{O}_M$ because they end up witnessing the same event, $E = E'$, so there can be no ambiguity in simultaneity. This is proven demonstrated explicitly in the second treatment of this example using spacetime diagrams (\ref{ex:twin_paradox_2}).
 \end{ex}
 Therefore, it is indeed true that less time goes by on moving clocks. This effect has also been verified experimentally. It should be noted, though, that this effect only becomes relevant for velocities $v \approx c$, otherwise $\sqrt{1 - v^2 / c^2} \approx 1$ and $\tau \approx t$. Once again, we emphasize that this is the reason why the Newtonian way of describing time as an absolute, universal notion has worked for so long and is perhaps also more intuitive.\\
 
@@ -717,35 +717,33 @@ when interpreting Minkowski space as a manifold and working with coordinates/cha
 -> introduce spacetime diagrams with multiple observers, can also explain twin paradox very nicely
 
 
-\begin{ex}[Twin Paradox 2]
-we have events start $S$, turning point $T$, end $E$; question: what time elapses along world line connecting them vs.~world line connecting $S$ and $E$ straight (corresponding trajectory lies on $ct$ axis); visualization for $v = 0.5 c$ is in figure \ref{fig:twin_paradox} (and we will also assume this velocity in example here; bigger velocities would make relative velocity of primed and double primed frame $> c$, undesirable -> bullshit, just messed up addition of velocities)
+\begin{ex}[Twin Paradox 2]\label{ex:twin_paradox_2}
+As promised, here comes the detailed demonstration of the twin paradox, which has been started in example \ref{ex:twin_paradox_1}. We will discuss the setup shown in figure \ref{fig:twin_paradox}, i.e.~treat one observer at rest (will be commonly referred to as \enquote{unprimed} one) and two observers moving with velocities $v = \pm 0.5 c$ relative to the unprimed observer (these will be called \enquote{primed} and \enquote{double primed}, in accordance with their axis labels in \ref{fig:twin_paradox}).
 
+Our approach will be to compute the roundtrip time needed to go from $S$ to $E$ (i.e.~the time passing on the world line on $ct$ axis) and the time needed to go from $S$ to $T$ to $E$ (i.e.~the time passing on the other world line shown in \ref{fig:twin_paradox}). Each of these quantities will be computed from clocks resting in all three of the inertial frames shown in figure \ref{fig:twin_paradox} (reminder: three are involved due to turning around, rest frame of moving observer changes there).
 
-first state what each observer measures for roundtrip time; then say that this is \emph{not} what clock moving along trajectory shows, for that we have to combine results from different moving inertial systems; this result then has to be compared to what resting clock measures (which is trivial, four time units)
+%the thing that makes things make sense is that all observers agree on the time passing along moving clock, even when measured from their coordinates; after all, from the double primed coordinates we can still look at time passing on clock in primed coordinates and simultaneously passing in rest frame; adding that up, we get the total times and these agree between the frames (good, otherwise we would have problem)
 
-the thing that makes things make sense is that all observers agree on the time passing along moving clock, even when measured from their coordinates; after all, from the double primed coordinates we can still look at time passing on clock in primed coordinates and simultaneously passing in rest frame; adding that up, we get the total times and these agree between the frames (good, otherwise we would have problem)
-
-
-\hrule
-Explanation:
-
-We have to distinguish between four times: (i) the time $t_{ST}$ passing on the resting clock between $S$ and $T$, (ii) the time $t_{TE}$ passing on the resting clock between $T$ and $E$, (iii) the time $\tau_{ST}$ passing on the moving clock between $S$ and $T$ and (iv) the time $\tau_{TE}$ passing on the moving clock between $T$ and $E$. From that we get the total times for resting and moving clock,
-\begin{equation}
+During the process, we have to distinguish between four times: (i) the time $t_{ST}$ passing on the resting clock between $S$ and $T$, (ii) the time $t_{TE}$ passing on the resting clock between $T$ and $E$, (iii) the time $\tau_{ST}$ passing on the moving clock between $S$ and $T$ and (iv) the time $\tau_{TE}$ passing on the moving clock between $T$ and $E$. From that we get the total times for resting and moving clock,
+\begin{equation*}
 t_{SE} = t_{ST} + t_{TE}, \tau_{SE} = \tau_{ST} + \tau_{TE} = t'_{ST} + t''_{TE} \, .
-\end{equation}
+\end{equation*}
 
-One final note concerns the velocities involved: the world line is drawn for $v = 0.5 c$ on the way from $S$ to $T$ and $v = -0.5 c$ on the way from $T$ to $E$ (same velocity, different direction), where $v$ is the velocity of the respective moving frame compared to the unprimed, resting one. This implies a relative velocity of $v_2 = - \frac{0.5 c + 0.5 c}{1 + 0.5^2} = -0.8 c$ from primed to double primed frame (note that addition of velocities works differently in relativity).
+One final note concerns the velocities involved: the world line is drawn for $v = 0.5 c$ on the way from $S$ to $T$ and $v = -0.5 c$ on the way from $T$ to $E$ (same velocity, different direction), where $v$ is the velocity of the respective moving frame compared to the unprimed, resting one. This implies a relative velocity of $v_2 = \frac{0.5 c + 0.5 c}{1 + 0.5^2} = 0.8 c$ from double primed to primed frame (note that addition of velocities works differently in relativity).
 
 \begin{itemize}
-	\item \textbf{Unprimed coordinates}
+	\item \textbf{Measuring from unprimed coordinates}
 	
 	Clearly,
 	\begin{equation*}
 	t_{ST} = 2 = t_{TE}
 	\qquad \Leftrightarrow \qquad
-	t_{SE} = 4
+	t_{SE} = t_{ST} + t_{TE} = 4
 	\end{equation*}
-	in arbitrary time units (where one time unit goes by between two grid lines).
+	in arbitrary time units (where one time unit goes by between two grid lines). From that, Minkowski's theorem tells us
+	\begin{equation*}
+	t'_{SE} = \sqrt{1 - v^2} \, t_{SE} = 3.464 \, .
+	\end{equation*}
 
 	Simultaneously, by looking at how much time elapses between the intersection of gray grid lines and the blue $ct'$-axis, one can see that as a rough estimate $t'_{ST} \lesssim 2$. For the exact result, we apply Minkowski's theorem:
 	\begin{equation*}
@@ -764,37 +762,44 @@ One final note concerns the velocities involved: the world line is drawn for $v 
 	
 
 
-	\item \textbf{Primed coordinates}
+	\item \textbf{Measuring from primed coordinates}
 
 	While from these coordinates one still sees four time units going by on the roundtrip for the resting observer, i.e.~$t_{SE} = 4$, a rough estimate for the roundtrip time measured by a clock resting in the primed coordinates $ct'$ is $t'_{SE} \gtrsim 4$. More precisely, Minkowski's theorem yields
 	\begin{equation*}
 	t_{SE} = \sqrt{1 - v^2 / c^2} \, t'_{SE}
 	\qquad \Leftrightarrow \qquad
-	t'_{SE} = \frac{t_{SE}}{\sqrt{1 - v^2 / c^2}} = \frac{4}{\sqrt{1 - (-0.5)^2}} = 4.589 \, .
+	t'_{SE} = \frac{t_{SE}}{\sqrt{1 - v^2 / c^2}} = \frac{4}{\sqrt{1 - (-0.5)^2}} = 4.619 \, .
 	\end{equation*}
-	This is a consequence from the mutuality of time dilation, an observer resting in primed coordinates sees the unprimed observer moving at $v = -0.49c$ and therefore measures more time passing in his own frame.
+	This is a consequence from the mutuality of time dilation, an observer resting in primed coordinates sees the unprimed observer moving at $v = -0.5 c$ and therefore measures more time passing in his own frame.
 
 
-	However, $t'_{SE}$ is not what the moving clock sees. Instead, 
+	However, $t'_{SE}$ is not what a clock in the primed coordinates sees. Instead, 
 	\begin{equation*}
 	\tau_{SE} = \tau_{ST} + \tau_{TE} = t'_{ST} + t''_{TE}
 	\end{equation*}
-	as stated before. Similar to what was done for $t'_{SE}$, we compute
-	\begin{equation}
-	t'_{ST} = \frac{t_{ST}}{\sqrt{1 - v^2 / c^2}} = \frac{2}{\sqrt{1 - (-0.5)^2}} = 2.309 \, .
-	\end{equation}
-	-> shit, don't think this is correct; it is correct that primed observer also measured $t_{SE} = 4$, but for him $t_{TE} \approx 2.6 > t_{ST} \approx 1.5$ (from looking at diagram) and in particular, he does not agree on times that unprimed coordinates measure here (formula still holds, but we now measure primed times from primed coordinates and infer from that the unprimed ones -> bad, I don't think it is so easy to compute the time that passes between events now; maybe using Lorentz-transform)
-
-	To get $t''_{TE}$, we have to prolong the axes of simultaneity of the primed coordinates and count the number of time units which go by between the intersections of them with $ct''$ (i.e.~the number of intersections with green lines on the way). This yields roughly $t''_{TE} \lesssim 1.5$ again. For the time passing simultaneously on a clock in primed coordinates, we can read off roughly $t'_{TE} \approx 4$. The correct numbers can be obtained from Minkowski's theorem again:
+	as stated before. For $t'_{ST}$, however, we cannot simply use Minkowski's theorem and thus the time
 	\begin{equation*}
-	t''_{TE} = \sqrt{1 - v_2^2 / c^2} \, t'_{TE} = \sqrt{1 - (-0.8)^2} \, \frac{t_{TE}}{\sqrt{1 - 0.5^2}} = 1.386 \, .
+	\frac{t_{ST}}{\sqrt{1 - v^2 / c^2}} = 2.309 \, ,
+	\end{equation*}
+	which cannot be quite correct since from the diagram we get the estimate $t'_{ST} \lesssim 3$. This is because the world line is moving with respect to the rest frame of $ct$, so we would only get statements about what is the time as seen from this frame. However, we wish to measure the primed time from the primed coordinates. This requires a Lorentz transformation of the events $S, T, E$:
+	\begin{equation*}
+	t'_{ST} = t'_T - t'_S = \frac{t_T - \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} - \frac{t_S - \frac{v}{c} x_S}{\sqrt{1 - v^2 / c^2}} = \frac{t_{ST} - \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} = \frac{2 - 0.5 \cdot 1}{\sqrt{1 - 0.5^2}} = 1.732 \, .
+	\end{equation*}
+	In the same manner, we obtain
+	\begin{equation*}
+	t'_{TE} = t'_E - t'_T = \frac{t_E - \frac{v}{c} x_E}{\sqrt{1 - v^2 / c^2}} - \frac{t_T - \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} = \frac{t_{TE} + \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} = \frac{2 + 0.5 \cdot 1}{\sqrt{1 - (-0.5)^2}} = 2.887 \, .
+	\end{equation*}
+
+	To get $t''_{TE}$, we have to prolong the axes of simultaneity of the primed coordinates and count the number of time units which go by between the intersections of them with $ct''$ (i.e.~the number of intersections with green lines on the way). This yields roughly $t''_{TE} \gtrsim 1.5$ again. For the time passing simultaneously on a clock in primed coordinates, we can read off roughly $t'_{TE} \approx 4$. The correct numbers can be obtained from Minkowski's theorem again:
+	\begin{equation*}
+	t''_{TE} = \sqrt{1 - (-v_2)^2 / c^2} \, t'_{TE} = \sqrt{1 - (-0.8)^2} \, 2.887 = 1.732 \, .
 	\end{equation*}
 
 	All together, the primed observer measures a roundtrip time
-	\begin{equation}
-	\tau_{SE} = \tau_{ST} + \tau_{TE} = 2.751 < t'_{SE} = 3.695 \, .
-	\end{equation}
-	We find the same result that less time has passed on the moving clock. It should not be surprising that the absolute values measured for $\tau_{SE}$ do not agree, though. After all, they are still measured from different inertial frames and they measure with respect to frames moving with different relative velocities ($\pm 0.5$ for primed; $0.5, 0.8$ for unprimed).
+	\begin{equation*}
+	t'_{SE} = t'_{ST} + t'_{TE} = 4.619 > \tau_{SE} = \tau_{ST} + \tau_{TE} = t'_{ST} + t''_{TE} = 3.464 \, .
+	\end{equation*}
+	We find the same result that less time has passed on the moving clock. Furthermore, we see that the absolute value for this $\tau_{SE} = t'_{SE}$ and the one computed from Minkowski's theorem in the first calculation agree (because corresponding world line is parallel to $ct$, i.e.~in rest frame). On the other hand, it should not be surprising that the absolute values measured for $\tau_{ST}$ and $\tau_{TE}$ do not agree. After all, they are still measured from different inertial frames and they measure with respect to frames moving with different relative velocities ($\pm 0.5$ for primed; $0.5, 0.8$ for unprimed).
 
 	
 	% for v=0.7 c
@@ -802,21 +807,38 @@ One final note concerns the velocities involved: the world line is drawn for $v 
 	
 	%on own clock, it is again roughly $3 / 2$ which pass by; on $ct''$ he sees $3 / 2$ passing by as well (way to see that: look at which lines parallel to $x'$ intersect the relevant events, i.e.~starting point and turning point; then look at points where these lines intersect $ct''$ and count number of ticks on $ct''$ between these intersections); in the same manner, we see that four time units pass on $ct$
 	
-	\item \textbf{Double primed coordinates}
+	\item \textbf{Measuring from double primed coordinates}
 
 	Just as before, $t_{SE} = 4$ is measured, while roughly $t''_{SE} \gtrsim 4$ and precisely
 	\begin{equation*}
-	t''_{SE} = \frac{t_{SE}}{\sqrt{1 - v^2 / c^2}} = \frac{4}{\sqrt{1 - (-0.5)^2}} = 4.589 \, .
+	t''_{SE} = \frac{t_{SE}}{\sqrt{1 - v^2 / c^2}} = \frac{4}{\sqrt{1 - (-0.5)^2}} = 4.619
 	\end{equation*}
 	are measured by a clock resting in the double primed coordinates. As one can confirm by looking at the result above, this is the same time a clock resting in primed coordinates measures. We expect more of these equal results since the double primed coordinate system is moves with the same relative velocity as the primed one, just in the other direction (sign of velocity is different).
 
-	A rough estimate for $t''_{TE}$ is $t''_{TE} \lesssim 1.5$ and the exact result is
-	\begin{equation}
-	t''_{TE} = \sqrt{} \, 
-	\end{equation}
+	A rough estimate for $t''_{TE}$ is $t''_{TE} \gtrsim 2$ and the exact result is
+	\begin{equation*}
+	t''_{TE} = t''_E - t''_T = \frac{t_E - \frac{v}{c} x_E}{\sqrt{1 - v^2 / c^2}} - \frac{t_T - \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} = \frac{t_{TE} + \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} = \frac{2 - 0.5 \cdot 1}{\sqrt{1 - (-0.5)^2}} = 1.732 \, .
+	\end{equation*}
+	An analogous calculation yields
+	\begin{equation*}
+	t''_{ST} = t''_T - t''_S = \frac{t_T - \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} - \frac{t_S - \frac{v}{c} x_S}{\sqrt{1 - v^2 / c^2}} = \frac{t_{ST} - \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} = \frac{2 + 0.5 \cdot 1}{\sqrt{1 - 0.5^2}} = 2.887 \, .
+	\end{equation*}
+	As promised, we get more results that we have already seen when making computations in the primed coordinates, but now they are switched (due to the transition $v \rightarrow -v$).
+
+	Now we wish to compute $t'_{ST}$ and the result better be equal to the estimate $t'_{ST} \gtrsim 2.5$. Indeed, we obtain
+	\begin{equation*}
+	t'_{ST} = \sqrt{1 - v_2^2 / c^2} \, t'_{TE} = \sqrt{1 - 0.8^2} \, 2.887 = 1.732 \, .
+	\end{equation*}
+	All in all, the double primed observer measures a roundtrip time
+	\begin{equation*}
+	t''_{SE} = t''_{ST} + t''_{TE} = 4.619 > \tau_{SE} = \tau_{ST} + \tau_{TE} = t'_{ST} + t''_{TE} = 3.464 \, .
+	\end{equation*}
+	Once again, these results look very familiar. 
 \end{itemize}
 
-roundtrip times measured only from each inertial system (for comparison): primed and double primed coordinate system measure almost six time units for whole roundtrip, which means they see less time passing on resting observer (time dilation is mutual); however, this does not coincide with time shown on clock moving along red trajectory because not the entirety of the trajectory happens in the respective frame (they measure more than four of these time units for part that happens in other frame, which makes sense given that they move at $2 v$ with respect to each other)
+A conclusion of these extensive calculations is that physics is not broken, despite the sometimes unintuitive nature of relativity. Although all inertial frames play equal roles, which shows in the mutual slowing of moving clocks, all agree on the effect of time dilation: moving clocks tick slower than resting ones.
+
+It should also be noted that the agreement of all three observers regarding $\tau_{SE}$ is really a coincidence due to the symmetric setup we have chosen -- for other scenarios, e.g.~with unequal velocities on the first and second part of the journey or perhaps even if we assume that $ct$ is not at rest after all (but keeping the relative velocities of primed and unprimed system, i.e.~rotating the whole setup).
 \end{ex}
 
 \begin{figure}
@@ -842,8 +864,8 @@ roundtrip times measured only from each inertial system (for comparison): primed
 		\addevent[radius=2pt, label=$E$, label placement=right]{0}{2}
 	\end{tikzpicture}
 
-	\caption{Visual explanation of twin paradox.\\
-	We can measure times passing between events in a certain frame by looking at the lines of simultaneity (parallel to spatial axis of this frame), prolonging them from event to time axis of the frame and then count the number of time units passing on the time axis between the intersection points.}
+	\caption{Visual explanation of twin paradox. Event $S$ is the starting point, $T$ turning point and $E$ end point. The primed observer has a relative velocity of $v = 0.5 v$ with respect to the unprimed one, while the double primed observer has $v = -0.5 c$.\\
+	We can measure times passing between events in a certain frame $\mathcal{O}$ by prolonging the corresponding lines of simultaneity (parallel to spatial axis of $\mathcal{O}$) from event to the time axis of $\mathcal{O}$ and then count the number of time units passing on the time axis between the intersection points. Similarly, we could also prolong them until they intersect the time axis of any other frame $\mathcal{O}'$. In this case, counting the number of time steps passing between the intersection points on the time axis of $\mathcal{O}'$ would yield the time passing for $\mathcal{O}'$, measured from $\mathcal{O}$.}
 	\label{fig:twin_paradox}
 \end{figure}
 
@@ -1033,6 +1055,10 @@ we have seen how to compute proper times in special relativity, the formula coul
 \end{equation}
 
 in fact, this formula also holds for $v = v(t)$, i.e.~when a time-dependent velocity and thus acceleration is present (we can compute dynamics); this is because it does not involve absolute differences like $x - x'$, but infinitesimal ones $dx$ along the whole path, so changes in $v$ are incorporated automatically; however, we have to use other metrics in this case and general relativity presents a general way to compute the metric
+
+
+
+good start I think: \url{https://de.wikipedia.org/wiki/Zeitdilatation#Bewegung_mit_konstanter_Beschleunigung}
 
 
 
