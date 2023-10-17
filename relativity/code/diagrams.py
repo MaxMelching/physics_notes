@@ -491,9 +491,21 @@ def moving_clocks(v1, v2, tstart, tend, t0, t0prime=None):
 
     If t1prime is None, we choose it such that clocks are synchronized.
     """
-    v_avg = (v1 + v2) / 2
+    v_avg = (v1 + v2) / 2  # Still produces best results...
     # v_rel = np.abs(v1 - v2)
 
+
+    # v_avg = (v1 + v2) / (1 + v1 * v2)  # Relativistic addition!
+    # # v1 = -v1  # Nope, does not work here
+    # v_avg = (1 + v1 * v2 - np.sqrt(1 - v1**2 - v2**2 + v1**2 * v2**2)) / (v1 + v2)  # Could also be +sqrt -> nope, results do not look correct for that
+    # # v1 = -v1
+
+    # Idea: v3 = v1 + (v2 - v1) / 2
+    # v1 = -v1  # Think might be necessary due to direction, but only for v_avg calculation
+    # v_diff = (1 - v1 * v2 - np.sqrt(1 - v1**2 - v2**2 + v1**2 * v2**2)) / (v1 - v2)
+    # v_avg = (v1 + v_diff) / (1 + v1 * v_diff)
+    # v1 = -v1
+    
     def line1(t):  # Observer 1
         return (-1 + v1 * t, t)
         # return tuple([-1, 0] + [v1, 1] / np.sqrt(v1**2 + 1) * t)
@@ -531,6 +543,27 @@ def moving_clocks(v1, v2, tstart, tend, t0, t0prime=None):
 
     def light_r_to_l(t, t0):
         return (1 + v2 * t0 - t, t0 + t)
+    
+
+
+    # Testing with switching axes -> does not work nicely
+    # def line1(t):  # Observer 1
+    #     return (-1 + t, v1 * t)
+    #     # return tuple([-1, 0] + [v1, 1] / np.sqrt(v1**2 + 1) * t)
+    
+    # def line2(t):  # Observer 2
+    #     return (1 + t, v2 * t)
+    #     # return tuple([1, 0] + [v2, 1] / np.sqrt(v2**2 + 1) * t)
+    
+    # def line3(t):  # Referee
+        
+    #     return (t, v_avg * t)
+
+    # def light_l_to_r(t, t0):
+    #     return (-1 + t0 + t, v1 * t0 + t)
+
+    # def light_r_to_l(t, t0):
+    #     return (1 + t0 + t, v2 * t0 - t)
     
 
     # v1 /= np.sqrt(v1**2 + 1)
@@ -710,8 +743,14 @@ def moving_clocks_single_fig(v1, v2, tstart, tend, t0, t0prime=None):
 
     If t1prime is None, we choose it such that clocks are synchronized.
     """
-    v_avg = (v1 + v2) / 2
+    # v_avg = (v1 + v2) / 2
     # v_rel = np.abs(v1 - v2)
+
+    # v_rel = (v1 + v2) / (1 + v1 * v2)  # v31 uknown here, want v21 (computed above)
+    # v_avg = (-v_rel + v2) / (-1 + v_rel * v2)  # Inferred from Dragon Abb. 2.7
+
+    v_avg = (v1 + v2) / (1 + v1 * v2) / 2  # just using addition of velocities
+
 
     def line1(t):  # Observer 1
         return (-1 + v1 * t, t)
@@ -1191,10 +1230,23 @@ if __name__ == '__main__':
     # print(moving_clocks_resting_wrt_each_other(0.3, 0, 6, 0.5))  # Good
 
     # For comparison of simultaneous etc
-    print(resting_clocks_single_fig(0, 6, 0.5))
-    print(moving_clocks_resting_wrt_each_other_single_fig(0.3, 0, 6, 0.5))
-    # print(resting_clocks(0, 6, 0.5, x_shift=0.3 * (6 - 0.5) / 2 * 1 / np.sqrt(1 - 0.3**2), x_distance=1 / np.sqrt(1 - 0.3**2)))
-    print(resting_clocks_fitted(0, 6, 0.5, 0.3))
+    # print(resting_clocks_single_fig(0, 6, 0.5))
+    # print(moving_clocks_resting_wrt_each_other_single_fig(0.3, 0, 6, 0.5))
+    # # print(resting_clocks(0, 6, 0.5, x_shift=0.3 * (6 - 0.5) / 2 * 1 / np.sqrt(1 - 0.3**2), x_distance=1 / np.sqrt(1 - 0.3**2)))
+    # print(resting_clocks_fitted_single_fig(0, 6, 0.5, 0.3))
+
+
+    # print(moving_clocks_single_fig(-0.3, 0.3, -1.5, 5, -1))
+    # print(moving_clocks_single_fig(-0.1, 0.4, -1, 7, -0.5))
+    # print(moving_clocks(-0.2, 0.4, -4, 4, -2, -2 * np.sqrt(1 - ((-0.2 + 0.4) / (1 + (-0.2) * 0.4))**2)))
+    # print(moving_clocks(-0.2, 0.4, -4, 4, -2))  # Seems to be the same as in line above now, finally
+    # print(moving_clocks(-0.2, 0.4, 0, 7, 0.5))
+
+    # Correcting code
+    print(moving_clocks(-0.2, 0.4, -4, 4, -2, -2 * np.sqrt(1 - ((-0.2 + 0.4) / (1 + (-0.2) * 0.4))**2)))
+
+    # print(moving_clocks_single_fig(-0.2, 0.4, -4, 4, -2))  # Seems to be the same as in line above now, finally
+    # print(moving_clocks_single_fig(-0.2, 0.4, 0, 7, 0.5))  # Seems to be the same as in line above now, finally
 
     # print(moving_clocks(0.1, 0.4, 0, 6, 0.5))
     # print(moving_clocks(-0.1, 0.4, -1, 7, -0.5))  # Does not work with negative velocities yet -> does now
@@ -1213,5 +1265,6 @@ if __name__ == '__main__':
 
     # print(abb22(-0.4, 0.75, -0.5, 5, 2))
 
+    # Following would be great, but does not work...
     # with open('../pictures/abb21.tex', 'w') as file:
     #     file.write(abb21(-0.5, 0.5, -0.5, 5, 1, 2))
