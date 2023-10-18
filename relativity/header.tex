@@ -209,13 +209,21 @@ backgroundcolor=gray!8}
 \usepackage{pgfkeys}
 
 
+% Define fixed color for light rays
+\definecolor{lightyellow}{rgb}{0,0,0}  % Start with black
+\colorlet{lightyellow}{black!10!yellow}  % Mix with 10% of yellow
+
+
 \pgfkeys{
 	/spacetimediagram/.is family, /spacetimediagram,
-	default/.style = {stepsize = 1, xlabel = $x$, ylabel = $ct$, color = black},
+	default/.style = {stepsize = 1, xlabel = $x$, ylabel = $ct$, color = black, onlypositive = false, lightcone = true, grid = true},
 	stepsize/.estore in = \diagramStepsize,
 	xlabel/.estore in = \diagramxlabel,
 	ylabel/.estore in = \diagramylabel,
-	color/.estore in = \diagramColor
+	color/.estore in = \diagramColor,
+	onlypositive/.estore in = \diagramPositiveVals,
+	lightcone/.estore in = \diagramLightCone,
+	grid/.estore in = \diagramGrid
 }
 	%lightcone/.estore in = \diagramlightcone  % Maybe also make optional?
 	% Maybe add argument if grid is drawn or markers along axis? -> nope, they are really important
@@ -225,20 +233,30 @@ backgroundcolor=gray!8}
 \newcommand{\spacetimediagram}[2][]{%
 	\pgfkeys{/spacetimediagram, default, #1}
 
+	\ifthenelse{\equal{\diagramPositiveVals}{false}}{
+		\tikzmath{\helpval = 1;}
+	}{
+		\tikzmath{\helpval = 0;}
+	}
+
     % Draw the x ct grid
-    \draw[\diagramColor, step=\diagramStepsize, gray!30, very thin] (-#2 * \diagramStepsize, -#2 * \diagramStepsize) grid (#2 * \diagramStepsize, #2 * \diagramStepsize);
+	\ifthenelse{\equal{\diagramGrid}{true}}{
+	    \draw[\diagramColor, step=\diagramStepsize, gray!30, very thin] (-#2 * \diagramStepsize * \helpval, -#2 * \diagramStepsize * \helpval) grid (#2 * \diagramStepsize, #2 * \diagramStepsize);
+	}{}
 
     % Draw the x and ct axes
-    \draw[->, thick, \diagramColor] (-#2 * \diagramStepsize - \diagramStepsize, 0) -- (#2 * \diagramStepsize + \diagramStepsize, 0);
-    \draw[->, thick, \diagramColor] (0, -#2 * \diagramStepsize - \diagramStepsize) -- (0, #2 * \diagramStepsize + \diagramStepsize);
+    \draw[->, thick, \diagramColor] (-#2 * \diagramStepsize * \helpval - \diagramStepsize * \helpval, 0) -- (#2 * \diagramStepsize + \diagramStepsize, 0);
+    \draw[->, thick, \diagramColor] (0, -#2 * \diagramStepsize * \helpval - \diagramStepsize * \helpval) -- (0, #2 * \diagramStepsize + \diagramStepsize);
 
 	% Draw the x and ct axes labels
     \draw (#2 * \diagramStepsize + \diagramStepsize + 0.2, 0) node {\diagramxlabel};
     \draw (0, #2 * \diagramStepsize + \diagramStepsize + 0.2) node {\diagramylabel};
 
 	% Draw light cone
-	\draw[black!10!yellow, thick] (-#2 * \diagramStepsize, -#2 * \diagramStepsize) -- (#2 * \diagramStepsize, #2 * \diagramStepsize);
-	\draw[black!10!yellow, thick] (-#2 * \diagramStepsize, #2 * \diagramStepsize) -- (#2 * \diagramStepsize, -#2 * \diagramStepsize);
+	\ifthenelse{\equal{\diagramLightCone}{true}}{
+		\draw[lightyellow, thick] (-#2 * \diagramStepsize * \helpval, -#2 * \diagramStepsize * \helpval) -- (#2 * \diagramStepsize, #2 * \diagramStepsize);
+		\draw[lightyellow, thick] (-#2 * \diagramStepsize * \helpval, #2 * \diagramStepsize * \helpval) -- (#2 * \diagramStepsize * \helpval, -#2 * \diagramStepsize * \helpval);
+	}{}
 }
 
 

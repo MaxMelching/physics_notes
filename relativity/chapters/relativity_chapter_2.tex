@@ -102,7 +102,11 @@ to end subsection: we want equivalent results in all frames; if we try to measur
 
 
 
-		\subsection{Spacetime Diagrams}
+		\subsection{Light Cones \& Spacetime Diagrams}
+another motivation: speed limit means there is fundamental limit which events can interact, i.e.~which events can influence each other; commonly stated/thought of as light cone for each event, which contains all events in future and past that this event can have interacted with
+
+
+
 natural idea for visualization: time evolution of events and world lines; thus we have one spatial and one temporal axis (which is rescaled for convenience purposes; after all, we are often interested in velocities close to speed of light, thus slopes would be huge due to $c$ being on the order of $10^8$)
 
 -> since we visualize space on one axis and time on the other, a natural name is spacetime diagram
@@ -139,7 +143,8 @@ natural idea for visualization: time evolution of events and world lines; thus w
 
 
 
-	\section{Clocks}%{Time Measurement} % Sounds kind of awkward
+	\section{Clocks}\label{sec:clocks}
+%{Time Measurement} % Sounds kind of awkward
 Until now, we have not really touched the notion of time. Partly, this is because we natively have a very clear, intuitive understanding of time: we look at clocks to measure it and this notion can be employed anywhere in space -- just take a look at equal clocks in different points and compare their readings. This definition is employed in Newtonian physics, without much more attention being needed.
 
 
@@ -514,6 +519,8 @@ also helpful because from them, we can deduce how addition of velocities works; 
 		\subsection{Length Contraction}
 there is an induced effect on lengths, which are defined as distances measured \emph{at the same time}; here we see how observers may measure different lengths, they have potentially different notions of simultaneity
 
+-> moving rulers are shorter (again, mutual effect)
+
 
 
 
@@ -544,21 +551,109 @@ there is an induced effect on lengths, which are defined as distances measured \
 
 	\section{Lorentz Transformation}
 %		\subsection{Derivation} % I don't think we need name, just explain it at beginning et (maybe just state result without derivation)
-basically follow structure Einstein paper, derive coordinate transformation first; then we can see some of the effects that follow from it, like time dilation for example (is just logical consequence; we demand something in the postulates, then see what implications that has for coordinates and physics) -> better structure: do time measurement first, which shows that time and space are not independent anymore, then talk about how we need transformation between equivalent frames (mention at the end that one can also impose this straight from relativity principle, derive Lorentz and then examine effects like time dilation)
+The effects of time dilation and length contraction point to new effects that occur upon changing inertial frames to look at problems. These effects are not predicted by the Galilei transform, which maps spatial coordinates between two inertial frames (one unprimed, one primed, moving relative to each other with velocity $v$) according to 
+\begin{equation*}
+x' = x - v t
+\qquad \Leftrightarrow \qquad
+x = x' + v t
+\end{equation*}
+and does not affect time at all, i.e.
+\begin{equation*}
+t' = t \, .
+\end{equation*}
+Over the course of the last sections, however, we have seen that time is a notion which depends on the observer measuring it as well. Therefore, it is natural that it has to be transformed as well. Additionally, observers measure different speeds of light for this Galilei transform, a violation of the relativity principle. The goal of this section is to find a new, corrected transformation between the unprimed and primed coordinates. Note that we will restrict ourselves to one spatial dimension $x$ instead of three for now (a generalized treatment will be done in subsection \ref{subsec:lorentz_transformation_2}).\\
 
 
-mention that, as we have seen, time is now a notion which depends on the observer, so it is just natural that we also have to transform it
+Since we now that the Galilei transformation does work for velocities $v \ll c$, there is no need for a completely new expression. Our ansatz can simply be
+\begin{equation}\label{eq:lorentz_spatial_ansatz}
+x' = \gamma (x - vt)
+\qquad \text{ and } \qquad
+x = \gamma (x' + vt')
+\end{equation}
+for some factor $\gamma = \gamma(v)$, which fulfils $\gamma \approx 1$ for $v \ll c$. Note that we have used $\gamma(v) = \gamma(-v)$ here, which is the reason why $x \rightarrow x'$ has the same structure as $x' \rightarrow x$. This is a necessary condition on the transformation (and thus $\gamma$) since otherwise, there would be a preferred direction, which is forbidden by the equivalence principle.
+
+To obtain the way $t \rightarrow t'$ transforms, we use the relativity principle, which tells us that $x = ct$ and $x' = ct'$ for light. We can rearrange this to read
+\begin{equation}\label{eq:lorentz_time_ansatz}
+ct' = x' = \gamma (x - vt) = \gamma (ct - \frac{v}{c} x)
+\qquad \text{ and } \qquad
+ct = x = \gamma (x' + vt') = \gamma (ct' + \frac{v}{c} x') \, .
+\end{equation}
+We are free to switch the expressions here since we are looking at light and it is necessary because $t' \overset{!}{=} t$ for $v = 0$.
+
+The last step is determining the factor $\gamma$, which can be done by inserting \eqref{eq:lorentz_time_ansatz} into \eqref{eq:lorentz_spatial_ansatz}
+\begin{align*}
+x' &= \gamma (x - vt) = \gamma (\gamma (x' + vt') - v \gamma / c (ct' + \frac{v}{c} x'))
+\\
+&= \gamma^2 (x' + vt' - vt' - \frac{v^2}{c^2} x') = \gamma^2 \qty(1 - \frac{v^2}{c^2}) x'
+\end{align*}
+from which we obtain the \Def{Lorentz-factor}
+\begin{equation}\label{eq:gamma_factor}
+\eqbox{
+\gamma = \frac{1}{\sqrt{1 - \frac{v^2}{c^2}}}
+}
+\end{equation}
+Inserting this result into \eqref{eq:lorentz_time_ansatz} and \eqref{eq:lorentz_spatial_ansatz} yields the \Def{Lorentz transformation}
+\begin{subequations}\label{eq:lorentz_trafo}
+%\begin{alignat}{3}
+%x' &= \gamma (x - vt) = \frac{x - vt}{\sqrt{1 - \frac{v^2}{c^2}}}
+%& \qquad \qquad &
+%t' &= \gamma (t - \frac{v}{c^2} x) = \frac{t - \frac{v}{c^2} x}{\sqrt{1 - \frac{v^2}{c^2}}}
+%\\
+%x &= \gamma (x' + vt') = \frac{x' + vt'}{\sqrt{1 - \frac{v^2}{c^2}}}
+%& \qquad \qquad &
+%t' &= \gamma (t + \frac{v}{c^2} x) = \frac{t + \frac{v}{c^2} x}{\sqrt{1 - \frac{v^2}{c^2}}}
+%\end{alignat}
+%
+% does not allows eqbox
+%
+\begin{align}
+\eqbox{
+x' = \gamma (x - vt) = \frac{x - vt}{\sqrt{1 - \frac{v^2}{c^2}}}
+}
+\qquad & \qquad
+\eqbox{
+t' = \gamma (t - \frac{v}{c^2} x) = \frac{t - \frac{v}{c^2} x}{\sqrt{1 - \frac{v^2}{c^2}}}
+}
+\\
+\eqbox{
+x = \gamma (x' + vt') = \frac{x' + vt'}{\sqrt{1 - \frac{v^2}{c^2}}}
+}
+\qquad & \qquad
+\eqbox{
+t = \gamma (t' + \frac{v}{c^2} x') = \frac{t' + \frac{v}{c^2} x'}{\sqrt{1 - \frac{v^2}{c^2}}}
+} \, .
+\end{align}
+\end{subequations}
+Often, one abbreviates $\beta = \frac{v}{c}$, which is the velocity given in multiples of $c$ (equal to $v$ in units where $c = 1$).
 
 
-another motivation: speed of light constant, so adding velocities like in Galilei transform cannot be right anymore; thus, we need new way to transform between frames of reference, one that respects relativity principle
+From its definition and figure \ref{fig:gamma_factor}, it is clear that $\gamma$ diverges as $v$ approaches $c$. The Lorentz transformation, on the other hand, does not diverge because of $x = ct$, which implies
+\begin{align*}
+x' = \eval{\frac{c - v}{\frac{1}{c^2} \sqrt{c^2 - v^2}}}_{v = c} t = 0
+\manyqquad
+t' = \eval{\frac{c - v}{\frac{1}{c^2} \sqrt{c^2 - v^2}}}_{v = c} \frac{t}{c} = 0 \, .
+\end{align*}
+Hence, $x' = ct'$ still holds, as required. Them being equal to zero, as measured from the unprimed coordinates, simply comes from the fact that exchanging signals with light is impossible, so one cannot receive any information regarding times $t'$ or positions $x'$.
 
 
--> much of clock section was arguing and sort of awkward pictures because they are often hard to interpret (not meant to be 100\% rigorous); now, however, we will come to validation of all the results -> idea: show how transformation for spatial coordinates works, then compute $\Delta t = (x_1 - x_2) / c$ in primed coordinates, i.e.~how $\Delta t' = (x'_1 - x'_2) / c$ is related to $\Delta t$ (no change, again, comes from the fact that $c$ is constant for every observer); will turn out that this is in very similar manner to spatial ones; implies that time transforms between observers as well, i.e.~that clock results are correct! -> confirms time dilation as \enquote{real}, physical effect arising from relativity principle rather than induced side-effect from our chosen definition of synchrony/simultaneity (although this derivation is not as rigorous as the one in clock section, where we set up consistent procedure for time measurement)
+The other limit we have to check is $v \ll c$, where we should re-obtain the Galilei transform. As figure \ref{fig:gamma_factor} shows, $\gamma$ exhibits the desired behaviour of $\gamma(v) \approx 1, \, v \ll c$. More quantitatively, a Taylor expansion in $v / c$ shows
+\begin{align*}
+\frac{1}{\sqrt{1 - \frac{v^2}{c^2}}} &\simeq \eval{\frac{1}{\sqrt{1 - \frac{v^2}{c^2}}}}_{v = 0} + \eval{\frac{\frac{1}{2} \cdot \frac{-2 v}{c}}{(1 - \frac{v^2}{c^2})^{3/2}}}_{v = 0} \frac{v}{c} + \dots
+\\
+&= 1 + \mathcal{O}(v^2 / c^2) \, .
+\end{align*}
+Combining that with $v \ll c \ll c^2$, we obtain the desired result to zero-th order in $v$:
+\begin{equation*}
+x' \simeq x - vt
+\manyqquad
+t' \simeq t
+\, .
+\end{equation*}\\
 
 
 
+One final note: the derivation presented here is perhaps not be the most rigorous one. Alternatively, one can argue using a diagram like \ref{fig:moving_rod_diagram}, which is the spacetime diagram of a moving rod. Using a bit of geometry, one can show that the angle $\alpha$ between $x, x'$ and the one between $ct, ct'$ are equal. Moreover $ct'$ is the line of equilocality of $x' = 0$, while in unprimed coordinates it is the line $x = vt$. \cite{giulini_srt} argues in detail how $\tan(\alpha) = \frac{v}{c}$ and more relations, which also leads to \eqref{eq:lorentz_trafo}. Another approach is mentioned in subsection \ref{subsec:lorentz_transformation_2}.
 
-definitely include plot of $\gamma$-factor at some point to show that it only becomes significant for speeds close to $c$, otherwise $1$ to good approximation
 
 
 \begin{figure}
@@ -566,14 +661,142 @@ definitely include plot of $\gamma$-factor at some point to show that it only be
 	
 	\includegraphics[width=0.9\textwidth]{gamma_factor.pdf}
 	
-	\caption{Plot of the Lorentz-factor $\gamma = \frac{1}{\sqrt{1 - v^2 / c^2}}$.\\
-	Clearly, its effect only becomes significant for speeds which are significant fractions of $c$.}
+	\caption{Plot of the Lorentz-factor $\gamma = \frac{1}{\sqrt{1 - v^2 / c^2}}$.	Clearly, its effect only becomes significant for speeds which are significant fractions of $c$.}
+	\label{fig:gamma_factor}
 \end{figure}
 
 
 
-		\subsection{Light Cones}
-we can visualize Lorentz transformation very nicely in geometric manner/fashion/way
+\begin{figure}
+	\centering
+
+%	\begin{minipage}{0.5\textwidth}
+%		\centering
+
+		\begin{tikzpicture}
+			\spacetimediagram[onlypositive=true, lightcone=false]{4}
+	
+			\draw[thick, red, cm={1, 0, 1/2, 1, (0,0)}] (0, 0) rectangle (2, 4);  % "World line" of rod
+			\draw[thick, red, dashed, cm={1, 0, 1/2, 1, (0,0)}] (1, 0) -- (1, 4);  % World line of midpoint -> yes, for condition of simultaneity
+	
+			\draw[thick, lightyellow] (0, 0) -- (2, 2);
+			\draw[thick, lightyellow] (0, 4) -- (8/3, 4/3);
+	
+			\draw[->, thick, blue] (0, 0) -- (4, 2) node[right] {$x'$};
+			\draw[->, thick, blue] (2, 4) -- (2.5, 5) node[above] {$ct'$};
+	
+		\end{tikzpicture}
+%	\end{minipage}%
+	%
+%	\begin{minipage}{0.5\textwidth}
+		%\centering
+
+		\caption{Spacetime diagram for a rod moving with velocity $v$, whose ends are depicted as red lines (midpoint using dashed line).\\
+		By definition, the axis $ct'$ is the left end of the rod at $x' = 0$. In the $(ct, x)$-frame, it is given by the line $x = vt$. For the $x'$-axis, one can construct the point on the world line of the right end of the rod that is simultaneous to $t' = 0$ as measured by the left end of the rod. In accordance with the Einstein synchronization, this can be done by looking at light sent out from the origin and its intersection with the midpoint (dashed line). Tracing back this intersection point using light that is sent out by the right end of the rod in negative $x$-direction, one finds the point simultaneous to $t = 0 = t'$ in the origin (i.e.~the line of simultaneity, which is nothing but $x'$).}
+		\label{fig:moving_rod_diagram}
+%	\end{minipage}
+\end{figure}
+
+
+
+
+
+\iffalse
+{ % To complicated
+To obtain the way $t \rightarrow t'$ transforms, we have to think a bit more and in fact, reinterpret the ansatz \eqref{eq:lorentz_spatial_ansatz}. 
+-> this is the same as arguing in terms of equilocality for moving measuring rod; if we do this for time, i.e.~think about simultaneity, we end up with ...
+
+Demanding the same structure for $t' \rightarrow t$ means
+
+
+from that we get $\gamma$
+
+
+\begin{figure}
+	\centering
+	
+	\begin{tikzpicture}
+		\spacetimediagram[onlypositive=true, lightcone=false]{4}
+
+		\draw[thick, red, cm={1, 0, 1/2, 1, (0,0)}] (0, 0) rectangle (2, 4);  % "World line" of rod
+		\draw[thick, red, dashed, cm={1, 0, 1/2, 1, (0,0)}] (1, 0) -- (1, 4);  % World line of midpoint -> yes, for condition of simultaneity
+
+		\draw[thick, lightyellow] (0, 0) -- (2, 2);
+		\draw[thick, lightyellow] (0, 4) -- (8/3, 4/3);
+
+		\draw[->, thick, blue] (0, 0) -- (4, 2) node[right] {$x'$};
+		\draw[->, thick, blue] (2, 4) -- (2.5, 5) node[above] {$ct'$};
+
+	\end{tikzpicture}
+	
+	\caption{}
+\end{figure}
+
+
+In $x$-coordinates, the point $x' = 0$ moves away at speed $x = vt$
+
+
+the axis $x'$ is determined from the fact that it consists of all events happening at $t' = 0$, i.e.~those which are simultaneous to origin $(ct', x') = (0, 0)$; we have determined this axis by constructing event $E$ that right end of rod perceives to be simultaneous to $t' = 0$ measured by left end of rod (which crosses origin)
+
+rod does not move in primed coordinates, i.e.~$x' = const$ for it; therefore, by prolonging world line of left end of rod, we get axis where $x' = 0$ for all times $t'$ and thus the axis $ct'$
+
+
+$\gamma$ is stretching, needed because we know that lengths are measured differently in moving systems
+
+}
+\fi
+
+
+
+		\subsection{Time Dilation \& Length Contraction from Lorentz Transformation}
+In principle, it is not surprising that a new transformation has to be used. After all, we have demanded some new postulates to be true (in particular the relativity principle) and there is no reason for the \enquote{old} transformation to fulfil it. On the other hand, we have already examined quite a few predictions of these postulates in the clock section \ref{sec:clocks} and likewise, it is not guaranteed that our new Lorentz transformation reproduces the results which have been found there.
+
+Most prominently, time dilation and length contraction showed up as new effects. We will now check if they can be reproduced by coordinates related via the Lorentz transformation. For that, we will look at a rod with ends at positions $x_1, x_2$. Their spatial distance and thus the length of the rod in unprimed coordinates is $L = x_2 - x_1$. For a ruler in the primed coordinates, however
+\begin{equation}
+L' = x'_2 - x'_1 = \gamma (x_2 - v t_2) - \gamma (x_1 - v t_1) = \gamma (x_2 - x_1) = \gamma L = \frac{L}{\sqrt{1 - \frac{v^2}{x^2}}} \, .
+\end{equation}
+Here we assume $t_1 = t_2$ because by definition, distances are measured at the same time (simultaneously). This result is not what we expect from the previous discussions. Is the Lorentz transformation at fault? Luckily, no. We have emphasized how simultaneity is important for the length to be meaningful. However,
+\begin{equation}\label{eq:not_simultaneous}
+t'_1 = \gamma (t_1 - \frac{v}{c^2} x_1) \neq \gamma (t_2 - \frac{v}{c^2} x_2) = t'_2
+\quad \Leftrightarrow \quad
+\Delta t' = t'_2 - t'_1 = \gamma \frac{v}{c^2} (x_1 - x_2)
+\, ,
+\end{equation}
+the measurements in primed coordinates are not simultaneous, so this $L'$ is \emph{not} what a ruler in primed coordinates measures. In order to simulate this result, we have to tune the times $t_1, t_2$ to achieve $t'_1 = t'_2$. Choosing
+\begin{equation}
+\Delta t = t_2 - t_1 = - \Delta t' = - \gamma \frac{v}{c^2} (x_1 - x_2) = \frac{v}{c^2} \gamma L
+\end{equation}
+leads to a cancellation of the time difference in \eqref{eq:not_simultaneous}. The \enquote{true} length measured in unprimed coordinates then becomes
+\begin{equation}
+\begin{split}
+\eqbox{L'} &= x'_2 - x'_1 = \gamma (x_2 - v t_2) - \gamma (x_1 - v t_1) = \gamma L - v \Delta t
+\\
+&= \gamma L - \frac{v^2}{c^2} \gamma L = \frac{1 - \frac{v^2}{c^2}}{\sqrt{1 - \frac{v^2}{c^2}}} L = \sqrt{1 - \frac{v^2}{c^2}} L = \eqbox{\frac{L}{\gamma}} \, .
+\end{split}
+\end{equation}
+Moving rulers measure smaller distances, physics is still intact.
+Effectively, this corresponds to waiting a longer time until the second measurement in unprimed coordinates, which in turn causes the transformed times $t'_1, t'_2$ to be equal (note that the length $L$ does not change because it is at rest in unprimed coordinates, i.e.~$x_1, x_2$ are constant, independent of time). An intuitive explanation for this is that the moving observer claims the system at rest is moving, i.e.~the end of the rod moves away from him, shortening it. In order to compensate for that, we have to wait a bit longer until taking the second measurement at $t'_2$ and correspondingly, increase $t_2$.
+
+%Similarly, their temporal distance is
+
+Looking at temporal distances $T = t_2 - t_1$ measured by a clock resting in unprimed coordinates (i.e.~$x_1 = x_2$), we obtain
+\begin{equation}
+%T = t_2 - t_1
+%\qquad \qquad
+\eqbox{T'} = t'_2 - t'_1 = \gamma (t_2 - \frac{v}{c^2} x_2) - \gamma (t_1 - \frac{v}{c^2} x_1) = \gamma (t_2 - t_1) = \gamma T \eqbox{= \frac{T}{\sqrt{1 - \frac{v^2}{c^2}}}} \, .
+\end{equation}
+The primed observer measures a time $T'$ between two events on his clock, while on the clock resting in unprimed coordinates, $T = \sqrt{1 - \frac{v^2}{c^2}} \, T'$ go by. Since the primed observer sees the unprimed one moving, that confirms what we already knew: moving clocks tick slower. This effect can be attributed to the synchronization of clocks. Despite $x_1 = x_2$, $x'_1 \neq x'_2$, so the measurements in primed coordinates are taken by two different (but of course properly synchronized) clocks.\\
+
+
+In the end, we can can confirm that both length contraction and time dilation are reproduced by the Lorentz transformation (the mutuality can be confirmed in analogous calculations). Furthermore, the calculations are much more straightforward compared to what had to be done previously (setting up synchronization, drawing complicated diagrams etc.). For this reason, it is customary to introduce the Lorentz transformation without covering any details on clocks. However, in my personal experience, that often results in a lack of intuition on these topics -- one is bound to the understanding in terms of Lorentz transformations, although they are \emph{not} necessary to understand what is going on. Since special relativity is a confusing topic in itself due to several frames and new concepts, intuition is an important part and helps tremendously with interpreting calculations.
+
+
+
+		\subsection{Spacetime Diagrams 2}
+Even more help with understanding relativity is provided by visualizations like spacetime diagrams, which are especially helpful because one can visualize multiple observers in a single diagram (see e.g.~figure \ref{fig:moving_rod_diagram} or figure \ref{fig:spacetime_diagram_two_observers}, where grid lines are shown as well). Essentially, this is a geometric way of visualizing what Lorentz transformations do. By marking the coordinates $(x, ct)$ of an event in a single, resting frame we can immediately read off the coordinates in other frames as well by showing the axes as it is done in \ref{fig:spacetime_diagram_two_observers}. In principle, a Lorentz transformation shifts the points $(x, ct) = (0, ct)$ by $-vt$ to the left. This means the $ct'$-axis is rotated to the left compared to the $ct$-axis, so events would have different positions in diagrams. For this reason, the $ct'$-axis is rotated to the right, such that the position of events stays the same (an analogous argument can be made for the $x'$-axis). Reading off coordinates then works by looking at the transformed lines of simultaneity and equilocality (parallel to $x'$-axis and $ct'$-axis, respectively).
+
+
+%explanation why primed axes are shifted inwards in Minkowski diagrams: we wish to express these axes in the unprimed coordinate system, i.e.~we do not apply the Lorentz transform from unprimed (at rest) to primed (moving with $v$), but rather the inverse one (thus we have to use $-v$ in transformation) -> better explanation: we wish to draw only one point for events; since a coordinate change from unprimed to primed would rotate the $ct$-axis (where $x = 0$) by $-vt$ and thus to the left ($ct'$ would then by $y$-axis), we have to rotate the $ct'$-axis by the same amount to the right; then, we can read off coordinates of an event in the unprimed and primed frame at once
 
 
 mention future and past light cone
@@ -585,16 +808,10 @@ timelike means trajectories are always in light/null cone (Penrose continues to 
 uhhh for spacelike events (equivalent: they do not lie in light cone of other event), their order depends on inertial frame we choose! This is what is meant with causality problems for spacelike events and world lines, cause and effect depend on observer!
 
 
-talk about spacetime diagrams here -> after all, we will use them in section on clocks (not really anymore) -> better motivation: can visualize effects of Lorentz transformation very nicely
-
-spacetime diagram is basically intersection in light cone, right? Where we only show one spatial dimension
-
-
-simultaneous events in Minkowski space are one a line parallel to spatial axis; gleichortige (-> equilocal?) events are on a line parallel to time axis
+%spacetime diagram is basically intersection in light cone, right? Where we only show one spatial dimension -> not sure about that
 
 
 
-explanation why primed axes are shifted inwards in Minkowski diagrams: we wish to express these axes in the unprimed coordinate system, i.e.~we do not apply the Lorentz transform from unprimed (at rest) to primed (moving with $v$), but rather the inverse one (thus we have to use $-v$ in transformation)
 
 
 
@@ -622,14 +839,14 @@ explanation why primed axes are shifted inwards in Minkowski diagrams: we wish t
 		\addevent[v=\v, color=blue]{2}{2}
 	\end{tikzpicture}
 	
-	\caption{Two events at spacetime points $(0,2), (2,2)$. Red dots show the points with these coordinates in the $(x, ct)$-frame and blue dots show the same coordinates in the $(ct', x')$-frame moving with $v = 0.5 c$.\\
-	We can see very nicely how each observer perceives time differently. Events happening simultaneously to both red dots (i.e.~which lie on the line between them at $t = 2$), do \emph{not} happen at $t' = t$, but at $t' = \tau = \sqrt{1 - v^2} \, t$ (which is evident from the fact that the blue dots are at $t' = t$). The same can be said for the moving observer in blue, which sees events at $t = \sqrt{1 - v^2} \, t'$ simultaneous to the blue dots at $t' = 2$.}
+	\caption{Events in frames moving with $v = 0.5 c$ relative to each other. Red dots show two events at spacetime points $(x, ct) = (0,2), (2,2)$ (the corresponding primed coordinates are $(x', ct') = (-1.15, 2.3), (1.15, 1.15)$). Blue dots show the same coordinates in the $(x', ct')$-frame (corresponding unprimed coordinates: $(x, ct) = (1.15, 2.3), (3.46, 3.46)$).\\
+	We can see very nicely how each observer perceives time differently. Events happening simultaneously to both red dots (i.e.~which lie on the line between them at $t = 2$), do \emph{not} happen at $t' = t$, but at $t' = \tau = \sqrt{1 - v^2} \, t$ (which is evident from the fact that the blue dots are at $t' = t$). The same can be said for the moving observer in blue, which sees events at $t = \sqrt{1 - v^2} \, t'$ simultaneous to the blue dots at $t' = 2$. Analogous arguments can be made for positions and equilocality.}
+	\label{fig:spacetime_diagram_two_observers}
 \end{figure}
 
 
 
--> introduce spacetime diagrams with multiple observers, can also explain twin paradox very nicely -> but should work before, right?
-
+This new addition to spacetime diagrams makes them a powerful tool suitable to explain many effects of relativity. For example, the fairly complicated twin paradox can be explained and -- perhaps, more event important -- visualized conveniently.
 
 \begin{ex}[Twin Paradox 2]\label{ex:twin_paradox_2}
 As promised, here comes the detailed demonstration of the twin paradox, which has been started in example \ref{ex:twin_paradox_1}. We will discuss the setup shown in figure \ref{fig:twin_paradox}, i.e.~treat one observer at rest (will be commonly referred to as \enquote{unprimed} one) and two observers moving with velocities $v = \pm 0.5 c$ relative to the unprimed observer (these will be called \enquote{primed} and \enquote{double primed}, in accordance with their axis labels in \ref{fig:twin_paradox}).
@@ -1060,7 +1277,7 @@ more thoughts inspired by Dragon script: we have seen how to measure time $\tau$
 
 
 
-		\subsection{Lorentz Transformations 2}
+		\subsection{Lorentz Transformations 2}\label{subsec:lorentz_transformation_2}
 -> I think introducing them before Minkowski section still makes sense because they were there before description as manifolds; but now, they get more general meaning as change of coordinates/charts etc, so we look at them again
 
 -> after metric is nice, then we can present mathematical viewpoint; do not change norm of four-vector; also note that they admit group structure, i.e.~note properties here; maybe even introduce rapidity and note connection of Lie group and Lie algebra? But not elaborate on this
