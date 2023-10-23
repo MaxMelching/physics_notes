@@ -60,6 +60,10 @@ mechanics/chapters/**
 
 relativity/pictures/**
 
+relativity/header**
+
+!relativity/header.tex
+
 relativity/relativity_main.**
 
 !relativity/relativity_main.tex
