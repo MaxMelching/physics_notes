@@ -25,23 +25,24 @@ Both approaches can lead to a rich and of course equivalent understanding, but i
 	\section{Newtonian Physics}
 		\subsection{Space \& Time}
 % Good sources: Nolting + Meinel; also Giulini + Dragon
-maybe start from argument for speed of light is limit and then say that close to the speed of light, Newtonian description fails; this means we cannot look at time and space as separate concepts anymore, instead look at things like spacetime diagrams; from that, we can also derive something like notion of distance and then we can formalize this using notion of metric (another way to see this: we want invariant notion of distance in Minkowski space and we have already seen one; mathematically, that means we work with pseudo-metric)
-
 
 surely state that Newton is conform with our intuition and holds at small distances, speeds; for larger ones, however, inconsistencies show up
 
-
-
-Maxwell's equation tells us that the speed of light is a constant, $c = \frac{1}{\sqrt{\epsilon_0 \mu_0}}$; or Michelson-Morley experiment, shows that speed of light is the same in all inertial frames (i.e.~that uniform motion does not influence it); therefore, the distance light travels is related to this constant velocity via the well-known formula for uniform motion $c^2 \qty(\Delta t)^2 = \qty(\Delta x)^2 + \qty(\Delta y)^2 + \qty(\Delta z)^2$; any observer in a different inertial frame also has to measure the same velocity, despite having different coordinates, i.e.~$c^2 \qty(\Delta t')^2 = \qty(\Delta x')^2 + \qty(\Delta y')^2 + \qty(\Delta z')^2$; this seemingly simple idea will turn out to be very powerful and fundamental in building the theory of relativity
-
-argument for maximal speed? Ah, we do not even need maximum speed for showing inconsistency: speed of light being constant contradicts Newtonian addition of velocities; maybe this just magically comes out because otherwise, we would violate causality
-
-
-Newtonian description also admits changing coordinates, vie Galilei transform
+mention fictitious forces, e.g.~Coriolis
 
 
 
-as end of this section: however, the Newtonian physics is not complete; as the Michelson-Morley experiment showed, the speed of light is constant (or rather say that Maxwell equations tell us this, M-M was after SR has been developed); in Newtonian physics, however, a photon emitted by an observer moving with velocity $v$ will have velocity $c + v$ in the frame of an observer at rest (because of Galilei transform); to solve this inconsistency, we will have to rethink the Newtonian concepts of time and space
+\begin{defi}[Inertial Frame]
+	An \Def[inertial frame]{inertial frame of reference} is a frame where $F^k = m a^k = m \ddot{r}^k$ holds.
+\end{defi}
+
+Newtonian description also admits changing coordinates, via Galilei transform -> idea: for $a_1 = \dv{v_1}{t} = \dv{v_2}{t} = a_2$ as long as $v_1 - v_2 = const.$; therefore they show same physics in $F = m a$
+
+
+
+
+		\subsection{Newton-Cartan Gravity}
+can also formulate Newtonian description in other mathematical framework, fibre bundles and connections; is more in line with geometrical formulations brought forward by Einstein
 
 
 
@@ -50,93 +51,139 @@ as end of this section: however, the Newtonian physics is not complete; as the M
 
 
 	\section{Relativity}
-		\subsection{What is wrong with Newton?}
-make it subsection here? Or mention in Newton? -> nope, here is good
+		\subsection{What Is Wrong with Newton?}
+Newtonian theory works beautifully for many applications, even today where the theories of relativity and quantum mechanics are available. However, it does not describe the entirety of physics. This is also what physicists realized in the late $19$th/early $20$th century. At least to some degree, if not fully, every contradiction that surfaced at this time can be traced back to light.
+
+In the 1860s, James Clerk Maxwell derived the \Def{Maxwell equations} describing electromagnetic fields. They predicted electromagnetic waves, whose existence was confirmed in 1886 in experiments conducted by Heinrich Hertz. These waves propagate with the speed of light,
+\begin{equation}\label{eq:speed_of_light}
+	\eqbox{
+	c = \frac{1}{\sqrt{\epsilon_0 \, \mu_0}} = 299 \, 792 \, 458 \, \frac{\metre}{\second}
+	} \, ,
+\end{equation}
+so it was (and is) natural to identify them with light.
+
+
+Several conflicts with Newtonian physics arise from this:
+\begin{enumerate}
+	\item $c$ is constant for all observers measuring it. The Galilei transform describing transformations in Newtonian theory, however, predicts different speeds. More specifically, light emitted by a moving observer is measured to have a speed of $c + v$ by a resting observer.
+
+
+	\item Maxwell's equations are not invariant under the Galilei transform. Instead, the corresponding symmetry transformations are modified versions of them (confer section \ref{sec:lorentz_transformation_1} on those Lorentz transformations).
+\end{enumerate}
+
+On the other hand, Newton's theory had tremendous success itself over many decades, so why would one conclude that this theory is at fault rather than the new Maxwell theory? Because (a) not all of Newtonian physics is to be replaced and (b) because of overwhelming experimental evidence. In addition to Hertz's experiments, the Michelson-Morley experiment in 1887 confirmed that $c$ is constant for all observers to high precision.\\
+
+
+For this reason, some new concepts are needed. While one can handle the subject strictly mathematically and e.g.~simply derive the \enquote{correct} coordinate transformations that leave the Maxwell equations invariant, this tells us only little about the new physics that may arise. As we will learn, quite some rethinking of the concepts of space and time is needed to obtain equivalent results from a more intuitive approach and this work was mainly done by Einstein, e.g.~in his famous paper \enquote{On the electrodynamics of moving bodies}.
 
 
 
 		\subsection{Einstein Postulates}
+Einstein's theory is based on two fundamental ideas, which are formulated in postulates.
 
-
-we only demand that physics must not depend on observer (inertial system) and that speed of light is constant
-
-\begin{defi}[Inertial Frame]
-An \Def[inertial frame]{inertial frame of reference} is a frame where $F^k = m a^k = m \ddot{r}^k$ holds.
-\end{defi}
-
-
+The first idea is to make the invariance under chosen reference frame, which has been known a long time beforehand, a building block of the theory rather than a consequence.
 \begin{post}[Principle of Relativity]
-All physical observations must hold independently of the inertial frame that is chosen.
+	All physical observations must hold independently of the inertial frame that is chosen.
 \end{post}
-Einstein was not the first one to notice this, nothing really revolutionary or new compared to Newton
-
-this means we have to abandon notion of universal space, there is no preferred frame of reference!
+This means if you are in a closed room without any windows, you cannot perform any experiment to determine if you are at rest or moving at a constant velocity. In other words, there is no absolute notion of rest; it's all relative (hence the name \enquote{relativity principle}).\\
 
 
-This means that if you are in a closed room without any windows, you cannot perform any experiment to determine if you are at rest or moving at a constant velocity. In other words, there is no absolute notion of rest; it's all relative (hence the name \enquote{relativity principle}).
-
-
-
-second thing we demand (very reasonable, but this is assumption we build theory upon):
-\begin{post}[Relativity Principle]%[Universality of Speed of Light]
-%The speed of light $c$ is the same for all observers.
-The speed of light $c$ is constant in all inertial frames.
+The second postulate concerns the speed of light and is definitely something new.
+\begin{post}[Universality of Speed of Light]\label{post:c_constant}
+	The vacuum speed of light $c$ is constant for observers in all inertial frames.
 \end{post}
+Note that we do not demand \enquote{equivalent} statements like the relativity principle did -- $c$ has \emph{the exact same} value for all observers. This postulate was based on the insights mentioned in the previous subsection, i.e.~based on theory \emph{and} experiment, and even more experiment evidence has been collected since.
+
+However, it has profound implications. One of them concerns the very notion of space itself. In Newtonian physics, the notion of space is an absolute one. This means there is one reference frame that describes \enquote{real} space and while frames moving with respect to this one exhibit the same physical observations, this frame always has a special role. One way to characterize this observer is by measuring the speed of light sent out by him. If it is $c$ and not differing by some amount, then the frame is at rest (otherwise it would be $c + v$).\footnote{Note that we can assume the value of $c$ to be known because it can be measured e.g.~using a mirror by measuring the round-trip time. Strictly speaking, this only yields the two-way speed of light, but details on inferring one-way speeds require theory we are yet to built up.} However, since all observers measure $c$ now, there is no way to determine this preferred observer at rest -- the notion of rest/motion and therefore the connected notion of space itself becomes completely relative.
 
 
-this constant speed of light makes it very special because it is independent of the observer/inertial system and thus allows to transform statements between them (make invariant statements?)
+At the same time, this constance makes $c$ very special because statements related to it are independent of the observer/inertial system and thus allow to make invariant statements. This property will be used routinely when properties in relativity are derived.\\
 
 
 
+A direct corollary of postulate \ref{post:c_constant} is that $c$ is the maximum speed at which \emph{any} signal, not just light, can be transmitted.
 % Taken from Dragon
 \begin{prop}[Universal Speed Limit]%[Maximum Speed]
-The speed of light $c$ is the maximum velocity for all interactions.
+	The speed of light $c$ is the maximum velocity for all interactions.
 \end{prop}
-no information can be transmitted at higher speed, in particular no particle can travel faster! Follows from relativity principle; in principle, it is still possible to construct theories where speeds greater than light are allowed, but we will use this property as an assumption; there is also experimental evidence which supports this (or at least does not falsify/contradict it): Neutrinos also travel with speed of light (measured to high accuracy) -> thus no real, independent postulate (rather consequence from relativity principle)
+The proof of this is very similar to the argument provided beforehand.\footnote{The idea was taken from Dragon \cite{dragon_geometry_srt}, but I tried to provide more details. However, I am not 100\% sure about them being correct, so if you find an error to it, you might be right.}
+\begin{proof}
+	If there was a speed $c'$ higher than $c$, then for moving observers the speeds would be dependent on their velocity $v$ and observed to be $c' + v$. Consequently, one could single out an observer sending signals at $c'$ and this observer would be at rest -- a violation of the relativity principle.
+	%(note: we can know the value of $c'$ by comparing the values of observers sent at the same speed $v$ in anti-parallel directions, giving us signal speeds $c' \pm v$)
+\end{proof}
 
-
-
-
-
-to end subsection: we want equivalent results in all frames; if we try to measure a distance, this requires a notion of \enquote{at the same time}; harder than it sounds (communication cannot happen instantaneously, as we have just learned), but this is why we will deal with measuring time now, i.e.~clocks -> maybe put into introduction of clocks
+This implication is a reason why experimental tests of this speed limit are important, they are confirmations of postulate \ref{post:c_constant}. Such tests have been conducted successfully for neutrinos and gravitational waves, both of which do indeed propagate at the speed of light (to high experimental accuracy).\footnote{This also means confirmations of other theories, which introduce new fields to circumvent the relativity principle and still allow speeds $> c$, cannot be confirmed.} Interestingly, both the constancy of $c$ and it being the maximum speed attainable by any signal/information implies that relativistic addition states
+\begin{equation}
+	\eqbox{
+	c + c = c
+	} \, .
+\end{equation}
+As we will see later, this statement is indeed true.
 
 
 
 		\subsection{Light Cones \& Spacetime Diagrams}
-another motivation: speed limit means there is fundamental limit which events can interact, i.e.~which events can influence each other; commonly stated/thought of as light cone for each event, which contains all events in future and past that this event can have interacted with
+Before we start to evaluate implications of these two postulates, it is customary to introduce a technique to visualize the time evolution of physical systems. The most straightforward choice is to map position $x$ on the $x$-axis and time $t$ on the $y$-axis, i.e.~a space-time diagram (which we will call \Def{spacetime diagram} instead, for reasons that will become clear later). Since we are often interested in velocities close to $c$, it is customary to rescale the time-axis and display $ct$-values instead of $t$-values on it (otherwise slopes would be very small, small time step would correspond to large change in position).
 
--> maximum speed gives us glimpse of what is sometimes referred to as light cone structure of special relativity: in spacetime diagrams, we can draw the area of potential events which can interact with some event $E$ -- this looks like a cone and since its boundaries are determined by light signals sent out from $E$, it is called light cone
-
-
-
-natural idea for visualization: time evolution of events and world lines; thus we have one spatial and one temporal axis (which is rescaled for convenience purposes; after all, we are often interested in velocities close to speed of light, thus slopes would be huge due to $c$ being on the order of $10^8$)
-
--> since we visualize space on one axis and time on the other, a natural name is spacetime diagram
-
--> hmmm, maybe even do spacetime diagrams here? Just basic idea of visualizing time and spatial axis (does not have to be something with multiple frames, can be added to picture later)
-
--> y-axis of spacetime diagram is time, but in units of space (rescaled to make visualizations more convenient)
+In doing that, we discard two of the three spatial dimensions of Euclidian space. Nonetheless, it is sufficient to visualize important ideas (see figure \ref{fig:first_spacetime_diagram} for a simple example).
+\begin{itemize}
+	\item A single point in such a diagram gives position and time of an object (e.g.~particle, person or rocket). We will refer to these points as \Def{events} and use the symbol $E$.
 
 
--> even do light cones here? yeah, think is good idea; world lines of light (and in general particles moving at light speed) are characterized by $ds^2 = 0$ (these trajectories are called \Def{null} or \Def{lightlike}), the ones for massive particles by $ds^2 > 0$ ($<$ for convention with other sign; also called \Def{timelike}), while $ds^2 < 0 \quad \Leftrightarrow \quad c < v$ and this is a violation of principles we used to build the theory (\Def{spacelike}) -> we can interpret this in terms of slope in spacetime diagram (this is why we show light trajectory starting at origin in it, helps to see causality arguments quickly)
+	\item The trajectory of an object as a function of time (essentially a collection of events) is called \Def{world line} $\Gamma$. An example for $v = 0.5 c$ is shown as a red line in figure \ref{fig:first_spacetime_diagram}.
+
+
+	\item Light is described by the relation $x = ct$, which means it is always a diagonal at $\pm 45^\circ$ (corresponds to slope $\pm 1$), irrespective of the observer for which the diagram is drawn. This is why we often depict light sent out from and received by the origin (in both spatial directions), see the yellow lines in figure \ref{fig:first_spacetime_diagram}.
+\end{itemize}
+
+For the first time, we encounter what is often called \Def{light cone structure} of relativity, which is essentially a corollary of $c$ being a universal speed limit. This fact shapes the causal structure in relativity and for spacetime diagrams, it tells us that only events connected by straight world lines with slope $\abs{v} \leq c$ can causally influence each other. This defines two cones above and below the event, the possible future and past of this event, each defined by events that the event can have interacted with or can potentially interact with. Together, these cones are called \Def{light cone} (see figure \ref{fig:first_spacetime_diagram} for an example). In terms of light cones, the structure of relativity can be states as follows.
+\begin{defi}[Timelike, Lightlike, Spacelike]
+	A straight world line $\Gamma$ connecting events $E_1, E_2$ is called
+	\begin{itemize}
+		\item \Def{timelike}, if it lies inside of $E_1$'s and $E_2$'s light cone ($\abs{v} < c$)
+		
+		
+		\item \Def{null/lightlike}, if it lies on the edge of $E_1$'s and $E_2$'s light cone ($\abs{v} = c$)
+		
+		
+		\item \Def{spacelike}, if it lies outside of $E_1$'s and $E_2$'s light cone ($\abs{v} > c$)
+	\end{itemize}
+\end{defi}
+
+
 
 
 \begin{figure}
-\centering
+	\centering
+	
+	\begin{tikzpicture}[scale=1.2]
+		% Set coordinates here for convenience
+		\tikzmath{\Eonex = 1; \Eoney = 2;
+				  \Etwox = 3; \Etwoy = -2;
+				  \Ethreex = -2; \Ethreey = 3;
+				 }
 
-\begin{tikzpicture}
-	% Draw basic grid
-	\spacetimediagram{4}
-
-	% Draw event with light cone
-	\lightcone[xpos=1, ypos=2]{2}
-	\addevent[label=$E$, label placement=right]{1}{2} % Otherwise cone in front of circle, looks weird
-
-	% Draw world line, v=0.5c
-	\draw[red, thick] (0.5, 1) -- (-0.5, 3);
-\end{tikzpicture}
-
-\caption{Ideas of light cones}
+		% Draw basic grid
+		\spacetimediagram{4}
+	
+		% Draw event with light cone
+		\lightcone[xpos=\Eonex, ypos=\Eoney]{2}
+		\addevent[label=$E_1$, label placement=right]{\Eonex}{\Eoney} % Draw event as second command, therwise cone in front of circle, looks weird
+	
+		% Draw timelike event to $E_1$
+		\addevent[label=$E_2$, label placement=right]{\Etwox}{\Etwoy}
+	
+		% Draw spacelike event to $E_2$
+		\addevent[label=$E_3$, label placement=left, color=blue]{\Ethreex}{\Ethreey}
+	
+		% Draw world lines connecting $E_1, E_2$ and $E_1, E_3$
+		\addworldline{\Eonex}{\Eoney}{\Etwox}{\Etwoy}
+		\addworldline[color=blue]{\Eonex}{\Eoney}{\Ethreex}{\Ethreey}
+	\end{tikzpicture}
+	
+	\caption[A simple spacetime diagram]{A simple spacetime diagram.\\
+	Red dots visualize three events $E_1, E_2, E_3$ at $(x, ct) = (1, 2), (3, -2), (-2, 3)$. For $E_1$, the light cone is drawn as well. Additionally, the world lines connecting $E_1, E_2$ (red; timelike) and $E_1, E_3$ (blue; spacelike) are shown.}
+	\label{fig:first_spacetime_diagram}
 \end{figure}
 
 
@@ -147,6 +194,7 @@ natural idea for visualization: time evolution of events and world lines; thus w
 
 	\section{Clocks}\label{sec:clocks}
 %{Time Measurement} % Sounds kind of awkward
+% Nice inctroduction from previous subsection, but not needed anymore I think: we want equivalent results in all frames; if we try to measure a distance, this requires a notion of \enquote{at the same time}; harder than it sounds (communication cannot happen instantaneously, as we have just learned), but this is why we will deal with measuring time now, i.e.~clocks -> maybe put into introduction of clocks
 Until now, we have not really touched the notion of time. Partly, this is because we natively have a very clear, intuitive understanding of time: we look at clocks to measure it and this notion can be employed anywhere in space -- just take a look at equal clocks in different points and compare their readings. This definition is employed in Newtonian physics, without much more attention being needed.
 
 
@@ -164,27 +212,27 @@ All of that motivates the need for a synchronization procedure of clocks. We wil
 Our setting is identical copies of an ideal clock being attached event/ point in space. For a consistent, well-defined notion of \enquote{time}, however, we now have to make sure these clocks show equivalent times. To do that, we will synchronize them by adopting the following definition, originally proposed by Einstein.
 
 \begin{defi}[Einstein Synchronization]\label{defi:einstein_synchrony}
-%Two clocks $\mathcal{C}, \mathcal{C}'$ with times $t, t'$ attached to observers $\mathcal{O}, \mathcal{O}'$ are \Def{synchronized}/\Def{equal} if they show the same times to their referee $\mathcal{R}$, i.e.~$t = t'$.
-Two clocks $\mathcal{C}, \mathcal{C}'$ with times $t, t'$ attached to observers $\mathcal{O}, \mathcal{O}'$ at rest are \Def{synchronized}, i.e.~$t = t'$, if light signals sent out from them meet exactly in the midpoint of $\overline{\mathcal{O} \mathcal{O}'}$.
+	%Two clocks $\mathcal{C}, \mathcal{C}'$ with times $t, t'$ attached to observers $\mathcal{O}, \mathcal{O}'$ are \Def{synchronized}/\Def{equal} if they show the same times to their referee $\mathcal{R}$, i.e.~$t = t'$.
+	Two clocks $\mathcal{C}, \mathcal{C}'$ with times $t, t'$ attached to observers $\mathcal{O}, \mathcal{O}'$ at rest are \Def{synchronized}, i.e.~$t = t'$, if light signals sent out from them meet exactly in the midpoint of $\overline{\mathcal{O} \mathcal{O}'}$.
 \end{defi}
-In principle, there is no unique procedure to synchronize clocks. However, in accordance with the equivalence principle, it would be desirable to for the procedure to work independently of the chosen inertial frame. A very straightforward idea is to exploit the relativity principle and use light to communicate times between different observers and their respective clocks. That is what lead Einstein to this definition of synchrony.\footnote{As Giulini elaborates on in 2.1 of \cite{giulini_srt}, this freedom in defining synchronization indeed exists.} It gives rise to the following notion of simultaneity.
+In principle, there is no unique procedure to synchronize clocks. However, in accordance with the relativity principle, it would be desirable to for the procedure to work independently of the chosen inertial frame. A very straightforward idea is to exploit the constancy of $c$ and use light to communicate times between different observers and their respective clocks. That is what lead Einstein to this definition of synchrony.\footnote{As Giulini elaborates on in 2.1 of \cite{giulini_srt}, this freedom in defining synchronization indeed exists.} It gives rise to the following notion of simultaneity.
 \begin{defi}[Simultaneity]\label{defi:simultaneity}
-%The corresponding events $E$ at $t$ and $E'$ at $t'$ are then said to be \Def{simultaneous}. % When it was in definition of synchronization
-Two events $E$ at $t$ and $E'$ at $t'$ are called \Def{simultaneous} if the locally simultaneous clock readings of synchronized clocks at these events are identical.%, i.e.~$t = t'$. % Not sure about last part, maybe it is good to be less explicit here
+	%The corresponding events $E$ at $t$ and $E'$ at $t'$ are then said to be \Def{simultaneous}. % When it was in definition of synchronization
+	Two events $E$ at $t$ and $E'$ at $t'$ are called \Def{simultaneous} if the locally simultaneous clock readings of synchronized clocks at these events are identical.%, i.e.~$t = t'$. % Not sure about last part, maybe it is good to be less explicit here
 \end{defi}
 
 Essentially by definition, the following properties hold.
 \begin{prop}[Simultaneity as an Equivalence Relation]
-Simultaneity defines an equivalence relation on the set of all clocks in an inertial frame, i.e.~the following properties hold:
-\begin{enumerate}
-\item Every event is simultaneous to itself.
-
-\item If $E$ is simultaneous to $E'$, then $E'$ is simultaneous to $E$.
-
-\item If $E$ is simultaneous to $E'$ and $E'$ is simultaneous to $E''$, then $E$ is simultaneous to $E''$.
-\end{enumerate}
-
-Moreover, a notion of simultaneity attached to some clock $\mathcal{C}$ partitions the set of all events $\{E\}$ into several, mutually disjoint subsets (equivalence classes), each containing events which are simultaneous to each other. A representative of the former is a family of synchronized clocks which show equivalent times.
+	Simultaneity defines an equivalence relation on the set of all clocks in an inertial frame, i.e.~the following properties hold:
+	\begin{enumerate}
+		\item Every event is simultaneous to itself.
+		
+		\item If $E$ is simultaneous to $E'$, then $E'$ is simultaneous to $E$.
+		
+		\item If $E$ is simultaneous to $E'$ and $E'$ is simultaneous to $E''$, then $E$ is simultaneous to $E''$.
+	\end{enumerate}
+	
+	Moreover, a notion of simultaneity attached to some clock $\mathcal{C}$ partitions the set of all events $\{E\}$ into several, mutually disjoint subsets (equivalence classes), each containing events which are simultaneous to each other. A representative of the former is a family of synchronized clocks which show equivalent times.
 \end{prop}
 Our main takeaway is the following: events that simultaneous for one observer $\mathcal{O}$ are simultaneous for every other observer $\mathcal{O}'$ at rest with respect to $\mathcal{O}$.
 
@@ -195,29 +243,29 @@ This also justifies the following interpretation: two events $E$ at $t$ and $E'$
 %Besides governing which events happen at the time, the synchronization procedure further paves way to possibilities to determine the time $t'$ shown on a clock $\mathcal{C}'$ at an event $E'$ from times measured by the clock $\mathcal{C}$, i.e.~it allows an observer $\mathcal{O}$ to determine which of the events $E$ he crosses was simultaneous to $E'$.
 Besides governing which events happen at the time, the synchronization procedure further paves way to possibilities to determine times $t'$ shown on a clock $\mathcal{C}'$ from times measured by another clock $\mathcal{C}$. As figure \ref{fig:clocks_at_rest_wrt_each_other} (a) shows, the travel time of a light signal from $\mathcal{O}$ to $\mathcal{O}'$ is the same as the travel time from $\mathcal{O}'$ to $\mathcal{O}$. Using $t'$ to denote the time light from $\mathcal{O}$ sees on $\mathcal{C}'$ when intersecting $\mathcal{O}'$ and using that $\mathcal{C}'$ is synchronized with $\mathcal{C}$ (which implies $t' = t$), equality of light travel times implies:
 \begin{equation}\label{eq:time_synchr}
-%t' - t_- = t_+ - t'
-%\qquad \Leftrightarrow \qquad
-t - t_- = t_+ - t
-\qquad \Leftrightarrow \qquad
-\eqbox{
-t = \frac{t_+ + t_-}{2}
-} \, .
+	%t' - t_- = t_+ - t'
+	%\qquad \Leftrightarrow \qquad
+	t - t_- = t_+ - t
+	\qquad \Leftrightarrow \qquad
+	\eqbox{
+	t = \frac{t_+ + t_-}{2}
+	} \, .
 \end{equation}
 Here, $t_+$ is the time on $\mathcal{C}$ when the first signal is sent out and $t_+$ the time on $\mathcal{C}$ when the second signal arrives. In just the same manner,
 \begin{equation}\label{eq:time_synchr_primed}
-\eqbox{
-t' = \frac{t'_+ + t'_-}{2}
-}
+	\eqbox{
+	t' = \frac{t'_+ + t'_-}{2}
+	}
 \end{equation}
 which should also be clear since $t'_- = t_-, t'_+ = t_+$.\\
 
 
 In the definition of synchrony, we have assumed to be the observers $\mathcal{O}, \mathcal{O}'$ to be at rest, which is also what \ref{fig:clocks_at_rest_wrt_each_other} (a) represents. However, one requirement was that synchronization should also work in other inertial systems. This situation where $\mathcal{O}, \mathcal{O}'$ are at rest with respect to each other, but move uniformly with respect to another observer, is shown in \ref{fig:clocks_at_rest_wrt_each_other} (b).\footnote{For a better distinction between the situations, the observers are named $\mathcal{O}'', \mathcal{O}'''$ instead of $\mathcal{O}, \mathcal{O}'$. This does not change any interpretations that were mentioned.} Indeed, by constructing the referee $\mathcal{R}'$ and drawing the light signals sent to and from each observer (which form a rectangle, sometimes named \Def{lightangle}), one obtains the times $t''_-, t''_+, t'''_-, t'''_+$ by prolonging the edges of the lightangle. This is equivalent to what has been done for resting observers in \ref{fig:clocks_at_rest_wrt_each_other} (a) and likewise,
 \begin{equation}
-t'' = \frac{t''_+ + t''_2}{2}
-\manyqquad
-t''' = \frac{t'''_+ + t'''_-}{2}
-\, ,
+	t'' = \frac{t''_+ + t''_2}{2}
+	\manyqquad
+	t''' = \frac{t'''_+ + t'''_-}{2}
+	\, ,
 \end{equation}
 just as before, so the observers agree on $ t'' = t'''$ (to verify that, we can also look at the distance of $t_-, t, t_+$ on the vertical axis we use to depict time). But nonetheless, something seems off. Figure \ref{fig:clocks_at_rest_wrt_each_other} (c), where for simplicity we assumed that $t = t''$ in the event where $\mathcal{O}, \mathcal{O}''$ intersect, shows this more clearly. While the synchronization process still works, its induced notion of simultaneity for $\mathcal{C}'', \mathcal{C}'''$ is \emph{not} the same as the one for $\mathcal{C}, \mathcal{C}'$. Geometrically speaking, the \enquote{lines of simultaneity} (diagonal from left to right in lightangle) change from being horizontal in figure \ref{fig:clocks_at_rest_wrt_each_other} (a) to being tilted in (b).
 
@@ -338,7 +386,7 @@ The origin of this difference is that the time of flight for light on $\overline
 		}
 	\end{minipage}%\hfill
 	\begin{minipage}{0.5\textwidth}
-		\caption{Synchronization procedure in spacetime diagrams for different sets of observers. We draw the observers $\mathcal{O}, \mathcal{O}'$ whose clocks we wish to synchronize, the referee $\mathcal{R}$ for them and the light pulses they exchange in order to achieve the synchronization.\\
+		\caption[Synchronization procedure in spacetime diagrams for different sets of observers]{Synchronization procedure in spacetime diagrams for different sets of observers. We draw the observers $\mathcal{O}, \mathcal{O}'$ whose clocks we wish to synchronize, the referee $\mathcal{R}$ for them and the light pulses they exchange in order to achieve the synchronization.\\
 		Clocks carried by $\mathcal{O}$ and $\mathcal{O}'$ measure the events at times $t = \frac{t_+ + t_-}{2}$ and $t' = \frac{t'_+ + t'_-}{2}$ to be simultaneous, i.e.~$t = t'$. This is because light (represented as yellow lines) sent out simultaneously by the referee $\mathcal{R}$ to $\mathcal{O}$ and $\mathcal{O}'$ \enquote{sees} times $t$ and $t'$ on the clocks before returning simultaneously to $\mathcal{R}$, where the results are \enquote{reported}.}
 		\label{fig:clocks_at_rest_wrt_each_other}
 	\end{minipage}
@@ -355,7 +403,7 @@ This relative velocity results in a change of the distance $\overline{\mathcal{O
 	%For two observers $\mathcal{O}, \mathcal{O}'$ that move relative to each other with velocity $v$ and an event $E'$ occurring on the world line of $\mathcal{O}'$ at time $\tau$,
 	For two observers $\mathcal{O}, \mathcal{O}'$ that move relative to each other with velocity $v$ and an event $E'$ occurring on the world line of $\mathcal{O}'$ at time $\tau'$,
 	\begin{equation}
-	\tau' = \sqrt{t_+ t_-} = \sqrt{1 - v^2 / c^2} \, t \, .
+		\tau' = \sqrt{t_+ t_-} = \sqrt{1 - v^2 / c^2} \, t \, .
 	\end{equation}
 	Here, $t_-, t_+$ are the times measured by a synchronized clock on $\mathcal{O}$ where light signals to $E'$ have been sent out and received back.
 \end{thm}
@@ -363,16 +411,16 @@ We assume that the synchronization when world lines of $\mathcal{O}, \mathcal{O}
 
 However, we have already seen that observers in other inertial frames can perceive simultaneity differently. Indeed, the travel time seen by $\mathcal{O}$ is $t_+ - t_-$. By the synchronization procedure we have employed, he assumes an equal light travel time and hence that the time $\tau$ light signals sent out by him \enquote{saw} is the same as the time $t$ defined by
 \begin{equation*}
-t - t_- = t_+ - t
-\qquad \Leftrightarrow \qquad
-t = \frac{t_+ + t_-}{2}
-\, ,
+	t - t_- = t_+ - t
+	\qquad \Leftrightarrow \qquad
+	t = \frac{t_+ + t_-}{2}
+	\, ,
 \end{equation*}
 just like \eqref{eq:time_synchr}. However, theorem \ref{thm:minkowski_moving_clocks} shows that
 \begin{equation}
-\eqbox{
-\tau' = \sqrt{t_+ t_-} = \sqrt{1 - v^2 / c^2} \, t \leq t = \frac{t_+ + t_-}{2}
-} \, .
+	\eqbox{
+	\tau' = \sqrt{t_+ t_-} = \sqrt{1 - v^2 / c^2} \, t \leq t = \frac{t_+ + t_-}{2}
+	} \, .
 \end{equation}
 For the observer $\mathcal{O}$, a time $t$ has passed since the synchronization at $t = 0 = t'$, while for $\mathcal{O}'$ the \emph{smaller} time $\tau'$ has passed -- moving clocks tick slower.
 
@@ -453,7 +501,7 @@ For the observer $\mathcal{O}$, a time $t$ has passed since the synchronization 
 	\end{tikzpicture}
 	}
 	
-	\caption{Synchronization procedure in spacetime diagrams for moving observers.\protect\footnotemark\\
+	\caption[Synchronization procedure in spacetime diagrams for moving observers]{Synchronization procedure in spacetime diagrams for moving observers.\protect\footnotemark\\
 	We also note that it is really the relative velocity that matters because we could always go in the rest frame of one of the observers and examine the situation from there. Also, it does not matter which rest frame because the effect is mutual, i.e.~it does not change if we replace $v \rightarrow -v$.}
 	\label{fig:moving_clocks}
 \end{figure}
@@ -467,7 +515,7 @@ This seems very puzzling. How does the situation look from the rest frame of $\m
 
 The same observation can explain why the synchronization procedure for the referee, who does indeed see $E'$ at $\tau'$ simultaneous to $E$ at $\tau$ (which are the events and times light signals see which are sent out by him), does not yield the same notions of simultaneity for $\mathcal{O}, \mathcal{O}'$: both of them are not at rest to $\mathcal{R}$ anymore and this differing motional state leads to the effects observed now. If this was the case, the relative velocity $v$ would be $v = 0$ and the geometric mean $\sqrt{t_+ t_-}$ would reduce back to the arithmetic mean $\frac{t_+ + t_-}{2}$, yielding the familiar result
 \begin{equation}
-t = \tau = \tau' = t' \, .
+	t = \tau = \tau' = t' \, .
 \end{equation}
 Apparently, Minkowski's theorem is a more general version of the results \eqref{eq:time_synchr}, \eqref{eq:time_synchr_primed} and it reduces back to them in case of $v = 0$.
 
@@ -484,23 +532,30 @@ The behaviour of time for moving observers seems puzzling at first, one may ask:
 There are multiple ways to see that this is not a consequence of our notion of simultaneity being flawed, causing the inconsistent result. A very striking one, at least in my personal opinion, is that what we have shown here as a synchronization procedure is equivalent to setting the same time on clocks and then moving them to different points in space (in the slow transport limit, such that no time dilation occurs). This is what we would do intuitively to synchronize clocks on Earth, which shows us that our unfamiliarity with these effects comes from our lack of experience with velocities $v \approx c$ or cosmic distances rather than pointing to unphysical effects.\\
 
 
-Moreover, time dilation not only occurs for spatially separated events, but also occurs for a scenario where the clocks are read off right next to each other. It is commonly stated in the following form.
+Moreover, time dilation not only occurs for spatially separated events, but also for a scenario where the clocks are read off next to each other. It is commonly stated in the following form.
 \begin{ex}[Twin Paradox]\label{ex:twin_paradox_1}
-It deals with two observers, one of them at rest and the other one moving uniformly (to some destination, for example Mars $M$). Both start at the same time and at the same point in space and meet again in this point at some later time. In reality, this would involve some kind of acceleration (turning around), but as Dragon points out in \cite{dragon_geometry_srt} this would not change the results because one can accelerate the resting observer in this time as well. Hence, any result we infer from instantaneous accelerations already contain the relevant ingredients and can be attributed to uniform motion.
-
-From now on, $\mathcal{O}_R$ will be used to denote the resting observer and $\mathcal{O}_M$ to denote the moving observer. If $\mathcal{O}_R$ resting in Earth's orbit measures $\mathcal{O}_M$ to reach $M$ at time $t$, then $\tau = \sqrt{1 - v^2 / c^2} \, t$ has elapsed on a clock carried by $\mathcal{O}_M$ ($v$ denotes the velocity of $\mathcal{O}_M$). Immediately turning around at Mars and travelling back with velocity $v'$ (could be $v' = -v$, but no need for that), then times $t'$ and $\tau' = \sqrt{1 - v'^2 / c^2} \, t'$ elapse for $\mathcal{O}_R$ and $\mathcal{O}_M$, respectively. All in all, for the roundtrip times we have
-\begin{equation*}
-t + t' = \frac{\tau}{\sqrt{1 - v^2 / c^2}} + \frac{\tau'}{\sqrt{1 - v'^2 / c^2}} \geq \tau + \tau' \, .
-\end{equation*}
-Furthermore, there is no ambiguity here in the perception of $\mathcal{O}_M$ because they end up witnessing the same event, $E = E'$, so there can be no ambiguity in simultaneity. This is proven demonstrated explicitly in the second treatment of this example using spacetime diagrams (\ref{ex:twin_paradox_2}).
+	It deals with two observers (commonly taken to be twins, i.e.~of the same age), one of them at rest and the other one moving uniformly to some destination, for example Mars $M$. Both start at the same time and at the same point in space and meet again in this point at some later time. The interesting question is how much time has passed for both of them, after all we have just learned that uniform motion affects clocks. While in reality, this experiment would involve some kind of acceleration (turning around), but as Dragon points out in \cite{dragon_geometry_srt} this would not change the results because one can accelerate the resting observer in this time as well. Hence, any result we infer from instantaneous accelerations (and uniform movement in between) already contain the relevant ingredients and can be attributed to uniform motion. It should also be noted that certainly no general relativity is needed to explain the effects (neglecting any effect of gravity), contrary to what is claimed in many popular-science explanations.
+	
+	From now on, $\mathcal{O}_R$ will be used to denote the resting observer and $\mathcal{O}_M$ to denote the moving observer. If $\mathcal{O}_R$ resting in Earth's orbit measures $\mathcal{O}_M$ to reach $M$ at time $t$, then $\tau = \sqrt{1 - v^2 / c^2} \, t$ has elapsed on a clock carried by $\mathcal{O}_M$ ($v$ denotes the velocity of $\mathcal{O}_M$). Immediately turning around at Mars and travelling back with velocity $v'$ (could be $v' = -v$, but no need for that), then times $t'$ and $\tau' = \sqrt{1 - v'^2 / c^2} \, t'$ elapse for $\mathcal{O}_R$ and $\mathcal{O}_M$, respectively. All in all, for the roundtrip times we have
+	\begin{equation*}
+		t + t' = \frac{\tau}{\sqrt{1 - v^2 / c^2}} + \frac{\tau'}{\sqrt{1 - v'^2 / c^2}} \geq \tau + \tau' \, .
+	\end{equation*}
+	Furthermore, there is no ambiguity here in the perception of $\mathcal{O}_M$ because they end up witnessing the same event, $E = E'$, so there can be no ambiguity in simultaneity -- the twin paradox is not paradoxical after all. This is demonstrated explicitly in the second treatment of this example using spacetime diagrams (\ref{ex:twin_paradox_2}).
 \end{ex}
-Therefore, it is indeed true that less time goes by on moving clocks. This effect has also been verified experimentally. It should be noted, though, that this effect only becomes relevant for velocities $v \approx c$, otherwise $\sqrt{1 - v^2 / c^2} \approx 1$ and $\tau \approx t$. Once again, we emphasize that this is the reason why the Newtonian way of describing time as an absolute, universal notion has worked for so long and is perhaps also more intuitive.\\
+Therefore, it is indeed true that less time goes by on moving clocks. This effect has also been verified experimentally. It should be noted, though, that this effect only becomes relevant for velocities $v \approx c$, otherwise $\sqrt{1 - v^2 / c^2} \approx 1$ and $\tau \approx t$. Once again, we emphasize that this is the reason why the Newtonian way of describing time as an absolute, universal notion has worked for so long and is perhaps also more intuitive.
 
 
 An interesting consequence of time dilation arises for observers moving with the speed of light, like e.g.~photons. No other light pulse sent from some distance can ever reach him, so how can this observer agree on time measurements with others? Well, they cannot agree because the speed of light is a universal limit, no signal can reach the moving observer, from which we conclude that no time passes for this observer. This result is in accordance with
 \begin{equation}
-\tau = \sqrt{1 - c^2 / c^2} \, t = 0 \, .
+	\tau = \sqrt{1 - c^2 / c^2} \, t = 0 \, .
 \end{equation}
+
+
+
+		\subsection{Length Contraction}
+there is an induced effect on lengths, which are defined as distances measured \emph{at the same time}; here we see how observers may measure different lengths, they have potentially different notions of simultaneity
+
+-> moving rulers are shorter (again, mutual effect)
 
 
 
@@ -518,81 +573,51 @@ also helpful because from them, we can deduce how addition of velocities works; 
 
 
 
-		\subsection{Length Contraction}
-there is an induced effect on lengths, which are defined as distances measured \emph{at the same time}; here we see how observers may measure different lengths, they have potentially different notions of simultaneity
-
--> moving rulers are shorter (again, mutual effect)
-
-
-
-
-
-%		\subsection{Dragon on Measuring Time}
-%maybe motivation for whole time measurement: postulates/principles of SR tell us that coordinates do not have an invariant meaning; however, distances have an invariant meaning (mathematically speaking because they are related to a metric; physically speaking because they do not rely on a specific starting point/reference, just as intuition why this is good); we know how to measure distances in Euclidian space, using rulers; however, in 4D spacetime and thus SR, this idea has to be adjusted; this we can see from the way rulers have to be defined for longer distances (physical ones cannot measure cosmic distances; being able to measure them must be goal for general definition of rulers); here, we exploit that speed of light is independent of reference frame, so its travel time can tell us something about the spatial distance of objects, as well as their distance in time (things are intertwined now); when doing that, some unintuitive complications will arise, which we may not be aware of from our everyday experience -> also nice motivation how \enquote{correct} notion of time measurement will allow us to define a metric for spacetime, important tool for further mathematical examination
-
-%hmmm ok, 2.1 is easy: just saying that if observer sees light from other observer, the light he sees at $t_B$ has been sent out at some time $t_U$ (not equal, travel time in between!!); they are proportional, the factor is called \Def{Doppler factor} (and it does not depend on the explicit value of $t_B$)
-
-
-%\hrule
-
-
-%say we have to observers who start from same point with same absolute velocity, but different directions; if they have equal clocks which are synchronized at $t = 0$ (i.e.~they show the same time there), then the time $t_p$ at which a light pulse is sent out by one observer is related to the time at which other observer sees pulse by $t_s = t_p + v_r t_p / c$ (where $v_r$ is relative velocity of the observers; simply comes from the observation that their distance after time $t_p$ is $v_r t_p$, which is extra distance light has to travel)
-
-%to avoid this, we can look at a referee; this is another observer which is defined to have an equal distance from both observers at all times; therefore, if we always send signals to the referee and compare there, we can neglect any additional terms due to travel time (since by definition, will be equal for both observers); that is, we can meaningfully compare the times at which light pulses from the observers come in, hence this will allow to make sense of simultaneity
-
-%the next step to utilize this is to look at which times the clocks of different observers show \enquote{at the same time}, i.e.~for an event that is simultaneous for them -> how we can measure from clock of one observer, which time the clock of the other observer shows for some event (now possible due to simultaneity)
-
-
-%it is very logical then that both observers see the same redshift, since light travels same distance for both of them (assuming the pulses are sent out at same time by means of simultaneity we just defined)
-
-
-
 \newpage
 
 
 
 	\section{Lorentz Transformation}\label{sec:lorentz_transformation_1}
-%		\subsection{Derivation} % I don't think we need name, just explain it at beginning et (maybe just state result without derivation)
 The effects of time dilation and length contraction point to new effects that occur upon changing inertial frames to look at problems. These effects are not predicted by the Galilei transform, which maps spatial coordinates between two inertial frames (one unprimed, one primed, moving relative to each other with velocity $v$) according to 
 \begin{equation*}
-x' = x - v t
-\qquad \Leftrightarrow \qquad
-x = x' + v t
+	x' = x - v t
+	\qquad \Leftrightarrow \qquad
+	x = x' + v t
 \end{equation*}
 and does not affect time at all, i.e.
 \begin{equation*}
-t' = t \, .
+	t' = t \, .
 \end{equation*}
-Over the course of the last sections, however, we have seen that time is a notion which depends on the observer measuring it as well. Therefore, it is natural that it has to be transformed as well. Additionally, observers measure different speeds of light for this Galilei transform, a violation of the relativity principle. The goal of this section is to find a new, corrected transformation between the unprimed and primed coordinates. Note that we will restrict ourselves to one spatial dimension $x$ instead of three for now (a generalized treatment will be done in subsection \ref{subsec:lorentz_transformation_2}).\\
+Over the course of the last sections, however, we have seen that time is a notion which depends on the observer measuring it as well. Therefore, it is natural that it has to be transformed as well. Additionally, observers measure different speeds of light for this Galilei transform, a violation of the relativity principle since observers have to agree on $c$ by postulate \ref{post:c_constant}. The goal of this section is to find a new, corrected transformation between the unprimed and primed coordinates. Note that we will restrict ourselves to one spatial dimension $x$ instead of three for now (a generalized treatment will be done in subsection \ref{subsec:lorentz_transformation_2}).\\
 
 
 Since we now that the Galilei transformation does work for velocities $v \ll c$, there is no need for a completely new expression. Our ansatz can simply be
 \begin{equation}\label{eq:lorentz_spatial_ansatz}
-x' = \gamma (x - vt)
-\qquad \text{ and } \qquad
-x = \gamma (x' + vt')
+	x' = \gamma (x - vt)
+	\qquad \text{ and } \qquad
+	x = \gamma (x' + vt')
 \end{equation}
-for some factor $\gamma = \gamma(v)$, which fulfils $\gamma \approx 1$ for $v \ll c$. Note that we have used $\gamma(v) = \gamma(-v)$ here, which is the reason why $x \rightarrow x'$ has the same structure as $x' \rightarrow x$. This is a necessary condition on the transformation (and thus $\gamma$) since otherwise, there would be a preferred direction, which is forbidden by the equivalence principle.
+for some factor $\gamma = \gamma(v)$, which fulfils $\gamma \approx 1$ for $v \ll c$. Note that we have used $\gamma(v) = \gamma(-v)$ here, which is the reason why $x \rightarrow x'$ has the same structure as $x' \rightarrow x$. This is a necessary condition on the transformation (and thus $\gamma$) since otherwise, there would be a preferred direction, which is forbidden by the relativity principle.
 
-To obtain the way $t \rightarrow t'$ transforms, we use the relativity principle, which tells us that $x = ct$ and $x' = ct'$ for light. We can rearrange this to read
+To obtain the way $t \rightarrow t'$ transforms, we use postulate \ref{post:c_constant} again, which tells us that $x = ct$ and $x' = ct'$ for light. We can rearrange this to read
 \begin{equation}\label{eq:lorentz_time_ansatz}
-ct' = x' = \gamma (x - vt) = \gamma (ct - \frac{v}{c} x)
-\qquad \text{ and } \qquad
-ct = x = \gamma (x' + vt') = \gamma (ct' + \frac{v}{c} x') \, .
+	ct' = x' = \gamma (x - vt) = \gamma (ct - \frac{v}{c} x)
+	\qquad \text{ and } \qquad
+	ct = x = \gamma (x' + vt') = \gamma (ct' + \frac{v}{c} x') \, .
 \end{equation}
 We are free to switch the expressions here since we are looking at light and it is necessary because $t' \overset{!}{=} t$ for $v = 0$.
 
 The last step is determining the factor $\gamma$, which can be done by inserting \eqref{eq:lorentz_time_ansatz} into \eqref{eq:lorentz_spatial_ansatz}
 \begin{align*}
-x' &= \gamma (x - vt) = \gamma (\gamma (x' + vt') - v \gamma / c (ct' + \frac{v}{c} x'))
-\\
-&= \gamma^2 (x' + vt' - vt' - \frac{v^2}{c^2} x') = \gamma^2 \qty(1 - \frac{v^2}{c^2}) x'
+	x' &= \gamma (x - vt) = \gamma (\gamma (x' + vt') - v \gamma / c (ct' + \frac{v}{c} x'))
+	\\
+	&= \gamma^2 (x' + vt' - vt' - \frac{v^2}{c^2} x') = \gamma^2 \qty(1 - \frac{v^2}{c^2}) x'
 \end{align*}
 from which we obtain the \Def{Lorentz-factor}
 \begin{equation}\label{eq:gamma_factor}
-\eqbox{
-\gamma = \frac{1}{\sqrt{1 - \frac{v^2}{c^2}}}
-}
+	\eqbox{
+	\gamma = \frac{1}{\sqrt{1 - \frac{v^2}{c^2}}}
+	}
 \end{equation}
 Inserting this result into \eqref{eq:lorentz_time_ansatz} and \eqref{eq:lorentz_spatial_ansatz} yields the \Def{Lorentz transformation}
 \begin{subequations}\label{eq:lorentz_trafo}
@@ -609,47 +634,47 @@ Inserting this result into \eqref{eq:lorentz_time_ansatz} and \eqref{eq:lorentz_
 % does not allows eqbox
 %
 \begin{align}
-\eqbox{
-x' = \gamma (x - vt) = \frac{x - vt}{\sqrt{1 - \frac{v^2}{c^2}}}
-}
-\qquad & \qquad
-\eqbox{
-t' = \gamma (t - \frac{v}{c^2} x) = \frac{t - \frac{v}{c^2} x}{\sqrt{1 - \frac{v^2}{c^2}}}
-}
-\\
-\eqbox{
-x = \gamma (x' + vt') = \frac{x' + vt'}{\sqrt{1 - \frac{v^2}{c^2}}}
-}
-\qquad & \qquad
-\eqbox{
-t = \gamma (t' + \frac{v}{c^2} x') = \frac{t' + \frac{v}{c^2} x'}{\sqrt{1 - \frac{v^2}{c^2}}}
-} \, .
+	\eqbox{
+	x' = \gamma (x - vt) = \frac{x - vt}{\sqrt{1 - \frac{v^2}{c^2}}}
+	}
+	\qquad & \qquad
+	\eqbox{
+	t' = \gamma (t - \frac{v}{c^2} x) = \frac{t - \frac{v}{c^2} x}{\sqrt{1 - \frac{v^2}{c^2}}}
+	}
+	\\
+	\eqbox{
+	x = \gamma (x' + vt') = \frac{x' + vt'}{\sqrt{1 - \frac{v^2}{c^2}}}
+	}
+	\qquad & \qquad
+	\eqbox{
+	t = \gamma (t' + \frac{v}{c^2} x') = \frac{t' + \frac{v}{c^2} x'}{\sqrt{1 - \frac{v^2}{c^2}}}
+	} \, .
 \end{align}
 \end{subequations}
-Often, one abbreviates $\beta = \frac{v}{c}$, which is the velocity given in multiples of $c$ (equal to $v$ in units where $c = 1$). This set of equations shows how different inertial frames are related, respecting the relativity principle.\footnote{The inertial part is crucial here. It implies that the transformation have to be linear in $x, ct$ since otherwise, $\dv[2]{x'}{t} \neq \dv[2]{x}{t}$ and the frames would not be inertial anymore.}\\
+Often, one abbreviates $\beta = \frac{v}{c}$, which is the velocity given in multiples of $c$ (equal to $v$ in units where $c = 1$). This set of equations shows how different inertial frames are related, respecting the the constancy of $c$.\footnote{The inertial part is crucial here. It implies that the transformation have to be linear in $x, ct$ since otherwise, $\dv[2]{x'}{t} \neq \dv[2]{x}{t}$ and the frames would not be inertial anymore.}\\
 
 
 From its definition and figure \ref{fig:gamma_factor}, it is clear that $\gamma$ diverges as $v$ approaches $c$. The Lorentz transformation, on the other hand, does not diverge because of $x = ct$, which implies
 \begin{align*}
-x' = \eval{\frac{c - v}{\frac{1}{c^2} \sqrt{c^2 - v^2}}}_{v = c} t = 0
-\manyqquad
-t' = \eval{\frac{c - v}{\frac{1}{c^2} \sqrt{c^2 - v^2}}}_{v = c} \frac{t}{c} = 0 \, .
+	x' = \eval{\frac{c - v}{\frac{1}{c^2} \sqrt{c^2 - v^2}}}_{v = c} t = 0
+	\manyqquad
+	t' = \eval{\frac{c - v}{\frac{1}{c^2} \sqrt{c^2 - v^2}}}_{v = c} \frac{t}{c} = 0 \, .
 \end{align*}
 Hence, $x' = ct'$ still holds, as required. Them being equal to zero, as measured from the unprimed coordinates, simply comes from the fact that exchanging signals with light is impossible, so one cannot receive any information regarding times $t'$ or positions $x'$.
 
 
 The other limit we have to check is $v \ll c$, where we should re-obtain the Galilei transform. As figure \ref{fig:gamma_factor} shows, $\gamma$ exhibits the desired behaviour of $\gamma(v) \approx 1, \, v \ll c$. More quantitatively, a Taylor expansion in $v / c$ shows
 \begin{align*}
-\frac{1}{\sqrt{1 - \frac{v^2}{c^2}}} &\simeq \eval{\frac{1}{\sqrt{1 - \frac{v^2}{c^2}}}}_{v = 0} + \eval{\frac{\frac{1}{2} \cdot \frac{-2 v}{c}}{(1 - \frac{v^2}{c^2})^{3/2}}}_{v = 0} \frac{v}{c} + \dots
-\\
-&= 1 + \mathcal{O}(v^2 / c^2) \, .
+	\frac{1}{\sqrt{1 - \frac{v^2}{c^2}}} &\simeq \eval{\frac{1}{\sqrt{1 - \frac{v^2}{c^2}}}}_{v = 0} + \eval{\frac{\frac{1}{2} \cdot \frac{-2 v}{c}}{(1 - \frac{v^2}{c^2})^{3/2}}}_{v = 0} \frac{v}{c} + \dots
+	\\
+	&= 1 + \mathcal{O}(v^2 / c^2) \, .
 \end{align*}
 Combining that with $v \ll c \ll c^2$, we obtain the desired result to zero-th order in $v$:
 \begin{equation*}
-x' \simeq x - vt
-\manyqquad
-t' \simeq t
-\, .
+	x' \simeq x - vt
+	\manyqquad
+	t' \simeq t
+	\, .
 \end{equation*}\\
 
 
@@ -663,7 +688,7 @@ One final note: the derivation presented here is perhaps not be the most rigorou
 	
 	\includegraphics[width=0.9\textwidth]{gamma_factor.pdf}
 	
-	\caption{Plot of the Lorentz-factor $\gamma = \frac{1}{\sqrt{1 - v^2 / c^2}}$.	Clearly, its effect only becomes significant for speeds which are significant fractions of $c$.}
+	\caption[Plot of the Lorentz-factor]{Plot of the Lorentz-factor $\gamma = \frac{1}{\sqrt{1 - v^2 / c^2}}$.	Clearly, its effect only becomes significant for speeds which are significant fractions of $c$.}
 	\label{fig:gamma_factor}
 \end{figure}
 
@@ -693,7 +718,7 @@ One final note: the derivation presented here is perhaps not be the most rigorou
 %	\begin{minipage}{0.5\textwidth}
 		%\centering
 
-		\caption{Spacetime diagram for a rod moving with velocity $v$, whose ends are depicted as red lines (midpoint using dashed line).\\
+		\caption[Spacetime diagram for a moving rod]{Spacetime diagram for a rod moving with velocity $v$, whose ends are depicted as red lines (midpoint using dashed line).\\
 		By definition, the axis $ct'$ is the left end of the rod at $x' = 0$. In the $(ct, x)$-frame, it is given by the line $x = vt$. For the $x'$-axis, one can construct the point on the world line of the right end of the rod that is simultaneous to $t' = 0$ as measured by the left end of the rod. In accordance with the Einstein synchronization, this can be done by looking at light sent out from the origin and its intersection with the midpoint (dashed line). Tracing back this intersection point using light that is sent out by the right end of the rod in negative $x$-direction, one finds the point simultaneous to $t = 0 = t'$ in the origin (i.e.~the line of simultaneity, which is nothing but $x'$).}
 		\label{fig:moving_rod_diagram}
 %	\end{minipage}
@@ -751,30 +776,30 @@ $\gamma$ is stretching, needed because we know that lengths are measured differe
 
 
 		\subsection{Time Dilation \& Length Contraction from Lorentz Transformation}
-In principle, it is not surprising that a new transformation has to be used. After all, we have demanded some new postulates to be true (in particular the relativity principle) and there is no reason for the \enquote{old} transformation to fulfil it. On the other hand, we have already examined quite a few predictions of these postulates in the clock section \ref{sec:clocks} and likewise, it is not guaranteed that our new Lorentz transformation reproduces the results which have been found there.
+In principle, it is not surprising that a new transformation has to be used. After all, we have demanded some new postulates to be true and there is no reason for the \enquote{old} transformation to fulfil it. On the other hand, we have already examined quite a few predictions of these postulates in the clock section \ref{sec:clocks} and likewise, it is not guaranteed that our new Lorentz transformation reproduces the results which have been found there.
 
 Most prominently, time dilation and length contraction showed up as new effects. We will now check if they can be reproduced by coordinates related via the Lorentz transformation. For that, we will look at a rod with ends at positions $x_1, x_2$. Their spatial distance and thus the length of the rod in unprimed coordinates is $L = x_2 - x_1$. For a ruler in the primed coordinates, however
 \begin{equation}
-L' = x'_2 - x'_1 = \gamma (x_2 - v t_2) - \gamma (x_1 - v t_1) = \gamma (x_2 - x_1) = \gamma L = \frac{L}{\sqrt{1 - \frac{v^2}{x^2}}} \, .
+	L' = x'_2 - x'_1 = \gamma (x_2 - v t_2) - \gamma (x_1 - v t_1) = \gamma (x_2 - x_1) = \gamma L = \frac{L}{\sqrt{1 - \frac{v^2}{x^2}}} \, .
 \end{equation}
 Here we assume $t_1 = t_2$ because by definition, distances are measured at the same time (simultaneously). This result is not what we expect from the previous discussions. Is the Lorentz transformation at fault? Luckily, no. We have emphasized how simultaneity is important for the length to be meaningful. However,
 \begin{equation}\label{eq:not_simultaneous}
-t'_1 = \gamma (t_1 - \frac{v}{c^2} x_1) \neq \gamma (t_2 - \frac{v}{c^2} x_2) = t'_2
-\quad \Leftrightarrow \quad
-\Delta t' = t'_2 - t'_1 = \gamma \frac{v}{c^2} (x_1 - x_2)
-\, ,
+	t'_1 = \gamma (t_1 - \frac{v}{c^2} x_1) \neq \gamma (t_2 - \frac{v}{c^2} x_2) = t'_2
+	\quad \Leftrightarrow \quad
+	\Delta t' = t'_2 - t'_1 = \gamma \frac{v}{c^2} (x_1 - x_2)
+	\, ,
 \end{equation}
 the measurements in primed coordinates are not simultaneous, so this $L'$ is \emph{not} what a ruler in primed coordinates measures. In order to simulate this result, we have to tune the times $t_1, t_2$ to achieve $t'_1 = t'_2$. Choosing
 \begin{equation}
-\Delta t = t_2 - t_1 = - \Delta t' = - \gamma \frac{v}{c^2} (x_1 - x_2) = \frac{v}{c^2} \gamma L
+	\Delta t = t_2 - t_1 = - \Delta t' = - \gamma \frac{v}{c^2} (x_1 - x_2) = \frac{v}{c^2} \gamma L
 \end{equation}
 leads to a cancellation of the time difference in \eqref{eq:not_simultaneous}. The \enquote{true} length measured in unprimed coordinates then becomes
 \begin{equation}
-\begin{split}
-\eqbox{L'} &= x'_2 - x'_1 = \gamma (x_2 - v t_2) - \gamma (x_1 - v t_1) = \gamma L - v \Delta t
-\\
-&= \gamma L - \frac{v^2}{c^2} \gamma L = \frac{1 - \frac{v^2}{c^2}}{\sqrt{1 - \frac{v^2}{c^2}}} L = \sqrt{1 - \frac{v^2}{c^2}} L = \eqbox{\frac{L}{\gamma}} \, .
-\end{split}
+	\begin{split}
+	\eqbox{L'} &= x'_2 - x'_1 = \gamma (x_2 - v t_2) - \gamma (x_1 - v t_1) = \gamma L - v \Delta t
+	\\
+	&= \gamma L - \frac{v^2}{c^2} \gamma L = \frac{1 - \frac{v^2}{c^2}}{\sqrt{1 - \frac{v^2}{c^2}}} L = \sqrt{1 - \frac{v^2}{c^2}} L = \eqbox{\frac{L}{\gamma}} \, .
+	\end{split}
 \end{equation}
 Moving rulers measure smaller distances, physics is still intact.
 Effectively, this corresponds to waiting a longer time until the second measurement in unprimed coordinates, which in turn causes the transformed times $t'_1, t'_2$ to be equal (note that the length $L$ does not change because it is at rest in unprimed coordinates, i.e.~$x_1, x_2$ are constant, independent of time). An intuitive explanation for this is that the moving observer claims the system at rest is moving, i.e.~the end of the rod moves away from him, shortening it. In order to compensate for that, we have to wait a bit longer until taking the second measurement at $t'_2$ and correspondingly, increase $t_2$.
@@ -783,9 +808,9 @@ Effectively, this corresponds to waiting a longer time until the second measurem
 
 Looking at temporal distances $T = t_2 - t_1$ measured by a clock resting in unprimed coordinates (i.e.~$x_1 = x_2$), we obtain
 \begin{equation}
-%T = t_2 - t_1
-%\qquad \qquad
-\eqbox{T'} = t'_2 - t'_1 = \gamma (t_2 - \frac{v}{c^2} x_2) - \gamma (t_1 - \frac{v}{c^2} x_1) = \gamma (t_2 - t_1) = \gamma T \eqbox{= \frac{T}{\sqrt{1 - \frac{v^2}{c^2}}}} \, .
+	%T = t_2 - t_1
+	%\qquad \qquad
+	\eqbox{T'} = t'_2 - t'_1 = \gamma (t_2 - \frac{v}{c^2} x_2) - \gamma (t_1 - \frac{v}{c^2} x_1) = \gamma (t_2 - t_1) = \gamma T \eqbox{= \frac{T}{\sqrt{1 - \frac{v^2}{c^2}}}} \, .
 \end{equation}
 The primed observer measures a time $T'$ between two events on his clock, while on the clock resting in unprimed coordinates, $T = \sqrt{1 - \frac{v^2}{c^2}} \, T'$ go by. Since the primed observer sees the unprimed one moving, that confirms what we already knew: moving clocks tick slower. This effect can be attributed to the synchronization of clocks. Despite $x_1 = x_2$, $x'_1 \neq x'_2$, so the measurements in primed coordinates are taken by two different (but of course properly synchronized) clocks.\\
 
@@ -801,26 +826,14 @@ Even more help with understanding relativity is provided by visualizations like 
 %explanation why primed axes are shifted inwards in Minkowski diagrams: we wish to express these axes in the unprimed coordinate system, i.e.~we do not apply the Lorentz transform from unprimed (at rest) to primed (moving with $v$), but rather the inverse one (thus we have to use $-v$ in transformation) -> better explanation: we wish to draw only one point for events; since a coordinate change from unprimed to primed would rotate the $ct$-axis (where $x = 0$) by $-vt$ and thus to the left ($ct'$ would then by $y$-axis), we have to rotate the $ct'$-axis by the same amount to the right; then, we can read off coordinates of an event in the unprimed and primed frame at once
 
 
-mention future and past light cone
-
-
-timelike means trajectories are always in light/null cone (Penrose continues to make interesting point on that on page 407: light cones more fundamental than metric) -> does that belong to relativistic dynamics section maybe?
-
-
-uhhh for spacelike events (equivalent: they do not lie in light cone of other event), their order depends on inertial frame we choose! This is what is meant with causality problems for spacelike events and world lines, cause and effect depend on observer!
-
-
-%spacetime diagram is basically intersection in light cone, right? Where we only show one spatial dimension -> not sure about that
-
-
-
+We have already discussed the causal structure of relativity, timelike trajectories are always in the light cone and spacelike ones are outside of it. For this reason, the events marked by red dots in figure \ref{fig:spacetime_diagram_spacelike} are clearly spacelike. Now we get a a visual explanation of why spacelike events are problematic: while the unprimed, resting observer sees the left event $E_1$ happening before the right one $E_2$, the primed observer sees $E_2$ happening before $E_1$. Thus, if $c$ was not the speed limit and spacelike events were able to communicate with each other, observers could disagree on cause and effect. Luckily, no evidence for such a transmission with $v > c$ has been found (yet), so we do not have to rebuild our understanding of causality.\\
 
 
 
 \begin{figure}
 	\centering
 	
-	\begin{tikzpicture}
+	\begin{tikzpicture}[scale=1.2]
 		% Declare numbers as tikz variables, makes changing very convenient
 		\tikzmath{\v = 0.5;}
 
@@ -841,151 +854,183 @@ uhhh for spacelike events (equivalent: they do not lie in light cone of other ev
 		\addevent[v=\v, color=blue]{2}{2}
 	\end{tikzpicture}
 	
-	\caption{Events in frames moving with $v = 0.5 c$ relative to each other. Red dots show two events at spacetime points $(x, ct) = (0,2), (2,2)$ (the corresponding primed coordinates are $(x', ct') = (-1.15, 2.3), (1.15, 1.15)$). Blue dots show the same coordinates in the $(x', ct')$-frame (corresponding unprimed coordinates: $(x, ct) = (1.15, 2.3), (3.46, 3.46)$).\\
+	\caption[Events in frames moving with $v = 0.5 c$ relative to each other]{Events in frames moving with $v = 0.5 c$ relative to each other. Red dots show two events at spacetime points $(x, ct) = (0,2), (2,2)$ (the corresponding primed coordinates are $(x', ct') = (-1.15, 2.3), (1.15, 1.15)$). Blue dots show the same coordinates in the $(x', ct')$-frame (corresponding unprimed coordinates: $(x, ct) = (1.15, 2.3), (3.46, 3.46)$).\\
 	We can see very nicely how each observer perceives time differently. Events happening simultaneously to both red dots (i.e.~which lie on the line between them at $t = 2$), do \emph{not} happen at $t' = t$, but at $t' = \tau = \sqrt{1 - v^2} \, t$ (which is evident from the fact that the blue dots are at $t' = t$). The same can be said for the moving observer in blue, which sees events at $t = \sqrt{1 - v^2} \, t'$ simultaneous to the blue dots at $t' = 2$. Analogous arguments can be made for positions and equilocality.}
 	\label{fig:spacetime_diagram_two_observers}
 \end{figure}
 
 
 
-This new addition to spacetime diagrams makes them a powerful tool suitable to explain many effects of relativity. For example, the fairly complicated twin paradox can be explained and -- perhaps, more event important -- visualized conveniently.
+\begin{figure}
+	\centering
+	
+	\begin{tikzpicture}[scale=1.2]
+		% Declare numbers as tikz variables, makes changing very convenient
+		\tikzmath{\v = 0.5;
+				  \Eonex = -1; \Eoney = 2;
+				  \Etwox = 2.5; \Etwoy = 3; % For spacelike, velocity times x-coordinate difference has to be greater than time-coordinate difference
+				 }
+
+		% Add basis for diagram
+		\spacetimediagram[lightcone=false]{4}
+	
+		% Add other observer (one sufficient, for more diagram gets increasingly confusing)
+		\addobserver{3}{\v}
+	
+	
+		% Add event in rest frame
+		\lightcone[xpos=\Eonex, ypos=\Eoney]{2}
+		\addevent[label=$E_1$]{\Eonex}{\Eoney}
+		\addevent[label=$E_2$]{\Etwox}{\Etwoy}
+	\end{tikzpicture}
+	
+	\caption[Spacelike events]{Spacelike events.\\
+	It is very obvious that $E_2$ does not lie in the light cone of $E_1$, which has been visualized to make that clear (this implies $E_1$ does not lie in the light cone of $E_2$). The unprimed, black observer sees $E_1$ happening before $E_2$, while the blue observer moving at $v = 0.5 c$ sees it the other way around.}
+	\label{fig:spacetime_diagram_spacelike}
+\end{figure}
+
+
+
+The new addition of being able to depict multiple observers to spacetime diagrams makes them a powerful tool suitable to explain many effects of relativity. For example, the fairly complicated twin paradox can be explained and -- perhaps, even more important -- visualized conveniently.
 
 \begin{ex}[Twin Paradox 2]\label{ex:twin_paradox_2}
-As promised, here comes the detailed demonstration of the twin paradox, which has been started in example \ref{ex:twin_paradox_1}. We will discuss the setup shown in figure \ref{fig:twin_paradox}, i.e.~treat one observer at rest (will be commonly referred to as \enquote{unprimed} one) and two observers moving with velocities $v = \pm 0.5 c$ relative to the unprimed observer (these will be called \enquote{primed} and \enquote{double primed}, in accordance with their axis labels in \ref{fig:twin_paradox}).
-
-Our approach will be to compute the roundtrip time needed to go from $S$ to $E$ (i.e.~the time passing on the world line on $ct$ axis) and the time needed to go from $S$ to $T$ to $E$ (i.e.~the time passing on the other world line shown in \ref{fig:twin_paradox}). Each of these quantities will be computed from clocks resting in all three of the inertial frames shown in figure \ref{fig:twin_paradox} (reminder: three are involved due to turning around, rest frame of moving observer changes there).
-
-%the thing that makes things make sense is that all observers agree on the time passing along moving clock, even when measured from their coordinates; after all, from the double primed coordinates we can still look at time passing on clock in primed coordinates and simultaneously passing in rest frame; adding that up, we get the total times and these agree between the frames (good, otherwise we would have problem)
-
-During the process, we have to distinguish between four times: (i) the time $t_{ST}$ passing on the resting clock between $S$ and $T$, (ii) the time $t_{TE}$ passing on the resting clock between $T$ and $E$, (iii) the time $\tau_{ST}$ passing on the moving clock between $S$ and $T$ and (iv) the time $\tau_{TE}$ passing on the moving clock between $T$ and $E$. From that we get the total times for resting and moving clock,
-\begin{equation*}
-t_{SE} = t_{ST} + t_{TE}
-\manyqquad
-\tau_{SE} = \tau_{ST} + \tau_{TE} = t'_{ST} + t''_{TE} \, .
-\end{equation*}
-
-One final note concerns the velocities involved: the world line is drawn for $v = 0.5 c$ on the way from $S$ to $T$ and $v = -0.5 c$ on the way from $T$ to $E$ (same velocity, different direction), where $v$ is the velocity of the respective moving frame compared to the unprimed, resting one. This implies a relative velocity of $v_2 = \frac{0.5 c + 0.5 c}{1 + 0.5^2} = 0.8 c$ from double primed to primed frame (note that addition of velocities works differently in relativity).
-
-\begin{itemize}
-	\item \textbf{Measuring from unprimed coordinates}
+	As promised, here comes the detailed demonstration of the twin paradox, which has been started in example \ref{ex:twin_paradox_1}. We will discuss the setup shown in figure \ref{fig:twin_paradox}, i.e.~treat one observer at rest (will be commonly referred to as \enquote{unprimed} one) and two observers moving with velocities $v = \pm 0.5 c$ relative to the unprimed observer (these will be called \enquote{primed} and \enquote{double-primed}, in accordance with their axis labels in \ref{fig:twin_paradox}).
 	
-	Clearly,
+	Our approach will be to compute the roundtrip time needed to go from $S$ to $E$ (i.e.~the time passing on the world line on $ct$ axis) and the time needed to go from $S$ to $T$ to $E$ (i.e.~the time passing on the other world line shown in \ref{fig:twin_paradox}). Each of these quantities will be computed from clocks resting in all three of the inertial frames shown in figure \ref{fig:twin_paradox} (reminder: three are involved due to turning around, rest frame of moving observer changes there).
+	
+	%the thing that makes things make sense is that all observers agree on the time passing along moving clock, even when measured from their coordinates; after all, from the double-primed coordinates we can still look at time passing on clock in primed coordinates and simultaneously passing in rest frame; adding that up, we get the total times and these agree between the frames (good, otherwise we would have problem)
+	
+	During the process, we have to distinguish between four times: (i) the time $t_{ST}$ passing on the resting clock between $S$ and $T$, (ii) the time $t_{TE}$ passing on the resting clock between $T$ and $E$, (iii) the time $\tau_{ST}$ passing on the moving clock between $S$ and $T$ and (iv) the time $\tau_{TE}$ passing on the moving clock between $T$ and $E$. From that we get the total times for resting and moving clock,
 	\begin{equation*}
-	t_{ST} = 2 = t_{TE}
-	\qquad \Leftrightarrow \qquad
-	t_{SE} = t_{ST} + t_{TE} = 4
-	\end{equation*}
-	in arbitrary time units (where one time unit goes by between two grid lines). From that, Minkowski's theorem tells us
-	\begin{equation*}
-	t'_{SE} = \sqrt{1 - v^2} \, t_{SE} = 3.464 \, .
-	\end{equation*}
-
-	Simultaneously, by looking at how much time elapses between the intersection of gray grid lines and the blue $ct'$-axis, one can see that as a rough estimate $t'_{ST} \lesssim 2$. For the exact result, we apply Minkowski's theorem:
-	\begin{equation*}
-	t'_{ST} = \tau_{ST} = \sqrt{1 - v^2 / c^2} \, t_{ST} = \sqrt{1 - 0.5^2} \cdot 2 = 1.732 \, .
-	\end{equation*}
-	Applying the same procedure to the double primed coordinates yields
-	\begin{equation*}
-	t''_{TE} = \tau_{TE} = \sqrt{1 - v^2 / c^2} \, t_{TE} = \sqrt{1 - (-0.5)^2} \cdot 2 = 1.732 = \tau_{ST} \, .
+		t_{SE} = t_{ST} + t_{TE}
+		\manyqquad
+		\tau_{SE} = \tau_{ST} + \tau_{TE} = t'_{ST} + t''_{TE} \, .
 	\end{equation*}
 	
-	This is because time dilation does not depend on the direction, only on the absolute velocity. Therefore, we can confirm that
-	\begin{equation*}
-	t_{SE} = t_{ST} + t_{TE} = 4 > \tau_{SE} = \tau_{ST} + \tau_{TE} = 3.464 \, ,
-	\end{equation*}
-	less time goes by on the moving clock.
+	One final note concerns the velocities involved: the world line is drawn for $v = 0.5 c$ on the way from $S$ to $T$ and $v = -0.5 c$ on the way from $T$ to $E$ (same velocity, different direction), where $v$ is the velocity of the respective moving frame compared to the unprimed, resting one. This implies a relative velocity of $v_2 = \frac{0.5 c + 0.5 c}{1 + 0.5^2} = 0.8 c$ from double-primed to primed frame (note that addition of velocities works differently in relativity).
 	
-
-
-	\item \textbf{Measuring from primed coordinates}
-
-	While from these coordinates one still sees four time units going by on the roundtrip for the resting observer, i.e.~$t_{SE} = 4$, a rough estimate for the roundtrip time measured by a clock resting in the primed coordinates $ct'$ is $t'_{SE} \gtrsim 4$. More precisely, Minkowski's theorem yields
-	\begin{equation*}
-	t_{SE} = \sqrt{1 - v^2 / c^2} \, t'_{SE}
-	\qquad \Leftrightarrow \qquad
-	t'_{SE} = \frac{t_{SE}}{\sqrt{1 - v^2 / c^2}} = \frac{4}{\sqrt{1 - (-0.5)^2}} = 4.619 \, .
-	\end{equation*}
-	This is a consequence from the mutuality of time dilation, an observer resting in primed coordinates sees the unprimed observer moving at $v = -0.5 c$ and therefore measures more time passing in his own frame.
-
-
-	However, $t'_{SE}$ is not what a clock in the primed coordinates sees. Instead, 
-	\begin{equation*}
-	\tau_{SE} = \tau_{ST} + \tau_{TE} = t'_{ST} + t''_{TE}
-	\end{equation*}
-	as stated before. For $t'_{ST}$, however, we cannot simply use Minkowski's theorem and thus the time
-	\begin{equation*}
-	\frac{t_{ST}}{\sqrt{1 - v^2 / c^2}} = 2.309 \, ,
-	\end{equation*}
-	which cannot be quite correct since from the diagram we get the estimate $t'_{ST} \lesssim 3$. This is because the world line is moving with respect to the rest frame of $ct$, so we would only get statements about what is the time as seen from this frame. However, we wish to measure the primed time from the primed coordinates. This requires a Lorentz transformation of the events $S, T, E$:
-	\begin{equation*}
-	t'_{ST} = t'_T - t'_S = \frac{t_T - \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} - \frac{t_S - \frac{v}{c} x_S}{\sqrt{1 - v^2 / c^2}} = \frac{t_{ST} - \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} = \frac{2 - 0.5 \cdot 1}{\sqrt{1 - 0.5^2}} = 1.732 \, .
-	\end{equation*}
-	In the same manner, we obtain
-	\begin{equation*}
-	t'_{TE} = t'_E - t'_T = \frac{t_E - \frac{v}{c} x_E}{\sqrt{1 - v^2 / c^2}} - \frac{t_T - \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} = \frac{t_{TE} + \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} = \frac{2 + 0.5 \cdot 1}{\sqrt{1 - (-0.5)^2}} = 2.887 \, .
-	\end{equation*}
-
-	To get $t''_{TE}$, we have to prolong the axes of simultaneity of the primed coordinates and count the number of time units which go by between the intersections of them with $ct''$ (i.e.~the number of intersections with green lines on the way). This yields roughly $t''_{TE} \gtrsim 1.5$ again. For the time passing simultaneously on a clock in primed coordinates, we can read off roughly $t'_{TE} \approx 4$. The correct numbers can be obtained from Minkowski's theorem again:
-	\begin{equation*}
-	t''_{TE} = \sqrt{1 - (-v_2)^2 / c^2} \, t'_{TE} = \sqrt{1 - (-0.8)^2} \, 2.887 = 1.732 \, .
-	\end{equation*}
-
-	All together, the primed observer measures a roundtrip time
-	\begin{equation*}
-	t'_{SE} = t'_{ST} + t'_{TE} = 4.619 > \tau_{SE} = \tau_{ST} + \tau_{TE} = t'_{ST} + t''_{TE} = 3.464 \, .
-	\end{equation*}
-	We find the same result that less time has passed on the moving clock. Furthermore, we see that the absolute value for this $\tau_{SE} = t'_{SE}$ and the one computed from Minkowski's theorem in the first calculation agree (because corresponding world line is parallel to $ct$, i.e.~in rest frame). On the other hand, it should not be surprising that the absolute values measured for $\tau_{ST}$ and $\tau_{TE}$ do not agree. After all, they are still measured from different inertial frames and they measure with respect to frames moving with different relative velocities ($\pm 0.5$ for primed; $0.5, 0.8$ for unprimed).
-
+	\begin{itemize}
+		\item \textbf{Measuring from unprimed coordinates}
+		
+		Clearly,
+		\begin{equation*}
+			t_{ST} = 2 = t_{TE}
+			\qquad \Leftrightarrow \qquad
+			t_{SE} = t_{ST} + t_{TE} = 4
+		\end{equation*}
+		in arbitrary time units (where one time unit goes by between two grid lines). From that, Minkowski's theorem tells us
+		\begin{equation*}
+			t'_{SE} = \sqrt{1 - v^2} \, t_{SE} = 3.464 \, .
+		\end{equation*}
 	
-	% for v=0.7 c
-	%on own clock, six time units go by for roundtrip; however, he agrees that just four go by on resting clock
+		Simultaneously, by looking at how much time elapses between the intersection of gray grid lines and the blue $ct'$-axis, one can see that as a rough estimate $t'_{ST} \lesssim 2$. For the exact result, we apply Minkowski's theorem:
+		\begin{equation*}
+			t'_{ST} = \tau_{ST} = \sqrt{1 - v^2 / c^2} \, t_{ST} = \sqrt{1 - 0.5^2} \cdot 2 = 1.732 \, .
+		\end{equation*}
+		Applying the same procedure to the double-primed coordinates yields
+		\begin{equation*}
+			t''_{TE} = \tau_{TE} = \sqrt{1 - v^2 / c^2} \, t_{TE} = \sqrt{1 - (-0.5)^2} \cdot 2 = 1.732 = \tau_{ST} \, .
+		\end{equation*}
+		
+		This is because time dilation does not depend on the direction, only on the absolute velocity. Therefore, we can confirm that
+		\begin{equation*}
+			t_{SE} = t_{ST} + t_{TE} = 4 > \tau_{SE} = \tau_{ST} + \tau_{TE} = 3.464 \, ,
+		\end{equation*}
+		less time goes by on the moving clock.
+		
 	
-	%on own clock, it is again roughly $3 / 2$ which pass by; on $ct''$ he sees $3 / 2$ passing by as well (way to see that: look at which lines parallel to $x'$ intersect the relevant events, i.e.~starting point and turning point; then look at points where these lines intersect $ct''$ and count number of ticks on $ct''$ between these intersections); in the same manner, we see that four time units pass on $ct$
 	
-	\item \textbf{Measuring from double primed coordinates}
-
-	Just as before, $t_{SE} = 4$ is measured, while roughly $t''_{SE} \gtrsim 4$ and precisely
-	\begin{equation*}
-	t''_{SE} = \frac{t_{SE}}{\sqrt{1 - v^2 / c^2}} = \frac{4}{\sqrt{1 - (-0.5)^2}} = 4.619
-	\end{equation*}
-	are measured by a clock resting in the double primed coordinates. As one can confirm by looking at the result above, this is the same time a clock resting in primed coordinates measures. We expect more of these equal results since the double primed coordinate system is moves with the same relative velocity as the primed one, just in the other direction (sign of velocity is different).
-
-	A rough estimate for $t''_{TE}$ is $t''_{TE} \gtrsim 2$ and the exact result is
-	\begin{equation*}
-	t''_{TE} = t''_E - t''_T = \frac{t_E - \frac{v}{c} x_E}{\sqrt{1 - v^2 / c^2}} - \frac{t_T - \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} = \frac{t_{TE} + \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} = \frac{2 - 0.5 \cdot 1}{\sqrt{1 - (-0.5)^2}} = 1.732 \, .
-	\end{equation*}
-	An analogous calculation yields
-	\begin{equation*}
-	t''_{ST} = t''_T - t''_S = \frac{t_T - \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} - \frac{t_S - \frac{v}{c} x_S}{\sqrt{1 - v^2 / c^2}} = \frac{t_{ST} - \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} = \frac{2 + 0.5 \cdot 1}{\sqrt{1 - 0.5^2}} = 2.887 \, .
-	\end{equation*}
-	As promised, we get more results that we have already seen when making computations in the primed coordinates, but now they are switched (due to the transition $v \rightarrow -v$).
-
-	Now we wish to compute $t'_{ST}$ and expect the rough estimate $t'_{ST} \gtrsim 1.5$. Indeed, we obtain
-	\begin{equation*}
-	t'_{ST} = \sqrt{1 - v_2^2 / c^2} \, t'_{TE} = \sqrt{1 - 0.8^2} \, 2.887 = 1.732 \, .
-	\end{equation*}
-	All in all, the double primed observer measures a roundtrip time
-	\begin{equation*}
-	t''_{SE} = t''_{ST} + t''_{TE} = 4.619 > \tau_{SE} = \tau_{ST} + \tau_{TE} = t'_{ST} + t''_{TE} = 3.464 \, .
-	\end{equation*}
-	Once again, these results look very familiar. 
-\end{itemize}
-
-A conclusion of these extensive calculations is that physics is not broken, despite relativity sometimes being unintuitive at first glance. Although all inertial frames play equal roles, which shows in the mutual slowing of moving clocks, all agree on the effect of time dilation: moving clocks tick slower than resting ones. In frames where both clocks seem to be moving, we can further confirm that the effect increases with the velocity $v$.
-
-It should also be noted that the agreement of all three observers regarding $\tau_{SE}$ is really a coincidence due to the symmetric setup we have chosen -- for other scenarios, e.g.~with unequal velocities on the first and second part of the journey or perhaps even if we assume that $ct$ is not at rest after all (but keeping the relative velocities of primed and unprimed system, i.e.~rotating the whole setup), this will not be the case anymore. In the same manner, $t'_{ST} \neq t''_{TE}$ in general. However, if one of the clocks moves on a world line parallel to the $ct$-axis of one of the observers, \emph{all} of them will agree on the time elapsed along this clock (so $t_{SE}$ being equal for all observers is really not a coincidence; the same goes for $t'_{ST}$ and $t''_{TE}$ in this setup). This is despite observers measuring different times on their own clocks and is due to Minkowski's theorem, which tells us how much time has passed simultaneously on a clock in another frame.
+		\item \textbf{Measuring from primed coordinates}
+	
+		While from these coordinates one still sees four time units going by on the roundtrip for the resting observer, i.e.~$t_{SE} = 4$, a rough estimate for the roundtrip time measured by a clock resting in the primed coordinates $ct'$ is $t'_{SE} \gtrsim 4$. More precisely, Minkowski's theorem yields
+		\begin{equation*}
+			t_{SE} = \sqrt{1 - v^2 / c^2} \, t'_{SE}
+			\qquad \Leftrightarrow \qquad
+			t'_{SE} = \frac{t_{SE}}{\sqrt{1 - v^2 / c^2}} = \frac{4}{\sqrt{1 - (-0.5)^2}} = 4.619 \, .
+		\end{equation*}
+		This is a consequence from the mutuality of time dilation, an observer resting in primed coordinates sees the unprimed observer moving at $v = -0.5 c$ and therefore measures more time passing in his own frame.
+	
+	
+		However, $t'_{SE}$ is not what a clock in the primed coordinates sees. Instead, 
+		\begin{equation*}
+			\tau_{SE} = \tau_{ST} + \tau_{TE} = t'_{ST} + t''_{TE}
+		\end{equation*}
+		as stated before. For $t'_{ST}$, however, we cannot simply use Minkowski's theorem and thus the time
+		\begin{equation*}
+			\frac{t_{ST}}{\sqrt{1 - v^2 / c^2}} = 2.309 \, ,
+		\end{equation*}
+		which cannot be quite correct since from the diagram we get the estimate $t'_{ST} \lesssim 3$. This is because the world line is moving with respect to the rest frame of $ct$, so we would only get statements about what is the time as seen from this frame. However, we wish to measure the primed time from the primed coordinates. This requires a Lorentz transformation of the events $S, T, E$:
+		\begin{equation*}
+			t'_{ST} = t'_T - t'_S = \frac{t_T - \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} - \frac{t_S - \frac{v}{c} x_S}{\sqrt{1 - v^2 / c^2}} = \frac{t_{ST} - \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} = \frac{2 - 0.5 \cdot 1}{\sqrt{1 - 0.5^2}} = 1.732 \, .
+		\end{equation*}
+		In the same manner, we obtain
+		\begin{equation*}
+			t'_{TE} = t'_E - t'_T = \frac{t_E - \frac{v}{c} x_E}{\sqrt{1 - v^2 / c^2}} - \frac{t_T - \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} = \frac{t_{TE} + \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} = \frac{2 + 0.5 \cdot 1}{\sqrt{1 - (-0.5)^2}} = 2.887 \, .
+		\end{equation*}
+	
+		To get $t''_{TE}$, we have to prolong the axes of simultaneity of the primed coordinates and count the number of time units which go by between the intersections of them with $ct''$ (i.e.~the number of intersections with green lines on the way). This yields roughly $t''_{TE} \gtrsim 1.5$ again. For the time passing simultaneously on a clock in primed coordinates, we can read off roughly $t'_{TE} \approx 4$. The correct numbers can be obtained from Minkowski's theorem again:
+		\begin{equation*}
+			t''_{TE} = \sqrt{1 - (-v_2)^2 / c^2} \, t'_{TE} = \sqrt{1 - (-0.8)^2} \, 2.887 = 1.732 \, .
+		\end{equation*}
+	
+		All together, the primed observer measures a roundtrip time
+		\begin{equation*}
+			t'_{SE} = t'_{ST} + t'_{TE} = 4.619 > \tau_{SE} = \tau_{ST} + \tau_{TE} = t'_{ST} + t''_{TE} = 3.464 \, .
+		\end{equation*}
+		We find the same result that less time has passed on the moving clock. Furthermore, we see that the absolute value for this $\tau_{SE} = t'_{SE}$ and the one computed from Minkowski's theorem in the first calculation agree (because corresponding world line is parallel to $ct$, i.e.~in rest frame). On the other hand, it should not be surprising that the absolute values measured for $\tau_{ST}$ and $\tau_{TE}$ do not agree. After all, they are still measured from different inertial frames and they measure with respect to frames moving with different relative velocities ($\pm 0.5$ for primed; $0.5, 0.8$ for unprimed).
+	
+		
+		% for v=0.7 c
+		%on own clock, six time units go by for roundtrip; however, he agrees that just four go by on resting clock
+		
+		%on own clock, it is again roughly $3 / 2$ which pass by; on $ct''$ he sees $3 / 2$ passing by as well (way to see that: look at which lines parallel to $x'$ intersect the relevant events, i.e.~starting point and turning point; then look at points where these lines intersect $ct''$ and count number of ticks on $ct''$ between these intersections); in the same manner, we see that four time units pass on $ct$
+		
+		\item \textbf{Measuring from double-primed coordinates}
+	
+		Just as before, $t_{SE} = 4$ is measured, while roughly $t''_{SE} \gtrsim 4$ and precisely
+		\begin{equation*}
+			t''_{SE} = \frac{t_{SE}}{\sqrt{1 - v^2 / c^2}} = \frac{4}{\sqrt{1 - (-0.5)^2}} = 4.619
+		\end{equation*}
+		are measured by a clock resting in the double-primed coordinates. As one can confirm by looking at the result above, this is the same time a clock resting in primed coordinates measures. We expect more of these equal results since the double-primed coordinate system is moves with the same relative velocity as the primed one, just in the other direction (sign of velocity is different).
+	
+		A rough estimate for $t''_{TE}$ is $t''_{TE} \gtrsim 2$ and the exact result is
+		\begin{equation*}
+			t''_{TE} = t''_E - t''_T = \frac{t_E - \frac{v}{c} x_E}{\sqrt{1 - v^2 / c^2}} - \frac{t_T - \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} = \frac{t_{TE} + \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} = \frac{2 - 0.5 \cdot 1}{\sqrt{1 - (-0.5)^2}} = 1.732 \, .
+		\end{equation*}
+		An analogous calculation yields
+		\begin{equation*}
+			t''_{ST} = t''_T - t''_S = \frac{t_T - \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} - \frac{t_S - \frac{v}{c} x_S}{\sqrt{1 - v^2 / c^2}} = \frac{t_{ST} - \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} = \frac{2 + 0.5 \cdot 1}{\sqrt{1 - 0.5^2}} = 2.887 \, .
+		\end{equation*}
+		As promised, we get more results that we have already seen when making computations in the primed coordinates, but now they are switched (due to the transition $v \rightarrow -v$).
+	
+		Now we wish to compute $t'_{ST}$ and expect the rough estimate $t'_{ST} \gtrsim 1.5$. Indeed, we obtain
+		\begin{equation*}
+			t'_{ST} = \sqrt{1 - v_2^2 / c^2} \, t'_{TE} = \sqrt{1 - 0.8^2} \, 2.887 = 1.732 \, .
+		\end{equation*}
+		All in all, the double-primed observer measures a roundtrip time
+		\begin{equation*}
+			t''_{SE} = t''_{ST} + t''_{TE} = 4.619 > \tau_{SE} = \tau_{ST} + \tau_{TE} = t'_{ST} + t''_{TE} = 3.464 \, .
+		\end{equation*}
+		Once again, these results look very familiar. 
+	\end{itemize}
+	
+	A conclusion of these extensive calculations is that physics is not broken, despite relativity sometimes being unintuitive at first glance. Although all inertial frames play equal roles, which shows in the mutual slowing of moving clocks, all agree on the effect of time dilation: moving clocks tick slower than resting ones. In frames where both clocks seem to be moving, we can further confirm that the effect increases with the velocity $v$.
+	
+	It should also be noted that the agreement of all three observers regarding $\tau_{SE}$ is really a coincidence due to the symmetric setup we have chosen -- for other scenarios, e.g.~with unequal velocities on the first and second part of the journey or perhaps even if we assume that $ct$ is not at rest after all (but keeping the relative velocities of primed and unprimed system, i.e.~rotating the whole setup), this will not be the case anymore. In the same manner, $t'_{ST} \neq t''_{TE}$ in general. However, if one of the clocks moves on a world line parallel to the $ct$-axis of one of the observers, \emph{all} of them will agree on the time elapsed along this clock (so $t_{SE}$ being equal for all observers is really not a coincidence; the same goes for $t'_{ST}$ and $t''_{TE}$ in this setup). This is despite observers measuring different times on their own clocks and is due to Minkowski's theorem, which tells us how much time has passed simultaneously on a clock in another frame.
 \end{ex}
+
+
 
 \begin{figure}
 	\centering
 
-	\begin{tikzpicture}
+	\begin{tikzpicture}[scale=1.2]
 		% Declare numbers as tikz variables, makes changing very convenient
 		\tikzmath{\vprime = 0.5; \vdoubleprime = -0.5;
 				  \tS = -2; \tT = 0;
 				  \tE = 2; \xS = 0;
 				  \xT = (\tT - \tS) * \vprime; \xE = 0;
-				  }  % Note: world line connecting S and T is always parallel to time axis of primed observer, while world line connecting T and E is only parallel to double primed if vprime=-vdoubleprime
+				  }  % Note: world line connecting S and T is always parallel to time axis of primed observer, while world line connecting T and E is only parallel to double-primed if vprime=-vdoubleprime
 
 		% Add basis for diagram
 		\spacetimediagram{4}
@@ -1004,68 +1049,10 @@ It should also be noted that the agreement of all three observers regarding $\ta
 		\addevent[radius=2pt, label=$E$, label placement=right]{\xE}{\tE}  % E
 	\end{tikzpicture}
 
-	\caption{Visual explanation of twin paradox. Event $S$ is the starting point, $T$ turning point and $E$ end point. The primed observer has a relative velocity of $v = 0.5 v$ with respect to the unprimed one, while the double primed observer has $v = -0.5 c$.\\
+	\caption[Visual explanation of twin paradox]{Visual explanation of twin paradox. Event $S$ is the starting point, $T$ turning point and $E$ end point. The primed observer has a relative velocity of $v = 0.5 v$ with respect to the unprimed one, while the double-primed observer has $v = -0.5 c$.\\
 	We can measure times passing between events in a certain frame $\mathcal{O}$ by prolonging the corresponding lines of simultaneity (parallel to spatial axis of $\mathcal{O}$) from event to the time axis of $\mathcal{O}$ and then count the number of time units passing on the time axis between the intersection points. Similarly, we could also prolong them until they intersect the time axis of any other frame $\mathcal{O}'$. In this case, counting the number of time steps passing between the intersection points on the time axis of $\mathcal{O}'$ would yield the time passing for $\mathcal{O}'$, measured from $\mathcal{O}$.}
 	\label{fig:twin_paradox}
 \end{figure}
-
-
-\iffalse
-{ % Idea was to explain situation from every frame -> does not make things less complicated, thus omitted
-\begin{figure}
-	\centering
-
-	\begin{tikzpicture}
-		% Add basis for diagram
-		\spacetimediagram[xlabel=$x'$, ylabel=$ct'$, color=blue]{4}
-	
-		% Add other observers
-		\addobserver[xlabel=$x$, ylabel=$ct$, color=black]{3}{(-1) * 0.5}
-		\addobserver[xlabel=$x''$, ylabel=$ct''$, color=black!40!green]{3}{(-1) * 0.8}
-
-		% Add worldlines of clocks and start, end events
-		%\draw[red, thick, cm={1/0.866,-0.5/0.866,-0.5/0.866,1/0.866,(0,0)}] (0, -2) -- (0, 2); % Resting clock
-		\addworldline[v=-0.5]{0}{-2}{0}{2}
-		%\draw[red, thick, cm={1/0.866,-0.5/0.866,-0.5/0.866,1/0.866,(0,0)}] (0, -2) -- (0.5 * 2, 0) -- (0, 2); % Moving clock
-		\addworldline[v=-0.5]{0}{-2}{0.5 * 2}{0}
-		\addworldline[v=-0.5]{0.5 * 2}{0}{0}{2}
-		\addevent[v=-0.5, radius=2pt, label=$S$, label placement=right]{0}{-2}
-		\addevent[v=-0.5, radius=2pt, label=$T$, label placement=right]{0.5 * 2}{0}
-		\addevent[v=-0.5, radius=2pt, label=$E$, label placement=right]{0}{2}
-	\end{tikzpicture}
-
-	\caption{Visual explanation of twin paradox.\\
-	We can measure times passing between events in a certain frame by looking at the lines of simultaneity (parallel to spatial axis of this frame), prolonging them from event to time axis of the frame and then count the number of time units passing on the time axis between the intersection points.}
-	\label{fig:twin_paradox_prime}
-\end{figure}
-
-\begin{figure}
-	\centering
-
-	\begin{tikzpicture}
-		% Add basis for diagram
-		\spacetimediagram[xlabel=$x''$, ylabel=$ct''$, color=black!40!green]{4}
-	
-		% Add other observers
-		\addobserver[xlabel=$x$, ylabel=$ct$, color=black]{3}{0.5}
-		\addobserver[xlabel=$x'$, ylabel=$ct'$, color=blue]{3}{0.8}
-
-		% Add worldlines of clocks and start, end events
-		\addworldline[v=0.5]{0}{-2}{0}{2}  % Resting clock
-		\addworldline[v=0.5]{0}{-2}{0.5 * 2}{0} % Moving clock
-		\addworldline[v=0.5]{0.5 * 2}{0}{0}{2}
-		\addevent[v=0.5, radius=2pt, label=$S$, label placement=right]{0}{-2}
-		\addevent[v=0.5, radius=2pt, label=$T$, label placement=right]{0.5 * 2}{0}
-		\addevent[v=0.5, radius=2pt, label=$E$, label placement=right]{0}{2}
-	\end{tikzpicture}
-
-	\caption{Visual explanation of twin paradox.\\
-	We can measure times passing between events in a certain frame by looking at the lines of simultaneity (parallel to spatial axis of this frame), prolonging them from event to time axis of the frame and then count the number of time units passing on the time axis between the intersection points.}
-	\label{fig:twin_paradox_doubleprime}
-\end{figure}
-
-}
-\fi
 
 
 
@@ -1087,17 +1074,22 @@ It might be clear to the reader that this implies space and time are not indepen
 
 
 
-		\subsection{Basic Definitions}
+%		\subsection{Basic Definitions}
 First, it is necessary to state what spacetime is in a formal, mathematical way.
 
 
 \begin{defi}[Minkowski Space]
-
-4-manifold, points called events; coordinates usually denoted as $\mathbf{\xi} = \mqty(c t \\ \vec{x}) = \mqty(c t \\ x \\ y \\ z)$
-
-events can then be described using 4-vectors $\mathbf{\xi} = \mqty(c t \\ \vec{x}) = \mqty(c t \\ x \\ y \\ z)$ (called \Def{event} from now on) -> but that is point, right? Not vector; we choose to scale time such that all components have the same units; factors of $c$ are kind of nasty in relativity, which is why very often $c$ is set to $1$ (this way, first coordinate is simply time but scaling and computations are still convenient)
+	In special relativity, \Def{Spacetime} is described as a $4$-manifold $M$ with one time and three spatial coordinates. The corresponding tangent spaces $T_p M$ are called \Def{Minkowski space}.
+	
+	
+	
+	4-manifold, points called events; coordinates usually denoted as $\mathbf{\xi} = \mqty(c t \\ \vec{x}) = \mqty(c t \\ x \\ y \\ z)$
+	
+	events can then be described using 4-vectors $\mathbf{\xi} = \mqty(c t \\ \vec{x}) = \mqty(c t \\ x \\ y \\ z)$ (called \Def{event} from now on) -> but that is point, right? Not vector; we choose to scale time such that all components have the same units; factors of $c$ are kind of nasty in relativity, which is why very often $c$ is set to $1$ (this way, first coordinate is simply time but scaling and computations are still convenient)
 \end{defi}
 we choose convenient scaling again for time coordinate -> important: here, we have Cartesian coordinates (but we can easily change; just for definition we use Cartesian) -> adopt name inertial Cartesian? I kind of like it...
+
+Lorentz- or pseudo-Riemannian manigfold
 
 
 
@@ -1126,170 +1118,205 @@ We have now seen how physics can be conveniently described using a 4D manifold, 
 
 Mathematically, metrics are objects called tensors and they have the convenient property that they are invariant under coordinate changes. Therefore, distances are physically meaningful statements because they do not depend on the inertial frame we compute them on. In the tradition of invariant quantities that have been encountered so far, we may guess that the metric will be related to light in some way. From the universality of the speed if light $c$, distances $s$ are equivalent to times $t$ for light, $s = c t$. Because of that, a natural measure for distances is the time elapsed on a clock, i.e.~the geometric structure of Minkowski space is determined by Minkowski's theorem \ref{thm:minkowski_moving_clocks}. Instead of denoting time with the usual variable $t$, we will now switch to the \Def{proper time} $\tau$ since the time elapsed a clock between events $(0, 0, 0, 0)$ and $(ct, x, y, z)$ is
 \begin{equation}\label{eq:proper_time_uniform}
-\eqbox{
-\tau = \sqrt{1 - \frac{v^2}{c^2}} \, t = \sqrt{1 - \qty(\frac{x}{ct})^2 - \qty(\frac{y}{ct})^2 - \qty(\frac{z}{ct})^2} \, t = \sqrt{t^2 - (x^2 + y^2 + z^2) / c^2}
-}
+	\eqbox{
+	\tau = \sqrt{1 - \frac{v^2}{c^2}} \, t = \sqrt{1 - \qty(\frac{x}{ct})^2 - \qty(\frac{y}{ct})^2 - \qty(\frac{z}{ct})^2} \, t = \sqrt{t^2 - (x^2 + y^2 + z^2) / c^2}
+	}
 \end{equation}
-This depends on the trajectory taken by the clock/corresponding observer (more specifically, on the uniform velocity $v$), but will in general not be equal to $t$, which is the time measured simultaneously by a clock resting in the corresponding frame. 
+This distance notion depends on the trajectory taken by the clock/corresponding observer (more specifically, on the uniform velocity $v$), but will in general not be equal to $t$, which is the time measured simultaneously by a clock resting in the corresponding frame. This does \emph{not} mean $\tau$ depends on the coordinates we use to compute it, i.e.~the specific inertial frame chosen, the striking factor is the path taken by the clock we measure time for.
 
 
 
 \begin{ex}[Proper Time vs.~Coordinate Time]
-We will use an example to elaborate a bit more on the meaning of all the symbols in \eqref{eq:proper_time_uniform}. Say we are in an inertial frame with coordinates $(ct, x, y, z)$. 
-
-The time elapsed between two events 
-A clock resting in this frame will measure the proper time between events $E_1 = (ct_1, 0, 0, 0), E_2 = (ct_2, 0, 0, 0)$, i.e.~it will show
-\begin{equation*}
-\tau_{E_2, E_1} = t_2 - t_1
-\end{equation*}
-to be elapsed between them. If we look at events $E_3 = (ct_1, x_1, y_1, z_1), E_4 = (ct_2, x_2, y_2, z_2)$, however, it will still measure $t_2 - t_1$. This is not equal to the proper time
-\begin{equation*}
-\tau_{E_3, E_4} = \sqrt{(t_2 - t_1)^2 - ((x_2 - x_1)^2 + (y_2 - y_1)^2 + (z_2 - z_1)^2) / c}
-\end{equation*}
-between these events, which would be measured by a clock moving on the straight world line that connects them.
-
-
-
-Going to a frame with coordinates $(ct', x', y', z')$, which moves uniformly between $E_3$ and $E_4$, the situation is different. A clock resting in this frame moves on a trajectory between $E_3$ and $E_4$, which means the time $t'$ measured by it now coincides with the proper time between these two events,
-\begin{equation*}
-\tau_{E_3, E_4} = t'_2 - t'_1 \, .
-\end{equation*}
-This is because the spatial coordinates of $E_3$ and $E_4$ are equal in the primed frame, the Lorentz transformation automatically incorporates all spatial movement happening in unprimed coordinates into $t'$. However,
-\begin{equation*}
-t'_2 - t'_1 = \tau_{E_1, E_2} = \sqrt{(t'_2 - t'_1)^2 - ((x'_2 - x'_1)^2 + (y'_2 - y'_1)^2 + (z'_2 - z'_1)^2) / c}
-\end{equation*}
-because the trajectory connecting $E_1$ and $E_2$ is not parallel to $ct'$. This is the mutuality of time dilation. Nonetheless, it shows a general way how different observers can agree on times: by using the proper time between events. Not only do the numbers agree in this case, conceptually it also makes a lot of sense to look at times which are measured by clocks which actually \enquote{see} both events, i.e.~move on a world line connecting them, instead of using clocks far away from the event.\\
-
-
-This whole behaviour might seem familiar, we have already encountered it in example \ref{ex:twin_paradox_2}, where the twin paradox has been discussed in detail. Here it already showed how different observers do not necessarily agree on times $t$ their own clocks measure between two events, but they do agree on times they infer to be measured by a clock moving on a trajectory connecting these two events -- the proper time. Moreover, since all observers agree on the proper time, one can immediately infer effects like time dilation, which becomes as easy as
-\begin{equation*}
-t'_2 - t'_1 = \tau'_{E_3, E_4} = \tau_{E_3, E_4} < t_2 - t_1 \, ,
-\end{equation*}
-the primed, moving observers measures smaller times than the unprimed, resting one.
+	We will use an example to elaborate a bit more on the meaning of all the symbols in \eqref{eq:proper_time_uniform}. Say we are in an inertial frame with coordinates $(ct, x, y, z)$. 
+	
+	The time elapsed between two events 
+	A clock resting in this frame will measure the proper time between events $E_1 = (ct_1, 0, 0, 0), E_2 = (ct_2, 0, 0, 0)$, i.e.~it will show
+	\begin{equation*}
+		\tau_{E_2, E_1} = t_2 - t_1
+	\end{equation*}
+	to be elapsed between them. If we look at events $E_3 = (ct_1, x_1, y_1, z_1), E_4 = (ct_2, x_2, y_2, z_2)$, however, it will still measure $t_2 - t_1$. This is not equal to the proper time
+	\begin{equation*}
+		\tau_{E_3, E_4} = \sqrt{(t_2 - t_1)^2 - ((x_2 - x_1)^2 + (y_2 - y_1)^2 + (z_2 - z_1)^2) / c}
+	\end{equation*}
+	between these events, which would be measured by a clock moving on the straight world line that connects them.
+	
+	
+	
+	Going to a frame with coordinates $(ct', x', y', z')$, which moves uniformly between $E_3$ and $E_4$, the situation is different. A clock resting in this frame moves on a trajectory between $E_3$ and $E_4$, which means the time $t'$ measured by it now coincides with the proper time between these two events,
+	\begin{equation*}
+		\tau_{E_3, E_4} = t'_2 - t'_1 \, .
+	\end{equation*}
+	This is because the spatial coordinates of $E_3$ and $E_4$ are equal in the primed frame, the Lorentz transformation automatically incorporates all spatial movement happening in unprimed coordinates into $t'$. However,
+	\begin{equation*}
+		t'_2 - t'_1 = \tau_{E_1, E_2} = \sqrt{(t'_2 - t'_1)^2 - ((x'_2 - x'_1)^2 + (y'_2 - y'_1)^2 + (z'_2 - z'_1)^2) / c}
+	\end{equation*}
+	because the trajectory connecting $E_1$ and $E_2$ is not parallel to $ct'$. This is the mutuality of time dilation. Nonetheless, it shows a general way how different observers can agree on times: by using the proper time between events. Not only do the numbers agree in this case, conceptually it also makes a lot of sense to look at times which are measured by clocks which actually \enquote{see} both events, i.e.~move on a world line connecting them, instead of using clocks far away from the event.\\
+	
+	
+	This whole behaviour might seem familiar, we have already encountered it in example \ref{ex:twin_paradox_2}, where the twin paradox has been discussed in detail. Here it already showed how different observers do not necessarily agree on times $t$ their own clocks measure between two events, but they do agree on times they infer to be measured by a clock moving on a trajectory connecting these two events -- the proper time. Moreover, since all observers agree on the proper time, one can immediately infer effects like time dilation, which becomes as easy as
+	\begin{equation*}
+		t'_2 - t'_1 = \tau'_{E_3, E_4} = \tau_{E_3, E_4} < t_2 - t_1 \, ,
+	\end{equation*}
+	the primed, moving observers measures smaller times than the unprimed, resting one.
 \end{ex}
 
-From the metric, one can infer statements about the geometry of Minkowski space. In Euclidian space, points of constant distance $s$ lie on a circle around the origin, which is determined by the equation $s^2 = x^2 + y^2 + z^2$. In Minkowski space, events of equal distance lie on a hyperboloid of constant proper times $\tau$ and are determined by
-\begin{equation}\label{eq:eichhyperbel}
-\eqbox{
-c^2 \tau^2 = c^2 t^2 - x^2 - y^2 - z^2
-} \, .
-\end{equation}
-Setting $c \tau = 1$ yields a hyperbola, whose intersection with time axes in spacetime diagrams determines the \enquote{length of one time unit} (figure \ref{fig:minkowski_with_eichhyperbel}).
-
-
-\begin{figure}
-	\centering
-
-	\begin{tikzpicture}
-		% Add basis for diagram
-		\spacetimediagram{4}
-	
-		% Add other observers
-		\addobserver{2}{0.5}
-		\addobserver[color=orange, xlabel=$x''$, ylabel=$ct''$]{2}{(-1)*0.75}
-
-		% Add eichhyperbel. From $1 = c^2 t^2 - x^2$ we get parametrization $(x, ct) = (x, \sqrt{1 + x^2})$
-		\draw[domain=-4:4, smooth, variable=\x, color=black!30!green] plot ({\x}, {sqrt(1 + \x * \x)});
-	\end{tikzpicture}
-
-	\caption{Plot of the curve fulfilling $1 = c^2 t^2 - x^2 - y^2 - z^2$ (green), along with three inertial frames (rest frame in black and frames moving with $v = 0.5 c, -0.75$ relative to resting one in blue, orange, respectively).\\
-	As we can see, this yields same time steps as Lorentz transform, the hyperbola intersects time-axes of all observers perfectly at time unit on their respective axis (as it should).}
-	\label{fig:minkowski_with_eichhyperbel}
-\end{figure}
+As we have seen in this example, in some coordinates it is very easy to compute proper times because the object or particle we look at is at rest in this frame, which implies that the coordinate time $t$ is already the proper time, $\tau = t$. These coordinates are often given a special name.
+\begin{defi}[Instantaneous Rest Frame]
+	A frame $(t, x, y, z)$ where
+	\begin{equation}
+		\eqbox{
+		%dx^\mu = 0, \; \forall \mu % dt is not 0
+		dx = dy = dz = 0
+		\qquad \Rightarrow \qquad d\tau = dt
+		}
+	\end{equation}
+	along the world line of a particle is called \Def{instantaneous rest frame} or \Def{comoving frame}.
+\end{defi}
+This definition can also be extended to non-uniform velocities $v = v(t)$ because instantaneous rest frames taken at different times are related by Lorentz transforms. We will now see how the general definition of the proper time may be extended to this case.
 
 
 
 		\paragraph{Generalized Proper Time}
 What was denoted with $\tau$ in equation \eqref{eq:proper_time_uniform}, in reality is a difference $\Delta \tau$ of proper times (just measured with respect to $\tau = 0$), and the same is true for the coordinates $(ct, x, y, z)$. Making these differences infinitesimally small, i.e.~$\Delta \rightarrow d$, we obtain the infinitesimal distance or \Def{proper time element}\footnote{We adopt the common notation $dx^2 := (dx)^2$.}
 \begin{equation}
-\eqbox{
-d\tau^2 = dt^2 - \frac{dx^2 + dy^2 + dz^2}{c^2} = (1 - \frac{v^2}{c^2}) \, dt^2 = \gamma^2 \, dt^2
-} \, .
+	\eqbox{
+	d\tau^2 = dt^2 - \frac{dx^2 + dy^2 + dz^2}{c^2} = (1 - \frac{v^2}{c^2}) \, dt^2 = \gamma^2 \, dt^2
+	} \, .
 \end{equation}
 This implies the following \Def{(proper) line element}
 \begin{equation}
-\eqbox{
-ds^2 = c^2 d\tau^2 = c^2 dt^2 - dx^2 - dy^2 - dz^2
-}
+	\eqbox{
+	ds^2 = c^2 d\tau^2 = c^2 dt^2 - dx^2 - dy^2 - dz^2
+	}
 \end{equation}
-and corresponding \Def{proper distance} $s = c \tau$ between events (note that this implicitly uses the relativity principle again, $c$ is constant). Writing this line element out in its general form $ds^2 = \eta_{\mu \nu} dx^\mu dx^\nu$ immediately allows to read off the components of the \Def{Minkowski metric} $\eta$, which can be conveniently arranged in a matrix
+and corresponding \Def{proper distance} $s = c \tau$ between events (note that this implicitly uses the constancy of $c$ again). Writing this line element out in its general form $ds^2 = \eta_{\mu \nu} dx^\mu dx^\nu$ immediately allows to read off the components of the \Def{Minkowski metric} $\eta$, which can be conveniently arranged in a matrix
 \begin{equation}
-\eqbox{
-\eta = \mqty(1 & 0 & 0 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & -1 & 0 \\ 0 & 0 & 0 & -1)
-} \, .
+	\eqbox{
+	\eta = \mqty(1 & 0 & 0 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & -1 & 0 \\ 0 & 0 & 0 & -1)
+	} \, .
 \end{equation}
 At this point, we shall make a remark regarding the signs: in principle, we could have chosen $\eta$ to have only one minus (in the time component) since only the proper time is constrained by physical observations, while the proper distance could equally well be defined as $ds^2 = - c^2 d\tau^2$. There are good arguments for both conventions, but I personally find it more natural to keep the signs when going from times to distances, which is why the $(+, -, -, -)$-convention is adopted here.\\
 
 
-Perhaps a bit contrary to popular belief, special relativity is not confined to observers with uniform velocities. Using the quantities we have just derived, it is possible to use extend the description to observers moving with non-uniform velocities, i.e.~accelerating ones. For distances, this is possible in the scope of integration on manifolds, where the length of a curve $\gamma(t)$ defined on an interval $I \subset \mathbb{R}$ is
+Perhaps a bit contrary to popular belief (at least that is what many authors claim), the scope special relativity is not restricted to observers with uniform velocities. Using some of the quantities and tools we have just derived, it is possible to extend the description of certain dynamics to observers moving with non-uniform velocities, i.e.~accelerating ones. For distances, this is possible in the scope of integration on manifolds, where the length of a curve $\Gamma(t)$ defined on an interval $I \subset \mathbb{R}$ is
 \begin{equation*}
-L(\gamma) = \int_I \sqrt{g_{\mu \nu} v^\mu v^\nu} \, dt = \int_I \sqrt{g(v, v)} \, dt =: \int_I d\gamma
+	L(\Gamma) = \int_I \sqrt{g_{\mu \nu} v^\mu v^\nu} \, dt = \int_I \sqrt{g(v, v)} \, dt =: \int_I d\Gamma \, .
 \end{equation*}
-where $v = \dv{\gamma(t)}{t}$ is the tangent vector (field) along $\gamma$. Since we now have a metric $g_{\mu \nu} = \eta_{\mu \nu}$ and a line element $d\tau$, we can compute proper times for arbitrary kinds of movements. Hence, given a world line $\Gamma$ parametrized by some parameter $\sigma \in I = [a, b]$, i.e.~
-\begin{equation*}
-\Gamma(\sigma): \sigma \mapsto (t, x, y, z) = (t(\sigma), x(\sigma), y(\sigma), z(\sigma)) \, ,
-\end{equation*}
-the proper time elapsed along $\Gamma$ is
-\begin{equation}\label{eq:proper_time_general}
-\eqbox{
-\tau = \int_\Gamma d\tau = \int_\Gamma \gamma \, dt = \int_a^b \dv{\tau}{\sigma} \, d\sigma = \int_a^b \sqrt{\qty(\dv{t}{\sigma})^2 - \frac{1}{c^2} \qty(\dv{\vec{x}}{\sigma})^2} \, d\sigma
-} \, .
-\end{equation}
-This includes the case of uniform movement $v \neq v(t)$, whence the integrand $\gamma$ is constant and evaluation of the integral simply yields $\tau = \gamma (t_b - t_a)$. Instead of $\sigma$, one could also choose arbitrary linear combinations $\sigma' = e \sigma + f$ ($e, f \in \mathbb{R}$) to parametrize $\Gamma$ and then use $d\sigma' = e \, d\sigma$, which means that the integral in \eqref{eq:proper_time_general} is invariant under changes of this \Def{affine parameter}. A very common choice is $\sigma = \tau$ and we will later see how this specific parametrization can be characterized.
+$v = \dv{\Gamma(t)}{t}$ is the tangent vector (field) along $\Gamma$. Because we are equipped with a metric $g_{\mu \nu} = \eta_{\mu \nu}$ and corresponding line element $d\tau$, we can compute proper times for arbitrary kinds of movements.
+\begin{post}[Clock Postulate]
+	Given a world line $\Gamma$ parametrized by $\sigma \in I = [a, b]$, i.e.
+	\begin{equation*}
+		\Gamma(\sigma): \sigma \mapsto (t, x, y, z) = (t(\sigma), x(\sigma), y(\sigma), z(\sigma)) \, ,
+	\end{equation*}
+	the proper time elapsed along $\Gamma$ is
+	\begin{equation}\label{eq:proper_time_general}
+		\eqbox{
+		\begin{split}
+		\tau &= \int_\Gamma d\tau = \int_\Gamma \gamma(t) \, dt = \int_\Gamma \sqrt{1 - \frac{v(t)^2}{c^2}} \, dt
+		\\
+		%&= \int_a^b \dv{\tau}{\sigma} \, d\sigma = \int_a^b \sqrt{\qty(\dv{t}{\sigma})^2 - \frac{1}{c^2} \qty(\dv{\vec{x}}{\sigma})^2} \, d\sigma
+		&= \int_a^b \dv{\tau}{\sigma} \, d\sigma = \int_a^b \sqrt{\qty(\dv{t}{\sigma})^2 - \frac{1}{c^2} \dv{x^\alpha}{\sigma} \dv{x^\alpha}{\sigma}} \, d\sigma
+		\end{split}
+		} \, .
+	\end{equation}
+\end{post}
+Note that while this \enquote{derivation} we provided here does make a lot sense, there is no guarantee for it to be correct -- accelerating clocks could be vastly different from uniformly moving and resting ones. For this reason, we call \eqref{eq:proper_time_general} a postulate rather than a property. Once again, experiments have tested this postulate to very high accelerations of $\approx 10^{16}$ times the acceleration on earth, which showed no dependence on it (only on the speed $v$).
 
-Another remark on this definition is related to the metric. In coordinates, which are not inertial Cartesian ones, the metric is very likely to have different components $\eta'_{\mu \nu} \neq \eta_{\mu \nu}$. In this case, the last equality would not hold true anymore, although analogous formulas could be obtained from
+Intuitively, we can see that \eqref{eq:proper_time_general} works because it utilizes infinitesimal steps $d\tau$ where $v(t)$ does not change, so we can apply what we know at this point and integrate up the results from all points (idea is similar to the rectification of curves). It includes the case of uniform movement $v = \text{const.}$, whence the integrand $\gamma$ is constant and evaluation of the integral simply yields $\tau = \gamma (t_b - t_a)$. In case $v = v(t)$, the most convenient formula to use from \eqref{eq:proper_time_general} really depends on what is given -- it may be the parametrization that is explicitly known or the velocity as a function of time.
+
+Instead of $\sigma$, one could also choose arbitrary linear combinations $\sigma' = e \sigma + f$ ($e, f \in \mathbb{R}$) to parametrize $\Gamma$ and then use $d\sigma' = e \, d\sigma$, which means that the integral in \eqref{eq:proper_time_general} is invariant under changes of this \Def{affine parameter}. A very common choice is $\sigma = \tau$ and we will later see how this specific parametrization can be characterized.\\
+
+
+Another remark on this definition is related to the metric. In coordinates, which are not inertial Cartesian ones, the metric is very likely to have different components $\eta'_{\mu \nu} \neq \eta_{\mu \nu}$. In this case, the last equality would not hold true anymore, although analogous formulas can be obtained from (again, assuming a world line $\Gamma$ with tangent vector $\underline{v}$)
 \begin{equation}\label{eq:proper_time_non_cartesian}
-\eqbox{
-\tau = \int_\Gamma d\tau = \frac{1}{c} \int_I \sqrt{\eta'(\underline{v}, \underline{v})} \, d\sigma = \frac{1}{c} \int_I \sqrt{\eta'_{\mu \nu} dx^\mu(\underline{v}) dx^\nu(\underline{v})} \, d\sigma = \frac{1}{c} \int_I \sqrt{\eta'_{\mu \nu} v^\mu v^\nu} \, d\sigma
-} \, ,
+	\eqbox{
+	%\tau = \int_\Gamma d\tau = \frac{1}{c} \int_I \sqrt{\eta'(\underline{v}, \underline{v})} \, d\sigma = \frac{1}{c} \int_I \sqrt{\eta'_{\mu \nu} dx^\mu(\underline{v}) dx^\nu(\underline{v})} \, d\sigma = \frac{1}{c} \int_I \sqrt{\eta'_{\mu \nu} v^\mu v^\nu} \, d\sigma
+	\tau = \int_\Gamma d\tau = \frac{1}{c} \int_I \sqrt{\eta'_{\mu \nu} v^\mu v^\nu} \, d\sigma
+	} \, ,
 \end{equation}
-which still holds ($\underline{v}$ is the tangent vector along $\Gamma$).\\
+which still holds due to the transformation rule for integrals. This rule is also what implies the invariance of $\tau$ under the coordinates/frame it is computed in, which is a mathematical way of stating that all observers agree on the proper time.
+
+
+It is this invariance that allows us to infer statements about the geometry of Minkowski space (where we now assume $v = \text{const.}$ again and thus use \eqref{eq:proper_time_uniform}). In Euclidian space, points of constant distance $s$ lie on a circle around the origin, which is determined by the equation $s^2 = x^2 + y^2 + z^2$. In Minkowski space, events of equal distance lie on a hyperboloid of constant proper times $\tau$ and are determined by
+\begin{equation}\label{eq:eichhyperbel}
+	\eqbox{
+	c^2 \tau^2 = c^2 t^2 - x^2 - y^2 - z^2
+	} \, .
+\end{equation}
+Setting $c \tau = 1$ yields a hyperbola, whose intersection with time axes in spacetime diagrams determines the \enquote{length of one time unit}, a very convenient way to see how moving clocks are perceived to be slower from a resting observers point of view (figure \ref{fig:minkowski_with_eichhyperbel}).\\
 
 
 
-One final note concerns an alternative derivation of the metric. It is also based on the relativity principle, but instead of constructing clocks etc.~explicitly, it uses that light propagates as a spherical wave with velocity $c$. Writing this equation in multiple inertial frames yields
+\begin{figure}
+	\centering
+
+	\begin{tikzpicture}[scale=1.2]
+		% Add basis for diagram
+		\spacetimediagram{4}
+	
+		% Add other observers
+		\addobserver{2}{0.5}
+		\addobserver[color=black!30!green, xlabel=$x''$, ylabel=$ct''$]{2}{(-1)*0.75}
+
+		% Add eichhyperbel. From $1 = c^2 t^2 - x^2$ we get parametrization $(x, ct) = (x, \sqrt{1 + x^2})$
+		\draw[domain=-4:4, very thick, smooth, variable=\x, color=orange] plot ({\x}, {sqrt(1 + \x * \x)});
+	\end{tikzpicture}
+
+	\caption[Plot of the curve fulfilling $1 = c^2 t^2 - x^2$]{Plot of the curve fulfilling $1 = c^2 t^2 - x^2$ (orange), along with three inertial frames (rest frame in black and frames moving with $v = 0.5 c, -0.75$ relative to resting one in blue, green, respectively).\\
+	As we can see, this yields same time steps as Lorentz transform, the hyperbola intersects time-axes of all observers perfectly at time unit on their respective axis (as it should).}
+	\label{fig:minkowski_with_eichhyperbel}
+\end{figure}
+
+
+
+One final note concerns an alternative derivation of the metric. It is also based $c$ being constant, but instead of constructing clocks etc.~explicitly, it uses that light propagates as a spherical wave with velocity $c$. Writing this equation in multiple inertial frames yields
 \begin{equation}
-c^2 t^2 = x^2 + y^2 + z^2 \; \text{ and } \; c^2 t'^2 = x'^2 + y'^2 + z'^2 \qquad \Leftrightarrow \qquad c^2 t^2 - x^2 - y^2 - z^2 \overset{!}{=} c^2 t'^2 - x'^2 - y'^2 - z'^2 \, .
+	c^2 t^2 = x^2 + y^2 + z^2 \; \text{ and } \; c^2 t'^2 = x'^2 + y'^2 + z'^2 \qquad \Leftrightarrow \qquad c^2 t^2 - x^2 - y^2 - z^2 \overset{!}{=} c^2 t'^2 - x'^2 - y'^2 - z'^2 \, .
 \end{equation}
-by the equivalence principle. This points to the invariant proper distance we have called $s$ (which vanishes for light). At the same time, it explains the ambiguity in overall sign because we can get the same physics no matter which sign is used in $ds^2$ (only the sign in $d\tau^2$ is fixed, but this can be adjusted by defining $ds^2 = \pm c^2 d\tau^2$, respectively).
+by the relativity principle. This points to the invariant proper distance we have called $s$ (which vanishes for light). At the same time, it explains the ambiguity in overall sign because we can get the same physics no matter which sign is used in $ds^2$ (only the sign in $d\tau^2$ is fixed, but this can be adjusted by defining $ds^2 = \pm c^2 d\tau^2$, respectively).
 
 
 
 		\paragraph{Inner Product}
 The notion of a metric allows for the construction of a rich theory. We have seen how it can be used to define integrals and now we will deal with another important structure on manifolds, which has already been used in \eqref{eq:proper_time_non_cartesian}.
 
-\begin{defi}[Inner Product]
-The \Def{inner product} or \Def{scalar product} of two vectors $\underline{v}, \underline{w}$ is
+\begin{defi}[Minkowski Inner Product]
+The \Def{Minkowski inner product} of two vectors $\underline{v}, \underline{w}$ is
 \begin{equation}\label{eq:inner_prod}
-\eqbox{
-\eta(\underline{v}, \underline{w}) = \eta_{\mu \nu} v^\mu w^\nu
-} \, .
+	\eqbox{
+	\underline{v} \cdot \underline{w} := \eta(\underline{v}, \underline{w}) = \eta_{\mu \nu} dx^\mu(\underline{v}) dx^\nu(\underline{w}) = \eta_{\mu \nu} v^\mu w^\nu
+	} \, .
 \end{equation}
+Strictly mathematically speaking, this does not define an inner product because it is not positive-definite, \enquote{only} non-degenerate. For this reason, $\eta$ is also called a pseudo-Riemannian metric. For simplicity (in typical physicist-manner) it is commonly called Minkowski inner product despite that.
+
 
 The induced norm of a vector is
 \begin{equation}\label{eq:vector_norm}
-\eqbox{
-\norm{\underline{v}}^2 = \eta(\underline{v}, \underline{v}) = \eta_{\mu \nu} v^\mu v^\nu
-} \, .
+	\eqbox{
+	\norm{\underline{v}}^2 = \eta(\underline{v}, \underline{v}) = \eta_{\mu \nu} v^\mu v^\nu
+	} \, .
 \end{equation}
 This is also the line element of the curve that $\underline{t}$ is tangent to.
 \end{defi}
+Due to the non-degeneracy of $\eta$, vectors can have negative or even vanishing norm.
 
-
-Based on that, we naturally get an equivalent, more formal way of quantifying causality.
+Based on \eqref{eq:inner_prod}, we naturally get an equivalent, more formal way of quantifying causality.
 \begin{defi}[Timelike, Lightlike, Spacelike]
-A world line $\Gamma$ with tangent vector $\underline{t}$ is called
-\begin{itemize}
-\item \Def{timelike}, if $ds^2 = \eta(\underline{t}, \underline{t}) > 0 \; \Leftrightarrow \; c > v$ along $\Gamma$
-
-
-\item \Def{null/lightlike}, if $ds^2 = \eta(\underline{t}, \underline{t}) = 0 \; \Leftrightarrow \; c = v$ along $\Gamma$
-
-
-\item \Def{spacelike}, if $ds^2 = \eta(\underline{t}, \underline{t}) < 0 \; \Leftrightarrow \; c < v$ along $\Gamma$
-\end{itemize}
+	A world line $\Gamma$ with tangent vector $\underline{t}$ is called
+	\begin{itemize}
+		\item \Def{timelike}, if $\abs{v} < c \; \Leftrightarrow \; ds^2 = \eta(\underline{t}, \underline{t}) > 0$ along $\Gamma$
+		
+		
+		\item \Def{null/lightlike}, if $\abs{v} = c \; \Leftrightarrow \; ds^2 = \eta(\underline{t}, \underline{t}) = 0$ along $\Gamma$
+		
+		
+		\item \Def{spacelike}, if $\abs{v} > c \; \Leftrightarrow \; ds^2 = \eta(\underline{t}, \underline{t}) < 0$ along $\Gamma$
+	\end{itemize}
 \end{defi}
 This very compact characterization adds to the intuitive definition from before.
+
+
+-> Penrose continues to make interesting point on that on page 407: light cones more fundamental than metric
 
 
 
@@ -1302,6 +1329,10 @@ Lorentz transformations have been introduced in section \ref{sec:lorentz_transfo
 -> after metric is nice, then we can present mathematical viewpoint; do not change norm of four-vector (this is well-known property of rotations, but there is also a second class of Lorentz transformations, which are called boosts; they represent what we have derived in previous section, change to other inertial frame that moves uniformly with respect to first one); also note that they admit group structure, i.e.~note properties here; maybe even introduce rapidity and note connection of Lie group and Lie algebra? But not elaborate on this
 
 maybe just note that Lorentz transformation = change of coordinates/charts (which is corresponding term in language of manifolds); one condition to obtain them is by demanding norm of four-vector does not change (ahh, might be confusing because I think Nolting refers to this kind of in Euclidian space; what he calls norm is really proper time passing on clock which moves from origin to point, isn't it? Would make sense to demand this better stay the same after transformation after we have put so much effort into invariant definition) -> I like this, but does not fit before introduction of norm; so maybe make subsection on transformations after metric?
+
+
+
+Lorentz-scalar or Lorentz-invariant is scalar quantity, which does not change under Lorentz-transformation; example is proper time, but also mass etc.~are of this nature
 
 
 
@@ -1329,30 +1360,30 @@ idea: new transformation law means we have new dynamics; these can be formulated
 		\subsection{Four-velocity and Four-momentum}
 Trajectories or world lines are nothing but curves on manifolds, as we have already seen. A natural question, however, was left unanswered until now: what is the velocity of such a trajectory? Since its role is to quantify how fast and in which direction the trajectory is changing, velocity now becomes a tangent vector. In analogy to the previous description, we may try
 \begin{equation}
-U^\alpha = \dv{x^\alpha}{t} = (c, \vec{v}) \, .
+	U^\alpha = \dv{x^\alpha}{t} = (c, \vec{v}) \, .
 \end{equation}
 Thinking back to the previous sections on clocks and proper time, though, we can immediately see how this definition is flawed: coordinate times $t$ are not invariant, i.e.~the velocity of a world line would change depending on the observer. At the same time, we can immediately come up with a solution: replacing $t$ with the proper time $\tau$ a clock would measure along the world line. This leads to
 \begin{equation}\label{eq:four_velocity}
-\eqbox{
-U^\alpha = \dv{x^\alpha}{\tau} = (c \dv{t}{\tau}, \dv{\vec{x}}{\tau}) = \dv{t}{\tau} (c, \dv{\vec{x}}{t}) = \gamma (c, \vec{v})
-} \, ,
+	\eqbox{
+	U^\alpha = \dv{x^\alpha}{\tau} = (c \dv{t}{\tau}, \dv{\vec{x}}{\tau}) = \dv{t}{\tau}~ (c, \dv{\vec{x}}{t}) = \gamma (c, \vec{v})
+	} \, ,
 \end{equation}
 the \Def{four-velocity}. $\vec{v}$ is the \enquote{regular} three-velocity, which finds its way into the equation by a simple application of the chain rule.
 
 -> has only three independent velocities!
 
--> only defined for timelike world lines
+-> only defined for timelike world lines (because it vanishes trivially for light and is complex, i.e.~not defined, for spacelike)
 
 
 Information we get from $\vec{v}$ is the direction of an object (through the unit vector $\vec{v} / \norm{v}$) and how fast (through $v = \norm{v}$). As a tangent vector along $x^\alpha(\tau)$, $\underline{U}$ naturally contains information about the direction, so what about $\norm{\underline{U}}$?
 \begin{equation}
-\eqbox{
-\norm{\underline{U}}^2 = \eta_{\mu \nu} U^\mu U^\nu = \eta_{\mu \nu} \dv{x^\mu}{\tau} \dv{x^\nu}{\tau} = \frac{\eta_{\mu \nu} dx^\mu dx^\nu}{d\tau^2} = c^2 \frac{d\tau^2}{d\tau^2} = c^2
-} \, .
+	\eqbox{
+	\norm{\underline{U}}^2 = \eta_{\mu \nu} U^\mu U^\nu = \eta_{\mu \nu} \dv{x^\mu}{\tau} \dv{x^\nu}{\tau} = \frac{\eta_{\mu \nu} dx^\mu dx^\nu}{d\tau^2} = c^2 \frac{d\tau^2}{d\tau^2} = c^2
+	} \, .
 \end{equation}
 That four-velocity possesses a \enquote{built-in} normalization, it has a constant magnitude, the speed of light -- no matter at which actual speed $v$ the particle moves (and also, independent of the time $\tau$ we evaluate it at, i.e.~independent of the point in manifold)! Not only does that imply all observers trivially agree on its value, it also points to the special role of $\tau$ as affine parameter $\sigma$ of the world line. Note that the calculation here only works because the Minkowski metric has constant components. Equivalently, we could calculate
 \begin{equation*}
-\norm{\underline{U}}^2 = \eta_{\mu \nu} U^\mu U^\nu = \gamma^2 (c^2 - v^2) = c^2 \frac{1 - v^2 / c^2}{1 - v^2 / c^2} = c^2 \, .
+	\norm{\underline{U}}^2 = \eta_{\mu \nu} U^\mu U^\nu = \gamma^2 (c^2 - v^2) = c^2 \frac{1 - v^2 / c^2}{1 - v^2 / c^2} = c^2 \, .
 \end{equation*}
 
 
@@ -1374,16 +1405,24 @@ redshift leads to higher energy, but frequency also changes such that all in all
 
 
 		\subsection{Acceleration}%{Accelerated Observers} % GR is next chapter, maybe this name more accurate
-using the generalization we just made, we can also deal with accelerations, i.e.~non-uniform movement; this is easier (or at least more straightforward) to do than intuitive version, at least for now
+using the generalization we just made, we can also deal with accelerations, i.e.~non-uniform movement; this is easier (or at least more straightforward) to do than intuitive version
+
+
+-> people claiming general relativity is needed here often comes from differences in nomenclature, what the \enquote{special} and \enquote{general} part refer to; Einstein himself saw special for uniform movement and then included acceleration into the general part (along with gravity, which is very similar to acceleration as he soon realized); but in principle, there is nothing to prevent us from dealing with acceleration already in special relativity, using inertial frames etc., which is what is done in modern descriptions quite commonly (feature setting apart general is then just gravity, i.e.~a curved spacetime instead of flat, Minkowski)
 
 
 
 we have seen how to compute proper times in special relativity, the formula could be broken down to 
-\begin{equation}
-\tau = \int d\tau = \frac{1}{c} \int ds = \frac{1}{c} \int \sqrt{g_{\mu \nu} v^\mu v^\nu} \, dt
-\end{equation}
-
+\begin{equation*}
+	\tau = \int d\tau = \frac{1}{c} \int \sqrt{\eta_{\mu \nu} v^\mu v^\nu} \, dt
+\end{equation*}
 in fact, this formula also holds for $v = v(t)$, i.e.~when a time-dependent velocity and thus acceleration is present (we can compute dynamics); this is because it does not involve absolute differences like $x - x'$, but infinitesimal ones $dx$ along the whole path, so changes in $v$ are incorporated automatically; however, we have to use other metrics in this case and general relativity presents a general way to compute the metric
+
+
+interesting (from \url{https://math.ucr.edu/home/baez/physics/Relativity/SR/clock.html}): clock postulate cannot be proven because we do not know speed of light in accelerating frame; however, using clock postulate we can show that this is the case (locally); but note that postulate is required!!!
+
+
+-> however, being able to compute proper times does not mean everything can be done by simply replacing $v$ with $v(t)$; for example, Lorentz transformations fundamentally rely on $v = \text{const.}$, so accelerated frames are not straightforward to obtain from what we have done so far (does not mean it is impossible, though); we may still examine the behaviour of accelerating world lines, though (from an inertial frame)
 
 
 

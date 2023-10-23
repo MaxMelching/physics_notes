@@ -13,7 +13,7 @@
 \automark*[chapter]{subsection}
 \ihead[]{\headmark}
 %\ohead[]{Seite~\thepage}
-\cfoot{\hypersetup{linkcolor=black}Seite~\thepage~von~\pageref{LastPage}}
+\cfoot{\hypersetup{linkcolor=black}Page~\thepage~of~\pageref{LastPage}}
 
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman, english]{babel}
@@ -208,6 +208,9 @@ backgroundcolor=gray!8}
 \usetikzlibrary{math}  % Allows declaration of variables, very convenient
 \usepackage{pgfkeys}
 
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections,through,backgrounds} % https://tex.stackexchange.com/questions/31398/tikz-intersection-of-two-lines
+
 
 % Define fixed color for light rays
 \definecolor{lightyellow}{rgb}{0,0,0}  % Start with black
@@ -333,8 +336,8 @@ backgroundcolor=gray!8}
 	color/.estore in = \worldlineColor
 }
 
-% Mandatory argument: x position, y position
-% Optional arguments: relative velocity (important: if negative, must be given as (-1) * v where v is the absolute value, otherwise error), label, color, label placement
+% Mandatory argument: x position of first event, y position of first event, x position of second event, y position of second event
+% Optional arguments: relative velocity (important: if negative, must be given as (-1) * v where v is the absolute value, otherwise error), color
 \newcommand{\addworldline}[5][]{%
 	\pgfkeys{/addworldline, default, #1}
 
