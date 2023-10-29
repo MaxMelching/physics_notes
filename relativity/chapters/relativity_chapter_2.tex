@@ -497,177 +497,70 @@ We have already mentioned how the Einstein synchronization is not unique. Howeve
 	t''' = \frac{t'''_+ + t'''_-}{2}
 	\, .
 \end{equation}
-Apparently, the observers $\mathcal{O}'', \mathcal{O}'''$ agree on $t'' = t'''$ (to verify that, we can also look at the distance of $t_-, t, t_+$ on the vertical axis we use to depict time).
+Therefore, the observers $\mathcal{O}'', \mathcal{O}'''$ agree on $t'' = t'''$ (to verify that, we can also look at the distance of $t_-, t, t_+$ on the vertical axis we use to depict time or the distance along the world lines of the observers).
 
-But nonetheless, something seems to be different. The situation is depicted in figure \ref{fig:clocks_at_rest_wrt_each_other} (c), where we assumed $t = t''$ in the event where $\mathcal{O}, \mathcal{O}''$ intersect for a simpler discussion. While the synchronization process works for both pairs of clocks, the induced notion of simultaneity for $\mathcal{C}'', \mathcal{C}'''$ is \emph{not} the same as the one for $\mathcal{C}, \mathcal{C}'$. We can see that from $t'''$ being higher than $t'$ on the time axis (which goes straight up). Geometrically speaking, the \enquote{lines of simultaneity} (diagonal from left to right corner in lightangle) change from being horizontal in figure \ref{fig:clocks_at_rest_wrt_each_other} (a) to being tilted in (b).
-
--> for this reason, lightangle changes (observers tilt, light not)
-\\
+But nonetheless, something seems to be different. We get an idea of what it might be from a comparison of the pairs of synchronized clocks in figure \ref{fig:clocks_at_rest_wrt_each_other} (c), where  $t = t''$ has been assumed in the event where $\mathcal{O}, \mathcal{O}''$ intersect for a simpler discussion. While both pairs of clocks are synchronized among themselves, the induced notion of simultaneity for $\mathcal{C}'', \mathcal{C}'''$ is \emph{not} the same as the one for $\mathcal{C}, \mathcal{C}'$. We can see that from $t'''$ being higher than $t'$ on the time axes of both the resting and moving observers (which are parallel to their world lines). Geometrically speaking, the \enquote{lines of simultaneity} (diagonal from left to right corner in lightangle) change from being horizontal in figure \ref{fig:clocks_at_rest_wrt_each_other} (a) to being tilted in (b).\\
 
 
-The origin of these differences lies in the change of inertial frame. While light has the same world line as before due to the constancy of $c$, the world lines of both clocks, $\mathcal{O}''$ and $\mathcal{O}'''$, are tilted now. Therefore, the time of flight for light on $\overline{\mathcal{O}'' \mathcal{O}'''}$ is different from the one on $\overline{\mathcal{O}''' \mathcal{O}''}$ (equivalent: time needed for $\overline{\mathcal{O}'' \mathcal{R}'}$ differs from the one for $\overline{\mathcal{O}''' \mathcal{R}'}$) because the observers are moving uniformly in the same direction. More explicitly, while the one-way speeds of light are still $c$ for both paths, the uniform motion of both clocks leads to differences $v (t''' - t''_-), -v (t''_+ - t''')$ in separation $\overline{\mathcal{O}'' \mathcal{O}'''}$ and thus (for the resting observer)
+The origin of these differences lies in the change of inertial frame. While light has the same world line as before due to the constancy of $c$, the world lines of both clocks, $\mathcal{O}''$ and $\mathcal{O}'''$, are tilted now (which causes the observed change in the lightangle). Therefore, the time of flight for light on $\overline{\mathcal{O}'' \mathcal{O}'''}$ is different from the one on $\overline{\mathcal{O}''' \mathcal{O}''}$ (equivalent: time needed for $\overline{\mathcal{O}'' \mathcal{R}'}$ differs from the one for $\overline{\mathcal{O}''' \mathcal{R}'}$) because the observers are moving uniformly in the same direction. More explicitly, while the one-way speeds of light are still $c$ for both paths, the uniform motion of both clocks leads to differences $v (t''' - t''_-), -v (t''_+ - t''')$ in separation $\overline{\mathcal{O}'' \mathcal{O}'''}$ and thus (for the resting observer)
 \begin{equation}\label{eq:one_way_light_speed_v2}
 	\eqbox{
 	c (t''' - t''_-) = \overline{\mathcal{O}'' \mathcal{O}'''} + v (t''' - t''_-)
-	} \quad \text{ and } \quad
+	}
+	\quad \text{ and } \quad
 	\eqbox{
 	c (t''_+ - t''') = \overline{\mathcal{O}'' \mathcal{O}'''} - v (t''_+ - t''')
 	} \, .
 \end{equation}
-For the two-way speed, we expect the result \eqref{eq:two_way_light_speed}. Adding both one-way speeds yields
-\begin{equation*}
-	(c + v) t''_+ - (c - v) t''_- - 2 v t''' = 2 \overline{\mathcal{O}'' \mathcal{O}'''}
-	\quad \Leftrightarrow \quad
-	c \frac{t''_+ - t''_-}{2} + v \frac{t''_+ + t''_-}{2} - v t''' = \overline{\mathcal{O}'' \mathcal{O}'''}
-	\, .
-\end{equation*}
-Since the clocks are synchronized, their readings fulfil $t''' = \frac{t''_+ + t''_-}{2}$ and thus
-%i.e.~$c \frac{t''_+ - t''_-}{2} = \overline{\mathcal{O}'' \mathcal{O}'''}$, we obtain -> but that is what we want to prove, right?
-\begin{equation}\label{eq:two_way_light_speed_v2}
-	\eqbox{
-	c \frac{t''_+ - t''_-}{2} = \overline{\mathcal{O}'' \mathcal{O}'''}
-	} \, .
-\end{equation}
--> result should be true intuitively, but isn't point they are not synchronized? Btw, I think figure (c) is wrong... Should start with same separation
-The two-way speed of light is still $c$. From \eqref{eq:one_way_light_speed_v2}, however, we see that
-\begin{equation}
+Consequently,
+\begin{align}
 	\eqbox{
 	t''' - t''_- = \frac{\overline{\mathcal{O}'' \mathcal{O}'''}}{c - v} \neq \frac{\overline{\mathcal{O}''' \mathcal{O}''}}{c + v} = t''_+ - t'''
-	} \, ,
-\end{equation}
-in contrast to  \eqref{eq:one_way_light_speed} -- the one-way speeds as seen from the stationary observers are \emph{not} $c$, the clocks are not seen to by synchronized in this frame (which is just a more formal version of the previous statement \enquote{$t'''$ is higher on the time axis as $t'$}). The same analysis can be done for light sent out by $\mathcal{O}'''$, confirming the two-way speed being equal to $c$ and also yielding
-\begin{equation}
+	}
+	%\quad \text{ and } \quad
+	\; , \;
 	\eqbox{
 	t'' - t'''_- = \frac{\overline{\mathcal{O}''' \mathcal{O}''}}{c + v} \neq \frac{\overline{\mathcal{O}'' \mathcal{O}'''}}{c - v} = t'''_+ - t''
-	} \, .
-\end{equation}
-
-
-
-%\iffalse
-{ % Not sure if these calculations make sense because they could be taking place "wrong" frame where things are not simultaneous -> could probably be checked explicitly using Lorentz transform, keeping in mind that $\frac{1}{c + v} + \frac{1}{c - v} = \frac{c - v}{c^2 - v^2} + \frac{c + v}{c^2 - v^2} = \frac{2}{1 - v^2 / c^2}$, i.e.~we see $\gamma$ coming in! Ahhh, confirms that we compute it in terms of resting observer, we actually get time dilation out, right? Or is that length contraction somehow?
-But how can Einstein synchronization respect the relativity principle if this is true? To see that, we make the analogous calculations for $t''$, which yields
-\begin{equation}
-	t'' - t'''_- = \frac{\overline{\mathcal{O}''' \mathcal{O}''}}{c + v} \neq \frac{\overline{\mathcal{O}'' \mathcal{O}'''}}{c - v} = t'''_+ - t''
-	\, ,
-\end{equation}
-so not much has changed. However, while the events at $t'', t'''$ are still not seen to be simultaneous, the observer moving with respect to them agrees that
-\begin{equation}\label{key}
-	\begin{split}
-		t'' &= \frac{t''_+ - t''_-}{2} = \frac{(t''_+ - t''') + (t''' - t''_-)}{2} = \frac{1}{2} \qty(\frac{\overline{\mathcal{O}''' \mathcal{O}''}}{c - v} + \frac{\overline{\mathcal{O}'' \mathcal{O}'''}}{c + v})
-		\\
-		&= \frac{(t'' - t'''_-) + (t'''_+ - t'')}{2} = \frac{t'''_+ - t'''_-}{2} = t'''
-		\, .
-	\end{split}
-\end{equation}
-That means the moving observer agrees that the $\mathcal{O}''$ and $\mathcal{O}'''$ claim to be synchronized.
-
--> ahhh, for $\overline{\mathcal{O}'' \mathcal{O}'''} = \overline{\mathcal{O} \mathcal{O}'}$ we can show that time distance in moving system is equal to $\frac{1}{1 - v^2 / c^2}$ times time in resting system, right??? This would be proof of theorem of Minkowski :OO
-
-
-\begin{equation}
-	\begin{split}
-		t'' - \frac{t'''_+ + t'''_-}{2} &= \frac{(t'' - t'''_-) - (t'''_+ - t'')}{2}
-		= \frac{1}{2} \qty(\frac{\overline{\mathcal{O}''' \mathcal{O}''}}{c - v} - \frac{\overline{\mathcal{O}'' \mathcal{O}'''}}{c + v})
-		\\
-		&= \frac{(t''_+ - t''') - (t''' - t''_-)}{2} = -t''' + \frac{t''_+ + t''_-}{2}
-		\, .
-	\end{split}
-\end{equation}
-
--> resting observer agree that they agree on times they show; however, he himself would not say that $t'' = t'''$
-
-
-
-
--> previous version: Does that point to an inconsistency and thus error in the synchronization procedure? Actually, no, because the effect is mutual. Light sent out at $t'''_-$ needs a longer time to reach $\mathcal{O}$ at $t''$ than the reflected light needs from $t''$ to $t'''_+$, which leads to their arithmetic average $t'''$ also being greater than $t'$ would be -- the effects are perfectly equal, the observers can be synchronized.
-}
-%\fi
-
-
+	} \, ,
+\end{align}
+in contrast to  \eqref{eq:one_way_light_speed} -- the one-way speeds as seen from the stationary observer is \emph{not} $c$, the clocks are not seen to by synchronized (\enquote{$t'''$ is higher on the time axis as $t'$}).
 
 
 
 			\paragraph{Moving Observers}
-As we have already mentioned and just demonstrated, the Einstein synchronization does respect the relativity principle, which means it can be applied to clocks resting relative to each other in arbitrary inertial frames. However, just like different inertial observers can disagree on the speed of an object, that does not mean synchronized clocks in different inertial frames are equivalent. Using figure \ref{fig:clocks_at_rest_wrt_each_other} (c), we made a first try to visualize this and also started discussing it at the end of the last paragraph. Now, we shall complete this discussion by examining the relation of clocks moving relative to one another and their notions of simultaneity in more detail.
+As we have already mentioned and just demonstrated, the Einstein synchronization does respect the relativity principle, which means it can be applied to clocks resting relative to each other in arbitrary inertial frames. However, just like different inertial observers can disagree on the speed of an object, that does not mean synchronized clocks in different inertial frames make equivalent statements, e.g.~regarding the simultaneity of events. Using figure \ref{fig:clocks_at_rest_wrt_each_other} (c), we made a first try to visualize this and also started discussing it at the end of the last paragraph. Now, we shall complete this discussion by examining the relation of clocks moving relative to one another in more detail.
 
 
-For clocks which have been synchronized at some point in time, which we choose to be $t = 0 = t'$ (any time smaller than $\tau'$ would work equally well), the following theorem holds.s
+For clocks which have been synchronized at some point in time, which we choose to be $t = 0 = t'$ (any time smaller than $\tau'$ would work equally well), the following theorem holds.
 \begin{thm}[Minkowski's Theorem]\label{thm:minkowski_moving_clocks}
 	For two observers $\mathcal{O}, \mathcal{O}'$ that move relative to each other with velocity $v$ and an event $E'$ occurring on the world line of $\mathcal{O}'$ at time $\tau'$,
 	\begin{equation}\label{eq:minkowski_theorem}
 		\eqbox{
-		\tau' = \tau = \sqrt{t_+ t_-} = \sqrt{1 - v^2 / c^2} \, t
+		\tau' = \sqrt{t_+ t_-} = \sqrt{1 - v^2 / c^2} \, t = t - \qty(1 - \sqrt{1 - v^2 / c^2}) \, t
 		} \, .
 	\end{equation}
 	Here, $t_-, t_+$ are the times measured by a clock $\mathcal{C}$ on $\mathcal{O}$ when light signals to $E'$ have been sent out and received back.
 \end{thm}
-A proof can be found in \cite{dragon_geometry_srt}, where geometrical arguments are used. Einstein's original derivation was different and an analogous version is presented in subsection \ref{subsec:time_dilation_lorentz}.
-
-
-\begin{proof}
-
-First of all, both moving clocks measure equal time intervals
-\begin{align*}
-%	\frac{t''_+ - t''_-}{2} &= \frac{(t''_+ - t''') + (t''' - t''_-)}{2} = \frac{1}{2} \qty(\frac{\overline{\mathcal{O}''' \mathcal{O}''}}{c - v} + \frac{\overline{\mathcal{O}'' \mathcal{O}'''}}{c + v}) = \frac{(t'' - t'''_-) + (t'''_+ - t'')}{2} = \frac{t'''_+ - t'''_-}{2}
-	t''_+ - t''_- &= (t''_+ - t''') + (t''' - t''_-) = \frac{\overline{\mathcal{O}''' \mathcal{O}''}}{c - v} + \frac{\overline{\mathcal{O}'' \mathcal{O}'''}}{c + v} = (t'' - t'''_-) + (t'''_+ - t'') = t'''_+ - t'''_-
-	\, .
-\end{align*}
-
-However, assuming equally separated clocks, i.e.~$\overline{\mathcal{O}'' \mathcal{O}'''} = \overline{\mathcal{O} \mathcal{O}'}$, we can even relate them to distances measured by resting clocks:
-\begin{align*}
-%	t''_+ - t''_- &= \frac{\overline{\mathcal{O}''' \mathcal{O}''}}{c - v} + \frac{\overline{\mathcal{O}'' \mathcal{O}'''}}{c + v} = \overline{\mathcal{O}''' \mathcal{O}''} \qty(\frac{1}{c - v} + \frac{1}{c + v}) = \overline{\mathcal{O}'' \mathcal{O}'} \qty(\frac{c + v}{c^2 - v^2} + \frac{c - v}{c^2 - v^2})
-%	\\
-%	&= \overline{\mathcal{O}'' \mathcal{O}'''} 2 \frac{c}{c^2 - v^2} = \overline{\mathcal{O} \mathcal{O}'} 2 \frac{1}{1 - v^2 / c^2} = \frac{t_+ - t_-}{1 - v^2 / c^2}
-	(t''_+ - t''_-)^2 - (t_+ - t_-)^2 &= \qty(\frac{\overline{\mathcal{O}''' \mathcal{O}''}}{c - v} + \frac{\overline{\mathcal{O}'' \mathcal{O}'''}}{c + v})^2 = \overline{\mathcal{O}''' \mathcal{O}''}^2 \qty(\frac{1}{c - v} + \frac{1}{c + v})^2 = \overline{\mathcal{O}'' \mathcal{O}'}^2 \qty(\frac{c + v}{c^2 - v^2} + \frac{c - v}{c^2 - v^2})^2
-	\\
-	&= \overline{\mathcal{O}'' \mathcal{O}'''}^2 \qty(\frac{2 c}{c^2 - v^2})^2 = \qty(2 \, \overline{\mathcal{O} \mathcal{O}'} \frac{1}{1 - v^2 / c^2})^2 = \qty(\frac{t_+ - t_-}{1 - v^2 / c^2})^2
-	\, .
-\end{align*}
--> ah, I think I forgot Pythagoras somewhere; yep: prolonging light beam that is sent back to $\mathcal{O}''$ to the right, we get a triangle and can then use Pythagoras; only comes in when we want to relate unprimed and double primed times, not before! -> to be honest, I don't think this is correct because Euclidian geometry does not really hold in spacetime diagrams, does it? At least it does not determine how draw stuff...
-
--> ok, still broken, second version does produce worse results, thus we talk about first one again now: maybe I forgot length contraction somewhere, causing $\overline{\mathcal{O}'' \mathcal{O}'''} = \overline{\mathcal{O} \mathcal{O}'} / \gamma$
-
-Therefore,
-\begin{equation*}
-	t_+ - t_- = \sqrt{1 - v^2 / c^2} \, (t''_+ - t''_-)
-\end{equation*}
-and using that $t, \tau$ are distances measured from time $0$ (where clocks have both started to move from and have been synchronized, i.e.~both have been set to show time $0$), this already proves \eqref{eq:minkowski_theorem}.
-
-\end{proof}
+A geometrical proof can be found in \cite{dragon_geometry_srt}. Einstein's original derivation was different and an analogous version is presented in subsection \ref{subsec:time_dilation_lorentz}.
 
 
 
-\iffalse
-% Was version 1 of new explanation, not really happy
-{
-Clocks moving relative to each other de-synchronize, they do \emph{not} show each other equal times $t = t'$ anymore. Instead, simultaneous to $\mathcal{C}$ showing $t$, $\mathcal{O}$ observes
-\begin{equation}
-	\tau' = \sqrt{1 - \frac{v^2}{c^2}} \, t
-\end{equation}
-on $\mathcal{C}'$. Accordingly, simultaneous to $t'$, $\mathcal{O}'$ observes
-\begin{equation}
-	\tau = \sqrt{1 - \frac{v^2}{c^2}} \, t'
-\end{equation}
-on $\mathcal{C}$.
-}
-\fi
 This result is probably very puzzling at first, so let us elaborate on it, starting with the viewpoint of $\mathcal{O}$ (for the accompanying illustrations, see figure \ref{fig:moving_clocks}). Because the clocks have been synchronized in the beginning, $\mathcal{O}$ expects that the light signals sent out and received at $t_-, t_+$ saw $\mathcal{O}'$ when $\mathcal{C}'$ showed
 \begin{equation*}
-	t = \frac{t_+ + t_-}{2} \, .
+	t = \frac{t_+ + t_-}{2}
 \end{equation*}
-However, the time that $\mathcal{C}'$ really showed is given by Minkowski's theorem as
-\begin{equation}
+the time a clock synchronized with $\mathcal{C}$, i.e.~at rest relative to it, would show. However, the time that $\mathcal{C}'$ really showed is given by Minkowski's theorem as
+\begin{equation*}
 	\tau' = \sqrt{1 - v^2 / c^2} \, t = t - (1 - \sqrt{1 - v^2 / c^2}) t \, .
-\end{equation}
-This is the same time $\tau$ that $\mathcal{C}$ has shown a bit earlier, $\tau = \tau' < t$ for $v > 0$, the moving clock is slow by $1 - \sqrt{1 - v^2 / c^2}$ seconds per second. Accordingly, $\mathcal{C}'$ expects $\mathcal{C}$ to show that
+\end{equation*}
+This is the same time $\tau$ that $\mathcal{C}$ has shown a bit earlier, $\tau = \tau' < t$ (for $v > 0$), the moving clock is slow by $1 - \sqrt{1 - v^2 / c^2}$ seconds per second. Accordingly, $\mathcal{C}'$ expects $\mathcal{C}$ to show that
 \begin{equation*}
 	t' = \frac{t'_+ + t'_-}{2}
 \end{equation*}
-has passed when light sent out from $\mathcal{O}'$ at $t'_-$ arrives there (the time a clock synchronized with $\mathcal{C}$, i.e.~at rest relative to it, would show). Instead though, $\mathcal{C}$ shows
-\begin{equation}
+has passed when light sent out from $\mathcal{O}'$ at $t'_-$ arrives there. Instead though, $\mathcal{C}$ shows
+\begin{equation*}
 	\tau = \sqrt{1 - v^2 / c^2} \, t' \, ,
-\end{equation}
+\end{equation*}
 which is equal to the time $\tau' < t'$ that $\mathcal{C}'$ has shown before. At first sight, this makes the result even more puzzling and in fact seems paradoxical -- how can both observers claim less time has passed for the other one?
 
 To resolve the confusion, let us first summarize the results. All in all, it is safe to say $\mathcal{O}$ and $\mathcal{O}'$ de-synchronize if they are moving relative to each other, causing
@@ -680,14 +573,15 @@ To resolve the confusion, let us first summarize the results. All in all, it is 
 	t' \neq \tau
 	} \, .
 \end{equation}
-While they do not agree on times shown on each others clock and not even on which clock lags behind, both observers do agree that (i) they cannot agree on a consistent notion of simultaneity, which seemingly causes (ii) less time to go by on moving clocks. Thinking about previous results of relativity, this should not surprise us at all: both observers can claim the other one moves while they are stationary (a manifestation of the relativity principle). Therefore, they can also both claim that the other clock moves and thus slows down, a stationary observer has no business telling moving observers something about simultaneity since there is not absolute notion of being stationary. It is the effect itself, though, that might cause some confusion and rightfully so. After all, from our experience, nothing like that is known (more on that will follow in the next subsection).
+While they do not agree on times shown on each others clock and not even on which clock lags behind, both observers do agree that (i) they cannot agree on a consistent notion of simultaneity, which causes (ii) less time to go by on moving clocks.
 
 
 On the other hand, thinking back to the definition of our synchronization procedure, this effect should not be too surprising anymore. Just like before, it is convenient visualize the synchronization process in terms of a referee $\mathcal{R}$ (fig.~\ref{fig:moving_clocks}). For him, the time passing between emitting light and receiving it back is equal for $\mathcal{O}$ and $\mathcal{O}'$, i.e.
 \begin{equation}
 	\tau = \tau' \, ,
 \end{equation}
-which is what we expect. However, $\mathcal{O}$ and $\mathcal{O}'$ are not in the same inertial system as $\mathcal{R}$, they move relative to him. Consequently, their notions of simultaneity are different, which is just an equivalent way of phrasing de-synchronization.\\
+which is what we expect. However, $\mathcal{O}$ and $\mathcal{O}'$ are not in the same inertial system as $\mathcal{R}$, they move relative to him. Consequently, their notions of simultaneity are different, which is just an equivalent way of phrasing de-synchronization. Thinking about previous results of relativity, this should not surprise us at all: both observers can claim the other one moves while they are stationary (a manifestation of the relativity principle). Therefore, they can also both claim that the other clock moves and thus slows down, a stationary observer has no business telling moving observers something about simultaneity (since there is not absolute notion of being stationary). Nonetheless, all observers will agree on physically relevant statements like the order of events ($t_1 < t_2 \; \Leftrightarrow \; \tau_1 < \tau_2$).
+%It is the effect itself, though, that might cause some confusion and rightfully so. After all, from our experience, nothing like that is known (more on that will follow in the next subsection).\\
 
 
 
@@ -709,7 +603,7 @@ which is what we expect. However, $\mathcal{O}$ and $\mathcal{O}'$ are not in th
 	    \draw[->, thick, black!10!yellow] (-1.3, 1.0) -- (2.4142857142857137, 4.7142857142857135);
 	
 	    % Draw lines of simultaneity
-	    \draw[thick, blue] (-1.407142857142857, 1.357142857142857) -- (1.407142857142857, 1.357142857142857);
+	    %\draw[thick, blue] (-1.407142857142857, 1.357142857142857) -- (1.407142857142857, 1.357142857142857);
 	    %\draw[thick, blue] (-1.557142857142857, 1.8571428571428568) -- (1.557142857142857, 1.8571428571428568);
 	    \draw[thick, blue] (-1.3, 1.0) -- (1.3, 1.0);
 	
@@ -745,7 +639,7 @@ which is what we expect. However, $\mathcal{O}$ and $\mathcal{O}'$ are not in th
 	    \draw[->, thick, black!10!yellow] (-0.930718954248366, -0.6928104575163399) -- (1.8252723311546843, 2.0631808278867103);
 	
 	    % Draw lines of simultaneity
-	    \draw[thick, blue] (-1.0018518518518518, 0.0185185185185186) -- (1.1764083411142234, 0.4410208527855588);
+	    %\draw[thick, blue] (-1.0018518518518518, 0.0185185185185186) -- (1.1764083411142234, 0.4410208527855588);
 	    %\draw[thick, blue] (-0.9851851851851853, -0.14814814814814803) -- (1.0378462496109555, 0.09461562402738877);
 	    \draw[thick, blue] (-0.930718954248366, -0.6928104575163399) -- (0.8666666666666667, -0.33333333333333326);
 	
@@ -781,7 +675,7 @@ One can take the viewpoint that Minkowski's theorem gives us the general way of 
 \end{equation}
 
 
-One final note concerns some vocabulary. It is commonly said that \enquote{moving clocks run slowly}, perhaps also in this summary. However, one has to be careful taking this too literally: we are looking at \emph{identical} clocks here, i.e.~if we slowed down the moving one, their rate would be perfectly equal (note: this is not the same as saying time they show is different, which it is not by the theorem above). It is just that their readings are different for the same event -- but again, this effect \emph{not} caused by one of the clocks ticking slower, they are merely a tool \emph{revealing} a property of time. Admittedly, the difference discussed right here is very subtle, but 
+One final note concerns some related vocabulary. It is commonly said that \enquote{moving clocks run slowly}, perhaps also in this summary. However, one has to be careful taking this too literally: we are looking at \emph{identical} clocks here, i.e.~if we slowed down the moving ones, the rate of \emph{all} clocks we have dealt with would be perfectly equal. It is just that their \emph{readings} are different for the same event if measured from different inertial frames (which is, admittedly, a very subtle difference). But again, this effect \emph{not} caused by one of the clocks ticking slower, they are merely a tool \emph{revealing} a property of time.
 
 
 
@@ -791,7 +685,7 @@ One final note concerns some vocabulary. It is commonly said that \enquote{movin
 
 
 		\subsection{Time Dilation}
-In principle, there is no unique procedure to synchronize clocks. Admittedly, the Einstein synchronization does have a few very convenient properties, like respecting the relativity principle (which is achieved by exploiting the constancy of $c$ again). However, it produces strange, unintuitive results for observers moving relative to each other, namely that less time passes on moving clocks (an effect we do not know from our everyday life). Therefore, it is a valid question to ask whether or not this is an effect induced by our specific choice of synchrony, i.e.~if other procedures could build consistent notions of global time free of these effects. In other words: is this a bug or a feature?
+In principle, there is no unique procedure to synchronize clocks. Admittedly, the Einstein synchronization does have a few very convenient properties, like respecting the relativity principle (which is achieved by exploiting the constancy of $c$ again). However, it produces strange results for observers moving relative to each other, namely that less time passes on moving clocks (something we do not know from our everyday life). Therefore, it is a valid question to ask whether or not this is an effect induced by our specific choice of synchrony, i.e.~if other procedures could build consistent notions of global time free of these effects. In other words: is this a bug or a feature of time?
 
 
 Not surprisingly, though, the answer is that we have discovered a fundamental \emph{feature} of time, which uncovered by and not caused by the Einstein synchronization (otherwise, we would not have chosen this scheme). Time does indeed slows down for moving observer, an effect called \Def{time dilation}. The implications of this are profound: in relativity, the notion of an absolute, universal time, that all observers agree on, has to be abandoned. Instead, it becomes relative and depends on the motional state of the observer that measures it. Of course, if the time standard becomes relative, so do notions like simultaneity. As a consequence, both observers have the right to claim less time went by for the other and both are right in doing so. This is a key fact to understand relativity and no different from the abandonment of absolute space, which had analogous implications on observers moving uniformly relative to each other. Here, both can claim to be at rest, while the other one moves because it does not change the physics exhibited by the situation. The same is true for times (although it might not be clear yet). Put differently, just like the answer to \enquote{where does event $E$ happen?} depends on the coordinates we choose, the answer to \enquote{at which time did event $E$ happen?} depends on the (world line of the) clock we use in our measurements.
@@ -809,9 +703,9 @@ Our next goal is to resolve the seemingly paradoxical mutuality of time dilation
 		t + t' = \frac{\tau}{\sqrt{1 - v^2 / c^2}} + \frac{\tau'}{\sqrt{1 - v'^2 / c^2}} \geq \tau + \tau' \, .
 	\end{equation*}
 
-	Furthermore, there is no ambiguity here in the perception of $\mathcal{O}_M$ because they end up witnessing the same event, $E = E'$, so there can be no ambiguity in simultaneity -- the twin paradox is not paradoxical after all. One can attribute this to the fact that on his journey, the observer has to turn around in order to come back, so he is changing reference frames on the journey. Hence, three inertial frames are involved in total and there is no frame where the moving observer is stationary over the whole journey, which eliminates a mutual description from moving to resting observer (from all three frames one can prove that less time goes by for observer on the journey, which is the striking part here). This is demonstrated explicitly in the second treatment of this example using spacetime diagrams (example \ref{ex:twin_paradox_2}).
+	Furthermore, there is no ambiguity here in the perception of $\mathcal{O}_M$ because they end up witnessing the same event, $E = E'$, so there can be no ambiguity in simultaneity -- the twin paradox is not paradoxical after all. One can attribute this to the fact that on his journey, the observer $\mathcal{O}_M$ has to turn around in order to come back, so he is changing reference frames on the journey. Hence, three inertial frames are involved in total and there is no frame where the moving observer is stationary over the whole journey, which eliminates a mutual description from moving to resting observer (from all three frames one can prove that less time goes by for observer on the journey, which is the striking part here). This is demonstrated explicitly in the second treatment of this example using spacetime diagrams (example \ref{ex:twin_paradox_2}).
 \end{ex}
-Therefore, it is indeed true that less time goes by on moving clocks. This effect has also been verified experimentally. It should be noted, though, that this effect only becomes relevant for velocities $v \approx c$, otherwise $\sqrt{1 - v^2 / c^2} \approx 1$ and $\tau \approx t$. Once again, we emphasize that this is the reason why the Newtonian way of describing time as an absolute, universal notion has worked for so long and is perhaps also more intuitive.
+Therefore, it is indeed true that less time goes by on moving clocks. This effect has also been verified experimentally. It should be noted, though, that it only becomes relevant for velocities $v \approx c$, otherwise $\sqrt{1 - v^2 / c^2} \approx 1$ and $\tau \approx t$. Once again, we emphasize that this is the reason why the Newtonian way of describing time as an absolute, universal notion has worked for so long and is perhaps also more intuitive.
 
 
 An interesting consequence of time dilation arises for observers moving with the speed of light, like e.g.~photons. No other light pulse sent from some distance can ever reach him, so how can this observer agree on time measurements with others? Well, they cannot agree because the speed of light is a universal limit, no signal can reach the moving observer, from which we conclude that no time passes for this observer. This result is in accordance with
@@ -1146,6 +1040,8 @@ Albeit the calculations are largely equivalent, we have argued slightly differen
 
 
 		\subsection{Addition of Velocities}
+maybe put before time dilation?
+
 
 follow Giulini 2.4?
 
@@ -1236,7 +1132,7 @@ The new addition of being able to depict multiple observers to spacetime diagram
 \begin{ex}[Twin Paradox 2]\label{ex:twin_paradox_2}
 	As promised, here comes the detailed demonstration of the twin paradox, which has been started in example \ref{ex:twin_paradox_1}. We will discuss the setup shown in figure \ref{fig:twin_paradox}, i.e.~treat one observer at rest (will be commonly referred to as \enquote{unprimed} one) and two observers moving with velocities $v = \pm 0.5 c$ relative to the unprimed observer (these will be called \enquote{primed} and \enquote{double-primed}, in accordance with their axis labels in \ref{fig:twin_paradox}).
 	
-	Our approach will be to compute the roundtrip time needed to go from $S$ to $E$ (i.e.~the time passing on the world line on $ct$ axis) and the time needed to go from $S$ to $T$ to $E$ (i.e.~the time passing on the other world line shown in \ref{fig:twin_paradox}). Each of these quantities will be computed from clocks resting in all three of the inertial frames shown in figure \ref{fig:twin_paradox} (reminder: three are involved due to turning around, rest frame of moving observer changes there).
+	Our approach will be to compute the roundtrip time needed to go from $S$ to $E$ (i.e.~the time passing on the world line on $ct$ axis) and the time needed to go from $S$ to $T$ to $E$ (i.e.~the time passing on the other world line shown in \ref{fig:twin_paradox}). Each of these quantities will be computed from clocks resting in all three of the inertial frames shown in figure \ref{fig:twin_paradox} (reminder: three are involved due to turning around, rest frame of moving observer changes there).\\
 	
 	%the thing that makes things make sense is that all observers agree on the time passing along moving clock, even when measured from their coordinates; after all, from the double-primed coordinates we can still look at time passing on clock in primed coordinates and simultaneously passing in rest frame; adding that up, we get the total times and these agree between the frames (good, otherwise we would have problem)
 	
@@ -1247,7 +1143,11 @@ The new addition of being able to depict multiple observers to spacetime diagram
 		\tau_{SE} = \tau_{ST} + \tau_{TE} = t'_{ST} + t''_{TE} \, .
 	\end{equation*}
 	
-	One final note concerns the velocities involved: the world line is drawn for $v = 0.5 c$ on the way from $S$ to $T$ and $v = -0.5 c$ on the way from $T$ to $E$ (same velocity, different direction), where $v$ is the velocity of the respective moving frame compared to the unprimed, resting one. This implies a relative velocity of $v_2 = \frac{0.5 c + 0.5 c}{1 + 0.5^2} = 0.8 c$ from double-primed to primed frame (note that addition of velocities works differently in relativity).
+	One final note concerns the velocities involved: the world line is drawn for $v = 0.5 c$ on the way from $S$ to $T$ and $v = -0.5 c$ on the way from $T$ to $E$ (same velocity, different direction), where $v$ is the velocity of the respective moving frame compared to the unprimed, resting one. This implies a relative velocity of
+	\begin{equation*}
+		v_2 = \frac{0.5 c + 0.5 c}{1 + 0.5^2} = 0.8 c
+	\end{equation*}
+	from double-primed to primed frame.
 	
 	\begin{itemize}
 		\item \textbf{Measuring from unprimed coordinates}
@@ -1276,7 +1176,7 @@ The new addition of being able to depict multiple observers to spacetime diagram
 		\begin{equation*}
 			t_{SE} = t_{ST} + t_{TE} = 4 > \tau_{SE} = \tau_{ST} + \tau_{TE} = 3.464 \, ,
 		\end{equation*}
-		less time goes by on the moving clock.
+		less time goes by on the moving clock.\\
 		
 	
 	
@@ -1317,7 +1217,7 @@ The new addition of being able to depict multiple observers to spacetime diagram
 		\begin{equation*}
 			t'_{SE} = t'_{ST} + t'_{TE} = 4.619 > \tau_{SE} = \tau_{ST} + \tau_{TE} = t'_{ST} + t''_{TE} = 3.464 \, .
 		\end{equation*}
-		We find the same result that less time has passed on the moving clock. Furthermore, we see that the absolute value for this $\tau_{SE} = t'_{SE}$ and the one computed from Minkowski's theorem in the first calculation agree (because corresponding world line is parallel to $ct$, i.e.~in rest frame). On the other hand, it should not be surprising that the absolute values measured for $\tau_{ST}$ and $\tau_{TE}$ do not agree. After all, they are still measured from different inertial frames and they measure with respect to frames moving with different relative velocities ($\pm 0.5$ for primed; $0.5, 0.8$ for unprimed).
+		We find the same result that less time has passed on the moving clock. Furthermore, we see that the absolute value for this $\tau_{SE} = t'_{SE}$ and the one computed from Minkowski's theorem in the first calculation agree (because corresponding world line is parallel to $ct$). On the other hand, it should not be surprising that the absolute values measured for $\tau_{ST}$ and $\tau_{TE}$ do not agree. After all, they are still measured from different reference frames and with respect to frames moving with different relative velocities ($\pm 0.5$ for primed; $0.5, 0.8$ for unprimed).\\
 	
 		
 		% for v=0.7 c
@@ -1341,9 +1241,9 @@ The new addition of being able to depict multiple observers to spacetime diagram
 		\begin{equation*}
 			t''_{ST} = t''_T - t''_S = \frac{t_T - \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} - \frac{t_S - \frac{v}{c} x_S}{\sqrt{1 - v^2 / c^2}} = \frac{t_{ST} - \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} = \frac{2 + 0.5 \cdot 1}{\sqrt{1 - 0.5^2}} = 2.887 \, .
 		\end{equation*}
-		As promised, we get more results that we have already seen when making computations in the primed coordinates, but now they are switched (due to the transition $v \rightarrow -v$).
+		As promised, we get more results that we have already seen in calculations in the primed coordinates, but now they are switched (due to the transition $v \rightarrow -v$).
 	
-		Now we wish to compute $t'_{ST}$ and expect the rough estimate $t'_{ST} \gtrsim 1.5$. Indeed, we obtain
+		Now we wish to compute $t'_{ST}$ and expect roughly $t'_{ST} \gtrsim 1.5$. Indeed, we obtain
 		\begin{equation*}
 			t'_{ST} = \sqrt{1 - v_2^2 / c^2} \, t'_{TE} = \sqrt{1 - 0.8^2} \, 2.887 = 1.732 \, .
 		\end{equation*}
@@ -1354,9 +1254,15 @@ The new addition of being able to depict multiple observers to spacetime diagram
 		Once again, these results look very familiar. 
 	\end{itemize}
 	
-	A conclusion of these extensive calculations is that physics is not broken, despite relativity sometimes being unintuitive at first glance. Although all inertial frames play equal roles, which shows in the mutual slowing of moving clocks, all agree on the effect of time dilation: moving clocks tick slower than resting ones. In frames where both clocks seem to be moving, we can further confirm that the effect increases with the velocity $v$.
 	
-	It should also be noted that the agreement of all three observers regarding $\tau_{SE}$ is really a coincidence due to the symmetric setup we have chosen -- for other scenarios, e.g.~with unequal velocities on the first and second part of the journey or perhaps even if we assume that $ct$ is not at rest after all (but keeping the relative velocities of primed and unprimed system, i.e.~rotating the whole setup), this will not be the case anymore. In the same manner, $t'_{ST} \neq t''_{TE}$ in general. However, if one of the clocks moves on a world line parallel to the $ct$-axis of one of the observers, \emph{all} of them will agree on the time elapsed along this clock (so $t_{SE}$ being equal for all observers is really not a coincidence; the same goes for $t'_{ST}$ and $t''_{TE}$ in this setup). This is despite observers measuring different times on their own clocks and is due to Minkowski's theorem, which tells us how much time has passed simultaneously on a clock in another frame.
+	
+	A conclusion of these extensive calculations is that physics is not broken, despite relativity sometimes being unintuitive at first glance. All inertial frames play equal roles, which shows in the mutual slowing of moving clocks. In frames where both clocks seem to be moving, we can further confirm that the effect increases with the velocity $v$, as implied by \eqref{eq:minkowski_theorem}.
+	
+	It should also be noted that the agreement of all three observers regarding $\tau_{SE}$ is really a coincidence due to the symmetric setup we have chosen -- for other scenarios, e.g.~with unequal velocities on the first and second part of the journey or even if we assume that $ct$ is not at rest after all (but keeping the relative velocities of primed and unprimed system, i.e.~rotating the whole setup), this will not be the case anymore. In the same manner,
+	\begin{equation*}
+		t'_{ST} \neq t''_{TE}
+	\end{equation*}
+	in general. However, if one of the clocks moves on a world line parallel to the $ct$-axis of one of the observers, \emph{all} of them will agree on the time elapsed along this clock (so $t_{SE}$ being equal for all observers is really not a coincidence; the same goes for $t'_{ST}$ and $t''_{TE}$ in this setup). This is despite observers measuring different times on their own clocks and is due to Minkowski's theorem, which tells us how much time has passed simultaneously on a clock in another frame.
 
 
 -> note: although there is no preferred system in the sense that it is \enquote{more correct} than others (no absolute space), one can argue it numbers computed in stationary system are the ones that make most sense because assuming the moving observer stops again and rests after his journey, this rest frame is where they compare their clocks in and thus also where an experiment would be conducted (i.e.~these times would be the one which are measured)
