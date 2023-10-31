@@ -8,9 +8,9 @@
 \chapter{Special Relativity}
 
 \begin{center}
-In modern day physics, there are often two competing viewpoints. One is very much based on intuition and the other is based solely on a mathematical description. This shows especially in the theory of special relativity, where one can deal (i) in much detail with groups and transformations or (ii) with a much more pictorial version of the theory, mostly utilizing very basic geometry in so-called spacetime diagrams.
+In modern day (theoretical) physics, I personally feel like there are two competing viewpoints. One is very much based on intuition and the other is based almost solely on a mathematical description. This shows especially in the theory of special relativity, where one can deal (i) in much detail with groups and transformations or (ii) with a much more pictorial version of the theory, mostly utilizing very basic geometry in so-called spacetime diagrams.
 
-Both approaches can lead to a rich and of course equivalent understanding, but it is often tempting to focus on only one of them. In my personal experience, this is often the mathematical description because students are often more familiar with the required math, so teaching the alternative and rather new intuitive-based approach would actually more complicated. This, however, can often lead to a lack of intuition, which is still fundamental to fully understand relativity as a whole. For this reason, our goal is to learn about both approaches.
+Both approaches can lead to a rich and of course equivalent understanding, but it is often tempting to focus on only one of them. In my own experience, this is mostly the mathematical description because students are often more familiar with the required math, so teaching the alternative and rather new intuitive-based approach would actually be more complicated. This, however, can often lead to a lack of intuition, which is still fundamental to fully understand and embrace relativity as a whole. For this reason, the (quite ambitious) goal of this summary is to treat both approaches.
 \end{center}
 
 
@@ -23,32 +23,132 @@ Both approaches can lead to a rich and of course equivalent understanding, but i
 
 
 	\section{Newtonian Physics}
-		\subsection{Space \& Time}
+%		\subsection{Space \& Time}
+%		\subsection{Dynamics} % No subsection name seems to be best solution
 % Good sources: Nolting + Meinel; also Giulini + Dragon
-
-surely state that Newton is conform with our intuition and holds at small distances, speeds; for larger ones, however, inconsistencies show up
-
-mention fictitious forces, e.g.~Coriolis
+Sir Isaac Newton shaped the way physics was made for decades with his work \enquote{Philosophiae Naturalis Principia Mathematica} from 1687, which essentially founded the theory of classical mechanics. We will go briefly over the most important insights and notions needed to understand relativity.
 
 
-nice interpretation of Newton axioms from \url{https://physics.stackexchange.com/questions/6742/acceleration-in-special-relativity}: The first law of mechanics tells us that you must work in an inertial frame. The second law F = ma is dynamics, and the third law tells us about the symmetries. In Newton’s world the symmetry is SO(3) for momentum conservation. If we extend this to relativity the symmetry is SO(3,1) and the inertial frames transform by Lorentz boosts in addition to rotations and translations.
+It is based on the following principles.
+\begin{post}[Newton Axioms]
+	\begin{enumerate}[1.]
+		\item Everybody remains at rest or in a uniform motion, unless a force acts upon it.
+
+		\item If a force $\vec{F}$ acts upon an object of mass $m$, it causes an acceleration
+		\begin{equation}\label{eq:newton_second_law}
+			\eqbox{
+			\vec{F} = m \vec{a} = m \dv[2]{\vec{r}}{t}
+			}
+			\manyqquad
+			\eqbox{
+			F^k = m a^k = m \ddot{r}^k
+			} \, .
+		\end{equation}
+
+		\item If two bodies exert forces on each other, these forces have the same magnitude but opposite directions (actio = reactio),
+		\begin{equation}\label{eq:newton_third_law}
+			\eqbox{
+			\vec{F}_{12} = - \vec{F}_{21}
+			}
+			\manyqquad
+			\eqbox{
+			F_{12}^k = - F_{21}^k
+			} \, .
+		\end{equation}
+	\end{enumerate}
+\end{post}
+These axioms (sometimes also called laws) define how objects (which are sometimes given the abstract name \Def{observer} $\mathcal{O}$; these give us viewpoints to describe physics from) experience physics. In order to describe this action mathematically, we also need explicit ways to assign the position of observers to points $\vec{r} \in \mathbb{R}^3$ in the Euclidean space we live in. Such an assignment is what physicists call \Def{coordinates} or \Def{frames}.
+
+
+Newton's laws have rich implications, some of which we discuss now.
 
 
 
+			\paragraph{First Law}
+The first law tells us something about which special class of frames is suitable to describe physics.
 \begin{defi}[Inertial Frame]
-	An \Def[inertial frame]{inertial frame of reference} is a frame where $F^k = m a^k = m \ddot{r}^k$ holds.
+	An \Def[inertial frame]{inertial frame (of reference)} is a frame where $F^k = m a^k$ holds.
 \end{defi}
--> put back into Einstein Postulates section?
 
-Newtonian description also admits changing coordinates, via Galilei transform -> idea: for $a_1 = \dv{v_1}{t} = \dv{v_2}{t} = a_2$ as long as $v_1 - v_2 = const.$; therefore they show same physics in $F = m a$
+For this to be valid, either $\vec{r}$ or $\vec{v}$ have to be constant (both direction and magnitude) in this inertial frame if $\vec{F} = 0$, which is exactly what Newton's first law imposes. From the definition we can also see that there is no unique inertial frame because we can always get other inertial frames from existing ones by looking at frames which move with constant speed with respect to them.
 
+A very important realization is that all inertial frames are suited equally well to describe physics because the laws of physics do not depend on the frame we choose:
+\begin{equation}
+	\vec{F} = m \vec{a} = m \dv{\vec{v}_1(t)}{t} = m \dv{\vec{v}_2(t)}{t}
+\end{equation}
+as long as $\vec{v}_1 - \vec{v}_2 = \text{const}$. Therefore, while the values of $\vec{v}_1$ and $\vec{v}_2$ might differ and thus depend on the inertial frame we choose, the physics inferred from them does not (forces is what we observe). This explains the preferred role of inertial frames when describing physics. Laws stated in inertial frames hold in all of them, while laws in non-inertial frames do not, whence it is often non-trivial to find out whether effects can be attributed to some physical process or to the frame/coordinates used to describe the situation (for example, the Coriolis force is needed to explain effects on Earth's surface, which is a rotating and thus non-inertial frame of reference).\\
+
+
+If all inertial frames are suited equally well to describe physics, one might ask if a relation between them exists, i.e.~if there are ways to transform between inertial frames. Besides coordinate transformations (for example from Cartesian to spherical coordinates), which we will not discuss further here, the other possible transformation is between uniformly moving frames. These changes are admitted by the \Def{Galilei transform} and assuming the velocity $v$ to be in $x$-direction, this maps coordinates $(x, y, z)$ according to
+\begin{equation}\label{eq:galilei}
+	\eqbox{
+	x \rightarrow x' = x + v t
+	}
+	\qquad \qquad
+	\eqbox{
+	y \rightarrow y' = y
+	}
+	\qquad \qquad
+	\eqbox{
+	z \rightarrow z' = z
+	} \, .
+\end{equation}
+
+
+
+			\paragraph{Second Law}
+The second law is probably the second most famous formula in physics. It is a special case of constant mass $m = \text{const.}$ of the formula
+\begin{equation}
+	\eqbox{
+	\vec{F} = \dv{\vec{p}}{t}
+	}
+	\manyqquad
+	\eqbox{
+	F^k = \dv{p^k}{t}
+	}
+\end{equation}
+that relates forces to \Def{momenta} $\vec{p} = m \vec{v}$. Because of their relation to forces, some fundamental principles involve momenta. For example, the collision of particles with no external forces being present can be examined using momenta due to the property of \Def{momentum conservation},
+\begin{equation}\label{eq:momentum_conservation}
+	0 = F_\text{total}^k = \sum_k p_j^k
+\end{equation}
+which has to hold before and after the collision, yielding
+\begin{equation}\label{eq:implication_momentum_conservation}
+	\sum_j p_j^k = \sum_j \tilde{p}_j^k \, .
+\end{equation}
+Here, $p_j^k$ denotes the momentum of the $j$-th object before the collision and $\tilde{p}_j^k$ after.
+
+
+In either form, the second law determines dynamics in the Newtonian physics.
+
+
+
+			\paragraph{Third Law}
+The third law is probably the hardest to grasp, but it has profound implications on how one should think about forces etc.~intuitively.
+
+-> when I push table, I feel the force it exerts on me (not the one I exert)
+
+
+\begin{ex}
+astronaut example who pushes stones away in space
+\end{ex}
+
+
+mathematically speaking, it tells us something about symmetries of Newtonian dynamics (don't know how to elaborate further on that...)
+
+
+
+\iffalse
+	\subsection{Accelerated Frames}
+we need fictitious forces to describe stuff here, e.g.~Coriolis in rotating frames; this is why using them is inconvenient
 
 
 
 		\subsection{Newton-Cartan Gravity}
 can also formulate Newtonian description in other mathematical framework, fibre bundles and connections; is more in line with geometrical formulations brought forward by Einstein
 
--> do in next chapter? Here we don't do much geometry yet...
+-> do in next chapter? Here we don't do much geometry yet... And certainly no gravity
+
+\fi
 
 
 
@@ -58,7 +158,7 @@ can also formulate Newtonian description in other mathematical framework, fibre 
 
 	\section{Relativity}
 		\subsection{What Is Wrong with Newton?}
-Newtonian theory works beautifully for many applications, even today where the theories of relativity and quantum mechanics are available. However, it does not describe the entirety of physics. This is also what physicists realized in the late $19$th/early $20$th century. At least to some degree, if not fully, every contradiction that surfaced at this time can be traced back to light.
+Newtonian theory works beautifully for many applications, even today where the theories of relativity and quantum mechanics are available. However, it does not describe the entirety of physics. This is also what physicists realized in the late $19$th/early $20$th century. At least to some degree, if not fully, every contradiction that surfaced at this time can be traced back to the nature of light.
 
 In the 1860s, James Clerk Maxwell derived the \Def{Maxwell equations} describing electromagnetic fields. They predicted electromagnetic waves, whose existence was confirmed in 1886 in experiments conducted by Heinrich Hertz. These waves propagate with the speed of light,
 \begin{equation}\label{eq:speed_of_light}
@@ -80,7 +180,7 @@ Several conflicts with Newtonian physics arise from this:
 On the other hand, Newton's theory had tremendous success itself over many decades, so why would one conclude that this theory is at fault rather than the new Maxwell theory? Because (a) not all of Newtonian physics is to be replaced and (b) because of overwhelming experimental evidence. In addition to Hertz's experiments, the Michelson-Morley experiment in 1887 confirmed that $c$ is constant for all observers to high precision.\\
 
 
-For this reason, some new concepts are needed. While one can handle the subject strictly mathematically and e.g.~simply derive the \enquote{correct} coordinate transformations that leave the Maxwell equations invariant, this tells us only little about the new physics that may arise. As we will learn, quite some rethinking of the concepts of space and time is needed to obtain equivalent results from a more intuitive approach and this work was mainly done by Einstein, e.g.~in his famous paper \enquote{On the electrodynamics of moving bodies}.
+For this reason, some new concepts are needed. While one can handle the subject strictly mathematically and e.g.~simply derive the \enquote{correct} coordinate transformations that leave the Maxwell equations invariant, this tells us only little about the new physics that may arise. As we will learn, quite some rethinking of the concepts of space and time is needed to obtain equivalent results from a more intuitive approach and this work was mainly done by Einstein, e.g.~in his famous paper \enquote{On the electrodynamics of moving bodies} \cite{Einstein_1905}.
 
 
 
@@ -91,7 +191,7 @@ The first idea is to make the invariance under chosen reference frame, which has
 \begin{post}[Principle of Relativity]
 	All physical observations must hold independently of the inertial frame that is chosen.
 \end{post}
-This principle can be traced back to Galileo Galilei, who formulated it in 1632. It means if you are in a closed room without any windows, you cannot perform any experiment to determine if you are at rest or moving at a constant velocity. In other words, there is no absolute notion of rest; it's all relative (hence the name \enquote{relativity principle}).\\
+This principle can be traced back to Galileo Galilei, who formulated it in 1632. It means if you are in a closed room without any windows, you cannot perform any experiment to determine if you are at rest or moving at a constant velocity. In other words, there is no absolute notion of rest; it is all relative (hence the name \enquote{relativity principle}).\\
 
 
 The second postulate concerns the speed of light and is definitely something new.
@@ -100,7 +200,7 @@ The second postulate concerns the speed of light and is definitely something new
 \end{post}
 Note that we do not demand \enquote{equivalent} statements like the relativity principle did -- $c$ has \emph{the exact same} value for all observers. This postulate was based on the insights mentioned in the previous subsection, i.e.~based on theory \emph{and} experiment, and even more experiment evidence has been collected since.
 
-However, it has profound implications. One of them concerns the very notion of space itself. In Newtonian physics, the notion of space is an absolute one. This means there is one reference frame that describes \enquote{real} space and while frames moving with respect to this one exhibit the same physical observations, this frame always has a special role. One way to characterize this observer is by measuring the speed of light sent out by him. If it is $c$ and not differing by some amount, then the frame is at rest (otherwise it would be $c + v$).\footnote{Note that we can assume the value of $c$ to be known because it can be measured e.g.~using a mirror by measuring the round-trip time. Strictly speaking, this only yields the two-way speed of light, but details on inferring one-way speeds require theory we are yet to built up.} However, since all observers measure $c$ now, there is no way to determine this preferred observer at rest -- the notion of rest/motion and therefore the connected notion of space itself becomes completely relative.
+However, it has profound implications. One of them concerns the very notion of space itself. In Newtonian physics, the notion of space is an absolute one. This means there is one reference frame that describes \enquote{real} space and while frames moving with respect to this one exhibit the same physical observations, this frame always has a special role. One way to characterize this observer is by measuring the speed of light sent out by him. If it is $c$ and not differing by some amount, then the frame is at rest (otherwise it would be $c + v$).\footnote{Note that we can assume the value of $c$ to be known because it can be measured e.g.~using a mirror by measuring the round-trip time. Strictly speaking, this only yields the two-way speed of light, but details on inferring one-way speeds require theory we are yet to built up.} However, since all observers measure $c$ now, there is no way to determine this preferred observer at rest -- the notion of rest/motion and therefore the connected notion of space itself becomes completely relative. Albeit the relativity principle was known before him, Einstein was the first one to recognize all implications it has and that it ultimately leads to the abandonment of absolute space when combined with $c$ being constant.
 
 
 At the same time, this constance makes $c$ very special because statements related to it are independent of the observer/inertial system and thus allow to make invariant statements. This property will be used routinely when properties in relativity are derived.\\
@@ -118,7 +218,7 @@ The proof of this is very similar to the argument provided beforehand.\footnote{
 	%(note: we can know the value of $c'$ by comparing the values of observers sent at the same speed $v$ in anti-parallel directions, giving us signal speeds $c' \pm v$)
 \end{proof}
 
-This implication is a reason why experimental tests of this speed limit are important, they are confirmations of postulate \ref{post:c_constant}. Such tests have been conducted successfully for neutrinos and gravitational waves, both of which do indeed propagate at the speed of light (to high experimental accuracy).\footnote{This also means confirmations of other theories, which introduce new fields to circumvent the relativity principle and still allow speeds $> c$, cannot be confirmed.} Interestingly, both the constancy of $c$ and it being the maximum speed attainable by any signal/information implies that relativistic addition $+_R$ states
+This implication is a reason why experimental tests of this speed limit are important, they are confirmations of postulate \ref{post:c_constant}. Such tests have been conducted successfully for neutrinos and gravitational waves, both of which do indeed propagate at the speed of light (to high experimental accuracy).\footnote{This also means confirmations of other theories, which introduce new fields to circumvent the relativity principle and still allow speeds $> c$, cannot be confirmed.} Interestingly, both the constancy of $c$ and it being the maximum speed attainable by any signal/information implies that relativistic addition $+_R$ must yield
 \begin{equation}
 	\eqbox{
 	c +_R v = c
@@ -131,7 +231,7 @@ not matter the value of $v$. As we will see later, this statement is indeed true
 		\subsection{Light Cones \& Spacetime Diagrams}
 Before we start to evaluate implications of these two postulates, it is customary to introduce a technique to visualize the time evolution of physical systems. The most straightforward choice is to map position $x$ on the $x$-axis and time $t$ on the $y$-axis, i.e.~a space-time diagram (which we will call \Def{spacetime diagram} instead, for reasons that will become clear later). Since we are often interested in velocities close to $c$, it is customary to rescale the time-axis and display $ct$-values instead of $t$-values on it (otherwise slopes would be very small, small time step would correspond to large change in position).
 
-In doing that, we discard two of the three spatial dimensions of Euclidian space. Nonetheless, it is sufficient to visualize important ideas (see figure \ref{fig:first_spacetime_diagram} for a simple example).
+In doing that, we discard two of the three spatial dimensions of Euclidean space. Nonetheless, it is sufficient to visualize important ideas (see figure \ref{fig:first_spacetime_diagram} for a simple example).
 \begin{itemize}
 	\item A single point in such a diagram gives position and time of an object (e.g.~particle, person or rocket). We will refer to these points as \Def{events} and use the symbol $E$.
 
@@ -143,7 +243,7 @@ In doing that, we discard two of the three spatial dimensions of Euclidian space
 \end{itemize}
 
 For the first time, we encounter what is often called \Def{light cone structure} of relativity, which is essentially a corollary of $c$ being a universal speed limit. This fact shapes the causal structure in relativity and for spacetime diagrams, it tells us that only events connected by straight world lines with slope $\abs{v} \leq c$ can causally influence each other. This defines two cones above and below the event, the possible future and past of this event, each defined by events that the event can have interacted with or can potentially interact with. Together, these cones are called \Def{light cone} (see figure \ref{fig:first_spacetime_diagram} for an example). In terms of light cones, the structure of relativity can be states as follows.
-\begin{defi}[Timelike, Lightlike, Spacelike]
+\begin{defi}[Timelike, Lightlike, Spacelike]\label{defi:causality_v1}
 	A straight world line $\Gamma$ connecting events $E_1, E_2$ is called
 	\begin{itemize}
 		\item \Def{timelike}, if it lies inside of $E_1$'s and $E_2$'s light cone ($\abs{v} < c$)
@@ -155,6 +255,7 @@ For the first time, we encounter what is often called \Def{light cone structure}
 		\item \Def{spacelike}, if it lies outside of $E_1$'s and $E_2$'s light cone ($\abs{v} > c$)
 	\end{itemize}
 \end{defi}
+Accordingly, the events $E_1, E_2$ are called timelike-separated, null-/lightlike-separated and spacelike-separated.
 
 
 
@@ -528,10 +629,7 @@ in contrast to  \eqref{eq:one_way_light_speed} -- the one-way speeds as seen fro
 
 
 			\paragraph{Moving Observers}
-As we have already mentioned and just demonstrated, the Einstein synchronization does respect the relativity principle, which means it can be applied to clocks resting relative to each other in arbitrary inertial frames. However, just like different inertial observers can disagree on the speed of an object, that does not mean synchronized clocks in different inertial frames make equivalent statements, e.g.~regarding the simultaneity of events. Using figure \ref{fig:clocks_at_rest_wrt_each_other} (c), we made a first try to visualize this and also started discussing it at the end of the last paragraph. Now, we shall complete this discussion by examining the relation of clocks moving relative to one another in more detail.
-
-
-For clocks which have been synchronized at some point in time, which we choose to be $t = 0 = t'$ (any time smaller than $\tau'$ would work equally well), the following theorem holds.
+As we have already mentioned and just demonstrated, the Einstein synchronization does respect the relativity principle, which means it can be applied to clocks resting relative to each other in arbitrary inertial frames. However, just like different inertial observers can disagree on the speed of an object, that does not mean synchronized clocks in different inertial frames make equivalent statements, e.g.~regarding the simultaneity of events. Using figure \ref{fig:clocks_at_rest_wrt_each_other} (c), we made a first try to visualize this and also started discussing it at the end of the last paragraph. Now, we shall complete this discussion by examining the relation of clocks moving relative to one another in more detail. For clocks which have been synchronized at some point in time, which we choose to be $t = 0 = t'$ (any time smaller than $\tau'$ would work equally well), the following theorem holds.
 \begin{thm}[Minkowski's Theorem]\label{thm:minkowski_moving_clocks}
 	For two observers $\mathcal{O}, \mathcal{O}'$ that move relative to each other with velocity $v$ and an event $E'$ occurring on the world line of $\mathcal{O}'$ at time $\tau'$,
 	\begin{equation}\label{eq:minkowski_theorem}
@@ -675,7 +773,7 @@ One can take the viewpoint that Minkowski's theorem gives us the general way of 
 \end{equation}
 
 
-One final note concerns some related vocabulary. It is commonly said that \enquote{moving clocks run slowly}, perhaps also in this summary. However, one has to be careful taking this too literally: we are looking at \emph{identical} clocks here, i.e.~if we slowed down the moving ones, the rate of \emph{all} clocks we have dealt with would be perfectly equal. It is just that their \emph{readings} are different for the same event if measured from different inertial frames (which is, admittedly, a very subtle difference). But again, this effect \emph{not} caused by one of the clocks ticking slower, they are merely a tool \emph{revealing} a property of time.
+One final note concerns some related vocabulary. It is commonly said that \enquote{moving clocks run slowly}, perhaps also in this summary. However, one has to be careful taking this too literally: we are looking at \emph{identical} clocks here, i.e.~if we slowed down the moving ones, the rate of \emph{all} clocks we have dealt with would be perfectly equal. It is just that their readings are different for the same event if measured from different inertial frames (which is, admittedly, a very subtle difference). But again, this effect \emph{not} caused by one of the clocks ticking slower, they are merely a tool \emph{revealing} a property of time.\footnote{Supported by the fact that more than two clocks are needed to see mutuality of effect, at least one resting and one moving pair (so that synchronization is possible). See \cite{giulini_srt} for an detailed discussion.}
 
 
 
@@ -799,7 +897,7 @@ from which we obtain the \Def{Lorentz-factor}
 \end{equation}
 Inserting this result into \eqref{eq:lorentz_time_ansatz} and \eqref{eq:lorentz_spatial_ansatz} yields the \Def{Lorentz transformation}
 \begin{subequations}\label{eq:lorentz_trafo}
-\begin{alignat}{3}
+%\begin{alignat}{3}
 %	x' &= \gamma (x - vt) = \frac{x - vt}{\sqrt{1 - \frac{v^2}{c^2}}}
 %	& \qquad \qquad &
 %	t' &= \gamma (t - \frac{v}{c^2} x) = \frac{t - \frac{v}{c^2} x}{\sqrt{1 - \frac{v^2}{c^2}}}
@@ -807,25 +905,25 @@ Inserting this result into \eqref{eq:lorentz_time_ansatz} and \eqref{eq:lorentz_
 %	x &= \gamma (x' + vt') = \frac{x' + vt'}{\sqrt{1 - \frac{v^2}{c^2}}}
 %	& \qquad \qquad &
 %	t' &= \gamma (t + \frac{v}{c^2} x) = \frac{t + \frac{v}{c^2} x}{\sqrt{1 - \frac{v^2}{c^2}}}
-\end{alignat}
+%\end{alignat}
 %
 % does not allows eqbox
 %
 \begin{align}
 	\eqbox{
-	x' = \gamma (x - vt) = \frac{x - vt}{\sqrt{1 - \frac{v^2}{c^2}}}
+	x' = \gamma \qty(x - vt) = \frac{x - vt}{\sqrt{1 - \frac{v^2}{c^2}}}
 	}
 	\qquad & \qquad
 	\eqbox{
-	t' = \gamma (t - \frac{v}{c^2} x) = \frac{t - \frac{v}{c^2} x}{\sqrt{1 - \frac{v^2}{c^2}}}
+	t' = \gamma \qty(t - \frac{v}{c^2} x) = \frac{t - \frac{v}{c^2} x}{\sqrt{1 - \frac{v^2}{c^2}}}
 	}
 	\\
 	\eqbox{
-	x = \gamma (x' + vt') = \frac{x' + vt'}{\sqrt{1 - \frac{v^2}{c^2}}}
+	x = \gamma \qty(x' + vt') = \frac{x' + vt'}{\sqrt{1 - \frac{v^2}{c^2}}}
 	}
 	\qquad & \qquad
 	\eqbox{
-	t = \gamma (t' + \frac{v}{c^2} x') = \frac{t' + \frac{v}{c^2} x'}{\sqrt{1 - \frac{v^2}{c^2}}}
+	t = \gamma \qty(t' + \frac{v}{c^2} x') = \frac{t' + \frac{v}{c^2} x'}{\sqrt{1 - \frac{v^2}{c^2}}}
 	} \, .
 \end{align}
 \end{subequations}
@@ -843,9 +941,7 @@ Hence, $x' = ct'$ still holds, as required. Them being equal to zero, as measure
 
 The other limit we have to check is $v \ll c$, where we should re-obtain the Galilei transform. As figure \ref{fig:gamma_factor} shows, $\gamma$ exhibits the desired behaviour of $\gamma(v) \approx 1, \, v \ll c$. More quantitatively, a Taylor expansion in $v / c$ shows
 \begin{align*}
-	\frac{1}{\sqrt{1 - \frac{v^2}{c^2}}} &\simeq \eval{\frac{1}{\sqrt{1 - \frac{v^2}{c^2}}}}_{v = 0} + \eval{\frac{\frac{1}{2} \cdot \frac{-2 v}{c}}{(1 - \frac{v^2}{c^2})^{3/2}}}_{v = 0} \frac{v}{c} + \dots
-	\\
-	&= 1 + \mathcal{O}(v^2 / c^2) \, .
+	\frac{1}{\sqrt{1 - \frac{v^2}{c^2}}} \simeq \eval{\frac{1}{\sqrt{1 - \frac{v^2}{c^2}}}}_{v = 0} + \eval{\frac{\frac{1}{2} \cdot \frac{-2 v}{c}}{(1 - \frac{v^2}{c^2})^{3/2}}}_{v = 0} \frac{v}{c} + \dots = 1 + \mathcal{O}(v^2 / c^2) \, .
 \end{align*}
 Combining that with $v \ll c \ll c^2$, we obtain the desired result to zero-th order in $v$:
 \begin{equation*}
@@ -907,7 +1003,7 @@ One final note: the derivation presented here is perhaps not be the most rigorou
 
 
 \iffalse
-{ % To complicated
+{ % Too complicated
 To obtain the way $t \rightarrow t'$ transforms, we have to think a bit more and in fact, reinterpret the ansatz \eqref{eq:lorentz_spatial_ansatz}. 
 -> this is the same as arguing in terms of equilocality for moving measuring rod; if we do this for time, i.e.~think about simultaneity, we end up with ...
 
@@ -967,14 +1063,14 @@ Consider a rod with ends at positions $x_1, x_2$. Their spatial distance and thu
 \end{equation*}
 
 From the primed coordinates, however, one would measure
-\begin{equation*}
+\begin{equation}\label{eq:length_contraction_not_correct}
 	L' = x'_2 - x'_1 = \gamma (x_2 - v t_2) - \gamma (x_1 - v t_1) = \gamma (x_2 - x_1) = \gamma L = \frac{L}{\sqrt{1 - \frac{v^2}{x^2}}} \, .
-\end{equation*}
+\end{equation}
 Here we assume $t_1 = t_2$ because by definition, distances are measured at the same time (simultaneously). This result is not what we expect from the previous discussions. Is the Lorentz transformation at fault? Luckily, no. We have emphasized how simultaneity is important for the length to be meaningful. However,
 \begin{equation}\label{eq:not_simultaneous}
 	t'_1 = \gamma (t_1 - \frac{v}{c^2} x_1) \neq \gamma (t_2 - \frac{v}{c^2} x_2) = t'_2
 	\quad \Leftrightarrow \quad
-	\Delta t' = t'_2 - t'_1 = \gamma \frac{v}{c^2} (x_1 - x_2)
+	\Delta t' = t'_2 - t'_1 = \gamma \frac{v}{c^2} (x_1 - x_2) \neq 0
 	\, ,
 \end{equation}
 the measurements in primed coordinates are not simultaneous, so this $L'$ is \emph{not} what a ruler in primed coordinates measures. In order to simulate this result, we have to tune the times $t_1, t_2$ to achieve $t'_1 = t'_2$. Choosing
@@ -982,7 +1078,7 @@ the measurements in primed coordinates are not simultaneous, so this $L'$ is \em
 	\Delta t = t_2 - t_1 = - \Delta t' = - \gamma \frac{v}{c^2} (x_1 - x_2) = \frac{v}{c^2} \gamma L
 \end{equation}
 leads to a cancellation of the time difference in \eqref{eq:not_simultaneous}. The \enquote{true} length measured in unprimed coordinates then becomes
-\begin{equation}
+\begin{equation}\label{eq:length_contraction_correct}
 	\begin{split}
 	\eqbox{L'} &= x'_2 - x'_1 = \gamma (x_2 - v t_2) - \gamma (x_1 - v t_1) = \gamma L - v \Delta t
 	\\
@@ -1010,7 +1106,7 @@ go by. Since the primed observer sees the unprimed one moving, that confirms wha
 
 
 			\paragraph{Measuring in Primed Coordinates}
-Now consider a rod with end points at $x'_1, x'_2$. Its length measured in primed coordinates is
+Now consider a rod with end points at $x'_1, x'_2$. Its length measured from the primed coordinates is
 \begin{equation*}\label{eq:rod_primed_coords_from_primed}
 	L' = x'_2 - x'_1 \, .
 \end{equation*}
@@ -1040,18 +1136,74 @@ Albeit the calculations are largely equivalent, we have argued slightly differen
 
 
 		\subsection{Addition of Velocities}
-maybe put before time dilation?
+Let us now turn to velocities in relativity. Intuitively, we expect the velocity of points with fixed coordinates in the primed frame to move with velocity $v$ in the unprimed frame, i.e.~we expect them to fulfil an equation of the form
+\begin{equation*}
+	x = v t + b
+\end{equation*}
+for some offset/shift $b$. However, looking at the Lorentz transformation \eqref{eq:lorentz_trafo}, we may get confused by all the $\gamma$'s and ask ourselves: is this really the case? Rearranging yields
+\begin{equation}
+	x = v t + x' / \gamma
+\end{equation}
+as the world line of a fixed point $x'$ in unprimed coordinates $(x, c t)$. Hence, the velocity of this world line (again, in unprimed coordinates) is
+\begin{equation}
+	\dv{x}{t} = \dv{t} (v t + x' / \gamma) = v \, .
+\end{equation}
+Velocities work as expected between two uniformly moving frames.\\
 
 
-follow Giulini 2.4?
-
-
-result for relativistic addition $+_R$ (for parallel velocities):
+As more frames get involved, something has to be different though. This is because of $c$ being a universal speed limit, so adding velocities in relativity cannot work as before, which would allow velocities $> c$. To find out how it works, let us look at a third frame $(x'', c t'')$ moving with velocity $w$ relative to $(x', c t')$. Inserting the Lorentz transformation twice yields
+\begin{align*}
+%	x'' &= \gamma_w \qty(x' - w t') = \gamma_w \qty(\gamma_v (x - v t) - w \gamma_v \qty(t - \frac{v}{c^2} x))
+%	\notag\\
+%	&= \frac{1}{\sqrt{1 - w^2 / c^2}} \frac{1}{\sqrt{1 - v^2 / c^2}} \qty(x + \frac{v w}{c^2} x - (v + w) t)
+%	\notag\\
+%	&= \frac{1}{\sqrt{(1 + w^2 / c^2) (1 - v^2 / c^2)}} \qty(\qty(1 - \frac{v w}{c^2}) x - (v + w) t)
+%	\notag\\
+%	&= \frac{1}{\sqrt{1 - (v^2 + w^2 + (v w)^2) / c^2}} \qty(\qty(1 + \frac{v w}{c^2}) x - (v + w) t)
+%
+% Writing out gamma factors not needed, is it?
+	x'' &= \gamma_w \qty(x' - w t') = \gamma_w \qty(\gamma_v (x - v t) - w \gamma_v \qty(t - \frac{v}{c^2} x))
+	\notag\\
+	&= \gamma_v \gamma_w \qty(\qty(1 - \frac{v w}{c^2}) x - (v + w) t)
+\end{align*}
+Thus, the world line of $x'' = 0$ (convenient choice, no offset, so that velocity can be read off immediately) is given in the unprimed $(x, ct)$-coordinates by
 \begin{equation}\label{eq:velocity_addition_parallel}
+	x'' = 0
+	\qquad \Leftrightarrow \qquad
+	x = \frac{v + w}{1 + v w / c^2} \, t
+	\qquad \Leftrightarrow \qquad
 	\eqbox{
 	v +_R w = \frac{v + w}{1 + v w / c^2}
-	}
+	} \, .
 \end{equation}
+Relativistic addition of velocities is much more complicated than non-relativistic. But setting $v = c$ we see that
+\begin{equation}
+	\eqbox{
+	c +_R w = \frac{c + w}{1 + c w / c^2} = c \frac{1 + w / c}{1 + w / c} = c
+	} \, ,
+\end{equation}
+the $+_R$ we have derived does admit the correct behaviour. Moreover, for $v, w \ll c$
+\begin{equation}\label{eq:velocity_addition_limit}
+	v +_R w = \frac{v + w}{1 + v w / c^2} \approx v + w \, ,
+\end{equation}
+it reduces to the usual addition in the Newtonian limit. Thus, we have to accept that addition now works differently, $+_R$ conforms everything we demand from it.\\
+
+
+Until now, we have assumed $v, w$ to be parallel because we have only taken into account a single spatial dimension. In the more general case with three spatial dimensions, however,
+\begin{equation}
+	\eqbox{
+	\vec{v} +_R \vec{w} \neq \vec{w} +_R \vec{v}
+	} \; \text{ and } \;
+	\eqbox{
+	\vec{v}_1 +_R (\vec{v}_2 +_R \vec{v}_3) \neq (\vec{v}_1 +_R \vec{v}_2) +_R \vec{v}_3
+	} \, ,
+\end{equation}
+adding velocities relativistically is neither commutative nor associative.
+
+
+% Write out expressions from Giulini (2.6)?
+
+
 
 
 
@@ -1336,18 +1488,18 @@ First, it is necessary to state what spacetime is in a formal, mathematical way.
 		\underline{x} = (ct, x, y, z) = (ct, \vec{x})
 		}
 	\end{equation}
-	where $(x, y, z)$ are the Cartesian coordinates of Euclidian space.
+	where $(x, y, z)$ are the Cartesian coordinates of Eucledian space.
 	
 	
 	\Def{World lines} are curves $\Gamma = \Gamma(\sigma): I = [a, b] \rightarrow M$.
 \end{defi}
-We adopt the convention to rescale the time-component to have the same units as the spatial components. To avoid these conversion factors, we could choose units where $c = 1$, as it is common practice when dealing with relativity. However, we have elected not to do this here. Another note on the coordinates is that choosing inertial Cartesian coordinates is by no means necessary, just like spherical coordinates are equally suited to describe physics in Euclidian space as Cartesian ones. It is simply more convenient for now and we maintain generality of our discussion because the theory of manifolds provides us with natural ways of changing coordinates. This mathematical way of demanding coordinate-independent statements and using invariant notions like tensors is completely equivalent to what relativity demanded: physics has to be invariant of the observer, so only special quantities like proper times have an invariant and thus physical meaning (coordinate times or positions do not). This correspondence of underlying ideas and concepts is the reason why describing relativity in the language of manifolds is a very natural idea.
+We adopt the convention to rescale the time-component to have the same units as the spatial components. To avoid these conversion factors, we could choose units where $c = 1$, as it is common practice when dealing with relativity. However, we have elected not to do this here. Another note on the coordinates is that choosing inertial Cartesian coordinates is by no means necessary\footnote{In fact, coordinates themselves have \emph{no} physical meaning.}, just like spherical coordinates are equally suited to describe physics in Euclidean space as Cartesian ones. It is simply more convenient for now and we maintain generality of our discussion because the theory of manifolds provides us with natural ways of changing coordinates. This mathematical way of demanding coordinate-independent statements and using invariant notions like tensors is completely equivalent to what relativity demanded: physics has to be invariant of the observer, so only special quantities like proper times have an invariant and thus physical meaning (coordinate times or positions do not). This correspondence of underlying ideas and concepts is the reason why describing relativity in the language of manifolds is a very natural idea.
 
 
-Having defined spacetime, we can see why space-time diagrams have been called spacetime diagrams: they visualize the new-defined entity $M$, just like coordinate planes with $x$-, $y$-axis visualize Euclidian space. This also explains why they are often called \Def{Minkowski diagrams}.\\
+Having defined spacetime, we can see why space-time diagrams have been called spacetime diagrams: they visualize the new-defined entity $M$, just like coordinate planes with $x$-, $y$-axis visualize Euclidean space. This also explains why they are often called \Def{Minkowski diagrams}.\\
 
 
-While points and vectors do not necessarily have a direct identification with each other, elements of the vector space $\mathbb{M}$ are also points in $M$ because both are elements of $\mathbb{R}^4$ (which further motivates $M = \mathbb{R}^4$).\footnote{To be more precise, $\mathbb{M}$ is the affine space of $\mathbb{R}^4$, i.e.~we keep the space itself, but not the attached notions of distances and angles. In particular, there is no origin (in accordance with relativity principle).} For this reason, $\underline{x} = (ct, x, y, z)$ is often called four-vector. Over the course of the next sections, we will develop the mathematical tools to describe spacetime. As we will learn throughout this section, it has more structure than what is natively given by \enquote{pure} manifolds, namely a metric. Therefore, $\mathbb{M}$ will turn out to be a \Def{pseudo-Riemannian manifold} or \Def{Lorentz-manifold}, $\mathbb{M} = (\mathbb{R}^4, \eta)$. At this point, the departure from Euclidian space with metric $g$ and line element $ds^2 = dt^2 + dx^2 + dy^2 + dz^2$ begins.
+While points and vectors do not necessarily have a direct identification with each other, elements of the vector space $\mathbb{M}$ are also points in $M$ because both are elements of $\mathbb{R}^4$ (which further motivates $M = \mathbb{R}^4$).\footnote{To be more precise, $\mathbb{M}$ is the affine space of $\mathbb{R}^4$, i.e.~we keep the space itself, but not the attached notions of distances and angles. In particular, there is no origin (in accordance with relativity principle).} For this reason, $\underline{x} = (ct, x, y, z)$ is often called four-vector. Over the course of the next sections, we will develop the mathematical tools to describe spacetime. As we will learn throughout this section, it has more structure than what is natively given by \enquote{pure} manifolds, namely a metric. Therefore, $\mathbb{M}$ will turn out to be a \Def{pseudo-Riemannian manifold} or \Def{Lorentz-manifold}, $\mathbb{M} = (\mathbb{R}^4, \eta)$. At this point, the departure from Euclidean space with metric $g$ and line element $ds^2 = dt^2 + dx^2 + dy^2 + dz^2$ begins.
 
 
 %introduce four-velocity as tangent vector; then also state that as of now, we are not able to take norm of it -> motivates metric section
@@ -1365,7 +1517,7 @@ Mathematically, metrics are objects called tensors and they have the convenient 
 	\tau = \sqrt{1 - \frac{v^2}{c^2}} \, t = \sqrt{1 - \qty(\frac{x}{ct})^2 - \qty(\frac{y}{ct})^2 - \qty(\frac{z}{ct})^2} \, t = \sqrt{t^2 - (x^2 + y^2 + z^2) / c^2}
 	}
 \end{equation}
-This distance notion depends on the trajectory taken by the clock/corresponding observer (more specifically, on the uniform velocity $v$), but will in general not be equal to $t$, which is the time measured simultaneously by a clock resting in the corresponding frame. This does \emph{not} mean $\tau$ depends on the coordinates we use to compute it, i.e.~the specific inertial frame chosen, the striking factor is the path taken by the clock we measure time for.
+This distance notion depends on the trajectory taken by the clock/corresponding observer (more specifically, on the uniform velocity $v$), but will in general not be equal to $t$, which is the time measured simultaneously by a clock resting in the corresponding frame (but we can still compute $\tau$ from this $t$ because it directly accounts for time dilation). This does \emph{not} mean $\tau$ depends on the coordinates we use to compute it, i.e.~the specific inertial frame chosen, the striking factor is the path taken by the clock we measure time for.
 
 
 
@@ -1408,9 +1560,10 @@ As we have seen in this example, in some coordinates it is very easy to compute 
 	A frame $(t, x, y, z)$ where
 	\begin{equation}
 		\eqbox{
-		%dx^\mu = 0, \; \forall \mu % dt is not 0
-		dx = dy = dz = 0
-		\qquad \Rightarrow \qquad d\tau = dt
+		%dx = dy = dz = 0
+		%\qquad \Rightarrow \qquad d\tau = dt
+		x = y = z = 0
+		\qquad \Rightarrow \qquad \tau = t
 		}
 	\end{equation}
 	along the world line of a particle is called \Def{instantaneous rest frame} or \Def{comoving frame}.
@@ -1419,35 +1572,26 @@ This definition can also be extended to non-uniform velocities $v = v(t)$ becaus
 
 
 
-		\paragraph{Generalized Proper Time}
-What was denoted with $\tau$ in equation \eqref{eq:proper_time_uniform}, in reality is a difference $\Delta \tau$ of proper times (just measured with respect to $\tau = 0$), and the same is true for the coordinates $(ct, x, y, z)$. Making these differences infinitesimally small, i.e.~$\Delta \rightarrow d$, we obtain the infinitesimal distance or \Def{proper time element}\footnote{We adopt the common notation $dx^2 := (dx)^2$.}
-\begin{equation}
+			\paragraph{Generalized Proper Time}
+What was denoted with $\tau$ in equation \eqref{eq:proper_time_uniform}, in reality is a difference $\Delta \tau$ of proper times (just measured with respect to $\tau = 0$), and the same is true for the coordinates $(ct, x, y, z)$. Making these differences infinitesimally small, i.e.~$\Delta \rightarrow d$, we obtain the infinitesimal distance or \Def{proper time element}\footnote{We adopt the common notation $dx^2 := (dx)^2 := dx \otimes dx$ ($\otimes$ is the tensor product, which is usually omitted).}
+\begin{equation}\label{eq:proper_time_element}
 	\eqbox{
-	d\tau^2 = dt^2 - \frac{dx^2 + dy^2 + dz^2}{c^2} = (1 - \frac{v^2}{c^2}) \, dt^2 = \gamma^2 \, dt^2
+	d\tau^2 = dt^2 - \frac{dx^2 + dy^2 + dz^2}{c^2} = (1 - \frac{v^2}{c^2}) \, dt^2 = dt^2 / \gamma^2
 	} \, .
 \end{equation}
-This implies the following \Def{(proper) line element}
-\begin{equation}
-	\eqbox{
-	ds^2 = c^2 d\tau^2 = c^2 dt^2 - dx^2 - dy^2 - dz^2
-	}
-\end{equation}
-and corresponding \Def{proper distance} $s = c \tau$ between events (note that this implicitly uses the constancy of $c$ again). Writing this line element out in its general form $ds^2 = \eta_{\mu \nu} dx^\mu dx^\nu$ immediately allows to read off the components of the \Def{Minkowski metric} $\eta$, which can be conveniently arranged in a matrix
+From the general form $ds^2 = \eta_{\mu \nu} dx^\mu dx^\nu$ of line elements, one can immediately read off the components of the \Def{Minkowski metric} $\eta$, which can be conveniently arranged in a matrix
 \begin{equation}\label{eq:minkowski_metric}
 	\eqbox{
 	\eta = \mqty(1 & 0 & 0 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & -1 & 0 \\ 0 & 0 & 0 & -1)
 	} \, .
 \end{equation}
-At this point, we shall make a remark regarding the signs: in principle, we could have chosen $\eta$ to have only one minus (in the time component) since only the proper time is constrained by physical observations, while the proper distance could equally well be defined as $ds^2 = - c^2 d\tau^2$. There are good arguments for both conventions, but I personally find it more natural to keep the signs when going from times to distances, which is why signature $(+, -, -, -)$ is adopted here.\\
-
--> hmmm, maybe choose other convention? Because this reduces to Euclidian metric for simultaneous events, i.e.~$dt = 0$ (at least in the frame where the events are simultaneous); would also make distinction between $ds^2$ and $d\tau^2$ a bit easier...
 
 
-Perhaps a bit contrary to popular belief (at least that is what many authors claim), the scope special relativity is not restricted to observers with uniform velocities. Using some of the quantities and tools we have just derived, it is possible to extend the description of certain dynamics to observers moving with non-uniform velocities, i.e.~accelerating ones. For distances, this is possible in the scope of integration on manifolds, where the length of a curve $\Gamma(t)$ defined on an interval $I \subset \mathbb{R}$ is
+Potentially contrary to popular belief, the scope special relativity is not restricted to observers with uniform velocities. Using some of the quantities and tools we have just derived, it is possible to extend the description of certain dynamics to observers moving with non-uniform velocities, i.e.~accelerating ones. For distances, this is possible using integration on manifolds, where the length of a curve $\Gamma(\sigma)$ defined on an interval $I \subset \mathbb{R}$ is
 \begin{equation}
-	L(\Gamma) = \int_\Gamma ds = \int_I d\Gamma := \int_I \sqrt{g_{\mu \nu} v^\mu v^\nu} \, dt = \int_I \sqrt{g(\underline{v}, \underline{v})} \, dt \, .
+	L(\Gamma) = \int_\Gamma ds = \int_I d\Gamma := \int_I \sqrt{g_{\mu \nu} v^\mu v^\nu} \, d\sigma = \int_I \sqrt{g(\underline{v}, \underline{v})} \, dv \, .
 \end{equation}
-$\underline{v} = \dv{\Gamma(\sigma)}{\sigma}$ is the tangent vector (field) along $\Gamma$. Because we are equipped with a metric $g_{\mu \nu} = \eta_{\mu \nu}$ and corresponding line element $ds = c \, d\tau$, we can compute proper times for arbitrary kinds of movements.
+$\underline{v} = \dv{\Gamma(\sigma)}{\sigma}$ is the tangent vector (field) along $\Gamma$. Because we are equipped with a metric $g_{\mu \nu} = \eta_{\mu \nu}$ and corresponding line element $d\tau$, we can compute proper times for arbitrary kinds of movements.
 \begin{post}[Clock Postulate]
 	Given a world line $\Gamma$ parametrized by $\sigma \in I = [a, b]$, i.e.
 	\begin{equation*}
@@ -1457,7 +1601,7 @@ $\underline{v} = \dv{\Gamma(\sigma)}{\sigma}$ is the tangent vector (field) alon
 	\begin{equation}\label{eq:proper_time_general}
 		\eqbox{
 		\begin{split}
-		\tau &= \int_\Gamma d\tau = \int_\Gamma \gamma(t) \, dt = \int_\Gamma \sqrt{1 - \frac{v(t)^2}{c^2}} \, dt
+		\tau & = \int_\Gamma d\tau = \int_\Gamma dt / \gamma(t) = \int_\Gamma \sqrt{1 - \frac{v(t)^2}{c^2}} \, dt
 		\\
 		%&= \int_a^b \dv{\tau}{\sigma} \, d\sigma = \int_a^b \sqrt{\qty(\dv{t}{\sigma})^2 - \frac{1}{c^2} \qty(\dv{\vec{x}}{\sigma})^2} \, d\sigma
 		&= \int_a^b \dv{\tau}{\sigma} \, d\sigma = \int_a^b \sqrt{\qty(\dv{t}{\sigma})^2 - \frac{1}{c^2} \dv{x^\alpha}{\sigma} \dv{x^\alpha}{\sigma}} \, d\sigma
@@ -1472,35 +1616,115 @@ Intuitively, we can see that \eqref{eq:proper_time_general} works because it uti
 Instead of $\sigma$, one could also choose arbitrary linear combinations $\sigma' = e \sigma + f$ ($e, f \in \mathbb{R}$) to parametrize $\Gamma$ and then use $d\sigma' = e \, d\sigma$, which means that the integral in \eqref{eq:proper_time_general} is invariant under changes of this \Def{affine parameter}. A very common choice is $\sigma = \tau$ and we will later see how this specific parametrization can be characterized.\\
 
 
-Another remark on this definition is related to the metric. In coordinates, which are not inertial Cartesian ones, the metric is very likely to have different components $\eta'_{\mu \nu} \neq \eta_{\mu \nu}$. In this case, the last equality would not hold true anymore, although analogous formulas can be obtained from (again, assuming a world line $\Gamma$ with tangent vector $\underline{v}$)
+Another remark on this definition is related to the metric. In coordinates $x'^\mu$ which are not inertial Cartesian ones (nothing prevents us from using spherical coordinates for the spatial part, as an example), the metric is very likely to have different components $\eta'_{\mu \nu} \neq \eta_{\mu \nu}$. In this case, the last equality would not hold true anymore, although analogous formulas can be obtained from (again, assuming a world line $\Gamma$ with tangent vector $\underline{v}$)
 \begin{equation}\label{eq:proper_time_non_cartesian}
 	\eqbox{
 	%\tau = \int_\Gamma d\tau = \frac{1}{c} \int_I \sqrt{\eta'(\underline{v}, \underline{v})} \, d\sigma = \frac{1}{c} \int_I \sqrt{\eta'_{\mu \nu} dx^\mu(\underline{v}) dx^\nu(\underline{v})} \, d\sigma = \frac{1}{c} \int_I \sqrt{\eta'_{\mu \nu} v^\mu v^\nu} \, d\sigma
-	\tau = \int_\Gamma d\tau = \frac{1}{c} \int_I \sqrt{\eta'_{\mu \nu} v^\mu v^\nu} \, d\sigma
+	\tau = \int_\Gamma d\tau= \frac{1}{c} \int_I \sqrt{\eta_{\mu \nu} v^\mu v^\nu} \, d\sigma = \frac{1}{c} \int_I \sqrt{\eta'_{\mu \nu} v'^\mu v'^\nu} \, d\sigma
 	} \, ,
 \end{equation}
-which still holds due to the transformation rule for integrals. This rule is also what implies the invariance of $\tau$ under the coordinates/frame it is computed in, which is a mathematical way of stating that all observers agree on the proper time.
+which holds due to the transformation rule for integrals (note that the vector components have to be transformed as well, $v^\mu \rightarrow v'^\mu$). This rule is also what implies the invariance of $\tau$ under the coordinates/frame it is computed in, which is a mathematical way of stating that all observers agree on the proper time.
+
+	\rem{the factor $1 / c$ appears due to the coordinates being $(c t, x, y, z)$, which implies $\eta_{\mu \nu} dx^\mu dx^\nu = d(c t)^2 - dx^2 - dy^2 - dz^2 = \frac{1}{c^2} d\tau^2$.}
 
 
-It is this invariance that allows us to infer statements about the geometry of Minkowski space (where we now assume $v = \text{const.}$ again and thus use \eqref{eq:proper_time_uniform}). In Euclidian space, points of constant distance $s$ lie on a circle around the origin, which is determined by the equation $s^2 = x^2 + y^2 + z^2$. In Minkowski space, events of equal distance lie on a hyperboloid of constant proper times $\tau$ and are determined by
-\begin{equation}\label{eq:eichhyperbel}
+
+			\paragraph{Proper Distance}
+While it is an important task to measure times, an invariant notion of distances is also important. Distances are commonly associated with metrics and line elements as well, for example
+\begin{equation*}
+	dx^2 + dy^2 + dz^2
+\end{equation*}
+that measures lengths in the three-dimensional Euclidean space we live in. But what is an analogous quantity for four-dimensional Minkowski space?\\
+
+
+We have already derived a line element suitable for relativistic analyses of spacetime, $d\tau$ as given by \eqref{eq:proper_time_element}, and using the work put in there to define distances is a straightforward idea. Let us start by looking at the conceptually simplest case of measuring distance between two events $E_1$ at $(t_1, x_1, y_1, z_1)$ and $E_2$ at $(t_2, x_2, y_2, z_2)$, where the rod placed between $(x_1, y_1, z_1)$ and $(x_2, y_2, z_2)$ is at rest. In this case, the distance measured by this rod is
+\begin{equation}\label{eq:proper_length}
+	s_{E_1, E_2} = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2 + (z_2 - z_1)^2)}
+\end{equation}
+independently of the times $t_1, t_2$. This quantity is called the \Def{proper length} of the measuring rod. However, for a general and thus observer-independent quantity, we have to remember that space and time are not separated anymore. This is because for an observer moving relative to the rod, the time at which he takes the measurements have a clear impact on the length that he measures the rod to have (since the endpoints of the rod are moving in this inertial frame). For invariant statements, we will now define $s$ in terms of the proper time $\tau$. Clearly, if we choose $t_1 = t_2$ in the rest frame of the rod, its proper length is
+\begin{equation*}
+	s_{E_1, E_2} = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2 + (z_2 - z_1)^2} = c \sqrt{- \tau_{E_1, E_2}^2} \, ,
+\end{equation*}
+confer \eqref{eq:proper_time_uniform}. Different frames will not measure $E_2$ and $E_1$ to be simultaneous, which means the general def Further imposing the condition of simultaneity, the same distances is measured from a different reference frame, the \enquote{generalized proper length} is
+\begin{equation}\label{eq:proper_distance_uniform}
 	\eqbox{
-	c^2 \tau^2 = c^2 t^2 - x^2 - y^2 - z^2
+	s_{E_1, E_2} = c \sqrt{- \tau_{E_1, E_2}^2} = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2 + (z_2 - z_1)^2 - c^2 (t_2 - t_1)^2}
+	}\, .
+\end{equation}
+This quantity is called \Def{proper distance} and allows for an invariant notion of spatial distance between events.\footnote{Of course, one can compute it for events that are not simultaneous in the current frame as well. The result will be the proper length in some inertial frame, namely the one where the events are simultaneous.} Just like the proper time automatically incorporated a correction for time dilation so that all inertial frames get the same results, the proper distance corrects for length contraction occurring if the length of a rod is measured by an observer moving relative to it. This is a non-trivial statement, so it is worthwhile to verify it explicitly.
+
+\begin{proof}
+	We have discussed this scenario for one spatial dimension in subsection \ref{subsec:time_dilation_lorentz}. One of the results was that we have to adjust the transformed time $t'_2$ in order to achieve $t'_2 = t'_1$ (cf.~\eqref{eq:length_contraction_correct}). As \eqref{eq:not_simultaneous} shows, the adjustment was $\Delta t' = v / c^2 (x'_2 - x'_1)$. For $s$, only the transformed and \emph{not} the corrected coordinates are used. This, however, turns out to be the crucial part in getting an invariant result, i.e.~why no length contraction occurs in $s$. We can verify this by inserting all the quantities we have mentioned into it:
+	% Previous version, false I think
+	%One of the results was that the distance measured for a rod with length $x_2 - x_1$ from coordinates moving relative to the rod is $x'_2 - x'_1 = (x_2 - x_1) / \gamma$ if we adjust the transformed time $t'_2$ slightly to achieve $t'_2 = t'_1$ (cf.~\eqref{eq:length_contraction_correct}). As \eqref{eq:not_simultaneous} shows, the adjustment was $\Delta t' = v / c^2 (x'_2 - x'_1)$ and in some sense, this correction has to be un-corrected in order to get the same results as in unprimed coordinates. We can see that this is actually done by $s$ if we insert all the quantities we have mentioned into it:
+	\begin{align*}
+		(x_2 - x_1)^2 \overset{!}&{=} (x'_2 - x'_1)^2 - c^2 (t'_2 - t'_1)^2 = (x'_2 - x'_1)^2 - c^2 (\Delta t)^2
+		\\
+		&= (x'_2 - x'_1)^2 - c^2 \frac{v^2}{c^4} (x'_2 - x'_1)^2 = (x'_2 - x'_1)^2 \qty(1 - v^2 / c^2) = (x_2 - x_1)^2
+	\end{align*}
+	where \eqref{eq:length_contraction_not_correct} was used, which shows that $(x'_1 - x'_2) = \gamma (x_2 - x_1)$. This calculation proofs that observers from all inertial frames agree on proper distances.
+\end{proof}
+
+
+Just like the proper time, proper distances between events are also path-dependent. The proper time element \eqref{eq:proper_time_element} can be used to define the analogous \Def{(proper) line element}
+\begin{equation}\label{eq:proper_line_element}
+	\eqbox{
+	ds^2 = - c^2 d\tau^2 = dx^2 + dy^2 + dz^2 - c^2 dt^2
+	} 
+\end{equation}
+which is suitable to define the proper distance covered when following an arbitrary, not necessarily straight world line $\Gamma$ (with parameter $\sigma \in I \subset \mathbb{R}$ and tangent vector $\underline{v}$),
+\begin{equation}\label{eq:proper_distance_general}
+	\eqbox{
+	s = \int_\Gamma ds = \int_I \sqrt{- \eta_{\mu \nu} v^\mu v^\nu} \, d\sigma
 	} \, .
 \end{equation}
-Setting $c \tau = 1$ yields a hyperbola, whose intersection with time axes in spacetime diagrams determines the \enquote{length of one time unit}, a very convenient way to see how moving clocks are perceived to be slower from a resting observers point of view (fig.~\ref{fig:minkowski_with_eichhyperbel}). In the same manner, one can visualize events of equal spatial distance $dx^2 + dy^2 + dz^2$ by looking at
+
+
+At this point, we shall make a remark regarding the signs: in principle, one can choose $\eta$ to have only one minus (in the time component) without changing physics, if signs in equations where the metric occurs are changed accordingly. For example, the proper time and line elements would read
+\begin{equation}
+	d\tau^2 = - \frac{1}{c^2} \eta_{\mu \nu} dx^\mu dx^\nu
+	\manyqquad
+	ds^2 = \eta_{\mu \nu} dx^\mu dx^\nu
+\end{equation}
+instead. Good arguments exist for both conventions, but in the way metric and line element have been introduced here (via the proper time), it was more natural to adopt the convention with signature $(+, -, -, -)$.
+
+The fact that this overall sign does not matter is supported by the following alternative derivation of the metric. It is also based $c$ being constant, but instead of constructing clocks etc.~explicitly, it uses that light propagates as a spherical wave with velocity $c$. Writing this equation in multiple inertial frames yields
+\begin{equation}
+	c^2 t^2 = x^2 + y^2 + z^2 \; , \; c^2 t'^2 = x'^2 + y'^2 + z'^2 \quad \Leftrightarrow \quad c^2 t^2 - x^2 - y^2 - z^2 \overset{!}{=} c^2 t'^2 - x'^2 - y'^2 - z'^2 \, .
+\end{equation}
+by the relativity principle. This points to the invariant proper distance we have called $s$ or equivalently (upon multiplication of both sides with $1 / c^2$) the proper time $\tau$.
+
+
+
+			\paragraph{Proper Time \& Distance in Spacetime Diagrams}
+It is the invariance of proper time, distance that allows us to infer statements about the geometry of Minkowski space from them (where we now assume $v = \text{const.}$ again and thus use \eqref{eq:proper_time_uniform}, \eqref{eq:proper_distance_uniform}). In Euclidean space, points of constant distance $s$ lie on a circle around the origin, which is determined by the equation $s^2 = x^2 + y^2 + z^2$.
+
+In Minkowski space, events of equal (temporal) distance lie on a hyperboloid of constant proper times $\tau$ and are determined by
 \begin{equation*}
-%	x'^2 = \gamma^2 (x - vt)^2
-	x^2 + y^2 + z^2 = c^2 t^2 - c^2 \tau^2 = c^2 t^2 - c^2 t'^2 + x'^2 + y'^2 + z'^2
-	\, .
+	c^2 \tau^2 = c^2 t^2 - x^2 - y^2 - z^2 \, .
 \end{equation*}
-For spacetime diagrams, we neglect two of the three spatial dimensions and the unit length as a distance from the origin can be found by setting $t' = 0, x' = 1$. Therefore, we obtain the hyperbolic equation
+Setting $c \tau = 1$ to find a unit time length and neglecting two spatial dimensions yields
 \begin{equation}
 	\eqbox{
-	x^2 = c^2 t^2 + 1
+	c^2 t^2 = 1 + x^2
 	} \, .
 \end{equation}
-The corresponding curve is visualized in figure \ref{fig:minkowski_with_eichhyperbel} as well.\\
+This equation defines a hyperbola, whose intersection with time axes in spacetime diagrams determines the \enquote{length of one time unit}, a very convenient way to see how moving clocks are perceived to be slower from a resting observers point of view (fig.~\ref{fig:minkowski_with_eichhyperbel}).\\
+
+
+In the same manner, one can visualize events of equal spatial distance by looking at
+\begin{equation*}
+%	x'^2 = \gamma^2 (x - vt)^2
+	s^2 = x^2 + y^2 + z^2 = c^2 t^2 - c^2 \tau^2 = x'^2 + y'^2 + z'^2 + c^2 t^2 - c^2 t'^2
+	\, .
+\end{equation*}
+In spacetime diagrams, two of the three spatial dimensions are neglected and the unit length as a distance from the origin can be found by setting $t' = 0, x' = 1$. Therefore, we obtain
+\begin{equation}
+	\eqbox{
+	x^2 = 1 + c^2 t^2
+	} \, ,
+\end{equation}
+another hyperbolic equation. The corresponding curve is visualized in figure \ref{fig:minkowski_with_eichhyperbel}. Similarly to what was said about time before, this curve determines the \enquote{length of one spatial unit} in spacetime diagrams by its intersection with the $x$-axis of any observer that we choose to put into the diagram.
 
 
 
@@ -1528,15 +1752,7 @@ The corresponding curve is visualized in figure \ref{fig:minkowski_with_eichhype
 
 
 
-One final note concerns an alternative derivation of the metric. It is also based $c$ being constant, but instead of constructing clocks etc.~explicitly, it uses that light propagates as a spherical wave with velocity $c$. Writing this equation in multiple inertial frames yields
-\begin{equation}
-	c^2 t^2 = x^2 + y^2 + z^2 \; \text{ and } \; c^2 t'^2 = x'^2 + y'^2 + z'^2 \qquad \Leftrightarrow \qquad c^2 t^2 - x^2 - y^2 - z^2 \overset{!}{=} c^2 t'^2 - x'^2 - y'^2 - z'^2 \, .
-\end{equation}
-by the relativity principle. This points to the invariant proper distance we have called $s$ (which vanishes for light). At the same time, it explains the ambiguity in overall sign because we can get the same physics no matter which sign is used in $ds^2$ (only the sign in $d\tau^2$ is fixed, but this can be adjusted by defining $ds^2 = \pm c^2 d\tau^2$, respectively).
-
-
-
-		\paragraph{Inner Product}
+			\paragraph{Inner Product}
 The notion of a metric allows for the construction of a rich theory. We have seen how it can be used to define distances and now we will deal with another important structure on manifolds, which has already been used in \eqref{eq:proper_time_non_cartesian}.
 
 \begin{defi}[Minkowski Inner Product]
@@ -1554,15 +1770,15 @@ The induced norm of a vector is
 	} \, .
 \end{equation}
 This is also the line element of the curve that $\underline{t}$ is tangent to.
-
-
+\iffalse
+% This is not needed, right?
 Based on that, a general way to define the distance between events $E_1$ at $\underline{x_1} = (ct_1, x_1, y_1, z_1)$ and $E_2$ at $\underline{x_2} = (ct_2, x_2, y_2, z_2)$ in an inertial Cartesian frame is
 \begin{equation}
 	\eqbox{
 	\begin{split}
-	d(E_1, E_2) &= \sqrt{c^2 (t_2 - t_1)^2 - (x_2 - x_1)^2 - (y_2 - y_1)^2 - (z_2 - z_1)^2}
+	d(E_1, E_2) &= \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2 + (z_2 - z_1)^2 - c^2 (t_2 - t_1)^2}
 	\\
-	&= c \, \tau_{E_1, E_2} = \eta_{\mu \nu} (x_1^\mu - x_2^\mu) (x_1^\nu - x_2^\nu)
+	&= c \, \sqrt{- \tau_{E_1, E_2}^2} = \eta_{\mu \nu} (x_1^\mu - x_2^\mu) (x_1^\nu - x_2^\nu)
 	\\
 	&= \min_{\Gamma: \; \Gamma(a) = E_1, \Gamma(b) = E_2} L(\Gamma)
 	= \min_{\Gamma: \; \Gamma(a) = E_1, \Gamma(b) = E_2} \int_\Gamma ds
@@ -1572,24 +1788,28 @@ Based on that, a general way to define the distance between events $E_1$ at $\un
 \end{equation}
 %where we have chosen $\Gamma(\sigma)$ to map from $I = [a, b]$.% and $\underline{v} = \dv{\Gamma(\sigma)}{\sigma}$.
 i.e.~as the (proper) length of the straight world line connecting them.
+\fi
 \end{defi}
-Strictly mathematically speaking, this does not define an inner product because it is not positive-definite, \enquote{only} non-degenerate. For this reason, $\eta$ is also called a pseudo-Riemannian metric. For simplicity (in typical physicist-manner) it is commonly called Minkowski inner product despite that. Due to the non-degeneracy of $\eta$, vectors can have negative or even vanishing norm.
+Strictly mathematically speaking, this does not define an inner product because it is not positive-definite, \enquote{only} non-degenerate. For this reason, $\eta$ is also called \Def{pseudo-Riemannian metric}. For simplicity (in typical physicist-manner) it is commonly called Minkowski inner product despite that. Due to the non-degeneracy of $\eta$, vectors can have negative or even vanishing norm. Other consequences include unit vectors now being defined by $\norm{\underline{v}}^2 = \pm 1$ instead of just $+ 1$ in case of Euclidean geometry.
 
 
 Based on \eqref{eq:inner_prod}, we naturally get an equivalent, more formal way of quantifying causality.
-\begin{defi}[Timelike, Lightlike, Spacelike]
+\begin{defi}[Timelike, Lightlike, Spacelike]\label{defi:causality_v2}
 	A world line $\Gamma$ with tangent vector $\underline{t}$ is called
 	\begin{itemize}
-		\item \Def{timelike}, if $\abs{v} < c \; \Leftrightarrow \; ds^2 = \eta(\underline{t}, \underline{t}) > 0$ along $\Gamma$
+		\item \Def{timelike}, if $\abs{v} < c \; \Leftrightarrow \; c^2 d\tau^2 = - ds^2 = \eta(\underline{t}, \underline{t}) > 0$ along $\Gamma$
 		
 		
-		\item \Def{null/lightlike}, if $\abs{v} = c \; \Leftrightarrow \; ds^2 = \eta(\underline{t}, \underline{t}) = 0$ along $\Gamma$
+		\item \Def{null/lightlike}, if $\abs{v} = c \; \Leftrightarrow \; c^2 d\tau^2 = - ds^2 = \eta(\underline{t}, \underline{t}) = 0$ along $\Gamma$
 		
 		
-		\item \Def{spacelike}, if $\abs{v} > c \; \Leftrightarrow \; ds^2 = \eta(\underline{t}, \underline{t}) < 0$ along $\Gamma$
+		\item \Def{spacelike}, if $\abs{v} > c \; \Leftrightarrow \; c^2 d\tau^2 = - ds^2 = \eta(\underline{t}, \underline{t}) < 0$ along $\Gamma$
 	\end{itemize}
 \end{defi}
-This very compact characterization adds to the intuitive definition from before.
+This very compact characterization translates to events connected by world lines and adds a mathematical counterpart to the intuitive definition \ref{defi:causality_v1} from before. In particular, they show that due to them being related to the metric $\eta$, the causal relation of two events does not depend on the coordinates we use to denote/visualize them.
+
+Using this definition, one can also interpret causality in terms of proper times and distances along the world line that connect them -- and vice versa. First of all, while one can compute these quantities for arbitrary events, we immediately see that proper times make \enquote{more sense} for timelike- or null-separated events than they do for spacelike-separated ones, while proper distances make \enquote{more sense} for spacelike- or null-separated events than they do for timelike-separated events. \enquote{Making sense} here refers to the value of $d\tau$ and $ds$, respectively, which can be real or, in the cases that make less sense, be complex. Complex quantities, however, are unphysical, at least in the scope of relativity. This is also related to the interpretation of each quantity: proper time can be thought of as the time measured by a clock which moves between the events and this clock can only move with $\abs{v} \leq c$ (i.e.~not on spacelike world lines); distances, on the other hand, often make most sense when measured simultaneously (i.e.~as a proper length in a certain frame), whence the corresponding events are naturally spacelike-separated (due to their spatial distance being greater than $0$, which is their temporal separation). Consequently, proper distances are not to be thought of as the distance covered by a clock moving along the world line (in fact, this interpretation is more appropriate for the proper time).
+
 
 
 -> Penrose continues to make interesting point on that on page 407: light cones more fundamental than metric
@@ -1607,7 +1827,7 @@ Lorentz transformations have been introduced in section \ref{sec:lorentz_transfo
 
 -> after metric is nice, then we can present mathematical viewpoint; do not change norm of four-vector (this is well-known property of rotations, but there is also a second class of Lorentz transformations, which are called boosts; they represent what we have derived in previous section, change to other inertial frame that moves uniformly with respect to first one); also note that they admit group structure, i.e.~note properties here; maybe even introduce rapidity and note connection of Lie group and Lie algebra? But not elaborate on this
 
-maybe just note that Lorentz transformation = change of coordinates/charts (which is corresponding term in language of manifolds); one condition to obtain them is by demanding norm of four-vector does not change (ahh, might be confusing because I think Nolting refers to this kind of in Euclidian space; what he calls norm is really proper time passing on clock which moves from origin to point, isn't it? Would make sense to demand this better stay the same after transformation after we have put so much effort into invariant definition) -> I like this, but does not fit before introduction of norm; so maybe make subsection on transformations after metric?
+maybe just note that Lorentz transformation = change of coordinates/charts (which is corresponding term in language of manifolds); one condition to obtain them is by demanding norm of four-vector does not change (ahh, might be confusing because I think Nolting refers to this kind of in Euclidean space; what he calls norm is really proper time passing on clock which moves from origin to point, isn't it? Would make sense to demand this better stay the same after transformation after we have put so much effort into invariant definition) -> I like this, but does not fit before introduction of norm; so maybe make subsection on transformations after metric?
 
 
 
@@ -1618,6 +1838,19 @@ Lorentz-scalar or Lorentz-invariant is scalar quantity, which does not change un
 
 
 when interpreting Minkowski space as a manifold and working with coordinates/charts $\xi$, we know the results should be independent of $\xi$; in particular, that means they hold in other charts as well and changing coordinates is an important part; the basis changes even have a distinct name, \Def{Lorentz transformation}; this is basically group theory due to the symmetries that Minkowski space possesses (known from logic and experiments) ?right?
+
+
+
+hmmm, parallel transformations form a group (as Einstein states); commutativity is trivial, but associativity not:
+\begin{align}
+	(v_1 +_R v_2) +_R v_3 &= \frac{v_1 + v_2}{1 + v_1 v_2 / c^2} +_R v_3 = \frac{\frac{v_1 + v_2}{1 + v_1 v_2 / c^2} + v_3}{1 + \frac{v_1 + v_2}{1 + v_1 v_2 / c^2} v_3 / c^2}
+	\notag\\
+	&= \frac{\frac{v_1 + v_2 + v_3 + v_1 v_2 v_3 / c^2}{1 + v_1 v_2 / c^2}}{1 + \frac{v_1 v_3 + v_2 v_3}{1 + v_1 v_2 / c^2} / c^2}
+	= \frac{v_1 + v_2 + v_3 + v_1 v_2 v_3 / c^2}{1 + v_1 v_2 / c^2 + (v_1 v_3 + v_2 v_3) / c^2}
+	\notag\\
+	&= \frac{v_1 + v_2 + v_3 + v_1 v_2 v_3 / c^2}{1 + (v_1 v_2 + v_1 v_3 + v_2 v_3) / c^2}
+\end{align}
+this last expression is very symmetric, so we might suspect already that it is associative; essentially by repeating these calculations, we obtain that $v_1 +_R (v_2 +_R v_3)$ evaluates to the same expression, so parallel transformations (boosts) admit group structure with group operation being $+_R$
 
 
 
@@ -1718,6 +1951,12 @@ good start I think: \url{https://de.wikipedia.org/wiki/Zeitdilatation#Bewegung_m
 
 
 for non-uniform velocity, connection procedure does not work between macroscopic events anymore (because getting distance from velocity is not multiplication, now integration), but only infinitesimally (equivalent: just like we have to integrate velocity for distance, we have to integrate for travel time of light; since time = distance for light -> nice visualization: rectification of curve, works perfect for straight line, but if changing derivative comes into play, not perfect anymore, have to go to infinitesimal distances for that); motivation for $d\tau$ -> better: we have infinitesimal line element, allows natural transition to non-uniform, i.e.~accelerated movement
+
+
+
+\begin{ex}[Rotating Disk]
+	cool: \url{https://en.wikipedia.org/wiki/Proper_time#Example_2:_The_rotating_disk}
+\end{ex}
 
 
 
