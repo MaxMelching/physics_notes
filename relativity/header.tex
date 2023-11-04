@@ -351,7 +351,7 @@ backgroundcolor=gray!8}
     \FPeval{\calcbetagamma}{\calcgamma*\worldlineVelocity}
 
 	% Draw event
-	\draw[thick, \worldlineColor, cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(0,0)}] (#2,#3) -- (#4, #5);
+	\draw[thick, \worldlineColor, cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(0,0)}] (#2, #3) -- (#4, #5);
 }
 
 
@@ -373,6 +373,35 @@ backgroundcolor=gray!8}
 	% Draw light cone -> idea: go from event location into the directions (1, 1), (-1, 1) for upper part of cone and then in directions (-1, -1), (1, -1) for lower part of cone
 	\draw[\lightconeColor, fill, fill opacity=\lightconeFillOpacity] (\lightconexpos * \lightconeStepsize - #2 * \lightconeStepsize, \lightconeypos * \lightconeStepsize + #2 * \lightconeStepsize) -- (\lightconexpos, \lightconeypos) -- (\lightconexpos * \lightconeStepsize + #2 * \lightconeStepsize, \lightconeypos * \lightconeStepsize + #2 * \lightconeStepsize);
 	\draw[\lightconeColor, fill, fill opacity=\lightconeFillOpacity] (\lightconexpos * \lightconeStepsize - #2 * \lightconeStepsize, \lightconeypos * \lightconeStepsize - #2 * \lightconeStepsize) -- (\lightconexpos, \lightconeypos) -- (\lightconexpos * \lightconeStepsize + #2 * \lightconeStepsize, \lightconeypos * \lightconeStepsize - #2 * \lightconeStepsize);
+}
+
+
+
+\pgfkeys{
+	/addacceleratedworldline/.is family, /addacceleratedworldline,
+	default/.style = {tstart = 0, tend = 1, v = 0, color = red},
+	tstart/.estore in = \acceleratedworldlineTstart,
+	tend/.estore in = \acceleratedworldlineTend,
+	v/.estore in = \acceleratedworldlineVelocity,
+	color/.estore in = \acceleratedworldlineColor
+}
+
+% Mandatory argument: x position of first event, y position of first event, x position of second event, y position of second event
+% Optional arguments: relative velocity (important: if negative, must be given as (-1) * v where v is the absolute value, otherwise error), color
+% starting points in #2, #3 and then starting velocity in #4, acceleration in #5; optional v is for Lorentz transform of world line
+\newcommand{\addacceleratedworldline}[5][]{%
+	\pgfkeys{/addacceleratedworldline, default, #1}
+
+    % Evaluate the Lorentz transformation
+    \FPeval{\calcgamma}{1/((1-((\acceleratedworldlineVelocity)*(\acceleratedworldlineVelocity)))^.5)} % More robust, allows negative v
+    \FPeval{\calcbetagamma}{\calcgamma*\acceleratedworldlineVelocity}
+
+	\FPeval{\calcgammanod}{1/((1-((#4)*(#4)))^.5)}
+
+	% Draw event
+	\draw[variable=\t, domain=\acceleratedworldlineTstart:\acceleratedworldlineTend, thick, smooth, \acceleratedworldlineColor, cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(0,0)}] plot ({#2 + 1 * (#5)^(-1) * (sqrt(1 + (#5 * \t + #4 * \calcgammanod)^2) - \calcgammanod)}, {#3 + \t}); % Dividing by a (#5) yields error for negative a, this version not
+
+	%\draw[domain=-4:4, very thick, smooth, variable=\t, color=purple] plot ({sqrt(1 + \t * \t)}, {\t});
 }
 
 
