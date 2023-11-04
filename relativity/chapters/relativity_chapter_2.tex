@@ -1877,12 +1877,14 @@ It seems to be a common misconception that such topics cannot be treated using t
 
 Acceleration is not the only topic that has to be developed in a relativistic manner, though. Many other notions will have to be looked at and reformulated using four-vectors in Minkowski space, for example momentum, energy, force. To start this development, we have to think about velocities at first. Excellent sources for this section are \cite{Fleury_2019, Faraoni_2013}.
 
+	\rem{We elect to formulate everything as general as possible, which means we go from using just ICCs (which are nothing but coordinates for inertial frames) to arbitrary frames of reference. This will require e.g.~using covariant derivates $\nabla$ because the Christoffel symbols do not generally vanish, unlike in inertial frames.}
+
 %Before we can deal with accelerations in more mathematical fashion, however, we have to think about velocities first. Excellent sources for this section are \cite{Fleury_2019, Faraoni_2013}.
 
 
 
 		\subsection{Four-Velocity}
-Trajectories or world lines are nothing but curves on manifolds, as we have already seen. A natural question, however, was left unanswered until now: what is the velocity of such a trajectory? Since its role is to quantify how fast and in which direction the trajectory is changing, velocity now becomes a tangent vector. In analogy to the previous description, we may try
+Trajectories or world lines are nothing but curves on manifolds, as we have already seen. A natural question, however, was left unanswered until now: what is the velocity of such a trajectory? Since its role is to quantify how fast and in which direction the trajectory is changing, velocity now becomes a tangent vector. In analogy to the previous Newtonian description, we may try
 \begin{equation}
 	\underline{u} = \dv{t}
 	\qquad \Leftrightarrow \qquad
@@ -1903,7 +1905,6 @@ with components (in arbitrary coordinates $x^\alpha$)
 $\vec{v}$ is the \enquote{regular} three-velocity, which finds its way into the equation by a simple application of the chain rule. Clearly, although $u^\alpha$ is a four-vector, it has only three independent components because the first one is constant. An interesting corollary from this constancy is that the temporal component $u^0$ never vanishes, so time never stops (even if there is no spatial motion, $v = 0\; \Leftrightarrow \; u^1 = u^2 = u^3 = 0$).
 
 An important thing to note is that $\underline{u}$ is only defined for timelike world lines because $d\tau = 0$ for lightlike ones (dividing by zero is not defined), while $d\tau$ is complex for spacelike ones (regardless of whether one can make sense of this derivative mathematically, complex velocities do not make sense physically).
-
 
 
 
@@ -1932,7 +1933,7 @@ Now we can come to acceleration. In principle, treating it does not seem to hard
 	} \, .
 \end{equation}
 
-In ICCs, $\nabla_{\underline{u}} = \dv{\tau}$ and we obtain more explicit versions:
+In inertial frames (i.e.~in ICCs), $\nabla_{\underline{u}} = \dv{\tau}$ and we obtain more explicit versions:
 \begin{equation}\label{key}
 	\eqbox{
 	\underline{a} = \dv{\underline{u}}{\tau} = a^\alpha \dv{x^\alpha}
@@ -1957,14 +1958,45 @@ where $\vec{a} = \dv{v}{t}$ is the familiar three-acceleration (which is sometim
 \end{align}
 Note that $\vec{v} \cdot \vec{a}$ is a scalar product of three-vectors, which means it refers to the one from 3D Euclidean space here, $x^k y_k$.
 
--> interesting, this is term proportional to four-velocity plus term proportional to four-acceleration for constant velocity (whence $\dv{\gamma}{t} = 0$)
-
-The second term could have been expected, it is just the regular three-acceleration multiplied with $\qty(dt / d\tau)^2$, which appears due to the use of $\tau$ instead of $t$ (and becomes $1$ in the rest frame of the world line). The first term, however, is new and interesting: it depends on the relative orientation of $\vec{v}, \vec{a}$; it scales with $\gamma^4 = (\gamma^2)^2$ and thus becomes dominant for high velocities (while both are on same scale for small $v$); lastly, it influences the time component and it determines how much the three-velocity $\vec{v}$ influences adds to the \enquote{pure} three-acceleration $\vec{a}$. Since $\gamma = \gamma(v)$ does not depend explicitly on $a$ too, this is exactly in line with what the clock postulate \eqref{eq:proper_time_general} told us: times measured by accelerating clocks do not depend explicitly on $a$; that is not to say acceleration has no influence because it certainly does, but only in changing the velocity $v = v(t)$ (that the proper time depends on through $\gamma$).\\
-
-	\rem{is that true here? Because as we can see clearly from $u^0 = \gamma c$, the change of time really only depends on $v$... And also, these formulas above \emph{do} depend on $a$, clearly. Yes, only related to $v$, but still. So maybe statement is that clock paradox holds at all times and only this shows that is depends on just $v$}
+Essentially, the four-acceleration consists of two terms, the first one being proportional to the four-velocity and the second one being the four-acceleration measured in the rest frame of of the object whose world line we are looking at (whence $\dv{\gamma}{t} = 0$, constant velocity). The second term could have been expected, it is just the regular three-acceleration multiplied with $\qty(dt / d\tau)^2$, which appears due to the use of $\tau$ instead of $t$ (and becomes $1$ in the rest frame of the world line). The first term, however, is new and interesting: it depends on the relative orientation of $\vec{v}, \vec{a}$; it scales with $\gamma^4 = (\gamma^2)^2$ and thus becomes dominant for high velocities (while both are on same scale for small $v$); lastly, it influences the time component and it determines how much the three-velocity $\vec{v}$ adds to the \enquote{pure} three-acceleration $\vec{a}$.\\
+%Since $\gamma = \gamma(v)$ does not depend explicitly on $a$ too, this is exactly in line with what the clock postulate \eqref{eq:proper_time_general} told us: times measured by accelerating clocks do not depend explicitly on $a$; that is not to say acceleration has no influence because it certainly does, but only in changing the velocity $v = v(t)$ (that the proper time depends on through $\gamma$).\\
+%	\rem{is that true here? Because as we can see clearly from $u^0 = \gamma c$, the change of time really only depends on $v$... And also, these formulas above \emph{do} depend on $a$, clearly. Yes, only related to $v$, but still. So maybe statement is that clock paradox holds at all times and only this shows that is depends on just $v$}
 
 
-One notable property of $\underline{a}$ is its orientation relative to $\underline{u}$ as measured by the Minkowski inner product $\underline{a} \cdot \underline{u} = a^\mu u_\mu$:
+
+
+The norm of $\underline{u}$ was a very interesting result, how about the one of $\underline{a}$? For simplicity, we will compute it in ICCs (which is fine because norm is invariant scalar):
+\begin{align}\label{eq:norm_four_acc}
+	%\norm{\underline{a}} &= a^\mu a_\mu = \gamma^2 \qty(c^2 \qty(\dv{\gamma}{t})^2 - \qty(\dv{\gamma}{t} \vec{v} + \gamma \vec{a})^2)
+	%\notag\\
+	%&= \gamma^2 \qty(c^2 \qty(\dv{\gamma}{t})^2 - \qty(\dv{\gamma}{t})^2 v^2 - 2 \dv{\gamma}{t} \gamma \vec{v} \cdot \vec{a} - \gamma^2 a^2)
+	%\notag
+	% V2, using other definition
+	\eqbox{\norm{\underline{a}}^2} &= a^\mu a_\mu = \frac{\gamma^8}{c^4} \qty(\vec{v} \cdot \vec{a})^2 c^2 - \qty(\frac{\gamma^4}{c^2} \qty(\vec{v} \cdot \vec{a}) \vec{v} + \gamma^2 \vec{a})^2
+	\notag\\
+	&= \frac{\gamma^8}{c^4} \qty(\vec{v} \cdot \vec{a})^2 c^2 - \frac{\gamma^8}{c^4} \qty(\vec{v} \cdot \vec{a})^2 v^2 - 2 \frac{\gamma^6}{c^2} \qty(\vec{v} \cdot \vec{a})^2 - \gamma^4 a^2
+	\notag\\
+	&= \frac{\gamma^8}{c^4} \qty(\vec{v} \cdot \vec{a})^2 \qty(c^2 - v^2) - 2 \frac{\gamma^6}{c^2} \qty(\vec{v} \cdot \vec{a})^2 - \gamma^4 a^2
+	\notag\\
+	&= \frac{\gamma^8}{c^4} \qty(\vec{v} \cdot \vec{a})^2 \frac{c^2}{\gamma^2} - 2 \frac{\gamma^6}{c^2} \qty(\vec{v} \cdot \vec{a})^2 - \gamma^4 a^2
+	\notag\\
+	&\eqbox{= - \frac{\gamma^6}{c^2} \qty(\vec{v} \cdot \vec{a})^2 - \gamma^4 a^2} %= \gamma^4 \qty(1 + \gamma^2 \frac{v^2}{c^2}) a^2
+%	\notag\\
+%	&= \gamma^4 \qty(\frac{1 - v^2 / c^2}{1 - v^2 / c^2} + \frac{v^2 / c^2}{1 - v^2 / c^2}) a^2 \eqbox{= \gamma^6 a^2}
+\end{align}
+%I think it is not correct to write out $\qty(\vec{v} \cdot \vec{a})^2$ in this way; more thoughts, maybe we can: $\vec{v} \cdot \vec{a} = \vec{v} \cdot \dv{\vec{v}}{t} = \frac{1}{2} \dv{t} (\vec{v} \cdot \vec{v}) = \frac{1}{2} \dv{v^2}{t} = a v$, right (but maybe $\dv{v}{t} \neq a$)?
+
+Two notable special cases exist:
+\begin{align}
+	\vec{v} &\parallel \vec{a} \qquad \Rightarrow \qquad \vec{v} \cdot \vec{a} = v a \qquad \Rightarrow \qquad \eqbox{\norm{a}^2 = \gamma^6 a^2}
+	\label{eq:norm_four_acc_parallel}\\
+	\vec{v} &\perp \vec{a} \qquad \Rightarrow \qquad \vec{v} \cdot \vec{a} = 0 \qquad \Rightarrow \qquad \eqbox{\norm{a}^2 = \gamma^4 a^2}
+	\label{eq:norm_four_acc_perpendicular}
+\end{align}
+This amounts to the fact that accelerations of world lines measured in different coordinates are not necessarily equal (just like four-velocities can differ between inertial frames).\\
+
+
+Another notable property of $\underline{a}$ is its orientation relative to $\underline{u}$ as measured by the Minkowski inner product $\underline{a} \cdot \underline{u} = a^\mu u_\mu$:
 \begin{equation}\label{eq:vel_acc_orthogonal}
 	\eqbox{
 	0 = \dv{c^2}{\tau} = \dv{\tau} u^\mu u_\mu = 2 a^\mu u_\mu
@@ -1978,64 +2010,81 @@ the four-acceleration is orthogonal to the four-velocity (note: this does not me
 	maybe treat it here? Can be done analytically
 	
 	\url{https://de.wikipedia.org/wiki/Zeitdilatation#Bewegung_mit_konstanter_Beschleunigung}
+
+	see fig.~\ref{fig:accelerated_observers}
 \end{ex}
 
 
 
+\begin{figure}
+	\centering
+	
+	\begin{tikzpicture}[scale=1.2]
+		\spacetimediagram{4}
+
+		\addacceleratedworldline[tstart=-4, tend=4]{0}{0}{0}{0.5}
+		\addacceleratedworldline[tstart=-4, tend=4]{0}{0}{0}{-0.5}
+		\addacceleratedworldline[tstart=-4, tend=4, color=blue]{0}{0}{0}{0.9}
+		\addacceleratedworldline[tstart=-4, tend=4, color=green]{0}{0}{-0.5}{-0.5}
+
+		%\addacceleratedworldline[tstart=-4, tend=4, v=0.5]{0}{0}{0}{1} % Same as blue line where v0=0.5, is this correct? So I guess not using optinoal v argument for now is good idea
+	\end{tikzpicture}
+	
+	\caption[Uniformly accelerated world lines]{Uniformly accelerated world lines.\\
+	The $(v_0, a_0)$-values are $(0, \pm 0.5 c / \second)$ in red, $(0, 0.9 c / \second)$ in blue and $(- 0.5 c, -0.5 c / \second)$, choosing one time unit in the diagram to be a second. We can clearly see the hyperbolic shapes of all world lines, which are characteristic for uniform acceleration.}
+	\label{fig:accelerated_observers}
+\end{figure}
+
+
+
 			\paragraph{Accelerated Frames}
-It has been mentioned a number of times until now that accelerated frames of reference are harder to deal with than inertial ones. Why is that? To see that, let us think back to how the Lorentz transformation has been derived. One cornerstone was the constancy of $c$ in vacuum, which had strong implications on how inertial frames are to be converted into each other. Looking back at postulate \ref{post:c_constant}, this constancy is only postulated for inertial, i.e.~non-accelerating, frames. Therefore, the Lorentz transformation cannot be used anymore and deriving general transformations is much harder because we have lost this property of $c$ being constant that was so helpful when deriving relativistic quantities.
+It has been mentioned a number of times until now that accelerated frames of reference are harder to deal with than inertial ones. Why is that? To see it, let us think back to how the Lorentz transformation has been derived. One cornerstone was the constancy of $c$ in vacuum, which had strong implications on how inertial frames are to be converted into each other. Looking back at postulate \ref{post:c_constant}, this constancy is only postulated for inertial, i.e.~non-accelerating, frames. Therefore, the Lorentz transformation cannot be used anymore and deriving general transformations is much harder because we have lost this property of $c$ being constant that was so helpful when deriving relativistic quantities. Instead, several alternatives exist.
 
 
-
--> names of other coordinates are Rinder-, Fermi-coordinates
-
+In case of uniform acceleration, one can utilize \Def{Rindler coordinates} as the coordinates of the corresponding accelerated frame. We will focus on a different idea, though. The line of thought leading to this idea is as follows (where we assume to look at a world line in some inertial, but otherwise arbitrary, frame of reference): at each point $p$ on an accelerated world line $\Gamma$, the object moves with a certain velocity (which does not change in $p$, of course, because it is a point). Therefore, by going into the inertial frame that moves with this velocity relative to the initial one, we find the rest frame of the object at this specific point $p$, the so-called \Def{momentarily comoving inertial frame} (MCIF).\footnote{Other names are I have seen which should refer to the same thing are instantaneously comoving frame or momentarily comoving reference frame (MCRF).} The same procedure can be applied to find the rest frame at every point on the $\Gamma$, which means we can make sense of the notion of a rest frame along $\Gamma$. Moreover, the MCIFs at different points are just inertial frames with different relative velocities, which means we can transform between them using Lorentz transformations. Note the resemblance of this idea to what the clock postulate \ref{post:clock_postulate} stated for the computation of proper times: we replace $v \rightarrow v(t)$, so that what we have learned about uniform motion can be applied. This, however, only works for infinitesimal intervals, which means the replacement only works in a specific point. For the general result, some more work is needed, namely transforming between the points (which is now possible using Lorentz transformations).\footnote{Two very good visualizations of this are provided here: \url{https://en.wikipedia.org/wiki/Spacetime_diagram\#Accelerating_observers}.}
 
 
-
--> ahh, idea: if we look at a fixed point, this points has some fixed velocity (but no acceleration?), so we can transform between different points in accelerated frames/on accelerating world lines by transforming between frames with different velocities, i.e.~using Lorentz transformations!
-
+In practice, this whole procedure is still complicated, but at least the idea should now be clear. Furthermore, this procedure being complicated does not completely prevent us from studying accelerated world lines, though. After all, one can still examine their behaviour from inertial frames. Only for some phenomena, it is more convenient to actually analyze the situation from within an accelerated frame.\\
 
 
--> locally, we can use inertial frames, but this is hard to write down explicitly in general; these are called \Def{momentarily comoving reference frames} (MCRF) and as the name suggests, this is an inertial comoving frame for a specific point on accelerating world line -> sometimes also called MCIF (inertial instead of reference)
+-> on transforming into MCIF: \url{https://math.ucr.edu/home/baez/physics/Relativity/SR/clock.html}
 
 
--> however, being able to compute proper times does not mean everything can be done by simply replacing $v$ with $v(t)$; for example, Lorentz transformations fundamentally rely on $v = \text{const.}$, so accelerated frames are not straightforward to obtain from what we have done so far (does not mean it is impossible, though); we may still examine the behaviour of accelerating world lines, though (from an inertial frame)
+A final note concerns acceleration in such a MCIF. While one works in rest frames here, this rest is only momentarily. Hence, there is still an infinitesimal change in velocity (affecting the neighbouring points), i.e.~acceleration. More precisely,
+\begin{equation}\label{eq:four_acceleration_mcif}
+	\eqbox{
+	a^\alpha = (0, \vec{a})
+	} \qquad \Leftrightarrow
+	\eqbox{
+	\norm{\underline{a}}^2 = \vec{a} \cdot \vec{a} = a^2
+	} \, .
+\end{equation}
+The four-acceleration has only spatial parts here and consequently, its magnitude is equal to the magnitude of the three-acceleration. However, this norm being constant does not mean the components $a^\alpha$ are equal in different MCIFs. Moreover, even if this was the case, coordinate axes of MCIFs at different points will, in general, point into different directions (as seen from another, fixed inertial frame), so constant spatial components in MCIFs would not be equivalent to the three-acceleration pointing into the same direction at all time (as seen from the fixed frame again). Yet another addition to this is that constancy of $\norm{\underline{a}}$ does not necessarily imply uniform acceleration because in a general, perhaps even inertial, frame the magnitude of each component $a^\alpha$ need not be constant (for example, $\underline{a}$ having only spatial components in MCIFs tells us nothing about components in other inertial frames).
+
+-> do we even have constancy of $a$ at different points? I mean at a fixed point it has to be constant in all frames, clearly, but at different points? For non-uniform acceleration, this would not be true, would it?
 
 
 
 			\paragraph{Accelerated Clocks}
-Having gained more knowledge as to how acceleration works in relativity, it is appropriate to provide some thoughts on the clock postulate \ref{post:clock_postulate} now.
+Having gained more knowledge as to how acceleration works in relativity, it is appropriate to provide some thoughts on the clock postulate \ref{post:clock_postulate} now.\footnote{Many of these thoughts are inspired by articles in the special relativity section of \cite{baez_physics_page}.}
 
 
 The main statement/takeaway was that even for non-uniform motion $v = v(t)$, the infinitesimal proper time interval still has the form
 \begin{equation*}
 	d\tau = \sqrt{1 - \frac{v^2}{c^2}} \, dt
 \end{equation*}
-and involves no additional terms proportional to acceleration. Of course, changing speeds due to acceleration affect the rate of a clock, but it is only through $v$. To incorporate that, integrals over world lines have been introduced, which essentially sum up all the infinitesimal time intervals $d\tau$. An equivalent interpretation using accelerated frames is that one sums up the times going by in each MCIF along the world line, where the speed is momentarily constant such that the formula for uniform motion can be used -- the clock rate on accelerating world line is at all points equal to rate of clock in the corresponding MCIF at each point. Since these frames have to be changed in every point, these times are also the infinitesimal ones $d\tau$ and summing them all up results in the same formula.
+and involves no additional terms proportional to acceleration (which also implies the speed of light is $c$, at least locally, i.e.~in the corresponding MCIFs). That is not to say acceleration has no effect on a clock's rate at all -- the corresponding changing speeds do change $d\tau$, but it is really only through $v$ in $\gamma(v)$.\footnote{This is despite \eqref{eq:norm_four_acc} having a non-zero time component, which means that the rate at which the clock rate itself changes is not constant. But still, the clock postulate (which is the only relevant statement in this regard) tells us that this does still not lead to an additional contribution from $a$ in $d\tau$.} To incorporate that, integrals over world lines have been introduced, which essentially sum up all the infinitesimal time intervals $d\tau$. An equivalent interpretation using accelerated frames is that one sums up the times going by in each MCIF along the world line, where the speed is momentarily constant such that the formula for uniform motion can be used -- the clock rate on accelerating world line is at all points equal to rate of clock in the corresponding MCIF at each point. Since these frames have to be changed in every point, these times are also the infinitesimal ones $d\tau$ and summing them all up results in the same formula.
 
 
-The clock postulate applies to more than just the rate of clocks. Proper distances can be measured using integrals over the infinitesimal results obtained for uniform motion as well (which should be clear since $ds$ can be expressed using $d\tau$) and as it turns out, many other quantities involving the Lorentz-factor $\gamma$ can be generalized to $v = v(t)$ by simply using this non-uniform velocity in $\gamma$. However, it must always be remembered that the clock postulate cannot be proven rigorously (and its statement is by no means obvious, everything could very well depend change once $a \neq 0$). One can argue that it makes sense the way it is (like we just did) and there is also experimental evidence supporting it.
-
-\hrule
+The clock postulate applies to more than just the rate of clocks. Proper distances can be measured using integrals over the infinitesimal results obtained for uniform motion as well (which should be clear since $ds$ can be expressed using $d\tau$) and as it turns out, many other quantities involving the Lorentz-factor $\gamma$ can be generalized to $v = v(t)$ by simply using this non-uniform velocity in $\gamma$, for example $\underline{u}$.
 
 
--> very important point: acceleration \emph{does} effect the rate of clocks!!! The claim we made during twin paradox was just that acceleration is not the reason for different ageing, uniform motion is sufficient for that; but rapid braking in rocket for example will definitely affect time on clock in this rocket -- and analyzing situation from within the rocket is really hard (and thus statements like it runs slower or faster; is much easier to analyze this from inertial frames)
+However, it must always be remembered that the clock postulate cannot be proven rigorously (and its statement is by no means obvious, everything could very well depend change once $a \neq 0$). One can only \emph{argue} that it makes sense the way it is (like we just did) and there is also experimental evidence supporting it.
+
+
 
 %-> note: acceleration itself does not enter when we compute proper distances and times, although they are what causes world lines which are not straight (and thus arbitrary ones; hesitant to say curved world lines because could be confused with world lines in curved space); that is not to say acceleration does not affect them because it certainly does, namely through the corresponding change in velocity (but there is no separate effect that only an acceleration shows)
 
-
-
-
-very nice source: \url{https://math.ucr.edu/home/baez/physics/Relativity/SR/clock.html}
-
-
-
-interesting (from \url{https://math.ucr.edu/home/baez/physics/Relativity/SR/clock.html}): clock postulate cannot be proven because we do not know speed of light in accelerating frame; however, using clock postulate we can show that this is the case (locally); but note that postulate is required!!!
-
-
-
-
-for non-uniform velocity, connection procedure does not work between macroscopic events anymore (because getting distance from velocity is not multiplication, now integration), but only infinitesimally (equivalent: just like we have to integrate velocity for distance, we have to integrate for travel time of light; since time = distance for light -> nice visualization: rectification of curve, works perfect for straight line, but if changing derivative comes into play, not perfect anymore, have to go to infinitesimal distances for that); motivation for $d\tau$ -> better: we have infinitesimal line element, allows natural transition to non-uniform, i.e.~accelerated movement
 
 
 \begin{ex}[Rotating Disk]
@@ -2045,26 +2094,12 @@ for non-uniform velocity, connection procedure does not work between macroscopic
 \end{ex}
 
 
-\begin{figure}
-	\centering
-	
-	\begin{tikzpicture}[scale=1.2]
-		\spacetimediagram{4}
 
-		\addacceleratedworldline[tstart=-4, tend=4]{0}{0}{0}{1}
-		\addacceleratedworldline[tstart=-4, tend=4]{0}{0}{0}{-1}
-		\addacceleratedworldline[tstart=-4, tend=4, color=blue]{0}{0}{0.5}{1}
-		\addacceleratedworldline[tstart=-4, tend=4, color=green]{0}{0}{-0.5}{1}
+\begin{ex}[Twin Paradox 3]
+	acceleration \emph{does} effect the rate of clocks!!! The claim we made during twin paradox was just that acceleration is not the reason for different ageing, uniform motion is sufficient for that; but rapid braking in rocket for example will definitely affect time on clock in this rocket -- and analyzing situation from within the rocket is really hard (and thus statements like it runs slower or faster; is much easier to analyze this from inertial frames)
 
-		%\addacceleratedworldline[tstart=-4, tend=4, v=0.5]{0}{0}{0}{1} % Same as blue line where v0=0.5, is this correct?
-	\end{tikzpicture}
-	
-	\caption{Test with accelerated world lines}
-	\label{fig:accelerated_observers}
-\end{figure}
-
-
-
+	straightforward (not necessarily easy) way is find parametrization of world line, then take derivative with respect to coordinate time $t$, then do integral (potentially numerically)
+\end{ex}
 
 
 
@@ -2074,7 +2109,7 @@ in principle, Newtonian dynamics are still valid; only difference is that we cho
 
 
 
-mass is defined in frame where particle is at rest; since $m = 0$ for photons, we get that norm of four-momentum is $m^2 c^2 = 0$, so it is a null vector (with some cheating, right? Because from definition, it looks like whole vector is $0$... Maybe we can use other definition; strictly speaking, momentum should also be undefined if we use $m u^\alpha$ because we have $0 / 0$... But since we know how three-momentum looks like, we can use that four-momentum of light -- if it exists -- is null vector since we multiply with mass and this yields some definition of four-momentum where wave vector plays role of velocity, see Fleury; maybe it is reverse, we know photons have energy and then note null vector, from which we get spatial part?)
+mass is defined in frame where particle is at rest (as we will see later, this is equivalent to $m^2 c^2 = E^2 / c^2 - \norm{\underline{p}}^2$); since $m = 0$ for photons, we get that norm of four-momentum is $m^2 c^2 = 0$, so it is a null vector (with some cheating, right? Because from definition, it looks like whole vector is $0$... Maybe we can use other definition; strictly speaking, momentum should also be undefined if we use $m u^\alpha$ because we have $0 / 0$... But since we know how three-momentum looks like, we can use that four-momentum of light -- if it exists -- is null vector since we multiply with mass and this yields some definition of four-momentum where wave vector plays role of velocity, see Fleury; maybe it is reverse, we know photons have energy and then note null vector, from which we get spatial part?)
 
 $4$-momentum is related to velocity, that is tangent vector; therefore, we can also compute inner product for it; note that this is tangent vector with four independent component (mentioned on Wikipedia, due to multiplication with Lorentz scalar)
 
@@ -2083,7 +2118,7 @@ time component is change of velocity and/or in time (by definition) and thus has
 \begin{align}\label{eq:rel_energy_2}
 	& m^2 c^2 = m^2 u^\mu u_\mu = p^\mu p_\mu = (p^0)^2 - \vec{p}^2 = E^2 / c^2 - \vec{p}^2
 	\notag\\
-	\Leftrightarrow & \qquad
+	\Leftrightarrow \quad& \quad
 	\eqbox{
 	E = \sqrt{(m c^2)^2 + c^2 \vec{p}^2}
 	}
@@ -2237,9 +2272,12 @@ We can get to \eqref{eq:geodesic_eq_coordinates} via a straightforward calculati
 
 
 
-
-
 Faraoni has interesting stuff regarding momentum conservation, relates $F^\alpha u_\alpha$ to $\dv{m}{\tau}$
+
+
+interesting take, \enquote{forces are not convenient}: \url{https://phys.libretexts.org/Bookshelves/University_Physics/Book%3A_Mechanics_and_Relativity_(Idema)/15%3A_Relativistic_Forces_and_Waves/15.01%3A_The_Force_Four-Vector}
+
+maybe something similar discussed here: \url{https://de.wikipedia.org/wiki/Beschleunigung_(spezielle_Relativit%C3%A4tstheorie)#Beschleunigung_und_Kraft}
 
 
 
