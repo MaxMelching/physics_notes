@@ -1,0 +1,288 @@
+\include{header}
+
+
+\begin{document}
+
+% Inspiration from StackOverflow
+\begin{figure}
+\centering
+
+\begin{tikzpicture}
+\coordinate (A) at (0,0);
+\coordinate (B) at (3,3);
+\draw [name path=A--B] (A) -- (B);
+\coordinate (C) at (3,0);
+\coordinate (D) at (0,1);
+\draw [name path=C--D] (C) -- (D);
+\path [name intersections={of=A--B and C--D,by=E}];
+\node [fill=red,inner sep=1pt,label=-90:$E$] at (E) {};
+\end{tikzpicture}
+
+\end{figure}
+
+
+
+% First tests
+\begin{figure}
+\centering
+
+\begin{tikzpicture}
+    \draw[->, thick, name path=obs1] (-0.0, 0.0) -- (-1.6, 8.0);
+    \draw[->, thick, name path=obs2] (0.0, 0.0) -- (3.2, 8.0);
+    \draw[->, thick] (0.0, 0.0) -- (0.8, 8.0);
+
+
+	\coordinate (A1) at (-4.0, 0.0);
+	\coordinate (B1) at (4.0, 8.0);
+	\coordinate (A2) at (4.0, 0.0);
+	\coordinate (B2) at (-4.0, 8.0);
+
+    \path[name path=light1] (A1) -- (B1);
+	\path[name path=light2] (A2) -- (B2);
+
+	\path[name intersections={of=light1 and obs1,by=C1}];
+	\path[name intersections={of=light2 and obs2,by=C2}];
+
+	\path[name path=light1cut, draw] (C1) -- (B1);
+	\path[name path=light2cut, draw] (C2) -- (B2);
+
+	\path[name intersections={of=light1cut and light2cut,by=C3}];
+
+	\draw[->, thick] (0,0) -- (C3);
+	\draw[thick, lightyellow] (C1) -- (C3);
+	\draw[thick, lightyellow] (C2) -- (C3);
+
+	\path[name intersections={of=light1cut and obs2,by=C4}];
+	\path[name intersections={of=light2cut and obs1,by=C5}];
+
+	\draw[thick, lightyellow] (C1) -- (C4);
+	\draw[thick, lightyellow] (C2) -- (C5);
+\end{tikzpicture}
+
+\end{figure}
+
+
+
+% First working version -> but results not correct except for symmetric case of v1=-v2; also ref not working yet
+\begin{figure}
+\centering
+
+
+\begin{tikzpicture}
+
+	\tikzmath{\vone = -0.2; \vtwo = 0.4; \tstart = 1.5; \tmax = 8;
+	%\tikzmath{\vone = -0.4; \vtwo = 0.4; \tstart = 1.5; \tmax = 8;
+			  \vonetwo = (-\vone + \vtwo) / (1 + (-\vone) * \vtwo);
+			  \gammaone = 1 / sqrt(1 - \vone * \vone);
+			  \gammatwo = 1 / sqrt(1 - \vtwo * \vtwo);
+			  \gammaonetwo = 1 / sqrt(1 - \vonetwo * \vonetwo);
+			  \tstartone = \tstart * sqrt(1 - \vone * \vone);
+			  \tstarttwo = \tstart * sqrt(1 - \vtwo * \vtwo);
+			  }
+			  %\tstarttwo = \tstartone / sqrt(1 - \vonetwo * \vonetwo);}
+
+	\clip (\vone * \tmax - 0.1 * \tmax, -0.1 * \tmax) rectangle (\vtwo * \tmax + 0.1 * \tmax, 1.1 * \tmax);  % Otherwise picture gets much too big
+
+    % Draw lines of observers
+    \draw[->, thick, name path=obs1] (0.0, 0.0) -- (\vone * \tmax, \tmax);
+    \draw[->, thick, name path=obs2] (0.0, 0.0) -- (\vtwo * \tmax, \tmax);
+    \draw[->, thick, name path=ref] (0.0, 0.0) -- (0.0, \tmax);
+
+    \coordinate (lightstart1) at (\vone * \tstartone, \tstartone);
+	\coordinate (lightstart2) at (\vtwo * \tstarttwo, \tstarttwo);
+
+    \coordinate (lightdummy1) at (\vone * \tstartone + 2 * \tmax, \tstartone + 2 * \tmax);
+	\coordinate (lightdummy2) at (\vtwo * \tstarttwo - 2 * \tmax, \tstarttwo + 2 * \tmax);
+	
+
+
+
+    \path[name path=light1leftright, draw] (lightstart1) -- (lightdummy1);
+	\path[name path=light2rightleft, draw] (lightstart2) -- (lightdummy2);
+
+	\path[name intersections={of=light1leftright and obs2,by=light1tau}];
+	\path[name intersections={of=light2rightleft and obs1,by=light2tau}];
+
+
+
+	\draw[->, thick, lightyellow, name path=light1path1] (lightstart1) -- (light1tau);
+	\draw[->, thick, lightyellow, name path=light2path1] (lightstart2) -- (light2tau);
+
+
+
+	\path[name path=light1rightleft, draw] (light1tau) -- ++(-2 * \tmax, 2 * \tmax);
+	\path[name path=light2leftright, draw] (light2tau) -- ++(2 * \tmax, 2 * \tmax);
+
+
+	\path[name intersections={of=light1rightleft and obs1,by=light1treturn}];
+	\path[name intersections={of=light2leftright and obs2,by=light2treturn}];
+
+
+
+	\draw[->, thick, lightyellow, name path=light1path2] (light1tau) -- (light1treturn);
+	\draw[->, thick, lightyellow, name path=light2path2] (light2tau) -- (light2treturn);
+
+
+
+\end{tikzpicture}
+
+
+\end{figure}
+
+
+
+
+
+% Testing for case of equal resting observers
+\begin{figure}
+\centering
+
+
+\begin{tikzpicture}
+	% Could also replace \vone, \vtwo with only one \v here
+	\tikzmath{\vone = 0.2; \vtwo = 0.2; \tstart = 1; \tmax = 7;
+	%\tikzmath{\vone = -0.4; \vtwo = 0.4; \tstart = 1.5; \tmax = 8;
+			  \vonetwo = (-\vone + \vtwo) / (1 + (-\vone) * \vtwo);
+			  \gammaone = 1 / sqrt(1 - \vone * \vone);
+			  \gammatwo = 1 / sqrt(1 - \vtwo * \vtwo);
+			  \gammaonetwo = 1 / sqrt(1 - \vonetwo * \vonetwo);
+			  \tstartone = \tstart;
+			  \tstarttwo = \tstart + 2 * \vtwo; % Account for additional travel time back and forth
+			  \shift = 1;
+			  }
+			  %\tstarttwo = \tstartone / sqrt(1 - \vonetwo * \vonetwo);}
+
+	\clip (-\shift - 0.1 * \tmax, -0.1 * \tmax) rectangle (\shift + \vtwo * \tmax + 0.1 * \tmax, 1.1 * \tmax);  % Otherwise picture gets much too big
+
+    % Draw lines of observers
+    \draw[->, thick, name path=obs1] (-\shift, 0.0) -- (-\shift + \vone * \tmax, \tmax);
+    \draw[->, thick, name path=obs2] (\shift, 0.0) -- (\shift + \vtwo * \tmax, \tmax);
+    \draw[->, thick, name path=ref] (0.0, 0.0) -- (\vone / 2 * \tmax + \vtwo / 2 * \tmax, \tmax);
+
+    \coordinate (lightstart1) at (-\shift + \vone * \tstartone, \tstartone);
+	\coordinate (lightstart2) at (\shift + \vtwo * \tstarttwo, \tstarttwo);
+
+    \coordinate (lightdummy1) at (-\shift + \vone * \tstartone + 2 * \tmax, \tstartone + 2 * \tmax);
+	\coordinate (lightdummy2) at (\shift + \vtwo * \tstarttwo - 2 * \tmax, \tstarttwo + 2 * \tmax);
+	
+
+
+
+    \path[name path=light1leftright, draw] (lightstart1) -- (lightdummy1);
+	\path[name path=light2rightleft, draw] (lightstart2) -- (lightdummy2);
+
+	\path[name intersections={of=light1leftright and obs2,by=light1tau}];
+	\path[name intersections={of=light2rightleft and obs1,by=light2tau}];
+
+
+
+	\draw[->, thick, lightyellow, name path=light1path1] (lightstart1) -- (light1tau);
+	\draw[->, thick, lightyellow, name path=light2path1] (lightstart2) -- (light2tau);
+
+
+
+	\path[name path=light1rightleft, draw] (light1tau) -- ++(-2 * \tmax, 2 * \tmax);
+	\path[name path=light2leftright, draw] (light2tau) -- ++(2 * \tmax, 2 * \tmax);
+
+
+	\path[name intersections={of=light1rightleft and obs1,by=light1treturn}];
+	\path[name intersections={of=light2leftright and obs2,by=light2treturn}];
+
+
+
+	\draw[->, thick, lightyellow, name path=light1path2] (light1tau) -- (light1treturn);
+	\draw[->, thick, lightyellow, name path=light2path2] (light2tau) -- (light2treturn);
+
+
+
+\end{tikzpicture}
+
+\caption{At least this one works}
+
+\end{figure}
+
+
+
+
+
+% Testing new approach using Lorentz transform -> for some reason he does not want to evaluate Lorentz transformation
+
+\iffalse
+\begin{figure}
+\centering
+
+
+\begin{tikzpicture}[
+	declare function={
+		lorentzx(\t, \v) = \v * \t / sqrt(1 - \v * \v);
+		lorentzt(\t, \v) = \t / sqrt(1 - \v * \v);
+		lorentz(\t, \v) = (\v * \t / sqrt(1 - \v * \v), \t / sqrt(1 - \v * \v));
+	}
+]
+
+	\tikzmath{\vone = -0.4; \vtwo = 0.4; \tstart = 2; \tmax = 8;
+			  \vonetwo = (-\vone + \vtwo) / (1 + (-\vone) * \vtwo);
+			  \gammaone = 1 / sqrt(1 - \vone * \vone);
+			  \gammatwo = 1 / sqrt(1 - \vtwo * \vtwo);
+			  \gammaonetwo = 1 / sqrt(1 - \vonetwo * \vonetwo);
+			  \tstartone = \tstart;% * sqrt(1 - \vone * \vone);
+			  \tstarttwo = \tstart;% * sqrt(1 - \vtwo * \vtwo);
+			  }
+			  %\tstarttwo = \tstartone / sqrt(1 - \vonetwo * \vonetwo);}
+
+
+	\clip (\vone * \tmax - 0.1 * \tmax, -0.1 * \tmax) rectangle (\vtwo * \tmax + 0.1 * \tmax, 1.1 * \tmax);  % Otherwise picture gets much too big
+
+    % Draw lines of observers
+	\coordinate (obs1end) at ({lorentzx(\tmax,\vone)}, {lorentzt(\tmax,\vone)});
+	\coordinate (obs2end) at ({lorentzx(\tmax, \vtwo)}, {lorentzt(\tmax, \vtwo)});
+
+    \draw[->, thick, name path=obs1] (0.0, 0.0) -- (obs1end);
+    \draw[->, thick, name path=obs2] (0.0, 0.0) -- (obs2end);
+    \draw[->, thick, name path=ref] (0.0, 0.0) -- (0.0, \tmax);
+
+
+    \coordinate (lightstart1) at lorentz(\tstartone, \vone);
+	\coordinate (lightstart2) at lorentz(\tstarttwo, \vtwo);
+
+    \coordinate (lightdummy1) at (\gammaone * \vone * \tstartone + 2 * \tmax, \tstartone + 2 * \tmax);
+	\coordinate (lightdummy2) at (\gammatwo * \vtwo * \tstarttwo - 2 * \tmax, \tstarttwo + 2 * \tmax);
+	
+
+
+
+    \path[name path=light1leftright, draw] (lightstart1) -- (lightdummy1);
+	\path[name path=light2rightleft, draw] (lightstart2) -- (lightdummy2);
+
+	\path[name intersections={of=light1leftright and obs2,by=light1tau}];
+	\path[name intersections={of=light2rightleft and obs1,by=light2tau}];
+
+
+
+	\draw[->, thick, lightyellow, name path=light1path1] (lightstart1) -- (light1tau);
+	\draw[->, thick, lightyellow, name path=light2path1] (lightstart2) -- (light2tau);
+
+
+
+	\path[name path=light1rightleft, draw] (light1tau) -- ++(-2 * \tmax, 2 * \tmax);
+	\path[name path=light2leftright, draw] (light2tau) -- ++(2 * \tmax, 2 * \tmax);
+
+
+	\path[name intersections={of=light1rightleft and obs1,by=light1treturn}];
+	\path[name intersections={of=light2leftright and obs2,by=light2treturn}];
+
+
+
+	\draw[->, thick, lightyellow, name path=light1path2] (light1tau) -- (light1treturn);
+	\draw[->, thick, lightyellow, name path=light2path2] (light2tau) -- (light2treturn);
+
+
+
+\end{tikzpicture}
+
+
+\end{figure}
+\fi
+
+
+\end{document}

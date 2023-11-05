@@ -20,7 +20,7 @@ def resting_clocks_v1(tstart, tend, t1):
     
     return fr'''
 \subfloat[Time $t$ measured by observer $\mathcal{{O}}$]{{
-\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+\begin{{tikzpicture}}
     % Draw lines of observers
     \draw[->, thick] {line1(tstart)} -- {line1(tend)};
     \draw[->, thick] {line2(tstart)} -- {line2(tend)};
@@ -39,7 +39,7 @@ def resting_clocks_v1(tstart, tend, t1):
 }}\hspace*{{0.1\textwidth}}
 %
 \subfloat[Time $t'$ measured by observer $\mathcal{{O}}'$]{{
-\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+\begin{{tikzpicture}}
     % Draw lines of observers
     \draw[->, thick] {line1(tstart)} -- {line1(tend)};
     \draw[->, thick] {line2(tstart)} -- {line2(tend)};
@@ -58,7 +58,7 @@ def resting_clocks_v1(tstart, tend, t1):
 }}\hspace*{{0.1\textwidth}}
 %
 \subfloat[Comparison of both observers]{{
-\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+\begin{{tikzpicture}}
     % Draw lines of observers
     \draw[->, thick] {line1(tstart)} -- {line1(tend)};
     \draw[->, thick] {line2(tstart)} -- {line2(tend)};
@@ -106,7 +106,7 @@ def resting_clocks(tstart, tend, t0, x_distance=1.0, x_shift=0.0):
     
     return fr'''
 \subfloat[Time $t'$ measured by observer $\mathcal{{O}}$]{{
-\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+\begin{{tikzpicture}}
     % Draw lines of observers
     \draw[->, thick] {line1(tstart)} -- {line1(tend)};
     \draw[->, thick] {line2(tstart)} -- {line2(tend)};
@@ -125,7 +125,7 @@ def resting_clocks(tstart, tend, t0, x_distance=1.0, x_shift=0.0):
 }}\hspace*{{0.1\textwidth}}
 %
 \subfloat[Time $t$ measured by observer $\mathcal{{O}}'$]{{
-\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+\begin{{tikzpicture}}
     % Draw lines of observers
     \draw[->, thick] {line1(tstart)} -- {line1(tend)};
     \draw[->, thick] {line2(tstart)} -- {line2(tend)};
@@ -144,7 +144,7 @@ def resting_clocks(tstart, tend, t0, x_distance=1.0, x_shift=0.0):
 }}\hspace*{{0.1\textwidth}}
 %
 \subfloat[Comparison of both observers]{{
-\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+\begin{{tikzpicture}}
     % Draw lines of observers
     \draw[->, thick] {line1(tstart)} -- {line1(tend)};
     \draw[->, thick] {line2(tstart)} -- {line2(tend)};
@@ -194,7 +194,7 @@ def resting_clocks_single_fig(tstart, tend, t0, x_distance=1.0, x_shift=0.0):
 
     
     return fr'''
-\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+\begin{{tikzpicture}}
     % Draw lines of observers
     \draw[->, thick] {line1(tstart)} -- {line1(tend)};
     \draw[->, thick] {line2(tstart)} -- {line2(tend)};
@@ -274,7 +274,7 @@ def moving_clocks_resting_wrt_each_other(v, tstart, tend, t0, t0prime=None, x_di
     
     return fr'''
 \subfloat[Time $t'$ measured by observer $\mathcal{{O}}$]{{
-\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+\begin{{tikzpicture}}
     % Draw lines of observers
     \draw[->, thick] {line1(tstart)} -- {line1(tend)};
     \draw[->, thick] {line2(tstart)} -- {line2(tend)};
@@ -293,7 +293,7 @@ def moving_clocks_resting_wrt_each_other(v, tstart, tend, t0, t0prime=None, x_di
 }}\hspace*{{0.025\textwidth}}
 %
 \subfloat[Time $t$ measured by observer $\mathcal{{O}}'$]{{
-\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+\begin{{tikzpicture}}
     % Draw lines of observers
     \draw[->, thick] {line1(tstart)} -- {line1(tend)};
     \draw[->, thick] {line2(tstart)} -- {line2(tend)};
@@ -312,7 +312,7 @@ def moving_clocks_resting_wrt_each_other(v, tstart, tend, t0, t0prime=None, x_di
 }}\hspace*{{0.025\textwidth}}
 %
 \subfloat[Comparison of both observers]{{
-\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+\begin{{tikzpicture}}
     % Draw lines of observers
     \draw[->, thick] {line1(tstart)} -- {line1(tend)};
     \draw[->, thick] {line2(tstart)} -- {line2(tend)};
@@ -388,7 +388,7 @@ def moving_clocks_resting_wrt_each_other_single_fig(v, tstart, tend, t0, t0prime
 
     
     return fr'''
-\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+\begin{{tikzpicture}}
     % Draw lines of observers
     \draw[->, thick] {line1(tstart)} -- {line1(tend)};
     \draw[->, thick] {line2(tstart)} -- {line2(tend)};
@@ -442,6 +442,11 @@ def resting_clocks_fitted_single_fig(tstart, tend, t0, v, x_distance=1.0, x_shif
     t0prime = t0 + t_ref - tprime_ref  # No idea why this works, found it by testing -> ah, t0 + tref = t0prime + t0ref
 
     x_shift1, x_shift2, x_shift3 = x_shift - x_distance + v * (t0prime + tprime), x_shift + v * (tend - tstart) / 2, x_shift + x_distance + v * (t0 + t)
+    # Might not be what we want -> but maybe just use other function then
+
+    # x_shift1, x_shift2, x_shift3 = x_shift - x_distance + v * (t0prime + tprime), x_shift + v * (t0prime + tprime), x_shift + x_distance + v * (t0prime + tprime)
+
+    
 
     def line1(t):  # Observer 1
         return (x_shift1, t)
@@ -460,7 +465,7 @@ def resting_clocks_fitted_single_fig(tstart, tend, t0, v, x_distance=1.0, x_shif
     
     return fr'''
 \subfloat[Comparison of both observers]{{
-\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+\begin{{tikzpicture}}
     % Draw lines of observers
     \draw[->, thick] {line1(tstart)} -- {line1(tend)};
     \draw[->, thick] {line2(tstart)} -- {line2(tend)};
@@ -621,15 +626,18 @@ def moving_clocks(v1, v2, tstart, tend, t0, t0prime=None):
     # Hmmm, but drawing them on line makes them not lie exactly between t_+, t_-
     # -> just take average of the t_+, t_- coordinates?
     # -> problem: then lines of simultaneity are not parallel anymore...
-    t_coords = tuple((np.array(light_l_to_r(0, t0)) + np.array(light_r_to_l(t_return, t0 + tau))) / 2)
-    tprime_coords = tuple((np.array(light_r_to_l(0, t0prime)) + np.array(light_l_to_r(tprime_return, t0prime + tauprime))) / 2)
+    # t_coords = tuple((np.array(light_l_to_r(0, t0)) + np.array(light_r_to_l(t_return, t0 + tau))) / 2)
+    # tprime_coords = tuple((np.array(light_r_to_l(0, t0prime)) + np.array(light_l_to_r(tprime_return, t0prime + tauprime))) / 2)
+    # Following lines produce equivalent results to first two ones, good
+    t_coords = tuple((np.array(line1(t0)) + np.array(line1(t0 + tau + t_return))) / 2)
+    tprime_coords = tuple((np.array(line2(t0prime)) + np.array(line2(t0prime + tauprime + tprime_return))) / 2)
 
 
 
     
     return fr'''
 \subfloat[Time $\tau'$ measured by observer $\mathcal{{O}}$]{{
-\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+\begin{{tikzpicture}}
     % Draw lines of observers
     \draw[->, thick] {line1(tstart)} -- {line1(tend)};
     \draw[->, thick] {line2(tstart)} -- {line2(tend)};
@@ -648,7 +656,7 @@ def moving_clocks(v1, v2, tstart, tend, t0, t0prime=None):
 }}\hspace*{{0.025\textwidth}}
 %
 \subfloat[Time $\tau$ measured by observer $\mathcal{{O}}'$]{{
-\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+\begin{{tikzpicture}}
     % Draw lines of observers
     \draw[->, thick] {line1(tstart)} -- {line1(tend)};
     \draw[->, thick] {line2(tstart)} -- {line2(tend)};
@@ -667,7 +675,7 @@ def moving_clocks(v1, v2, tstart, tend, t0, t0prime=None):
 }}\hspace*{{0.025\textwidth}}
 %
 \subfloat[Comparison of both observers]{{
-\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+\begin{{tikzpicture}}
     % Draw lines of observers
     \draw[->, thick] {line1(tstart)} -- {line1(tend)};
     \draw[->, thick] {line2(tstart)} -- {line2(tend)};
@@ -806,7 +814,7 @@ def moving_clocks_single_fig(v1, v2, tstart, tend, t0, t0prime=None):
 
     
     return fr'''
-\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+\begin{{tikzpicture}}
     % Draw lines of observers
     \draw[->, thick] {line1(tstart)} -- {line1(tend)};
     \draw[->, thick] {line2(tstart)} -- {line2(tend)};
@@ -953,7 +961,7 @@ def moving_clocks_v2(v1, v2, tstart, tend, t0, t0prime=None):
     
     return fr'''
 \subfloat[Time $\tau'$ measured by observer $\mathcal{{O}}$]{{
-\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+\begin{{tikzpicture}}
     % Draw lines of observers
     \draw[->, thick] {line1(tstart)} -- {line1(tend)};
     \draw[->, thick] {line2(tstart)} -- {line2(tend)};
@@ -972,7 +980,7 @@ def moving_clocks_v2(v1, v2, tstart, tend, t0, t0prime=None):
 }}\hspace*{{0.025\textwidth}}
 %
 \subfloat[Time $\tau$ measured by observer $\mathcal{{O}}'$]{{
-\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+\begin{{tikzpicture}}
     % Draw lines of observers
     \draw[->, thick] {line1(tstart)} -- {line1(tend)};
     \draw[->, thick] {line2(tstart)} -- {line2(tend)};
@@ -991,7 +999,7 @@ def moving_clocks_v2(v1, v2, tstart, tend, t0, t0prime=None):
 }}\hspace*{{0.025\textwidth}}
 %
 \subfloat[Comparison of both observers]{{
-\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
+\begin{{tikzpicture}}
     % Draw lines of observers
     \draw[->, thick] {line1(tstart)} -- {line1(tend)};
     \draw[->, thick] {line2(tstart)} -- {line2(tend)};
@@ -1053,175 +1061,6 @@ def moving_clocks_v2(v1, v2, tstart, tend, t0, t0prime=None):
     '''
 
 
-def abb21(slope1, slope2, tstart, tend, t1, t2):
-    def line1(t):
-        return (slope1 * t, t)
-    
-    def line2(t):
-        return (slope2 * t, t)
-    
-    def light(t0, t):
-        return (slope1 * t0 + t, t0 + t)
-        # \draw[->, thick, black!10!yellow] {light(t1, 0)} -- {light(t1, t1intersect)};
-        # \draw[->, thick, black!10!yellow] {light(t2, 0)} -- {light(t2, t2intersect)};
-    
-
-    # Have to account for relative velocity, but also travel time of light (c=1)
-    # slope1 * t1 + t_intersect = slope2 * t_intersect
-    # <=> t_intersect = slope1 * t1 / (slope2 - 1)
-    t1intersect = slope1 * t1 / (slope2 - 1)#t1 + (slope1 + slope2 + 1) * t1
-    t2intersect = slope1 * t2 / (slope2 - 1)#t2 + (slope1 + slope2 + 1) * t2
-
-    # slope1 * t1 + (t_intersect - t1) = slope2 * (t_intersect - t1)
-    # <=> t_intersect = slope1 * t1 / (slope2 - 1)
-    # t1intersect = (slope1 - 1 + slope2) * t1 / (slope2 - 1)#t1 + (slope1 + slope2 + 1) * t1
-    # t2intersect = (slope1 - 1 + slope2) * t2 / (slope2 - 1)#t2 + (slope1 + slope2 + 1) * t2
-
-    # t1intersect = (slope1 + slope2) * t1 / (slope2 - 1)#t1 + (slope1 + slope2 + 1) * t1
-    # t2intersect = (slope1 + slope2) * t2 / (slope2 - 1)#t2 + (slope1 + slope2 + 1) * t2
-
-
-    return fr'''
-\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
-    % Draw lines of observers
-    \draw[->, thick] {line1(tstart)} -- {line1(tend)};
-    \draw[->, thick] {line2(tstart)} -- {line2(tend)};
-
-    % Draw trajectories of light
-    \draw[->, thick, black!10!yellow] {line1(t1)} -- {line2(t1intersect)};
-    \draw[->, thick, black!10!yellow] {line1(t2)} -- {line2(t2intersect)};
-
-    % Make labels
-    \draw (0, {tstart}) node[below] {{$\mathcal{{O}}$}};
-    \draw {line1(tend)} node[left] {{$\mathcal{{U}}$}};
-    \draw {line1(t1)} node[left] {{$t_\mathcal{{U}}$}};
-    \draw {line1(t2)} node[left] {{$t'_\mathcal{{U}}$}};
-    \draw {line2(tend)} node[right] {{$\mathcal{{B}}$}};
-    \draw {line2(t1intersect)} node[right] {{$t_\mathcal{{B}}$}};
-    \draw {line2(t2intersect)} node[right] {{$t'_\mathcal{{B}}$}};
-\end{{tikzpicture}}
-    '''
-
-
-
-def abb22(slope1, slope2, tstart, tend, t1):
-    def line1(t):
-        return (slope1 * t, t)
-    
-    def line2(t):
-        return (slope2 * t, t)
-    
-    slope3 = (slope1 + slope2) / 2
-    def line3(t, toffset=0):  # Referee
-        return (slope3 * t, t + toffset)
-    
-    def light_positive(t0, t):
-        return (slope1 * t0 + t, t0 + t)
-    
-    def light_negative(t0, t):
-        return (slope2 * t0 - t, t0 + t)
-    
-
-    # t1intersect = np.sqrt(1 - (slope1)**2) * t1
-    # t2intersect = np.sqrt(1 - (slope2)**2) * t1
-    tau_u = np.sqrt(1 - (slope1 + slope2)**2) * t1
-    tau_b = t1
-
-    # slope1 * t1 + t_intersect = slope3 * t_intersect
-    # <=> t_intersect = slope1 * t1 / (slope3 - 1)
-    t_intersect_1 = slope1 * tau_u / (slope3 - 1)
-    # slope2 * t1 - t_intersect = slope3 * t_intersect
-    # <=> t_intersect = slope2 * t1 / (slope3 + 1)
-    t_intersect_2 = slope2 * tau_b / (slope3 - 1)
-    t_intersect_2 = t_intersect_1
-    # slope3 * tintersect - t_intersect = slope2 * t1
-    # <=> t_intersect = slope2 * t1 / (slope3 - 1)
-    # t_intersect_2 = slope2 * tau_b / (slope3 - 1)
-
-    # slope1 * t1 + (t_intersect - t1) = slope3 * (t_intersect - t1)
-    # <=> t_intersect = (slope1 - 1 + slope3) * t1 / (slope3 - 1)
-    # t_intersect_1 = (slope1 - 1 + slope3) * tau_u / (slope3 - 1)#t1 + (slope1 + slope3 + 1) * t1
-    # slope1 * t1 - t_intersect = slope3 * t_intersect
-    # <=> t_intersect = slope1 * t1 / (slope3 + 1)
-    # t_intersect_2 = slope1 * tau_u / (slope3 + 1)#t1 + (slope1 + slope3 - 1) * t1
-    # slope1 * t1 - (t_intersect - t1) = slope3 * (t_intersect - t1)
-    # <=> t_intersect = slope1 * t1 / (slope3 + 1)
-    # t_intersect_2 = (slope1 + 1 + slope3) * tau_u / (slope3 + 1)#t1 + (slope1 + slope3 + 1) * t1
-
-
-    # # slope1 * tau_u + t_intersect = slope2 * tau_b - t_intersect
-    # t_intersect_1 = (- slope1 * tau_u + slope2 * tau_b) / 2
-    # t_intersect_2 = (slope1 * tau_u - slope2 * tau_b) / 2
-    
-
-
-    return fr'''
-\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
-    % Draw lines of observers and referee
-    \draw[->, thick] {line1(tstart)} -- {line1(tend)};
-    \draw[->, thick] {line2(tstart)} -- {line2(tend)};
-    \draw[->, thick] {line3(tstart)} -- {line3(tend)};
-
-    % Draw line of simultaneity
-    \draw[thick, black!10!green] {line1(tau_u)} -- {line2(tau_b)};
-
-    % Draw parallelogram
-    \draw[thick] {line1(tau_u)} -- {line3(t_intersect_1, toffset=tau_u)};
-    \draw[thick] {line1(tau_u)} -- {line3(t_intersect_2, toffset=tau_u - 2 * t_intersect_2)};
-    \draw[thick] {line3(t_intersect_1, toffset=tau_u)} -- {line2(tau_b)};
-    \draw[thick] {line3(t_intersect_2, toffset=tau_u - 2 * t_intersect_2)} -- {line2(tau_b)};
-    %\draw[thick] {light_negative(tau_b, 0)} -- {light_negative(tau_b, t_intersect_1)};
-    %\draw[thick] {light_positive(tau_u, 0)} -- {light_positive(tau_u, t_intersect_2)};
-
-    % Make labels
-    \draw (0, {tstart}) node[below] {{$\mathcal{{O}}$}};
-    \draw {line1(tend)} node[left] {{$\mathcal{{U}}$}};
-    \draw {line1(tau_u)} node[left] {{$\tau_\mathcal{{U}}$}};
-    \draw {line3(tend)} node[left] {{$\mathcal{{S}}$}};
-    \draw {line2(tend)} node[right] {{$\mathcal{{B}}$}};
-    \draw {line2(tau_b)} node[right] {{$\tau_\mathcal{{B}}$}};
-\end{{tikzpicture}}
-    '''
-
-
-
-def abb23(slope1, slope2, tstart, tend, t1, t2):
-    def line1(t):
-        return (slope1 * t, t)
-    
-    def line2(t):
-        return (slope2 * t, t)
-    
-    slope3 = (slope1 + slope2) / 2
-    def line3(t):  # Referee
-        return (slope3 * t, t)
-    
-
-    t1intersect = t1 + (slope1 + slope2 + 1) * t1
-    t2intersect = t2 + (slope1 + slope2 + 1) * t2
-
-
-    return fr'''
-\begin{{tikzpicture}}[thick, >={{[inset=0,angle'=27]Stealth}}]
-    % Draw lines of observers
-    \draw[->, thick] {line1(tstart)} -- {line1(tend)};
-    \draw[->, thick] {line2(tstart)} -- {line2(tend)};
-
-    % Draw trajectories of light
-    \draw[->, thick, black!10!yellow] {line1(t1)} -- {line2(t1intersect)};
-    \draw[->, thick, black!10!yellow] {line1(t2)} -- {line2(t2intersect)};
-
-    % Make labels
-    \draw (0, {tstart}) node[below] {{$\mathcal{{O}}$}};
-    \draw {line1(tend)} node[left] {{$\mathcal{{U}}$}};
-    \draw {line1(t1)} node[left] {{$t_\mathcal{{U}}$}};
-    \draw {line1(t2)} node[left] {{$t'_\mathcal{{U}}$}};
-    \draw {line2(tend)} node[right] {{$\mathcal{{B}}$}};
-    \draw {line2(t1intersect)} node[right] {{$t_\mathcal{{B}}$}};
-    \draw {line2(t2intersect)} node[right] {{$t'_\mathcal{{B}}$}};
-\end{{tikzpicture}}
-    '''
-
 
 
 if __name__ == '__main__':
@@ -1232,6 +1071,7 @@ if __name__ == '__main__':
     # For comparison of simultaneous etc
     # print(resting_clocks_single_fig(0, 6, 0.5))
     # print(moving_clocks_resting_wrt_each_other_single_fig(0.3, 0, 6, 0.5))
+    print(resting_clocks(0, 6, 0.5 + 1 / (1 - 0.3) - 1 / (1 + 0.3) + 2 / (1 + 0.3) - 2, x_shift=0.3 * (2 / (1 + 0.3) + 0.5 + 1 / (1 - 0.3) - 1 / (1 + 0.3))))  # For x_shift, we evaluate at v * (t0prime + tprime_ref)
     # # print(resting_clocks(0, 6, 0.5, x_shift=0.3 * (6 - 0.5) / 2 * 1 / np.sqrt(1 - 0.3**2), x_distance=1 / np.sqrt(1 - 0.3**2)))
     # print(resting_clocks_fitted_single_fig(0, 6, 0.5, 0.3))
 
@@ -1243,7 +1083,7 @@ if __name__ == '__main__':
     # print(moving_clocks(-0.2, 0.4, 0, 7, 0.5))
 
     # Correcting code
-    print(moving_clocks(-0.2, 0.4, -4, 4, -2, -2 * np.sqrt(1 - ((-0.2 + 0.4) / (1 + (-0.2) * 0.4))**2)))
+    # print(moving_clocks(-0.2, 0.4, -4, 4, -2, -2 * np.sqrt(1 - ((-0.2 + 0.4) / (1 + (-0.2) * 0.4))**2)))
 
     # print(moving_clocks_single_fig(-0.2, 0.4, -4, 4, -2))  # Seems to be the same as in line above now, finally
     # print(moving_clocks_single_fig(-0.2, 0.4, 0, 7, 0.5))  # Seems to be the same as in line above now, finally
