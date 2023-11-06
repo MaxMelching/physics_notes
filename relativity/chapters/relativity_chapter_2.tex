@@ -940,9 +940,9 @@ From its definition and figure \ref{fig:gamma_factor}, it is clear that $\gamma$
 Hence, $x' = ct'$ still holds, as required. Them being equal to zero, as measured from the unprimed coordinates, simply comes from the fact that exchanging signals with light is impossible, so one cannot receive any information regarding times $t'$ or positions $x'$.
 
 
-The other limit we have to check is $v \ll c$, where we should re-obtain the Galilei transform. As figure \ref{fig:gamma_factor} shows, $\gamma$ exhibits the desired behaviour of $\gamma(v) \approx 1, \, v \ll c$. More quantitatively, a Taylor expansion in $v / c$ shows (for one more term, see \eqref{eq:taylor_expansion_gamma})
+The other limit we have to check is $v \ll c$, where we should re-obtain the Galilei transform. As figure \ref{fig:gamma_factor} shows, $\gamma$ exhibits the desired behaviour of $\gamma(v) \approx 1, \, v \ll c$. More quantitatively, a Taylor expansion in $v / c$ shows (for one more term, see \eqref{eq:taylor_expansion_gamma_2})
 \begin{equation}\label{eq:taylor_expansion_gamma}
-	\eqbox{\frac{1}{\sqrt{1 - \frac{v^2}{c^2}}}} \simeq \eval{\frac{1}{\sqrt{1 - \frac{v^2}{c^2}}}}_{v = 0} + \eval{\frac{\frac{-1}{2} \cdot \frac{-2 v}{c}}{(1 - \frac{v^2}{c^2})^{3/2}}}_{v / c = 0} \frac{v}{c} + \dots \eqbox{= 1 + \mathcal{O}(\frac{v^2}{c^2})} \, .
+	\eqbox{\frac{1}{\sqrt{1 - \frac{v^2}{c^2}}}} \simeq \eval{\frac{1}{\sqrt{1 - \frac{v^2}{c^2}}}}_{v = 0} + \eval{\frac{\frac{-1}{2} \cdot \frac{-2 v}{c}}{(1 - \frac{v^2}{c^2})^{3/2}}}_{v / c = 0} \frac{v}{c} + \dots \eqbox{= 1 + \mathcal{O}\qty(\frac{v^2}{c^2})} \, .
 \end{equation}
 Combining that with $v \ll c \ll c^2$, we obtain the desired result to zero-th order in $v$:
 \begin{equation*}
@@ -2111,15 +2111,19 @@ Newtonian dynamics in its general form was formulated in terms of momentum, the 
 	}
 	\manyqquad
 	\eqbox{
-	p^\alpha = m u^\alpha = \gamma (m c, m \vec{v}) = \gamma (m c, \vec{p})
+	p^\alpha = m u^\alpha = \gamma (m c, m \vec{v}) = (\gamma m c, \vec{p}_r)
 	} \, .
 \end{equation}
 % note that this is tangent vector with four independent component (mentioned on Wikipedia, due to multiplication with Lorentz scalar)
-The spatial components are clearly just a generalization of the momentum, picking up a factor of $\gamma$ in comparison to the Newtonian definition (but as \eqref{eq:taylor_expansion_gamma} tells us, this factor is $\approx 1$ for $v \ll c$, so we retrieve $\vec{p} = m \vec{v}$ in this case).
+The spatial components can be understood as a \Def{relativistic momentum}
+\begin{equation}\label{eq:rel_momentum}
+	\eqbox{
+	\vec{p}_r = \gamma \vec{p} = \gamma m \vec{v} = \frac{m \vec{v}}{\sqrt{1 - v^2 / c^2}}
+	}
+\end{equation}
+and are clearly just a generalization of the \enquote{usual} Newtonian momentum $\vec{p}$, picking up a factor of $\gamma$ in comparison to the Newtonian definition. As \eqref{eq:taylor_expansion_gamma} tells us, this factor is $\approx 1$ for $v \ll c$, so we retrieve $\vec{p}_r = \vec{p} = m \vec{v}$ in this case.
 
 %-> hmmm, but isn't mass the same for everyone? Because $p^\mu p_\mu = m c^2$ and this is invariant...
-
--> hmmm, reinterpret $\vec{p}$ as $\gamma m \vec{v}$, i.e.~relativistic generalization? I would not choose to do so to be honest, rather say that it is possible to do that, but we use $\vec{p} = m \vec{v}$ (maybe make separate definition $\vec{p}_r$? To distinguish... In some sense we replace usual momentum with this new, relativistic one, I acknowledge that, but I feel like redefining would only lead to more confusion regarding symbols...)
 
 
 Conversely, the time component is harder to interpret. Since whatever it represents is very likely to have a Newtonian counterpart, let us look at $p^0$ in case $v \ll c$. Continuing \eqref{eq:taylor_expansion_gamma} shows
@@ -2128,13 +2132,13 @@ Conversely, the time component is harder to interpret. Since whatever it represe
 	\notag\\
 	&= \eval{\frac{1}{\sqrt{1 - \frac{v^2}{c^2}}}}_{v = 0} + \eval{\frac{\frac{1}{2} \cdot \frac{-2 v}{c}}{(1 - \frac{v^2}{c^2})^{3/2}}}_{v = 0} \frac{v}{c} + \frac{1}{2} \eval{\qty(\frac{\qty(\frac{-1}{2} \cdot \frac{-2 v}{c})^2}{(1 - \frac{v^2}{c^2})^{5/2}} + \frac{\frac{-1}{2} \cdot (-2)}{(1 - \frac{v^2}{c^2})^{3/2}})}_{v / c = 0} \frac{v^2}{c^2} + \dots
 	\notag\\
-	&\eqbox{= 1 + \frac{v^2}{2 c^2} + \mathcal{O}(\frac{v^3}{c^3})} \, .
+	&\eqbox{= 1 + \frac{v^2}{2 c^2} + \mathcal{O}\qty(\frac{v^3}{c^3})} \, .
 \end{align}
 and thus
 \begin{equation*}
 	c p^0 = \gamma m c^2 \approx m c^2 + \frac{m v^2}{2} \, .
 \end{equation*}
-The first term is a constant with dimension of an energy that we do not know yet, but the second term looks familiar: it is nothing but the kinetic energy. For this reason, we identify
+The first term is a constant with dimension of an energy that we do not know yet, but the second term looks familiar: it is kinetic energy. For this reason, we identify
 \begin{equation}\label{eq:rel_energy}
 	\eqbox{
 	p^0 = \frac{E}{c}
@@ -2142,27 +2146,32 @@ The first term is a constant with dimension of an energy that we do not know yet
 	\manyqquad
 	\eqbox{
 	E = \gamma m c^2 = \frac{m c^2}{\sqrt{1 - v^2 / c^2}}
-	} \, .
+	} \, ,
 \end{equation}
-Apparently, the energy of a free particle has more contributions than just the kinetic one. Since the terms of higher order in $v$ only become relevant for velocities comparable to $c$, however, it is no surprise that they are discovered by special relativity and are not known from Newtonian mechanics. A rather interesting consequence arises for the other velocity limit $v = 0$ whence
+$E$ being the \Def{relativistic energy} of a free particle. Apparently, the kinetic energy (which is the energy of a free particle) has more contributions than just the familiar one $\sim v^2$. Since the terms of higher order in $v$ only become relevant for velocities comparable to $c$, however, it is no surprise that they are discovered by special relativity and not known from Newtonian mechanics. A rather interesting consequence arises for the other velocity limit $v = 0$ whence
 \begin{equation}\label{eq:e=mc^2}
 	\eqbox{
 	E = m c^2
 	} \, .
 \end{equation}
-Here we have the most famous formula of physics (remember I mentioned second most before; we have now finally completed quest for most famous one). Just like many insights from relativity, this formula has profound implications: it tells us that mass and energy are equivalent (strictly speaking, we can see that from \eqref{eq:rel_energy} already, but there we might still suspect it comes from kinetic part). Even particles at rest still have energy, namely an amount proportional to what is often called \Def{rest mass} $m$ in this context.\footnote{Because sometimes, a \Def{relativistic mass} $m(v) = \gamma m = \frac{m}{\sqrt{1 - v^2 / c^2}}$ is defined. We will not use this definition.} This \Def{rest energy} scales with $c^2$ and therefore, even very small masses contain huge amounts of energy (which shows e.g.~in the fact that we gain energy from nuclei nowadays).
+Here we have the most famous formula of physics (remember I mentioned second most before; we have now finally completed quest for most famous one). Just like many insights from relativity, this formula has profound implications: it tells us that mass and energy are equivalent (strictly speaking, we can see that from \eqref{eq:rel_energy} already, but there we might still suspect it comes from kinetic part). Even particles at rest still have energy, namely an amount proportional to what is often called \Def{rest mass} $m$ in this context.\footnote{Because sometimes, a \Def{relativistic mass} $m(v) = \gamma m = \frac{m}{\sqrt{1 - v^2 / c^2}}$ is defined. We will not use this definition.} This \Def{rest energy} scales with $c^2$ and therefore, even very small masses contain huge amounts of energy (which shows e.g.~in the fact that we gain energy from nuclei nowadays). This motivates defining the \Def{relativistic kinetic energy} as
+\begin{equation}\label{eq:rel_kin_energy}
+	\eqbox{
+	T = E - m c^2 = (\gamma - 1) \, m c^2
+	} \, .
+\end{equation}
 
 
 Equivalently, since
 \begin{equation}\label{eq:four_momentum_norm}
 	\eqbox{
-	m^2 c^2 = m^2 u^\mu u_\mu = p^\mu p_\mu = (p^0)^2 - \vec{p}^2 = E^2 / c^2 - \vec{p}^2
+	m^2 c^2 = m^2 u^\mu u_\mu = p^\mu p_\mu = (p^0)^2 - \vec{p}^2 = E^2 / c^2 - \vec{p}_r^2
 	}
 \end{equation}
 we can also write
 \begin{equation}\label{eq:rel_energy_2}
 	\eqbox{
-	E = \sqrt{(m c^2)^2 + c^2 \gamma^2 \vec{p}^2}
+	E = \sqrt{(m c^2)^2 + c^2 \vec{p}_r^2}
 	} \, .
 \end{equation}
 
@@ -2172,7 +2181,7 @@ One major advantage of using momenta as tangent vectors instead of velocities is
 \begin{equation*}
 	p^\alpha = m u^\alpha = m \dv{x^\alpha}{d\tau} = \frac{0}{0}
 \end{equation*}
-since $d\tau = 0$ for photons and they have no mass, i.e.~$m = 0$. However, we do know that photons have energy
+since $d\tau = 0$ for photons and they have no mass, i.e.~$m = 0$. Apparently, we gain no insight from this definition. However, we do know that photons have energy
 \begin{equation}
 	\eqbox{
 	E = h f
@@ -2180,12 +2189,12 @@ since $d\tau = 0$ for photons and they have no mass, i.e.~$m = 0$. However, we d
 \end{equation}
 so
 \begin{equation*}
-	0 = p^\mu p_\mu = \frac{h^2 f^2}{c^2} - p^2 \, .
+	0 = p^\mu p_\mu = \frac{h^2 f^2}{c^2} - p_r^2 \, .
 \end{equation*}
 Therefore, we can associate the spatial components of photon's momentum with a three-vector of magnitude
 \begin{equation}\label{eq:photon_momentum}
 	\eqbox{
-	p = \hbar k = \frac{h}{\lambda} = \frac{h f}{c} = \frac{E}{c}
+	p_r = \hbar k = \frac{h}{\lambda} = \frac{h f}{c} = \frac{E}{c}
 	}
 \end{equation}
 pointing into the direction of some unit vector $\vec{e}_k$, which is the direction that the photon propagates into. This vector $\vec{k} = k \vec{e}_k$ is called \Def{wave vector}.
@@ -2224,21 +2233,31 @@ Using the product rule for $\nabla$, we can write that out a little further to o
 where $\nabla_{\underline{u}} m = \dv{m}{\tau}$ since the mass is a scalar function. Therefore, we can write the components of $\underline{F}$ as (dropping the assumption $m = \text{const.}$)
 \begin{equation}\label{eq:four_force}
 	\eqbox{
-	\underline{F} = (\frac{1}{c} \dv{E}{\tau}, \dv{(\gamma \vec{p})}{\tau}) = \gamma (\frac{1}{c} \dv{E}{t}, \dv{\gamma}{t} \vec{p} + \gamma \vec{F})
-	} \, .
+	\underline{F} = (\frac{1}{c} \dv{E}{\tau}, \dv{\vec{p}_r}{\tau}) = \gamma (\frac{1}{c} \dv{E}{t}, \dv{\gamma}{t} \vec{p} + \gamma \vec{F}) = (F^0, \gamma \vec{F}_r)
+	}
 \end{equation}
-with $\vec{F} = \dv{\vec{p}}{t}$ being the corresponding non-relativistic three-force ($\vec{p}$ is the non-relativistic momentum as well) and $F^0$ being the a \enquote{force in time} or, perhaps more illustrative, a change of energy $P^0$ over time, i.e.~the \Def{power} of the force. This power is not independent of the other, spatial force components as a quick calculation in shows (assuming ICCs for simplicity):
+with
+\begin{equation}\label{eq:rel_four_force}
+	\eqbox{
+	\vec{F}_r = \dv{\vec{p}_r}{t}
+	}
+	\manyqquad
+	\eqbox{
+	\vec{F} = \dv{\vec{p}}{t}
+	}
+\end{equation}
+being the relativistic and non-relativistic three-forces, respectively and $F^0$ being the a \enquote{force in time} or, perhaps more illustrative, a change of energy $P^0$ over time, i.e.~the \Def{power} of the force. This power is not independent of the other, spatial force components as a quick calculation in shows (assuming ICCs for simplicity):
 \begin{align}
 	F^\mu u_\mu &= \dv{m}{\tau} u^\mu u_\mu + m \, a^\mu u_\mu \underset{\eqref{eq:vel_acc_orthogonal}}{=} \dv{m}{\tau} c^2 = \gamma c^2 \dv{m}{t}
 	\notag\\
 	%&= F^0 u_0 - \dv{\gamma}{t} \vec{p} \cdot \gamma \vec{v} - \gamma \vec{F} \cdot \gamma \vec{v}
 	%notag\\
 	%&= \gamma^2 \dv{E}{t} - \dv{\gamma}{t} m v^2 - \gamma \qty(\dv{m}{t} \vec{p} \cdot \vec{v} + m \vec{a} \cdot \vec{v})
-	&= F^0 u_0 - \gamma \dv{(\gamma \vec{p})}{\tau} = \gamma^2 \dv{E}{t} - \gamma^2 \dv{(\gamma \vec{p})}{t}
+	&= F^0 u_0 - \gamma \dv{\vec{p}_r}{\tau} = \gamma^2 \dv{E}{t} - \gamma^2 \dv{\vec{p}_r}{t}
 	\notag\\
 	\Leftrightarrow \qquad &
 	\eqbox{
-	F^0 = \frac{\gamma}{c} \dv{E}{t} = \gamma c \dv{m}{t} + \frac{\gamma}{c} \dv{(\gamma \vec{p})}{t} \cdot \vec{v}
+	F^0 = \frac{\gamma}{c} \dv{E}{t} = \gamma c \dv{m}{t} + \frac{\gamma}{c} \dv{\vec{p}_r}{t} \cdot \vec{v}
 	%\underset{m = \text{const.}}{=} \gamma \dv{(\gamma \vec{p})}{t} \cdot \vec{v} % Rather put to where m = const is treated
 	}
 \end{align}
@@ -2268,7 +2287,7 @@ which clearly resembles Newton's second law \eqref{eq:newton_2}. In fact, it red
 Split up into components, that means
 \begin{equation}\label{eq:four_force_iccs_m_const}
 	\eqbox{
-	\frac{1}{c} \dv{E}{t} = \dv{(\gamma \vec{p})}{t} \cdot \vec{v}
+	\frac{1}{c} \dv{E}{t} = \dv{\vec{p}_r}{t} \cdot \vec{v}
 	}
 	\manyqquad
 	\eqbox{
@@ -2337,7 +2356,7 @@ We can get to \eqref{eq:geodesic_eq_coordinates} via a straightforward calculati
 Faraoni has interesting stuff regarding momentum conservation, relates $F^\alpha u_\alpha$ to $\dv{m}{\tau}$
 
 
-interesting take, \enquote{forces are not convenient}: \url{https://phys.libretexts.org/Bookshelves/University_Physics/Book%3A_Mechanics_and_Relativity_(Idema)/15%3A_Relativistic_Forces_and_Waves/15.01%3A_The_Force_Four-Vector}
+interesting take, \enquote{forces are not convenient}: \url{https://phys.libretexts.org/Bookshelves/University_Physics/Book%3A_Mechanics_and_Relativity_(Idema)/15%3A_Relativistic_Forces_and_Waves/15.01%3A_The_Force_Four-Vector}; is this because of way it transforms?
 
 maybe something similar discussed here: \url{https://de.wikipedia.org/wiki/Beschleunigung_(spezielle_Relativit%C3%A4tstheorie)#Beschleunigung_und_Kraft}
 
