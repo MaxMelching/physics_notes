@@ -6,38 +6,53 @@
 
 \chapter{Mathematics}
 
+\begin{center}
+	Mathematically speaking, the theory of relativity is a geometrical one. While most of the more involved mathematics can be avoided when dealing with special relativity (in the sense that they are not strictly necessary to understand it), general relativity is founded on ideas from (Riemannian) geometry. For this reason, a certain amount of knowledge in this area is required in order to understand it. However, even for special relativity, learning how some of the physical concepts are realized in mathematical terms can be enlightening.
 
-	\section{Gravitational Physics Summary -- Math Part}
-		\subsection{Basics of Manifolds}
-to describe curved spacetime, we need a coordinate-independent notion of spaces; this is given by manifolds, which are described using charts=coordinates but have an independent, invariant meaning; similarly, they can often be pictured to be embedded in some higher-dimensional Euclidian space, but that need not be the case
-
-therefore, physics happens on manifolds, so events are points on it and more
+	Consequently, dealing with mathematics is inevitable. We will do it as a preface before the physics chapters. It has to be noted that the topics covered here can easily fill two full courses and perhaps, this amount of time is also needed to be able to fully comprehend all the definitions and concepts. It is virtually impossible to provide an adequate, thorough treatment here since this a physics-oriented summary. Therefore, not all things can be treated in depth and proofs that show certain properties (for example that notions are well-defined) are left out -- some corners have to be cut, unfortunately.
+\end{center}
 
 
-defining vectors on manifolds is a non-trivial topic, they are now completely distinct notion from points and cannot be visualized as pointing from some origin to this point (problem: thinking of an embedded manifold for now, the vectors would point out of the manifold); instead, we can define vectors locally (infinitesimally) via derivatives of curves (i.e.~as \Def{tangent vectors}; the corresponding set of all tangent vectors is called \Def{tangent space} $V$); for a function $f(x^\alpha)$ on the manifold, we can calculate the derivative along a curve $\gamma = \gamma(\sigma)$ ($\sigma \in \mathbb{R}$ parametrizes $\gamma$):
-\begin{equation}
-\dv{f}{\sigma} = \dv{f(x^\alpha(\sigma))}{\sigma} = \pdv{f}{x^\alpha} \dv{x^\alpha}{\sigma}
+
+\newpage
+
+
+
+	\section{Basics of Manifolds}
+
+
+	\rem{in principle, one has to distinguish between maps from the manifold to some other space and maps from Euclidean space to some other space, which would use inverse charts first. For us, however, these distinctions are not too important because points in spacetime come from $\mathbb{R}^4$, the main differences occur for other structures like the metric. At least in special relativity. -> but wait, isn't that true for all manifolds? Perhaps not, but why not? For a manifold of dimension $n$, we can always take all points from $\mathbb{R}^n$... Ahhh, maybe difference is global chart for SR? Identity even}
+
+
+to describe curved spacetime, we need a coordinate-independent notion of spaces; this is given by manifolds, which are described using coordinates but have an independent, invariant meaning (specific choice of coordinates does not matter for its properties); similarly, they can often be pictured as being embedded in some higher-dimensional Euclidian space, but that need not be the case
+
+therefore, physics happens on \Def{manifolds} $M$, so events are points on them and so on; a manifold is a collection of points which locally looks like $\mathbb{R}^n$ (in so-called \Def{charts} which map from parts of the manifold to coordinates in Euclidian space)
+
+	\rem{We will restrict ourselves to smooth manifolds, where charts are smooth.}
+
+
+
+		\subsection{Tangent Vectors}
+defining vectors on manifolds is a non-trivial topic, they are now completely distinct notion from points and cannot be visualized as pointing from some origin to this point (problem: thinking of an embedded manifold for now, the vectors would point out of the manifold); instead, we can define vectors locally (!) via derivatives of curves (i.e.~as \Def{tangent vectors}; the corresponding set of all tangent vectors is called \Def{tangent space} $V$)
+
+to describe tangent vectors $\underline{t}$ more explicitly, we have to expand them with respect to some basis and a convenient choice for this is the set of partial derivatives along the coordinate axes of a chart $x^\alpha$, $\qty{\pdv{x^\alpha}}_\alpha$ (note: $\pdv{x^\alpha}$ is often abbreviated as $\partial_\alpha$); this choice yields
+\begin{equation}\label{eq:tangent_vector_def}
+\underline{t} = t^\alpha \underline{e_\alpha} = \dv{x^\alpha}{\sigma} \pdv{x^\alpha} = \dv{\sigma}
 \end{equation}
-this is a simply application of the chain rule and it yields the tangent vector components
-\begin{equation}
-t^\alpha = \dv{x^\alpha}{\sigma} = \underline{t} \cdot x^\alpha
-\end{equation}
-because the vector is supposed to act as
-\begin{equation}
-\underline{t} \cdot f = \qty(t^\alpha \pdv{x^\alpha}) \cdot f = \pdv{f}{x^\alpha} t^\alpha
-\end{equation}
-(remember: we identify it with a derivative, which can in turn be expressed using partial derivatives with respect to the coordinates)
+where $\sigma \in \mathbb{R}$ is the parameter of the curve that $\underline{t}$ is tangent to; that means we can also think of $\underline{t}$ as a tuple of components $t^\alpha$
 
-formally, we can express this as
-\begin{equation}
-\underline{t} = t^\alpha \underline{e_\alpha} = t^\alpha \pdv{x^\alpha} = \dv{\sigma}
+in this representation vector $\leftrightarrow$ derivative, the derivative of a function $f(x^\alpha)$ along $\gamma$ is (note that we consider a function and curve on the coordinate space, not the manifold itself):
+\begin{equation}\label{eq:func_deriv}
+\dv{f}{\sigma} = \dv{f(x^\alpha(\sigma))}{\sigma} = \pdv{f}{x^\alpha} \dv{x^\alpha}{\sigma} =: \underline{t} \cdot f \, ,
 \end{equation}
-(note: $\pdv{x^\alpha}$ is often abbreviated as $\partial_\alpha$)
+which is an application of the chain rule and justifies the particular form of vector components in \eqref{eq:tangent_vector_def} (because we want to identify directional derivatives like the one in \eqref{eq:func_deriv} with our new vector notion, the tangent vector)
 
 
-tangent vectors are invariant quantities, they do not (and should not!) depend on the coordinates we use to express them; their components, on the other hand, are \emph{not} invariant; they obey the following transformation rule:
+
+
+tangent vectors $\underline{t}$ are invariant quantities, they do not (and should not!) depend on the coordinates we use to express them; their components, on the other hand, are \emph{not} invariant (because the basis vectors change, so must the components for the whole object $\underline{t}$ to stay the same); they obey the following transformation law:
 \begin{equation}\label{eq:vec_trafo}
-\underline{t} = t^\alpha \pdv{x^\alpha} = t^\alpha \pdv{x'^\beta}{x^\alpha} \pdv{x'^\beta} = t'^\beta \pdv{x'^\beta}
+\underline{t} = t^\alpha \pdv{x^\alpha} = t^\alpha \pdv{x'^\beta}{x^\alpha} \pdv{x'^\beta} \overset{!}{=} t'^\beta \pdv{x'^\beta}
 \qquad \Leftrightarrow \qquad
 \eqbox{
 t'^\beta = t^\alpha \pdv{x'^\beta}{x^\alpha}
@@ -46,37 +61,48 @@ t'^\beta = t^\alpha \pdv{x'^\beta}{x^\alpha}
 once again, this is basically just an application of the chain rule
 
 
-next natural step: linear maps on tangent space $V$ (= set/space of tangent vectors); these are called \Def{covectors} or \Def{one forms} (elements of the dual space or \Def{cotangent space} $V^*$) and it turns out that we can identify them with differentials/gradients of functions
+
+		\subsection{Differential Equations}
+state it with vector field stuff -> or make separate bundle section?
+
+
+
+		\subsection{One Forms}
+next natural step: linear maps on tangent space $V$; these are called \Def{covectors} or \Def{one forms} (elements of the dual space or \Def{cotangent space} $V^*$) and it turns out that we can identify them with differentials/gradients of functions
 \begin{equation}
 df = \pdv{f}{x^\alpha} dx^\alpha
 \end{equation}
-where we chose a convenient basis $\qty{\underline{e^\alpha}}_\alpha = \qty{dx^\alpha}_\alpha$ of the dual vector space; these satisfy
+where we chose a convenient basis $\qty{\underline{e^\alpha}}_\alpha = \qty{dx^\alpha}_\alpha$ of the dual vector space, satisfying
 \begin{equation}
+\eqbox{
 dx^\alpha\qty(\pdv{x^\beta}) = \pdv{x^\alpha}{x^\beta} = \delta^\alpha_\beta
+} \, .
 \end{equation}
 
-more generally, such covectors $w: V \rightarrow \mathbb{R}$ obey
+More generally, covectors $w: V \rightarrow \mathbb{R}$ obey
 \begin{equation}
-w\qty(\alpha \underline{a} + \beta \underline{b}) = \alpha w\qty(\underline{a}) + \beta w\qty(\underline{b}), \qquad \qquad \forall a, b \in \mathbb{R}, \; \underline{a}, \underline{b} \in V
+w\qty(\alpha \underline{a} + \beta \underline{b}) = \alpha w\qty(\underline{a}) + \beta w\qty(\underline{b}), \qquad \qquad \forall a, b \in \mathbb{R}, \; \underline{a}, \underline{b} \in V \, .
 \end{equation}
-we can also characterize covectors via tuples of components
+
+
+We can also characterize them via tuples of components
 \begin{equation}
-w_\alpha = w\qty(\underline{e_\alpha}) = w\qty(\partial_\alpha) = \partial_\alpha w
+w_\alpha = w\qty(\underline{e_\alpha}) = w\qty(\partial_\alpha) = \partial_\alpha w \, .
 \end{equation}
 
-in general, we can also write
+In general, that implies we can write
 \begin{equation}
-w\qty(\underline{a}) = w_\alpha \underline{e^\alpha}\qty(a^\beta \underline{e_\beta}) = w_\alpha a^\alpha
+w\qty(\underline{a}) = w_\alpha \underline{e^\alpha}\qty(a^\beta \underline{e_\beta}) = w_\alpha a^\alpha \, .
 \end{equation}
 
 
-to see how covector components in different coordinates are related, we look at the following inner product (which is also invariant)
+To see how covector components in different coordinates are related, we look at the following inner product (which is also invariant):
 \begin{equation}\label{eq:covec_trafo}
 w\qty(\underline{t}) = w_\alpha t^\alpha \overset{!}{=} w'_\beta t'^\beta = w'_\beta \pdv{x'^\beta}{x^\alpha} t^\alpha
 \qquad \Leftrightarrow \qquad
 \eqbox{
 w'_\beta = w_\alpha \pdv{x^\alpha}{x'^\beta}
-}
+} \, .
 \end{equation}
 
 
@@ -86,72 +112,97 @@ We have seen how covectors are maps from $V$ to the real numbers. Similarly, one
 \begin{equation}
 T: V^n \cross \qty(V^*)^m = V \cross \dots \cross V \cross V^* \cross \dots V^* \rightarrow \mathbb{R}
 \end{equation}
-are called \Def{tensors} of rank $m + n$. Due to their invariance under coordinate-transformations, every physical quantity has to be expressed as a tensor.
+are called \Def{tensors} of rank $n + m$. Due to their invariance under coordinate-transformations, every physical quantity has to be expressed as a tensor (this follows from the requirements of special relativity).
 
-Just like vectors can be collected in components $t^\alpha = \underline{t} \cdot x^\alpha = \partial_\sigma x^\alpha$ and covectors in components $w_\alpha = w\qty(\partial_\alpha)$, we can characterize a tensor of rank $m + n$ using components
-\begin{equation}
+
+Just like vectors can be collected in components $t^\alpha = \underline{t} \cdot x^\alpha = \partial_\sigma x^\alpha$ and covectors in components $w_\alpha = w\qty(\partial_\alpha)$, we can characterize a tensor of rank $n + m$ using components
+\begin{equation}\label{eq:tensor_comps}
 \eqbox{
-T^{\alpha_1 \dots \alpha_m}{}_{\beta_1 \dots \beta_n} = T\qty(\underline{e_1}, \dots, \underline{e_n}, \underline{e^1}, \dots, \underline{e^m})
+T^{\alpha_1 \dots \alpha_m}{}_{\beta_1 \dots \beta_n} = T\qty(\underline{e_{\beta_1}}, \dots, \underline{e_{\beta_n}}, \underline{e^{\alpha_1}}, \dots, \underline{e^{\alpha_m}})
+} \, ,
+\end{equation}
+	\rem{it is no typo that there are $m$ upper and $n$ lower indices. This reflects the fact that a tensor of rank $m + n$ can map $m$ covectors with its $m$ \enquote{vectorial} indices and $n$ vectors with its $n$ \enquote{covectorial} indices. This is just like $w_\mu = w\qty(\partial_\mu)$, a vector is needed to get the covector component (and vice versa).}
+
+which also means that tensors are linear combinations of products of vectors and covectors,
+\begin{equation}\label{eq:tensor_local}
+\eqbox{
+T = T^{\alpha_1 \dots \alpha_m}{}_{\beta_1 \dots \beta_n} \; \underline{e_{\alpha_1}} \dots \underline{e_{\alpha_m}} \underline{e^{\beta_1}} \dots \underline{e^{\beta_n}}
 } \, .
 \end{equation}
-	\rem{it is no typo that there are $m$ upper and $n$ lower indices. This reflects the fact that a tensor of rank $m + n$ can map $m$ covectors with its $m$ \enquote{vectorial} indices and $n$ vectors with its $n$ \enquote{covectorial} indices.}
+	\rem{perhaps, it is a bad idea, but tensor products $\otimes$ between the $\underline{e_\alpha}, \underline{e^\beta}$ are omitted.}
 
 These components do change under coordinate transformations. The corresponding behaviour can be derived from the ones for vectors \eqref{eq:vec_trafo} and covectors \eqref{eq:covec_trafo},
-\begin{equation}
+\begin{equation}\label{eq:tensor_trafo}
 \eqbox{
 T'^{\alpha \beta \dots}{}_{\gamma \delta \dots} = T^{\mu \nu \dots}{}_{\lambda \sigma \dots} \, \pdv{x'^\alpha}{x^\mu} \pdv{x'^\beta}{x^\nu} \dots \, \pdv{x^\lambda}{x'^\gamma} \pdv{x^\sigma}{x'^\delta} \dots
 } \, .
 \end{equation}
-This is the important \Def{tensor transformation law}.\\
+This is the important \Def{tensor transformation law}.
 
 
 The rank of a tensor can be reduced if we insert a fixed object into one of the \enquote{slots}, i.e.~in the example of a rank-$4$-tensor
 \begin{equation}
-T(\cdot, \cdot, \cdot, \cdot) \rightarrow T'(\cdot, \cdot, \cdot) = T(\underline{t}, \cdot, \cdot, \cdot) \manyqquad T^{\alpha \beta}{}_{\gamma \delta} T'^{\alpha \beta}{}_{\delta} = T^{\alpha \beta}{}_{\gamma \delta} t^\gamma
+T(\cdot, \cdot, \cdot, \cdot) \rightarrow T'(\cdot, \cdot, \cdot) = T(\underline{t}, \cdot, \cdot, \cdot) \manyqquad T^{\alpha \beta}{}_{\gamma \delta} \rightarrow T'^{\alpha \beta}{}_{\delta} = T^{\alpha \beta}{}_{\gamma \delta} \, t^\gamma
 \end{equation}
 or
 \begin{equation}
 T(\cdot, \cdot, \cdot, \cdot) \rightarrow T'(\cdot, \cdot, \cdot) = T(\cdot, \cdot, w, \cdot)
 \manyqquad
-T^{\alpha \beta}{}_{\gamma \delta} \rightarrow T'^{\beta}{}_{\gamma \delta} = T^{\alpha \beta}{}_{\gamma \delta} w_\alpha
+T^{\alpha \beta}{}_{\gamma \delta} \rightarrow T'^{\beta}{}_{\gamma \delta} = T^{\alpha \beta}{}_{\gamma \delta} \, w_\alpha \, .
 \end{equation}
+These operations are called \Def{contraction}.
 
-	\rem{might be inconsistent to write components like this because vectorial indices come first but the first arguments in $T$ are also vectorial (which they connect to a covectorial index).}
+	\rem{might be inconsistent to write components like this because vectorial indices come first but the first arguments in $T$ are vectorial too (which connect to covectorial index).}
 
 
 \begin{ex}[Known Tensors]
 We have already encountered several examples of tensors. Vectors and covectors are rank-$1$-tensors, which should not be surprising because we used them to derive general tensors. However, scalars are also tensors, namely of rank $0$ -- they can be thought of as mapping the real numbers to themselves without taking any further arguments.
 \end{ex}
 
+	\rem{here, we do not distinguish explicitly between tensors and tensor fields, which are maps from the manifold to the space of tensors of a certain rank (they assign a tensor to each point). For example, we change fluently between vectors and vector fields or scalars and (scalar) functions.}
+
 
 Another example of a tensor, which plays a great role in geometry on manifolds and thus -- as we will see later -- also in physics, is the \Def{metric}. The following properties can be used as a definition for this $2$-tensor:
-\begin{enumerate}[(1.)]
-\item The metric is symmetric.
+%\begin{enumerate}[(1.)]
+%\item The metric is symmetric.
 
+%\item The metric is non-degenerate.
+%\end{enumerate}
+{
+\qquad\qquad (1.) The metric is symmetric. \qquad (2.) The metric is non-degenerate.
+}
 
-\item The metric is non-degenerate.
-\end{enumerate}
-Together with the usual properties of a tensor, like linearity, this defines a (pseudo)metric. In case of spacetime, this is characterized by the fact that the metric has three positive and one negative eigenvalue.
+Together with the usual requirements for a tensor, like linearity, these properties are sufficient to define a (pseudo)metric. In case of spacetime, this \enquote{pseudo} property is characterized by the fact that the metric has three positive eigenvalues and one negative.
 
-Just like any other tensor, the metric can be characterized by their components. These we can also be read off from the line element
+Just like any other tensor, metrics can be characterized by their components. These we can also read off from the \Def{line element} ($\equiv$ infinitesimal distance between points)
 \begin{equation}
+\eqbox{
 ds^2 = g_{\mu \nu} \, dx^\mu dx^\nu := g_{\mu \nu} \, dx^\mu \otimes dx^\nu
+}
 \end{equation}
-which is a frequently used tool in geometry (for example to measure lengths). Often, one thinks of the covectors $dx^\mu$ in this expression as infinitesimal changes in the coordinate $x^\mu$ and of the corresponding component $a$ in $a dx^\mu$ as the effect of this change. This is justified by the fact that $a dx^\mu(\partial_\nu) = a \delta^\mu_\nu$, the coefficient of $dx^\mu$ indeed contains all information about the direction $\partial_\mu$ which is present in the whole object.
+which is a frequently used tool in geometry (for example to measure lengths). Often, one thinks of the covectors $dx^\mu$ in this expression as infinitesimal changes in the coordinate $x^\mu$ and of the corresponding component $a$ in $a dx^\mu$ as the effect of this change. This is justified by the fact that $a dx^\mu(\partial_\nu) = a \delta^\mu_\nu$, the coefficient $a$ of $dx^\mu$ indeed already contains all information from $ds^2$ about the behaviour/change in direction $\partial_\mu$.% that is present in the whole object $ds^2$.
 
 
-Metrics can be used to define inner products, which are not natively present on manifolds, in the following manner:
+Metrics can be used to define inner products, which are not natively present on manifolds,\footnote{Non-tensorial quantities might be not invariant and thus ill-defined. At the same time, the properties do not fix a tensor uniquely, so one has to be specified (no native metric exists).} in the following manner:
 \begin{equation}
 \underline{A} \cdot \underline{B} := g\qty(\underline{A}, \underline{B}) = g_{\mu \nu} A^\mu B^\nu \, .
 \end{equation}
-Inner products shall be symmetric, i.e.~$\underline{A} \cdot \underline{B} = \underline{B} \cdot \underline{A}$, which is why we demanded symmetry of $g$. That means
+Just like before, the components are obtained via evaluation in basis vectors,
 \begin{equation}
-g\qty(\underline{A}, \underline{B}) = g\qty(\underline{A}, \underline{B})
+\eqbox{
+g_{\mu \nu} = g(\underline{e_\mu}, \underline{e_\nu})
+} \, .
+\end{equation}
+Inner products shall be symmetric, i.e.~$\underline{A} \cdot \underline{B} = \underline{B} \cdot \underline{A}$, so
+\begin{equation}
+g_{\mu \nu} = g_{\nu \mu}
 \manyqquad
-g_{\mu \nu} A^\mu B^\nu = g_{\nu \mu} A^\nu B^\mu \, .
+g\qty(\underline{A}, \underline{B}) = g_{\mu \nu} A^\mu B^\nu = g_{\nu \mu} A^\nu B^\mu = g\qty(\underline{A}, \underline{B})
+ \, .
 \end{equation}
 
-The metric provides us with a natural identification between vectors and covectors because $g\qty(\cdot, \underline{A})$ is nothing but a map which takes a vector and maps it to a real number -- which is the definition of a covector. Similarly, we can identify covectors $w$ with the unique vector $\underline{A}$ that fulfils $w\qty(\underline{B}) = g\qty(\underline{A}, \underline{B})$. In components, these requirements read
+The metric provides us with a natural identification %\footnote{More technically speaking, an isomorphism.}
+between vectors and covectors because $g\qty(\cdot, \underline{A})$ is nothing but a map which takes a vector and maps it to a real number -- which is the definition of a covector. Similarly, we can identify covectors $w$ with the unique vector $\underline{A}$ that fulfils $w\qty(\underline{B}) = g\qty(\underline{A}, \underline{B}), \; \forall \underline{B} \in V$. In components, these requirements read
 \begin{equation}
 \eqbox{
 A_\mu = g_{\mu \nu} A^\nu
@@ -159,20 +210,188 @@ A_\mu = g_{\mu \nu} A^\nu
 \manyqquad
 \eqbox{
 A^\mu = g^{\mu \nu} A_\nu
-}
+} \, .
 \end{equation}
-where $g^{\mu \nu}$ denote the components of the inverse metric, which is defined by
+Here, $g^{\mu \nu}$ denote the components of the inverse metric, which is defined by
 \begin{equation}
 \eqbox{
 g^{\mu \sigma} g_{\sigma \nu} = \delta^\mu_\nu
 } \, .
 \end{equation}
 
-Apparently, it is almost trivial to change from vectors to covectors and vice versa in this component notation. For this reason, the strict distinction between $A^\mu$ and $A_\mu$ is often dropped (at least for interpretation purposes).
+Apparently, it is almost trivial to change from vectors to covectors and vice versa in this component notation. For this reason, the strict distinction between $A^\mu$ and $A_\mu$ is often dropped (at least for interpretation purposes). This transfers to tensors of arbitrary rank. Additionally, we can write
+\begin{equation}
+\eqbox{
+\underline{A} \cdot \underline{B} = A^\mu B_\mu = A_\mu B^\mu
+} \, .
+\end{equation}
 
+
+
+\newpage
+
+
+
+	\section{Riemannian Geometry}
+		\subsection{Metric}
+do here and not in tensors section?
 
 
 		\subsection{Covariant Derivative}
+% excellent intuitive explanation: https://math.stackexchange.com/questions/4037867/what-is-the-intuitive-meaning-of-the-covariant-derivative-on-a-sphere
+It is a natural question -- especially in physics -- to ask for the change of a quantity. The tool we know until now to answer this question is the differential $df$ of a function. In coordinates $x^\alpha$, it can be expressed as
+\begin{equation*}
+df = \pdv{f}{x^\alpha} dx^\alpha \equiv \qty{\partial_\alpha f}_\alpha \, ,
+\end{equation*}
+i.e.~essentially using partial derivatives $\partial_\alpha$. Similarly, derivatives of vectors are $\partial_\alpha V^\beta$. That, however, is a problem because the components are not tensors, so the result of this quantity is not invariant. The reason is simple: the basis vectors also change, but $\partial_\alpha V^\beta$ does not account for that. Hence, we need a new operator to take derivatives of tensors like $\underline{V}$.
+
+
+This new operator will be called \Def{covariant derivative} $\nabla$ and we want it to be a map from tensors (tensor fields) to tensors (tensor fields). We can define it by demanding
+\begin{enumerate}[(1.)]
+\item $\nabla f = df$ for functions $f$
+
+
+\item $\nabla$ fulfils a product rule for tensors: $\nabla \qty(S T) = S \nabla T + \qty(\nabla S) T$
+
+
+\item $\nabla$ is compatible with contraction, that is we can interchange these operations
+\end{enumerate}
+Combining these properties with the usual requirement
+\begin{equation}
+\eqbox{
+\nabla_{\underline{V}} = \nabla_{V^\alpha \partial_\alpha} \overset{!}{=} V^\alpha \nabla_{\partial_\alpha} =: V^\alpha \nabla_\alpha
+}
+\end{equation}
+for tensors\footnote{This is not linearity in the \enquote{classical} sense (which follows from the property (2.), interpreting scalars as $0$-tensors and using $\nabla a = 0$), but rather $C^\infty$-linearity for functions in the lower argument of $\nabla$.} is already sufficient for a well-defined operator. From that, we can derive what the components of the result are. We will start by looking at the action of $\nabla$ on a vector:
+\begin{equation}
+\nabla_\alpha \underline{V} = \nabla_\alpha V^\beta \underline{e_\beta} = \qty(\nabla_\alpha V^\beta) \underline{e_\beta} + V^\beta \nabla_\alpha \underline{e_\beta} = \qty(\partial_\alpha V^\gamma + V^\beta \Gamma^\gamma{}_{\alpha \beta}) \underline{e_\gamma} =: \qty(\nabla_\alpha \underline{V})^\gamma \underline{e_\gamma} \, .
+\end{equation}
+	\rem{sometimes, $\qty(\nabla_\alpha \underline{V})^\gamma$ is written as $\nabla_\alpha V^\gamma$. In my opinion, this is misleading since the components $V^\gamma$ are functions, so $\nabla_\alpha$ would act like $d$ and thus essentially $\partial_\alpha$ (it is the whole point of a covariant derivative, that its $\beta$-component is \emph{not} the derivative of the $\beta$-component of the vector). Nonetheless, I still wanted to mention this.}
+
+In the third step, we have simply used that $\nabla$ maps vectors to vectors and expressed the result $\nabla_\alpha \underline{e_\beta}$ in terms of the corresponding coefficients 
+\begin{equation}\label{eq:christoffel}
+\eqbox{
+\Gamma^\gamma{}_{\alpha \beta} := \qty(\nabla_\alpha \underline{e_\beta})^\gamma
+}
+\end{equation}
+(where indices $\alpha, \beta$ have been added to them to clarify what these components belong to). These coefficients are called \Def{Christoffel symbols} and they do \emph{not} constitute a tensor. Based on these considerations, we can also give components for the object $\nabla_{\underline{W}} \underline{V}$:
+\begin{equation}
+\nabla_{\underline{W}} \underline{V} = W^\alpha \nabla_\alpha \underline{V} = W^\alpha \qty(\partial_\alpha V^\gamma + V^\beta \Gamma^\gamma{}_{\alpha \beta}) \underline{e_\gamma} = W^\alpha \qty(\nabla_\alpha \underline{V})^\gamma \underline{e_\gamma} = W^\alpha \qty(\nabla_{\underline{W}} \underline{V})^\gamma_\alpha \underline{e_\gamma} \, .
+\end{equation}
+
+To see how the covariant derivative of a covector looks like, we use a trick similar to the one used when the transformation laws were derived:
+\begin{align*}
+%\nabla_\alpha \qty(V^\beta w_\beta) &= \partial_\alpha \qty(V^\beta w_\beta) = V^\beta \partial_\alpha w_\beta + w_\beta \nabla_\alpha V^\beta
+%\\
+%&= V^\beta \partial_\alpha w_\beta - w_\beta \Gamma 
+%\\
+%\overset{!}&{=} V^\beta \nabla_\alpha w_\beta + w_\beta \nabla_\alpha V^\beta
+\nabla_\alpha \qty(V^\beta w_\beta) &= \partial_\alpha \qty(V^\beta w_\beta) = V^\beta \partial_\alpha w_\beta + w_\beta \partial_\alpha V^\beta
+\\
+&= V^\beta \partial_\alpha w_\beta - w_\beta V^\gamma \Gamma^\beta{}_{\alpha \gamma} + w_\beta \partial_\alpha V^\beta + w_\beta V^\gamma \Gamma^\beta{}_{\alpha \gamma}
+\\
+&= V^\beta \qty(\partial_\alpha w_\beta - w_\gamma \Gamma^\gamma{}_{\alpha \beta}) + w_\beta \nabla_\alpha V^\beta
+\\
+\overset{!}&{=} \nabla_\alpha \qty(w\qty(\underline{V})) = \qty(\nabla_\alpha w)\qty(\underline{V}) + w\qty(\nabla_\alpha \underline{V})
+\\
+&= V^\beta \qty(\nabla_\alpha w)_\beta + \qty(\nabla_\alpha V)^\beta w_\beta \, .
+\end{align*}
+
+Therefore, the action of $\nabla_\alpha$ on vectors and covectors is:
+\begin{equation}
+\eqbox{
+\qty(\nabla_\alpha V)^\beta = \partial_\alpha V^\beta + V^\gamma \Gamma^\beta{}_{\alpha \gamma}
+}
+\manyqquad
+\eqbox{
+\qty(\nabla_\alpha w)_\beta = \partial_\alpha w_\beta - w_\gamma \Gamma^\gamma{}_{\alpha \beta}
+} \, .
+\end{equation}
+
+From that, we also get the action on general tensors because according to \eqref{eq:tensor_local} they are nothing but products of vectors and covectors. Thus, applying the product rule yields:
+\begin{equation}
+\eqbox{
+\begin{split}
+\qty(\nabla_\sigma T)^{\alpha \beta \dots}{}_{\gamma \delta \dots} &= \partial_\sigma T^{\alpha \beta \dots}{}_{\gamma \delta \dots} + \Gamma^\alpha{}_{\sigma \nu} T^{\nu \beta \dots}{}_{\beta \delta \dots} + \Gamma^\beta{}_{\sigma \nu} T^{\alpha \nu \dots}{}_{\gamma \delta \dots}
+\\
+&\quad - \Gamma^\nu{}_{\sigma \gamma} T^{\alpha \beta \dots}{}_{\nu \delta \dots} - \Gamma^\nu{}_{\sigma \delta} T^{\alpha \beta \dots}{}_{\gamma \nu \dots} \pm \dots
+\end{split}
+} \, .
+\end{equation}
+
+
+While it is possible to calculate the Christoffel symbols according to \eqref{eq:christoffel}, this only works if we know how to calculate changes of the basis vectors $\underline{e_\alpha}$ using $\nabla$. That is not very convenient, after all we might wish to define $\nabla$ using them, so we will now show an alternative way to do it. The whole idea is that coordinate axes in flat space do not change direction such that applying $\nabla_\alpha$ reduces to application of $\partial_\alpha$. However, we can relax the requirements from flat space to \enquote{almost flat}/\enquote{locally flat} space in certain charts. These charts are called \Def{Riemannian normal coordinates} or, more common in physics, \Def{local inertial frames} (LIFs) and their characteristic properties are
+\begin{equation}
+\Gamma^\gamma{}_{\alpha \beta} = 0
+\manyqquad
+\nabla_\alpha = \partial_\alpha
+\, .
+\end{equation}
+Moreover, flat $\leftrightarrow$ constant metric, so metric and covariant derivative are compatible,
+\begin{equation}
+\partial_\gamma g_{\alpha \beta} = 0 = \nabla_\gamma g_{\alpha \beta} \, ,
+\end{equation}
+in a LIF. However, we have written it as a tensorial equation, so it is valid in any frame. In a similar manner,
+\begin{equation}
+\Gamma^\gamma{}_{\alpha \beta} = \Gamma^\gamma{}_{\beta \alpha}
+\qquad \Leftrightarrow \qquad
+\Gamma^\gamma{}_{\alpha \beta} \partial_\gamma = \Gamma^\gamma{}_{\beta \alpha} \partial_\gamma
+\qquad \Leftrightarrow \qquad
+\nabla_\alpha \underline{e_\beta} = \nabla_\beta \underline{e_\alpha}
+\, ,
+\end{equation}
+which clearly holds in a LIF due to $\Gamma^\gamma{}_{\alpha \beta} = 0$, can be generalized to arbitrary coordinate systems. These two properties can be combined to show that
+\begin{equation}\label{eq:christoffel_calc}
+\eqbox{
+\Gamma^\gamma_{\alpha \beta} = \frac{1}{2} g^{\gamma \delta} \qty(\partial_\alpha g_{\delta \beta} + \partial_\beta g_{\delta \alpha} - \partial_\delta g_{\alpha \beta})
+} \, .
+\end{equation}
+
+
+To end this introduction to covariant derivatives, it is very important to mention that we deal with a special type of them, the \Def{Levi-Civita connection} (connection is another name for covariant derivative). This is because a physical requirement\footnote{In LIFs and thus globally. Comes from the Einstein Equivalence Principle \ref{prop:eep}.} is $\nabla_\gamma g_{\alpha \beta} = 0$ and $\Gamma^\gamma{}_{\alpha \beta} = \Gamma^\gamma{}_{\beta \alpha}$, which also characterizes a Levi-Civita connection. This very special type of connection can be uniquely derived from the metric $g_{\alpha \beta}$ because it is essentially partial derivative plus Christoffel symbols and those are determined by the metric, as \eqref{eq:christoffel_calc} shows. More arbitrary connections are \emph{not} unique for a given manifold, so this is indeed a special property of the Levi-Civita connection.
+
+
+
+	\subsection{Curvature}
+Here, we will collect properties of the Riemann tensor as defined in \eqref{eq:riemann_tensor} via
+\begin{equation*}
+R^\beta{}_{\gamma \delta \epsilon} = \pdv{\Gamma^\beta{}_{\gamma \epsilon}}{x^\delta} - \pdv{\Gamma^\beta{}_{\gamma \delta}}{x^\epsilon} + \Gamma^\beta{}_{\delta \mu} \Gamma^\mu{}_{\gamma \epsilon} - \Gamma^\beta{}_{\epsilon \mu} \Gamma^\mu{}_{\gamma \delta} \, .
+\end{equation*}
+
+Besides \eqref{eq:riemann_interpretation}, which is helpful to interpret the action of the Riemann tensor, it has several helpful properties to use in calculations and some of those we will list here. In a LIF
+\begin{equation}
+\eqbox{
+R_{\alpha \beta \gamma \delta} = \frac{1}{2} \qty(\partial_\gamma \partial_\beta g_{\alpha \delta} - \partial_\gamma \partial_\alpha g_{\beta \delta} - \partial_\delta \partial_\beta g_{\alpha \gamma} + \partial_\delta \partial_\alpha g_{\beta \gamma})
+} \, .
+\end{equation}
+Using this formula rather than the general one simplifies proving the following properties:
+\begin{alignat}{2}\label{eq:riemann_props}
+R_{\alpha \beta \gamma \delta} &= - R_{\beta \alpha \gamma \delta} & 
+\manyqquad
+R_{\alpha \beta \gamma \delta} &= - R_{\alpha \beta \delta \gamma}
+\\
+R_{\alpha \beta \gamma \delta} &= R_{\gamma \delta \alpha \beta} & 
+\manyqquad
+R_{\alpha \beta \gamma \delta} + R_{\alpha \delta \beta \gamma} + R_{\alpha \gamma \delta \beta} &= 0
+\, .
+\end{alignat}
+These properties reduce the number of independent components in case of a $4$-dimensional manifold like spacetime to $20$ (= number of non-zero second derivatives of $g_{\alpha \beta}$, which makes sense because $R$ is a linear combination of them). The \Def{Bianchi identity} also plays a very important role:
+\begin{equation}
+\eqbox{
+\nabla_\mu R_{\alpha \beta \gamma \delta} + \nabla_\gamma R_{\alpha \beta \delta \mu} + \nabla_\delta R_{\alpha \beta \mu \gamma} = 0
+} \, .
+\end{equation}
+
+
+
+	\paragraph{Local Inertial Frames}
+To end this subsection, we will make some remarks connecting curvature to LIFs as defined by \eqref{eq:lif_properties}. Due to the vanishing of the first derivatives of the metric,
+\begin{equation}
+\eqbox{
+\Gamma^\gamma{}_{\alpha \beta}(p) = 0
+}
+\end{equation}
+in a LIF. However, that does not imply vanishing of the Riemann tensor because the second derivatives $\partial_\alpha \partial_\beta g_{\gamma\delta}$ do \emph{not} necessarily vanish. Hence, the Riemann tensor is not zero in general (same derivatives of the Christoffel symbols). This also marks a difference between LIFs and cartesian coordinates (= flat space), where the coordinate axes are constant and Christoffel symbols as well as Riemann tensor are identically zero.
 
 
 
@@ -185,7 +404,7 @@ to be able to develop an appropriate/meaningful notion of parallelism, we need a
 
 
 
-\subsection{Giulini GR lectures May 19 and 26}
+		\subsection{Giulini GR lectures May 19 and 26}
 in Riemann normal coordinates, all Christoffel symbols vanish; but they only exist in neighbourhoods around points $p$ (are Riemann normal coordinates \emph{at $p$}); they are \emph{very} helpful in calculations because tensor equations only have to be proven in a single coordinate system, which we can choose to be Riemann normal coordinates because we have just shown that they do exist
 
 uhh, Christoffel symbols satisfy an affine transformation law, not linear (indicator of not tensorial) because there is term without $\Gamma_{\mu \nu}^\sigma$
@@ -265,8 +484,10 @@ first: do manifolds; then go to tangent space (we want vectors); then go to bund
 
 
 
-	\subsection{General Thoughts}
+		\subsection{General Thoughts}
 Schwarzschild metric contains information on many effects of BHs in its components! coefficient $1 - \frac{2 M}{r}$ in front of $dt^2$ tells us about time dilation close to BH (more $t$ goes by the closer you get) and $\frac{1}{1 - \frac{2 M}{r}}$ in front of $dr^2$ tells us about curvature of space (increases as $r$ decreases)
+
+-> this is general job of metric components, tell us how distances are affected (which can also be temporal ones in 4D spacetime)
 
 
 
@@ -281,7 +502,7 @@ differentiation is linear and has Leibniz rule, so it already fulfils requiremen
 
 
 
-	\subsection{From Wald}
+		\subsection{From Wald}
 the notion of curvature, intuitively, corresponds to the one of a $2$-sphere in 3D space; however, this is extrinsic curvature which is only visible in embeddings, but what we are interested in is something like intrinsic curvature; how can we detect that?
 
 

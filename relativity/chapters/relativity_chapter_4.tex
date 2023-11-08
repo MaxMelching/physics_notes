@@ -1,0 +1,290 @@
+\documentclass[ART_main.tex]{subfiles}
+%\input{../header}
+
+
+\begin{document}
+
+\chapter{General Relativity}
+
+despite its great success, Einstein soon realized that SR is incomplete
+
+
+
+SR dealt with uniformly moving frames, now we want to use the insights gained there to generalize discussions to accelerated frames -- this is what general relativity does (as it turns out, acceleration is very closely related to gravity, so GR is a theory of gravity as well)
+
+-> wrong, SR can handle acceleration (contrary to popular belief I feel)! GR is really about incorporating gravity
+
+
+
+
+
+
+	\section{Generalizing Relativity}
+		\subsection{Newtonian Gravity}
+Newtonian gravity can be captured in Newton's famous formula
+\begin{equation}
+	\eqbox{
+	F_g = - \frac{m_1 m_2}{r^2}
+	}
+\end{equation}
+which describes the gravitational force that an object with mass $m_1$ exerts onto another object with mass $m_2$ that is at a distance $r$. From Newton's second law, we know that the same force is exerted from the second object onto the first.
+
+
+This force can also be brought into the form
+\begin{equation}\label{eq:newton_potential}
+	F_g = m_2 \dv{r}\qty(\frac{m_1}{r}) = - m_2 \dv{\Phi_g}{r}
+\end{equation}
+which tells us that gravitation is a conservative force with potential 
+\begin{equation}
+	\eqbox{
+	\Phi_g = - \frac{m_1}{r}
+	}
+\end{equation}
+produced by some object with mass $m_1$. We get the conservative property from equation \eqref{eq:newton_potential} alone because gravitational force only has a radial and no angular component (thinking in polar/spherical coordinates). At the same time, $\Phi$ does not depend on angular coordinates, so any derivative with respect to them vanishes. Thus, \eqref{eq:newton_potential} is equivalent to the more general condition for conservative forces,
+% probably already follows from the fact that we can use d/dr when expressing the force (implies that no other partial derivates are important, right?)
+\begin{equation}\label{eq:cons_force}
+	\eqbox{
+	\vec{F} = - \vec{\nabla} \Phi
+	}
+	\manyqquad
+	F^k = - \delta^{k l} \pdv{\Phi}{x^l} \, .
+\end{equation}
+As a consequence, knowing the potential is sufficient for knowing how gravity acts. Thus, we are interested in how to determine $\Phi$ and this can be done using the Poisson equation. For a point-like particle, it takes the form
+\begin{equation}
+	\eqbox{
+	\Delta \Phi = \nabla^2 \Phi = 0
+	}
+\end{equation}
+while for a continuous mass distribution $\rho\qty(\vec{x})$
+\begin{equation}\label{eq:field_eq_newton}
+	\eqbox{
+	\Delta \Phi\qty(\vec{x}) = 4 \pi \rho\qty(\vec{x})
+	}
+	\manyqquad
+	\delta^{ij} \pdv[2]{\Phi(\vec{x})}{x^i}{x^j} = 4 \phi \rho\qty(\vec{x}) \, .
+\end{equation}
+
+Another perspective is not to look at forces $\vec{F}$, but at associated accelerations, which comes from Newton's second law
+\begin{equation}
+	\eqbox{
+	\vec{F} = m \vec{a} = m \dv[2]{\vec{r}}{t}
+	}
+	\manyqquad
+	F^k = m a^k = m \ddot{r}^k
+\end{equation}
+or at momenta $\vec{p}$, which are defined by
+\begin{equation}
+	\eqbox{
+	\vec{F} = \dv{\vec{p}}{t} \quad \Leftrightarrow \quad \vec{p} = m \vec{v}
+	}
+	\manyqquad
+	p^k = m v^k \, .
+\end{equation}
+
+
+
+\begin{ex}[Gravity on Earth]
+	The gravity exerted by Earth on objects with mass $m$ (assuming they are on Earth's surface for now) is
+	\begin{equation}
+		F_g = - m \frac{m_e}{r_e^2} = \eqbox{- m g}
+	\end{equation}
+	Comparing that to Newton's second formula, $F = m a$, we see that such an object experiences an acceleration
+	\begin{equation}
+		a = - g = - 9.81 \frac{\metre}{\second^2} = - 1.1 \cdot 10^{-16} \frac{1}{\metre} \, .
+	\end{equation}
+		\rem{note that we implicitly assume that gravitational mass and inertial mass are equal here. This is a non-trivial statement, which has been experimentally tested and verified to high precision.}
+	
+	To see how much potential energy is needed to lift objects of mass $m$ to a height $h \ll r_e$ above Earth's surface, we can do a Taylor expansion around $h = 0$:
+	\begin{align*}
+		\Phi_g = - \frac{m_e}{r_e + h} &\simeq - \eval{\frac{m_e}{r_e + h}}_{h = 0} + h \eval{\dv{h}\qty(- \frac{m_e}{r_e + h})}_{h = 0} + \mathcal{O}(h^2)
+		\\
+		&= - \frac{m_e}{r_e} + h \eval{\frac{m_e}{(r_e + h)^2}}_{h = 0} + \mathcal{O}(h^2)
+		\\
+		&= - \frac{m_e}{r_e} + h \frac{m_e}{r_e^2} + \mathcal{O}(h^2) = - \frac{m_e}{r_e} + h g + \mathcal{O}(h^2)
+	\end{align*}
+	%From that, we obtain the gravitational potential energy at $h$ to first order as the difference
+	However, the first contribution is nothing but the energy at Earth's surface. The energy that is needed to lift an object of mass $m$ to this height $h$ (which is what one is interested in most of the time; corresponds to gauging our measurements such that Earth's surface is the value with zero potential energy) is given to first order by the difference
+	\begin{equation}
+		\Phi_g =  - \frac{m_e}{r_e} + g h - (- \frac{m_e}{r_e}) = \eqbox{g h} \, .
+	\end{equation}
+	This is a well-known formula from classical mechanics.
+\end{ex}
+
+
+We see that gravity is related to a potential and thus to potential energy. Hence, we expect an objects energy to change if it moves in a gravitational field (in radial direction). This has interesting consequences, for example because light will also be affected by this.
+
+\begin{ex}[Gravitational Redshift]
+	we could build perpetual motion machine if redshift does not occur, idea: send particle with certain energy from top, convert it into photon at bottom and send photon back to top, where it gets converted into particle again; since particle picks up potential energy when falling, while photon is massless and does not need energy to go up, we would gain energy with each iteration; therefore, frequency and thus energy of photon must change on way up, that is gravity has effect on photons; how does that make sense, they have no mass?!
+	
+	I rather think about it like this (should be equivalent -> probably does not make too much sense, should gravity act on rest mass? Perhaps not, then this following does not make sense): SR tells us that photons have a certain mass $m = \frac{E}{c^2}$; therefore, it is also affected by a gravitational potential and to move against gravity, some of its energy has to be converted; that corresponds to a change in frequency when going from bottom to top, (since $f = \frac{E}{h}$; here, $h$ is the Planck constant, not height!):
+	\begin{equation}
+		\frac{f_\text{top}}{f_\text{bottom}} = \frac{E_\text{top}}{E_\text{bottom}} = \frac{m - m g h}{m} = 1 - g h
+	\end{equation}
+		\rem{in script, this is only true to first order, so derivation might be wrong... Result there reads $\frac{1}{1 + g h} \approx 1 - g h$ after Taylor around $gh = 0$. Ahhh, because of different setting: experiment starts from top, thus there is more energy at ground}
+\end{ex}
+
+A natural consequence because time/time differences are inversely proportional to frequency is that clocks tick faster at higher altitude, i.e.~for a weaker gravitational potential (more time passes compared to bottom, although we look at same object). It is also possible to derive this in reverse order, that is by showing that clocks tick slower in a stronger gravitational field. This causes a change in frequency and thus also a redshift.
+
+
+
+%reason for puzzling and seemingly inconsistent results: a frame where gravity acts is \emph{not} inertial (because we have external force in gravity, right?)!
+
+
+
+		\subsection{What is wrong with Newton (and SR)?}
+why is there even a need for generalizing relativity
+
+
+gravitational redshift and instantaneous effect of gravity
+
+
+
+special relativity came with the abandonment of absolute space and time -- so radical changes are to be expected if we want to incorporate gravity now... indeed, it will turn out that gravity is \emph{not} a force, but a fundamental geometrical property/feature of spacetime
+
+
+now, spacetime $\mathbb{M}$ is not Minkowski space anymore!!!
+
+
+geometric description we have begun (manifolds with metric) will be continued
+
+
+coordinate-related statements have no physical meaning due to relativity principle! Only covariant quantities have, in particular tensors (which is why we like them so much)
+
+
+
+		\subsection{Einstein Postulates}
+note: we built on SR and all its postulates, i.e.~we assume relativity principle, constancy of $c$ and clock postulate
+
+nice transition: do gravity on Earth example at the end of Newtonian gravity section, then state that we have used equivalence principle there already; different formulation is acceleration = gravity and Einstein recognized that instead of being some strange coincidence, this points to a fundamental feature in the nature of gravity
+
+
+do postulates by Einstein again as start, but now the ones for GR; weak equivalence principle + Einstein equivalence principle
+
+-> what about Mach principle? Ah, indeed needed (see \url{https://de.wikipedia.org/wiki/Relativit%C3%A4tsprinzip})
+
+
+we need inertial mass = gravitational mass for interpretation acceleration = gravity, right?
+
+
+
+question: As in, if I'm accelerating away from the Earth, then does the Earth also appear to be accelerating away from me at the same rate? Or is there something to "break" this type of symmetry?; answers: 1. 9
+
+Kinematically, yes. In terms of describing the positions of objects, it is equivalent to say "A is accelerating away from B" and "B is accelerating away from A". However, it is an observed fact that the universe treats these two situations differently. A and B can check whether they feel artificial gravity in their reference frame. If so, it's accelerating. As far as I know, the "way the universe decides" to break this symmetry is a topic of continuing speculation. 2. in GR, a frame is inertial if it's defined by a free-falling particle (A person in a rocket ship accelerating away from the earth is not free-falling)
+
+In an accelerating frame, the equivalence principle tells us that measurements will come out the same as if there were a gravitational field. But if the spacetime is flat, describing it in an accelerating frame doesn't make it curved. (Curvature is invariant under any smooth coordinate transformation.) Thus relativity allows us to have gravitational fields in flat space --- but only for certain special configurations like uniform fields. SR is capable of operating just fine in this context.
+
+
+\hrule
+
+
+thoughts on equivalence principle:
+
+acceleration is the same as effect of gravity; that means the fictitious forces caused there are analogous to gravity -- except that gravity occurs in inertial frames and is \emph{no} coordinate effect; nonetheless, that means they have same source -- mathematically speaking, this is Christoffel symbols (which imply non-zero curvature); therefore, since these features are tied to metric (in case of Levi-Civita connection, which is natural choice in physics) we see that cause of gravity is now geometry of spacetime itself -- gravity is \emph{not} a force (although its effect is similar to acceleration)
+
+
+
+		\subsection{Gravity in SR}
+Let us now think about gravity in special relativity. In principle, the Newtonian description is kept, but some effects can be examined in different manner now, e.g.~due to the new notion/tool of different inertial frames. However, a frame where gravity acts is \emph{not} inertial (objects are accelerated due to the external force in gravity)! Thus, to do physics on Earth, we have to find a reference frame in which the effect of gravity is cancelled out. Obviously, Earths surface is not sufficient and neither is a frame that is uniformly moving with respect to it. In free fall, however, we experience no gravity, that is a freely falling frame cancels out the effect of gravity. This can be stated more formally:
+\begin{prop}[Weak Equivalence Principle]
+	The effects of a gravitational field are indistinguishable from an accelerated frame of reference.
+\end{prop}
+Basically, that means only a freely falling frame can serve as an inertial frame on Earth. That raises the question what happens to the laws of physics in such a freely falling frame.
+
+\begin{prop}[Einstein Equivalence Principle]\label{prop:eep}
+	The laws of physics in a freely falling frame are locally described by SR without gravity. For this reason, such a frame is also called \Def[local inertial frame]{local inertial frame (LIF)}.
+\end{prop}
+Strictly mathematically speaking, \enquote{locally} refers to an infinitesimally small neighbourhood around points. The degree to which this locality can be extended (in practice, e.g.~in calculations) depends on the physical effects of interest.
+
+Since gravity acts radially, its direction changes in different places around Earth. That implies there is no uniform direction of acceleration, so there can be no global freely falling frame/LIF. Other properties of gravity which are known from experience are the following:
+\begin{itemize}
+	\item[(a)] All bodies (independent of structure and mass), which start with the same initial velocity, move through a gravitational field along the same curve
+	% mathematical counterpart: there is unique integral curve if we specify vector field (= velocity) in one point; this curve goes through this point (starts there to be precise) in direction of vector field and stays moving in direction of vector field at all points -> put in footnote?
+	
+	\item[(b)] Bodies, which move initially parallel to each other in a freely falling frame, do not necessarily move parallel at all times if an external gravitational field is present (this effect is due to \Def{tidal forces} acting on them)
+\end{itemize}
+
+Property (b) can be further quantified. For a particle with world line $x^k(\tau)$
+\begin{equation*}
+	\dv[2]{x^k}{\tau} = - \delta^{k l} \pdv{\Phi}{x^l} = - \delta^{k l} \eval{\pdv{\Phi}{x^l}}_{\vec{x}}
+\end{equation*}
+because of \eqref{eq:cons_force} and Newton's second law $F^k = m \dv[2]{x^k}{\tau}$. Similarly, for another particle starting close to the first one (i.e.~with world line $x^k + \xi^k$ with $\abs{\xi^k \xi_k} \ll 1$)
+\begin{align*}
+	\dv[2]{\qty(x^k + \xi^k)}{\tau} = - \delta^{k l} \eval{\pdv{\Phi}{x^l}}_{\vec{x} + \vec{\xi}} \simeq - \delta^{k l} \eval{\pdv{\Phi}{x^l}}_{\vec{x}} - \delta^{k l} \xi^m \pdv{x^m} \eval{\pdv{\Phi}{x^l}}_{\vec{x}}
+\end{align*}
+where we used a Taylor expansion to first order in $\xi^k$. The linearity of derivatives yields
+\begin{equation}\label{eq:tidal_newton}
+	\eqbox{
+	\dv[2]{\xi}{\tau} = \dv[2]{\qty(x^k + \xi^k)}{\tau} - \dv[2]{x^k}{\tau} = - \delta^{k l} \pdv[2]{\Phi}{x^m}{x^l} \, \xi^m
+	} \, .
+\end{equation}
+	\rem{note that the evaluation is still at the point $\vec{x}$, not at something related to $\xi^k$!}
+
+This is the \Def{Newtonian deviation equation}. We see that tidal forces are governed by the \Def{tidal acceleration tensor} $\pdv[2]{\Phi}{x^m}{x^l}$. Tidal forces are a way to detect gravity as opposed to constant acceleration (which would affect the world lines $x^k$ and $x^k + \xi^k$ equally).
+
+
+
+		\subsection{Curved Spacetime}
+In SR, the Newtonian description of gravity is still taken to be valid. That, however, is a problem because there are many inconsistencies between them, for example the instantaneous effect of gravity (gravitational redshift is also puzzling). However, we can come up with a generalized description: for anybody familiar with differential/Riemannian geometry, the effects (a), (b) of gravity stated above sound very much like the ones associated with a curved manifold. This motivates the (mathematical) description of gravity as a geometrical effect in Minkowskian spacetime (which will become a curved space in this process). Many relations known from SR will remain, but with different quantities and most prominently, a metric other than $\eta$. The basic goal of \Def{general relativity} (GR) will be to find ways to derive the metric, which contains information about spacetime curvature and thus gravity.\\
+
+
+The approach in this subsection will always be to look how generalizations can be made using the metric and other tools of geometry, while recovering SR in a LIF. The first quantity to perform this check for will be the metric itself. Thus, we will now look at how the mathematical term \enquote{locally} is to be thought of. Taking an arbitrary metric with components $g_{\mu \nu}$ in some basis, we can always transform to other coordinates using the tensor transformation law \eqref{eq:tensor_trafo}. This gives us a certain freedom in choosing suitable coordinates and since the number of components in the transformation is $4 \cdot 4 = 16$, while the metric only has $10$ independent components (due to its symmetry), we can always achieve
+\begin{equation*}
+	g'_{\mu \nu}(p) = \eta_{\mu \nu}
+\end{equation*}
+at a given point $p$ (not globally!). Going one step further, we can even achieve an equality in the first derivatives using the same idea of gauge freedom. This procedure stops at the second order, though. All in all, we can always find a frame where
+\begin{equation}\label{eq:lif_properties}
+	\eqbox{
+	g_{\mu \nu}(p) = \eta_{\mu \nu}
+	}
+	\qquad \qquad
+	\eqbox{
+	\eval{\pdv{g_{\mu \nu}}{x^\alpha}}_p = 0
+	}
+	\qquad \qquad
+	\eqbox{
+	\eval{\pdv[2]{g_{\mu \nu}}{x^\alpha}{x^\beta}}_p \neq 0
+	}
+\end{equation}
+and this frame is a LIF. Here, the metric is flat in $p$, but deviates more and more from that as we go farther away from $p$ (it is \enquote{flat to first order}).\\
+%in (a neighbourhood of) $p$.\\ -> does not hold anymore in neighbourhood, right?
+%In this frame, points $p'$ in the neighbourhood of $p$ still possess the Minkowskian metric (to first order).\\
+
+Another note on the use of metrics concerns causality. In SR (and thus in a LIF), the value of inner products $v^\alpha v_\alpha$ determined if $v^\alpha$/the corresponding trajectory is timelike/null/spacelike. Since $v^\alpha v_\alpha$ is a function/number and thus a $0$-tensor, this statement is coordinate-independent. Therefore, every other frame inherits the lightcone structure from SR.
+
+
+
+		\subsection{Notes}
+Penrose has incredibly well written section 17.9 on intuition about metric and light cone structure in GR
+
+
+-> interesting, acceleration is absolute in SR, but relative in GR (because spacetime curved there)
+
+
+we have seen how to compute proper times in special relativity, the formula could be broken down to 
+\begin{equation}
+	\tau = \int d\tau = \frac{1}{c} \int ds = \frac{1}{c} \int \sqrt{g_{\mu \nu} v^\mu v^\nu} \, dt
+\end{equation}
+in fact, this formula also holds for $v = v(t)$, i.e.~when a time-dependent velocity and thus acceleration is present (we can compute dynamics); this is because it does not involve absolute differences like $x - x'$, but infinitesimal ones $dx$ along the whole path, so changes in $v$ are incorporated automatically; however, we have to use other metrics in this case and general relativity presents a general way to compute the metric
+
+
+
+four-velocity: using chain rule, we can write $U^\alpha = \dv{x^\alpha}{\tau} = \dv{t}{\tau} \dv{x^\alpha}{t} =: \gamma (c, \vec{v})$ in general; this $\gamma = \dv{t}{\tau} = \pdv{t}{\tau}$ then depends on the metric, it is the square root of the (negative of, depends convention that is chosen regarding metric) component $g_{tt}$
+
+
+
+
+
+
+\newpage
+
+
+
+	\section{Giulini Lectures}
+from 10 on (until 16) he deals with GWs, noice
+
+
+
+
+
+
+\end{document}

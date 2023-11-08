@@ -29,6 +29,17 @@
 Acknowledgements:
 
 Code for spacetime diagrams is inspired by the one presented in \url{https://de.overleaf.com/latex/templates/minkowski-spacetime-diagram-generator/kqskfzgkjrvq}
+
+
+Code for awesome clock figures comes from \url{https://tex.stackexchange.com/questions/596943/a-grid-in-a-cartesian-plane-of-clocks-using-clock-package}
+
+
+Lecture information by Giulini at \url{https://www.itp.uni-hannover.de/de/ag/giulini/lehre/ws2122-foundations-and-applications-of-special-relativity/}, where script is linked as well (although link to script did not work last time I checked, unfortunately). Also link to Dragon script there, which is pretty much the same as book (just formatting different)
+
+Lecture by Frank Ohme with accompanying notes
+
+
+I can really recommend reading what Einstein himself wrote about his theories; in particular, the original paper \enquote{On the electrodynamics of moving bodies} and his Nobel lecture are definitely worth the read (or rather multiple reads)
 \end{center}
 
 
@@ -71,6 +82,12 @@ Code for spacetime diagrams is inspired by the one presented in \url{https://de.
 	\item[\textbf{SR}] special relativity
 
 	\item[\textbf{GR}] general relativity
+	
+	\item[\textbf{ICCs}] inertial Cartesian coordinates
+	
+	\item[\textbf{MCIF}] momentarily comoving inertial frame
+	
+	\item[\textbf{LIF}] local inertial frame
 \end{itemize}
 
 
@@ -78,15 +95,21 @@ Code for spacetime diagrams is inspired by the one presented in \url{https://de.
 \section*{Mathematical Notation}
 
 \begin{itemize}
-\item[$a$] thin letters (lower and upper case) are used to denote scalar values and variables with scalar values
+	\item[$a$] thin letters (lower and upper case) are used to denote scalar values and variables with scalar values
+	
+	\item[$\vec{a}$] thin letters with arrows are used to denote three-vectors. Their components have latin indices, e.g.~$a^k$
+	
+	\item[$\underline{a}$] thin, underlined letters are used to denote four-vectors. Their components have greek indices, e.g.~$a^\mu$
+	
+	\item[$\mathbf{A}$] bold, capital letters are used to denote more general tensors. Their components have greek indices, e.g.~$A^\mu$
+	
+	\item[$a^\mu b_\mu$] the Einstein summation convention is adopted, where repeated indices denote sums: $$a^\mu b_\mu = \sum_\mu a^\mu b_\mu$$
+	
+	\item[$\equiv$] this symbol means something like \enquote{corresponds to} or \enquote{is equivalent}
 
-\item[$\vec{a}$] thin letters with arrows are used to denote three-vectors
+	\item[$:=$] this symbol is used to define new symbols and names
 
-\item[$\underline{a}$] thin, underlined letters are used to denote four-vectors
-
-\item[$\mathbf{A}$] bold, capital letters are used to denote matrices
-
-\item[$a^\mu b_\mu$] the Einstein summation convention is adopted, where repeated indices denote sums: $$a^\mu b_\mu = \sum_\mu a^\mu b_\mu$$
+	\item[$\simeq$] this symbol is used to indicate Taylor expansions
 \end{itemize}
 
 
@@ -108,7 +131,10 @@ Code for spacetime diagrams is inspired by the one presented in \url{https://de.
 \subfile{chapters/relativity_chapter_3}
 
 
-\iffalse
+\subfile{chapters/relativity_chapter_4}
+
+
+
 \appendix
 
 
@@ -136,8 +162,8 @@ Code for spacetime diagrams is inspired by the one presented in \url{https://de.
 
 \printindex
 
-\addcontentsline{toc}{chapter}{Index}%can be omitted when using of tocbibind
+\addcontentsline{toc}{chapter}{Index}%can be omitted when using tocbibind
 
-\fi
+
 
 \end{document}
