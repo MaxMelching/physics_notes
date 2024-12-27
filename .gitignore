@@ -1,83 +1,35 @@
-analysis/Bilder/**
+# -- Ignoring tex related file extensions
 
-analysis/H_Analysis_main.**
+*.aux
 
-!analysis/H_Analysis_main.tex
+*.bbl
 
-!analysis/H_Analysis_main.pdf
+*.blg
 
-!analysis/header.tex
+*.fdb_latexmk
 
-analysis/chapters/**
+*.fls
 
-!analysis/chapters/H_Analysis_chapter1.tex
+*.idx
 
-!analysis/chapters/H_Analysis_chapter2.tex
+*.ilg
 
-!analysis/chapters/H_Analysis_chapter3.tex
+*.ind
 
-!analysis/chapters/H_Analysis_chapter4.tex
+*.out
 
-!analysis/chapters/H_Analysis_chapter5.tex
+*.lof
 
-!analysis/chapters/H_Analysis_chapter6.tex
+*.log
 
-!analysis/chapters/H_Analysis_chapter7.tex
+*.synctex.*
 
-
-
-probability/**
-
-!probability/data_analysis.tex
-
-!probability/data_analysis.pdf
+*.toc
 
 
+# -- Only main pdf will be saved
+*.pdf
 
-mechanics/Bilder/**
+!*_main.pdf
 
-mechanics/KlassMech_main.**
-
-!KlassMech_main.tex
-
-!KlassMech_main.pdf
-
-!mechanics/header.tex
-
-mechanics/chapters/**
-
-!mechanics/chapters/KlassMech_chapter1.tex
-
-!mechanics/chapters/KlassMech_chapter2.tex
-
-!mechanics/chapters/KlassMech_chapter3.tex
-
-!mechanics/chapters/KlassMech_chapter4.tex
-
-!mechanics/chapters/KlassMech_chapter5.tex
-
-
-
-relativity/pictures/**
-
-relativity/header**
-
-!relativity/header.tex
-
-relativity/relativity_main.**
-
-!relativity/relativity_main.tex
-
-!relativity/relativity_main.pdf
-
-relativity/title_page.**
-
-!relativity/title_page.tex
-
-relativity/chapters/**
-
-!relativity/chapters/relativity_chapter_1.tex
-
-!relativity/chapters/relativity_chapter_2.tex
-
-!relativity/chapters/relativity_chapter_3.tex
+relativity/code/Calculations.nb
