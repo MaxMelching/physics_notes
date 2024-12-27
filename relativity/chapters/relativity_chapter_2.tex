@@ -1,5 +1,5 @@
-\documentclass[ART_main.tex]{subfiles}
-%\input{../header}
+%\documentclass[ART_main.tex]{subfiles}
+\input{../header}
 
 
 
@@ -305,6 +305,8 @@ Accordingly, the events $E_1, E_2$ are called timelike-separated, null-/lightlik
 % Nice inctroduction from previous subsection, but not needed anymore I think: we want equivalent results in all frames; if we try to measure a distance, this requires a notion of \enquote{at the same time}; harder than it sounds (communication cannot happen instantaneously, as we have just learned), but this is why we will deal with measuring time now, i.e.~clocks -> maybe put into introduction of clocks
 Until now, we have not really discussed the notion of time. Partly, this is because we natively have a very clear, intuitive understanding of time: we look at clocks to measure it and this notion can be employed anywhere in space -- just take a look at equal clocks in different points and compare their readings. This definition is employed in Newtonian physics, without much more attention being needed.
 
+-> what requirements do we even have on a notion of time for it to be considered \enquote{good}? As Misner-Thorne-Wheeler state, it has to make the trajectory of free particles look simple. To see how these trajectories might change depending on this choice (that we have always assumed to be given until now), let us take a look at \eqref{eq:newton_2}, which is the equation of motion. For a free particle, $v = \text{const.}$ and thus $F = 0$ -- free particles move in a straight line. However, the denominator contains $t$, just like $v^k = \dv{x^k}{t}$. For this reason, our notion of \enquote{constant} itself depends on the time standard we have chosen! As MTW show very illustratively, if we were to measure time in solar days, this would mean that the distance zurückgelegt in order to keep the velocity constant would change -- which makes it look like a force is at work. This is a very undesirable behaviour -> could even show with chain rule how things look like written out in terms of the usual notion of time, showing that we get something of the form $\dots = \dv{p^k}{t}$
+
 
 However, as it is the story for much of relativity theory, this notion essentially breaks down once we go to more extreme situations like distances on cosmic scales or clocks moving relative to each other with high velocities. In both of those cases, timing the reading of a clock and hence comparing if they show the same time is difficult. For large distances, this is rather easy to see because information is transmitted at a finite speed $\leq c$, so when receiving information about the measurement result $t$ of a far-away clock, we have to take into account the time it travelled to us in order to find out which event happened simultaneously to $t$.
 
@@ -453,57 +455,13 @@ then the clocks $\mathcal{C}^R, \mathcal{C}, \mathcal{C}'$ are synchronized. By 
 	%\thisfloatpagestyle{onlyheader} % Not needed with caption on side
 	
 	\subfloat[Observers at rest relative to each other in their rest frame]{
+		\input{../pictures/synchronization_resting_observers_a.tex}
 	%\hspace*{0.05\textwidth}
-	\begin{tikzpicture}[scale=1.2]
-	    % Draw lines of observers
-	    \draw[->, thick] (-1.0, 0) -- (-1.0, 6);
-	    \draw[->, thick] (1.0, 0) -- (1.0, 6);
-	    \draw[->, thick] (0.0, 0) -- (0.0, 6);
-	
-	    % Draw trajectories of light
-	    \draw[->, thick, black!10!yellow] (-1.0, 0.5) -- (1.0, 2.5);
-	    \draw[->, thick, black!10!yellow] (1.0, 2.5) -- (-1.0, 4.5);
-	    \draw[->, thick, black!10!yellow] (1.0, 0.5) -- (-1.0, 2.5);
-	    \draw[->, thick, black!10!yellow] (-1.0, 2.5) -- (1.0, 4.5);
-	
-	    % Make labels
-	    \draw (-1.0, 0) node[left] {$\mathcal{O}$};
-	    \draw (-1.0, 0.5) node[left] {$t_-$};
-	    \draw (-1.0, 4.5) node[left] {$t_+$};
-	    \draw (1.0, 2.5) node[right] {$t'$};
-	    \draw (1.0, 0) node[right] {$\mathcal{O}'$};
-	    \draw (1.0, 0.5) node[right] {$t'_-$};
-	    \draw (1.0, 4.5) node[right] {$t'_+$};
-	    \draw (-1.0, 2.5) node[left] {$t$};
-	    \draw (0.0, 0) node[below] {$\mathcal{R}$};
-	\end{tikzpicture}
 	}\hspace*{0.2\textwidth}
 	%
 	\subfloat[Observers at rest relative to each other in frame moving relative to them]{
 	%\hspace*{0.05\textwidth}
-	\begin{tikzpicture}[scale=1.2]
-	    % Draw lines of observers
-	    \draw[->, thick] (-1.0, 0) -- (0.7999999999999998, 6);
-	    \draw[->, thick] (1.0, 0) -- (2.8, 6);
-	    \draw[->, thick] (0.0, 0) -- (1.7999999999999998, 6);
-	
-	    % Draw trajectories of light
-	    \draw[->, thick, black!10!yellow] (-0.85, 0.5) -- (2.007142857142857, 3.357142857142857);
-	    \draw[->, thick, black!10!yellow] (2.007142857142857, 3.357142857142857) -- (0.4686813186813188, 4.895604395604396);
-	    \draw[->, thick, black!10!yellow] (1.347802197802198, 1.1593406593406594) -- (-0.19065934065934043, 2.697802197802198);
-	    \draw[->, thick, black!10!yellow] (-0.19065934065934065, 2.697802197802198) -- (2.666483516483517, 5.554945054945055);
-	
-	    % Make labels
-	    \draw (-1.0, 0) node[left] {$\mathcal{O}''$};
-	    \draw (-0.85, 0.5) node[left] {$t''_-$};
-	    \draw (0.4686813186813188, 4.895604395604396) node[left] {$t''_+$};
-	    \draw (2.007142857142857, 3.357142857142857) node[right] {$t'''$};
-	    \draw (1.0, 0) node[right] {$\mathcal{O}'''$};
-	    \draw (1.347802197802198, 1.1593406593406594) node[right] {$t'''_-$};
-	    \draw (2.6664835164835163, 5.554945054945055) node[right] {$t'''_+$};
-	    \draw (-0.19065934065934065, 2.697802197802198) node[left] {$t''$};
-	    \draw (0.0, 0) node[below] {$\mathcal{R}'$};
-	\end{tikzpicture}
+		\input{../pictures/synchronization_resting_observers_b.tex}
 	}%\hspace*{0.025\textwidth}
 	
 	\vspace*{4\baselineskip}
@@ -513,73 +471,7 @@ then the clocks $\mathcal{C}^R, \mathcal{C}, \mathcal{C}'$ are synchronized. By 
 		
 		\subfloat[Comparison of all observers from (a) and (b). For simplicity, we assume that the clock $\mathcal{C}$ and $\mathcal{C}''$ show the same time $t = t''$ on intersection of $\mathcal{O}, \mathcal{O}''$. Despite that, they cannot agree on the time of intersection of $\mathcal{O}', \mathcal{O}'''$, $t' \neq t'''$.]{
 		%\hspace*{0.05\textwidth}
-		\begin{tikzpicture}[scale=1.2]
-			% First resting observers
-		
-%			% Draw lines of observers
-%		    \draw[->, thick] (-0.19065934065934065, 0) -- (-0.19065934065934065, 6);
-%		    \draw[->, thick] (2.007142857142857, 0) -- (2.007142857142857, 6);
-%		    \draw[->, thick] (0.8999999999999999, 0) -- (0.8999999999999999, 6);
-%		
-%		    % Draw trajectories of light
-%		    \draw[->, thick, black!10!yellow] (-0.19065934065934065, 0.5) -- (2.007142857142857, 2.697802197802198);
-%		    \draw[->, thick, black!10!yellow] (2.007142857142857, 2.697802197802198) -- (-0.19065934065934065, 4.895604395604396);
-%		    \draw[->, thick, black!10!yellow] (2.007142857142857, 0.5) -- (-0.19065934065934065, 2.697802197802198);
-%		    \draw[->, thick, black!10!yellow] (-0.19065934065934065, 2.697802197802198) -- (2.007142857142857, 4.895604395604396);
-%		
-%		    % Make labels
-%		    \draw (-0.19065934065934065, 0) node[left] {$\mathcal{O}''$};
-%		    \draw (2.007142857142857, 2.697802197802198) node[right] {$t'$};
-%		    \draw (2.007142857142857, 0) node[right] {$\mathcal{O}'''$};
-%		    \draw (-0.19065934065934065, 2.697802197802198) node[left] {$t = t''$};
-%		    \draw (0.8999999999999999, 0) node[below] {$\mathcal{R}'$};
-
-
-
-		% Version 2 of code, different goal now: same x-distances between resting, moving ones -> then we can really see asynchrony
-
-
-	    % Draw lines of observers
-	    \draw[->, thick] (-0.19065934065934065, 0) -- (-0.19065934065934065, 6);
-	    \draw[->, thick] (1.8093406593406594, 0) -- (1.8093406593406594, 6);
-	    \draw[->, thick] (0.8093406593406594, 0) -- (0.8093406593406594, 6);
-	
-	    % Draw trajectories of light
-	    \draw[->, thick, black!10!yellow] (-0.19065934065934065, 0.697802197802198) -- (1.8093406593406594, 2.697802197802198);
-	    \draw[->, thick, black!10!yellow] (1.8093406593406594, 2.697802197802198) -- (-0.19065934065934065, 4.697802197802198);
-	    \draw[->, thick, black!10!yellow] (1.8093406593406594, 0.697802197802198) -- (-0.19065934065934065, 2.697802197802198);
-	    \draw[->, thick, black!10!yellow] (-0.19065934065934065, 2.697802197802198) -- (1.8093406593406594, 4.697802197802198);
-	
-	    % Make labels
-	    \draw (-0.19065934065934065, 0) node[left] {$\mathcal{O}$};
-	    \draw (1.8093406593406594, 2.697802197802198) node[right] {$t'$};
-	    \draw (1.8093406593406594, 0) node[right] {$\mathcal{O}'$};
-	    \draw (-0.19065934065934065, 2.697802197802198) node[left] {$t = t''$};
-	    \draw (0.8093406593406594, 0) node[below] {$\mathcal{R}$};
-		
-		
-		
-			% Now moving observers
-		
-		
-		    % Draw lines of observers
-		    \draw[->, thick] (-1.0, 0) -- (0.7999999999999998, 6);
-		    \draw[->, thick] (1.0, 0) -- (2.8, 6);
-		    \draw[->, thick] (0.0, 0) -- (1.7999999999999998, 6);
-		
-		    % Draw trajectories of light
-		    \draw[->, thick, black!10!yellow] (-0.85, 0.5) -- (2.007142857142857, 3.357142857142857);
-		    \draw[->, thick, black!10!yellow] (2.007142857142857, 3.357142857142857) -- (0.4686813186813188, 4.895604395604396);
-		    \draw[->, thick, black!10!yellow] (1.347802197802198, 1.1593406593406594) -- (-0.19065934065934043, 2.697802197802198);
-		    \draw[->, thick, black!10!yellow] (-0.19065934065934065, 2.697802197802198) -- (2.666483516483517, 5.554945054945055);
-		
-		    % Make labels
-		    \draw (-1.0, 0) node[left] {$\mathcal{O}''$};
-		    \draw (2.007142857142857, 3.357142857142857) node[right] {$t'''$};
-		    \draw (1.0, 0) node[right] {$\mathcal{O}'''$};
-		    %\draw (-0.19065934065934065, 2.697802197802198) node[left] {$t$};
-		    \draw (0.0, 0) node[below] {$\mathcal{R}'$};
-		\end{tikzpicture}
+			\input{../pictures/synchronization_resting_observers_b.tex}
 		}
 	\end{minipage}%\hfill
 	\begin{minipage}{0.5\textwidth}
@@ -689,74 +581,12 @@ which is what we expect. However, $\mathcal{O}$ and $\mathcal{O}'$ are not in th
 	%\thisfloatpagestyle{onlyheader} % Not needed with caption on side
 	
 	\subfloat[Observers moving with relative velocity $v = 0.6 c$]{
-	\begin{tikzpicture}[scale=1.2]
-	    % Draw lines of observers
-	    \draw[->, thick] (-0.55, -1.5) -- (-2.5, 5);
-	    \draw[->, thick] (0.55, -1.5) -- (2.5, 5);
-	    \draw[->, thick] (-0.0, -1.5) -- (0.0, 5);
-	
-	    % Draw trajectories of light
-	    \draw[->, thick, black!10!yellow] (-0.7, -1) -- (1.3, 1.0);
-	    \draw[->, thick, black!10!yellow] (1.3, 1.0) -- (-2.4142857142857137, 4.7142857142857135);
-	    \draw[->, thick, black!10!yellow] (0.7, -1.0) -- (-1.3, 1.0);
-	    \draw[->, thick, black!10!yellow] (-1.3, 1.0) -- (2.4142857142857137, 4.7142857142857135);
-	
-	    % Draw lines of simultaneity
-	    %\draw[thick, blue] (-1.407142857142857, 1.357142857142857) -- (1.407142857142857, 1.357142857142857);
-	    %\draw[thick, blue] (-1.557142857142857, 1.8571428571428568) -- (1.557142857142857, 1.8571428571428568);
-	    \draw[thick, blue] (-1.3, 1.0) -- (1.3, 1.0);
-	
-	    % Make labels
-	    \draw (-0.55, -1.5) node[left] {$\mathcal{O}$};
-	    \draw (-0.7, -1) node[left] {$t_-$};
-	    \draw (-2.4142857142857137, 4.7142857142857135) node[left] {$t_+$};
-	    \draw (1.3, 1.0) node[right] {$\tau'$};
-	    \draw (1.407142857142857, 1.357142857142857) node[right] {$t'$};
-	    %\draw (1.557142857142857, 1.8571428571428568) node[right] {$t'$};
-	    \draw (0.55, -1.5) node[right] {$\mathcal{O}'$};
-	    \draw (0.7, -1.0) node[right] {$t'_-$};
-	    \draw (2.4142857142857137, 4.7142857142857135) node[right] {$t'_+$};
-	    \draw (-1.3, 1.0) node[left] {$\tau$};
-	    \draw (-1.407142857142857, 1.357142857142857) node[left] {$t$};
-	    %\draw (-1.557142857142857, 1.8571428571428568) node[left] {$t$};
-	    \draw (-0.0, -1.5) node[below] {$\mathcal{R}$};
-	\end{tikzpicture}
+		\input{../pictures/synchronization_moving_observers_a.tex}
 	}\hspace*{0.2\textwidth}
 	%
 	\subfloat[Observers moving with relative velocity $v = 0.5 c$]{
 	%\hspace*{0.05\textwidth}
-	\begin{tikzpicture}[scale=1.2]
-	    % Draw lines of observers
-	    \draw[->, thick] (-0.6, -4) -- (-1.3, 3);
-	    \draw[->, thick] (-0.6000000000000001, -4) -- (2.2, 3);
-	    \draw[->, thick] (-0.6000000000000001, -4) -- (0.45000000000000007, 3);
-	
-	    % Draw trajectories of light
-	    \draw[->, thick, black!10!yellow] (-0.8, -2) -- (0.8666666666666667, -0.33333333333333326);
-	    \draw[->, thick, black!10!yellow] (0.8666666666666667, -0.33333333333333326) -- (-1.1703703703703705, 1.703703703703704);
-	    \draw[->, thick, black!10!yellow] (0.2504201680672269, -1.8739495798319328) -- (-0.930718954248366, -0.6928104575163399);
-	    \draw[->, thick, black!10!yellow] (-0.930718954248366, -0.6928104575163399) -- (1.8252723311546843, 2.0631808278867103);
-	
-	    % Draw lines of simultaneity
-	    %\draw[thick, blue] (-1.0018518518518518, 0.0185185185185186) -- (1.1764083411142234, 0.4410208527855588);
-	    %\draw[thick, blue] (-0.9851851851851853, -0.14814814814814803) -- (1.0378462496109555, 0.09461562402738877);
-	    \draw[thick, blue] (-0.930718954248366, -0.6928104575163399) -- (0.8666666666666667, -0.33333333333333326);
-	
-	    % Make labels
-	    \draw (-0.6, -4) node[left] {$\mathcal{O}$};
-	    \draw (-0.8, -2) node[left] {$t_-$};
-	    \draw (-1.1703703703703705, 1.703703703703704) node[left] {$t_+$};
-	    \draw (0.8666666666666667, -0.33333333333333326) node[right] {$\tau'$};
-	    \draw (1.1764083411142234, 0.4410208527855588) node[right] {$t'$};
-	    %\draw (1.0378462496109555, 0.09461562402738877) node[right] {$t'$};
-	    \draw (-0.6000000000000001, -4) node[right] {$\mathcal{O}'$};
-	    \draw (0.2504201680672269, -1.8739495798319328) node[right] {$t'_-$};
-	    \draw (1.8252723311546841, 2.0631808278867103) node[right] {$t'_+$};
-	    \draw (-0.930718954248366, -0.6928104575163399) node[left] {$\tau$};
-	    \draw (-1.0018518518518518, 0.0185185185185186) node[left] {$t$};
-	    %\draw (-0.9851851851851853, -0.14814814814814803) node[left] {$t$};
-	    \draw (-0.6000000000000001, -4) node[below] {$\mathcal{R}$};
-	\end{tikzpicture}
+		\input{../pictures/synchronization_moving_observers_b.tex}
 	}
 	
 	\caption[Synchronization procedure in spacetime diagrams for moving observers]{Synchronization procedure in spacetime diagrams for moving observers.\protect\footnotemark\\

@@ -757,8 +757,13 @@ def moving_clocks_single_fig(v1, v2, tstart, tend, t0, t0prime=None):
     # v_rel = (v1 + v2) / (1 + v1 * v2)  # v31 uknown here, want v21 (computed above)
     # v_avg = (-v_rel + v2) / (-1 + v_rel * v2)  # Inferred from Dragon Abb. 2.7
 
-    v_avg = (v1 + v2) / (1 + v1 * v2) / 2  # just using addition of velocities
-
+    # v_avg = (v1 + v2) / (1 + v1 * v2) / 2  # just using addition of velocities
+    
+    if v1 != -v2:
+        v_avg = get_half_velocity(add_velocities(v1, v2))
+    else:
+        v_avg = 0.
+    
 
     def line1(t):  # Observer 1
         return (-1 + v1 * t, t)
@@ -849,6 +854,20 @@ def moving_clocks_single_fig(v1, v2, tstart, tend, t0, t0prime=None):
     '''
 
 
+import math as m
+
+def add_velocities(v1: float, v2: float) -> float:
+    # return v1 + v2
+    return (v1 + v2) / (1. + v1 * v2)
+
+
+def get_half_velocity(v: float) -> float:
+    # https://www.wolframalpha.com/input?i=solve+2*v%2F%281%2Bv%5E2%29%3D%3Dx+for+v
+    # return (1. + np.sqrt(1 - v**2))/v, (1. - np.sqrt(1 - v**2))/v  # Testing solutions
+    # return (1.-np.sqrt(1-v**2))/v
+    return (1.-m.sqrt(1-v**2))/v
+    # TODO: make distinction with input smaller/greater than zero?
+
 
 def moving_clocks_v2(v1, v2, tstart, tend, t0, t0prime=None):
     """
@@ -890,7 +909,15 @@ def moving_clocks_v2(v1, v2, tstart, tend, t0, t0prime=None):
         # else:
         #     return (0, t)
         
-        return (v_avg * t, t)
+        # return (v_avg * t, t)
+        
+        if v1 != -v2:
+            v_ref = get_half_velocity(add_velocities(v1, v2))
+        else:
+            v_ref = 0.
+        
+        return (v_ref * t, t)
+        
 
     def light_l_to_r(t, t0):
         return (v1 * t0 + t, t0 + t)
