@@ -1,4 +1,5 @@
-\input{header}
+\input{../standard_header}
+\input{header_addons}
 
 
 
@@ -145,24 +146,24 @@ I can really recommend reading what Einstein himself wrote about his theories; i
 
 
 
-\bibliographystyle{IEEEtran}% only one to show urls except for nature ones
-%{sn-standardnature}{sn-mathphys}{sn-vancouver}% have undefined command
-%{phjcp}% in principle cool (author in \sc), but errors + problems with titles
-%{apsrev}% no numeric numbering and problems with titles
-%{plain}%siam does not work, ieeetr does not include everything it should (and with authors does not work; makes order after point of citation)
-\bibliography{biblio}
+% \bibliographystyle{IEEEtran}% only one to show urls except for nature ones
+% %{sn-standardnature}{sn-mathphys}{sn-vancouver}% have undefined command
+% %{phjcp}% in principle cool (author in \sc), but errors + problems with titles
+% %{apsrev}% no numeric numbering and problems with titles
+% %{plain}%siam does not work, ieeetr does not include everything it should (and with authors does not work; makes order after point of citation)
+% \bibliography{biblio}
 
-\addcontentsline{toc}{chapter}{References}%{Bibliography}%can be omitted when using of tocbibind
+\printbibliography % for biblatex package
 
-%\printbibliography % for biblatex package
+\addcontentsline{toc}{chapter}{References}  % Can be omitted when using of tocbibind
 
-%\clearpage
 
+\clearpage
 
 
 \printindex
 
-\addcontentsline{toc}{chapter}{Index}%can be omitted when using tocbibind
+\addcontentsline{toc}{chapter}{Index}  % Can be omitted when using tocbibind
 
 
 
