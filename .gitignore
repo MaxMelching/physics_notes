@@ -1,5 +1,4 @@
 # -- Ignoring tex related file extensions
-
 *.aux
 
 *.bbl
@@ -37,7 +36,7 @@
 !*_main.pdf
 
 # -- We do want pdf pictures to be included
-!*pictures/*.pdf
+!*/pictures/*.pdf
 
 relativity/code/Calculations.nb
 
