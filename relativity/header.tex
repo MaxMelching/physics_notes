@@ -4,7 +4,10 @@
 
 \usepackage[singlespacing]{setspace}
 \usepackage{lastpage}
-\usepackage[automark, headsepline]{scrlayer-scrpage}
+\usepackage[
+	automark,
+	%headsepline,
+]{scrlayer-scrpage}
 \clearscrheadings
 \setlength{\headheight}{\baselineskip}
 %\automark[part]{section}
@@ -13,6 +16,8 @@
 \automark*[chapter]{subsection}
 \ihead[]{\headmark}
 %\ohead[]{Seite~\thepage}
+
+
 \cfoot{\hypersetup{linkcolor=black}Page~\thepage~of~\pageref{LastPage}}
 
 \usepackage[utf8]{inputenc}
@@ -48,7 +53,7 @@
 \numberwithin{figure}{chapter}%{section}
 \numberwithin{table}{chapter}%{section}
 \usepackage{empheq}
-\usepackage{tikz-cd}%für Kommutationsdiagramme
+\usepackage{tikz-cd}%für Kommutationsdiagramme -> important, somehow arrows seem to come from here
 \usepackage{tikz}
 \usepackage{pgfplots}
 \usepackage{mdframed}
@@ -116,11 +121,24 @@
 
 \usepackage[most]{tcolorbox}
 %\colorlet{eqcolor}{}
-\tcbset{on line, 
-        boxsep=4pt, left=0pt,right=0pt,top=0pt,bottom=0pt,
-        colframe=cyan,colback=cyan!42,
-        highlight math style={enhanced}
-        }
+\definecolor{atomictangerine}{rgb}{1.0, 0.6, 0.4}
+\definecolor{bittersweet}{rgb}{1.0, 0.44, 0.37}
+\definecolor{burntsienna}{rgb}{0.91, 0.45, 0.32}
+\definecolor{coral}{rgb}{1.0, 0.5, 0.31}
+\definecolor{outrageousorange}{rgb}{1.0, 0.43, 0.29}
+
+\tcbset{
+	on line, 
+	boxsep=4pt, left=0pt,right=0pt,top=0pt,bottom=0pt,
+%	colframe=cyan,colback=cyan!42,
+	% Testing with new colors
+%	colframe=coral,colback=coral!42, % Very nice, decent
+%	colframe=burntsienna,colback=burntsienna!42, % A bit darker than coral, but still Very nice
+%	colframe=bittersweet,colback=bittersweet!42, % More red than coral, thus a bit more punch, but nice still
+	colframe=atomictangerine,colback=atomictangerine!42, % More of a classical orange, very light and thus decent -> might be favorite right now
+%	colframe=outrageousorange,colback=outrageousorange!42, % A bit stronger color, but nice
+	highlight math style={enhanced}
+}
 
 \newcommand{\eqbox}[1]{\tcbhighmath{#1}}
 
@@ -265,6 +283,7 @@ backgroundcolor=gray!8}
 		\draw[lightyellow, thick] (-#2 * \diagramStepsize * \helpval, #2 * \diagramStepsize * \helpval) -- (#2 * \diagramStepsize * \helpval, -#2 * \diagramStepsize * \helpval);
 	}{}
 }
+% Hmmm, replace spacetimediagram code by just calling \addobserver with velocity of zero? Then light cone stuff would have to be added to observer, but this is doable (could add it with default value false, but then enable it for spacetime diagram)
 
 
 
@@ -286,6 +305,7 @@ backgroundcolor=gray!8}
 	\pgfkeys{/addobserver, default, #1}
 
     % Evaluate the Lorentz transformation -> we rotate axes matrix ((gamma, beta*gamma), (beta*gamma, gamma)) and no minus in front of beta because what we want is that event with coordinates (x, ct) has coordinate x'=gamma(x - beta t); since we do not rotate the event, axes have to be rotated in "opposite" direction; then reading of coordinates from there works in the desired way
+	% Equivalent way of seeing it: we give coordinates in (ct', x') frame and then have to get the corresponding ones in (ct, x) frame, this transformation has a +
     %\FPeval{\calcgamma}{1/((1-(#3)^2)^.5)}
     \FPeval{\calcgamma}{1/((1-((#3)*(#3)))^.5)} % More robust, allows negative v
     \FPeval{\calcbetagamma}{\calcgamma*#3}
