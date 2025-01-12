@@ -4,6 +4,8 @@
 
 *.bbl
 
+*.bcf
+
 *.blg
 
 *.fdb_latexmk
@@ -22,9 +24,11 @@
 
 *.log
 
-*.synctex.*
+*.synctex*
 
 *.toc
+
+*.xml
 
 
 # -- Only main pdf will be saved
@@ -32,4 +36,12 @@
 
 !*_main.pdf
 
+# -- We do want pdf pictures to be included
+!*pictures/*.pdf
+
 relativity/code/Calculations.nb
+
+# -- Ignore copies of gwheadline files
+gwheadline*
+
+*template.txt
