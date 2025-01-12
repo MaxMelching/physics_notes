@@ -1,121 +1,149 @@
-\documentclass[ngerman, DIV=11, BCOR=0mm, paper=a4, fontsize=11pt, parskip=half, twoside=false, titlepage=true]{scrreprt}
+\IfFileExists{gwheadline.sty}{
+	% -- Available at https://github.com/MaxMelching/gwheadline
+	\usepackage[
+		% templatefile="eccentric_template.txt",
+	]{gwheadline}
+
+	\KOMAoptions{headsepline=false}
+	
+	\clearmainofpairofpagestyles  % Reset everything
+	% \clearpairofpagestyles  % Also reset custom styles -> that's not what it does...
+
+	
+	\tikzset{
+		gwline@linestyle/.style={
+			smooth,
+			very thick,
+			headercolor,
+		}
+	}
+	
+	\ifthenelse{\boolean{@twoside}}{
+	  \lehead{{%
+		\gwheadline[templatefile="None"]{}%
+		\hypersetup{hidelinks}\thepage/\pageref{LastPage}}%
+	  }
+	  \rehead{\leftmark}
+	
+	  \lohead{%
+		\gwheadline{}%
+		\leftmark%
+	  }
+	  \rohead{{\hypersetup{hidelinks}\thepage/\pageref{LastPage}}}
+	}{
+	  \ihead{\headmark}
+	  %\ohead[]{Seite~\thepage}  % Like it better in footer
+	  \cfoot{{\hypersetup{hidelinks}Page~\thepage~of~\pageref{LastPage}}}
+	  % -- NOTE: if lastpage is removed as package, use \pagemark instead of \thepage
+	}
+	
+	
+	% -- Some custom pagestyles to handle things like big floats. Use them via
+	% -- \thisfloatpagestyle{onlyheader}. Non-trivial task because floats may be
+	% -- inserted at different page compared to text surrounding them (package fings
+	% -- page they appear on and sets pagestyle there).
+	\usepackage{floatpag}  % Provides \floatpagestyle
+	
+	\ifthenelse{\boolean{@twoside}}{
+	  \newpairofpagestyles{onlyheader}{%
+		\lehead{{%
+		  \gwheadline[templatefile="None"]{}%
+		  \hypersetup{hidelinks}\thepage/\pageref{LastPage}}%
+		}%
+		\rehead{\leftmark}%
+		\lohead{%
+		  \gwheadline{}%
+		  \leftmark%
+		}%
+		\rohead{{\hypersetup{hidelinks}\thepage/\pageref{LastPage}}}
+	  }
+	
+
+	  \newpairofpagestyles{onlyfooter}{%
+		% \lehead{}%
+		% \rehead{}%
+		% \lohead{}%
+		% \rohead{}%
+		% %
+		% \cfoot{}%
+	  }
+	}{
+		\newpairofpagestyles{onlyheader}{%
+		\lehead{{%
+		\gwheadline[templatefile="None"]{}%
+		\hypersetup{hidelinks}\thepage/\pageref{LastPage}}%
+		}%
+		\rehead{\leftmark}%
+		\lohead{%
+		\gwheadline{}%
+		\leftmark%
+		}%
+		\rohead{{\hypersetup{hidelinks}\thepage/\pageref{LastPage}}}
+		}
+
+		\newpairofpagestyles{onlyfooter}{%
+			% \lehead{}%
+			% \rehead{}%
+			% \lohead{}%
+			% \rohead{}%
+			% %
+			% \cfoot{}%
+		}
+	}
+}{
+  \ifthenelse{\boolean{@twoside}}{
+	\newpairofpagestyles{onlyheader}{%
+	  \lehead{{%
+		\hypersetup{hidelinks}\thepage/\pageref{LastPage}}%
+	  }%
+	  \rehead{\leftmark}%
+	  \lohead{%
+		\leftmark%
+	  }%
+	  \rohead{{\hypersetup{hidelinks}\thepage/\pageref{LastPage}}}
+	}
+  
+	\newpairofpagestyles{onlyfooter}{%
+	  % \lehead{}%
+	  % \rehead{}%
+	  % \lohead{}%
+	  % \rohead{}%
+	  % %
+	  % \cfoot{}%
+	}
+  }{
+	\newpairofpagestyles{onlyheader}{%
+	  \automark[section]{section}%
+	  %\automark*[section]{subsection}%
+	  \ihead[]{\headmark}%
+	  %
+	  % -- Only change to previous settings is here
+	  \cfoot{}%
+	}
+  
+	\newpairofpagestyles{onlyfooter}{%
+	  \automark[section]{section}%
+	  %\automark*[section]{subsection}%
+	  % -- Only change to previous settings is here
+	  \ihead[]{}%
+	  %
+	  \cfoot{{\hypersetup{linkcolor=black}Page~\thepage~of~\pageref{LastPage}}}%
+	}
+  }
+}
 
 
-
-\usepackage[singlespacing]{setspace}
-\usepackage{lastpage}
-\usepackage[
-	automark,
-	%headsepline,
-]{scrlayer-scrpage}
-\clearscrheadings
-\setlength{\headheight}{\baselineskip}
-%\automark[part]{section}
-\automark[chapter]{chapter}
-\automark*[chapter]{section} %mithilfe des * wird nur ergänzt; bei vorhandener section soll also das in der Kopfzeile stehen
-\automark*[chapter]{subsection}
-\ihead[]{\headmark}
-%\ohead[]{Seite~\thepage}
+% -- Retrieving git hash
+\usepackage{xstring}
+\usepackage{catchfile}
+\CatchFileDef{\HEAD}{../.git/refs/heads/main}{}
+\newcommand{\gitrevision}{%
+	\StrLeft{\HEAD}{7}%
+}
 
 
-\cfoot{\hypersetup{linkcolor=black}Page~\thepage~of~\pageref{LastPage}}
+\usepackage{clock}  % For nice clock diagrams
 
-\usepackage[utf8]{inputenc}
-\usepackage[ngerman, english]{babel}
-\usepackage[expansion=true, protrusion=true]{microtype}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amsthm}
-\usepackage{amssymb}
-\usepackage{mathtools}
-\usepackage{mathdots}
-\usepackage{aligned-overset} % otherwise, overset/underset shift alignment
-\usepackage{upgreek}
-\usepackage[free-standing-units]{siunitx}
-\usepackage{esvect}
-\usepackage{graphicx}
-\graphicspath{{pictures/}{../pictures/}}
-\usepackage{epstopdf}
-\usepackage[hypcap]{caption}
-\usepackage{booktabs}
-\usepackage{flafter}
-\usepackage[section]{placeins}
-\usepackage{pdfpages}
-\usepackage{textcomp}
-\usepackage{subfig}
-\usepackage[italicdiff]{physics}
-\usepackage{xparse}
-\usepackage{wrapfig}
-\usepackage{color}
-\usepackage{multirow}
-\usepackage{dsfont}
-\numberwithin{equation}{chapter}%{section}
-\numberwithin{figure}{chapter}%{section}
-\numberwithin{table}{chapter}%{section}
-\usepackage{empheq}
-\usepackage{tikz-cd}%für Kommutationsdiagramme -> important, somehow arrows seem to come from here
-\usepackage{tikz}
-\usepackage{pgfplots}
-\usepackage{mdframed}
-\usepackage{floatpag} % to have clear pages where figures are
-%\usepackage{sidecap} % for caption on side -> not needed in the end
-\usepackage{subfiles} % To put chapters into main file
-
-\usepackage{hyperref}
-\hypersetup{colorlinks=true, breaklinks=true, citecolor=linkblue, linkcolor=linkblue, menucolor=linkblue, urlcolor=linkblue} %sonst z.B. orange bei linkcolor
-
-\usepackage{imakeidx}%für Erstellen des Index
-\usepackage{xifthen}%damit bei \Def{} das Index-Arugment optional gemacht werden kann
-
-\usepackage[printonlyused]{acronym}%withpage -> seems useless here
-
-\usepackage{enumerate} % for custom enumerators
-
-\usepackage{listings} % to input code
-
-\usepackage{csquotes} % to change quotation marks all at once
-
-\usepackage{clock} % For nice clock diagrams
-
-
-
-
-%\usepackage{tgtermes} % nimmt sogar etwas weniger Platz ein als default font, aber wenn dann nur auf Text anwenden oder?
-\usepackage{tgpagella} % traue mich noch nicht ^^ Bzw macht ganze Formatierung kaputt und so sehen Definitionen nicer aus
-%\usepackage{euler}%sieht nichtmal soo gut aus und macht Fehler
-%\usepackage{mathpazo}%macht iwie überall pagella an...
-\usepackage{newtxmath}%etwas zu dick halt im Vergleich dann; wenn dann mit pagella oder überall Times gut
-
-\setkomafont{chapter}{\fontfamily{qpl}\selectfont\Huge}%{\rmfamily\Huge\bfseries}
-\setkomafont{chapterentry}{\fontfamily{qpl}\selectfont\large\bfseries}%{\rmfamily\large\bfseries}
-\setkomafont{section}{\fontfamily{qpl}\selectfont\LARGE}%{\rmfamily\Large\bfseries}
-%\setkomafont{sectionentry}{\rmfamily\large\bfseries} % man kann anscheinend nur das oberste Element aus toc setzen, hier also chapter
-\setkomafont{subsection}{\fontfamily{qpl}\selectfont\Large}%{\rmfamily\large}
-\setkomafont{paragraph}{\rmfamily\large}%\bfseries\itshape}%\underline
-\setkomafont{title}{\fontfamily{qpl}\selectfont\Huge\bfseries}%{\Huge\bfseries}
-\setkomafont{subtitle}{\fontfamily{qpl}\selectfont\LARGE\scshape}%{\LARGE\scshape}
-\setkomafont{author}{\Large\slshape}
-\setkomafont{date}{\large\slshape}
-\setkomafont{pagehead}{\scshape}%\slshape
-\setkomafont{pagefoot}{\slshape}
-\setkomafont{captionlabel}{\bfseries}
-
-
-
-\definecolor{mygreen}{rgb}{0.8,1.00,0.8}
-\definecolor{mycyan}{rgb}{0.76,1.00,1.00}
-\definecolor{myyellow}{rgb}{1.00,1.00,0.76}
-\definecolor{defcolor}{rgb}{0.10,0.00,0.60} %{1.00,0.49,0.00}%orange %{0.10,0.00,0.60}%aquamarin %{0.16,0.00,0.50}%persian indigo %{0.33,0.20,1.00}%midnight blue
-\definecolor{linkblue}{rgb}{0.00,0.00,1.00}%{0.10,0.00,0.60}
-
-
-% auch gut: green!42, cyan!42, yellow!24
-
-
-\setlength{\fboxrule}{0.76pt}
-\setlength{\fboxsep}{1.76pt}
-
-%Syntax Farbboxen: in normalem Text \colorbox{mygreen}{Text} oder bei Anmerkungen in Boxen \fcolorbox{black}{myyellow}{Rest der Box}, in Mathe-Umgebung für farbige Box \begin{empheq}[box = \colorbox{mycyan}]{align}\label{eq:} Formel \end{empheq} oder farbigen Rand \begin{empheq}[box = \fcolorbox{mycyan}{white}]{align}\label{eq:} Formel \end{empheq}
 
 % Idea for simpler syntax: renew \boxed command from amsmath; seems to work like fbox, so maybe background color can be changed there
 
@@ -140,42 +168,10 @@
 	highlight math style={enhanced}
 }
 
-\newcommand{\eqbox}[1]{\tcbhighmath{#1}}
-
+\renewcommand{\eqbox}[1]{\tcbhighmath{#1}}
 
 \newcommand{\manyqquad}{\qquad \qquad \qquad \qquad}  % Four seems to be sweet spot
 
-
-
-\newcommand{\rem}[1]{\fcolorbox{yellow!24}{yellow!24}{\parbox[c]{0.985\textwidth}{\textbf{Remark}: #1}}}%vorher: black als erste Farbe, das macht Rahmen schwarz%vorher: black als erste Farbe, das macht Rahmen schwarz
-
-%\newcommand{\anm}[1]{\footnote{#1}}
-
-\newcommand{\anmind}[1]{\fcolorbox{yellow!24}{yellow!24}{\parbox[c]{0.92 \textwidth}{\textbf{Anmerkung}: #1}}}
-% wegen Einrückung in itemize-Umgebungen o.Ä.
-
-\newcommand{\eqboxold}[1]{\fcolorbox{white}{cyan!24}{#1}}
-
-\newcommand{\textbox}[1]{\fcolorbox{white}{cyan!24}{#1}}
-
-
-\newcommand{\Def}[2][]{\textcolor{defcolor}{\fontfamily{qpl}\selectfont \textit{#2}}\ifthenelse{\isempty{#1}}{\index{#2}}{\index{#1}}}%{\colorbox{green!0}{\textit{#1}}}
-% zwischendurch Test mit \textbf{#1} noch (wurde aber viel größer)
-
-% habe jetzt Schrift/ font pagella reingehauen (mit qpl), ist mega; wobei Times auch toll (ptm statt qpl)
-
-% wenn Farbe doch doof, einfach beide auf white :D
-
-
-
-
-\mdfdefinestyle{defistyle}{topline=false, rightline=false, linewidth=1pt, frametitlebackgroundcolor=gray!12}
-
-\mdfdefinestyle{satzstyle}{topline=true, rightline=true, leftline=true, bottomline=true, linewidth=1pt}
-
-\mdfdefinestyle{bspstyle}{%
-rightline=false,leftline=false,topline=false,%bottomline=false,%
-backgroundcolor=gray!8}
 
 
 \mdtheorem[style=defistyle]{defi}{Definition}[chapter]%[section]
@@ -188,31 +184,8 @@ backgroundcolor=gray!8}
 
 
 
-% Anpassung von itemize-Symbolen
-\renewcommand{\labelitemi}{$\blacktriangleright$}%{$\vartriangleright$}
-\renewcommand{\labelitemii}{\textbf{--}} % is also default there
-\renewcommand{\labelitemiii}{$\bullet$}
-
-
-
-% if float is too long use \thisfloatpagestyle{onlyheader}
-\newpairofpagestyles{onlyheader}{%
-\setlength{\headheight}{\baselineskip}
-\automark[section]{section}
-%\automark*[section]{subsection}
-\ihead[]{\headmark}
-%
-% only change to previous settings is here
-\cfoot{}
-}
-
-
-
-
-% Spacetime diagrams
-%\usepackage{tikz}
-%\usetikzlibrary{arrows.meta}
-% -> setting styles sufficient
+% -- Spacetime diagrams -------------------------------------------------------
+\usetikzlibrary{arrows.meta}
 %\tikzset{>={Latex[scale=1.2]}}
 \tikzset{>={Stealth[inset=0,angle'=27]}}
 
@@ -224,7 +197,7 @@ backgroundcolor=gray!8}
 
 % Inspiration: https://de.overleaf.com/latex/templates/minkowski-spacetime-diagram-generator/kqskfzgkjrvq, https://www.overleaf.com/latex/examples/spacetime-diagrams-for-uniformly-accelerating-observers/kmdvfrhhntzw
 
-% Ah, nice for acceleratedo observers: https://de.wikipedia.org/wiki/Zeitdilatation#Bewegung_mit_konstanter_Beschleunigung
+% Ah, nice for accelerated observers: https://de.wikipedia.org/wiki/Zeitdilatation#Bewegung_mit_konstanter_Beschleunigung
 
 \usepackage{fp}
 \usetikzlibrary{math}  % Allows declaration of variables, very convenient
@@ -423,6 +396,4 @@ backgroundcolor=gray!8}
 
 	%\draw[domain=-4:4, very thick, smooth, variable=\t, color=purple] plot ({sqrt(1 + \t * \t)}, {\t});
 }
-
-
 

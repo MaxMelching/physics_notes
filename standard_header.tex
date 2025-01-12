@@ -1,0 +1,414 @@
+\documentclass[
+  fontsize=11pt,
+  % twoside=false,
+  twoside,
+  titlepage=true
+  % -- NOTE: the following are nice, but overriden by geometry package
+  % paper=a4,
+  % DIV=11,  % Division factor, controls ratio of text block width and margin width
+  % BCOR=0mm,  % Binding correction
+]{scrreprt}
+
+
+
+% -- Fundamental Packages -----------------------------------------------------
+\usepackage{subfiles}  % For larger projects, allows to split up files
+
+\usepackage[
+  utf8
+]{inputenc}  % Make sure encoding is recognized correctly
+
+\usepackage[
+  % -- NOTE: order matters here! The SECOND entry is primary language, i.e. the that table of contents label etc is in
+  ngerman,  % I am young enough to use ngerman = new german
+  english,
+]{babel}  % Get consistent behaviour for different languages
+
+\usepackage[
+  expansion=true,  % Slight modification of character widths ok to make things look better
+  protrusion=true,  % Small characters like punctuation can go into margins for straighter text edges
+]{microtype}  % Makes things look nice in documents, better text flow etc.#
+
+\usepackage{textcomp}  % Extend symbols available for T1 encoding (provides, \textcelsius, \texteuro)
+
+\usepackage{hyperref}  % Allows clicking on links
+\hypersetup{
+  colorlinks=true,
+  breaklinks=true,
+  citecolor=linkblue,
+  linkcolor=linkblue,
+  menucolor=linkblue,
+  urlcolor=linkblue,
+}
+
+\usepackage{imakeidx}  % Allows creation of an index
+\usepackage{xifthen}  % More advanced if-then-else syntax
+
+
+
+% -- Colors -------------------------------------------------------------------
+\usepackage{xcolor}  % More versatile than color package
+
+\definecolor{mygreen}{rgb}{0.8,1.00,0.8}
+\definecolor{mycyan}{rgb}{0.76,1.00,1.00}
+\definecolor{myyellow}{rgb}{1.00,1.00,0.76}
+\definecolor{defcolor}{rgb}{0.10,0.00,0.60} %{1.00,0.49,0.00}%orange %{0.10,0.00,0.60}%aquamarin %{0.16,0.00,0.50}%persian indigo %{0.33,0.20,1.00}%midnight blue
+\definecolor{linkblue}{rgb}{0.00,0.00,1.00}%{0.10,0.00,0.60}
+\definecolor{codecolor}{RGB}{235, 66, 0}  % Inspired by color on Google Slides. Supposed to be dark orange
+
+
+
+% -- Graphics & Floats --------------------------------------------------------
+
+% -- General Float Functionality
+\usepackage{graphicx}  % Provides figure environment
+% \usepackage{epstopdf}  % Enable working with eps files
+\usepackage[section]{placeins}  % Make sure floats are not placed in next section
+\usepackage{flafter}  % Make sure floats only appear AFTER they are first mentioned in text
+\usepackage[hypcap]{caption}  % Flexible captions, supports subfigues and multi-line captions
+\usepackage{wrapfig}  % Wrap text around figures
+\usepackage{standalone}  % Convenient input of figures that are stored as separate standalones
+
+% -- Figures
+\usepackage{subfig}  % Provides \subfloat
+
+% -- Tables
+\usepackage{booktabs}  % Nicer tables, provides e.g. \toprule, \midrule, \bottomrule
+\usepackage{array}  % Define fancy table cells
+\usepackage{colortbl}  % Provides \cellcolor, \rowcolor
+\usepackage{multirow}  % Provides \multirow, complementary to \multicolumn
+
+
+% -- Code
+\usepackage{listings}
+
+
+
+% -- Math Packages ------------------------------------------------------------
+\usepackage{amsmath}  % The basic package for everything
+\usepackage{amsfonts}  % Add fonts like \mathfrac
+\usepackage{amsthm}  % Used below
+\usepackage{amssymb}  % Load variety of symbols
+% \usepackage{dsfont}  % Provides \mathds for better fonts than amsfonts
+\usepackage{mathtools}  % Better spacing + alignment, extends amsmath
+\usepackage{mathdots}  % More spacing + alignment, especially for various dots commands
+\usepackage{upgreek}  % Get non-italicized greek letters by using \upalpha etc.
+\usepackage{aligned-overset}  % For overset to work in align environment
+\usepackage{esvect}  % Get longer arrows using \vv{} or \vvv{} (and optionally different vector style)
+% \usepackage{empheq}  % Put boxes around equations to emphasize them
+
+\usepackage[
+  italicdiff,
+]{physics}  % Provides many commands, e.g. \qty for brackets with adjustable height
+
+\usepackage[
+  free-standing-units,
+]{siunitx}  % Very convenient to display numbers (with and without units)
+
+\usepackage{wasysym}  % More math symbols. Provides \ascnode
+
+
+
+% -- Some Unordered Add-ons ---------------------------------------------------
+\usepackage{pdfpages}  % Tools to include pdf files (\includepdf). Allows selecting certain pages.
+
+% \usepackage[
+%   printonlyused,
+%   % withpage,
+% ]{acronym}  % Provides \ac for consistent handling of acronyms (abbreviations)
+
+% \usepackage{xparse}  % More convenient command definition using \NewDocumentCommand
+
+\usepackage{enumerate} % For custom enumerators
+\renewcommand{\labelitemi}{$\blacktriangleright$}%{$\vartriangleright$}
+\renewcommand{\labelitemii}{\textbf{--}}
+\renewcommand{\labelitemiii}{$\bullet$}
+
+\usepackage{csquotes} % To easily get consistent quotation marks, with adjustable style
+
+\usepackage{xspace}  % Allows calling \command instead of \command{} and still have proper spacing
+
+% -- TikZ
+\usepackage{pgfplots}  % Loads pgf and pgfkeys
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usepackage{fp}
+
+
+\usetikzlibrary{
+	arrows.meta,
+	math,
+	calc,
+	% 3d,
+}
+
+
+
+% -- Page Layout --------------------------------------------------------------
+\usepackage[
+  a4paper,
+  % margin=1in,  % Default
+  % bindingoffset=10mm,
+  % inner=1in,
+  % outer=1in,
+  % -- Standard binding offset is 6mm. Instead of making document smaller, we shift.
+  inner=1in+6mm,
+  outer=1in-6mm,
+  top=1.5in,
+  bottom=1.5in,
+  % -- 1in is default
+]{geometry}
+
+
+\usepackage[
+  automark,
+  headsepline=1pt,
+]{scrlayer-scrpage}
+
+\clearmainofpairofpagestyles  % Reset everything
+
+% -- Control what is shown when calling \headmark. [] controls what is shown on
+% -- left side, {} what is shown on right side (only seems to be relevant for
+% -- double page documents).
+\automark{chapter}  % What is used by default
+\automark*{section}  % Use section instead of chapter (if there is one)
+%\automark*{subsection}
+
+
+% -- Control numbers displayed for labelled stuff
+\numberwithin{equation}{chapter}
+\numberwithin{figure}{chapter}
+\numberwithin{table}{chapter}
+
+
+% -- Header And Footer Handling
+\usepackage{lastpage}  % To get access to what last page is
+% \setlength{\headheight}{\baselineskip}
+
+
+\definecolor{midnightblue}{rgb}{0.1, 0.1, 0.44}
+\definecolor{darkmidnightblue}{rgb}{0.0, 0.2, 0.4}
+
+\definecolor{headercolor}{named}{midnightblue}
+
+
+% \renewcommand{\headrulewidth}{1pt}
+
+\ifthenelse{\boolean{@twoside}}{
+  \lehead{{%
+    \hypersetup{hidelinks}\thepage/\pageref{LastPage}}%
+  }
+  \rehead{\leftmark}
+
+  \lohead{%
+    \leftmark%
+  }
+  \rohead{{\hypersetup{hidelinks}\thepage/\pageref{LastPage}}}
+}{
+  \ihead{\headmark}
+  %\ohead[]{Seite~\thepage}  % Like it better in footer
+  \cfoot{{\hypersetup{hidelinks}Page~\thepage~of~\pageref{LastPage}}}
+  % -- NOTE: if lastpage is removed as package, use \pagemark instead of \thepage
+}
+
+
+% -- Some custom pagestyles to handle things like big floats. Use them via
+% -- \thisfloatpagestyle{onlyheader}. Non-trivial task because floats may be
+% -- inserted at different page compared to text surrounding them (package fings
+% -- page they appear on and sets pagestyle there).
+\usepackage{floatpag}  % Provides \floatpagestyle
+
+
+% TODO: check if we can't simply do "use current style" and edit just selected stuff -> nope
+
+
+% -- Control spacing in document. First between lines, then between paragraphs.
+% -- Setting parskip manually is advantageous, then we can have indent+skip.
+\usepackage[
+  % singlespacing,
+  % -- Also possible: onehalfspace, doublespace
+]{setspace}
+% -- NOTE: for some reason, using this package causes errors when TikZ is loaded afterwards.
+% -- Thus we replace it here by setting the stretch manually. Equivalent to package use: passing "onehalfspacing" to the documentclass.
+\setstretch{1.15}  % Custom value
+% \renewcommand{\baselinestretch}{1.15}  % Note that 1.25 corresponds to onehalfspacing!
+% -- Not recommended, changes spacing everywhere: https://tex.stackexchange.com/questions/79046/baselinestretch-vs-setspace -> indeed, also causes indent in footnotes for some reason
+\setlength{\parskip}{0.5em}  % What parskip=half would do in document class
+\setlength{\parindent}{1em}  % What would be indent if no parskip given in documentclass
+
+
+
+% -- Fonts --------------------------------------------------------------------
+\usepackage{newtxmath}  % Use Times in math mode
+\usepackage{tgpagella}  % Use Pagella in text
+
+\setkomafont{chapter}{\rmfamily\Huge}
+\setkomafont{chapterentry}{\large\bfseries}
+\setkomafont{section}{\rmfamily\Large\bfseries}
+\setkomafont{subsection}{\rmfamily\large\scshape}  % slshape also not bad
+\setkomafont{paragraph}{\rmfamily}  % \bfseries\itshape} %\underline
+
+% -- Titlepage fonts
+\setkomafont{title}{\bfseries}
+\setkomafont{subtitle}{\Large\scshape}
+\setkomafont{author}{\Large\slshape}
+%\setkomafont{date}{\Large\slshape}
+
+% -- Header & Footer
+\setkomafont{pagehead}{\scshape\bfseries}
+\setkomafont{pagefoot}{\slshape}
+\addtokomafont{pagehead}{\color{headercolor}}
+% \addtokomafont{headsepline}{\color{gray}}  % From https://esc-now.de/2018/latex-individuelle-kopf-und-fusszeilen-update/
+
+
+
+% -- Bibliography Management --------------------------------------------------
+% \usepackage[
+%   nottoc,
+%   notlot,
+%   notlof,
+%   chapter,
+% ]{tocbibind} %macht automatisch ins TOC, auch index und andere Sachen; so ungenummert, es geht aber auch mit Option numbib -> nicht nötig jetzt
+
+% \usepackage[
+%   maxcitenames=3,
+%   backend=biber,
+% ]{biblatex}%vlt hätte maxnames=2 gepasst
+
+\usepackage[
+    maxcitenames=3,
+    % style=authoryear
+    style=alphabetic
+    % style=alpha
+    % style=numeric
+    % style=phys
+]{biblatex}
+
+\addbibresource{biblio.bib}
+
+
+%\renewcommand{\bibname}{References}
+\addto\captionsenglish{\renewcommand{\bibname}{References}}
+
+
+
+% -- Custom Environments & Boxes ----------------------------------------------
+\setlength{\fboxrule}{0.76pt}
+\setlength{\fboxsep}{1.76pt}
+
+
+% -- Syntax for/notes on colored boxes:
+% -- * in normal text use \colorbox{mygreen}{some text} and for remark in boxes use
+% --   \fcolorbox{black}{myyellow}{rest of box}
+% -- * in math environmentas: for colored box use \begin{empheq}[box = \colorbox{mycyan}]{align}\label{eq:} ... \end{empheq}
+% --   or for colored borders: \begin{empheq}[box = \fcolorbox{mycyan}{white}]{align}\label{eq:} ... \end{empheq}
+
+
+
+% -- Some Colored Boxes For Various Purposes
+%\newcommand{\anm}[1]{\footnote{#1}}  % V1
+\newcommand{\anm}[1]{%
+  \fcolorbox{black}{yellow!24}{\parbox[c]{0.985\textwidth}{\textbf{Anmerkung}: #1}}%
+}
+
+\newcommand{\anmind}[1]{%
+  \fcolorbox{black}{yellow!24}{\parbox[c]{0.92\textwidth}{\textbf{Anmerkung}: #1}}%
+}  % Indented remark, for use in itemize etc.
+
+\newcommand{\eqbox}{%
+  \fcolorbox{white}{cyan!24}%
+}
+
+\newcommand{\textbox}[1]{%
+  \fcolorbox{white}{cyan!24}{#1}%
+}
+
+% Other nice colors: green!42, cyan!42, yellow!24
+
+
+% -- General Commands That Draw Something Or Make Test Colored
+\newcommand{\Def}[2][]{%
+  \textcolor{defcolor}{\fontfamily{ptm}\selectfont \textit{#2}}%
+  %{\colorbox{green!0}{\textit{#1}}}%
+  \ifthenelse{\isempty{#1}}{\index{#2}}{\index{#1}}%
+}  % TODO: maybe choose other font here than pagella?
+
+\newcommand{\code}[1]{%
+  \textcolor{codecolor}{\texttt{#1}}%
+}
+
+\newcommand{\todo}[1]{%
+  \fcolorbox{white}{red!42}{\textit{\textbf{TODO:}} #1}%
+}  % Very rudimentary, but works
+
+\def\RArrow{
+  \tikz{
+    \draw[
+      ->,
+      fill,
+      line width=3pt,  % Better than thick
+      -{Triangle[length=4.4pt, width=5.8pt]}
+    ] (0,0) -- (11pt, 0) {};
+  }
+}
+
+
+% -- Theorem Boxes
+% \usepackage{amsthm}  % Must be loaded beforehand to avoid error, but this is what we use here
+\usepackage{mdframed}
+
+% -- First we define some styles, then some environments based on them
+\mdfdefinestyle{defistyle}{
+  topline=false,
+  rightline=false,
+  linewidth=1pt,
+  frametitlebackgroundcolor=gray!12,
+}
+
+\mdfdefinestyle{satzstyle}{
+  topline=true,
+  rightline=true,
+  leftline=true,
+  bottomline=true,
+  linewidth=1pt,
+}
+
+\mdfdefinestyle{bspstyle}{
+  rightline=false,
+  leftline=false,
+  topline=false,
+  % bottomline=false,
+  backgroundcolor=gray!8,
+}
+
+
+
+% -- Not really a theorem, but with same style: remark
+\mdfdefinestyle{remstyle}{
+  rightline=false,
+  leftline=false,
+  topline=false,
+  bottomline=false,
+  backgroundcolor=myyellow,
+  innerleftmargin=.4\baselineskip,
+  innerrightmargin=.4\baselineskip,
+  leftmargin=-.4\baselineskip,
+  rightmargin=-.4\baselineskip,
+  % -- Setting the indentations is important because otherwise, everything will
+  % -- be indented (.4\baselineskip is default and looks natural, so this is
+  % -- chosen here; the effects of margin and innermargin have to be balanced).
+  % frametitle={\textbf{remark}: }}%frametitle also makes linebreak
+}
+
+\newmdenv[style=remstyle]{remark}
+
+% -- Goal: call this using a command \rem, not \begin{remark}. Defining such a
+% -- thing in preambles, however, is tricky. Solution from
+% -- https://www.mrunix.de/forums/showthread.php?59532-begin-und-end-in-newcommand
+\def\brem#1\erem{\begin{remark}#1\end{remark}}
+\newcommand{\rem}[1]{\brem \textbf{remark:} #1\erem}
+
+% -- Slightly modified version (new line not always wanted for remarks in text)
+\usepackage{soul}
+\sethlcolor{myyellow}
+\newcommand{\question}[1]{\hl{#1}}
