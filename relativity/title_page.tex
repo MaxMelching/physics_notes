@@ -1,4 +1,4 @@
-\documentclass[BA_main.tex]{subfiles}
+\documentclass[relativity_main.tex]{subfiles}
 %\input{header}
 
 %\usepackage{subfiles}
@@ -19,24 +19,8 @@
 
 \rule{0pt}{0pt}
 
-\vspace{4\baselineskip}%{0.06\textheight}
+\vspace{5\baselineskip}%{0.06\textheight}
 
-\begin{figure}[h]
-
-\newlength{\xshiftGW}
-\setlength{\xshiftGW}{0.16\textwidth}
-
-\begin{tikzpicture}
-	\draw[black!50!green, smooth, thick, shift={(\xshiftGW,0)}, xscale=10.0, yscale=1.2] plot file {code/template_GW150914.txt}; % xscale, yscale were found empirically; important: xscale AFTER shift
-	% Pad signal to left
-	\draw[black!50!green, smooth, thick] (0,0) -- (\xshiftGW,0);
-	\draw[black!50!green, smooth, thick] (0.8\textwidth,0) -- (\textwidth,0);
-\end{tikzpicture}
-
-\end{figure}
-
-
-\vspace{2\baselineskip}
 
 
 \settowidth{\unitlength}{\Huge\bfseries Summary}
@@ -44,7 +28,14 @@
 %\rule{2\unitlength}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt}\\
 %\rule{2\unitlength}{1.6pt}\vspace{\baselineskip}\\
 
-{\Huge\bfseries Summary}
+{%
+	\Huge%
+	\bfseries%
+	\scshape%
+	%\uppercase{%
+	Relativity%
+	%}%
+}
 
 %\rule{2\unitlength}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt}\\
 %\rule{2\unitlength}{1.6pt}\vspace{\baselineskip}\\
@@ -53,17 +44,32 @@
 \vspace{\baselineskip}
 
 
-{\LARGE\scshape Relativity}
+{%
+	\Large%
+	\scshape%
+	A Summary Of What I Have Learned About It%
+}
 
 
 \vspace{1.5\baselineskip}
 
 
+\def\massone{14}
+\def\masstwo{7}
+\def\eccentricity{0.5}
+\def\Inclination{0}
+\def\Polarization{10}
+
+\tdplotsetmaincoords{70}{135}
+
+\def\binaryseparation{2}
+\def\BHsizepersolmass{1/10*0.7 cm} % So that 10 solmass BH has size of 0.7 cm
+
+
 \begin{figure}[h]
 \centering
 
-\scalebox{1.5}{
-\begin{tikzpicture}
+\begin{tikzpicture}[scale=1.5]
   \begin{axis}[
     unit vector ratio*=1 1 1,
     hide axis = true,
@@ -75,110 +81,94 @@
     ]    
     \addplot3 [
         surf, 
-        faceted color = gray,
-        fill = white, 
-        line width = 0.1pt,
-        samples = 50] {-1.5*exp(-0.5*(x^2+y^2))};
+        faceted color=gray!36,
+        fill=white, 
+        line width=0.1pt,
+        samples=50] {-2.5*exp(-0.2*(x^2+y^2))};
 
   \end{axis}
-\end{tikzpicture}
-}
+
+
+  \begin{scope}[
+  	%shift={(4.5, 5, 4)},  % Shift is calculated from bottom left corner of the axis environment (where the point (-5, -5, -2) is, check by commenting "hide axis = true") -> in the end, it is just hand-fitted to look nice ( I do not really understand what z does, x and y seem intuitive)
+    tdplot_main_coords, % Make sure their default value is used
+    shift={(-7.4, -2.4, 0.5)},  % Thought order with tdplot_main_coords might change things, but nope
+  ]
+    
+    \begin{scope}[
+        rotate around z=\Polarization,
+        rotate around x=\Inclination,
+        ]
+        
+        %\coordinate (center) at (-2, 2, 2);
+        \coordinate (center) at (0, 0, 0);
+        \coordinate (bh1position) at ($(center)+(\binaryseparation/2, 0, 0)$);
+        \coordinate (bh2position) at ($(center)+(-\binaryseparation/2, 0, 0)$);
+        
+        \begin{scope}[
+          canvas is xy plane at z=0,
+          ]
+          %  -- Orbit
+          \draw[
+            dashed,
+            gray,
+        thick,
+        opacity=0.5,
+        yscale=1-\eccentricity,
+        ] (center) circle(0.5*\binaryseparation cm);
+        
+        % -- Black Hole 1
+        \node[
+          fill,
+          circle,
+          minimum size={\massone*\BHsizepersolmass},
+          inner sep=0pt,
+          ] at (bh1position) {};
+          
+          
+          
+          % -- Black Hole 2
+          \node[
+            fill,
+            circle,
+        minimum size={\masstwo*\BHsizepersolmass},
+        inner sep=0pt,
+        ] at (bh2position) {};
+        
+      \end{scope}
+  
+  	\end{scope}
+    
+    \end{scope}
+
+
+  \end{tikzpicture}
+
 \end{figure}
 
 
-\vspace{2\baselineskip}%0.5
+\vspace{2\baselineskip}
 
-{\Large\slshape Max Melching}%\large
+{%
+	% \large
+	\Large%
+	\slshape%
+	Max Melching%
+}
+
+
+\vspace{\baselineskip}
+
+
+{Compiled on \today{} with git commit hash 
+\code{%
+	% \gitrevision{}%
+	\HEAD{}%
+}\hspace{-0.5em}}
 
 
 %\rule{2\unitlength}{1.6pt}\vspace*{-\baselineskip}\vspace{3.2pt}\\
 %\rule{2\unitlength}{0.4pt}
 \end{center}
-
-
-
-
-
-% Version 1, does not work well
-
-\iffalse
-\begin{titlepage}
-\centering
-\title{Summary}
-
-\subtitle{Relativity
-}
-
-% Awesome pictures for curved spacetime from: https://tex.stackexchange.com/questions/585057/tikz-3d-pgfplots-how-to-draw-plot-curved-spacetime
-
-\begin{figure}[h]
-\centering
-
-%\iffalse
-\begin{tikzpicture}
-  \begin{axis}[
-    unit vector ratio*=1 1 1,
-    hide axis = true,
-    %x domain = -1.5:1.5,
-    zmin = -2.5,
-    zmax = 2.5
-    ]    
-    \addplot3 [
-        surf, 
-        faceted color = gray,
-        fill = white, 
-        line width = 0.1pt,
-        samples = 50] {-1.5*exp(-0.5*(x^2+y^2))};
-
-  \end{axis}
-\end{tikzpicture}
-%\fi
-
-\iffalse
-\usetikzlibrary{perspective}
-\begin{tikzpicture}[3d view={120}{30},samples=51,domain=-2.5:2.5]
-\foreach\i in {-2.5,-2.25,...,2.5}
-{% curved spacetime
-  \draw[gray] plot (\x,\i,{2.5-0.5*exp(-0.75*(\x*\x+\i*\i))});
-  \draw[gray] plot (\i,\x,{2.5-0.5*exp(-0.75*(\x*\x+\i*\i))});
-  \draw[gray] plot (\x,{2.5-0.5*exp(-0.75*(\x*\x+\i*\i))},\i);
-  \draw[gray] plot (\i,{2.5-0.5*exp(-0.75*(\x*\x+\i*\i))},\x);
-  \draw[gray] plot ({2.5-0.5*exp(-0.75*(\x*\x+\i*\i))},\x,\i);
-  \draw[gray] plot ({2.5-0.5*exp(-0.75*(\x*\x+\i*\i))},\i,\x);
-}% axes
-\draw[thick,-latex] (2,0,0) -- (5,0,0) node[left]  {$x$};
-\draw[thick,-latex] (0,2,0) -- (0,5,0) node[right] {$y$};
-\draw[thick,-latex] (0,0,2) -- (0,0,5) node[above] {$z$};
-\end{tikzpicture}
-\fi
-
-\iffalse
-\begin{tikzpicture}[line width=0.1pt]
-\begin{axis}
-[
-  hide axis=true,
-  domain=-2.5:2.5,
-  zmin=-2.5,zmax=2.5,
-  samples=50,
-  z buffer=sort
-]    
-\addplot3[surf,faceted color=lightgray,fill=white] {2.5-1.5*exp(-0.5*(x^2+y^2))};
-\addplot3[surf,faceted color=lightgray,fill=white] ({2.5-1.5*exp(-0.5*(x^2+y^2))},x,y);
-\addplot3[surf,faceted color=lightgray,fill=white] (x,{-2.5+1.5*exp(-0.5*(x^2+y^2))},y);
-
-\end{axis}
-\end{tikzpicture}
-\fi
-\end{figure}
-
-
-
-
-
-\author{Max Melching}
-\date{As of \today}
-\maketitle
-\end{titlepage}
-\fi
 
 \end{document}
