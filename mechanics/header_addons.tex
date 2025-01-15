@@ -1,0 +1,18 @@
+% -- Retrieving git hash
+\usepackage{xstring}
+\usepackage{catchfile}
+\CatchFileDef{\HEAD}{../.git/refs/heads/main}{}
+\newcommand{\gitrevision}{%
+\StrLeft{\HEAD}{7}%
+}
+
+
+\usepackage{dsfont}  % Provides \mathds for better fonts than amsfonts
+
+
+\mdtheorem[style=defistyle]{defi}{Definition}[chapter]%[section]
+\mdtheorem[style=satzstyle]{satz}[defi]{Satz}
+\mdtheorem[style=satzstyle]{lemma}[defi]{Lemma}
+\mdtheorem[style=satzstyle]{cor}[defi]{Korollar}
+\mdtheorem[style=bspstyle]{bsp}[defi]{Beispiel}
+

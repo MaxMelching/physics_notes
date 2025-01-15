@@ -1,38 +1,39 @@
-\include{header}
+\input{../standard_header}
+\input{header_addons}
 
-\usepackage{subfiles}
 
 
 \makeindex
 
 \begin{document}
-\begin{titlepage}
-\centering
-\title{Zusammenfassung}
 
-\subtitle{Klassische Mechanik\\
-%\vspace{1cm}
-%\includegraphics[width=0.6\textwidth]{Bilder/Titelbild_KlassMech_V4.pdf}
+\pagenumbering{Roman}
+\pagestyle{plain.scrheadings}
+%\pagestyle{scrheadings}
 
-\vspace{-4\baselineskip}
-\includegraphics[width=0.9\textwidth]{Bilder/Titelbild_KlassMech_V5.pdf}
-\vspace{-\baselineskip}
-}
 
-\author{Max Melching}
-\date{\today}
-\setcounter{page}{0}
-\maketitle
-\end{titlepage}
+\subfile{title_page}
+
+
+
 \newpage
+
+
+
 \pagenumbering{Roman}
 \pagestyle{plain.scrheadings}
 
 \tableofcontents
 
+
+
 \newpage
 
+
+
 \listoffigures
+
+
 
 \newpage
 
@@ -40,19 +41,21 @@
 
 %\newpage
 
+
+
 \pagestyle{scrheadings}
 \pagenumbering{arabic}
 
 
-\subfile{chapters/KlassMech_chapter1}
+\subfile{chapters/class_mech_chapter_1}
 
-\subfile{chapters/KlassMech_chapter2}
+\subfile{chapters/class_mech_chapter_2}
 
-\subfile{chapters/KlassMech_chapter3}
+\subfile{chapters/class_mech_chapter_3}
 
-\subfile{chapters/KlassMech_chapter4}
+\subfile{chapters/class_mech_chapter_4}
 
-\subfile{chapters/KlassMech_chapter5}
+\subfile{chapters/class_mech_chapter_5}
 
 
 \appendix
