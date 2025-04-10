@@ -358,7 +358,7 @@ Dabei bedeutet $D_{f(x)} g \circ D_x f (v)$, dass man $f$ am Punkt $p$ in Richtu
 
 
 Zudem mega wichtig (von \url{https://de.wikibooks.org/wiki/Analysis_II:_Ableitungen:_Diffeomorphismen}):
-\begin{satz}
+\begin{satz}[Inverses Funktionentheorem]
 Für eine diffeomorphe Abbildung $\phi: U \rightarrow V$ zwischen Teilmengen $U \subset X, V \subset Y$ zweier Vektorräume $X, Y$ sind für jedes $x \in U$ die Differentiale $D_x \phi, \, D_{\phi(x)} \phi^{-1}$ Isomorphismen und es gilt
 \begin{equation}
 \qty(D_x \phi)^{-1} = D_{\phi(x)} \phi^{-1} \, .
@@ -367,6 +367,9 @@ Für eine diffeomorphe Abbildung $\phi: U \rightarrow V$ zwischen Teilmengen $U 
 Insbesondere folgt Bijektivität des Differentials (das ist auch eigentlich nur zu zeigen, weil die Linearität ja per Definition erfüllt ist) ! Dabei müssen $X, Y$ gleiche Dimension haben (bzw. folgt das bereits aus der Existenz eines Diffeomorphismus zwischen ihnen). Beweis wurde für Mannigfaltigkeiten auf den Übungszetteln einmal gemacht
 
 -> wichtig: das heißt nicht, dass man die inversen (also reziproken) Komponenten nimmt ! Gemeint sind die von der Umkehrfunktion
+
+
+-> Wikipedia macht das sehr nice: \url{https://en.wikipedia.org/wiki/Inverse_function_theorem}. Idee ist, dass wir halt Ableitung der inversen Funktion = Inverses der Ableitung der Funktion haben; für Jacobi-Matrizen heißt das dann, Jacobi der Inversen = Inverse der Jacobi und für 1D Matrizen ist Invers = reziprok, daher erhalten wir für Funktionen einer einzigen Variablen als Spezialfall $(f^{-1})' = 1/f'$ (wobei hier bewusst erstmal die Punkte weggelassen werden)
 
 
 \begin{satz}[Lokales Diffeomorphie-Kriterium]
