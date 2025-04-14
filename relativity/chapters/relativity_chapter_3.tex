@@ -104,7 +104,7 @@ This distance notion depends on the trajectory taken by the clock/corresponding 
 	\end{equation*}
 	This is because the spatial coordinates of $E_3$ and $E_4$ are equal in the primed frame, the Lorentz transformation automatically incorporates all spatial movement happening in unprimed coordinates into $t'$. However,
 	\begin{equation*}
-		t'_2 - t'_1 = \tau_{E_1, E_2} = \sqrt{(t'_2 - t'_1)^2 - ((x'_2 - x'_1)^2 + (y'_2 - y'_1)^2 + (z'_2 - z'_1)^2) / c}
+		t'_2 - t'_1 = \tau_{E_1, E_2} = \sqrt{(t'_2 - t'_1)^2 - ((x'_2 - x'_1)^2 + (y'_2 - y'_1)^2 + (z'_2 - z'_1)^2) / c} \todo{shouldn't this be $t_2 - t_1$ on the left?}
 	\end{equation*}
 	because the trajectory connecting $E_1$ and $E_2$ is not parallel to $ct'$. This is the mutuality of time dilation. Nonetheless, it shows a general way how different observers can agree on times: by using the proper time between events. Not only do the numbers agree in this case, conceptually it also makes a lot of sense to look at times which are measured by clocks which actually \enquote{see} both events, i.e.~move on a world line connecting them, instead of using clocks far away from the event.\\
 	
@@ -206,13 +206,15 @@ independently of the times $t_1, t_2$. This quantity is called the \Def{proper l
 \begin{equation*}
 	s_{E_1, E_2} = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2 + (z_2 - z_1)^2} = c \sqrt{- \tau_{E_1, E_2}^2} \, ,
 \end{equation*}
-confer \eqref{eq:proper_time_uniform}. Different frames will not measure $E_2$ and $E_1$ to be simultaneous, which means the general def Further imposing the condition of simultaneity, the same distances is measured from a different reference frame, the \enquote{generalized proper length} is
+confer \eqref{eq:proper_time_uniform}. Different frames will not perceive $E_2$ and $E_1$ as simultaneous, which means the general definition will necessarily include a difference of times. Since $\tau$ does this naturally, a \enquote{generalized proper length} is
 \begin{equation}\label{eq:proper_distance_uniform}
 	\eqbox{
 	s_{E_1, E_2} = c \sqrt{- \tau_{E_1, E_2}^2} = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2 + (z_2 - z_1)^2 - c^2 (t_2 - t_1)^2}
 	}\, .
 \end{equation}
-This quantity is called \Def{proper distance} and allows for an invariant notion of spatial distance between events.\footnote{Of course, one can compute it for events that are not simultaneous in the current frame as well. The result will be the proper length in some inertial frame, namely the one where the events are simultaneous.} Just like the proper time automatically incorporated a correction for time dilation so that all inertial frames get the same results, the proper distance corrects for length contraction occurring if the length of a rod is measured by an observer moving relative to it. This is a non-trivial statement, so it is worthwhile to verify it explicitly.
+This quantity is called \Def{proper distance} and allows for an invariant notion of spatial distance between events.\footnote{Of course, one can compute it for events that are not simultaneous in the current frame as well. The result will be the proper length in some inertial frame, namely the one where the events are simultaneous.} Just like the proper time automatically incorporated a correction for time dilation so that all inertial frames get the same results, the proper distance corrects for length contraction occurring if the length of a rod is measured by an observer moving relative to it. This is a non-trivial statement, so it deserves to be verified explicitly.
+
+\todo{we should note here that inspite of their formal, mathematical relation, proper times and proper distances are very different. Proper distances are intended measure separation of simultaneous events (so that the proper time between those events is not even defined; this is reflected in the minus sign in the square root); proper times, on the other hand, are intended to measure the time an observer moving between two spacetime events needs. In rest frame of observer, proper time is coordinate time, while proper distance is coordinate distance (?). In other frames, both will not be true, but the Lorentz transformation takes care of the correct transformations (by mixing temporal and spatial components; if events are not perceived as simultaneous in other frame, then their locations will also be different than in rest frame, so that notions like the proper distance between two events gives same result).\\What this means is proper times make sense for events that can be causally connected, while it is the exact opposite for proper distances.}
 
 \begin{proof}
 	We have discussed this scenario for one spatial dimension in subsection \ref{subsec:time_dilation_lorentz}. One of the results was that we have to adjust the transformed time $t'_2$ in order to achieve $t'_2 = t'_1$ (cf.~\eqref{eq:length_contraction_correct}). As \eqref{eq:not_simultaneous} shows, the adjustment was $\Delta t' = v / c^2 (x'_2 - x'_1)$. For $s$, only the transformed and \emph{not} the corrected coordinates are used. This, however, turns out to be the crucial part in getting an invariant result, i.e.~why no length contraction occurs in $s$. We can verify this by inserting all the quantities we have mentioned into it:
@@ -223,7 +225,7 @@ This quantity is called \Def{proper distance} and allows for an invariant notion
 		\\
 		&= (x'_2 - x'_1)^2 - c^2 \frac{v^2}{c^4} (x'_2 - x'_1)^2 = (x'_2 - x'_1)^2 \qty(1 - v^2 / c^2) = (x_2 - x_1)^2
 	\end{align*}
-	where \eqref{eq:length_contraction_not_correct} was used, which shows that $(x'_1 - x'_2) = \gamma (x_2 - x_1)$. This calculation proofs that observers from all inertial frames agree on proper distances.
+	where \eqref{eq:length_contraction_not_correct} was used, which shows that $(x'_1 - x'_2) = \gamma (x_2 - x_1)$. This calculation proves that observers from all inertial frames agree on proper distances.
 \end{proof}
 
 
@@ -254,6 +256,9 @@ The fact that this overall sign does not matter is supported by the following al
 	c^2 t^2 = x^2 + y^2 + z^2 \; , \; c^2 t'^2 = x'^2 + y'^2 + z'^2 \quad \Leftrightarrow \quad c^2 t^2 - x^2 - y^2 - z^2 \overset{!}{=} c^2 t'^2 - x'^2 - y'^2 - z'^2 \, .
 \end{equation}
 by the relativity principle. This points to the invariant proper distance we have called $s$ or equivalently (upon multiplication of both sides with $1 / c^2$) the proper time $\tau$.
+
+
+\rem{this is how we can argue metric should be symmetric, right? Natural notion of distance is defined via proper time. In Minkowski, this is symmetric (as we have seen) and such a property is invariant for a given vector space/metric. Thus all metric in relativity must be symmetric}
 
 
 
@@ -739,7 +744,7 @@ we can also write
 
 One major advantage of using momenta as tangent vectors instead of velocities is that $p^\alpha$ can be defined for timelike \emph{and} null vectors. A priori,
 \begin{equation*}
-	p^\alpha = m u^\alpha = m \dv{x^\alpha}{d\tau} = \frac{0}{0}
+	p^\alpha = m u^\alpha = m \dv{x^\alpha}{\tau} = \frac{0}{0}
 \end{equation*}
 since $d\tau = 0$ for photons and they have no mass, i.e.~$m = 0$. Apparently, we gain no insight from this definition. However, we do know that photons have energy
 \begin{equation}
