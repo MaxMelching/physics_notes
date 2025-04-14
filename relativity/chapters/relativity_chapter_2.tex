@@ -32,7 +32,7 @@ Sir Isaac Newton shaped the way physics was made for decades with his work \enqu
 It is based on the following principles.
 \begin{post}[Newton Axioms]
 	\begin{enumerate}[1.]
-		\item Everybody remains at rest or in a uniform motion, unless a force acts upon it.
+		\item Every body remains at rest or in a uniform motion, unless a force acts upon it.
 
 		\item If a force $\vec{F}$ acts upon an object of mass $m$, it causes an acceleration
 		\begin{equation}\label{eq:newton_second_law}
@@ -112,6 +112,7 @@ that relates forces to \Def{momenta} $\vec{p} = m \vec{v}$. Because of their rel
 \begin{equation}\label{eq:momentum_conservation}
 	0 = F_\text{total}^k = \sum_k p_j^k
 \end{equation}
+\rem{I do not understand this anymore. Does this belong here? See \url{https://en.wikipedia.org/wiki/Momentum\#Conservation}. Probably better after third law. And second equality is definitely wrong (though I can see equivalence) -> make as example after third law? Logic is: for closed system (no other, external forces), third law tells us sum over forces they exert on each other is zero, so that the sum of their momenta is conserved; this is true at all time, which means the total momentum is conserved (and in particular, the one before and after the collision must be equal)}
 which has to hold before and after the collision, yielding
 \begin{equation}\label{eq:implication_momentum_conservation}
 	\sum_j p_j^k = \sum_j \tilde{p}_j^k \, .
@@ -471,7 +472,7 @@ then the clocks $\mathcal{C}^R, \mathcal{C}, \mathcal{C}'$ are synchronized. By 
 		
 		\subfloat[Comparison of all observers from (a) and (b). For simplicity, we assume that the clock $\mathcal{C}$ and $\mathcal{C}''$ show the same time $t = t''$ on intersection of $\mathcal{O}, \mathcal{O}''$. Despite that, they cannot agree on the time of intersection of $\mathcal{O}', \mathcal{O}'''$, $t' \neq t'''$.]{
 		%\hspace*{0.05\textwidth}
-			\input{../pictures/synchronization_resting_observers_b.tex}
+			\input{../pictures/synchronization_resting_observers_c.tex}
 		}
 	\end{minipage}%\hfill
 	\begin{minipage}{0.5\textwidth}
@@ -791,7 +792,7 @@ One final note: the derivation presented here is perhaps not be the most rigorou
 \begin{figure}
 	\centering
 	
-	\includegraphics[width=0.9\textwidth]{gamma_factor.pdf}
+	\includegraphics[width=0.9\textwidth]{pictures/gamma_factor.pdf}
 	
 	\caption[Plot of the Lorentz-factor]{Plot of the Lorentz-factor $\gamma = \frac{1}{\sqrt{1 - v^2 / c^2}}$.	Clearly, its effect only becomes significant for speeds which are significant fractions of $c$.}
 	\label{fig:gamma_factor}
