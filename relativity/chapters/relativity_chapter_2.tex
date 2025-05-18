@@ -168,7 +168,7 @@ In the 1860s, James Clerk Maxwell derived the \Def{Maxwell equations} describing
 	c = \frac{1}{\sqrt{\epsilon_0 \, \mu_0}} = 299 \, 792 \, 458 \, \frac{\metre}{\second}
 	} \, ,
 \end{equation}
-so it was (and is) natural to identify them with light.
+so it was (and still is) natural to identify them with light.
 
 
 Several conflicts with Newtonian physics arise from this:
@@ -304,17 +304,12 @@ Accordingly, the events $E_1, E_2$ are called timelike-separated, null-/lightlik
 	\section{Clocks}\label{sec:clocks}
 %{Time Measurement} % Sounds kind of awkward
 % Nice inctroduction from previous subsection, but not needed anymore I think: we want equivalent results in all frames; if we try to measure a distance, this requires a notion of \enquote{at the same time}; harder than it sounds (communication cannot happen instantaneously, as we have just learned), but this is why we will deal with measuring time now, i.e.~clocks -> maybe put into introduction of clocks
-Until now, we have not really discussed the notion of time. Partly, this is because we natively have a very clear, intuitive understanding of time: we look at clocks to measure it and this notion can be employed anywhere in space -- just take a look at equal clocks in different points and compare their readings. This definition is employed in Newtonian physics, without much more attention being needed.
-
--> what requirements do we even have on a notion of time for it to be considered \enquote{good}? As Misner-Thorne-Wheeler state, it has to make the trajectory of free particles look simple. To see how these trajectories might change depending on this choice (that we have always assumed to be given until now), let us take a look at Eq.~\eqref{eq:newton_2}, which is the equation of motion. For a free particle, $v = \text{const.}$ and thus $F = 0$ -- free particles move in a straight line. However, the denominator contains $t$, just like $v^k = \dv{x^k}{t}$. For this reason, our notion of \enquote{constant} itself depends on the time standard we have chosen! As MTW show very illustratively, if we were to measure time in solar days, this would mean that the distance zurückgelegt in order to keep the velocity constant would change -- which makes it look like a force is at work. This is a very undesirable behaviour -> could even show with chain rule how things look like written out in terms of the usual notion of time, showing that we get something of the form $\dots = \dv{p^k}{t}$
-
-
-However, as it is the story for much of relativity theory, this notion essentially breaks down once we go to more extreme situations like distances on cosmic scales or clocks moving relative to each other with high velocities. In both of those cases, timing the reading of a clock and hence comparing if they show the same time is difficult. For large distances, this is rather easy to see because information is transmitted at a finite speed $\leq c$, so when receiving information about the measurement result $t$ of a far-away clock, we have to take into account the time it travelled to us in order to find out which event happened simultaneously to $t$.
+Until now, we have not really discussed the notion of time. Partly, this is because we natively have a very clear, intuitive understanding of it: we look at clocks to measure it and this notion can be employed anywhere in space -- just use equal clocks in different points and compare their readings. This definition is employed in Newtonian physics, without much more attention being needed. However, as is the story for much of relativity theory, this notion essentially breaks down once we go to more extreme situations like distances on cosmic scales or clocks moving relative to each other with high velocities. In both of those cases, timing the reading of a clock and hence comparing if they show the same time is difficult. For large distances, this is rather easy to see because information is transmitted at a finite speed $\leq c$, so when receiving information about the measurement result $t$ of a far-away clock, we have to take into account the time it traveled to us in order to find out which event happened simultaneously to $t$.
 
 This is problematic since many notions implicitly rely on the fact that we can measure quantities at the same time, i.e.~on a notion of simultaneity. A very important example are lengths, which are defined as the separation of points -- at a fixed time. Therefore, a well-defined notion of \enquote{at a fixed time} is required for us to be able to measure lengths and until now, we have no such notion. In everyday life, it is easy to avoid such difficulties: after all, we can look at clocks side-by-side, make sure they show the same time and then move one of them away to the desired position. This procedure ensures the clocks are synchronized, so we can simply take the desired measurements and compare the times later on. However, this is not really feasible to do that for measurements between planets or galaxies and clearly, an alternative, perhaps more general, way of communicating time measurements is needed.
 
 
-All of that motivates the need for a synchronization procedure of clocks. We will here present the one proposed by Einstein, starting with its definition for resting observers and then look at it for the case of moving observers. Throughout this section, we will adopt visualizations from \cite{dragon_geometry_srt}, while many of the definitions follow \cite{giulini_srt} more closely.
+All of that motivates the need for a synchronization procedure of clocks. We will here discuss the one proposed by Einstein, starting with its definition for resting observers and then look at it for the case of moving observers. Throughout this section, we will adopt visualizations from \cite{dragon_geometry_srt}, while many of the definitions follow \cite{giulini_srt} more closely.
 
 
 
@@ -349,7 +344,7 @@ All of that motivates the need for a synchronization procedure of clocks. We wil
 
 		\subsection{Synchrony of Clocks}
 			\paragraph{Resting Observers}
-Our setting is identical copies of an ideal clock being attached to each point in space ( Fig.~\ref{fig:unsynchr_synchr_clocks}). For a consistent, well-defined notion of \enquote{global time}, however, we have to make sure these clocks show equivalent times. To do that, we will synchronize them by adopting the following definition, originally proposed by Einstein in \cite{Einstein_1905}.
+Our setting is identical copies of an ideal clock being attached to each point in space (Fig.~\ref{fig:unsynchr_synchr_clocks}). For a consistent, well-defined notion of \enquote{global time}, however, we have to make sure these clocks show equivalent times. To do that, we will synchronize them by adopting the following definition, originally proposed by Einstein in \cite{Einstein_1905}.
 
 \begin{defi}[Einstein Synchronization]\label{defi:einstein_synchrony}
 	%Two clocks $\mathcal{C}, \mathcal{C}'$ with times $t, t'$ attached to observers $\mathcal{O}, \mathcal{O}'$ are \Def{synchronized}/\Def{equal} if they show the same times to their referee $\mathcal{R}$, i.e.~$t = t'$.
@@ -360,7 +355,7 @@ Our setting is identical copies of an ideal clock being attached to each point i
 	Two clocks $\mathcal{C}, \mathcal{C}'$ with readings $t, t'$ attached to observers $\mathcal{O}, \mathcal{O}'$ at rest (relative to each other) are \Def{synchronized} if light signals sent out from them travel the same time on $\overline{\mathcal{O} \mathcal{O}'}$ as they do on $\overline{\mathcal{O}' \mathcal{O}}$.
 \end{defi}
 
-More explicitly, consider the following scenario: $\mathcal{O}$ sends out light with his clock $\mathcal{C}$ showing the time $t_+$, $\mathcal{O}'$ reads the time $t'$ off of his clock $\mathcal{C}'$ upon arrival of this light, immediately reflecting it back to $\mathcal{O}$ who receives it with his clock $\mathcal{C}$ showing $t_-$. Then $\mathcal{C}$ and $\mathcal{C}'$ are said to be synchronized if
+More explicitly, consider the following scenario: $\mathcal{O}$ sends out light with his clock $\mathcal{C}$ showing the time $t_+$, $\mathcal{O}'$ reads the time $t'$ off of his clock $\mathcal{C}'$ upon arrival of this light, immediately reflecting it back to $\mathcal{O}$ (along with the information that $t'$ was measured) who receives it with his clock $\mathcal{C}$ showing $t_-$. Then $\mathcal{C}$ and $\mathcal{C}'$ are said to be synchronized if
 \begin{equation}\label{eq:synchr_explicit}
 	t' - t_- = t_+ - t'
 	\quad \Leftrightarrow \quad
@@ -371,7 +366,7 @@ More explicitly, consider the following scenario: $\mathcal{O}$ sends out light 
 \end{equation}
 If $\mathcal{C}'$ were to show a different time, then in order to synchronize it with $\mathcal{C}$ we would \emph{set}
 %\footnote{This freedom in synchronization procedure exists because a single clock can only measure the two-way speed of light, which is $c$. The Einstein synchronization then sets time so that the one-way speed of light is $c$ as well. See \cite{Minguzzi_2003} for details and a proof. \cite{giulini_srt} also elaborates on this topic in section 2.1.}
-it so that Eq.~\eqref{eq:synchr_explicit} holds.
+one of the clocks so that Eq.~\eqref{eq:synchr_explicit} holds.
 %\footnote{Essentially, the definition assumes that the value $t'$ is communicated to $\mathcal{O}$ in some way, without bothering about the details of a practical implementation of this.} 
  An eventual asynchrony would be measurable since an offset $t' \rightarrow t' + \Delta t$ of $\mathcal{C}'$ compared to $\mathcal{C}$ would lead to
 \begin{equation}\label{eq:synchr_offset}
@@ -422,7 +417,7 @@ Therefore, $\mathcal{O}$ can infer the time $t'$ at which the event $E'$ occurre
 \end{equation}
 holds as well (another way to see this is that $t = t' \Rightarrow t_+ = t'_+$ and $t_- = t'_-$).
 
-In addition to the mutuality $\equiv$ symmetry, synchronization (or, equivalently, the induced notion of simultaneity) has some other properties, which can be proven by logic.
+In addition to the mutuality $\equiv$ symmetry, synchronization (or, equivalently, the induced notion of simultaneity) has some other properties, which can be proven mostly by logic.
 \begin{prop}[Simultaneity as an Equivalence Relation]\label{prop:simult_equiv_relation}
 	Simultaneity defines an equivalence relation on the set of all events in an inertial frame, i.e.~the following properties hold:
 	\begin{enumerate}
@@ -717,7 +712,7 @@ Not surprisingly, though, the answer is that we have discovered a fundamental \e
 An argument that even further supports choosing the Einstein synchronization is equivalent to the synchronization via clock transport. Here, one sets the same time on clocks which are right next to each other and then moves one of these clocks (sometimes called master clock) to different points in space so that other the readings of other clocks can be compared to this master clock (in a slow transport limit, such that negligible time dilation occurs on the way; Giulini discusses this explicitly in Sec.~5.1 of \cite{giulini_srt}). This is what we would do intuitively to synchronize clocks on Earth, which shows us that our unfamiliarity with time dilation comes from our lack of experience with velocities $v \approx c$ or cosmic distances rather than pointing to unphysical effects.\\
 
 
-\rem{argument 1 why is correct (not sure if this is good argument): we have derived from first principles, why not (also, physically relevant statements like on causality of events still work in correct way); 2: effect persists even if we compare clocks that have moved in the same location, is not issue of comparing clocks at varying distances; 3: clock transport is equivalent to Einstein synchronization, so our intuitive notion of how to compare times will actually yield same results if we use it to analyze situations as before! We just never see it in everyday-life; 4, the ultimate argument: experimental evidence shows it (mention Hafele-Keating experiment)}
+\rem{argument 1 why is correct (not sure if this is good argument): we have derived from first principles, why not, only from principles of relativity, so if we assume them to be true (also, physically relevant statements like on causality of events still work in correct way); 2: effect persists even if we compare clocks that have moved in the same location, is not issue of comparing clocks at varying distances; 3: clock transport is equivalent to Einstein synchronization, so our intuitive notion of how to compare times will actually yield same results if we use it to analyze situations as before! We just never see it in everyday-life; 4, the ultimate argument: experimental evidence shows it (mention Hafele-Keating experiment)}
 
 
 Our next goal is to resolve the seemingly paradoxical mutuality of time dilation. One might suspect that the de-synchronization of clocks is caused by changes in the travel time as $\mathcal{O}$ and $\mathcal{O}'$ move farther away from each other, i.e.~by the increasing spatial separation leading to difficulties in communication between them and thus confusing the synchronization. Albeit it is true that the separation does increase, the de-synchronization arising from this is not a technical issue of the procedure. We can convince ourselves of this by looking at a scenario where the clock readings are compared in immediate spatial vicinity. It is commonly stated in the following form.
@@ -759,29 +754,89 @@ for a ruler of length $l$ carried by $\mathcal{O}$.
 
 
 
-
-		\subsection{Doppler Shift \& Aberration}\label{subsec:doppler}
+		% \subsection{Doppler Shift \& Aberration}
+		\subsection{Doppler Shift}
+		\label{subsec:doppler}
 Time being different for moving observers has implications on frequencies, which are nothing but inverse period lengths $T$,
 \begin{equation}
 	f = \frac{1}{T} \, .
 \end{equation}
-
-
-ah, while $\kappa(-v) = 1 / \kappa(v)$, this is not true for times: $\tau(-v) = \tau(v)$; thus it is not needed to explain time shifts, but instead it is useful for frequencies
-
-from Eq.\eqref{eq:doppler_derivation} we have already seen what \Def{Doppler factor} is, namely
+Consequently, the frequency $f$ observed by an observer $\mathcal{O}$ that receives a signal by an emitter $\mathcal{O}'$ moving away from $\mathcal{O}$ with $v$ is
 \begin{equation}
+	\eqbox{f = \frac{f'}{\kappa(v)}} \, ,
+\end{equation}
+with $f'$ denoting the frequency of the emitted signal. In words, frequencies are shifted towards lower ones, they are \Def[redshift]{redshifted}, $f < f'$.\footnote{Our chain of arguments is roughly that time intervals are shorter for moving observers and that this also has an effect on frequencies. Another route that one can go, which may be more intuitive, is the following: examine the relative Doppler shift of frequencies and go from this to the time intervals measured by moving observers. Due to longer travel times of light as two observers separate further, the frequency $f'$ observed by the resting observer $\mathcal{O}'$ is larger than the emitted one $f$ (that the moving observer $\mathcal{O}$ emitting the signals would see). Consequently, the observed period is smaller, which is nothing but time dilation.
+% Doppler factors could be helpful because frequencies are inverse time intervals, i.e.~through arriving of light signals (thus blue-, redshift), one can argue for time intervals that the observers see as well! Due to longer travel time of light, light signals reach at different times, leading to different perceptions of simultaneity (Wikipedia on twin paradox is nice for that)
+}
+If $\mathcal{O}'$ would move towards $\mathcal{O}$ with velocity $v$, then $\kappa(-v) = 1 / \kappa(v)$ implies that the received frequencies would be \Def{blueshifted} instead, i.e.~$f > f'$.
+
+
+Another name for this effect is \Def{Doppler shift}, which is derived from the term \Def{Doppler factor} for
+\begin{equation}\label{eq:doppler_factor}
 	\eqbox{\kappa = \sqrt{\frac{1 + v / c}{1 - v / c}} = \frac{1 + v / c}{\sqrt{1 - v^2 / c^2}}}
 \end{equation}
-this is classical Doppler, but with the same factor that we had seen for time and lengths already
-
-\todo{show cool form from \cite{Tonkinson_2009}, where relation with classical Doppler is explored}
-
-
-Doppler factors could be helpful because frequencies are inverse time intervals, i.e.~through arriving of light signals (thus blue-, redshift), one can argue for time intervals that the observers see as well! Due to longer travel time of light, light signals reach at different times, leading to different perceptions of simultaneity (Wikipedia on twin paradox is nice for that)
+(cf.~Eq.~\eqref{eq:doppler_derivation} and the preceding discussion for a derivation). This is the relative Doppler effect for a source moving with speed $v$ relative to the receiver, emitting a signal traveling with speed $c$, but with the same factor $\sqrt{1 - v^2 / c^2}$ we already encountered with times and lengths. For small velocities $v$, it reduces to the classical Doppler effect with
+\begin{equation}\label{eq:doppler_class}
+	\eqbox{\kappa \simeq 1 + \frac{v}{c}} \, .
+\end{equation}
 
 
-also helpful because from them, we can deduce how addition of velocities works; so maybe might be worthwhile to treat them after all... -> however, doing that in Lorentz transformation section might also be fine...
+More specifically, Eq.~\eqref{eq:doppler_factor} encapsulates the \Def[Doppler effect!longitudinal]{longitudinal Doppler effect}, where the relative movement of $\mathcal{O}, \mathcal{O}'$ is along the line of sight $\vec{N}$ between them.
+%More generally, we have to take component of $\vec{v}$ along $\vec{N}$, i.e.~project onto this vector. In formulas, that corresponds to replacing
+%\begin{equation}
+%	v = \norm{v} \mapsto v \cos \theta, \; \text{ where } \theta = \angle(\vec{v}, \vec{N}) = \frac{\langle \vec{v}, \vec{N} \rangle}{\norm{v} \norm{N}} \, .
+%\end{equation}
+%\todo{but not in sqrt! So change this -> or maybe also there? Yielding the modified formulas from Dragon}
+
+More generally, we could also have a component of $\vec{v}$ that is not parallel to $\vec{N}$ and correspondingly, a \Def[Doppler effect!transverse]{transverse Doppler effect}. For this, the change in distance is usually negligible between receiver and emitter, so there is no component by the relativistic generalization of the classical Doppler effect \eqref{eq:doppler_class}. However, the source is still potentially moving at relativistic speeds, which means that it is subject to time dilation. Therefore, there is still an effect, namely
+\begin{equation}
+	\eqbox{f = f' \, \sqrt{1 - v^2 / c^2}} \, .
+\end{equation}
+\cite{dragon_geometry_srt} treats the most general case with both longitudinal and transverse components, where the result reads
+\begin{equation}
+	\eqbox{f = f' \frac{\sqrt{1 - v^2 / c^2}}{1 - v \cos \theta}} \text{ where } \theta = \angle(\vec{v}, \vec{N}) = \frac{\langle \vec{v}, \vec{N} \rangle}{\norm{v} \norm{N}} \, .
+\end{equation}
+We will not derive this result here, but instead refer to the next section, where it is treated as part of coordinate transformations.
+% but we omit this here because it arises naturally as a coordinate transformation, too, and is thus are covered in next section.% (strictly speaking, we have looked at boosts here, right? And things like rotations are then part of more general Lorentz transformation)
+\\
+
+
+Now we will note down some important properties of the Doppler factor.
+\begin{itemize}
+	\item From the expression in Eq.~\eqref{eq:doppler} it immediately follows that
+	\begin{equation}
+		\eqbox{\kappa(-v) = \frac{1}{\kappa(v)}} \, .
+	\end{equation}
+	This is in contrast to the behavior for times, where $\tau(-v) = \tau(v)$.
+	
+	
+	\item In the proof of Minkowski's theorem \ref{thm:minkowski_moving_clocks}, we had used that the Doppler factors between two observers $\mathcal{O}_1, \mathcal{O}_2$ fulfill
+	\begin{equation}
+		\eqbox{\kappa_{12} = \kappa_{21}} \, ,
+	\end{equation}
+	where $\kappa_{12} \coloneqq \kappa(\mathcal{O}_1, \mathcal{O}_2)$.
+	
+	this assumption is justified because ... ; the Doppler shift is symmetric/mutual
+	
+	
+	\item Through some algebra, one can show that
+	\begin{equation}\label{eq:triple_doppler}
+		\eqbox{\kappa_{13} = \kappa_{12} \, \kappa_{23}} \, .
+	\end{equation}
+	Alternatively, one can argue in a similar manner to what we did in the proof of Theorem \ref{thm:minkowski_moving_clocks}, as is done in Sec.~2.2 of \cite{dragon_geometry_srt}. In this source, property \eqref{eq:triple_doppler} is also used to show how relativistic addition of velocities works. But since this is a section about clocks, we will not do that here, but rather refer to Sec.~\ref{subsec:vel_add} for a thorough discussion.
+\end{itemize}
+
+
+
+		% \subsection{What Is A \enquote{Good} Clock?}
+		\subsection{\enquote{Good} Clocks}
+we have cared a lot about simultaneity here, and what this required was very precise clocks. however, apart from this high precision, we have not discussed which type of clock is required. to answer this question, we must first think about what even makes a \enquote{good} clock or, equivalently, a \enquote{good} notion of time
+
+
+what requirements do we even have on a notion of time for it to be considered \enquote{good}? As Misner-Thorne-Wheeler state, it has to make the trajectory of free particles look simple. To see how these trajectories might change depending on this choice (that we have always assumed to be given until now), let us take a look at Eq.~\eqref{eq:newton_2}, which is the equation of motion. For a free particle, $v = \text{const.}$ and thus $F = 0$ -- free particles move in a straight line. However, the denominator contains $t$, just like $v^k = \dv{x^k}{t}$. For this reason, our notion of \enquote{constant} itself depends on the time standard we have chosen! As MTW show very illustratively, if we were to measure time in solar days, this would mean that the distance zurückgelegt in order to keep the velocity constant would change -- which makes it look like a force is at work. This is a very undesirable behaviour -> could even show with chain rule how things look like written out in terms of the usual notion of time, showing that we get something of the form $\dots = \dv{p^k}{t}$
+
+
+discuss how atomic clocks work, as example of good one? Atoms have very regular frequency, which in turn defines very precise time intervals
 
 
 
@@ -819,7 +874,7 @@ To obtain the way $t \rightarrow t'$ transforms, we use postulate \ref{post:c_co
 \end{equation}
 We are free to switch the expressions here since we are looking at light and it is necessary because $t' \overset{!}{=} t$ for $v = 0$.
 
-The last step is determining the factor $\gamma$, which can be done by inserting Eq.~\eqref{eq:lorentz_time_ansatz} into Eq.~\eqref{eq:lorentz_spatial_ansatz}
+In the last step, we determine the factor $\gamma$ by inserting Eq.~\eqref{eq:lorentz_time_ansatz} into Eq.~\eqref{eq:lorentz_spatial_ansatz}
 \begin{align*}
 	x' &= \gamma (x - vt) = \gamma (\gamma (x' + vt') - v \gamma / c (ct' + \frac{v}{c} x'))
 	\\
@@ -986,7 +1041,7 @@ $\gamma$ is stretching, needed because we know that lengths are measured differe
 
 
 		\subsection{Time Dilation \& Length Contraction 2}\label{subsec:time_dilation_lorentz}
-In principle, it is not surprising that a new transformation has to be used. After all, we have demanded some new postulates to be true and there is no reason for the \enquote{old} transformation to fulfil it. On the other hand, we have already examined quite a few predictions of these postulates in the clock section \ref{sec:clocks} and likewise, it is not guaranteed that our new Lorentz transformation reproduces the results which have been found there.
+In principle, it is not surprising that a new transformation has to be used. After all, we have demanded some new postulates to be true and there is no reason for the \enquote{old} transformation to fulfill it. On the other hand, we have already examined quite a few predictions of these postulates in the clock section \ref{sec:clocks} and likewise, it is not guaranteed that our new Lorentz transformation reproduces the results which have been found there.
 
 Most prominently, time dilation and length contraction showed up as new effects. We will now check if they can be reproduced in coordinates related via the Lorentz transformation.
 
@@ -1071,8 +1126,15 @@ Albeit the calculations are largely equivalent, we have argued slightly differen
 
 
 
+		\subsection{Doppler Shift 2}
+
+show here that Lorentz boost in $x$ + rotation about some angle yields transverse Doppler shift (should be the case). Boils down to matrix multiplications, I like that much more than what Dragon does
+
+
+
 		\subsection{Addition of Velocities}
-Let us now turn to velocities in relativity. Intuitively, we expect the velocity of points with fixed coordinates in the primed frame to move with velocity $v$ in the unprimed frame, i.e.~we expect them to fulfil an equation of the form
+		\label{subsec:vel_add}
+Let us now turn to velocities in relativity. Intuitively, we expect the velocity of points with fixed coordinates in the primed frame to move with velocity $v$ in the unprimed frame, i.e.~we expect them to fulfill an equation of the form
 \begin{equation*}
 	x = v t + b
 \end{equation*}
@@ -1135,6 +1197,9 @@ Until now, we have assumed $v, w$ to be parallel because we have only taken into
 	} \, ,
 \end{equation}
 adding velocities relativistically is neither commutative nor associative.
+
+
+\todo{mention somewhere that the non-Lorentz-transform way of obtaining this is by looking at Doppler factors between the three observers}
 
 
 % Write out expressions from Giulini (2.6)?
