@@ -28,36 +28,37 @@ Both approaches can lead to a rich and of course equivalent understanding, but i
 % Good sources: Nolting + Meinel; also Giulini + Dragon
 Sir Isaac Newton shaped the way physics was made for decades with his work \enquote{Philosophiae Naturalis Principia Mathematica} from 1687, which essentially founded the theory of classical mechanics. We will go briefly over the most important insights and notions needed to understand relativity.
 
+-> note that they hold for test mass!
 
 It is based on the following principles.
-\begin{post}[Newton Axioms]
+\begin{post}[Newton's Laws of Motion]
 	\begin{enumerate}[1.]
 		\item Every body remains at rest or in a uniform motion, unless a force acts upon it.
 
 		\item If a force $\vec{F}$ acts upon an object of mass $m$, it causes an acceleration
 		\begin{equation}\label{eq:newton_second_law}
 			\eqbox{
-			\vec{F} = m \vec{a} = m \dv[2]{\vec{r}}{t}
+				\vec{F} = m \vec{a} = m \dv[2]{\vec{r}}{t}
 			}
 			\manyqquad
 			\eqbox{
-			F^k = m a^k = m \ddot{r}^k
+				F^k = m a^k = m \ddot{r}^k
 			} \, .
 		\end{equation}
 
-		\item If two bodies exert forces on each other, these forces have the same magnitude but opposite directions (actio = reactio),
+		\item If two bodies exert forces on each other, these forces have the same magnitude but opposite directions (\enquote{actio = reactio}),
 		\begin{equation}\label{eq:newton_third_law}
 			\eqbox{
-			\vec{F}_{12} = - \vec{F}_{21}
+				\vec{F}_{12} = - \vec{F}_{21}
 			}
 			\manyqquad
 			\eqbox{
-			F_{12}^k = - F_{21}^k
+				F_{12}^k = - F_{21}^k
 			} \, .
 		\end{equation}
 	\end{enumerate}
 \end{post}
-These axioms (sometimes also called laws) define how objects (which are sometimes given the abstract name \Def{observer} $\mathcal{O}$; these give us viewpoints to describe physics from) experience physics. In order to describe this action mathematically, we also need explicit ways to assign the position of observers to points $\vec{r} \in \mathbb{R}^3$ in the Euclidean space we live in. Such an assignment is what physicists call \Def{coordinates} or \Def{frames}.
+These axioms define how objects (which are sometimes given the abstract name \Def{observer} $\mathcal{O}$; these give us viewpoints to describe physics from) experience physics. In order to describe this action mathematically, we also need explicit ways to assign the position of observers to points $\vec{r} \in \mathbb{R}^3$ in the Euclidean space we live in. Such an assignment is what physicists call \Def{coordinates} or \Def{frames}.
 
 
 Newton's laws have rich implications, some of which we discuss now.
@@ -69,7 +70,7 @@ The first law tells us something about which special class of frames is suitable
 \begin{defi}[Inertial Frame]
 	An \Def[inertial frame]{inertial frame (of reference)} is a frame where $F^k = m a^k$ holds.
 \end{defi}
-Basically, if you put a ball in front of you and let it go, then you are in an inertial frame if the ball just remains where it is.
+% Basically, if you put a ball in front of you and let it go, then you are in an inertial frame if the ball just remains where it is.
 
 For this to be valid, either $\vec{r}$ or $\vec{v}$ have to be constant (both direction and magnitude) in this inertial frame if $\vec{F} = 0$, which is exactly what Newton's first law imposes. From the definition we can also see that there is no unique inertial frame because we can always get other inertial frames from existing ones by looking at frames which move with constant speed with respect to them.
 
@@ -77,50 +78,50 @@ A very important realization is that all inertial frames are suited equally well
 \begin{equation}
 	\vec{F} = m \vec{a} = m \dv{\vec{v}_1(t)}{t} = m \dv{\vec{v}_2(t)}{t}
 \end{equation}
-as long as $\vec{v}_1 - \vec{v}_2 = \text{const}$. Therefore, while the values of $\vec{v}_1$ and $\vec{v}_2$ might differ and thus depend on the inertial frame we choose, the physics inferred from them does not (forces is what we observe). This explains the preferred role of inertial frames when describing physics. Laws stated in inertial frames hold in all of them, while laws in non-inertial frames do not, whence it is often non-trivial to find out whether effects can be attributed to some physical process or to the frame/coordinates used to describe the situation (for example, the Coriolis force is needed to explain effects on Earth's surface, which is a rotating and thus non-inertial frame of reference).\\
+as long as $\vec{v}_1 - \vec{v}_2 = \text{const}$. Therefore, while the values of $\vec{v}_1$ and $\vec{v}_2$ might differ and thus depend on the inertial frame we choose, the physics inferred from them does not (forces are what we observe \todo{but this is not decisive factor, is it? Is simply that interplay of chosen coordinates and forces acting in them is always equivalent}). This explains the preferred role of inertial frames when describing physics. Laws stated in inertial frames hold in all of them, while laws in non-inertial frames do not, whence it is often non-trivial to find out whether effects can be attributed to some physical process or to the frame/coordinates used to describe the situation (for example, the Coriolis force is needed to explain effects on Earth's surface, which is a rotating and thus non-inertial frame of reference).\\
 
 
 If all inertial frames are suited equally well to describe physics, one might ask if a relation between them exists, i.e.~if there are ways to transform between inertial frames. Besides coordinate transformations (for example from Cartesian to spherical coordinates), which we will not discuss further here, the other possible transformation is between uniformly moving frames. These changes are admitted by the \Def{Galilei transform} and assuming the velocity $v$ to be in $x$-direction, this maps coordinates $(x, y, z)$ according to
 \begin{equation}\label{eq:galilei}
 	\eqbox{
-	x \rightarrow x' = x + v t
+		x \rightarrow x' = x + v t
 	}
 	\qquad \qquad
 	\eqbox{
-	y \rightarrow y' = y
+		y \rightarrow y' = y
 	}
 	\qquad \qquad
 	\eqbox{
-	z \rightarrow z' = z
+		z \rightarrow z' = z
 	} \, .
 \end{equation}
 
 
+While all inertial frames yield equivalent physical statements, this is not the case for the way that Newton envisioned them to be defined: he assumed the existence of a \enquote{master frame} that is known to be \enquote{truly inertial}, and every other inertial frame to be defined with respect to this one. In other words, Newton believed in the concept of an \Def{absolute space}, through this \enquote{master frame}.
+
+
 
 			\paragraph{Second Law}
-The second law is probably the second most famous formula in physics. It is a special case of constant mass $m = \text{const.}$ of the formula
+The second law is probably the second most famous formula in physics. It is a special case of constant mass $m = \text{const.}$ of the formula\footnote{Some people set things up differently and introduce Eq.~\eqref{eq:newton_2} as the second law.}
 \begin{equation}\label{eq:newton_2}
 	\eqbox{
-	\vec{F} = \dv{\vec{p}}{t}
+		\vec{F} = \dv{\vec{p}}{t}
 	}
 	\manyqquad
 	\eqbox{
-	F^k = \dv{p^k}{t}
+		F^k = \dv{p^k}{t}
 	}
 \end{equation}
-that relates forces to \Def{momenta} $\vec{p} = m \vec{v}$. Because of their relation to forces, some fundamental principles involve momenta. For example, the collision of particles with no external forces being present can be examined using momenta due to the property of \Def{momentum conservation},
-\begin{equation}\label{eq:momentum_conservation}
-	0 = F_\text{total}^k = \sum_k p_j^k
-\end{equation}
-\rem{I do not understand this anymore. Does this belong here? See \url{https://en.wikipedia.org/wiki/Momentum\#Conservation}. Probably better after third law. And second equality is definitely wrong (though I can see equivalence) -> make as example after third law? Logic is: for closed system (no other, external forces), third law tells us sum over forces they exert on each other is zero, so that the sum of their momenta is conserved; this is true at all time, which means the total momentum is conserved (and in particular, the one before and after the collision must be equal)}
-which has to hold before and after the collision, yielding
-\begin{equation}\label{eq:implication_momentum_conservation}
-	\sum_j p_j^k = \sum_j \tilde{p}_j^k \, .
-\end{equation}
-Here, $p_j^k$ denotes the momentum of the $j$-th object before the collision and $\tilde{p}_j^k$ after.
+that relates forces to \Def{momenta} $\vec{p} = m \vec{v}$. Because of their relation to forces, some fundamental principles involve momenta. 
+
+-> mention that they do have kind of abstract meaning, hard to grasp... 
 
 
 In either form, the second law determines dynamics in the Newtonian physics.
+
+
+
+-> multiple forces acting together can be described as a superposition, i.e.~total force is sum of all individual forces
 
 
 
@@ -130,12 +131,45 @@ The third law is probably the hardest to grasp, but it has profound implications
 -> when I push table, I feel the force it exerts on me (not the one I exert)
 
 
+mathematically speaking, it tells us something about symmetries of Newtonian dynamics (don't know how to elaborate further on that...)
+
+
 \begin{ex}
-astronaut example who pushes stones away in space
+	astronaut example who pushes stones away in space
 \end{ex}
 
 
-mathematically speaking, it tells us something about symmetries of Newtonian dynamics (don't know how to elaborate further on that...)
+\begin{ex}[Momentum Conservation]
+	A very interesting consequence of the third law arises when we remember how forces are related to momenta, i.e.~the second law. If we consider a physical system with no external forces acting on it, all forces acting are between the respective particles. The third law now implies that the total force, when looking at each pair of particles, must vanish since
+	\begin{equation}
+		\vec{F}_{ij} + \vec{F}_{ji} = \vec{F}_{ij} - \vec{F}_{ij} = 0
+	\end{equation}
+	where we use indices $i, j$ to refer to the $i$-th and $j$-th particle. Therefore, the total force when considering all particles also vanishes,
+	\begin{equation}\label{eq:force_equilibrium}
+		\eqbox{
+			F_\mathrm{total}^k = \sum_{i, j} F_i^k = 0
+		}
+	\end{equation}
+	where we denote by $\vec{F}_i$ the total force acting on particle $i$.
+
+	In terms of the corresponding momenta, this implies
+	\begin{equation}\label{eq:momentum_conservation}
+		\eqbox{
+			\sum_{i} \dv{p_i^k}{t} = 0
+		} \, ,
+	\end{equation}
+	the total momentum of the system is constant. A common way to phrase this is saying the momentum is \Def[conservation]{conserved}.
+
+	Exploiting this property alone is already enough to treat many physical problems. One example is the collision of two (or more) particles, where momentum conservation implies
+	\begin{equation}\label{eq:implication_momentum_conservation}
+		\sum_j p_j^k = \sum_j \tilde{p}_j^k \, .
+	\end{equation}
+	Here, $p_j^k$ denotes the momentum of the $j$-th object before the collision and $\tilde{p}_j^k$ after.
+
+	-> this property is big reason why momenta are useful, despite their kind of abstract meaning
+\end{ex}
+
+As we have seen in this example, if there are no net external forces on a system, the total force vanishes (cf.~Eq.~\eqref{eq:force_equilibrium}). In particular, this characterizes the equilibrium of the system and is thus also a common way to determine how particles behave in such a system, given the forces between them. \todo{check wording here. because no external force does not always imply equilibrium, this is not what we are trying to say} -> point is: to determine how system in equilibrium looks like, we can analyze all forces acting on the system and demand that they cancel each other in the end (because then Newton 2 tells us momentum is conserved); this is frequently done to get relation between different forces in different physical situations
 
 
 
@@ -193,7 +227,7 @@ The first idea is to make the invariance under chosen reference frame, which has
 \begin{post}[Principle of Relativity]
 	All physical observations must hold independently of the inertial frame that is chosen.
 \end{post}
-This principle can be traced back to Galileo Galilei, who formulated it in 1632. It means if you are in a closed room without any windows, you cannot perform any experiment to determine if you are at rest or moving at a constant velocity. In other words, there is no absolute notion of rest; it is all relative (hence the name \enquote{relativity principle}).\\
+This principle can be traced back to Galileo Galilei, who formulated it in 1632. It means if you are in a closed room without any windows, you cannot perform any experiment to determine if you are at rest or moving at a constant velocity. In other words, there is no absolute notion of rest; it is all relative (hence the name \enquote{relativity principle}). Note how this fundamentally disagrees with Newton's concept of an absolute space, where something like a \enquote{master frame} exists.\todo{should we comment on how non-inertial frames can be found? pseudo-forces should be answer, right?}\\
 
 
 The second postulate concerns the speed of light and is definitely something new.
@@ -304,7 +338,7 @@ Accordingly, the events $E_1, E_2$ are called timelike-separated, null-/lightlik
 	\section{Clocks}\label{sec:clocks}
 %{Time Measurement} % Sounds kind of awkward
 % Nice inctroduction from previous subsection, but not needed anymore I think: we want equivalent results in all frames; if we try to measure a distance, this requires a notion of \enquote{at the same time}; harder than it sounds (communication cannot happen instantaneously, as we have just learned), but this is why we will deal with measuring time now, i.e.~clocks -> maybe put into introduction of clocks
-Until now, we have not really discussed the notion of time. Partly, this is because we natively have a very clear, intuitive understanding of it: we look at clocks to measure it and this notion can be employed anywhere in space -- just use equal clocks in different points and compare their readings. This definition is employed in Newtonian physics, without much more attention being needed. However, as is the story for much of relativity theory, this notion essentially breaks down once we go to more extreme situations like distances on cosmic scales or clocks moving relative to each other with high velocities. In both of those cases, timing the reading of a clock and hence comparing if they show the same time is difficult. For large distances, this is rather easy to see because information is transmitted at a finite speed $\leq c$, so when receiving information about the measurement result $t$ of a far-away clock, we have to take into account the time it traveled to us in order to find out which event happened simultaneously to $t$.
+Until now, we have not really discussed the notion of time. Partly, this is because we natively have a very clear, intuitive understanding of it: we look at clocks to measure it and this notion can be employed anywhere in space -- just use equal clocks in different points and compare their readings. This definition is employed in Newtonian physics, without much more attention being needed -- Newtonian physics assumes the existence of \Def{absolute time}.\footnote{This is also reflected in the fact that the Galilei transform as the appropriate frame transformation keeps the time fixed, $t' = t$.} However, as is the story for much of relativity theory, this notion essentially breaks down once we go to more extreme situations like distances on cosmic scales or clocks moving relative to each other with high velocities. In both of those cases, timing the reading of a clock and hence comparing if they show the same time is difficult. For large distances, this is rather easy to see because information is transmitted at a finite speed $\leq c$, so when receiving information about the measurement result $t$ of a far-away clock, we have to take into account the time it traveled to us in order to find out which event happened simultaneously to $t$.
 
 This is problematic since many notions implicitly rely on the fact that we can measure quantities at the same time, i.e.~on a notion of simultaneity. A very important example are lengths, which are defined as the separation of points -- at a fixed time. Therefore, a well-defined notion of \enquote{at a fixed time} is required for us to be able to measure lengths and until now, we have no such notion. In everyday life, it is easy to avoid such difficulties: after all, we can look at clocks side-by-side, make sure they show the same time and then move one of them away to the desired position. This procedure ensures the clocks are synchronized, so we can simply take the desired measurements and compare the times later on. However, this is not really feasible to do that for measurements between planets or galaxies and clearly, an alternative, perhaps more general, way of communicating time measurements is needed.
 
@@ -452,13 +486,13 @@ then the clocks $\mathcal{C}^R, \mathcal{C}, \mathcal{C}'$ are synchronized. By 
 	%\thisfloatpagestyle{onlyheader} % Not needed with caption on side
 	
 	\subfloat[Observers at rest relative to each other in their rest frame]{
-		\input{../pictures/synchronization_resting_observers_a.tex}
+		\input{pictures/synchronization_resting_observers_a.tex}
 	%\hspace*{0.05\textwidth}
 	}\hspace*{0.2\textwidth}
 	%
 	\subfloat[Observers at rest relative to each other in frame moving relative to them]{
 	%\hspace*{0.05\textwidth}
-		\input{../pictures/synchronization_resting_observers_b.tex}
+		\input{pictures/synchronization_resting_observers_b.tex}
 	}%\hspace*{0.025\textwidth}
 	
 	\vspace*{4\baselineskip}
@@ -468,7 +502,7 @@ then the clocks $\mathcal{C}^R, \mathcal{C}, \mathcal{C}'$ are synchronized. By 
 		
 		\subfloat[Comparison of all observers from (a) and (b). For simplicity, we assume that the clock $\mathcal{C}$ and $\mathcal{C}''$ show the same time $t = t''$ on intersection of $\mathcal{O}, \mathcal{O}''$. Despite that, they cannot agree on the time of intersection of $\mathcal{O}', \mathcal{O}'''$, $t' \neq t'''$.]{
 		%\hspace*{0.05\textwidth}
-			\input{../pictures/synchronization_resting_observers_c.tex}
+			\input{pictures/synchronization_resting_observers_c.tex}
 		}
 	\end{minipage}%\hfill
 	\begin{minipage}{0.5\textwidth}
@@ -646,7 +680,7 @@ The question that truly matters now is the following: is this a physical effect?
 	\hspace*{-0.05\textwidth}
 	%
 	\subfloat[Observers moving with relative velocity $v = 0.6 c$]{
-		\input{../pictures/synchronization_moving_observers_a.tex}
+		\input{pictures/synchronization_moving_observers_a.tex}
 	}
 	%
 	%\hspace*{0.2\textwidth}
@@ -654,7 +688,7 @@ The question that truly matters now is the following: is this a physical effect?
 	%
 	\subfloat[Observers moving with relative velocity $v = 0.5 c$]{
 	%\hspace*{0.05\textwidth}
-		\input{../pictures/synchronization_moving_observers_b.tex}
+		\input{pictures/synchronization_moving_observers_b.tex}
 	}
 	%
 	\hspace*{0.05\textwidth}
@@ -704,6 +738,7 @@ One final note, before we answer this question, concerns some related vocabulary
 In principle, there is no unique procedure to synchronize clocks. Admittedly, the Einstein synchronization does have a few very convenient properties, like respecting the relativity principle (which is achieved by exploiting the constancy of $c$ again). However, it produces strange results for observers moving relative to each other, namely that less time passes on moving clocks (something we do not know from our everyday life). Therefore, it is a valid question to ask whether or not this is an effect induced by our specific choice of synchrony, i.e.~if other procedures could build consistent notions of global time free of these effects. In other words: is this a bug or a feature of time?
 
 
+Not surprisingly, though, the answer is that we have discovered a fundamental \emph{feature} of time, which is uncovered by and not caused by the Einstein synchronization. Time does indeed slow down for moving observer, an effect called \Def{time dilation}. The implications of this are profound: In relativity, the idea of a universally agreed upon absolute time has to be abandoned. Instead, it becomes relative and depends on the motional state of the observer that measures it. Of course, if the time standard becomes relative, so do notions like simultaneity. As a consequence, both observers have the right to claim less time went by for the other and both are right in doing so. This is a key fact to understand relativity and no different from the abandonment of absolute space, which had analogous implications on observers moving uniformly relative to each other. Here, both can claim to be at rest, while the other one moves because it does not change the physics exhibited by the situation. The same is true for times (although it might not be clear yet). Put differently, just like the answer to \enquote{where does event $E$ happen?} depends on the coordinates we choose, the answer to \enquote{at which time did event $E$ happen?} depends on the (world line of the) clock we use in our measurements.
 
 %\rem{argument 1 why is correct (not sure if this is good argument): we have derived from first principles, why not, only from principles of relativity, so if we assume them to be true (also, physically relevant statements like on causality of events still work in correct way); 2: effect persists even if we compare clocks that have moved in the same location, is not issue of comparing clocks at varying distances; 3: clock transport is equivalent to Einstein synchronization, so our intuitive notion of how to compare times will actually yield same results if we use it to analyze situations as before! We just never see it in everyday-life; 4, the ultimate argument: experimental evidence shows it (mention Hafele-Keating experiment)}
 
@@ -740,6 +775,9 @@ An interesting consequence of time dilation arises for observers moving with the
 This is why particles moving at light speed cannot decay -- they are physically not able to age and reach whatever decay time we might suspect them to have.
 
 
+\todo{not sure anymore if we can make this statement. Saw discussion that it is not possible to define a frame of reference for a photon (which is true), so such a statement is useless. Not sure what to think of that, though, I mean don't all observers agree on proper times? Then this should be valid, since we have no $1/0$ here...}
+
+
 
 		\subsection{Length Contraction}
 Time works different in relativity, we must learn to accept that. Part of that is examining induced effects, for example on lengths. After all, when thinking about it a bit more, lengths are defined as readings of a measuring rod/ruler \emph{at the same time}. Since observers have different notions of simultaneity, the very definition of lengths will also be affected by this.
@@ -773,14 +811,19 @@ Consequently, the frequency $f$ observed by an observer $\mathcal{O}$ that recei
 with $f'$ denoting the frequency of the emitted signal. In words, frequencies are shifted towards lower ones, they are \Def[redshift]{redshifted}, $f < f'$.\footnote{Our chain of arguments is roughly that time intervals are shorter for moving observers and that this also has an effect on frequencies. Another route that one can go, which may be more intuitive, is the following: examine the relative Doppler shift of frequencies and go from this to the time intervals measured by moving observers. Due to longer travel times of light as two observers separate further, the frequency $f'$ observed by the resting observer $\mathcal{O}'$ is larger than the emitted one $f$ (that the moving observer $\mathcal{O}$ emitting the signals would see). Consequently, the observed period is smaller, which is nothing but time dilation.
 % Doppler factors could be helpful because frequencies are inverse time intervals, i.e.~through arriving of light signals (thus blue-, redshift), one can argue for time intervals that the observers see as well! Due to longer travel time of light, light signals reach at different times, leading to different perceptions of simultaneity (Wikipedia on twin paradox is nice for that)
 }
-If $\mathcal{O}'$ would move towards $\mathcal{O}$ with velocity $v$, then $\kappa(-v) = 1 / \kappa(v)$ implies that the received frequencies would be \Def{blueshifted} instead, i.e.~$f > f'$.
+If $\mathcal{O}'$ would move towards $\mathcal{O}$ with velocity $v$, then $\kappa(-v) = 1 / \kappa(v)$ implies that the received frequencies would be \Def{blueshifted} instead, i.e.~$f > f'$. Having started to argue with these new terms, we should introduce the corresponding physical quantity as well. The \Def{redshift} can be defined as
+\begin{equation}
+	\eqbox{f = \frac{f'}{1 + z}}
+	\quad \Leftrightarrow \quad
+	\eqbox{z = \kappa - 1} \, .
+\end{equation}
 
 
 Another name for this effect is \Def{Doppler shift}, which is derived from the term \Def{Doppler factor} for
 \begin{equation}\label{eq:doppler_factor}
 	\eqbox{\kappa = \sqrt{\frac{1 + v / c}{1 - v / c}} = \frac{1 + v / c}{\sqrt{1 - v^2 / c^2}}}
 \end{equation}
-(cf.~Eq.~\eqref{eq:doppler_derivation} and the preceding discussion for a derivation). This is the relativistic Doppler effect for a source moving with speed $v$ relative to the receiver, emitting a signal traveling with speed $c$, but with the same factor $\sqrt{1 - v^2 / c^2}$ we already encountered with times and lengths. For small velocities $v$, it reduces to the classical Doppler effect with
+(cf.~Eq.~\eqref{eq:doppler_derivation} and the preceding discussion for a derivation). This is the relativistic Doppler effect for a source moving with speed $v$ relative to the receiver, emitting a signal traveling with speed $c$, but with the same factor $\sqrt{1 - v^2 / c^2}$ we already encountered with times and lengths (the origin of this term is the time dilation experienced by a moving observer). For small velocities $v$, it reduces to the classical Doppler effect with
 \begin{equation}\label{eq:doppler_class}
 	\eqbox{\kappa \simeq 1 + \frac{v}{c}} \, .
 \end{equation}
@@ -1505,143 +1548,128 @@ We have already discussed the causal structure of relativity, timelike trajector
 
 The new addition of being able to depict multiple observers to spacetime diagrams makes them a powerful tool suitable to explain many effects of relativity. For example, the fairly complicated twin paradox can be explained and -- perhaps, even more important -- visualized conveniently.
 
+
+
+% To get $t''_{TE}$, we have to prolong the axes of simultaneity of the primed coordinates and count the number of time units which go by between the intersections of them with $ct''$ (i.e.~the number of intersections with green lines on the way). This yields roughly $t''_{TE} \gtrsim 1.5$ again. For the time passing simultaneously on a clock in primed coordinates, we can read off roughly $t'_{TE} \approx 4$. The correct numbers can be obtained from Minkowski's theorem again:
+
+
 \begin{ex}[Twin Paradox 2]\label{ex:twin_paradox_2}
-	As promised, here comes the detailed demonstration of the twin paradox, which has been started in example \ref{ex:twin_paradox_1}. We will discuss the setup shown in Fig.~\ref{fig:twin_paradox}, i.e.~treat one observer at rest (will be commonly referred to as \enquote{unprimed} one) and two observers moving with velocities $v = \pm 0.5 c$ relative to the unprimed observer (these will be called \enquote{primed} and \enquote{double-primed}, in accordance with their axis labels in \ref{fig:twin_paradox}).
 	
-	Our approach will be to compute the roundtrip time needed to go from $S$ to $E$ (i.e.~the time passing on the world line on $ct$ axis) and the time needed to go from $S$ to $T$ to $E$ (i.e.~the time passing on the other world line shown in \ref{fig:twin_paradox}). Each of these quantities will be computed from clocks resting in all three of the inertial frames shown in Fig.~\ref{fig:twin_paradox} (reminder: three are involved due to turning around, rest frame of moving observer changes there).\\
+	% here is what we should do: calculate ONCE $t_{ES}, t'_{ST}, t'_{ET}$, i.e.~the respective times measured by observer that rests on the trajectory covered between the events (we know how this works thanks to Minkowski theorem). After that, we go on to show that the time for observer traveling from $S$ to $E$ directly and the time for an observer traveling from $S$ to $E$ through $T$ take the same values (not that they are equal, their values when calculated in different frames are equal), no matter which frame we choose to calculate the values
+
+	% -> therefore, it is ok that observers infer different time differences between $S$ and $E$, in the sense that $t_{SE} \neq t'_{SE} \neq t''_{SE}$, the readings of their own clocks do not agree on this time difference. This is not unphysical because all observers can claim that the others are moving with respect to each other. However, when we ask what time each of these clocks infer for the observer resting in the unprimed frame, calculating this from the readings $t_{SE}, t'_{SE}, t''_{SE}$ shows that they do agree on this statement (and also on the time it takes for an observer on the red line \todo{should we draw line with other color to have better reference for observer? Or adopt from caption, O and O'?}). In other words, when asking the relevant questions/asking questions more precisely, we do get see that physics is intact and results are frame-independent. The hard part is to accept that comparing times by directly comparing different readings (i.e.~without gamma factors) is not a precisely asked question anymore \todo{better, more precise wording for last sentence, but I think this is important point; due to abandonment of absolute time, a direct comparison of different clock readings is not something meaningful anymore. We must rather specify very precisely which clock reading we refer to in order to have a truly meaningful comparison.}
+
+
+	% \hrule
+
+	As promised, here comes the detailed treatment of the twin paradox, which has been started in Example \ref{ex:twin_paradox_1}. We will discuss the setup shown in Fig.~\ref{fig:twin_paradox}, i.e.~treat one observer $\mathcal{O}$ that goes straight from event $S$ (where the clocks of all observers are synchronized) to event $E$ (where the observers meet again), and one observer $\mathcal{O}'$ that goes through $T$ on its way to $S$ (these names following the nomenclature detailed in the caption of Fig.~\ref{fig:twin_paradox}). The times that a clock moving along these two worldlines we show will be denoted by $\tau_{\mathcal{O}}$ (time passed on purple path) $\tau_{\mathcal{O}'}$ (time passed on red path). The relative velocities between $\mathcal{O}'$ and $\mathcal{O}$ is $v_1 = 0.5 c$ between $S, T$ and $v_2 = -0.5 c$ between $T, E$.
 	
-	%the thing that makes things make sense is that all observers agree on the time passing along moving clock, even when measured from their coordinates; after all, from the double-primed coordinates we can still look at time passing on clock in primed coordinates and simultaneously passing in rest frame; adding that up, we get the total times and these agree between the frames (good, otherwise we would have problem)
-	
-	During the process, we have to distinguish between four times: (i) the time $t_{ST}$ passing on the resting clock between $S$ and $T$, (ii) the time $t_{TE}$ passing on the resting clock between $T$ and $E$, (iii) the time $\tau_{ST}$ passing on the moving clock between $S$ and $T$ and (iv) the time $\tau_{TE}$ passing on the moving clock between $T$ and $E$. From that we get the total times for resting and moving clock,
-	\begin{equation*}
-		t_{SE} = t_{ST} + t_{TE}
-		\manyqquad
-		\tau_{SE} = \tau_{ST} + \tau_{TE} = t'_{ST} + t''_{TE} \, .
-	\end{equation*}
-	
-	One final note concerns the velocities involved: the world line is drawn for $v = 0.5 c$ on the way from $S$ to $T$ and $v = -0.5 c$ on the way from $T$ to $E$ (same velocity, different direction), where $v$ is the velocity of the respective moving frame compared to the unprimed, resting one. This implies a relative velocity of
-	\begin{equation*}
-		v_2 = \frac{0.5 c + 0.5 c}{1 + 0.5^2} = 0.8 c
-	\end{equation*}
-	from double-primed to primed frame.
+	One final note concerns the velocities involved: $v_1$ corresponds to the velocity of the primed observer relative to the unprimed one; $v_2$ corresponds to the velocity of the double-primed observer relative to the unprimed one; hence, the velocity of the primed observer relative to the double-primed one is
+	\begin{equation}
+		v_3 = \frac{0.5 c + 0.5 c}{1 + 0.5^2} = 0.8 c \, .
+	\end{equation}\\
+
+
+	Our intention in this example is to demonstrate the equivalence of the viewpoint of all three observers involved in the journey, the unprimed, primed, and double-primed one.
 	
 	\begin{itemize}
-		\item \textbf{Measuring from unprimed coordinates}
+		\item \textbf{Measuring from unprimed frame}
+
+		We have drawn events with
+		\begin{equation}
+			t_S = -2
+			\manyqquad
+			t_T = 0
+			\manyqquad
+			t_E = 2
+			\, ,
+		\end{equation}
+		where in arbitrary time units (one time unit corresponds to the difference between successive grid lines in Fig.~\ref{fig:twin_paradox}). Consequently,
+		\begin{equation}
+			\tau_{\mathcal{O}} = t_{SE} = t_E - t_S = 4 \, .
+		\end{equation}
+		Here we use that $\mathcal{O}$ is resting in the unprimed frame, so that the times $t$ recorded by a clock in this frame directly correspond to the proper time experienced by this observer.
+
+		To calculate the proper time for $\mathcal{O}'$, we can use either Lorentz transformations or Minkowski's theorem:
+		\begin{equation}
+		\begin{split}
+			\tau_{\mathcal{O}'} &= \tau_{\mathcal{O}', ST} + \tau_{\mathcal{O}', TE} = \sqrt{1 - v_1^2 / c^2} t_{ST} + \sqrt{1 - v_2^2 / c^2} t_{TE}
+			\\
+			&= \sqrt{1 - 0.5^2} \cdot 2 + \sqrt{1 - 0.5^2} \cdot 2 = 1.732 + 1.732 = 3.464 \, .
+		\end{split}
+		\end{equation}
+		Here we have assumed that the time needed to turn around in $T$ is negligible, so that the total travel time is just composed of the uniform motions between $S, T$ and $T, E$.\footnote{Argue this is justified from later considerations, clock postulate. Another indication that this is ok is Dragon argument, we can also accelerate $\mathcal{O}$ during this time by same amount, so that in comparison of the times passed for both, this contribution indeed cancels out.}
 		
-		Clearly,
-		\begin{equation*}
-			t_{ST} = 2 = t_{TE}
-			\qquad \Leftrightarrow \qquad
-			t_{SE} = t_{ST} + t_{TE} = 4
-		\end{equation*}
-		in arbitrary time units (where one time unit goes by between two grid lines). From that, Minkowski's theorem tells us
-		\begin{equation*}
-			t'_{SE} = \sqrt{1 - v^2} \, t_{SE} = 3.464 \, .
-		\end{equation*}
-	
-		Simultaneously, by looking at how much time elapses between the intersection of gray grid lines and the blue $ct'$-axis, one can see that as a rough estimate $t'_{ST} \lesssim 2$. For the exact result, we apply Minkowski's theorem:
-		\begin{equation*}
-			t'_{ST} = \tau_{ST} = \sqrt{1 - v^2 / c^2} \, t_{ST} = \sqrt{1 - 0.5^2} \cdot 2 = 1.732 \, .
-		\end{equation*}
-		Applying the same procedure to the double-primed coordinates yields
-		\begin{equation*}
-			t''_{TE} = \tau_{TE} = \sqrt{1 - v^2 / c^2} \, t_{TE} = \sqrt{1 - (-0.5)^2} \cdot 2 = 1.732 = \tau_{ST} \, .
-		\end{equation*}
+		We see that indeed, less time goes by for the moving observer, when analyzing the situation from the unprimed frame. What about the other frames, though? Is there still a reciprocity of this statement?
+
+
+		\item \textbf{Measuring from primed frame}
 		
-		This is because time dilation does not depend on the direction, only on the absolute velocity. Therefore, we can confirm that
-		\begin{equation*}
-			t_{SE} = t_{ST} + t_{TE} = 4 > \tau_{SE} = \tau_{ST} + \tau_{TE} = 3.464 \, ,
-		\end{equation*}
-		less time goes by on the moving clock.\\
-		
-	
-	
-		\item \textbf{Measuring from primed coordinates}
-	
-		While from these coordinates one still sees four time units going by on the roundtrip for the resting observer, i.e.~$t_{SE} = 4$, a rough estimate for the roundtrip time measured by a clock resting in the primed coordinates $ct'$ is $t'_{SE} \gtrsim 4$. More precisely, Minkowski's theorem yields
-		\begin{equation*}
-			t_{SE} = \sqrt{1 - v^2 / c^2} \, t'_{SE}
-			\qquad \Leftrightarrow \qquad
-			t'_{SE} = \frac{t_{SE}}{\sqrt{1 - v^2 / c^2}} = \frac{4}{\sqrt{1 - (-0.5)^2}} = 4.619 \, .
-		\end{equation*}
-		This is a consequence from the mutuality of time dilation, an observer resting in primed coordinates sees the unprimed observer moving at $v = -0.5 c$ and therefore measures more time passing in his own frame.
-	
-	
-		However, $t'_{SE}$ is not what a clock in the primed coordinates sees. Instead, 
-		\begin{equation*}
-			\tau_{SE} = \tau_{ST} + \tau_{TE} = t'_{ST} + t''_{TE}
-		\end{equation*}
-		as stated before. For $t'_{ST}$, however, we cannot simply use Minkowski's theorem and thus the time
-		\begin{equation*}
-			\frac{t_{ST}}{\sqrt{1 - v^2 / c^2}} = 2.309 \, ,
-		\end{equation*}
-		which cannot be quite correct since from the diagram we get the estimate $t'_{ST} \lesssim 3$. This is because the world line is moving with respect to the rest frame of $ct$, so we would only get statements about what is the time as seen from this frame. However, we wish to measure the primed time from the primed coordinates. This requires a Lorentz transformation of the events $S, T, E$:
-		\begin{equation*}
-			t'_{ST} = t'_T - t'_S = \frac{t_T - \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} - \frac{t_S - \frac{v}{c} x_S}{\sqrt{1 - v^2 / c^2}} = \frac{t_{ST} - \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} = \frac{2 - 0.5 \cdot 1}{\sqrt{1 - 0.5^2}} = 1.732 \, .
-		\end{equation*}
-		In the same manner, we obtain
-		\begin{equation*}
-			t'_{TE} = t'_E - t'_T = \frac{t_E - \frac{v}{c} x_E}{\sqrt{1 - v^2 / c^2}} - \frac{t_T - \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} = \frac{t_{TE} + \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} = \frac{2 + 0.5 \cdot 1}{\sqrt{1 - (-0.5)^2}} = 2.887 \, .
-		\end{equation*}
-	
-		To get $t''_{TE}$, we have to prolong the axes of simultaneity of the primed coordinates and count the number of time units which go by between the intersections of them with $ct''$ (i.e.~the number of intersections with green lines on the way). This yields roughly $t''_{TE} \gtrsim 1.5$ again. For the time passing simultaneously on a clock in primed coordinates, we can read off roughly $t'_{TE} \approx 4$. The correct numbers can be obtained from Minkowski's theorem again:
-		\begin{equation*}
-			t''_{TE} = \sqrt{1 - (-v_2)^2 / c^2} \, t'_{TE} = \sqrt{1 - (-0.8)^2} \, 2.887 = 1.732 \, .
-		\end{equation*}
-	
-		All together, the primed observer measures a roundtrip time
-		\begin{equation*}
-			t'_{SE} = t'_{ST} + t'_{TE} = 4.619 > \tau_{SE} = \tau_{ST} + \tau_{TE} = t'_{ST} + t''_{TE} = 3.464 \, .
-		\end{equation*}
-		We find the same result that less time has passed on the moving clock. Furthermore, we see that the absolute value for this $\tau_{SE} = t'_{SE}$ and the one computed from Minkowski's theorem in the first calculation agree (because corresponding world line is parallel to $ct$). On the other hand, it should not be surprising that the absolute values measured for $\tau_{ST}$ and $\tau_{TE}$ do not agree. After all, they are still measured from different reference frames and with respect to frames moving with different relative velocities ($\pm 0.5$ for primed; $0.5, 0.8$ for unprimed).\\
-	
-		
-		% for v=0.7 c
-		%on own clock, six time units go by for roundtrip; however, he agrees that just four go by on resting clock
-		
-		%on own clock, it is again roughly $3 / 2$ which pass by; on $ct''$ he sees $3 / 2$ passing by as well (way to see that: look at which lines parallel to $x'$ intersect the relevant events, i.e.~starting point and turning point; then look at points where these lines intersect $ct''$ and count number of ticks on $ct''$ between these intersections); in the same manner, we see that four time units pass on $ct$
-		
-		\item \textbf{Measuring from double-primed coordinates}
-	
-		Just as before, $t_{SE} = 4$ is measured, while roughly $t''_{SE} \gtrsim 4$ and precisely
-		\begin{equation*}
-			t''_{SE} = \frac{t_{SE}}{\sqrt{1 - v^2 / c^2}} = \frac{4}{\sqrt{1 - (-0.5)^2}} = 4.619
-		\end{equation*}
-		are measured by a clock resting in the double-primed coordinates. As one can confirm by looking at the result above, this is the same time a clock resting in primed coordinates measures. We expect more of these equal results since the double-primed coordinate system is moves with the same relative velocity as the primed one, just in the other direction (sign of velocity is different).
-	
-		A rough estimate for $t''_{TE}$ is $t''_{TE} \gtrsim 2$ and the exact result is
-		\begin{equation*}
-			t''_{TE} = t''_E - t''_T = \frac{t_E - \frac{v}{c} x_E}{\sqrt{1 - v^2 / c^2}} - \frac{t_T - \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} = \frac{t_{TE} + \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} = \frac{2 - 0.5 \cdot 1}{\sqrt{1 - (-0.5)^2}} = 1.732 \, .
-		\end{equation*}
-		An analogous calculation yields
-		\begin{equation*}
-			t''_{ST} = t''_T - t''_S = \frac{t_T - \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} - \frac{t_S - \frac{v}{c} x_S}{\sqrt{1 - v^2 / c^2}} = \frac{t_{ST} - \frac{v}{c} x_T}{\sqrt{1 - v^2 / c^2}} = \frac{2 + 0.5 \cdot 1}{\sqrt{1 - 0.5^2}} = 2.887 \, .
-		\end{equation*}
-		As promised, we get more results that we have already seen in calculations in the primed coordinates, but now they are switched (due to the transition $v \rightarrow -v$).
-	
-		Now we wish to compute $t'_{ST}$ and expect roughly $t'_{ST} \gtrsim 1.5$. Indeed, we obtain
-		\begin{equation*}
-			t'_{ST} = \sqrt{1 - v_2^2 / c^2} \, t'_{TE} = \sqrt{1 - 0.8^2} \, 2.887 = 1.732 \, .
-		\end{equation*}
-		All in all, the double-primed observer measures a roundtrip time
-		\begin{equation*}
-			t''_{SE} = t''_{ST} + t''_{TE} = 4.619 > \tau_{SE} = \tau_{ST} + \tau_{TE} = t'_{ST} + t''_{TE} = 3.464 \, .
-		\end{equation*}
-		Once again, these results look very familiar. 
+		We know from Lorentz transform which time is passing on clock in unprimed frame between $S, T$ (or we could read it off from Fig.~\ref{fig:twin_paradox} (b)). But we need between $T, E$. For this we use that we know time passing on clock in double-primed frame between $T, E$, as well as relative velocity of the frames.
+
+
+		% An observer resting in the primed frame would observe that on his clock, the time passing between $S$ and $E$ is
+		% \begin{equation}
+		% 	t'_{SE} = \frac{t_{SE}}{\sqrt{1 - (-v_1)^2 / c^2}} = \frac{4}{\sqrt{1 - 0.5^2}} = 4.619 \, .
+		% \end{equation}
+
+		As we can read off from the lines of simultaneity of the primed axes (i.e.~the lines parallel to $x'$) in each of the diagrams in Fig.~\ref{fig:twin_paradox} (though it is most conveniently done from (b)), an observer resting in the primed frame would observe that on his clock, the time passing between different pairs of events are
+		\begin{equation}
+			t'_{ST} = 1.732
+			\manyqquad
+			t'_{TE} = 2.887
+			\manyqquad
+			t'_{SE} = 4.619 \, .
+		\end{equation}
+		However, we are not really interested in these quantities.
+		As of now, it may look like there is a discrepancy here because $t'_{SE}$ is different from the time $t_{SE}$ inferred in unprimed frame.
+		But both Lorentz transformations and Minkowski's theorem tell that $t'_{SE}$ is not the that passes for an observer on the purple worldline because this observer $\mathcal{O}$ is not at rest in the primed frame. Instead, the time inferred for $\mathcal{O}$ from the primed frame is
+		\begin{equation}
+			\tau_{\mathcal{O}} = \sqrt{1 - (v_1)^2 / c^2} t'_{SE} = \sqrt{1 - 0.5^2} \cdot 4.619 = 4 \, .
+		\end{equation}
+		Similarly, the time for $\mathcal{O}'$ is
+		\begin{equation}
+		\begin{split}
+			\tau_{\mathcal{O}'} &= \tau_{\mathcal{O}', ST} + \tau_{\mathcal{O}', TE} = t'_{ST} + \sqrt{1 - (-v_3)^2 / c^2} t'_{TE}
+			\\
+			&= 1.732 + \sqrt{1 - 0.8^2} \cdot 2.887 = 1.732 + 1.732 = 3.464 \, .
+		\end{split}
+		\end{equation}
+		These are the same results that we obtained from the unprimed coordinates.
+
+
+		\item \textbf{Measuring from double-primed frame}
+
+		Here as well we can read off the measured times, which now read
+		\begin{equation}
+			t''_{ST} = 2.887
+			\manyqquad
+			t''_{TE} = 1.732
+			\manyqquad
+			t''_{SE} = 4.619 \, .
+		\end{equation}
+		We saw the exact same numbers for the primed observer already, which is caused by $\abs{v_1} = \abs{v_2}$ and shows the reciprocity of time dilation. For this reason, it is not surprising that
+		\begin{equation}
+			\tau_{\mathcal{O}} = \sqrt{1 - (v_2)^2 / c^2} t''_{SE} = \sqrt{1 - 0.5^2} \cdot 4.619 = 4
+		\end{equation}
+		and
+		\begin{equation}
+		\begin{split}
+			\tau_{\mathcal{O}'} &= \tau_{\mathcal{O}', ST} + \tau_{\mathcal{O}', TE} = \sqrt{1 - (v_3)^2 / c^2} t'_{ST} + t''_{TE}
+			\\
+			&= \sqrt{1 - 0.8^2} \cdot 2.887 + 1.732 = 1.732 + 1.732 = 3.464 \, ,
+		\end{split}
+		\end{equation}
+		the results in the double-primed frame are also the same as the ones from before.
 	\end{itemize}
-	
-	
-	
-	A conclusion of these extensive calculations is that physics is not broken, despite relativity sometimes being unintuitive at first glance. All inertial frames play equal roles, which shows in the mutual slowing of moving clocks. In frames where both clocks seem to be moving, we can further confirm that the effect increases with the velocity $v$, as implied by Eq.~\eqref{eq:minkowski_theorem}.
-	
-	It should also be noted that the agreement of all three observers regarding $\tau_{SE}$ is really a coincidence due to the symmetric setup we have chosen -- for other scenarios, e.g.~with unequal velocities on the first and second part of the journey or even if we assume that $ct$ is not at rest after all (but keeping the relative velocities of primed and unprimed system, i.e.~rotating the whole setup), this will not be the case anymore. In the same manner,
-	\begin{equation*}
-		t'_{ST} \neq t''_{TE}
-	\end{equation*}
-	in general. However, if one of the clocks moves on a world line parallel to the $ct$-axis of one of the observers, \emph{all} of them will agree on the time elapsed along this clock (so $t_{SE}$ being equal for all observers is really not a coincidence; the same goes for $t'_{ST}$ and $t''_{TE}$ in this setup). This is despite observers measuring different times on their own clocks and is due to Minkowski's theorem, which tells us how much time has passed simultaneously on a clock in another frame.
 
+	In summary, we see that all observers can agree on the value of proper times, in this case $\tau_{\mathcal{O}}, \tau_{\mathcal{O}'}$. In particular, they all conclude that less time passes for the observer moving at higher speed (although they do not agree on the speeds of each $\mathcal{O}, \mathcal{O}'$).
 
--> note: although there is no preferred system in the sense that it is \enquote{more correct} than others (no absolute space), one can argue it numbers computed in stationary system are the ones that make most sense because assuming the moving observer stops again and rests after his journey, this rest frame is where they compare their clocks in and thus also where an experiment would be conducted (i.e.~these times would be the one which are measured)
+	Before, we might have been puzzled by the reciprocity of relativistic effects such as time dilation. But in some sense, this example should clear up some of the confusion, by teaching us a very profound truth: we must be mindful which questions to ask in relativity. As we have seen, asking for the time between two events is not well-posed since it cannot be answered unambiguously (simultaneity is relative). The speed of observers? Is also not well-posed, again due to the relativity principle. But this example shows: the time passing for an observer is well-defined and different observers can agree on it -- despite the fact that they do not agree on the time between the events in their frame, and also not on the speed of the observers (which is, again, fine because there is no preferred observer).
+
+	% conclude that all observers can agree on proper time (which explains why we get same values for $\tau_{\mathcal{O}}, \tau_{\mathcal{O}'}$ in each frame). and that indeed, less time goes by for moving observers. but before we had ambiguity because it was not clear which observer was moving, due to relativity principle, every observer can claim to be at rest. but now, we clearly have a difference in velocities between $\mathcal{O}, \mathcal{O}'$ (no matter which frame we look at; this statement is true even if we are not in rest frame of $\mathcal{O}'$)
+
+	The main conclusion of this example can be formulated as follows: as long as we ask meaningful questions, we get consistent results. The strange thing to accept in relativity is that asking for the time between two events is not a meaningful question anymore. Instead, we must always specify which clock we refer to that is measuring the time between events, because in spacetime, the spatial path taken by this clock matters too.
 \end{ex}
 
 
@@ -1649,30 +1677,94 @@ The new addition of being able to depict multiple observers to spacetime diagram
 \begin{figure}
 	\centering
 
-	\begin{tikzpicture}[scale=1.2]
-		% Declare numbers as tikz variables, makes changing very convenient
-		\tikzmath{\vprime = 0.5; \vdoubleprime = -0.5;
-				  \tS = -2; \tT = 0;
-				  \tE = 2; \xS = 0;
-				  \xT = (\tT - \tS) * \vprime; \xE = 0;
-				  }  % Note: world line connecting S and T is always parallel to time axis of primed observer, while world line connecting T and E is only parallel to double-primed if vprime=-vdoubleprime
+	\subfloat[Unprimed frame as rest frame]{
+		\begin{tikzpicture}[scale=0.9]
+			% Declare numbers as tikz variables, makes changing very convenient
+			\tikzmath{
+				\vprime = 0.5;
+				\vdoubleprime = -0.5;
+				\tS = -2; \xS = 0;
+				\tE = 2; \xE = 0;
+				\tT = 0; \xT = (\tT - \tS) * \vprime;
+			}  % Note: world line connecting S and T is always parallel to time axis of primed observer, while world line connecting T and E is only parallel to double-primed if vprime=-vdoubleprime
 
-		% Add basis for diagram
-		\spacetimediagram{4}
-	
-		% Add other observers
-		\addobserver{3}{\vprime}
-		\addobserver[xlabel=$x''$, ylabel=$ct''$, color=black!40!green]{3}{\vdoubleprime}
+			% Add basis for diagram
+			\spacetimediagram{4}
+		
+			% Add other observers
+			\addobserver{3}{\vprime}
+			\addobserver[xlabel=$x''$, ylabel=$ct''$, color=black!40!green]{3}{\vdoubleprime}
 
-		% Add worldlines of clocks and start, end events
-		\addworldline{\xS}{\tS}{\xT}{\tT}  % Resting clock
-		\addworldline{\xS}{\tS}{\xT}{\tT}  % Moving clock
-		\addworldline{\xT}{\tT}{\xE}{\tE}  % Moving clock
+			% Add worldlines of clocks and start, end events
+			\addworldline[color=purple]{\xS}{\tS}{\xE}{\tE}  % Resting clock
+			\addworldline{\xS}{\tS}{\xT}{\tT}  % Moving clock
+			\addworldline{\xT}{\tT}{\xE}{\tE}  % Moving clock
 
-		\addevent[radius=2pt, label=$S$, label placement=right]{\xS}{\tS}  % S
-		\addevent[radius=2pt, label=$T$, label placement=right]{\xT}{\tT}  % T
-		\addevent[radius=2pt, label=$E$, label placement=right]{\xE}{\tE}  % E
-	\end{tikzpicture}
+			\addevent[radius=2pt, label=$S$, label placement=right]{\xS}{\tS}  % S
+			\addevent[radius=2pt, label=$T$, label placement=right]{\xT}{\tT}  % T
+			\addevent[radius=2pt, label=$E$, label placement=right]{\xE}{\tE}  % E
+		\end{tikzpicture}
+	}
+
+	\subfloat[Primed frame as rest frame]{
+		\begin{tikzpicture}[scale=0.7]
+			% Declare numbers as tikz variables, makes changing very convenient
+			\tikzmath{
+				\vunprime = -0.5;
+				\vprime = 0.0;
+				\vdoubleprime = -0.8;  % Relativistic addition
+				\tS = -2; \xS = 0;
+				\tE = 2; \xE = 0;
+				\tT = 0; \xT = (\tT - \tS) * 0.5;  % 0.5 = velocity between unprime and prime
+			}  % Note: world line connecting S and T is always parallel to time axis of primed observer, while world line connecting T and E is only parallel to double-primed if vprime=-vdoubleprime
+
+			% Add basis for diagram
+			\spacetimediagram[xlabel=$x'$, ylabel=$ct'$, color=blue]{4}
+		
+			% Add other observers
+			\addobserver[xlabel=$x$, ylabel=$ct$, color=black]{3}{\vunprime}
+			\addobserver[xlabel=$x''$, ylabel=$ct''$, color=black!40!green]{2}{\vdoubleprime}
+
+			% Add worldlines of clocks and start, end events
+			\addworldline[v=\vunprime, color=purple]{\xS}{\tS}{\xE}{\tE}  % Resting clock
+			\addworldline[v=\vunprime]{\xS}{\tS}{\xT}{\tT}  % Moving clock
+			\addworldline[v=\vunprime]{\xT}{\tT}{\xE}{\tE}  % Moving clock
+
+			\addevent[radius=2pt, label=$S$, label placement=right, v=\vunprime]{\xS}{\tS}  % S
+			\addevent[radius=2pt, label=$T$, label placement=right, v=\vunprime]{\xT}{\tT}  % T
+			\addevent[radius=2pt, label=$E$, label placement=right, v=\vunprime]{\xE}{\tE}  % E
+		\end{tikzpicture}
+	}
+	%
+	\subfloat[Double-primed frame as rest frame]{
+		\begin{tikzpicture}[scale=0.7]
+			% Declare numbers as tikz variables, makes changing very convenient
+			\tikzmath{
+				\vunprime = 0.5;
+				\vprime = 0.8;  % Relativistic addition
+				\vdoubleprime = 0.0;
+				\tS = -2; \xS = 0;
+				\tE = 2; \xE = 0;
+				\tT = 0; \xT = (\tT - \tS) * 0.5;  % 0.5 = velocity between unprime and prime
+			}  % Note: world line connecting S and T is always parallel to time axis of primed observer, while world line connecting T and E is only parallel to double-primed if vprime=-vdoubleprime
+
+			% Add basis for diagram
+			\spacetimediagram[xlabel=$x''$, ylabel=$ct''$, color=black!40!green]{4}
+		
+			% Add other observers
+			\addobserver[xlabel=$x$, ylabel=$ct$, color=black]{3}{\vunprime}
+			\addobserver[xlabel=$x'$, ylabel=$ct'$, color=blue]{2}{\vprime}
+
+			% Add worldlines of clocks and start, end events
+			\addworldline[v=\vunprime, color=purple]{\xS}{\tS}{\xE}{\tE}  % Resting clock
+			\addworldline[v=\vunprime]{\xS}{\tS}{\xT}{\tT}  % Moving clock
+			\addworldline[v=\vunprime]{\xT}{\tT}{\xE}{\tE}  % Moving clock
+
+			\addevent[radius=2pt, label=$S$, label placement=right, v=\vunprime]{\xS}{\tS}  % S
+			\addevent[radius=2pt, label=$T$, label placement=right, v=\vunprime]{\xT}{\tT}  % T
+			\addevent[radius=2pt, label=$E$, label placement=right, v=\vunprime]{\xE}{\tE}  % E
+		\end{tikzpicture}
+	} 
 
 	\caption[Visual explanation of twin paradox]{Visual explanation of twin paradox. Event $S$ is the starting point, $T$ turning point and $E$ end point. The primed observer has a relative velocity of $v = 0.5 v$ with respect to the unprimed one, while the double-primed observer has $v = -0.5 c$.\\
 	We can measure times passing between events in a certain frame $\mathcal{O}$ by prolonging the corresponding lines of simultaneity (parallel to spatial axis of $\mathcal{O}$) from event to the time axis of $\mathcal{O}$ and then count the number of time units passing on the time axis between the intersection points. Similarly, we could also prolong them until they intersect the time axis of any other frame $\mathcal{O}'$. In this case, counting the number of time steps passing between the intersection points on the time axis of $\mathcal{O}'$ would yield the time passing for $\mathcal{O}'$, measured from $\mathcal{O}$.}
