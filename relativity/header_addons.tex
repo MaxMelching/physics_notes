@@ -258,8 +258,8 @@
     \draw[->, thick, \diagramColor] (0, -#2 * \diagramStepsize * \helpval - \diagramStepsize * \helpval) -- (0, #2 * \diagramStepsize + \diagramStepsize);
 
 	% Draw the x and ct axes labels
-    \draw (#2 * \diagramStepsize + \diagramStepsize + 0.2, 0) node {\diagramxlabel};
-    \draw (0, #2 * \diagramStepsize + \diagramStepsize + 0.2) node {\diagramylabel};
+    \draw (#2 * \diagramStepsize + \diagramStepsize + 0.2, 0) node[\diagramColor] {\diagramxlabel};
+    \draw (0, #2 * \diagramStepsize + \diagramStepsize + 0.2) node[\diagramColor] {\diagramylabel};
 
 	% Draw light cone
 	\ifthenelse{\equal{\diagramLightCone}{true}}{
