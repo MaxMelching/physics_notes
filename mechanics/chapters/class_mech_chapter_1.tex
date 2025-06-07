@@ -1,4 +1,4 @@
-\documentclass[../KlassMech_main.tex]{subfiles}
+\documentclass[../class_mech_main.tex]{subfiles}
 %\input{../header} \graphicspath{../}
 
 
@@ -6,8 +6,566 @@
 
 
 
-\chapter{Newton}
+\chapter{Newtonian Mechanics}
 
-Dass man konservative Kräfte (für die $\nabla \cross F = 0$, die also ein Potential haben) in die Form $F = - \nabla V$ bringen kann, sagt uns schon unglaublich viel ! Wenn man dann nämlich den GGW-Zustand eines Systems finden will, so entspricht das offenbar gerade $F = 0$ und daher sind dann die Extrema von $V$ interessant ! Weil uns Kräfte zudem immer in die Richtung des Minimums von $V$ drücken (so ist es quasi nach Definition), sucht man spezieller Minima (Maxima sind instabil). Daher kommt es, dass Systeme immer in den Zustand minimaler Energie streben, das Potential entspricht nämlich einer Energie und soll ja minimiert werden (daher wird auch Gesamtenergie minimiert, weil ja kinetische im Kräfte-GGW auch konstant ist oder ? -> ok, so doch nicht). Allgemeiner sucht man bei nicht konservativen Kräften dann Kräfte-Gleichgewichte (weil ja immer noch $F = 0$ sein muss) und setzt die daher gleich dann.
+
+important: sometimes it is better to think in terms of forces $\vec{F} = \dv{\vec{p}}{t}$, but other times (kinetic) energy $E = \frac{p^2}{2m}$ is preferred (or their relativistic versions)
+
+
+The ultimate goal of physics is to study the interaction between different objects in the physical world that we live in. For decades, such interactions have typically been described in terms of forces, which are used to describe the motion of objects that is caused by a force or rather the interaction it corresponds to. This backbone of physics goes back to laws (or rather axioms) that Sir Isaac Newton has formulated and published in his famous \enquote{Philosophiae Naturalis Principia Mathematica} in 1687. Stunningly, the Newtonian mechanics derived from this accurately describes the dynamics of many physical scenarios, with the exception of very extreme situations (such as very small objects, where quantum effects must be accounted for, very fast objects, where relativistic effects come into play, or objects in very strong gravitational fields). 
+
+
+
+\newpage
+
+
+
+    \section{Newton's Laws of Motion}
+
+
+
+\todo{make subsection/paragraph for each law and write them down in centered environment?}
+
+
+does Newton 2 contain superposition principle, implicitly? Because of net force things that everybody emphasizes?
+
+
+following Thorne + Blandford in Sec.~1.4, emphasize how we can formulate Newtons laws entirely geometrically, without any coordinates! Of course, we \emph{can} use coordinates (as we do frequently, by writing laws in terms of components), but there is no \emph{need} to do so. This is very special
+
+
+\todo{introduce (kinetic) energy somewhere}
+
+\todo{introduce term impulse as derivative of momentum}
+
+
+
+
+\hrule
+
+following text can serve as basis:
+
+
+\begin{post}[Newton's Laws of Motion]
+	\begin{enumerate}[1.]
+		\item Every body remains at rest or in a uniform motion, unless a force acts upon it.
+
+		\item If a force $\vec{F}$ acts upon an object of mass $m$, it causes an acceleration
+		\begin{equation}\label{eq:newton_second_law}
+			\eqbox{
+				\vec{F} = m \vec{a} = m \dv[2]{\vec{r}}{t}
+			}
+			\manyqquad
+			\eqbox{
+				F^k = m a^k = m \ddot{r}^k
+			} \, .
+		\end{equation}
+
+		\item If two bodies exert forces on each other, these forces have the same magnitude but opposite directions (\enquote{actio = reactio}),
+		\begin{equation}\label{eq:newton_third_law}
+			\eqbox{
+				\vec{F}_{12} = - \vec{F}_{21}
+			}
+			\manyqquad
+			\eqbox{
+				F_{12}^k = - F_{21}^k
+			} \, .
+		\end{equation}
+	\end{enumerate}
+\end{post}
+These axioms define how objects (which are sometimes given the abstract name \Def{observer} $\mathcal{O}$; these give us viewpoints to describe physics from) experience physics. In order to describe this action mathematically, we also need explicit ways to assign the position of observers to points $\vec{r} \in \mathbb{R}^3$ in the Euclidean space we live in. Such an assignment is what physicists call \Def{coordinates} or \Def{frames}.
+
+
+Newton's laws have rich implications, some of which we discuss now.
+
+
+
+			\paragraph{First Law}
+The first law tells us something about which special class of frames is suitable to describe physics.
+\begin{defi}[Inertial Frame]
+	An \Def[inertial frame]{inertial frame (of reference)} is a frame where $F^k = m a^k$ holds.
+\end{defi}
+% Basically, if you put a ball in front of you and let it go, then you are in an inertial frame if the ball just remains where it is.
+
+-> first law asserts existence of an inertial frame!
+
+For this to be valid, either $\vec{r}$ or $\vec{v}$ have to be constant (both direction and magnitude) in this inertial frame if $\vec{F} = 0$, which is exactly what Newton's first law imposes. From the definition we can also see that there is no unique inertial frame because we can always get other inertial frames from existing ones by looking at frames which move with constant speed with respect to them.
+
+A very important realization is that all inertial frames are suited equally well to describe physics because the laws of physics do not depend on the frame we choose:
+\begin{equation}
+	\vec{F} = m \vec{a} = m \dv{\vec{v}_1(t)}{t} = m \dv{\vec{v}_2(t)}{t}
+\end{equation}
+as long as $\vec{v}_1 - \vec{v}_2 = \text{const}$. Therefore, while the values of $\vec{v}_1$ and $\vec{v}_2$ might differ and thus depend on the inertial frame we choose, the physics inferred from them does not (forces are what we observe \todo{but this is not decisive factor, is it? Is simply that interplay of chosen coordinates and forces acting in them is always equivalent}). This explains the preferred role of inertial frames when describing physics. Laws stated in inertial frames hold in all of them, while laws in non-inertial frames do not, whence it is often non-trivial to find out whether effects can be attributed to some physical process or to the frame/coordinates used to describe the situation (for example, the Coriolis force is needed to explain effects on Earth's surface, which is a rotating and thus non-inertial frame of reference).\\
+
+
+If all inertial frames are suited equally well to describe physics, one might ask if a relation between them exists, i.e.~if there are ways to transform between inertial frames. Besides coordinate transformations (for example from Cartesian to spherical coordinates), which we will not discuss further here, the other possible transformation is between uniformly moving frames. These changes are admitted by the \Def{Galilei transform} and assuming the velocity $v$ to be in $x$-direction, this maps coordinates $(x, y, z)$ according to
+\begin{equation}\label{eq:galilei}
+	\eqbox{
+		x \rightarrow x' = x + v t
+	}
+	\qquad \qquad
+	\eqbox{
+		y \rightarrow y' = y
+	}
+	\qquad \qquad
+	\eqbox{
+		z \rightarrow z' = z
+	} \, .
+\end{equation}
+
+
+It was brilliant Newton to formulate these postulates from what people knew about everyday life, but he was a little absolutistic in their interpretation: in particular, he believed in an absolute space where a preferred inertial frame existed, from which all other inertial frame can be derived/defined (i.e.~that there is an an absolute frame of reference that we can fall back to when defining inertial frames). Albert Einstein challenged this thought more than two decades later, by proclaiming that there is no absolute space. This resolved many issues that were present at that time, making it the preferred interpretation until today. The relativity principle states that there is no absolute notion of rest when it comes to uniform motion. It is, however, possible to detect if ones frame is accelerated, i.e.~it is possible to know whether one is in an inertial frame of reference or not (we will expand on this later on).
+
+
+
+
+			\paragraph{Second Law}
+The second law is probably the second most famous formula in physics. It is a special case of constant mass $m = \text{const.}$ of the formula\footnote{Some people set things up differently and introduce Eq.~\eqref{eq:newton_2} as the second law.}
+\begin{equation}\label{eq:newton_2}
+	\eqbox{
+		\vec{F} = \dv{\vec{p}}{t}
+	}
+	\manyqquad
+	\eqbox{
+		F^k = \dv{p^k}{t}
+	}
+\end{equation}
+that relates forces to \Def{momenta} $\vec{p} = m \vec{v}$. Because of their relation to forces, some fundamental principles involve momenta. 
+
+-> mention that they do have kind of abstract meaning, hard to grasp... 
+
+
+In either form, the second law determines dynamics in the Newtonian physics.
+
+
+
+-> multiple forces acting together can be described as a superposition, i.e.~total force is sum of all individual forces
+
+
+
+			\paragraph{Third Law}
+The third law is probably the hardest to grasp, but it has profound implications on how one should think about forces etc.~intuitively.
+
+-> when I push table, I feel the force it exerts on me (not the one I exert)
+
+
+mathematically speaking, it tells us something about symmetries of Newtonian dynamics (don't know how to elaborate further on that...)
+
+
+
+		\subsection{\todo{Consequences? Discussion?}}
+
+one of the big achievements (advancements?) of these axioms is that they give us a systematic way to write down an equation of motion, which determines how the current state of a system will evolve with time (mainly comes from Newton 2, but insights from other axioms help formulating these equations as well; e.g., trick with no net force can often only be applied due to Newton 3, etc.); granted, we need state of the system at some point for that, i.e.~an initial condition, but this is typically what we have: we ask questions like \enquote{what happens if I drop a ball}, which naturally includes knowledge of the initial setup of the experiment. Solving the equations of motion then gives us the final state of such an experiment, as well as state at every time between beginning and end (we are guaranteed that solution can be found, at least numerically, from the existence of procedures such as the Picard-Lindelöf iteration)
+
+-> first one tells us about good frame we may use (inertial), where laws look same; second one tells us how laws look like; third one helps us in practice with writing down second one explicitly
+
+
+\begin{ex}
+	astronaut example who pushes stones away in space
+\end{ex}
+
+
+\begin{ex}[Momentum Conservation]
+	A very interesting consequence of the third law arises when we remember how forces are related to momenta, i.e.~the second law. If we consider a physical system with no external forces acting on it, all forces acting are between the respective particles. The third law now implies that the total force, when looking at each pair of particles, must vanish since
+	\begin{equation}
+		\vec{F}_{ij} + \vec{F}_{ji} = \vec{F}_{ij} - \vec{F}_{ij} = 0
+	\end{equation}
+	where we use indices $i, j$ to refer to the $i$-th and $j$-th particle. Therefore, the total force when considering all particles also vanishes,
+	\begin{equation}\label{eq:force_equilibrium}
+		\eqbox{
+			F_\mathrm{total}^k = \sum_{i, j} F_i^k = 0
+		}
+	\end{equation}
+	where we denote by $\vec{F}_i$ the total force acting on particle $i$.
+
+	In terms of the corresponding momenta, this implies
+	\begin{equation}\label{eq:momentum_conservation}
+		\eqbox{
+			\sum_{i} \dv{p_i^k}{t} = 0
+		} \, ,
+	\end{equation}
+	the total momentum of the system is constant. A common way to phrase this is saying the momentum is \Def[conservation]{conserved}.
+
+	Exploiting this property alone is already enough to treat many physical problems. One example is the collision of two (or more) particles, where momentum conservation implies
+	\begin{equation}\label{eq:implication_momentum_conservation}
+		\sum_j p_j^k = \sum_j \tilde{p}_j^k \, .
+	\end{equation}
+	Here, $p_j^k$ denotes the momentum of the $j$-th object before the collision and $\tilde{p}_j^k$ after.
+
+	-> this property is big reason why momenta are useful, despite their kind of abstract meaning
+\end{ex}
+
+As we have seen in this example, if there are no net external forces on a system, the total force vanishes (cf.~Eq.~\eqref{eq:force_equilibrium}). In particular, this characterizes the equilibrium of the system and is thus also a common way to determine how particles behave in such a system, given the forces between them. \todo{check wording here. because no external force does not always imply equilibrium, this is not what we are trying to say} -> point is: to determine how system in equilibrium looks like, we can analyze all forces acting on the system and demand that they cancel each other in the end (because then Newton 2 tells us momentum is conserved); this is frequently done to get relation between different forces in different physical situations
+
+important: momentum is conserved when no \emph{net} external force is present! There can be forces, as long as total force cancels (which corresponds to equilibrium)
+
+-> if net force on a single object is zero, then it is in equilibrium; this is something we can say (avoids what we had above, potential issue with interaction in closed system, e.g. a collision, where total system may not have force, but calling this equilibrium would also be tough...)
+
+
+
+        % \subsection{What Is A Force?}
+        \subsection{Forces \& Momenta}
+% -> force = something that can change state of motion (gives more precise meaning to/is mathematical formalization of things like pushing or pulling); state of motion is described by momentum; Newton 2 relates these two (though I guess, to some degree, it also defines them)
+
+% in the same spirit, we may ask: what is momentum? Well, the answer is: the quantity that is changed in time by an external force, i.e.~the quantity showing up in Newton's second law. If this law had been different (because of different underlying physics of the world), we would perhaps not be bothering to deal with the expression $m \vec{x}$ because there would be no immediate physical meaning to it.
+
+
+Now, let us come to a very philosophical question: Does Newton's second law define forces or does it define momenta? What even is a force and what is momentum?
+
+Intuitively speaking, a force is something that changes the state of motion of an object. This state of motion is quantified by its mass and velocity, i.e.~through the notion of momentum. The second law then relates the two. But in some sense, it also serves as the definition of a force: it formalizes the intuitive concepts of pushing and pulling that we associate a force with into a proper, mathematical definition, by fixing its relation to the change of momentum (fixing in the sense that we choose to include no additional constant factors in the definition, which could alter the units and values of forces, without changing how we think about them).
+% The second law cannot, however, be seen as a true definition of a specific force because it quantifies the net effect that all present forces have on a certain object; in other words, while this can be used to determine a specific force (having made sure no other forces are present), it is not sufficient as a definition of such a force. \todo{improve wording here, do not like it}
+
+Momentum, on the other hand is an independent concept and we can see why a description of state of motion should involve both mass and velocity. The latter should be kind of obvious, objects move with certain velocities. But it is also intuitive that a fly moving at $42 km/h$ is very different from a car moving at the same speed, these two situations represent very different motions.
+Now, part of this also comes back to the intuition that is encapsulated in the second law, namely that more force is required to get the car to move at such a speed, but that just shows how the second law is an incarnation of some relation that is present in our physical reality. \todo{improve this part, starting at "intuition that is encapsulated"}
+
+
+Admittedly, I myself am not perfectly suited to point out all the little details and pitfalls that come up when decoupling the different definitions and laws; in essence, this is a deeply philosophical topic and I have simply not thought about it long enough (yet). In the end, the boring answer as to why forces and momenta are defined in the way they are is that these definitions happen to have really convenient properties -- they define things in the \enquote{right} way, as experience has shown us. For example, momentum happens to be conserved in the absence of external forces -- thus it makes sense to study it.
+
+
+inertia = how much something resists to being moved; straightforward way to measure this abstract concept is mass
+
+
+\hrule
+
+
+
+say that we usually talk about force fields that vary in space and time, when referring to a force, i.e.~$F = F(\vec{x}, t)$ (same for vectors)
+
+emphasize properties of a real force here, to be able to contrast it with fictitious forces later on
+
+
+-> note conservative property, maybe even connect with following property already: Dass man konservative Kräfte (für die $\nabla \cross F = 0$, die also ein Potential haben) in die Form $F = - \nabla V$ bringen kann, sagt uns schon unglaublich viel ! Wenn man dann nämlich den GGW-Zustand eines Systems finden will, so entspricht das offenbar gerade $F = 0$ und daher sind dann die Extrema von $V$ interessant ! Weil uns Kräfte zudem immer in die Richtung des Minimums von $V$ drücken (so ist es quasi nach Definition), sucht man spezieller Minima (Maxima sind instabil). Daher kommt es, dass Systeme immer in den Zustand minimaler Energie streben, das Potential entspricht nämlich einer Energie und soll ja minimiert werden (daher wird auch Gesamtenergie minimiert, weil ja kinetische im Kräfte-GGW auch konstant ist oder ? -> ok, so doch nicht). Allgemeiner sucht man bei nicht konservativen Kräften dann Kräfte-Gleichgewichte (weil ja immer noch $F = 0$ sein muss) und setzt die daher gleich dann.
+
+
+
+\newpage
+
+
+
+    \section{Non-Inertial Frames}
+
+We have seen that Newton's laws hold in inertial frames. But what exactly happens in non-inertial frames? To see that, let us write out ... in such a frame.
+
+Very generally, we can describe such a frame via a set of (possible time-dependent) coordinate axes $\vec{e}_i$. In such a coordinate system, what does Newton's second law look like?
+
+
+-> change of coordinate axes themselves is what makes laws of motion look strange; we could define a different notion of derivative to directly accomodate/incorporate such changes, in which case we would be able to write down a more universal relation involving forces and momenta; this can be done and leads to the notion of a covariant derivative, a path that we will not follow any further here, though
+
+
+
+        \subsection{Accelerated Frames}
+this is following Nolting closely
+
+
+Setup: we choose some inertial frame $x$ in which we refer to everything (though any other inertial frame would be equally well suited for analysis; but this is a choice we must make). Has coordinate axes $\vec{e}_k$
+
+Goal: analyze physics in an accelerated frames, which is denoted by $x'$ with an attached coordinate system as given by some axes $\vec{e'}_k$
+
+
+we can write out position of an observer in some inertial system (where it is denoted by vector $\vec{x}$), but also in the accelerating one (where it is denoted by $\vec{x'}$). Very generally,
+\begin{align}
+    \dv{\vec{x}}{t} &= \dv{t} \sum_k x^k \vec{e}_k = \sum_k \dv{t} x^k \vec{e}_k = \sum_k \dv{x^k}{t} \vec{e}_k
+    \\
+    \dv{\vec{x}}{t} &= \dv{(\delta \vec{x}_0 + \vec{x'})}{t} = \dv{\delta \vec{x}_0}{t} + \dv{\vec{x'}}{t} = \dv{\delta \vec{x}_0}{t} + \sum_k \dv{x'^k}{t} \vec{e'}_k + x'^k \dv{\vec{e'}_k}{t}
+    \label{eq:velocity_accel_frame}
+\end{align}
+where we evaluate expressions in some inertial frame (so that axes $e_k$ are constant). $\delta \vec{x}_0$ is our way to denote any difference in the coordinate origins of both frames (simply a translation between the different frames, basically coordinate transformation).
+
+\todo{analyze terms in more detail}
+
+we have motion of coordinate origin; motion of object in the coordinate system (i.e.~change of components); motion of the coordinate axes themselves with respect to the other, in our case inertial coordinate system in which we express everything (i.e.~change of basis vectors; note that this also moves the object itself, it still has the same components in moving system, but that means it must co-move in the inertial system)
+
+\rem{we have used that $\dv{t} \vec{e}_k = 0$ in the frame where we write things out, i.e.~technically that we are in rest frame of the observer; but that is fine, even if we had a term there, would be constant and thus vanish in second derivative, which is the more relevant one anyway}
+
+
+before, we had mostly dealt with derivatives of scalar functions; the generalization of this to vectors can be done by differentiating components, as we had also done previously; striking point is that basis vectors now do not have components $\in \{1, 0\}$, but non-constant ones; a more advanced interpretation is that we are looking at the covariant derivative of quantities along the unit vector $\dv{t}$, which can act on scalars, vectors, matrices (tensors of arbitrary rank); components of this derivative are gradient (for scalar function), so this is what we have implicitly been using for directional derivatives all along, and we are basically using the $t$-component of the gradient here\footnote{This is a, mathematically motivated, first hint that unifying space and time might not be a bad idea -- greetings from relativity.}
+
+
+
+Taking another derivative yields
+\begin{align}
+    \dv[2]{\vec{x}}{t} &= \dv{t} \sum_k \dv{x^k}{t} \vec{e}_k = \sum_k \dv[2]{t} x^k \vec{e}_k = \sum_k \dv{x^k}{t} \vec{e}_k
+    \\
+	\begin{split}
+		\dv[2]{\vec{x}}{t} &= \dv[2]{\delta \vec{x}_0}{t} + \dv{t} \sum_k \dv{x'^k}{t} \vec{e'}_k + x'^k \dv{\vec{e'}_k}{t}
+		\\
+		&= \dv[2]{\delta \vec{x}_0}{t} + \sum_k \dv[2]{x'^k}{t} \vec{e'}_k + 2 \dv{x'^k}{t} \dv{\vec{e'}_k}{t} + x'^k \dv[2]{\vec{e'}_k}{t}
+	\end{split}
+	% 
+    \label{eq:acceleration_accel_frame}
+\end{align}
+
+here we can already see that resting in accelerated frame (i.e. components of acceleration, velocity = zero in this frame) does not necessarily yield resting in inertial frame. due to acceleration (and potentially velocity as well) of the frame itself, in the above way of writing it of its basis vectors
+
+
+What are these terms? Newton 2 suggests $\propto$ force, since they stand opposite of acceleration. But this is merely a notational identification, physically they do not correspond to forces! This hybrid role motivates name pseudo-forces or fictitious forces
+
+
+-> pseudo-forces are what makes acceleration detectable
+
+-> we will examine two types in more detail
+
+
+\hrule
+
+general stuff about acceleration:
+
+cool though experiment: what does not accelerate \url{https://physics.stackexchange.com/questions/568969/what-does-not-accelerate}
+
+
+
+            \paragraph{Acceleration Without Rotation}
+
+For any accelerated system with acceleration that is constant in direction (not necessarily magnitude), the second term in the sum vanishes and the only difference is the movement of the corresponding origins.
+
+For a uniformly accelerated system (which is accelerated by $\vec{a}_u$), $\dv{\delta \vec{x}_0}{t} = \vec{a}_u t$; pseudo-force is in this example is $m \vec{a}_u$.
+
+
+
+-> it \emph{is} possible to detect acceleration! Denk an bremsen im auto, zeug auf dem armaturenbrett fliegt dir entgegen! Der Grund warum wir (in dem beschleunigten frame) am sitz in ruhe bleiben ist die kraft, die der sitz auf uns ausübt (richtig?). bei rotation auf erde geht das zB mit Foucalt-Pendel (das sollte für Coriolis sein), allgemeiner in nem karussell über zentripetalkraft -> guess that's more of an empirical insight, right?
+
+-> pseudo- or fictitious forces is what an observer in an accelerating frame experiences!
+
+
+\begin{ex}[Braking]
+	braking in a car
+
+	we are sitting still in seat upon braking, but feel force mediated by seat behind us; that we don't move can be explained by aid of pseudo-force of acceleration, which causes observer in the accelerating frame to experience no net acceleration
+
+	-> what is pushing us back is pseudo-force
+\end{ex}
+
+
+
+
+
+        \paragraph{Rotating Frames}
+\todo{introduce $\vec{\omega}$ as (orbital) angular velocity}
+
+Eq.~\eqref{eq:velocity_accel_frame} also holds if the primed frame is rotating with respect to the inertial frame. For simplicity, we will now focus on situation where origin of rotating frame is fixed, so that $\dv{\delta \vec{x}_0}{t} = 0$. (With the preceding discussion, generalization is straightforward.) The time evolution of a vector in a coordinate system that is rotating with angular velocity $\vec{\omega}$ is well-known. \todo{perhaps we should derive this} In the rotating frame $x'$, this implies
+% $\vec{x}$ in the frame $x$ as
+\begin{equation}
+    \dv{\vec{x'}}{t} = \vec{\omega} \cross \vec{x'} \, .
+\end{equation}
+Using this relation for the coordinate axes $\vec{e'}_k$, we obtain
+\begin{equation}
+    \dv{\vec{x}}{t} = \dv{\vec{x'}}{t} = \sum_k \dv{x'^k}{t} \vec{e'}_k + x'^k \dv{\vec{e'}_k}{t} = \sum_k \dv{x'^k}{t} \vec{e'}_k + x'^k \vec{\omega} \cross \vec{e'}_k
+\end{equation}
+Taking another time derivative yields the acceleration
+\begin{align}
+    \dv[2]{\vec{x}}{t} = \dv[2]{\vec{x'}}{t}
+    &= \sum_k \dv[2]{x'^k}{t} \vec{e'}_k + \dv{x'^k}{t} \dv{\vec{e'}_k}{t} + \dv{x'^k}{t} \vec{\omega} \cross \vec{e'}_k + x'^k \dv{(\vec{\omega} \cross \vec{e'}_k)}{t}
+    \notag\\
+    &= \sum_k \dv[2]{x'^k}{t} \vec{e'}_k + \dv{x'^k}{t} \dv{\vec{e'}_k}{t} + \dv{x'^k}{t} \vec{\omega} \cross \vec{e'}_k + x'^k \dv{\vec{\omega}}{t} \cross \vec{e'}_k + x'^k \vec{\omega} \cross \dv{\vec{e'}_k}{t}
+    \notag\\
+    &= \sum_k \dv[2]{x'^k}{t} \vec{e'}_k + \dv{x'^k}{t} \vec{\omega} \cross \vec{e'}_k + \dv{x'^k}{t} \vec{\omega} \cross \vec{e'}_k + x'^k \dv{\vec{\omega}}{t} \cross \vec{e'}_k + x'^k \vec{\omega} \cross (\vec{\omega} \cross \vec{e'}_k)
+    \notag\\
+    &= \sum_k \dv[2]{x'^k}{t} \vec{e'}_k + 2 \vec{\omega} \cross \dv{x'^k}{t} \vec{e'}_k + \dv{\vec{\omega}}{t} \cross \vec{x'} + \vec{\omega} \cross (\vec{\omega} \cross \vec{x'})
+    \label{eq:accel_in_accel_frame}
+\end{align}
+
+At this point, we have to go down a rabbit hole and make some important remarks.
+
+note that $\qty(\vec{x})^k = \dv{x^k}{t}$, but $\qty(\dv{x'}{t})^k \neq \dv{x'^k}{t}$; we could resolve this by using a derivative that takes into account changes in the coordinates, which can be done via the differential-geometric concept of a covariant derivative. But we do not do this here, is merely notational simplification and we are focused on physics at the moment
+
+we can interpret $\dv{x'^k}{t} \vec{e'}_k$ as velocity $\vec{v}'$ as measured in $x'$ because $\dv{x'^k}{t}$ are components of this vector. But this would not obey $\vec{v'} = \dv{\vec{x'}}{t}$, as we have seen, but would require a component-wise definition. Thus we do not do this here, to avoid confusion \todo{but all accelerations we have before are interpreted in this manner as well!} -> So maybe clarify that application of time derivative on vector is just meant to act on components? -> nahhh, we write this derivative out previously and it acts on everything. So just say that in definition of quantities like velocity and acceleration, we only use derivative of components (is something like time derivative in the accelerating coordinate system, where axes $\vec{e'}_k$ are of course constant) -> would be more clear if we had covariant derivative, combined with expressing stuff in a 4D spacetime; then time-component of covariant derivative would be clearly distinct notion from time derivative, also notationally (here we have to live with purely conceptual distinction)\\
+
+
+Now, let us come back to expression \eqref{eq:accel_in_accel_frame} and analyze what is going on. first term is analogous to what acceleration of any observer in any inertial frame (including $x$) looks like, change of components. but there are more terms to acceleration of an observer placed in $x'$:
+\begin{itemize}
+    \item centrifugal can be interpreted as follows: if you do not move actively, but are suddenly subject to acceleration, you will experience a force; say you are standing on a disk that suddenly starts rotating: then you get pushed outwards radially, and this is effect of centrifugal force (which is \emph{not} the same as centripetal force, which acts towards center of acceleration = origin and not away from it)
+    
+    good example is also car that takes a turn
+    
+    -> not to be confused with centripetal (similar idea/concept, but used in different contexts; used to describe radial movement in non-rotating frames, i.e.~quantifies force needed to keep something moving on a circle (force radial movement lol); important in particle accelerators, where it determines current we need for attraction towards some position; or for ISS, where it determines how much velocity is needed to force things on circle around Earth, whence gravitational pull of Earth is supposed to act as the centripetal force of the motion, so that ISS remains on this circular path)
+
+    -> Earth is not a perfect sphere, but more of an oblate; is due to centrifugal force (apart from imperfections on surface, coming from mountains or so), which acts on east and west side of Earth, but not north/south. I think this is explained more quantitatively here: \url{https://taleinav.github.io/Lectures/Ph%201a/Lecture%205%20-%202017-10-12.pdf}
+
+
+    -> nice summary from Wikipedia: Motion relative to a rotating frame results in another fictitious force: the Coriolis force. If the rate of rotation of the frame changes, a third fictitious force (the Euler force) is required. These fictitious forces are necessary for the formulation of correct equations of motion in a rotating reference frame and allow Newton's laws to be used in their normal form in such a frame (with one exception: the fictitious forces do not obey Newton's third law: they have no equal and opposite counterparts). Newton's third law requires the counterparts to exist within the same frame of reference, hence centrifugal and centripetal force, which do not, are not action and reaction (as is sometimes erroneously contended).
+
+
+    \item Coriolis can be interpreted as follows: say we move inward radially in the rotating frame so that we cancel effect of Coriolis. Will inertial observer see us as resting? Nope, still not, there would still be rotation, we are pushed in angular direction around the disk (to stay in this example/situation) and this is Coriolis force
+    
+    -> we have assumed constant angular velocity here, but this is kind of intuitive
+    
+    
+    -> this is how hurricanes are created: air flows into areas of low pressure; but instead flowing radially inward as it would in an inertial frame, there is an additional component to the movement that comes from the rotation of the Earth, the resulting air kind of spins up, due to the component $\vec{\omega} \cross \vec{x}$ (note that this term appears in both acceleration and velocity!); also explains why direction of rotation of these storms is determined by hemisphere they are created on
+
+    -> haha, this is crazy, Wikipedia takes viewpoint that Coriolis is causing movement of the Sun around Earth (huge force due to huge mass of the Sun (?))
+
+
+    \item Euler force: 
+    
+    -> from Wikipedia: The Euler force will be felt by a person riding a merry-go-round. As the ride starts, the Euler force will be the apparent force pushing the person to the back of the horse; and as the ride comes to a stop, it will be the apparent force pushing the person towards the front of the horse. A person on a horse close to the perimeter of the merry-go-round will perceive a greater apparent force than a person on a horse closer to the axis of rotation. 
+    
+    -> usually neglected, on Earth it is only the first two that really appear
+\end{itemize}
+
+
+% in an accelerated coordinate system $(x'')^k$, a resting observer satisfies $\dot{x''} = 0$ \todo{ahhh no, he doesn't. On spinning disk, we do feel the effect of acceleration} -> instead: let's say we put an observer onto a spinning disk.
+
+
+Suppose no external forces are present that act upon the particle, i.e.~it is at rest as seen from the inertial frame $x$, i.e.
+\begin{equation*}
+	\dv[2]{\vec{x}}{t} = 0 = \dv[2]{x^k}{t} \, .
+\end{equation*}
+For the rotating frame $x'$, however, we only get
+\begin{equation*}
+	 \sum_k \dv[2]{x'^k}{t} \vec{e'}_k + 2 \vec{\omega} \cross \dv{x'^k}{t} \vec{e'}_k + \dv{\vec{\omega}}{t} \cross \vec{x'} + \vec{\omega} \cross (\vec{\omega} \cross \vec{x'}) = 0 \, .
+\end{equation*}
+Hence, depending on the initial conditions, it is possible that
+\begin{equation}
+	\dv[2]{x'^k}{t} \neq 0 \, ,
+\end{equation}
+which means that the particle \emph{does} accelerate in the rotating frame. This is due to the other terms that can be interpreted as a force
+\begin{equation}\label{eq:resting_obs_acc_frame_pseudo_force}
+	\frac{1}{m} \sum_k - 2 \vec{\omega} \cross \dv{x'^k}{t} \vec{e'}_k - \dv{\vec{\omega}}{t} \cross \vec{x'} - \vec{\omega} \cross (\vec{\omega} \cross \vec{x'})
+\end{equation}
+(which comes from trying to recover Newton's second law). However, we had assumed that no external forces are present -- so, what is going on here? The issue is that $x'$ accelerating frame, has fictitious forces, and these must be cancelled through the terms in \eqref{eq:resting_obs_acc_frame_pseudo_force} in order for particle to be at rest in the inertial frame $x$.
+
+Conversely, for a particle at rest in frame $x'$, so that
+\begin{equation}
+	\dv{x'^k}{t} = \dv[2]{x'^k}{t} = 0 \, ,
+\end{equation}
+we see that an inertial observer does not see the particle at rest. It is quite the opposite, the particle is rotating with the frame itself and thus accelerating (this acceleration is not seen from $x'$ because this frame is co-rotating with itself). Again, we can formally relate this observed acceleration to a force
+\begin{equation}
+	\frac{1}{m} \sum_k - 2 \vec{\omega} \cross \dv{x'^k}{t} \vec{e'}_k - \dv{\vec{\omega}}{t} \cross \vec{x'} - \vec{\omega} \cross (\vec{\omega} \cross \vec{x'})
+\end{equation}
+which would then lead to Newton's second law still being true in the accelerated frame (i.e.~something like $\vec{F} = m \vec{a}$ would hold even for the acceleration as seen from the rotating frame). But this would be questionable because these \enquote{forces} only occur due to the motion of the rotating frame, in which we choose the particle to be at rest. 
+
+
+-> in some sense, Newton's laws are only invariant in frames that differ to first order of Taylor expansion; as soon as we get second-order differences, things go bad
+
+-> different inertial frames disagree on notion of rest; but frames that are accelerated relative to each other can't even agree on a notion of force!
+
+
+\hrule
+
+
+-> even if no external forces are present, observer in accelerating coordinates experiences (something like) a force! Simply because of frame that he is in. This is what we call a fictitious force -> mathematically speaking, $\vec{F} = 0$ does not imply no acceleration anymore, we can have $\norm{a} \neq 0$ now while still achieving this; I think this encapsulates well what is issue -> hmm no, not really... So I guess we can really say that Newton 2 does not hold anymore, no forces do NOT imply no acceleration anymore
+
+-> we can make this look like Newton 2 by calling terms a force, but this is not really a physical force because only observers in the accelerated frame will experience it! Not observers resting in, e.g., an inertial frame. (Having basis vectors that have changing components per se is not the issue, this is why we have things as geometric relations here). -> though even component form is true, right? Because both force and acceleration are expressed in components, must still be equal
+
+
+we get something that looks like a force because observer is moving in the accelerated system. but this only comes from movement of coordinate system itself (indicator: components of observer in rotated system $x'^k$ can be constant and there would still be movement when looking at things from the inertial frame, which is what we do in this discussion). thus we call it fictitious force. What qualifies a fictitious force? In one sentence: it does not originate in interactions between different particles/objects
+
+
+-> instead of observer that is resting or moves on a straight line in $x'$ and then does not move on straight line in inertial frame $x$, we can also flip situation: any observer that moves on straight line in $x$ does not move on such a line in the accelerated frame (Wikipedia has super nice visualization: \url{https://en.wikipedia.org/wiki/File:Corioliskraftanimation.gif}; this is Coriolis)
+
+
+
+\newpage
+
+
+
+    % \section{Rotation}
+    \section{Rotation}
+The preceding discussion of rotating frames of reference showed that this type/state of motion is not properly described by just the momentum $\vec{p}$. One indicator of this is the occurrence of pseudo-forces, which cause an acceleration even in the absence of forces and accordingly, a change in momentum.
+
+One way to look at this is to argue that $\vec{p}$ represents linear momentum, which is best suited to describe motion into constant direction. If a rotational component is present, we need a new notion. In analogy to $\vec{p}$, this new notion is called \Def{angular momentum} and denoted by $\vec{L}$. For the sake of definition, it makes sense to focus on the situation in which the motion is of purely rotational nature, and the previous section showed that the pivotal factor controlling a rotation is the angular velocity $\vec{\omega}$. It also makes sense to have an \emph{angular momentum} being proportional to \emph{(orbital) angular velocity},
+\begin{equation}
+	\eqbox{\vec{L} = I \vec{w}} \, .
+\end{equation}
+What we are yet to determine is the \Def{moment of inertia} $I$, which is the analogue of inertia for the linear momentum. Continuing with the thought process of this being \enquote{how much an object resists against rotation} \todo{improve this}, it should be surprising that $I \propto m$.
+But also depends on distance from origin; and on the circumference
+
+-> makes sense for angular momentum to have angular velocity; then define with proper notion of inertia and we're done; is not just mass now because also depends on distance from origin (quadratically; I guess we can argue via formula for circumference of circle, something like rotating with same angular velocity means sweeping out same part of this, i.e. we rescale by radius squared?)
+
+-> my argument: inertia upon rotation must increase as we increase distance between object and origin (this is factor of $r$); then also we have to account for increase in circumference covered if we keep angular velocity fixed -> not sure if this is repetitive, I mean it does get harder to rotate stuff further away at same velocity due to increase in same circumference swept out, right? Meaning we potentially account for this twice here -> I guess we could argue via area swept out during this, but I do not see how this can be related to inertia
+
+-> note that $I = m r^2$ for case of test mass, i.e.~point particle, that we still look at!
+
+\todo{finish intuitive interpretation}
+
+If you find this intuitive motivation for the expression of $I$ (and $\vec{L}$ in general) unsatisfactory, then the following remark might be helpful for you. This particular expression is of interest because it turns out to be what is conserved in physical setups that have rotational invariance. Akin to linear momentum, which is conserved when translational symmetry is present (meaning I can move test mass whereever I want in space and get same results; not fulfilled if there are objects mediating forces, such as a planet or charges, since these have particular position, so force would change if we were to move test mass)
+
+
+motivation why this particular expression is interesting: we had seen that momentum is very useful quantity when studying motion of objects, partly because it is conserved in the absence of external forces (and more generally because Newton 2 involves it). well, it turns out that another such quantity exists, $\vec{x} \cross \vec{p}$. is especially useful when studying rotations, which motivates name angular momentum.\footnote{For the advanced reader: this is related to what is arguably one of the most important (and beautiful) theorems in physics, \Def{Noether's theorem}.}
+
+important note: angular momentum depends on coordinates because it involves position vector, which is measured relative to origin! momentum (also, to distinguish from angular momentum: linear momentum) can also depend on the frame of reference, but this is different from depending on the chosen coordinate frame (for frame of reference, the origin is not so important)
+
+
+It made sense to define angular momentum in the way we did, but in many textbooks you might encounter another expression for it. We can recover this by noticing that the orbital angular velocity of a test particle about the origin is
+\begin{equation}
+	\vec{\omega} = \frac{\vec{r} \cross \vec{v}}{r^2} \, .
+\end{equation}
+This yields
+\begin{equation}
+    \eqbox{\vec{L}} = I \vec{\omega} = m r^2 \frac{\vec{r} \cross \vec{v}}{r^2} \eqbox{= \vec{r} \cross \vec{p}} \, .
+\end{equation}
+
+
+
+we can see how it fulfills intended usage by rewriting in polar (spherical?) coordinates:
+\begin{equation}
+    \vec{L} = m r^2 \dots \vec{e}_L \todo{can this be done?}
+\end{equation}
+and in case the motion occurs in a 2D-plane, choosing this orbital plane to be the $xy$-plane yields
+\begin{equation}
+    % \vec{L} = m r^2 \dv{\phi}{t} \vec{e}_z \todo{can this be done?}
+    \vec{L} = - m r^2 \dv{\phi}{t} \vec{e}_\theta
+	\, .
+\end{equation}
+more generally (from Wikipedia):
+\begin{equation}
+	\vec{L} = m \vec{r} \cross \vec{v} = m r^2 (\dv{\theta}{t} \vec{e}_\phi - \dv{\phi}{t} \vec{e}_\theta)
+	\, .
+\end{equation}
+
+in 2D,
+\begin{equation}
+	L = m r^2 \dv{\phi}{t}
+\end{equation}
+
+
+\hrule
+
+
+We have seen a lot of similarities between momentum and angular momentum, i.e.~motion with and without rotation. However, we have not yet seen the corresponding equation of motion. To obtain it, we must calculate the rate of change in angular momentum is called \Def{torque} (also: \Def[impulse!angular]{angular impulse}):
+\begin{equation}
+    \eqbox{\vec{M}} \coloneqq \dv{t} \vec{L} = \dv{\vec{x}}{t} \cross m \vec{v} + \vec{x} \cross \dv{\vec{p}}{t} = m \underbrace{\vec{v} \cross \vec{v}}_{= 0} + \vec{x} \cross \dv{\vec{p}}{t} \eqbox{= \vec{x} \cross \vec{F}} \, .
+\end{equation}
+This is the rotational analogue of Newton's second law.
+
+\todo{do we have to note that this in inertial frame? Because we use $\dv{\vec{x}}{t} = \vec{v}$, no derivative from axes -> hmm no, right? Because change in basis vector would also correspond to particle having some velocity, so this is all fine; $\vec{v} \neq \dv{x^k}{t} \vec{e}_k$}
+
+Equivalently, we can express this angular impulse as a change in angular rather than linear momentum, which is most easily done by differentiating the initial definition of angular momentum:
+\begin{align}
+	\vec{M} = \dv{I \vec{\omega}}{t} = \dv{I}{t} \vec{\omega} + I \dv{\vec{\omega}}{t}
+	= (\dv{m}{t} r^2 + 2 m r \dv{r}{t}) \vec{\omega} + I \dv{\vec{\omega}}{t}
+\end{align}
+Similarly to Newton's second law, we obtain a simpler form if the moment of inertia is constant, namely
+\begin{equation}
+	\vec{M} = I \dv{\vec{\omega}}{t} \eqqcolon I \vec{\alpha} \, .
+\end{equation}
+In particular, this is valid for the case of a purely rotational motion, where no change in radius is present), assuming there is no change in mass too. If, on the other hand, linear momentum parallel to $\vec{r}$ is present, i.e.~some push or pull in radial direction, this is not true (any perpendicular component of $\vec{p}$ just corresponds to an increase in $\omega$).
+
+
+
+\newpage
+
+
+
+    \section{Kepler's Laws}
+
+these describe orbits of planets (to really good approximation)
+
+
+mention fatal misconception by Kepler, trying to describe everything using ellipses? Which made things unbelievably complicated -> would have to read up on this
+
+
+
+\newpage
+
+
+
+    \section{Rigid Bodies}
+
+now we go away from point particle/test mass
+
+
+center of mass -> or introduce this in separate section on multi-particle systems?
+
+moment of inertia
 
 \end{document}
