@@ -245,10 +245,16 @@ emphasize properties of a real force here, to be able to contrast it with fictit
     \section{Non-Inertial Frames}
 We have seen that Newton's laws hold in inertial frames. But what exactly happens in non-inertial, i.e.~accelerated, frames?
 
+-> talk about relevance? We live in non-inertial frame, Earth is rotating!
+
 % calculations are following Nolting closely -> only if we keep delta x0
 
-To study this, we need two reference frames: one inertial frame $\Sigma$ and one frame $\Sigma'$ that is accelerated relative to $\Sigma$. To keep the discussion as general as possible, we will further assume that the origin of $\Sigma'$ is shifted by $\delta \vec{x}_0$ relative to $\Sigma$. We will now look at the position of a test particle from both frames by expanding it in terms of the coordinate axes $\vec{e}_i, \vec{e}'_i$ of the respective frame.
-\todo{reconsider if we want to split up evolution of origin and orientation of axes. I find that a little confusing...; then we'd have $\vec{e}'_i = \delta \vec{x}_0 + R \vec{e}_i$ instead of $\vec{e}'_i = R \vec{e}_i$, as it is now} -> then we would also have $\vec{x}$ as a purely abstract, geometric quantity, which does not require any coordinate system yet -- it CAN be expanded in the different coordinates, upon choice of origin and axes orientation, but is just generally used to denote the position (this does not need coordinates; also emphasized by Thorne+Blandford I think)
+To study this, we need two reference frames: one inertial frame $\Sigma$ and one frame $\Sigma'$ that is accelerated relative to $\Sigma$. The idea is to look at the position $\vec{x}$ of a test particle from both frames by expanding it in terms of the coordinate axes $\vec{e}_i, \vec{e}'_i$ of the respective frame. In general, $\Sigma'$ being non-inertial can be caused by both an accelerated motion relative to $\Sigma$ or a rotation, which means the relation between vectors in the two coordinates can be expressed as
+\begin{equation}
+	\vec{x} = \sum_k x'^k \vec{e}'_k = \delta \vec{x}(t) + R(t) \sum_k x^k \vec{e}_k = \delta \vec{x}(t) + \sum_k x^k R(t) \vec{e}_k \, .
+\end{equation}
+$\delta \vec{x}(t)$ denotes a displacement between the origins of the two frames and $R(t)$ the rotation matrix of a rotation about this shifted, primed origin.
+% -> then we would also have $\vec{x}$ as a purely abstract, geometric quantity, which does not require any coordinate system yet -- it CAN be expanded in the different coordinates, upon choice of origin and axes orientation, but is just generally used to denote the position (this does not need coordinates; also emphasized by Thorne+Blandford I think)
 \begin{itemize}
 	\item[$\Sigma$:] Since we derive mostly derive the behavior of particles from Newton's second law, we are interested in how the particle's position $\vec{x}$ in the inertial frame changes with time. Although we are now adopting the viewpoint of an inertial observer, we are free to calculate this derivative in both the inertial and accelerated coordinates:
 	\begin{align}
@@ -267,11 +273,9 @@ To study this, we need two reference frames: one inertial frame $\Sigma$ and one
 
 	potential notes:
 
-	here we evaluate expressions in some inertial frame (so that axes $e_k$ are constant). $\delta \vec{x}_0$ is our way to denote any difference in the coordinate origins of both frames (simply a translation between the different frames, basically coordinate transformation).
+	here we evaluate expressions in some inertial frame (so that axes $e_k$ are constant)
 
-	\todo{analyze terms in more detail}
-
-	we have motion of coordinate origin; motion of object in the coordinate system (i.e.~change of components); motion of the coordinate axes themselves with respect to the other, in our case inertial coordinate system in which we express everything (i.e.~change of basis vectors; note that this also moves the object itself, it still has the same components in moving system, but that means it must co-move in the inertial system)
+	\todo{analyze terms in more detail}: we have motion of coordinate origin; motion of object in the coordinate system (i.e.~change of components); motion of the coordinate axes themselves with respect to the other, in our case inertial coordinate system in which we express everything (i.e.~change of basis vectors; note that this also moves the object itself, it still has the same components in moving system, but that means it must co-move in the inertial system)
 
 	\rem{we have used that $\dv{t} \vec{e}_k = 0$ in the frame where we write things out, i.e.~technically that we are in rest frame of the observer; but that is fine, even if we had a term there, would be constant and thus vanish in second derivative, which is the more relevant one anyway}
 
@@ -323,9 +327,10 @@ To study this, we need two reference frames: one inertial frame $\Sigma$ and one
 	% -> in any case, Newton's second law still holds true
 	
 
-	\item[$\Sigma'$:] Now, let us make the same calculations from the accelerated frame. Here, it is the axes $\vec{e}'_i$ that are seen to be at rest. Also note that we are now looking at the position $\vec{x}'$, which means we refer to a different coordinate origin. This changes the derivatives as follows:
+	% \item[$\Sigma'$:] Now, let us make the same calculations from the accelerated frame. Here, it is the axes $\vec{e}'_i$ that are seen to be at rest. Also note that $\Sigma'$ has a different origin than $\Sigma$, which we indicate by using $\vec{x}'$ for the position of the particle. This changes the derivatives as follows:
+	\item[$\Sigma'$:] Now, let us make the same calculations from the accelerated frame. Here, it is the axes $\vec{e}'_i$ that are seen to be at rest, while the $\vec{e}_i$ have a shifted origin and are rotated. We indicate this by now denoting the position of the particle by $\vec{x}'$. This changes the derivatives as follows:
 	\begin{align}
-		\dv{\vec{x}'}{t} &= \dv{(-\delta \vec{x}_0 + \vec{x})}{t} = -\dv{\delta \vec{x}_0}{t} + \dv{\vec{x}}{t} = -\dv{\delta \vec{x}_0}{t} + \sum_k \dv{x^k}{t} \vec{e}_k + x^k \dv{\vec{e}_k}{t}
+		\dv{\vec{x}'}{t} &= -\dv{\delta \vec{x}_0}{t} + \dv{t} \sum_k x^k\vec{e}_k = -\dv{\delta \vec{x}_0}{t} + \sum_k \dv{x^k}{t} \vec{e}_k + x^k \dv{\vec{e}_k}{t}
 		\label{eq:velocity_from_accel_frame_in_inert_frame}
 		\\
 		\dv{\vec{x}'}{t} &= \dv{t} \sum_k x'^k \vec{e}'_k = \sum_k \dv{t} x'^k \vec{e}'_k = \sum_k \dv{x'^k}{t} \vec{e}'_k
@@ -368,23 +373,21 @@ To study this, we need two reference frames: one inertial frame $\Sigma$ and one
 		\sum_k \dv[2]{x^k}{t} \vec{e}_k &= -\dv[2]{\delta \vec{x}_0}{t} + \sum_k \dv{x^k}{t} \dv{\vec{e}_k}{t} + x^k \dv[2]{\vec{e}_k}{t},
 		\quad \sum_k \dv{x^k}{t} \vec{e}_k = -\dv{\delta \vec{x}_0}{t} + \sum_k x^k \dv{\vec{e}_k}{t} \, .
 	\end{align*}
-	These results also look reasonable, the primed observer indeed experiences no coordinate acceleration, while the
+	These results also look reasonable, the primed observer indeed experiences no coordinate acceleration, while the inertial, unprimed observer does.
 \end{itemize}
 
 That's great, the observations in both frames seem to make sense. However, when we try to be more explicit than simply looking at expressions and apply Newton's second law to obtain equations of motion from the accelerations we have derived, we encounter a problem: the resulting equations of motion do not match anymore, inertial and non-inertial observer infer different accelerations. For example, if no external forces are present, they read
 \begin{align}
-	\Sigma: \qquad & 0 = m \vec{a} = m \dv[2]{\delta \vec{x}_0}{t} + m \sum_k \dv[2]{x'^k}{t} \vec{e'}_k + 2 \dv{x'^k}{t} \dv{\vec{e'}_k}{t} + x'^k \dv[2]{\vec{e'}_k}{t}
+	\Sigma: \quad & 0 = m \vec{a} = m \dv[2]{\delta \vec{x}_0}{t} + m \sum_k \dv[2]{x'^k}{t} \vec{e'}_k + 2 \dv{x'^k}{t} \dv{\vec{e'}_k}{t} + x'^k \dv[2]{\vec{e'}_k}{t}
 	\label{eq:eqofmotion_from_accel_frame_in_inert_frame}
 	\\
-	\Sigma': \qquad & 0 = m \vec{a} = m \sum_k \dv[2]{x'^k}{t} \vec{e}'_k
+	\Sigma': \quad & 0 = m \vec{a} = m \sum_k \dv[2]{x'^k}{t} \vec{e}'_k
 	\label{eq:eqofmotion_from_accel_frame_in_accel_frame}
 \end{align}
-where $m$ is the particle's mass.
-\todo{I think it makes sense to remove shift here, otherwise things look strange}
-where we chose to use primed coordinates to write everything out (an arbitrary choice). So, which one of them is right, and where is the mistake?
+where $m$ is the particle's mass and where we chose to use primed coordinates to write everything out (an arbitrary choice). So, which one of them is right, and where is the mistake?
 
 
-To answer both questions, recall that when writing down Newton 2 we noted that it is only valid in an inertial frame. From this, we conclude that the perspective of $\Sigma$ is correct, not $\Sigma'$. Ultimately, this is due to experimental evidence, where it shows that the accelerated observer's predictions do \emph{not} match his observations -- Eq.~\eqref{eq:eqofmotion_from_accel_frame_in_accel_frame} does not contain all accelerations occurring in reality. Many examples from everyday life confirm this, e.g., that one is being pushed radially outward on a merry-go-round; we will cover some more later on in this section.
+We can answer both questions at once. For that, recall that when writing down Newton 2 we noted that it is only valid in an inertial frame. From this, we conclude that the perspective of $\Sigma$ is correct, not $\Sigma'$. Ultimately, this is due to experimental evidence, where it shows that the accelerated observer's predictions do \emph{not} match his observations -- Eq.~\eqref{eq:eqofmotion_from_accel_frame_in_accel_frame} does not contain all accelerations occurring in reality. Many examples from everyday life confirm this, e.g., that one is being pushed radially outward on a merry-go-round; we will cover some more later on in this section.
 
 -> also not physical because only observer in non-inertial frame experiences these \enquote{forces}. observer at same position, which is not moving in the non-inertial frame (e.g., is at rest in inertial frame at this position) does not feel it! This is strong argument for not considering them real forces
 
@@ -452,26 +455,26 @@ cool thought experiment: what does not accelerate \url{https://physics.stackexch
 
 
 		\subsection{Acceleration Without Rotation}
-For any accelerated system with acceleration that is constant in direction (not necessarily magnitude), the two frames $\Sigma, \Sigma'$ are related by
+For any accelerated system with acceleration that is constant in direction (not necessarily magnitude), the two frames $\Sigma, \Sigma'$ are related by a shift in coordinate origin
 \begin{equation}
-	\vec{e}'_i = \vec{e}_i + \frac{\vec{a}_u t^2}{2} + \vec{x}_0
+	\delta \vec{x}_0 = \frac{\vec{a}_u t^2}{2} + \vec{x}_0
 \end{equation}
 where $\vec{x}_0$ is the initial separation of coordinate origins and $\vec{a}$ is a (potentially time-dependent) acceleration. Setting $\vec{x}_0 = 0$, the expression \eqref{eq:pseudo_force_general} for pseudo-forces evaluates to
 \begin{align}
-	&\quad - m \sum_k 2 \dv{x'^k}{t} \dv{t} \qty(\vec{e}_k + \frac{\vec{a}_u t^2}{2}) + x'^k \dv[2]{t} \qty(\vec{e}_k + \vec{a}_u \frac{t^2}{2})
+	&\quad - m \dv[2]{t} \qty(\vec{e}_k + \vec{a}_u \frac{t^2}{2})
 	\notag\\
-	&= - m \sum_k 2 \dv{x'^k}{t} \qty(\dv{\vec{a}_u}{t} \frac{t^2}{2} + \vec{a}_u t) + x'^k \dv{t} \qty(\dv{\vec{a}_u}{t} \frac{t^2}{2} + \vec{a}_u t)
+	&= - m \dv{t} \qty(\dv{\vec{a}_u}{t} \frac{t^2}{2} + \vec{a}_u t)
 	\notag\\
-	&= - m \sum_k 2 \dv{x'^k}{t} \qty(\dv{\vec{a}_u}{t} \frac{t^2}{2} + \vec{a}_u t) + x'^k \qty(\dv[2]{\vec{a}_u}{t} \frac{t^2}{2} + \dv{\vec{a}_u}{t} t + \dv{\vec{a}_u}{t} t + \vec{a}_u) \, .
+	&= - m \dv[2]{\vec{a}_u}{t} \frac{t^2}{2} + \dv{\vec{a}_u}{t} t + \dv{\vec{a}_u}{t} t + \vec{a}_u
+	\, .
 \end{align}
 For a uniformly accelerated system, this simplifies to
 \begin{equation}
-	- m \sum_k 2 \dv{x'^k}{t} \vec{a}_u t + x'^k \vec{a}_u \, .
+	- m \vec{a}_u \, .
 \end{equation}
+As we know very well from the second law, this does indeed represent a force.
 
--> just means acceleration couples to components $x'^k$; for example, if $\vec{a} = a \vec{e}_y$, then it means that $y'$-component experiences acceleration; term proportional to derivative of $x'^k$ tells us how acceleration couples to a moving observer
 
-\todo{check if the math is solid here. not sure if these terms make sense to me}
 
 \begin{ex}[Braking]
 	braking in a car
