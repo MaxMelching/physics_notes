@@ -1,22 +1,87 @@
-\documentclass[../KlassMech_main.tex]{subfiles}
+\documentclass[../class_mech_main.tex]{subfiles}
 %\input{../header} \graphicspath{../}
 
 
 \begin{document}
 
-\setcounter{chapter}{1}
 
-\chapter{Erweiterungen von Newton}
+% \chapter{Erweiterungen von Newton}
+\chapter{Analytical Mechanics}
 
-	\section{Lagrange-Formalismus}
+Newtonian mechanics provided a description of the world in terms of forces and momenta. This is convenient for many applications, but not for all. For this reason, it is sometimes worthwhile to adopt different viewpoints on the physical world, and we will present several alternative frameworks in this chapter. These are often summarized under the term \enquote{analytical mechanics}.
 
-	\section{Hamilton-Formalismus}
-
-
+-> maybe say that we switch to fields (?) and generalized coordinates + momenta
 
 
 
-	\section{Symplektische Struktur}
+	\section{Lagrange-Formalism}
+
+		\subsection{Zwangsbedingungen}
+
+		\subsection{D'Alembert Principle}
+
+		\subsection{Hamilton Principle}
+
+		% \subsection{The Mathematical Viewpoint: Transition from Lagrange to Hamilton}
+		% \subsection{The Mathematical Perspective: Moving on from Lagrange}
+		\subsection{Gaining Momentum(a): Moving on from Lagrange}
+
+\todo{make section? As nice transition between Lagrange and Hamilton, that still provides something new in the mathematical formulation}
+
+introduce the very formal way of looking at formalism
+
+what we have done is describe physical system in terms of time $t$, some generalized positions $q$, and their derivatives $\dot{q} = \dv{q}{t}$
+
+\footnote{Although it has components, we do not use $\vec{q}$, since it refers to a point on a manifold now. On this abstract object, points are now distinct notions from vectors, unlike in Euclidean space.}
+
+-> turns out, the generalized coordinates $q_i$ span a manifold, known as \Def{configuration space}; the \Def{configuration} of a system at each time $t$ is an element of this space, \todo{so $q(t)$ is a curve in this space}
+
+-> one further step is to include $t$ in the space as well, which yields the \Def{event space}; the Lagrange formalism can be visualized in this space, evolution of physical system is a curve in this space \todo{really, is it? or in configuration space -> ah, I guess in both; in one, we have curve as something like graph, in other we vary "external" parameter, in the sense that it is not on one of the axes, and get curve in this way}
+
+
+
+on a manifold, derivatives of coordinates are called tangent vectors; in our case, this role is taken by the $\dot{q}_i = \dv{q_i}{t}$, which form a basis of the tangent space; the pair $(q, \dot{q})$ is then referred to as tangent bundle, and Lagrangian is function on that (that has additional parameter in the time $t$)
+
+-> for next section: now, we want description in terms of $p_i = \dv{\mathcal{L}}{q_i}$, which are also called generalized momenta and form what is called a conjugate variable to the $q_i$ (\todo{provide justification for that} -> maybe that from derivative in its definition, we can already guess it will help with reducing order? I mean just hand-wavy here)\footnote{This justification is a little hand-wavy. To me, this looks like a classical case of: two approaches exist (Lagrangian, Hamiltonian), and people found this cool mathematical relation between them. So this serves as our transition between them. I might be wrong, and a better justification other than \enquote{something good comes out of switching to the conjugate variables} might exist.}; next question: how can we do same physics using $p_i$ that we did before? Answer: by finding the analogue of $\mathcal{L}$ formulated in terms of the $p_i$; turns out, this is a frequently asked problem, so there is a good and general solution for it: the Legendre transform (which works here because Lagrangian is a convex function for each $q$)\footnote{Fun fact: the Legendre transform is also a prominent part of thermodynamics.}; yields Hamiltonian $H$, which essentially lets us do same theory as before, but now on the cotangent bundle of the manifold for which $q$ are coordinates 
+
+-> ok, what this means is that using Hamiltonian is just a reformulation of what we have been able to do anyway; so, what's cool about it, why should we use it? well, one practical issue with Lagrangian is that the general form of equations of motion are second-order differential equations, and (as we will see) by including derivatives directly into the generalized momenta, the Hamiltonian is able to reduce this to first-order differential equations (at the cost of doubling the equations; but this is price we are often absolutely willing to pay, as it still results in overall simplification of the problem); also, Hamiltonian itself corresponds to total energy under certain circumstances, so unlike Lagrangian it does have a physical meaning
+
+-> note that tangent space and cotangent space are manifolds themselves\todo{verify again}; in particular, one can do things like integrals on them, something that we will see later on; they even got a name, phase space (or state space \todo{this is the german name, certainly not english}, if time is included as well)
+
+-> talk about Hamiltonian flow (?) -> nah, rather in math section below
+
+
+purpose of Euler-Lagrange equations (ELE) is to give us a way to find $q$ as function of $t$ for a given Lagrangian; when switching to Hamiltonian, this transition would not be complete without a similar way of obtaining $(q, p)$ from a given Hamiltonian (be it that we know it straight up, or get via Legendre from Lagrangian); basically, what we want is turning ELE, i.e.~conditions on derivatives of Lagrangian, into conditions on derivatives of Hamiltonian; fortunately, we can relate Hamiltonian to Lagrangian; it is thus straightforward idea to write out the differential of Hamiltonian and then compare general coefficients to coefficients in terms of the Lagrangian (for the latter, we hope to be able to apply ELE)
+
+
+
+	\section{Hamilton-Formalism}
+basically description in terms of energy instead of momentum, right? since Hamiltonian = energy (?)
+
+
+
+
+	\section{The Mathematical Deep Dive: Symplectic Structure Of Classical Mechanics}
+
+summary of all Wikipedia articles I could find on this:
+% - https://en.wikipedia.org/wiki/Hamiltonian_mechanics#From_symplectic_geometry_to_Hamilton's_equations
+% - https://en.wikipedia.org/wiki/Hamiltonian_vector_field
+% - https://en.wikipedia.org/wiki/Tautological_one-form
+% - https://en.wikipedia.org/wiki/Legendre_transformation#Analytical_mechanics
+
+Darboux's theorem forms basis for this; states that every symplectic manifold is the phase space of some physical system (is equivalence; every phase space is also symplectic)! So this type of manifolds is really the arena of Hamiltonian mechanics!
+
+
+idea: we have phase space; at every point in this, I can look at tangent space, and this point-wise mapping induces a tangent bundle
+
+-> there is a natural mapping, given by symplectic form (also: tautological one-form), between tangent and cotangent bundle; and in a small neighborhood of certain point, Darboux guarantees this can be expressed in terms of the canonical coordinates
+
+-> we can then write down a vector field in terms of this (the Hamiltonian vector field), $X_H = J dH$ (sometimes expressed as $J(dH)$), and solving the differential equation for this vector field on the phase space (there is a natural way to formulate this on vector fields) turns out to be nothing but solving the canonical equations (from Hamiltonian) that we have derived (if we also use knowledge from ELE)
+
+
+
+\hrule
+
 
 hier halt etwas mathematischere Beschreibung; die kanonischen Vertauschungsrelationen definieren nämlich mathematisch gesehen eine Basis sowie die dazu duale Basis eines Tangentialraums bzw. sogar -bündels
 
@@ -162,7 +227,7 @@ Anmerkung: $\omega^{3N}$ ist gerade das $\omega$ von oben mit mehr Dimensionen (
 $\Rightarrow$ evtl. ist Bezeichnung nur missverständlich; er schreibt $\mathcal{F}_t^{-1}M = \{\gamma: \mathcal{F}_t \gamma \in M\}$, vlt. ist also gemeint, dass man sich das Volumen der zeitentwickelten $\gamma$ anschaut und wenn man das dann quasi zurückentwickelt, erhält man das gleiche Volumen wie von $M$ ? Das heißt nicht, dass gleich viele Zustände oder so (heißt es das doch evtl. ? Haben hier noch gar keine Dichte; eigentlich Aussage ist doch, dass Zustände aus $M$ auch bei Zeitentwicklung in $M$ bleiben oder ?), sondern eben nur, dass von allen Zuständen multipliziert mit der Dichte das gleiche Volumen eingenommen wird.
 -> hier geht es tatsächlich einfach nur mit Transformationsformel
 
-Wie so oft in der Physik wird (hier auch auf Grundlage des 1. Hauptsatzes) zudem die Energieerhaltung angenommen, es soll während der Zeitentwicklung nichts davon verloren gehen. Das bedeutet einfach
+Wie so oft in der Physik wird (hier auch auf Grundlage des 1. Hauptsatzes -> we are at interface of mechanics and thermodynamics here!) zudem die Energieerhaltung angenommen, es soll während der Zeitentwicklung nichts davon verloren gehen. Das bedeutet einfach
 \begin{equation}
 H(\mathcal{F}_t \gamma) = H(\gamma), \, \forall t \, .
 \end{equation}
