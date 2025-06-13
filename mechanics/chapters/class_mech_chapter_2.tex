@@ -10,6 +10,8 @@
 
 Newtonian mechanics provided a description of the world in terms of forces and momenta. This is convenient for many applications, but not for all. For this reason, it is sometimes worthwhile to adopt different viewpoints on the physical world, and we will present several alternative frameworks in this chapter. These are often summarized under the term \enquote{analytical mechanics}.
 
+\todo{use word "different branches"?}
+
 -> maybe say that we switch to fields (?) and generalized coordinates + momenta
 
 
@@ -21,37 +23,200 @@ Newtonian mechanics provided a description of the world in terms of forces and m
 First change: coordinates we use. Instead of actual, spatial positions $\vec{x}$ of the physical system we wish to describe, we will now use \Def{generalized coordinates} $q$.\footnote{Note that we choose to omit the arrow above $q$ here. The reason is that, as we will see later, $q$ can be interpreted as a point on a manifold. Unlike in Euclidean space, this is now a distinct notion from vectors, which cannot be interpreted in terms of position vectors.}
 
 
+-> accordingly, one defines \Def{generalized velocity} $v = \dot{q} = \dv{q}{t}$ and \Def{generalized force} $Q$
+
+
 
 		\subsection{Constraints}
 classify them here
+
+$S = 3N$
 
 \begin{table}
 	% \definecolor{namecellcolor}{named}{gray!30}
 	% \colorlet{namecellcolor}{gray!30}
 	\colorlet{namecellcolor}{white}
 	\begin{tabular}{cccc}
+		\toprule
+		\toprule
+		% 
 		\cellcolor{namecellcolor} \multirow{2}{*}{holonomic} & \multirow{2}{*}{$\eqbox{f = 0}$} & \cellcolor{namecellcolor} scleronomic & $\eqbox{\pdv{f}{t} = 0}$
 		\\
 		 & & \cellcolor{namecellcolor} rheonomic & $\eqbox{\pdv{f}{t} \neq 0}$
 		\\
 		\midrule
-		% \cellcolor{namecellcolor} non-holonomic & \multicolumn{3}{c}{$\eqbox{\sum_{m = 1}^{3N} f_{im} dx_m + f_{it} dt}$}
-		\cellcolor{namecellcolor} non-holonomic & $\eqbox{\sum_{m = 1}^{3N} f_i dx_m + f_t dt}$ & & 
+		% \cellcolor{namecellcolor} non-holonomic & \multicolumn{3}{c}{$\eqbox{\sum_{m = 1}^{S} f_{im} dx_m + f_{it} dt}$}
+		% \cellcolor{namecellcolor} non-holonomic & $\eqbox{\sum_{m = 1}^{S} f_i dx_m + f_t dt}$ & & 
+		% 
+		% \cellcolor{namecellcolor} non-holonomic & \multicolumn{3}{c}{inequality or non-integrable ($\eqbox{\sum_{m = 1}^{S} f_{im} dx_m + f_{it} dt} \hat{=} \eqbox{\sum_{m = 1}^S a_m dq_m + b_t dt = 0}$)}
+		\cellcolor{namecellcolor} \multirow{2}{*}{non-holonomic} & & inequality & e.g., $\eqbox{f \geq 0}$ or $\eqbox{a \leq f \leq b}$
+		\\
+		 & & non-integrable & $\eqbox{\sum_{m = 1}^{S} f_{im} dx_m + f_{it} dt} \ \hat{=} \ \eqbox{\sum_{m = 1}^S a_m dq_m + b_t dt = 0}$
+		%  
+		\\
+		\bottomrule
+		\bottomrule
 	\end{tabular}
 \end{table}
+
+second form of non-holonomic is given in differential form, but is not integrable (cannot be rewritten as total differential $dg$)
+
+-> no general solution exists for non-holonomic systems!
+
+
+holonomic forces only involve the generalized coordinates; non-holonomic ones also involve their velocities
+
+
 
 note that in table, we put no index on constraints; but there can be multiple, then each constraint would need an index
 
 
+setup: we have $N$ particles, each described by position $\vec{x}_i$, i.e.~in total $3 N$ degrees of freedom; depending on the number of (holonomic) constraints $p$, this means we need $S = 3 N - p$ generalized coordinates to describe the system; one requirement is that we can express the particle positions in terms of the generalized coordinates, $\vec{r}(q_1, \dots, q_S)$ must be possible for every $i$
+
+% -> each particle has a net force $\vec{F}_i$ acting on it; we have two contributions to $\vec{F}_i$ here, $\vec{K}_i$ from external sources, but also $\vec{C}_i$ from constraints -> do not treat here yet
+
+
+
 		\subsection{D'Alembert Principle}
+% -- Awesome for basic idea: https://en.wikipedia.org/wiki/Virtual_work#Overview
+
+Say we have some particle moving with forces acting on it, so that one can compute the work done by these forces along the trajectory $\vec{x}(t)$. The \Def{principle of virtual work} states that for the path that the particle actually takes, the work remains unchanged upon small variations of this path (unchanged to first order).\footnote{This can be regarded as an application of the principle of least action, that we will encounter later.} This is a variational principle, that can be formalized in the equation
+\begin{equation}\label{eq:principle_virtual_work_basic}
+	\eqbox{
+		\delta W = \vec{F} \cdot \delta \vec{x} = 0
+	} \, .
+\end{equation}
+$\delta W$ denotes the \Def{virtual work} done upon the \Def{virtual displacement} $\delta \vec{x}$ from the particle's path. These virtual displacements should not be thought of as \enquote{real} displacements in space, as they happen instantaneously.\todo{is that reason why we have no integral here over $t$? Hmm no, don't think so, integral over $t$ would appear if we had $\vec{F} \cdot \vec{v}$ here... So actually we are kind of lacking an integral over path here...}
+
+The contribution by d'Alembert was to recognize that not only does the force on the particle get contributions from net external forces, which we denote by $\vec{K}$ here, and from the net force $\vec{C}$ arising from the constraints on the system, but also from the inertial force $- \dv{\vec{p}}{t} \underset{m = \text{const}}{=} - m \vec{a}$ that is required to change the particle's state of motion.
+% \footnote{This inertial force is essentially a fictitious force arising from an analysis in the rest frame of the moving body.}
+\footnote{Essentially, we take the right hand side of Newton's law $\vec{K} + \vec{Z} = m \vec{a}$ and take the viewpoint that it is a force as well, so that we effectively analyze a system in equilibrium, namely $\vec{F} = 0$. This is also called a dynamical equilibrium because the particle is not necessarily static. In some sense, this means we perform an analysis from the rest frame of the particle (where it is seen to be in equilibrium), where the inertial force arises as a fictitious forces in this frame.}
+Newton's second law immediately tells us that, if we include these inertial forces, $\vec{F} = 0$ so that $\delta W = 0$ holds trivially. However, since $\delta W$ contains the inner product of $\vec{C}$ and $\delta \vec{x}$, by selecting a virtual displacement that is consistent with the constraints (e.g., if the constraint is motion along a circle, we choose a displacement tangential to the circle), the principle of virtual work yields
+\begin{equation}
+	\delta W = \qty(\vec{K} - m \vec{a}) \dot \delta \vec{x} = 0
+\end{equation}
+where we have assumed $m = \text{const}$ for simplicity. This is an equation where the constraint forces are eliminated entirely -- something that was not possible when working with Newton's second law.\footnote{Notice how this required a paradigm shift. We are now approaching the situation thinking about energy rather than forces. Of course, forces are still involved in the analysis, but only due to their relation to the work done on the system, which is now the origin of the analysis.}
+
+% -> idea is: we have more forces acting than just the inertial forces, namely also force from constraint, which makes Newtons equations really complicated; we can also write down work done by these forces upon some virtual displacement; the key is now that constraint forces do no work -- they drop out of this equation!!!
 
 
-generalized force is what appears in front of $\delta q_i$ when writing out virtual work; name motivated from initial expression of virtual work, where forces appear in front of $\delta \vec{r}_i$
+The generalization to $N$ particles is straightforward, and the principle of virtual work for this situation becomes
+\begin{equation}\label{eq:principle_virtual_work_general}
+	\eqbox{
+		\delta W = - \sum_i \vec{F}_i \cdot \delta \vec{x}_i = 0 = - \sum_j (Q_j + Q^*_j) \delta q_j = - (Q + Q^*) \cdot \delta q
+	} \, ,
+\end{equation}
+still assuming virtual displacements $\delta \vec{x}_i, \delta q$ consistent with the constraints. Note that the sums have different number of terms here, over $j$ goes up to $S$ and over $i$ up to $3N$. At this point, we are starting to write equations in terms of the generalized coordinates $q$, and this requires the definition of an according \Def{generalized force}
+\begin{equation}
+	\eqbox{
+		Q_j = \sum_i \vec{K}_i \cdot \dv{\vec{x}_i}{q_j}
+	} \, .
+\end{equation}
+Similarly, $Q^*$ is the \Def{generalized inertial force}. It is common to rewrite it in terms of the total kinetic energy $T = \sum_i \frac{1}{2} m_i \vec{x}_i \cdot \vec{x}_i$ of the particles as
+\begin{equation}
+	Q^* = \sum_j \dv{t} \pdv{T}{\dot{q}_j} - \pdv{T}{q_j}
+	\, .
+\end{equation}
+\enquote{Why?}, you may ask. Well, the reason is that this yields equations that resemble the results obtained from Hamilton's principle, which is treated in the next section.
+
+This means Eq.~\eqref{eq:principle_virtual_work_general} can be recast into
+\begin{equation}\label{eq:principle_virtual_work_general_v2}
+	\eqbox{
+		\sum_j \qty[\dv{t} \pdv{T}{\dot{q}_j} - \pdv{T}{q_j} - Q_j] \delta q_j = 0
+	} \, ,
+\end{equation}
+which forms something like a generalized equation of motion.
+
+
+Unfortunately, we cannot get rid of the sum over $j$ in Eq.~\eqref{eq:principle_virtual_work_general_v2} in general. For this to be possible, the displacements $\delta q_j$ must be linearly independent, which in turn requires independence of the generalized coordinates $q_j$. This, however, is highly dependent on the problem itself, in particular the type of constraints that is present. If the assumption of independent $\delta q_j$ is justified, Eq.~\eqref{eq:principle_virtual_work_general_v2} can be turned into $S$ equations
+\begin{equation}\label{eq:principle_virtual_work_general_simplified}
+	\eqbox{
+		\dv{t} \pdv{T}{\dot{q}_j} - \pdv{T}{q_j} = Q_j
+	} \, .
+\end{equation}
+
+
+% In the rest of this section, we will first show that Eq.~\eqref{eq:principle_virtual_work_general_v2} is just Newton's second law in disguise, and then analyze what happens to the most general result Eq.~\eqref{eq:principle_virtual_work_general_v2} if certain additional assumptions about the system can be made.
+% \begin{ex}[Relation to Newtonian Mechanics]
+% 	no constraints means we can choose simplified Eq.~\eqref{eq:principle_virtual_work_general_simplified}; we assume conservative force for now; choose generalized coordinates as positions...
+
+
+% 	-> we get second law
+% \end{ex}
+
+In the rest of this section, we will analyze what happens to the most general result Eq.~\eqref{eq:principle_virtual_work_general_v2} if certain additional assumptions about the system can be made. For instance, we will discuss when Eq.~\eqref{eq:principle_virtual_work_general_simplified} may be used.
 
 
 
-		\subsection{Hamilton Principle}
-variational approach
+			\paragraph{Holonomic Constraints, Non-Conservative Forces}
+\todo{or call this paragraph "Holonomic vs non-holonomic Constraints"}
+
+
+
+
+
+			\paragraph{Holonomic Constraints, Conservative Forces}
+here we have $\vec{K} = - \nabla V$ for some potential $V = V(\vec{x}) = V(q)$, which implies $Q_j = - \pdv{V}{q_i}$. in that case, we can rearrange stuff and obtain the Lagrange equations of second kind
+\begin{equation}
+	\dv{t} \pdv{\mathcal{L}}{\dot{q}_j} - \pdv{\mathcal{L}}{q_j} = 0
+\end{equation}
+
+also called \Def{Euler-Lagrange equations} (ELE)
+
+
+now we will show that Eq.~\eqref{eq:principle_virtual_work_general_v2} is just Newton's second law in disguise, 
+\begin{ex}[Relation to Newtonian Mechanics]
+	no constraints means we can choose simplified Eq.~\eqref{eq:principle_virtual_work_general_simplified}; we assume conservative force for now; choose generalized coordinates as positions...
+
+
+	-> we get second law
+\end{ex}
+
+
+
+			\paragraph{Non-Holonomic Constraints}
+if they have non-integrable form, we can still do something here; I guess $\delta q_i$ are still independent or something, so that we can use the much simpler version
+
+
+
+		\subsection{Hamilton's Principle}
+based on minimizing action; abstract idea, but was found to yield correct results for Newton (and many more!)
+
+second variational approach; seems to be more general than virtual work
+
+
+			\paragraph{Holonomic Constraints, Conservative Forces}
+second way to derive \Def{Euler-Lagrange equations}, under certain assumptions
+
+
+-> rest of this section; show how we can cast more general situations into something compatible with ELE; i.e.~we will not vary with other constraints again, rather show how varying in the way we done is fine, upon certain adjustments
+
+-> we could perhaps derive results that take role of ELE in presence of non-holonomic, too (because we were able to obtain them from principle of virtual work, which is special case of least action); but we do not do here
+
+
+
+			\paragraph{Holonomic Constraints, Non-Conservative Forces}
+no potential $V$, but we can define something that plays analogous for the purpose of Lagrangian, i.e.~a generalized potential $U$ with
+\begin{equation}
+	\eqbox{
+		Q_j = \dv{t} \pdv{U}{\dot{q}_j} - \pdv{U}{q_j}
+	}
+\end{equation}
+
+then from results from d'Alembert principle we see that one can still use ELE, just with modified Lagrangian $\mathcal{L} = T - U$
+
+
+
+			\paragraph{Non-Holonomic Constraints}
+if they have non-integrable form, we can still do something with ELE here
+
+
+\url{https://en.wikipedia.org/wiki/D%27Alembert%27s_principle#Formulation_using_the_Lagrangian} -> I guess this helps, right?
+
+-> idea is to use method of Lagrange multipliers, which allow extremization subject to certain constraints (i.e.~exactly what we want; and for a reason, Lagrange developed this method for this application)
+
+
+\todo{make sure we treat Rayleigh dissipation function somewhere}
 
 
 
