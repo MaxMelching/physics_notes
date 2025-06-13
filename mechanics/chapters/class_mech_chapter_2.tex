@@ -13,61 +13,199 @@ Newtonian mechanics provided a description of the world in terms of forces and m
 -> maybe say that we switch to fields (?) and generalized coordinates + momenta
 
 
+-> Lagrange and Hamiltonian approach things in terms of energy (yes, Lagrange as well; $\mathcal{L} = T - V$ in many cases)
+
+
 
 	\section{Lagrange-Formalism}
+First change: coordinates we use. Instead of actual, spatial positions $\vec{x}$ of the physical system we wish to describe, we will now use \Def{generalized coordinates} $q$.\footnote{Note that we choose to omit the arrow above $q$ here. The reason is that, as we will see later, $q$ can be interpreted as a point on a manifold. Unlike in Euclidean space, this is now a distinct notion from vectors, which cannot be interpreted in terms of position vectors.}
 
-		\subsection{Zwangsbedingungen}
+
+
+		\subsection{Constraints}
+classify them here
+
+\begin{table}
+	% \definecolor{namecellcolor}{named}{gray!30}
+	% \colorlet{namecellcolor}{gray!30}
+	\colorlet{namecellcolor}{white}
+	\begin{tabular}{cccc}
+		\cellcolor{namecellcolor} \multirow{2}{*}{holonomic} & \multirow{2}{*}{$\eqbox{f = 0}$} & \cellcolor{namecellcolor} scleronomic & $\eqbox{\pdv{f}{t} = 0}$
+		\\
+		 & & \cellcolor{namecellcolor} rheonomic & $\eqbox{\pdv{f}{t} \neq 0}$
+		\\
+		\midrule
+		% \cellcolor{namecellcolor} non-holonomic & \multicolumn{3}{c}{$\eqbox{\sum_{m = 1}^{3N} f_{im} dx_m + f_{it} dt}$}
+		\cellcolor{namecellcolor} non-holonomic & $\eqbox{\sum_{m = 1}^{3N} f_i dx_m + f_t dt}$ & & 
+	\end{tabular}
+\end{table}
+
+note that in table, we put no index on constraints; but there can be multiple, then each constraint would need an index
+
 
 		\subsection{D'Alembert Principle}
 
+
+generalized force is what appears in front of $\delta q_i$ when writing out virtual work; name motivated from initial expression of virtual work, where forces appear in front of $\delta \vec{r}_i$
+
+
+
 		\subsection{Hamilton Principle}
+variational approach
+
+
 
 		% \subsection{The Mathematical Viewpoint: Transition from Lagrange to Hamilton}
 		% \subsection{The Mathematical Perspective: Moving on from Lagrange}
 		\subsection{Gaining Momentum(a): Moving on from Lagrange}
+% \todo{make section? As nice transition between Lagrange and Hamilton, that still provides something new in the mathematical formulation} -> not if we cut short before Legendre, then subsection is perfect
 
-\todo{make section? As nice transition between Lagrange and Hamilton, that still provides something new in the mathematical formulation}
-
-introduce the very formal way of looking at formalism
-
-what we have done is describe physical system in terms of time $t$, some generalized positions $q$, and their derivatives $\dot{q} = \dv{q}{t}$
-
-\footnote{Although it has components, we do not use $\vec{q}$, since it refers to a point on a manifold now. On this abstract object, points are now distinct notions from vectors, unlike in Euclidean space.}
-
--> turns out, the generalized coordinates $q_i$ span a manifold, known as \Def{configuration space}; the \Def{configuration} of a system at each time $t$ is an element of this space, \todo{so $q(t)$ is a curve in this space}
-
--> one further step is to include $t$ in the space as well, which yields the \Def{event space}; the Lagrange formalism can be visualized in this space, evolution of physical system is a curve in this space \todo{really, is it? or in configuration space -> ah, I guess in both; in one, we have curve as something like graph, in other we vary "external" parameter, in the sense that it is not on one of the axes, and get curve in this way}
+Here we introduce a very formal way of looking at the whole formalism. What we have done is describe physical system in terms of time $t$, some generalized \todo{positions/coordinate} $q$, and their derivatives $\dot{q} = \dv{q}{t}$.\footnote{Although $q$ has components, we do not use $\vec{q}$, since it refers to a point on a manifold now. On this abstract object, points are now distinct notions from vectors, unlike in Euclidean space.}
+% As it turns out, the generalized coordinate $q_i$ live on a manifold, called \Def{configuration space}.%
+As it turns out, the generalized coordinate $q_i$ are indeed coordinates, namely of a manifold called \Def{configuration space}.%
+\footnote{In fact, they span this space (note that this does not mean they form a basis of it; it is just that the space consists of all possible $q$). \todo{but doesn't span mean they represent a basis? -> I guess we can just argue via linear independence; same for $v_i, q_i$ as basis tangent, cotangent space}}
+The \Def{configuration} of a system at each time $t$ is an element of this space, \todo{so $q(t)$ is a curve in this space}. We could also include $t$ in the space, which yields the \Def{event space}. Both of these spaces can be used to visualize the Lagrange formalism; in the latter, the evolution traces out a curve that is more like a graph, while in the former, time is an \enquote{external} parameter and we have curves only as a function of the $q_i$.
 
 
-
-on a manifold, derivatives of coordinates are called tangent vectors; in our case, this role is taken by the $\dot{q}_i = \dv{q_i}{t}$, which form a basis of the tangent space; the pair $(q, \dot{q})$ is then referred to as tangent bundle, and Lagrangian is function on that (that has additional parameter in the time $t$)
-
--> for next section: now, we want description in terms of $p_i = \dv{\mathcal{L}}{q_i}$, which are also called generalized momenta and form what is called a conjugate variable to the $q_i$ (\todo{provide justification for that} -> maybe that from derivative in its definition, we can already guess it will help with reducing order? I mean just hand-wavy here)\footnote{This justification is a little hand-wavy. To me, this looks like a classical case of: two approaches exist (Lagrangian, Hamiltonian), and people found this cool mathematical relation between them. So this serves as our transition between them. I might be wrong, and a better justification other than \enquote{something good comes out of switching to the conjugate variables} might exist.}; next question: how can we do same physics using $p_i$ that we did before? Answer: by finding the analogue of $\mathcal{L}$ formulated in terms of the $p_i$; turns out, this is a frequently asked problem, so there is a good and general solution for it: the Legendre transform (which works here because Lagrangian is a convex function for each $q$)\footnote{Fun fact: the Legendre transform is also a prominent part of thermodynamics.}; yields Hamiltonian $H$, which essentially lets us do same theory as before, but now on the cotangent bundle of the manifold for which $q$ are coordinates 
-
--> ok, what this means is that using Hamiltonian is just a reformulation of what we have been able to do anyway; so, what's cool about it, why should we use it? well, one practical issue with Lagrangian is that the general form of equations of motion are second-order differential equations, and (as we will see) by including derivatives directly into the generalized momenta, the Hamiltonian is able to reduce this to first-order differential equations (at the cost of doubling the equations; but this is price we are often absolutely willing to pay, as it still results in overall simplification of the problem); also, Hamiltonian itself corresponds to total energy under certain circumstances, so unlike Lagrangian it does have a physical meaning
-
--> note that tangent space and cotangent space are manifolds themselves\todo{verify again}; in particular, one can do things like integrals on them, something that we will see later on; they even got a name, phase space (or state space \todo{this is the german name, certainly not english}, if time is included as well)
-
--> talk about Hamiltonian flow (?) -> nah, rather in math section below
+Similarly, the tangent space is spanned by the basis tangent vectors $\pdv{q_i}$ and $\dot{q} = \dv{q}{t}$ lives on it.\todo{isn't that just components of $\dv{t}$ for these Gaussian basis vectors? Since chain rule yields $\dv{t} = \sum_i \dv{q_i}{t} \dv{q_i} = \sum_i \dv{q_i}{t} \pdv{q_i}$ -> yeah, I guess we just define it in coordinates (i.e.~in a chart) here} The pair $(q, \dot{q})$ then lives on something that is referred to as tangent bundle (which is what we get by gluing together the tangent spaces at different points of the manifolds; this is like fibers forming a bundle and justifies the given name), and the Lagrangian is function on that (that has additional parameter in the time $t$).\\
 
 
-purpose of Euler-Lagrange equations (ELE) is to give us a way to find $q$ as function of $t$ for a given Lagrangian; when switching to Hamiltonian, this transition would not be complete without a similar way of obtaining $(q, p)$ from a given Hamiltonian (be it that we know it straight up, or get via Legendre from Lagrangian); basically, what we want is turning ELE, i.e.~conditions on derivatives of Lagrangian, into conditions on derivatives of Hamiltonian; fortunately, we can relate Hamiltonian to Lagrangian; it is thus straightforward idea to write out the differential of Hamiltonian and then compare general coefficients to coefficients in terms of the Lagrangian (for the latter, we hope to be able to apply ELE)
+Lagrangian is the perfect keyword here. The way that Lagrangian mechanics works is by solving the ELE \todo{make sure this acronym is introduced}. One practical issue with this approach is that the ELE are second order differential equations, and the total time derivative in particular can lead to very nasty and complicated expressions. Therefore, while we love the capabilities of the Lagrange formalism, it is worthwhile exploring potential alternative formulations of the problem.
+
+After what we said about the underlying mathematical structure, namely that $(q, \dot{q})$ being part of tangent bundle, people familiar with manifolds and differential geometry will (hopefully) agree that it is straightforward to look at the cotangent bundle next. This is obtained by gluing together cotangent spaces, whose elements are maps on the tangent spaces (similarly, tangent vectors as elements of tangent spaces can be considered maps on the cotangent space, there is a duality here), and the term usually used for it in physics is \Def{phase space}. The dual or conjugate variable to $p$ that we are interested in is the \Def{generalized momentum} $\vec{p}$, defined by its components $p_i = \pdv{\mathcal{L}}{q_i}$. \todo{is this natural choice? Or more like "we choose mapping on tangent bundle because it yields good results after Legendre transform"? Which would be fine, this is what we do anyway -> hm actually comes out of Legendre naturally; so maybe not introduce here?}
+
+
+You may ask why exactly we should do this? Well, the inclusion of a derivative directly into the definition of the $p_i$ should make us hopeful that this may reduce the number of differentiations to carry out. At least, it looks promising enough to follow through.\footnote{This justification is very hand-wavy. To me, this looks like a classical case of: two approaches exist (Lagrangian, Hamiltonian), and people found this cool mathematical relation between them. So this serves as our transition between them. I might be wrong, and a better justification other than \enquote{something good comes out of switching to the conjugate variables} might exist.} This is done in the next section.
+
+
+-> incorporate following? note that tangent space and cotangent space are manifolds themselves; in particular, one can do things like integrals on them, something that we will see later on with Liouville measure etc; they even got a name, phase space (or state space \todo{this is the german name, certainly not english}, if time is included as well)
+
 
 
 
 	\section{Hamilton-Formalism}
-basically description in terms of energy instead of momentum, right? since Hamiltonian = energy (?)
+% basically description in terms of energy instead of momentum, right? since Hamiltonian = energy (?)
+
+Mapping $(q, \dot{q}) \mapsto (q, p)$ is conceptually very simple as it merely requires calculating the generalized momenta $p_i = \pdv{\mathcal{L}}{q_i}$. But this is not really helpful in itself -- how can we do the same physics as before, i.e.~how can we get what $\mathcal{L}$ is for $\dot{q}_i$ in terms of the $p_i$? Here it finally pays off that we had done before in linking all the physical quantities to fancy mathematical entities; as it turns out, the problem of mapping quantities from the tangent bundle to the cotangent bundle is a problem that is encountered frequently (enough) that a general solution for it exists: the \Def{Legendre transform}\footnote{Fun fact: this transform is also a prominent part of thermodynamics.}; for a function $f(x)$ of two scalar variables $x, y$, the Legendre transform with respect to $x$, is defined as
+\begin{equation}
+	\eqbox{
+		% \Leg\qty[f](u) = \eval{\sup_x \qty{u x - f(x)}}_{x = x(u)}
+		\Leg\qty[f](u) = \sup_x \qty{u x - f(x)}
+	}
+\end{equation}
+(formally, it is only applicable in this form if $f$ is convex; we do not care about this because Lagrangians are convex in $\dot{q_i}$). If $f$ is differentiable, this turns into
+\begin{equation}
+	\eqbox{
+		\Leg\qty[f](u) = u x(u) - f(x(u)), \; u = \dv{f}{x}, x(u) = \qty(\dv{f}{x})^{-1}(u)
+	} \, .
+\end{equation}
+For $f$ that have more than one variable, we just keep the other variables fixed (and total derivative must be replaced by partial derivative).
+
+
+Legendre-transforming the Lagrangian $\mathcal{L}(q, v)$ with respect to $v$ then yields the \Def{Hamiltonian}
+\begin{equation}\label{eq:hamiltonian_general}
+	\eqbox{
+		H(q, p) = \Leg\qty[\mathcal{L}(q, v)](p) = \sup_v \qty{p \cdot v - \mathcal{L}(q, v)}
+	}
+\end{equation}
+where we begin using the abbreviation $v = \dot{q}$ for \Def{generalized velocity}. \todo{I am sure this is introduced beforehand when summary is in more finalized state, adjust this}
+Note that this definition holds even for non-differentiable Lagrangians, where we cannot define $p_i$ in the way that we did, but rather take them to be some arbitrary variable. But if $\mathcal{L}$ is differentiable, we can indeed recover the previous definition. This can be done by determining the supremum (maximum) via differentiation:
+% 
+% Please note that, if we had not defined the $p_i$ as $\pdv{\mathcal{L}}{q_i}$, we would get the same result now. For this, suppose $\mathcal{L}$ is differentiable. Then we can find the supremum (maximum) via differentiation:
+\begin{equation}
+	0 = \pdv{v_i} \qty(p \cdot v - \mathcal{L}) = p_i - \pdv{\mathcal{L}}{v_i}
+	\quad \Leftrightarrow \quad
+	p_i = \pdv{\mathcal{L}}{v_i}
+	\, .
+\end{equation}
+Inserting this into Eq.\eqref{eq:hamiltonian_general}, the Hamiltonian becomes
+\begin{equation}\label{eq:hamiltonian_differentiable}
+	\eqbox{
+		% H(q, p) = \Leg\qty{\mathcal{L}(q, v)}(p) = \sum_i p_i v_i(p) - \mathcal{L}(q, v)
+		H(q, p) = \Leg\qty[\mathcal{L}(q, v)](p) = p \cdot v(p) - \mathcal{L}(q, v)
+	} \, .
+\end{equation}
+
+
+Now, in general we have
+\begin{equation}
+	% dH(q, p, t) = \sum_i \pdv{H}{q_i} dq_i + \pdv{H}{p_i} dp_i + \pdv{H}{t} dt \, .
+	dH(q, p, t) = \pdv{H}{q} \cdot dq + \pdv{H}{p} \cdot dp + \pdv{H}{t} dt \, .
+\end{equation}
+Inserting Eq.~\eqref{eq:hamiltonian_differentiable} here yields:\footnote{We do not use the most general form of the Hamiltonian Eq.~\eqref{eq:hamiltonian_general} because we need $\mathcal{L}$ to be differentiable to be able to calculate $dH$.}
+\begin{align}
+	dH(q, p, t) &= d (p \cdot v - \mathcal{L}(q, v))
+	\notag\\
+	&= v \cdot dp + p \cdot dv - d \mathcal{L}(q, v)
+	\notag\\
+	% &= \sum_i v_i dp_i + p_i dv_i - \pdv{\mathcal{L}}{q_i} dq_i - \pdv{\mathcal{L}}{v_i} dv_i - \pdv{\mathcal{L}}{t} dt
+	&= v \cdot dp + p \cdot dv - \pdv{\mathcal{L}}{q} \dot dq - \pdv{\mathcal{L}}{v} \cdot dv - \pdv{\mathcal{L}}{t} dt
+	\notag\\
+	% &\underset{\text{ELE}\todo{cite equation}}{=} \sum_i v_i dp_i + p_i dv_i - \dv{p_i}{t} dq_i - p_i dv_i - \pdv{\mathcal{L}}{t} dt
+	&\underset{\text{ELE}\todo{cite equation}}{=} v \cdot dp + p \cdot dv - \dv{p}{t} \cdot dq - p \cdot dv - \pdv{\mathcal{L}}{t} dt
+	\notag\\
+	% &= \sum_i - \dv{p_i}{t} dq_i + v_i dp_i - \pdv{\mathcal{L}}{t} dt
+	&= - \dv{p}{t} \cdot dq + v \cdot dp - \pdv{\mathcal{L}}{t} dt
+	\, .
+	\notag\\
+\end{align}
+Comparing this to the general coefficients yields the \Def{Hamilton equations}
+\begin{equation}\label{eq:hamilton_eq}
+	\eqbox{
+		% \pdv{H}{q_i} = - \dv{p_i}{t} = - \dv{\mathcal{L}}{q_i}
+		\pdv{H}{q} = - \dv{p}{t} = - \dv{\mathcal{L}}{q}
+	}
+	\qquad
+	\eqbox{
+		% \pdv{H}{p_i} = v_i = \dv{q_i}{t}
+		\pdv{H}{p} = v = \dv{q}{t}
+	}
+	\qquad
+	\eqbox{
+		\pdv{H}{t} = - \pdv{\mathcal{L}}{t}
+	} \, .
+\end{equation}
+Note of course that these are really equations for each component of $q, p$ etc., so overall these are $2S + 1$ equations.
+
+-> this is basically analogue of ELE on the cotangent bundle instead of tangent bundle; just like ELE allowed us to get the curve $q$ for a system in configuration space (thereby also curve in tangent bundle, since we can get $\dot{q}$ from $q$\todo{right?}), i.e.~its evolution in time, we now have a way to determine curve in phase space (= cotangent bundle of configuration space\todo{too much detail?})
+
+% we have ported the theory from (the tangent bundle of the) configuration space to phase space (= cotangent bundle of configuration space)
+
+
+At this point, let us take a step back and recap what happened in this section. We have derived the Hamiltonian $H$ and corresponding Hamilton equations as analogues of Lagrangian and ELE. But what did we actually gain from that? Well, one of the primary issues with the Lagrangian approach was that the ELE ended up being second-order differential equations. The Hamilton equations, on the other hand, are first order differential equations -- goal achieved. Of course, such an advancement seldomly comes without a price: we have doubled the number of equations to solve. Nevertheless, it is often worth paying this price since the overall complexity of the problem may still be reduced.
+
+-> especially if one of the $q_i$ does not appear in $\mathcal{L}$ (and thus also not in $H$), which is sometimes called \Def{cyclic coordinate}; in that case, there is not one but actually two equations less to solve because Eq.\eqref{eq:hamilton_eq} tells us that $p_i = \text{const}$ too
+
+
+% -> ok, what this means is that using Hamiltonian is just a reformulation of what we have been able to do anyway; so, what's cool about it, why should we use it? well, one practical issue with Lagrangian is that the general form of equations of motion are second-order differential equations (total time derivative is especially nasty), and (as we will see) by including derivatives directly into the generalized momenta, the Hamiltonian is able to reduce this to first-order differential equations (at the cost of doubling the equations; but this is price we are often absolutely willing to pay, as it still results in overall simplification of the problem)
+
+-> another advantage: Hamiltonian itself corresponds to total energy under certain circumstances \todo{show how}, so unlike Lagrangian it does (can) have a physical meaning
+
+-> also talk about how $\dv{H}{t} = 0$ corresponds to conservation of energy; note that when energy is conserved, one has scleronom constraints, which implies $\pdv{\mathcal{L}}{t} = 0$ and thus by Hamilton equations $\pdv{H}{t} = 0$ as well (less strict criterion than vanishing of total time derivative)
+
+
+
+% purpose of Euler-Lagrange equations (ELE) is to give us a way to find $q$ as function of $t$ for a given Lagrangian; when switching to Hamiltonian, this transition would not be complete without a similar way of obtaining $(q, p) \eqqcolon \gamma$ from a given Hamiltonian (be it that we know $H$ straight up, or get it via Legendre from Lagrangian); basically, what we want is turning ELE, i.e.~conditions on derivatives of Lagrangian, into conditions on derivatives of Hamiltonian; fortunately, we can relate Hamiltonian to Lagrangian; it is thus straightforward idea to write out the differential of Hamiltonian and then compare general coefficients to coefficients in terms of the Lagrangian (for the latter, we hope to be able to apply ELE)
 
 
 
 
-	\section{The Mathematical Deep Dive: Symplectic Structure Of Classical Mechanics}
+
+		\subsection{Principle Of Least Action}
+relate Hamilton principle to principle of least action
+
+
+
+	% \section{The Mathematical Deep Dive: Symplectic Structure Of Classical Mechanics}
+	\section{The Mathematical Deep Dive: Symplectic Structure}
 
 summary of all Wikipedia articles I could find on this:
 % - https://en.wikipedia.org/wiki/Hamiltonian_mechanics#From_symplectic_geometry_to_Hamilton's_equations
 % - https://en.wikipedia.org/wiki/Hamiltonian_vector_field
 % - https://en.wikipedia.org/wiki/Tautological_one-form
 % - https://en.wikipedia.org/wiki/Legendre_transformation#Analytical_mechanics
+% - https://en.wikipedia.org/wiki/Generalized_coordinates
+% - https://en.wikipedia.org/wiki/Canonical_coordinates
 
 Darboux's theorem forms basis for this; states that every symplectic manifold is the phase space of some physical system (is equivalence; every phase space is also symplectic)! So this type of manifolds is really the arena of Hamiltonian mechanics!
 
@@ -78,9 +216,16 @@ idea: we have phase space; at every point in this, I can look at tangent space, 
 
 -> we can then write down a vector field in terms of this (the Hamiltonian vector field), $X_H = J dH$ (sometimes expressed as $J(dH)$), and solving the differential equation for this vector field on the phase space (there is a natural way to formulate this on vector fields) turns out to be nothing but solving the canonical equations (from Hamiltonian) that we have derived (if we also use knowledge from ELE)
 
+-> ah, even better: $X_H$ is defined via $X_H(Y) = dH(Y) \coloneqq \omega_H(X_H, Y)$; this is canonical identification of one-form $\omega_H$ and vector field $X_H$, which are complementary (so $X_H$ is basically dual one to this canonical form $\omega_H$); then it takes form noted above
+
+
+natural next step: Hamiltonian flow
+
 
 
 \hrule
+
+\todo{this is more like statistical physics, right?}
 
 
 hier halt etwas mathematischere Beschreibung; die kanonischen Vertauschungsrelationen definieren nämlich mathematisch gesehen eine Basis sowie die dazu duale Basis eines Tangentialraums bzw. sogar -bündels
