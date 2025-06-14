@@ -8,85 +8,104 @@
 % \chapter{Erweiterungen von Newton}
 \chapter{Analytical Mechanics}
 
-Newtonian mechanics provided a description of the world in terms of forces and momenta. This is convenient for many applications, but not for all. For this reason, it is sometimes worthwhile to adopt different viewpoints on the physical world, and we will present several alternative frameworks in this chapter. These are often summarized under the term \enquote{analytical mechanics}.
-
-\todo{use word "different branches"?}
-
--> maybe say that we switch to fields (?) and generalized coordinates + momenta
+Newtonian mechanics provided a description of the world in terms of forces and momenta. This is convenient for many applications, but not for all. Sometimes, it is more beneficial to adopt different viewpoints on the physical world, and we present several alternative frameworks in this chapter. These are often summarized under the term \enquote{analytical mechanics}. Two well-known branches of this are the Lagrangian and the Hamiltonian one.
 
 
--> Lagrange and Hamiltonian approach things in terms of energy (yes, Lagrange as well; $\mathcal{L} = T - V$ in many cases)
+% -> maybe say that we switch to fields (?) and generalized coordinates + momenta
 
 
-
-	\section{Lagrange-Formalism}
-First change: coordinates we use. Instead of actual, spatial positions $\vec{x}$ of the physical system we wish to describe, we will now use \Def{generalized coordinates} $q$.\footnote{Note that we choose to omit the arrow above $q$ here. The reason is that, as we will see later, $q$ can be interpreted as a point on a manifold. Unlike in Euclidean space, this is now a distinct notion from vectors, which cannot be interpreted in terms of position vectors.}
-
-
--> accordingly, one defines \Def{generalized velocity} $v = \dot{q} = \dv{q}{t}$ and \Def{generalized force} $Q$
+-> Lagrange and Hamiltonian approach things in terms of energy (yes, Lagrange as well; $\mathcal{L} = T - V$ in many cases) -> conceptually different, but also mathematically because this means we mainly work with scalars from now on! Not vectors anymore
 
 
 
-		\subsection{Constraints}
-classify them here
+	\section{Constraints \& Setup}
+In many cases, physical objects are not free to evolve in the presence of forces, but instead subject to certain \Def{constraints}. Easy examples are balls attached to some rigid rod, i.e.~basically a pendulum. This ball is free not to move in all spatial dimensions, but must always maintain a fixed distance from the pendulum's pivot since it is attached to the rod -- this is a constraint. In Newtonian terms, this manifests as a \Def{constraint force} $\vec{C}$ exerted by the rod.
 
-$S = 3N$
+
 
 \begin{table}
 	% \definecolor{namecellcolor}{named}{gray!30}
 	% \colorlet{namecellcolor}{gray!30}
 	\colorlet{namecellcolor}{white}
-	\begin{tabular}{cccc}
+	\centering
+	\begin{tabular}{ccc}
 		\toprule
 		\toprule
 		% 
-		\cellcolor{namecellcolor} \multirow{2}{*}{holonomic} & \multirow{2}{*}{$\eqbox{f = 0}$} & \cellcolor{namecellcolor} scleronomic & $\eqbox{\pdv{f}{t} = 0}$
-		\\
-		 & & \cellcolor{namecellcolor} rheonomic & $\eqbox{\pdv{f}{t} \neq 0}$
+		\cellcolor{namecellcolor} holonomic & & $\eqbox{f = 0}$
 		\\
 		\midrule
 		% \cellcolor{namecellcolor} non-holonomic & \multicolumn{3}{c}{$\eqbox{\sum_{m = 1}^{S} f_{im} dx_m + f_{it} dt}$}
 		% \cellcolor{namecellcolor} non-holonomic & $\eqbox{\sum_{m = 1}^{S} f_i dx_m + f_t dt}$ & & 
 		% 
 		% \cellcolor{namecellcolor} non-holonomic & \multicolumn{3}{c}{inequality or non-integrable ($\eqbox{\sum_{m = 1}^{S} f_{im} dx_m + f_{it} dt} \hat{=} \eqbox{\sum_{m = 1}^S a_m dq_m + b_t dt = 0}$)}
-		\cellcolor{namecellcolor} \multirow{2}{*}{non-holonomic} & & inequality & e.g., $\eqbox{f \geq 0}$ or $\eqbox{a \leq f \leq b}$
+		% 
+		\cellcolor{namecellcolor} \multirow{2}{*}{non-holonomic} & inequality & e.g., $\eqbox{f \geq 0}$ or $\eqbox{a \leq f \leq b}$
 		\\
-		 & & non-integrable & $\eqbox{\sum_{m = 1}^{S} f_{im} dx_m + f_{it} dt} \ \hat{=} \ \eqbox{\sum_{m = 1}^S a_m dq_m + b_t dt = 0}$
+		 & non-integrable & $\eqbox{\sum_{i = 1}^{S} f_i dx_i + f_t dt} \ \hat{=} \ \eqbox{\sum_{j = 1}^S a_j dq_j + b_t dt = 0}$ \todo{remove from here? Because this is Pfaffian form, right?}
 		%  
+		\\
+		\midrule
+		\cellcolor{namecellcolor} scleronomic & \multicolumn{2}{c}{not time dependent}
+		\\
+		\midrule
+		\cellcolor{namecellcolor} rheonomic & \multicolumn{2}{c}{time dependent}
 		\\
 		\bottomrule
 		\bottomrule
 	\end{tabular}
+	\label{tab:constraint_types}
+
+	\caption{Different types of constraints.}
 \end{table}
+
+
+
+Many different types of constraints exist. A rough classification is provided in Tab.~\ref{v}.
 
 second form of non-holonomic is given in differential form, but is not integrable (cannot be rewritten as total differential $dg$)
 
 -> no general solution exists for non-holonomic systems!
 
 
-holonomic forces only involve the generalized coordinates; non-holonomic ones also involve their velocities
+holonomic forces only involve the generalized coordinates; non-holonomic ones also involve their velocities or higher derivatives
 
 
 
 note that in table, we put no index on constraints; but there can be multiple, then each constraint would need an index
 
 
-setup: we have $N$ particles, each described by position $\vec{x}_i$, i.e.~in total $3 N$ degrees of freedom; depending on the number of (holonomic) constraints $p$, this means we need $S = 3 N - p$ generalized coordinates to describe the system; one requirement is that we can express the particle positions in terms of the generalized coordinates, $\vec{r}(q_1, \dots, q_S)$ must be possible for every $i$
+-> we can bring constraints into Pfaffian form: ... (\url{https://en.wikipedia.org/wiki/Pfaffian_constraint})
 
-% -> each particle has a net force $\vec{F}_i$ acting on it; we have two contributions to $\vec{F}_i$ here, $\vec{K}_i$ from external sources, but also $\vec{C}_i$ from constraints -> do not treat here yet
+
+
+
+
+
+	\section{Lagrange-Formalism}
+If we now envision more complex systems, where many such constraints are present, things quickly becomes hard too handle from the Newtonian point of view. This is why other approaches to mechanics are worthwhile exploring, founded on different principles than simply deriving an equation of motion straight from Newton's second law.
+
+
+Before showing how this can be done, we will present the general setup assumed henceforth: there are $N$ particles, each described by a position $\vec{x}_i$, i.e.~in total $3 N$ degrees of freedom. One of the first major changes compared to Newtonian physics is the type of coordinates used. Instead of restricting ourselves to the actual, spatial positions $\vec{x}$ of the physical system we wish to describe, it turns out to be beneficial to work with \Def{generalized coordinates} $q$.\footnote{Note that we choose to omit the arrow above $q$ here. The reason is that, as we will see later, $q$ can be interpreted as a point on a manifold. Unlike in Euclidean space, this is now a distinct notion from vectors, which cannot be interpreted in terms of position vectors.} Accordingly, one defines the \Def{generalized velocity} as $v = \dot{q} = \dv{q}{t}$.
+
+
+% Depending on the number of (holonomic) constraints $p$, $S = 3 N - p$ generalized coordinates are needed to describe the system. One requirement on them is that we can express the particle positions in terms of the generalized coordinates, $\vec{x} = \vec{x}(q_1, \dots, q_S)$ must be possible $\forall i$.
+Depending on the number and type of constraints, the number $S$ of generalized coordinates needed to describe the system can be $\leq 3N$. One requirement on them is that we can express the particle positions in terms of the generalized coordinates, $\vec{x} = \vec{x}(q_1, \dots, q_S)$ must be possible $\forall i$.
+
 
 
 
 		\subsection{D'Alembert Principle}
 % -- Awesome for basic idea: https://en.wikipedia.org/wiki/Virtual_work#Overview
 
-Say we have some particle moving with forces acting on it, so that one can compute the work done by these forces along the trajectory $\vec{x}(t)$. The \Def{principle of virtual work} states that for the path that the particle actually takes, the work remains unchanged upon small variations of this path (unchanged to first order).\footnote{This can be regarded as an application of the principle of least action, that we will encounter later.} This is a variational principle, that can be formalized in the equation
+Say we have a particle moving with forces acting on it, so that one can compute the work done by these forces along the trajectory $\vec{x}(t)$. The \Def{principle of virtual work} states that for the path that the particle actually takes, the work remains unchanged upon small variations of this path (unchanged to first order).\footnote{This can be regarded as an application of the principle of least action, that we will encounter later.} This is a variational principle, that can be formalized in the equation
 \begin{equation}\label{eq:principle_virtual_work_basic}
 	\eqbox{
 		\delta W = \vec{F} \cdot \delta \vec{x} = 0
 	} \, .
 \end{equation}
-$\delta W$ denotes the \Def{virtual work} done upon the \Def{virtual displacement} $\delta \vec{x}$ from the particle's path. These virtual displacements should not be thought of as \enquote{real} displacements in space, as they happen instantaneously.\todo{is that reason why we have no integral here over $t$? Hmm no, don't think so, integral over $t$ would appear if we had $\vec{F} \cdot \vec{v}$ here... So actually we are kind of lacking an integral over path here...}
+$\delta W$ denotes the \Def{virtual work} done upon the \Def{virtual displacement} $\delta \vec{x}$ from the particle's path. These virtual displacements should not be thought of as \enquote{real} displacements in space, as they happen instantaneously.
+% \todo{is that reason why we have no integral here over $t$? Hmm no, don't think so, integral over $t$ would appear if we had $\vec{F} \cdot \vec{v}$ here... So actually we are kind of lacking an integral over path here...}
 
 The contribution by d'Alembert was to recognize that not only does the force on the particle get contributions from net external forces, which we denote by $\vec{K}$ here, and from the net force $\vec{C}$ arising from the constraints on the system, but also from the inertial force $- \dv{\vec{p}}{t} \underset{m = \text{const}}{=} - m \vec{a}$ that is required to change the particle's state of motion.
 % \footnote{This inertial force is essentially a fictitious force arising from an analysis in the rest frame of the moving body.}
@@ -128,7 +147,7 @@ This means Eq.~\eqref{eq:principle_virtual_work_general} can be recast into
 which forms something like a generalized equation of motion.
 
 
-Unfortunately, we cannot get rid of the sum over $j$ in Eq.~\eqref{eq:principle_virtual_work_general_v2} in general. For this to be possible, the displacements $\delta q_j$ must be linearly independent, which in turn requires independence of the generalized coordinates $q_j$. This, however, is highly dependent on the problem itself, in particular the type of constraints that is present. If the assumption of independent $\delta q_j$ is justified, Eq.~\eqref{eq:principle_virtual_work_general_v2} can be turned into $S$ equations
+Unfortunately, we cannot get rid of the sum over $j$ in Eq.~\eqref{eq:principle_virtual_work_general_v2} in general. For this to be possible, the displacements $\delta q_j$ must be linearly independent (while still being consistent with the constraints), which in turn requires independence of the generalized coordinates $q_j$. This, however, is highly dependent on the problem itself, in particular the type of constraints that are present. If the assumption of independent $\delta q_j$ is justified, Eq.~\eqref{eq:principle_virtual_work_general_v2} can be turned into $S$ equations
 \begin{equation}\label{eq:principle_virtual_work_general_simplified}
 	\eqbox{
 		\dv{t} \pdv{T}{\dot{q}_j} - \pdv{T}{q_j} = Q_j
@@ -148,20 +167,52 @@ In the rest of this section, we will analyze what happens to the most general re
 
 
 
-			\paragraph{Holonomic Constraints, Non-Conservative Forces}
-\todo{or call this paragraph "Holonomic vs non-holonomic Constraints"}
+			\paragraph{Holonomic Constraints vs.~Non-holonomic Constraints}
 
 
+$p$ holonomic constraints means $S = 3N - p$, they truly reduce the number of degrees of freedom in a system; then we can use simplified form -> basically, through suitable choice of generalized coordinates, we automatically make sure constraints are respected (would usually not be possible for positions; that is how constraints drop out in analytical mechanics, but not Newtonian)
+
+
+non-holonomic constraints will, generally speaking, not reduce the degrees of freedom of the system (easy example: restriction to movement inside of a circle; means particle can still move in all spatial directions, but this is still not completely free movement)
+
+
+\hrule
+
+
+ChatGPT on whether constraints impact if independent coordinates can be chosen:
+
+Yes, the choice of generalized coordinates is indeed related to the nature of constraints in the system, specifically distinguishing between holonomic and non-holonomic constraints.
+
+1. Holonomic Constraints:
+
+   - Definition: Holonomic constraints are constraints that can be expressed as equations involving the coordinates and possibly time, but not the velocities. They effectively reduce the degrees of freedom of the system by restricting the configurations that the system can occupy. These are given by constraints of the form \(f(q1, q2, \ldots, q_n, t) = 0\).
+
+   - Relation to Generalized Coordinates: When all constraints in a system are holonomic, it's possible to choose generalized coordinates that are independent and account for these constraints. The generalized coordinates inherently respect the constraints, so any virtual displacement expressed in terms of these coordinates will automatically satisfy the constraints. This makes it possible to express the configuration of the system completely in terms of fewer variables.
+
+2. Non-Holonomic Constraints:
+
+   - Definition: Non-holonomic constraints involve not just the coordinates, but also the velocities, and they cannot be integrated to reduce the coordinates themselves. These are typically expressed in a differential form, like \(g(q1, q2, \ldots, qn, \dot{q}1, \dot{q}2, \ldots, \dot{q}n, t) = 0\). 
+
+   - Relation to Generalized Coordinates: Non-holonomic constraints present a challenge for choosing generalized coordinates since these constraints might impact how velocities or virtual displacements can vary, but not in a way that reduces the coordinate count directly as holonomic constraints do. In these cases, the coordinates may not fully decouple, so the variation of virtual displacements can be restricted by the differential form of the constraint. This means that even though generalized coordinates are designed to capture the system's configuration, the non-holonomic constraints can prevent full independence of $\delta q_j$.
+
+In summary, the choice of generalized coordinates strongly ties in with how constraints are formulated in a system. Holonomic constraints allow for a straightforward reduction in the number of independent coordinates, while non-holonomic constraints typically require more care in describing the system's permissible motions and ensuring that virtual displacements respect the velocity-dependent constraints.
 
 
 
 			\paragraph{Holonomic Constraints, Conservative Forces}
-here we have $\vec{K} = - \nabla V$ for some potential $V = V(\vec{x}) = V(q)$, which implies $Q_j = - \pdv{V}{q_i}$. in that case, we can rearrange stuff and obtain the Lagrange equations of second kind
-\begin{equation}
-	\dv{t} \pdv{\mathcal{L}}{\dot{q}_j} - \pdv{\mathcal{L}}{q_j} = 0
-\end{equation}
+simplified form from holonomic is already great, but with conservative forces we can do even more
 
-also called \Def{Euler-Lagrange equations} (ELE)
+
+here we have $\vec{K} = - \nabla V$ for some potential $V = V(\vec{x}) = V(q)$, which implies $Q_j = - \pdv{V}{q_i}$. in that case, we can rearrange stuff and obtain the \Def[Lagrange equations!second kind]{Lagrange equations of second kind}
+\begin{equation}\label{eq:ele}
+	\eqbox{
+		\dv{t} \pdv{\mathcal{L}}{\dot{q}_j} - \pdv{\mathcal{L}}{q_j} = 0
+	} \, ,
+\end{equation}
+also called \Def{Euler-Lagrange equations} (ELEs).
+
+
+-> $V$ does not explicitly depend on $\dot{q}_i$, while $T$ does not explicitly depend on $q_i$
 
 
 now we will show that Eq.~\eqref{eq:principle_virtual_work_general_v2} is just Newton's second law in disguise, 
@@ -174,28 +225,10 @@ now we will show that Eq.~\eqref{eq:principle_virtual_work_general_v2} is just N
 
 
 
-			\paragraph{Non-Holonomic Constraints}
-if they have non-integrable form, we can still do something here; I guess $\delta q_i$ are still independent or something, so that we can use the much simpler version
-
-
-
-		\subsection{Hamilton's Principle}
-based on minimizing action; abstract idea, but was found to yield correct results for Newton (and many more!)
-
-second variational approach; seems to be more general than virtual work
-
-
-			\paragraph{Holonomic Constraints, Conservative Forces}
-second way to derive \Def{Euler-Lagrange equations}, under certain assumptions
-
-
--> rest of this section; show how we can cast more general situations into something compatible with ELE; i.e.~we will not vary with other constraints again, rather show how varying in the way we done is fine, upon certain adjustments
-
--> we could perhaps derive results that take role of ELE in presence of non-holonomic, too (because we were able to obtain them from principle of virtual work, which is special case of least action); but we do not do here
-
-
-
 			\paragraph{Holonomic Constraints, Non-Conservative Forces}
+Eq.~\eqref{eq:principle_virtual_work_general_simplified} is already nice, but through some tricks we can maintain/preserve form of ELE for even non-conservative forces; for that, define generalized potential $U$ and redefine $\mathcal{L} = T - U$
+
+
 no potential $V$, but we can define something that plays analogous for the purpose of Lagrangian, i.e.~a generalized potential $U$ with
 \begin{equation}
 	\eqbox{
@@ -207,8 +240,58 @@ then from results from d'Alembert principle we see that one can still use ELE, j
 
 
 
+-> note how this allows us to formulate equations of motion entirely in terms of the Lagrangian, and thus essentially energy; forces only appear indirectly, in definition of potential, but are not the quantity of interest anymore (unlike in Newtonian case)
+
+
+
 			\paragraph{Non-Holonomic Constraints}
-if they have non-integrable form, we can still do something with ELE here
+Note that we will not distinguish between the cases of conservative, non-conservative forces because the Lagrangian $\mathcal{L}$ is defined for both cases, so we can just stick to this function $\mathcal{L}$.
+
+
+It was already mentioned how one issue with non-holonomic constraints was that they do not remove a degree of freedom from the system, which makes a general treatment impossible. To proceed, we must assume it is still possible to choose independent virtual displacements $\delta q_j$ (which is related to independent generalized coordinates $q_j$). If, in addition to that, the $p'$ non-holonomic constraints that are present further have a Pfaffian form
+\begin{equation*}
+	\sum_{j = 1}^S a_j dq_j + b_t dt = 0
+	\, ,
+\end{equation*}
+then the following trick can be applied: replace infinitesimal displacements into virtual displacements, i.e.~$d \mapsto \delta$, recall that $\delta t = 0$, and then recognize that the Pfaffian form implies the conditions
+\begin{equation}\label{eq:non_hol_pfaffian_deltas}
+	\eqbox{
+		\sum_{j = 1}^S a_{mj} \delta q_j = 0
+	}
+\end{equation}
+for each constraint with index $m = 1, \dots, p'$. By assigning a Lagrange multiplier $\lambda_m$ to each of the non-holonomic constraints, and noting that Eq.~\eqref{eq:non_hol_prassian_deltas} implies
+\begin{equation}\label{eq:non_hol_pfaffian_deltas_as_work}
+	\sum_{m = 1}^{p'} \lambda_m \sum_{j = 1}^S a_{mj} \delta q_j = 0
+	\, ,
+\end{equation}
+we can treat constraints in a well-defined mathematical manner. On a phenomenological level, we can see how how the math works by noticing that this situation is reminiscent of the presence of a constraint force $\sum_{m = 1}^{p'} \lambda_m a_{mj}$ that acts on each of the generalized coordinates, with Eq.~\eqref{eq:non_hol_pfaffian_deltas_as_work} meaning they do no work. Including these terms turns the Lagrange equations of second kind into the \Def[Lagrange equations!first kind]{Lagrange equations of first kind}
+\begin{equation}
+	\eqbox{
+		\dv{t} \pdv{\mathcal{L}}{\dot{q}_j} - \pdv{\mathcal{L}}{q_j} = \sum_{m = 1}^{p'} \lambda_m a_{mj}
+	} \, .
+\end{equation}
+Thus, even in case of non-holonomic constraints, it is possible to obtain results that look very much like the ELEs, with small modifications on top.
+
+
+Now, you may ask why there is a need to include the terms $\sum_{m = 1}^{p'} \lambda_m a_{mj}$ even if they do no work. And you would be right in doing so, after all we were able to neglect these equations before. 
+
+-> reason we need them: more degrees of freedom than ELEs! -> huh, but does that explain why we need to care about them in the ELEs?
+
+
+
+I am not entirely sure how relevant this case is, but if we are not able to find independent $\delta q_j$, then we have to work with
+\begin{equation}
+	\eqbox{
+		\sum_j \qty[\dv{t} \pdv{\mathcal{L}}{\dot{q}_j} - \pdv{\mathcal{L}}{q_j} - \sum_{m = 1}^{p'} \lambda_m a_{mj}] \delta q_j = 0
+	} \, .
+\end{equation}
+
+
+Note that the method of Lagrange multipliers can also be applied to holonomic constraints.
+
+
+
+\hrule
 
 
 \url{https://en.wikipedia.org/wiki/D%27Alembert%27s_principle#Formulation_using_the_Lagrangian} -> I guess this helps, right?
@@ -216,8 +299,50 @@ if they have non-integrable form, we can still do something with ELE here
 -> idea is to use method of Lagrange multipliers, which allow extremization subject to certain constraints (i.e.~exactly what we want; and for a reason, Lagrange developed this method for this application)
 
 
-\todo{make sure we treat Rayleigh dissipation function somewhere}
+\begin{ex}[Friction]
+	Rayleigh dissipation function
 
+	-> is example of non-holonomic constraint
+\end{ex}
+
+
+
+		\subsection{Hamilton's Principle}
+based on minimizing action -> at least making stationary (thus also name principle of stationary action); abstract idea, but was found to yield correct results for Newton (and many more!)
+
+second variational approach; seems to be more general than virtual work
+
+
+
+second way to derive \Def{Euler-Lagrange equations}, under the assumptions of exclusively holonomic constraints (if some are present at all) and conservative forces
+
+
+-> however, we have already seen how more general situations can be recast into something compatible with ELE; i.e.~we will not reiterate derivation with other constraints again, rather show how varying in the way we done is fine, upon certain adjustments on the result
+
+
+-> as a note: we could perhaps derive results that take role of ELE in presence of non-holonomic, too (because we were able to obtain them from principle of virtual work, which is special case of least action); but we do not do here
+
+
+
+
+		\subsection{Gauge Transformations}
+form basis for Noether
+
+\todo{merge with next subsection?}
+
+
+
+		\subsection{Symmetries}
+conserved quantities play important role in physics, we had already seen this
+
+-> important role in Lagrangian mechanics as well, we can simplify problems a lot via clever choice of coordinates; -> introduce cyclic as ones on which Lagrangian is not explicitly dependent
+
+Noether
+
+
+
+	\section{Hamilton-Formalism}
+% basically description in terms of energy instead of momentum, right? since Hamiltonian = energy (?)
 
 
 		% \subsection{The Mathematical Viewpoint: Transition from Lagrange to Hamilton}
@@ -225,7 +350,7 @@ if they have non-integrable form, we can still do something with ELE here
 		\subsection{Gaining Momentum(a): Moving on from Lagrange}
 % \todo{make section? As nice transition between Lagrange and Hamilton, that still provides something new in the mathematical formulation} -> not if we cut short before Legendre, then subsection is perfect
 
-Here we introduce a very formal way of looking at the whole formalism. What we have done is describe physical system in terms of time $t$, some generalized \todo{positions/coordinate} $q$, and their derivatives $\dot{q} = \dv{q}{t}$.\footnote{Although $q$ has components, we do not use $\vec{q}$, since it refers to a point on a manifold now. On this abstract object, points are now distinct notions from vectors, unlike in Euclidean space.}
+Here we introduce a very formal way of looking at the Lagrange formalism. What we have done is describe physical system in terms of time $t$, some generalized positions/coordinates $q$, and their derivatives $\dot{q} = \dv{q}{t}$.\footnote{Although $q$ has components, we do not use $\vec{q}$, since it refers to a point on a manifold now. On this abstract object, points are now distinct notions from vectors, unlike in Euclidean space.}
 % As it turns out, the generalized coordinate $q_i$ live on a manifold, called \Def{configuration space}.%
 As it turns out, the generalized coordinate $q_i$ are indeed coordinates, namely of a manifold called \Def{configuration space}.%
 \footnote{In fact, they span this space (note that this does not mean they form a basis of it; it is just that the space consists of all possible $q$). \todo{but doesn't span mean they represent a basis? -> I guess we can just argue via linear independence; same for $v_i, q_i$ as basis tangent, cotangent space}}
@@ -247,9 +372,7 @@ You may ask why exactly we should do this? Well, the inclusion of a derivative d
 
 
 
-
-	\section{Hamilton-Formalism}
-% basically description in terms of energy instead of momentum, right? since Hamiltonian = energy (?)
+		\subsection{Hamiltonian and Hamilton's Equation}
 
 Mapping $(q, \dot{q}) \mapsto (q, p)$ is conceptually very simple as it merely requires calculating the generalized momenta $p_i = \pdv{\mathcal{L}}{q_i}$. But this is not really helpful in itself -- how can we do the same physics as before, i.e.~how can we get what $\mathcal{L}$ is for $\dot{q}_i$ in terms of the $p_i$? Here it finally pays off that we had done before in linking all the physical quantities to fancy mathematical entities; as it turns out, the problem of mapping quantities from the tangent bundle to the cotangent bundle is a problem that is encountered frequently (enough) that a general solution for it exists: the \Def{Legendre transform}\footnote{Fun fact: this transform is also a prominent part of thermodynamics.}; for a function $f(x)$ of two scalar variables $x, y$, the Legendre transform with respect to $x$, is defined as
 \begin{equation}
@@ -306,8 +429,8 @@ Inserting Eq.~\eqref{eq:hamiltonian_differentiable} here yields:\footnote{We do 
 	% &= \sum_i v_i dp_i + p_i dv_i - \pdv{\mathcal{L}}{q_i} dq_i - \pdv{\mathcal{L}}{v_i} dv_i - \pdv{\mathcal{L}}{t} dt
 	&= v \cdot dp + p \cdot dv - \pdv{\mathcal{L}}{q} \dot dq - \pdv{\mathcal{L}}{v} \cdot dv - \pdv{\mathcal{L}}{t} dt
 	\notag\\
-	% &\underset{\text{ELE}\todo{cite equation}}{=} \sum_i v_i dp_i + p_i dv_i - \dv{p_i}{t} dq_i - p_i dv_i - \pdv{\mathcal{L}}{t} dt
-	&\underset{\text{ELE}\todo{cite equation}}{=} v \cdot dp + p \cdot dv - \dv{p}{t} \cdot dq - p \cdot dv - \pdv{\mathcal{L}}{t} dt
+	% &\underset{\text{ELE, Eq. \eqref{eq:ele}}}{=} \sum_i v_i dp_i + p_i dv_i - \dv{p_i}{t} dq_i - p_i dv_i - \pdv{\mathcal{L}}{t} dt
+	&\underset{\text{ELE, Eq. \eqref{eq:ele}}}{=} v \cdot dp + p \cdot dv - \dv{p}{t} \cdot dq - p \cdot dv - \pdv{\mathcal{L}}{t} dt
 	\notag\\
 	% &= \sum_i - \dv{p_i}{t} dq_i + v_i dp_i - \pdv{\mathcal{L}}{t} dt
 	&= - \dv{p}{t} \cdot dq + v \cdot dp - \pdv{\mathcal{L}}{t} dt
@@ -358,6 +481,11 @@ At this point, let us take a step back and recap what happened in this section. 
 
 		\subsection{Principle Of Least Action}
 relate Hamilton principle to principle of least action
+
+\todo{maybe remove?}
+
+
+\todo{make sure following is mentioned: we can see how Hamilton equation is truly analogue of ELE on phase space by alternative derivation of them; we now vary $\mathcal{L}$ expressed using $q, p, H$ on phase space in same manner that $\mathcal{L}$ was varied on configuration space before, and this yields Hamilton equation}
 
 
 
