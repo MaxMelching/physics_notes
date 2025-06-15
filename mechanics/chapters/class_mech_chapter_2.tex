@@ -22,63 +22,84 @@ Newtonian mechanics provided a description of the world in terms of forces and m
 In many cases, physical objects are not free to evolve in the presence of forces, but instead subject to certain \Def{constraints}. Easy examples are balls attached to some rigid rod, i.e.~basically a pendulum. This ball is free not to move in all spatial dimensions, but must always maintain a fixed distance from the pendulum's pivot since it is attached to the rod -- this is a constraint. In Newtonian terms, this manifests as a \Def{constraint force} $\vec{C}$ exerted by the rod.
 
 
+As part of the description of systems in presence of constraint forces, it will turn out beneficial to not just formulate statements in terms of the spatial position $\vec{x}$ of a particle. Instead, \Def{generalized coordinates} $q$ are used from now on;\footnote{Note that we choose to omit the arrow above $q$ here. The reason is that, as we will see later, $q$ can be interpreted as a point on a manifold. Unlike in Euclidean space, this is now a distinct notion from vectors, which cannot be interpreted in terms of position vectors.} these can have the components $x_i$ in each component $q_j$, but this need not be the case. Accordingly, one defines the \Def{generalized velocity} as $v = \dot{q} = \dv{q}{t}$. The use of enables a more flexible choice of coordinates, something that we will quickly learn to appreciate over the course of next sections. Basically the only requirement on the $q_j$ is that we can express the particle positions in terms of the generalized coordinates, $\vec{x} = \vec{x}(q_1, \dots, q_S)$ must be possible $\forall i$.
+
+
 
 \begin{table}
 	% \definecolor{namecellcolor}{named}{gray!30}
 	% \colorlet{namecellcolor}{gray!30}
 	\colorlet{namecellcolor}{white}
 	\centering
-	\begin{tabular}{ccc}
+	\begin{tabular}{cc}
 		\toprule
 		\toprule
 		% 
-		\cellcolor{namecellcolor} holonomic & & $\eqbox{f = 0}$
+		\cellcolor{namecellcolor} holonomic & $\eqbox{f = 0}$ or some expression $g$ with $dg = 0$
 		\\
 		\midrule
-		% \cellcolor{namecellcolor} non-holonomic & \multicolumn{3}{c}{$\eqbox{\sum_{m = 1}^{S} f_{im} dx_m + f_{it} dt}$}
-		% \cellcolor{namecellcolor} non-holonomic & $\eqbox{\sum_{m = 1}^{S} f_i dx_m + f_t dt}$ & & 
-		% 
-		% \cellcolor{namecellcolor} non-holonomic & \multicolumn{3}{c}{inequality or non-integrable ($\eqbox{\sum_{m = 1}^{S} f_{im} dx_m + f_{it} dt} \hat{=} \eqbox{\sum_{m = 1}^S a_m dq_m + b_t dt = 0}$)}
-		% 
-		\cellcolor{namecellcolor} \multirow{2}{*}{non-holonomic} & inequality & e.g., $\eqbox{f \geq 0}$ or $\eqbox{a \leq f \leq b}$
+		\cellcolor{namecellcolor} \multirow{2}{*}{non-holonomic} & e.g., $\eqbox{f \geq 0}$ or $\eqbox{a \leq f \leq b}$
 		\\
-		 & non-integrable & $\eqbox{\sum_{i = 1}^{S} f_i dx_i + f_t dt} \ \hat{=} \ \eqbox{\sum_{j = 1}^S a_j dq_j + b_t dt = 0}$ \todo{remove from here? Because this is Pfaffian form, right?}
-		%  
+		 & or some expression $g$ with $dg \neq 0$
 		\\
 		\midrule
-		\cellcolor{namecellcolor} scleronomic & \multicolumn{2}{c}{not time dependent}
+		\cellcolor{namecellcolor} scleronomic & not time dependent
 		\\
 		\midrule
-		\cellcolor{namecellcolor} rheonomic & \multicolumn{2}{c}{time dependent}
+		\cellcolor{namecellcolor} rheonomic & time dependent
 		\\
 		\bottomrule
 		\bottomrule
 	\end{tabular}
+	
+	\caption{Different types of constraints. We use $f$ to denote functions, and $g$ to denote expressions. The latter includes differentials $dq_j, dt$ (so the Pfaffian form discussed below falls into this category), functions do not (though this is not \enquote{official terminology}, just introduced for this table).}
 	\label{tab:constraint_types}
-
-	\caption{Different types of constraints.}
 \end{table}
 
 
 
-Many different types of constraints exist. A rough classification is provided in Tab.~\ref{v}.
-
-second form of non-holonomic is given in differential form, but is not integrable (cannot be rewritten as total differential $dg$)
-
--> no general solution exists for non-holonomic systems!
-
-
-holonomic forces only involve the generalized coordinates; non-holonomic ones also involve their velocities or higher derivatives
-
+With the relevant set of coordinates in place, we can go on to study functions of the $q_j$, such as constraints. Many different types of constraints exist. A rough classification is provided in Tab.~\ref{tab:constraint_types}. Most of the ones that are typically encountered in physics classes are \Def[constraint!holonomic]{holonomic} in nature, i.e.~they can be given as an equation of the form
+\begin{equation}\label{eq:holonomic_constraint}
+	\eqbox{
+		f(q, t) = 0
+	} \, .
+\end{equation}
+An important part of this definition is the independence of $\dot{q}$, i.e.~$\pdv{f}{\dot{q}} = 0$.
 
 
-note that in table, we put no index on constraints; but there can be multiple, then each constraint would need an index
+Any constraint that cannot be expressed as Eq.~\eqref{eq:holonomic_constraint} are called \Def[constraint!non-holonomic]{non-holonomic constraints}. They can come in various shapes and forms, e.g., inequalities or $f = 0$ with a function $f$ that contains derivatives of $q$ in addition to $q, t$.
 
 
--> we can bring constraints into Pfaffian form: ... (\url{https://en.wikipedia.org/wiki/Pfaffian_constraint})
+Another type of classification includes the (in-)dependence (of) on time of the constraint: if none is present, it is called \Def{scleronomic}, and if one is present, the name is \Def{rheonomic}.\\
+
+
+To end this section, here is a note that did not really fit anywhere else: Systems comprised entirely of non-holonomic, holonomic constraints are also called \Def[system!holonomic]{holonomic}, \Def[system!non-holonomic]{non-holonomic systems}, respectively.
 
 
 
+			\paragraph{Pfaffian Form}
+For reasons we do not understand at the moment, constraints of the form
+\begin{equation}\label{eq:pfaffian_constraint}
+	\eqbox{\sum_{i = 1}^{S} f_i dx_i + f_t dt}
+	\ \hat{=} \
+	\eqbox{
+		\sum_{j = 1}^S a_j dq_j + b_t dt = 0
+	}
+\end{equation}
+will play a prominent role in our analyses (these are referred to as \enquote{expression} in Tab.~\ref{tab:constraint_types}). Therefore, it is worthwhile to study how they relate to different types of constraints, especially holonomic and non-holonomic ones.
+
+Holonomic constraints can always be brought into this form (even if they are not already given in it), and one can actually see that fairly easily. All we have to do is differentiate $f = 0$, which yields:
+\begin{equation}
+	0 = df = \sum_{j = 1}^S \pdv{f}{q_j} dq_j + \pdv{f}{t} dt \eqqcolon \sum_{j = 1}^S a_j dq_j + b_t dt
+	\quad \Leftrightarrow \quad
+	\eqbox{
+		a_j = \pdv{f}{q_j}, \; b_t = \pdv{f}{t}
+	} \, .
+\end{equation}
+In the same manner, we could obtain the constraint in terms of $dx_i, dt$.
+
+
+For non-holonomic constraints, there is no general form in which they are given, but sometimes it is the Pfaffian one. This poses an interesting question: given an equation of the form \eqref{eq:pfaffian_constraint}, how can I see which type of constraint this belongs to? The answer is surprisingly easy (because there is a theorem for this, the Poincare lemma): for the given expression $g = 0$ involving differentials, calculate $dg$. If $dg = 0$, a function with $g = df$ exists, i.e.~$g = 0$ has been obtained from another equation of the form $f = 0$, implying that the corresponding constraint is holonomic; for $dg \neq 0$, the constraint is non-holonomic. This motivates the label \enquote{non-integrable} for non-holonomic constraints.
 
 
 
@@ -86,16 +107,16 @@ note that in table, we put no index on constraints; but there can be multiple, t
 If we now envision more complex systems, where many such constraints are present, things quickly becomes hard too handle from the Newtonian point of view. This is why other approaches to mechanics are worthwhile exploring, founded on different principles than simply deriving an equation of motion straight from Newton's second law.
 
 
-Before showing how this can be done, we will present the general setup assumed henceforth: there are $N$ particles, each described by a position $\vec{x}_i$, i.e.~in total $3 N$ degrees of freedom. One of the first major changes compared to Newtonian physics is the type of coordinates used. Instead of restricting ourselves to the actual, spatial positions $\vec{x}$ of the physical system we wish to describe, it turns out to be beneficial to work with \Def{generalized coordinates} $q$.\footnote{Note that we choose to omit the arrow above $q$ here. The reason is that, as we will see later, $q$ can be interpreted as a point on a manifold. Unlike in Euclidean space, this is now a distinct notion from vectors, which cannot be interpreted in terms of position vectors.} Accordingly, one defines the \Def{generalized velocity} as $v = \dot{q} = \dv{q}{t}$.
-
-
+% Before showing how this can be done, we will present the general setup assumed henceforth: there are $N$ particles, each described by a position $\vec{x}_i$, i.e.~in total $3 N$ degrees of freedom. One of the first major changes compared to Newtonian physics is the type of coordinates used. Instead of restricting ourselves to the actual, spatial positions $\vec{x}$ of the physical system we wish to describe, it turns out to be beneficial to work with \Def{generalized coordinates} $q$.\footnote{Note that we choose to omit the arrow above $q$ here. The reason is that, as we will see later, $q$ can be interpreted as a point on a manifold. Unlike in Euclidean space, this is now a distinct notion from vectors, which cannot be interpreted in terms of position vectors.} Accordingly, one defines the \Def{generalized velocity} as $v = \dot{q} = \dv{q}{t}$.
+% 
 % Depending on the number of (holonomic) constraints $p$, $S = 3 N - p$ generalized coordinates are needed to describe the system. One requirement on them is that we can express the particle positions in terms of the generalized coordinates, $\vec{x} = \vec{x}(q_1, \dots, q_S)$ must be possible $\forall i$.
-Depending on the number and type of constraints, the number $S$ of generalized coordinates needed to describe the system can be $\leq 3N$. One requirement on them is that we can express the particle positions in terms of the generalized coordinates, $\vec{x} = \vec{x}(q_1, \dots, q_S)$ must be possible $\forall i$.
+
+
+Before showing how this can be done, we will present the general setup assumed henceforth: there are $N$ particles, each described by a position $\vec{x}_i$, i.e.~in total $3 N$ degrees of freedom. Depending on the number and type of constraints, the number $S$ of generalized coordinates $q_j$ needed to describe the system can be $\leq 3N$.
 
 
 
-
-		\subsection{D'Alembert Principle}
+		\subsection{D'Alembert's Principle}
 % -- Awesome for basic idea: https://en.wikipedia.org/wiki/Virtual_work#Overview
 
 Say we have a particle moving with forces acting on it, so that one can compute the work done by these forces along the trajectory $\vec{x}(t)$. The \Def{principle of virtual work} states that for the path that the particle actually takes, the work remains unchanged upon small variations of this path (unchanged to first order).\footnote{This can be regarded as an application of the principle of least action, that we will encounter later.} This is a variational principle, that can be formalized in the equation
@@ -109,7 +130,7 @@ $\delta W$ denotes the \Def{virtual work} done upon the \Def{virtual displacemen
 
 The contribution by d'Alembert was to recognize that not only does the force on the particle get contributions from net external forces, which we denote by $\vec{K}$ here, and from the net force $\vec{C}$ arising from the constraints on the system, but also from the inertial force $- \dv{\vec{p}}{t} \underset{m = \text{const}}{=} - m \vec{a}$ that is required to change the particle's state of motion.
 % \footnote{This inertial force is essentially a fictitious force arising from an analysis in the rest frame of the moving body.}
-\footnote{Essentially, we take the right hand side of Newton's law $\vec{K} + \vec{Z} = m \vec{a}$ and take the viewpoint that it is a force as well, so that we effectively analyze a system in equilibrium, namely $\vec{F} = 0$. This is also called a dynamical equilibrium because the particle is not necessarily static. In some sense, this means we perform an analysis from the rest frame of the particle (where it is seen to be in equilibrium), where the inertial force arises as a fictitious forces in this frame.}
+\footnote{Essentially, we take the right hand side of Newton's law $\vec{K} + \vec{Z} = m \vec{a}$ and adopt the viewpoint that it is a force as well, so that we effectively analyze a system in equilibrium, namely $\vec{F} = 0$. This is also called a dynamical equilibrium because the particle is not necessarily static. In some sense, this means we perform an analysis from the rest frame of the particle (where it is seen to be in equilibrium), where the inertial force arises as a fictitious forces in this frame.}
 Newton's second law immediately tells us that, if we include these inertial forces, $\vec{F} = 0$ so that $\delta W = 0$ holds trivially. However, since $\delta W$ contains the inner product of $\vec{C}$ and $\delta \vec{x}$, by selecting a virtual displacement that is consistent with the constraints (e.g., if the constraint is motion along a circle, we choose a displacement tangential to the circle), the principle of virtual work yields
 \begin{equation}
 	\delta W = \qty(\vec{K} - m \vec{a}) \dot \delta \vec{x} = 0
@@ -168,39 +189,32 @@ In the rest of this section, we will analyze what happens to the most general re
 
 
 			\paragraph{Holonomic Constraints vs.~Non-holonomic Constraints}
+There are crucial differences in how holonomic and non-holonomic constraints impact our analysis of a system. $p$ holonomic constraints imply $S = 3N - p$, they truly reduce the number of degrees of freedom in a system. For non-holonomic systems this is not the case; while they constrain the system in a certain manner, this restriction is not in a way that a whole degree of freedom is removed. The distance can perhaps best be seen from an example: when working in a 2D space, requiring motion \emph{on} a circle is a holonomic constraint (the radial degree of freedom is removed, only angular one remains), while motion \emph{in} a circle maintains both radial and angular degree of freedom (although it is still clearly constraining the motion).
 
 
-$p$ holonomic constraints means $S = 3N - p$, they truly reduce the number of degrees of freedom in a system; then we can use simplified form -> basically, through suitable choice of generalized coordinates, we automatically make sure constraints are respected (would usually not be possible for positions; that is how constraints drop out in analytical mechanics, but not Newtonian)
+% An important consequence of this concerns the simplification that led to Eq.~\eqref{eq:principle_virtual_work_general_simplified}. For this, we had to assume independence of the $\delta q_j$ and that they respect the constraints. When system is holonomic, one can always find generalized coordinates that fulfill both conditions. As soon as non-holonomic constraints are present, making sure these constraint forces are respected can become much harder (even for some holonomic ones this may be the case).
+An important consequence of this concerns the simplification that led to Eq.~\eqref{eq:principle_virtual_work_general_simplified}. For this, we had to assume independence of the $\delta q_j$ and that they respect the constraints. When we manage to find $q_j$ that respect the constraints in a holonomic system, these are automatically linearly independent (because the number of coordinates we choose, $S = 3N - p$, precisely matches the number of degrees of freedom that the system has if $p$ holonomic constraints are imposed). We explore an alternative way to handle situations where respecting the constraint forces may not be possible, which is frequently the case as soon as non-holonomic constraints are present, but can also occur for certain holonomic ones.
 
 
-non-holonomic constraints will, generally speaking, not reduce the degrees of freedom of the system (easy example: restriction to movement inside of a circle; means particle can still move in all spatial directions, but this is still not completely free movement)
+\todo{Wikipedia says Lagrangian approach can only treat holonomic constraints... Check again in which way this is meant (I mean d'Alembert can do non-holonomic, right?)}
 
 
-\hrule
+% -> constraints relate coordinates, thus something like $f = 0$ is capable of reducing degrees of freedom of a system
 
 
-ChatGPT on whether constraints impact if independent coordinates can be chosen:
+% -> basically, through suitable choice of generalized coordinates, we automatically make sure constraints are respected (would usually not be possible for positions; that is how constraints drop out in analytical mechanics, but not Newtonian)
 
-Yes, the choice of generalized coordinates is indeed related to the nature of constraints in the system, specifically distinguishing between holonomic and non-holonomic constraints.
 
-1. Holonomic Constraints:
 
-   - Definition: Holonomic constraints are constraints that can be expressed as equations involving the coordinates and possibly time, but not the velocities. They effectively reduce the degrees of freedom of the system by restricting the configurations that the system can occupy. These are given by constraints of the form \(f(q1, q2, \ldots, q_n, t) = 0\).
+-> no general solution exists for non-holonomic systems! How could we give it, includes so many potential types of constraints, no mathematical properties to exploit
 
-   - Relation to Generalized Coordinates: When all constraints in a system are holonomic, it's possible to choose generalized coordinates that are independent and account for these constraints. The generalized coordinates inherently respect the constraints, so any virtual displacement expressed in terms of these coordinates will automatically satisfy the constraints. This makes it possible to express the configuration of the system completely in terms of fewer variables.
 
-2. Non-Holonomic Constraints:
-
-   - Definition: Non-holonomic constraints involve not just the coordinates, but also the velocities, and they cannot be integrated to reduce the coordinates themselves. These are typically expressed in a differential form, like \(g(q1, q2, \ldots, qn, \dot{q}1, \dot{q}2, \ldots, \dot{q}n, t) = 0\). 
-
-   - Relation to Generalized Coordinates: Non-holonomic constraints present a challenge for choosing generalized coordinates since these constraints might impact how velocities or virtual displacements can vary, but not in a way that reduces the coordinate count directly as holonomic constraints do. In these cases, the coordinates may not fully decouple, so the variation of virtual displacements can be restricted by the differential form of the constraint. This means that even though generalized coordinates are designed to capture the system's configuration, the non-holonomic constraints can prevent full independence of $\delta q_j$.
-
-In summary, the choice of generalized coordinates strongly ties in with how constraints are formulated in a system. Holonomic constraints allow for a straightforward reduction in the number of independent coordinates, while non-holonomic constraints typically require more care in describing the system's permissible motions and ensuring that virtual displacements respect the velocity-dependent constraints.
+-> non-holonomic are often not only expressable on configuration space; this is why ELE do not work in that case, need Lagrange of first kind
 
 
 
 			\paragraph{Holonomic Constraints, Conservative Forces}
-simplified form from holonomic is already great, but with conservative forces we can do even more
+The simplified form simplified form from holonomic is already great, but with conservative forces we can do even more
 
 
 here we have $\vec{K} = - \nabla V$ for some potential $V = V(\vec{x}) = V(q)$, which implies $Q_j = - \pdv{V}{q_i}$. in that case, we can rearrange stuff and obtain the \Def[Lagrange equations!second kind]{Lagrange equations of second kind}
@@ -226,21 +240,18 @@ now we will show that Eq.~\eqref{eq:principle_virtual_work_general_v2} is just N
 
 
 			\paragraph{Holonomic Constraints, Non-Conservative Forces}
-Eq.~\eqref{eq:principle_virtual_work_general_simplified} is already nice, but through some tricks we can maintain/preserve form of ELE for even non-conservative forces; for that, define generalized potential $U$ and redefine $\mathcal{L} = T - U$
+Eq.~\eqref{eq:principle_virtual_work_general_simplified} is already nice, but through some tricks we can preserve the form of the ELE even for non-conservative forces.
 
-
-no potential $V$, but we can define something that plays analogous for the purpose of Lagrangian, i.e.~a generalized potential $U$ with
-\begin{equation}
+While no potential $V$ with $Q_j = - \pdv{V}{q_i}$ exists in that case, it is possible to define a quantity that plays an analogous for the purpose of Lagrangian, i.e.~a \Def[potential!generalized]{generalized potential} $U = U(q, \dot{q}, t)$ with
+\begin{equation}\label{eq:generalized_potential}
 	\eqbox{
 		Q_j = \dv{t} \pdv{U}{\dot{q}_j} - \pdv{U}{q_j}
-	}
+	} \, .
 \end{equation}
-
-then from results from d'Alembert principle we see that one can still use ELE, just with modified Lagrangian $\mathcal{L} = T - U$
-
+Using this function, Eq.~\eqref{eq:principle_virtual_work_general_simplified} still reads like the ELE \eqref{eq:ele}, just with a modified Lagrangian $\mathcal{L} = T - U$. Also note how a $U$ that does not depend on $\dot{q}$ (one of the defining equations for $V$) turns into a \enquote{normal} potential $V$, which justifies the name \enquote{generalized potential}.
 
 
--> note how this allows us to formulate equations of motion entirely in terms of the Lagrangian, and thus essentially energy; forces only appear indirectly, in definition of potential, but are not the quantity of interest anymore (unlike in Newtonian case)
+The fact that the ELEs are the equations of motion of systems for both the conservative and non-conservative force case means that holonomic systems can indeed be described entirely in terms of energy. Forces only appear indirectly, in the definition of potential, but are not the quantity of interest anymore in formulating equations of motion (unlike in Newtonian case).
 
 
 
@@ -248,58 +259,71 @@ then from results from d'Alembert principle we see that one can still use ELE, j
 Note that we will not distinguish between the cases of conservative, non-conservative forces because the Lagrangian $\mathcal{L}$ is defined for both cases, so we can just stick to this function $\mathcal{L}$.
 
 
-It was already mentioned how one issue with non-holonomic constraints was that they do not remove a degree of freedom from the system, which makes a general treatment impossible. To proceed, we must assume it is still possible to choose independent virtual displacements $\delta q_j$ (which is related to independent generalized coordinates $q_j$). If, in addition to that, the $p'$ non-holonomic constraints that are present further have a Pfaffian form
+It was already mentioned how one issue with non-holonomic constraints was that they do not remove a degree of freedom from the system, which makes a general treatment impossible. In particular, Eq.~\eqref{eq:principle_virtual_work_general} does usually not hold because it can be very challenging to find generalized coordinates consistent with the constraints. To avoid cumbersome searches for $q_j$ that fulfill this condition, we can also choose to go another route and drop this assumption, instead incorporating them into the equations of motion. On paper, this is a step back from what we achieved in this section, but that is better than having nothing on hand to tackle this type of problems.
+
+Trouble with non-holonomic constraints comes, at least partly, from the fact we may not be able to find expressions for the constraint forces $\vec{C}_i$ (so we cannot even verify whether a displacement is indeed consistent with them...). In order to make sure such difficulties are not encountered, in the following we must assume that the every constraint on the system has a Pfaffian form
 \begin{equation*}
 	\sum_{j = 1}^S a_j dq_j + b_t dt = 0
-	\, ,
+	\, .
 \end{equation*}
-then the following trick can be applied: replace infinitesimal displacements into virtual displacements, i.e.~$d \mapsto \delta$, recall that $\delta t = 0$, and then recognize that the Pfaffian form implies the conditions
-\begin{equation}\label{eq:non_hol_pfaffian_deltas}
+Since holonomic constraints always have a Pfaffian form, the method we now present also works for them, which can be useful because they too might create scenarios where generalized coordinates are hard to find explicitly.
+
+Given such Pfaffian forms, the following trick can be applied: replace infinitesimal displacements by virtual displacements, i.e.~$d \mapsto \delta$, recall that $\delta t = 0$, and then recognize that this turns the Pfaffian form into the conditions
+\begin{equation}\label{eq:pfaffian_deltas}
 	\eqbox{
 		\sum_{j = 1}^S a_{mj} \delta q_j = 0
 	}
 \end{equation}
-for each constraint with index $m = 1, \dots, p'$. By assigning a Lagrange multiplier $\lambda_m$ to each of the non-holonomic constraints, and noting that Eq.~\eqref{eq:non_hol_prassian_deltas} implies
-\begin{equation}\label{eq:non_hol_pfaffian_deltas_as_work}
-	\sum_{m = 1}^{p'} \lambda_m \sum_{j = 1}^S a_{mj} \delta q_j = 0
+for each constraint (now labeled with an index $m = 1, \dots, p$). By assigning a Lagrange multiplier $\lambda_m$ to each of them, and noting that Eq.~\eqref{eq:pfaffian_deltas} implies
+\begin{equation}\label{eq:pfaffian_deltas_as_work}
+	\sum_{m = 1}^p \lambda_m \sum_{j = 1}^S a_{mj} \delta q_j = 0
 	\, ,
 \end{equation}
-we can treat constraints in a well-defined mathematical manner. On a phenomenological level, we can see how how the math works by noticing that this situation is reminiscent of the presence of a constraint force $\sum_{m = 1}^{p'} \lambda_m a_{mj}$ that acts on each of the generalized coordinates, with Eq.~\eqref{eq:non_hol_pfaffian_deltas_as_work} meaning they do no work. Including these terms turns the Lagrange equations of second kind into the \Def[Lagrange equations!first kind]{Lagrange equations of first kind}
-\begin{equation}
+we can treat constraints in a well-defined mathematical manner. Using the mathematical theory of how to optimize a function subject to constraints, we can simply add these terms to the Lagrange equations of second kind, turning them into the \Def[Lagrange equations!first kind]{Lagrange equations of first kind}
+\begin{equation}\label{eq:lagrange_first_kind}
 	\eqbox{
-		\dv{t} \pdv{\mathcal{L}}{\dot{q}_j} - \pdv{\mathcal{L}}{q_j} = \sum_{m = 1}^{p'} \lambda_m a_{mj}
+		\dv{t} \pdv{\mathcal{L}}{\dot{q}_j} - \pdv{\mathcal{L}}{q_j} = \sum_{m = 1}^p \lambda_m a_{mj}
 	} \, .
 \end{equation}
-Thus, even in case of non-holonomic constraints, it is possible to obtain results that look very much like the ELEs, with small modifications on top.
+Thus, even in case of non-holonomic constraints, it is possible to obtain results that look very much like the ELEs, with small modifications on top. While on paper, this looks like we are trying to solve for $S + p$ unknown variables (in case of no holonomic, $p$ non-holonomic constraints), this is not actually the case. The idea is to solve each of the $p$ constraint equations in Pfaffian form along with the equations of motion; and while it is true that the constraint equations themselves are not sufficient to account for the additional $p$ degrees of freedom, the fact that they are now also mingled into the the Lagrange equations of first kind explains how it is possible to solve for all $S + p$ constraints.\\
 
 
-Now, you may ask why there is a need to include the terms $\sum_{m = 1}^{p'} \lambda_m a_{mj}$ even if they do no work. And you would be right in doing so, after all we were able to neglect these equations before. 
+We could just accept that there is mathematical theory for this, but with a little bit of physical intuition we can intuitively understand how the Lagrange equations of first kind may be obtained. Eq.~\eqref{eq:pfaffian_deltas} does look reminiscent of the work done by the constraint force that a single constraint exerts on the system of particles. The total work done by constraint forces would then be given by
+\begin{equation}
+	\sum_{m = 1}^p \sum_{j = 1}^S a_{mj} \delta q_j = \sum_{j = 1}^S (\sum_{m = 1}^p a_{mj}) \delta q_j = 0
+\end{equation}
+and this expresses that the virtual work shall vanish. In principle, this is how we handled things before already, but there is a subtle difference now: Instead of assuming that the virtual work vanishes because we have selected displacements consistent with the constraints, we must now demand impose this as a condition while solving the equations of motion.
 
--> reason we need them: more degrees of freedom than ELEs! -> huh, but does that explain why we need to care about them in the ELEs?
-
-
-
-I am not entirely sure how relevant this case is, but if we are not able to find independent $\delta q_j$, then we have to work with
+This might make sense intuitively now, but we are still missing something: Eq.~\eqref{eq:pfaffian_deltas_as_work} is not just the sum of the different constraints, but rather the reweighted linear combination \todo{better wording}. The reason that the factors $\lambda_m$ are needed here is that the constraint forces are not uniquely determined by constraints in Pfaffian form,
+\begin{equation}
+	\sum_{j = 1}^S a_{mj} \delta q_j = 0
+	\quad \Rightarrow \quad
+	\lambda_m \sum_{j = 1}^S a_{mj} \delta q_j = 0
+\end{equation}
+for an arbitrary factor $\lambda_m$. Therefore, in order to truly model constraint forces, we must introduce such a factor $\lambda_m$ for each of the constraints, which turns the total constraint force into
+\begin{equation}
+	\sum_{m = 1}^p \lambda_m \sum_{j = 1}^S a_{mj} \delta q_j = \sum_{j = 1}^S (\sum_{m = 1}^p \lambda_m a_{mj}) \delta q_j = 0
+	\, .
+\end{equation}
+This is precisely Eq.~\eqref{eq:pfaffian_deltas_as_work}. Inserting this model for constraint forces into the appropriate intermediate result obtained from the d'Alembert principle (which is Eq.~\eqref{eq:principle_virtual_work_general_v2}) yields
 \begin{equation}
 	\eqbox{
-		\sum_j \qty[\dv{t} \pdv{\mathcal{L}}{\dot{q}_j} - \pdv{\mathcal{L}}{q_j} - \sum_{m = 1}^{p'} \lambda_m a_{mj}] \delta q_j = 0
+		\sum_j \qty[\dv{t} \pdv{T}{\dot{q}_j} - \pdv{T}{q_j} - Q_j - \sum_{m = 1}^p \lambda_m a_{mj}] \delta q_j = 0
 	} \, .
 \end{equation}
+Just as before, this result only simplifies if the $\delta q_j$ are linearly independent\footnote{Note that independent $q_j$ are much easier to find now, since we do not have to pay attention to them also being consistent with constraints. That means we can make our lives very easy and just choose $q$ to have the components of the particle positions in each component.}, whence the result reads
+\begin{equation}
+	\eqbox{
+		\dv{t} \pdv{T}{\dot{q}_j} - \pdv{T}{q_j} = Q_j + \sum_{m = 1}^p \lambda_m a_{mj}
+	} \, .
+\end{equation}
+This is just Eq.~\eqref{eq:principle_virtual_work_general_simplified} with an additional term; similarly, these are Lagrange equations of first kind \eqref{eq:lagrange_first_kind}, but with $Q_j$ not written out in terms of the generalized potential Eq.~\eqref{eq:generalized_potential}. Appropriate values for the $\lambda_m$ is determined automatically in the process of obtaining a solution to the equation(s) of motion, e.g., from the initial conditions.
 
-
-Note that the method of Lagrange multipliers can also be applied to holonomic constraints.
-
-
-
-\hrule
-
-
-\url{https://en.wikipedia.org/wiki/D%27Alembert%27s_principle#Formulation_using_the_Lagrangian} -> I guess this helps, right?
-
--> idea is to use method of Lagrange multipliers, which allow extremization subject to certain constraints (i.e.~exactly what we want; and for a reason, Lagrange developed this method for this application)
 
 
 \begin{ex}[Friction]
+	contains velocity, thus non-holonomic
+	
 	Rayleigh dissipation function
 
 	-> is example of non-holonomic constraint
