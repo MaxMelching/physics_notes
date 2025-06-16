@@ -8,10 +8,6 @@
 
 \chapter{Newtonian Mechanics}
 
-
-important: sometimes it is better to think in terms of forces $\vec{F} = \dv{\vec{p}}{t}$, but other times (kinetic) energy $E = \frac{p^2}{2m}$ is preferred (or their relativistic versions)
-
-
 The ultimate goal of physics is to study the interaction between different objects in the physical world that we live in. For decades, such interactions have typically been described in terms of forces, which are used to describe the motion of objects that is caused by a force or rather the interaction it corresponds to. This backbone of physics goes back to laws (or rather axioms) that Sir Isaac Newton has formulated and published in his famous \enquote{Philosophiae Naturalis Principia Mathematica} in 1687. Stunningly, the Newtonian mechanics derived from this accurately describes the dynamics of many physical scenarios, with the exception of very extreme situations (such as very small objects, where quantum effects must be accounted for, very fast objects, where relativistic effects come into play, or objects in very strong gravitational fields). 
 
 
@@ -21,76 +17,48 @@ The ultimate goal of physics is to study the interaction between different objec
 
 
     \section{Newton's Laws of Motion}
+% -- Sources:
+% - https://en.wikipedia.org/wiki/Newton%27s_laws_of_motion
+% - https://en.wikipedia.org/wiki/Inertial_frame_of_reference
+% - https://physics.stackexchange.com/questions/70186/are-newtons-laws-of-motion-laws-or-definitions-of-force-and-mass/339561#339561 -> answer by joshphysics is just incredible; also discussion in the comments, on existence of inertial frames when taking into account that gravity = acceleration (they don't, only local inertial frames exist! In small patches, we can have freely falling property, e.g., because all gravitational fields cancel, I think that's what they say)
+% - https://physics.stackexchange.com/questions/66057/can-one-of-newtons-laws-of-motion-be-derived-from-other-newtons-laws-of-motion?rq=1
+% 
+% 
+These axioms define how objects (which are sometimes given the abstract name \Def{observer} $\mathcal{O}$; these give us viewpoints for our descriptions) experience physics. 
 
+-> introduce reference frame (?); feels natural now that we have defined observer; Wikipedia defines them as \enquote{an abstract coordinate system, whose origin, orientation, and scale have been specified in physical space}
 
+-> In order to describe this action mathematically, we also need explicit ways to assign the position of observers to points $\vec{r} \in \mathbb{R}^3$ in the Euclidean space we live in. Such an assignment is what physicists call \Def{coordinates} or \Def{frames}.
 
-\todo{make subsection/paragraph for each law and write them down in centered environment?}
-
-
-does Newton 2 contain superposition principle, implicitly? Because of net force things that everybody emphasizes?
+-> this is good place to talk about what Thorne+Blandford mention; to write down things, we do \emph{not} need coordinates, Newtonian physics can be approached as a purely geometric theory; however, coordinates are useful and often needed when we are working on real-world problems
 
 
 following Thorne + Blandford in Sec.~1.4, emphasize how we can formulate Newtons laws entirely geometrically, without any coordinates! Of course, we \emph{can} use coordinates (as we do frequently, by writing laws in terms of components), but there is no \emph{need} to do so. This is very special
 
 
-\todo{introduce (kinetic) energy somewhere}
 
-\todo{introduce term impulse as derivative of momentum}
-
-
-
-
-\hrule
-
-following text can serve as basis:
-
-
-\begin{post}[Newton's Laws of Motion]
-	\begin{enumerate}[1.]
-		\item Every body remains at rest or in a uniform motion, unless a force acts upon it.
-
-		\item If a force $\vec{F}$ acts upon an object of mass $m$, it causes an acceleration
-		\begin{equation}\label{eq:newton_second_law}
-			\eqbox{
-				\vec{F} = m \vec{a} = m \dv[2]{\vec{r}}{t}
-			} \, .
-		\end{equation}
-
-		\item If two bodies exert forces on each other, these forces have the same magnitude but opposite directions (\enquote{actio = reactio}),
-		\begin{equation}\label{eq:newton_third_law}
-			\eqbox{
-				\vec{F}_{12} = - \vec{F}_{21}
-			} \, .
-		\end{equation}
-	\end{enumerate}
-\end{post}
-These axioms define how objects (which are sometimes given the abstract name \Def{observer} $\mathcal{O}$; these give us viewpoints to describe physics from) experience physics. In order to describe this action mathematically, we also need explicit ways to assign the position of observers to points $\vec{r} \in \mathbb{R}^3$ in the Euclidean space we live in. Such an assignment is what physicists call \Def{coordinates} or \Def{frames}.
-
-
-Newton's laws have rich implications, some of which we discuss now.
-
-
-
-			\paragraph{First Law}
-The first law tells us something about which special class of frames is suitable to describe physics.
+		\subsection{First Law}
+\begin{axiom}[First Law]
+	\centering
+	Every body remains at rest or in a uniform motion, unless a force acts upon it.
+\end{axiom}
+One interpretation of this statement is that it asserts the existence of a special class of reference frames, which are best suited to describe physics.
+% -> \url{https://physics.stackexchange.com/questions/70186/are-newtons-laws-of-motion-laws-or-definitions-of-force-and-mass/339561#339561}
 \begin{defi}[Inertial Frame]
-	An \Def[inertial frame]{inertial frame (of reference)} is a frame where $F^k = m a^k$ holds.
+	An \Def[inertial frame]{inertial frame (of reference)} is a frame where the first law holds.
 \end{defi}
-% Basically, if you put a ball in front of you and let it go, then you are in an inertial frame if the ball just remains where it is.
 
--> first law asserts existence of an inertial frame! \url{https://physics.stackexchange.com/questions/70186/are-newtons-laws-of-motion-laws-or-definitions-of-force-and-mass/339561#339561}
-
-For this to be valid, either $\vec{r}$ or $\vec{v}$ have to be constant (both direction and magnitude) in this inertial frame if $\vec{F} = 0$, which is exactly what Newton's first law imposes. From the definition we can also see that there is no unique inertial frame because we can always get other inertial frames from existing ones by looking at frames which move with constant speed with respect to them.
-
-A very important realization is that all inertial frames are suited equally well to describe physics because the laws of physics do not depend on the frame we choose:
-\begin{equation}
-	\vec{F} = m \vec{a} = m \dv{\vec{v}_1(t)}{t} = m \dv{\vec{v}_2(t)}{t}
-\end{equation}
-as long as $\vec{v}_1 - \vec{v}_2 = \text{const}$. Therefore, while the values of $\vec{v}_1$ and $\vec{v}_2$ might differ and thus depend on the inertial frame we choose, the physics inferred from them does not (forces are what we observe \todo{but this is not decisive factor, is it? Is simply that interplay of chosen coordinates and forces acting in them is always equivalent}). This explains the preferred role of inertial frames when describing physics. Laws stated in inertial frames hold in all of them, while laws in non-inertial frames do not, whence it is often non-trivial to find out whether effects can be attributed to some physical process or to the frame/coordinates used to describe the situation (for example, the Coriolis force is needed to explain effects on Earth's surface, which is a rotating and thus non-inertial frame of reference).\\
+The reason that we like inertial frames is that physical laws take their simplest form in these frames (explicit expressions can be determined using the second law). We discuss complications that come with non-inertial in a dedicated Section (cf.~Sec.~\ref{sec:non_inertial_frames}).\footnote{These \enquote{complications} manifest as extra terms, so-called \enquote{fictitious forces}, that have to be added manually.} Therefore, they are simply a convenient choice when working out physical problems.
 
 
-If all inertial frames are suited equally well to describe physics, one might ask if a relation between them exists, i.e.~if there are ways to transform between inertial frames. Besides coordinate transformations (for example from Cartesian to spherical coordinates), which we will not discuss further here, the other possible transformation is between uniformly moving frames. These changes are admitted by the \Def{Galilei transform} and assuming the velocity $v$ to be in $x$-direction, this maps coordinates $(x, y, z)$ according to
-\begin{equation}\label{eq:galilei}
+The way that Newton thought about inertial frames was an absolute one. He envisioned that there is one \enquote{master inertial frame}, defined in terms of fixed stars on the night sky. In other words, Newton believed in an \Def{absolute space}. In a modern interpretation of physics,\footnote{It is worth pointing out that even back in Newton's time, there were people that did not believe an absolute space existed, e.g., Leibniz.} this is not believed to be true anymore, the concept of absolute space has been superseded by Einstein's relativity principle. Nonetheless, there is no need to modify the first law because it just postulates the existence of \emph{some} inertial frame, not necessarily of absolute space. 
+
+-> \todo{rephrase previous paragraph by incorporating some of following} It was brilliant Newton to formulate these postulates from what people knew about everyday life, but he was a little absolutistic in their interpretation: in particular, he believed in an absolute space where a preferred inertial frame existed, from which all other inertial frame can be derived/defined (i.e.~that there is an an absolute frame of reference that we can fall back to when defining inertial frames). Albert Einstein challenged this thought more than two decades later, by proclaiming that there is no absolute space. This resolved many issues that were present at that time, making it the preferred interpretation until today. The relativity principle states that there is no absolute notion of rest when it comes to uniform motion. It is, however, possible to detect if ones frame is accelerated, i.e.~it is possible to know whether one is in an inertial frame of reference or not (we will expand on this later on).
+
+
+% In addition to that, it gives us a systematic way to obtain new inertial frames
+In addition to serving as a definition of inertial frames, the first law implicitly specifies even more, namely how to define a second inertial frame $\Sigma'$ given a first such frame $\Sigma$. We can simply choose $\Sigma'$ to move uniformly with respect to $\Sigma$; this still obeys the requirements on an inertial frame because an observer in $\Sigma'$ sees (i) resting bodies in $\Sigma$ move uniformly, and (ii) objects moving with uniform velocity in $\Sigma$ still move with uniform, albeit different, velocity in $\Sigma'$. This relation is reflected mathematically in the set of transformation between different two inertial frames (a subset of all possible coordinate transformations), the elements of which are called \Def{Galilei transform}. In case $\Sigma'$ moves with velocity $v$ relative to $\Sigma$, one can map coordinates between according to
+\begin{equation}\label{eq:galilei_transform}
 	\eqbox{
 		x \rightarrow x' = x + v t
 	}
@@ -105,36 +73,84 @@ If all inertial frames are suited equally well to describe physics, one might as
 \end{equation}
 
 
-It was brilliant Newton to formulate these postulates from what people knew about everyday life, but he was a little absolutistic in their interpretation: in particular, he believed in an absolute space where a preferred inertial frame existed, from which all other inertial frame can be derived/defined (i.e.~that there is an an absolute frame of reference that we can fall back to when defining inertial frames). Albert Einstein challenged this thought more than two decades later, by proclaiming that there is no absolute space. This resolved many issues that were present at that time, making it the preferred interpretation until today. The relativity principle states that there is no absolute notion of rest when it comes to uniform motion. It is, however, possible to detect if ones frame is accelerated, i.e.~it is possible to know whether one is in an inertial frame of reference or not (we will expand on this later on).
 
 
+		\subsection{Second Law}
+\begin{axiom}
+	\centering
+	If a force $\vec{F}$ acts upon an object of mass $m$, it causes a change in momentum
+	\begin{equation}\label{eq:newton_second_law}
+		\eqbox{
+			\vec{F} = \dv{\vec{p}}{t}
+		}
+	\end{equation}
+	where momentum is defined as
+	\begin{equation}
+		\eqbox{
+			\vec{p} = m \vec{v}
+		} \, .
+	\end{equation}
+
+	If more than one force is present, $\vec{F}$ must be replaced by the superposition of all forces,
+	\begin{equation}
+		\eqbox{
+			\vec{F}_\mathrm{tot} = \sum_k \vec{F}_k
+		} \, .
+	\end{equation}
+\end{axiom}
+The change in momentum in Eq.~\eqref{eq:newton_second_law} is also called \Def{impulse}. Both of the terms that the second law relates in force and momentum are frequently used in essentially all of mechanics, but their meaning is not so clear at this point. In fact, it can be hard to grasp what they even represent. We elaborate on this, and the role of the second law in their definition (spoiler: none of them are defined by the second law), in a dedicated section (cf.~Sec.~\ref{sec:forces_and_momenta}).
 
 
-			\paragraph{Second Law}
-The second law is probably the second most famous formula in physics. It is a special case of constant mass $m = \text{const.}$ of the formula\footnote{Some people set things up differently and introduce Eq.~\eqref{eq:newton_2} as the second law.}
-\begin{equation}\label{eq:newton_2}
-	\eqbox{
-		\vec{F} = \dv{\vec{p}}{t}
-	}
-	\manyqquad
-	\eqbox{
-		F^k = \dv{p^k}{t}
-	}
+If $m = \text{const.}$, as is commonly the case, the second law simplifies to
+\begin{equation}
+	\vec{F} = m \vec{a} % = m \dv[2]{\vec{r} \todo{$\vec{x}$?}}{t}
 \end{equation}
-that relates forces to \Def{momenta} $\vec{p} = m \vec{v}$. Because of their relation to forces, some fundamental principles involve momenta. 
-
--> mention that they do have kind of abstract meaning, hard to grasp... 
+which is perhaps the second most famous formula in physics (right after $E = m c^2$). In either form, the second law determines dynamics in the Newtonian physics.
 
 
-In either form, the second law determines dynamics in the Newtonian physics.
+We have chosen to include the superposition principle in the formulation of the second law, which may not be really common. Note that this property is not trivial, although it feels very natural because forces are vectors and can thus be added together in a straightforward manner; still, a priori there is no obvious reasons why it is their linear combination that yields $\vec{F}_\mathrm{tot}$, instead of something like $\vec{F}_\mathrm{tot}^2 = \sum_k \vec{F}_k^2$. In the literature, there are many ways in which this is handled, some even choose to propose this as a fourth law of motion. No matter what is your preferred option, the most important takeaway is that the superposition principle is \emph{not} something that holds by definition, it is an empirical insight and should thus be considered (part of) an axiom.\\
+
+
+Coming back to Eq.~\eqref{eq:newton_second_law}, this is the \enquote{simplest form} of physical laws that has already been alluded to. In particular, this is what physical laws look like in inertial frames. The fact that the relation between forces and momenta takes this particular form in an inertial frame is one of the big reasons why this type of reference frame is so important and widely used. One quick sanity check that this is actually true is the case where no external forces are present, i.e.~$\vec{F} = 0$. The second law then implies $\vec{a} = 0$, provided we look at a test particle with fixed mass; in other words, the test particle remains at rest or moves uniformly, depending on the initial state of motion. This is the definition of an inertial frame.\footnote{I have seen definitions of the term inertial frame as \enquote{a frame where $\vec{F} = m \vec{a}$ holds}. In my opinion, this is confusing because it suggests that the first and second law are somewhat dependent on each other. However, this is not really the case. The term inertial frame makes perfect sense without the second law and the second law is a statement that cannot be deduced from the first law.} That the second law generally holds in an inertial frame is, again, an empirical insight (for this reason, it is sometimes explicitly included in the second law that Eq.~\eqref{eq:newton_second_law} holds in in inertial frames). Another indicator for the special role of inertial frames in this regard is that extra terms are needed in non-inertial frames to correct predictions of the second law in those frames (which we show in Sec.~\ref{sec:non_inertial_frames}).
+
+% Not only do we get valid physical laws in every inertial frame -- the laws obtained for the same physical situation in each frame are also equivalent.
+The previous discussion established that one does get valid physical laws in every inertial frame -- but what is the relation between those laws?
+We can see this as follows: by definition, velocities $\vec{v}, \vec{v}'$ measured in different inertial frames $\Sigma, \Sigma'$ measure at maximum by a uniform component, $\vec{v} - \vec{v}' = \text{const}$. Therefore,
+\begin{equation}
+	\vec{a} = \dv{\vec{v}}{t} = \dv{\vec{v}'}{t} = \vec{a}'
+	\quad \Rightarrow \quad
+	\vec{F} = m \vec{a} = m \vec{a}' = \vec{F}'
+	\, .
+\end{equation}
+This means Newton's second law looks exactly the same in both (and thus all) inertial frames -- the laws obtained for the same physical situation in each inertial frame are the same, and thus also the inferred physics. A very convenient consequence of this is that we as applicants of Newton's theory are free to choose the frame from which we treat problems, there is no preferred frame that we must use.\footnote{This is a manifestation of the relativity principle (the origins of which date back to Galileo Galilei; but it was Einstein who first recognized and explored the full consequences of it). It is also this point where cracks in the interpretation of absolute space begin to show. While it does not hinder us in any way, it is also not required to do physics -- then, what is it even good/required for?}
+
+% -> while the values of $\vec{v}$ and $\vec{v}'_2'$ might differ and thus depend on the inertial frame we choose, the physics inferred from them does not (forces are what we observe \todo{but this is not decisive factor, is it? Is simply that interplay of chosen coordinates and forces acting in them is always equivalent}). This explains the preferred role of inertial frames when describing physics. Laws stated in inertial frames hold in all of them, while laws in non-inertial frames do not, whence it is often non-trivial to find out whether effects can be attributed to some physical process or to the frame/coordinates used to describe the situation (for example, the Coriolis force is needed to explain effects on Earth's surface, which is a rotating and thus non-inertial frame of reference).
+
+
+-> another consequence: it is impossible for scientists to set up an experiment that determines the velocity that the frame moves with (tells us already that absolute space is wrong as a concept)
 
 
 
--> multiple forces acting together can be described as a superposition, i.e.~total force is sum of all individual forces
+		\subsection{Third Law}
+\begin{axiom}
+	\centering
+	If two bodies exert forces on each other, these forces have the same magnitude but opposite directions,
+	\begin{equation}\label{eq:newton_third_law}
+		\eqbox{
+			\vec{F}_{12} = - \vec{F}_{21}
+		} \, .
+	\end{equation}
+\end{axiom}
+This motto is sometimes stated as \enquote{actio = reactio}, though this is much too short to properly encapsulate what the third law expresses.
+
+
+-> in the end, this tells us something about equilibrium of objects (how we can quantify); not directly from expression, but third law allows us to calculate net forces (e.g., between system of multiple particles) that we need in second law; in particular, tells us how a system of particles can have no net force if no external forces are present, despite intrinsic interactions taking place
+
+
+-> manifestation of a more fundamental principle, conservation of momentum (Wikipedia says that, think about; though I guess discussion in previous paragraph is just that)
 
 
 
-			\paragraph{Third Law}
 The third law is probably the hardest to grasp, but it has profound implications on how one should think about forces etc.~intuitively.
 
 -> when I push table, I feel the force it exerts on me (not the one I exert)
@@ -143,13 +159,7 @@ The third law is probably the hardest to grasp, but it has profound implications
 mathematically speaking, it tells us something about symmetries of Newtonian dynamics (don't know how to elaborate further on that...)
 
 
-
-		\subsection{\todo{Consequences? Discussion?}}
-
-one of the big achievements (advancements?) of these axioms is that they give us a systematic way to write down an equation of motion, which determines how the current state of a system will evolve with time (mainly comes from Newton 2, but insights from other axioms help formulating these equations as well; e.g., trick with no net force can often only be applied due to Newton 3, etc.); granted, we need state of the system at some point for that, i.e.~an initial condition, but this is typically what we have: we ask questions like \enquote{what happens if I drop a ball}, which naturally includes knowledge of the initial setup of the experiment. Solving the equations of motion then gives us the final state of such an experiment, as well as state at every time between beginning and end (we are guaranteed that solution can be found, at least numerically, from the existence of procedures such as the Picard-Lindelöf iteration)
-
--> first one tells us about good frame we may use (inertial), where laws look same; second one tells us how laws look like; third one helps us in practice with writing down second one explicitly
-
+\hrule
 
 \begin{ex}
 	astronaut example who pushes stones away in space
@@ -157,7 +167,7 @@ one of the big achievements (advancements?) of these axioms is that they give us
 
 
 \begin{ex}[Momentum Conservation]
-	A very interesting consequence of the third law arises when we remember how forces are related to momenta, i.e.~the second law. If we consider a physical system with no external forces acting on it, all forces acting are between the respective particles. The third law now implies that the total force, when looking at each pair of particles, must vanish since
+	A very interesting consequence of the third law arises when we remember how forces are related to momenta, i.e.~the second law. If we consider a physical system with no external forces acting on it, all forces acting are between the respective particles. The third law now implies that the total force must vanish since for each pair of particles
 	\begin{equation}
 		\vec{F}_{ij} + \vec{F}_{ji} = \vec{F}_{ij} - \vec{F}_{ij} = 0
 	\end{equation}
@@ -193,9 +203,26 @@ important: momentum is conserved when no \emph{net} external force is present! T
 -> if net force on a single object is zero, then it is in equilibrium; this is something we can say (avoids what we had above, potential issue with interaction in closed system, e.g. a collision, where total system may not have force, but calling this equilibrium would also be tough...)
 
 
+\hrule
+
+
+-> first law tells us about good frame we may use (inertial), where laws look same; second one tells us how laws look like; third one helps us in practice with writing down second one explicitly
+
+one of the big achievements (advancements?) of these axioms is that they give us a systematic way to write down an equation of motion, which determines how the current state of a system will evolve with time (mainly comes from Newton 2, but insights from other axioms help formulating these equations as well; e.g., trick with no net force can often only be applied due to Newton 3, etc.); granted, we need state of the system at some point for that, i.e.~an initial condition, but this is typically what we have: we ask questions like \enquote{what happens if I drop a ball}, which naturally includes knowledge of the initial setup of the experiment. Solving the equations of motion then gives us the final state of such an experiment, as well as state at every time between beginning and end (we are guaranteed that solution can be found, at least numerically, from the existence of procedures such as the Picard-Lindelöf iteration)
+
+
 
         % \subsection{What Is A Force?}
         \subsection{Forces \& Momenta}
+		\label{sec:forces_and_momenta}
+% -- Sources:
+% - https://en.wikipedia.org/wiki/Force
+% - https://en.wikipedia.org/wiki/Momentum
+% - https://physics.stackexchange.com/questions/832588/what-is-the-definition-of-force/832621#832621
+% - https://physics.stackexchange.com/questions/818140/philosophical-discussion-of-newtons-second-law/818299#818299
+% 
+% 
+
 % -> force = something that can change state of motion (gives more precise meaning to/is mathematical formalization of things like pushing or pulling); state of motion is described by momentum; Newton 2 relates these two (though I guess, to some degree, it also defines them)
 
 % in the same spirit, we may ask: what is momentum? Well, the answer is: the quantity that is changed in time by an external force, i.e.~the quantity showing up in Newton's second law. If this law had been different (because of different underlying physics of the world), we would perhaps not be bothering to deal with the expression $m \vec{x}$ because there would be no immediate physical meaning to it.
@@ -205,6 +232,8 @@ Now, let us come to a very philosophical question: Does Newton's second law defi
 
 Intuitively speaking, a force is something that changes the state of motion of an object. This state of motion is quantified by its mass and velocity, i.e.~through the notion of momentum. The second law then relates the two. But in some sense, it also serves as the definition of a force: it formalizes the intuitive concepts of pushing and pulling that we associate a force with into a proper, mathematical definition, by fixing its relation to the change of momentum (fixing in the sense that we choose to include no additional constant factors in the definition, which could alter the units and values of forces, without changing how we think about them).
 % The second law cannot, however, be seen as a true definition of a specific force because it quantifies the net effect that all present forces have on a certain object; in other words, while this can be used to determine a specific force (having made sure no other forces are present), it is not sufficient as a definition of such a force. \todo{improve wording here, do not like it}
+
+-> forces are our way to quantify interactions between objects
 
 Momentum, on the other hand is an independent concept and we can see why a description of state of motion should involve both mass and velocity. The latter should be kind of obvious, objects move with certain velocities. But it is also intuitive that a fly moving at $42 km/h$ is very different from a car moving at the same speed, these two situations represent very different motions.
 Now, part of this also comes back to the intuition that is encapsulated in the second law, namely that more force is required to get the car to move at such a speed, but that just shows how the second law is an incarnation of some relation that is present in our physical reality. \todo{improve this part, starting at "intuition that is encapsulated"}
@@ -225,6 +254,14 @@ this has some nice insights: \url{https://physics.stackexchange.com/a/589005}
 excellent takes and clarifications: \url{https://physics.stackexchange.com/questions/832588/what-is-the-definition-of-force/832621#832621}
 
 
+
+Because of their relation to forces, some fundamental principles involve momenta. \todo{is that true? Or are momenta they also relevant independently of second law?}
+
+
+
+mention that forces are assumed to have instantaneous effect; poses problem in relativity (could that even be reason for one of the remarks, that we have to shift to fields?)
+
+
 \hrule
 
 
@@ -238,14 +275,59 @@ emphasize properties of a real force here, to be able to contrast it with fictit
 
 
 
+		\subsection{Energy}
+Another concept of fundamental importance in physics is \Def{energy}.
+
+-> kinetic energy that a particle with momentum $\vec{p}$ and mass $m$ carries is
+\begin{equation}
+	\eqbox{
+		E_\mathrm{kin} = \frac{p^2}{2 m} = \frac{m v^2}{2}
+	} \, .
+\end{equation}
+
+
+-> what is a good definition of it? Well, that's a really tough question... In the end, it turns out that it is simply a very convenient quantity because of conservation laws that can be derived involving it; so it is good notion to study behavior of physical systems
+
+
+important: sometimes it is better to think in terms of forces $\vec{F} = \dv{\vec{p}}{t}$, but other times (kinetic) energy $E = \frac{p^2}{2m}$ is preferred (or their relativistic versions)
+
+
+\hrule
+
+say this: energy is also related to forces, in fact one can classify forces in terms of energy -> conservative and dissipative; perfect transition to potential energy
+
+
+comment on relation to forces, especially them being conservative or not; for conservative forces, we can find potential and energy is conserved \todo{?}; for non-conservative (dissipative) force, energy gets lost, according to
+\begin{equation}
+	\eqbox{
+		\dv{E}{t} = \int_{\vec{x}_1}^{\vec{x}_2} - \vec{F} \cdot d\vec{x} = \int_{t_1}^{t_2} - \vec{F} \cdot \dot{\vec{x}} dt
+	}
+\end{equation}
+-> work is path-dependent
+
+
+-> nice motivation: say we have particle moving at velocity $v$; what is change in kinetic energy when an external force now acts on particle? Well, should involve $\vec{F} \cdot \vec{v}$ somehow -- turns out, that's already it! This is work
+
+
+
 \newpage
 
 
 
-    \section{Non-Inertial Frames}
+    \section{Non-Inertial Frames}\label{sec:non_inertial_frames}
+% -- Sources:
+% - https://en.wikipedia.org/wiki/Non-inertial_reference_frame
+% - https://en.wikipedia.org/wiki/Rotating_reference_frame
+% - https://en.wikipedia.org/wiki/Centrifugal_force
+% - https://en.wikipedia.org/wiki/Centripetal_force
+% - https://en.wikipedia.org/wiki/Coriolis_force
+% - https://en.wikipedia.org/wiki/Euler_force
+% - https://taleinav.github.io/Lectures/Ph%201a/Lecture%205%20-%202017-10-12.pdf
+% 
+% 
 We have seen that Newton's laws hold in inertial frames. But what exactly happens in non-inertial, i.e.~accelerated, frames?
 
--> talk about relevance? We live in non-inertial frame, Earth is rotating!
+-> talk about relevance? We live in non-inertial frame, Earth is rotating, so velocity changes in direction = acceleration!
 
 % calculations are following Nolting closely -> only if we keep delta x0
 
@@ -328,7 +410,7 @@ $\delta \vec{x}(t)$ denotes a displacement between the origins of the two frames
 	
 
 	% \item[$\Sigma'$:] Now, let us make the same calculations from the accelerated frame. Here, it is the axes $\vec{e}'_i$ that are seen to be at rest. Also note that $\Sigma'$ has a different origin than $\Sigma$, which we indicate by using $\vec{x}'$ for the position of the particle. This changes the derivatives as follows:
-	\item[$\Sigma'$:] Now, let us make the same calculations from the accelerated frame. Here, it is the axes $\vec{e}'_i$ that are seen to be at rest, while the $\vec{e}_i$ have a shifted origin and are rotated. We indicate this by now denoting the position of the particle by $\vec{x}'$. This changes the derivatives as follows:
+	\item[$\Sigma'$:] Now, let us make the same calculations from the accelerated frame. Here, it is the axes $\vec{e}'_i$ that are seen to be at rest, while the $\vec{e}_i$ have a shifted origin and are rotated. We indicate this by now denoting the position of the particle by $\vec{x}'$. This changes the derivatives as follows:\footnote{You might say: but we have already conducted an analysis in both coordinate systems, what is the difference now? Well, it is correct that we will carry out an analysis in the same coordinate systems. But by switching the observer (i.e.~we are now co-moving and co-rotating with $\Sigma'$; this also changes our relation to the two coordinate systems), we also change the meaning of other quantities, such as time derivatives $\dv{t}$. Thus, for a proper comparison of what different observers predict, we must conduct a second analysis.}
 	\begin{align}
 		\dv{\vec{x}'}{t} &= -\dv{\delta \vec{x}_0}{t} + \dv{t} \sum_k x^k\vec{e}_k = -\dv{\delta \vec{x}_0}{t} + \sum_k \dv{x^k}{t} \vec{e}_k + x^k \dv{\vec{e}_k}{t}
 		\label{eq:velocity_from_accel_frame_in_inert_frame}
@@ -547,7 +629,12 @@ Now, let us come back to expression \eqref{eq:pseudo_force_rot_frame} and analyz
 
 
 
-    \section{Rotation}
+	\section{Rotation}
+% -- Sources:
+% - https://en.wikipedia.org/wiki/Angular_momentum
+% - https://en.wikipedia.org/wiki/Torque
+% 
+% 
 The preceding discussion of rotating frames of reference showed that this type/state of motion is not properly described by just the momentum $\vec{p}$. One indicator of this is the occurrence of pseudo-forces, which cause an acceleration even in the absence of forces and accordingly, a change in momentum.
 
 One way to look at this is to argue that $\vec{p}$ represents linear momentum, which is best suited to describe motion into constant direction. If a rotational component is present, we need a new notion. In analogy to $\vec{p}$, this new notion is called \Def{angular momentum} and denoted by $\vec{L}$. For the sake of definition, it makes sense to focus on the situation in which the motion is of purely rotational nature, and the previous section showed that the pivotal factor controlling a rotation is the angular velocity $\vec{\omega}$. It also makes sense to have an \emph{angular momentum} being proportional to \emph{(orbital) angular velocity},
@@ -647,6 +734,15 @@ mention fatal misconception by Kepler, trying to describe everything using ellip
 
 
 
+	\section{$N$-Body Mechanics}
+talk about center of mass system; motivation: if we have to particles, we have coupled equations of motion, much harder to solve than two separate differential equations; but by going into CMS, we can decouple the equations
+
+
+
+\newpage
+
+
+
     \section{Rigid Bodies}
 
 now we go away from point particle/test mass
@@ -654,6 +750,62 @@ now we go away from point particle/test mass
 
 center of mass -> or introduce this in separate section on multi-particle systems?
 
-moment of inertia
+
+
+first of all, there is no truly rigid body; relativity says maximum speed at which information can be transmitted is $c$, i.e.~finite, so if I push one end of a rod, the other one does not move immediately
+
+
+
+
+given mass density $\rho(\vec{x})$ of a continuous body occupying some volume $V$, we can define its (total) mass
+\begin{equation}
+	M = int_V dm
+	% = \int_V \rho dV
+	= \int_V \rho(\vec{x}) d^3x
+\end{equation}
+its center of mass
+\begin{equation}
+	\vec{X} = \frac{1}{M} \int_V \rho(\vec{x}) \vec{x} d^3x
+\end{equation}
+and its momentum
+\begin{equation}
+	\vec{P} = \int_V \rho(\vec{x}) \dot{\vec{x}} d^3x
+\end{equation}
+
+\todo{shouldn't we also have analogous expression for inner angular momentum? Or does this not exist for a rigid body?}
+
+-> good for us that all of these are additive quantities (sometimes this is also called extensive, a notion coming from thermodynamics)
+
+
+inner forces in a rigid body? Must be zero, because of the third law. Therefore, second law for rigid body reads
+\begin{equation}
+	\eqbox{
+		\vec{F}_\mathrm{ext} = \dv{\vec{P}}{t}
+	}
+\end{equation}
+
+
+its moment of inertia when rotated about some axis $\vec{n} = \frac{\vec{\omega}}{\omega}$
+\begin{equation}
+	I \coloneqq \vec{n}^T J \vec{n}, \quad J_{ij} = \int_V \rho(\vec{x}) \qty[\vec{x} \cdot \vec{x} \delta_{ij} - x_i x_j] d^3x
+\end{equation}
+
+
+component of $\vec{L} \parallel \vec{\omega}$:
+\begin{equation}
+	% \vec{L}_\omega = \vec{L} \cdot \vec{n} \underset{\todo{understand this}}{=} \vec{n}^T J \vec{n} \omega = \vec{M}_\mathrm{ext} \cdot \vec{n}
+	\vec{L}_\omega = \vec{L} \cdot \vec{n} = I_\omega \vec{\omega} \cdot \vec{n} = \vec{n}^T J \vec{n} \omega \underset{\todo{understand this}}{=} \vec{M}_\mathrm{ext} \cdot \vec{n}
+\end{equation}
+hmm I mean we have $\vec{L} = I \vec{\omega}$ where $I$ is moment of inertia around $\ec{n}$
+
+-> one has to exert moment of inertia around the axis of rotation in order to change the angular momentum (total angular momentum of the body)
+
+-> not sure we can see this from the equation here; but this holds in general, right? Not just for rigid body
+
+
+
+
+nice for work on rigid body: \url{https://en.wikipedia.org/wiki/Work_(physics)#Work_of_forces_acting_on_a_rigid_body}
+
 
 \end{document}
