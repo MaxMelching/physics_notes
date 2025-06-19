@@ -1,0 +1,270 @@
+\documentclass[../class_mech_main.tex]{subfiles}
+
+
+
+\DeclareMathOperator{\fpeps}{\frac{1}{4 \pi \epsilon_0}}
+
+
+\begin{document}
+
+\chapter{Electrodynamics}
+
+\todo{wouldn't it make sense to have this as chapter 3? Or even 2 (because we often study electrical stuff in analytical mechanics)?}
+
+
+
+In classical mechanics, particles are mostly assumed to be really simple. They have a mass and move in some way. But real particles have more properties. Ignoring quantum-mechanical effects for now, perhaps the most important of these properties is that they may have a charge. This means there is more interaction than what we have seen until now, electromagnetic ones. -> new forces etc
+
+
+explain what field is (?)
+
+
+definitely treat 1.8 of Thorne+Blandford, where they explain connection between differential conservation laws and corresponding integration laws
+
+
+
+    \section{Electrostatics}
+
+        \subsection{The Basics}
+Some interactions of objects that are observed experimentally cannot be explained by mass, many objects must have additional property that explains the observations. This property is called \Def{charge} and it induces electric interactions between charged objects.
+
+
+We will commonly denote charge by $q$. Every charge is a multiple of an \Def{elementary charge} $e$,
+\begin{equation}
+    \eqbox{
+        q = N e
+    }, \; N \in \mathbb{N}
+    , \quad
+    \eqbox{
+        e = 1.602 \cdot 10^{-19} \, \mathrm{C}
+    } \, .
+\end{equation}
+This is a crucial difference to masses, where no such \enquote{elementary mass} is known. Usually, we characterize charges by distributions $\rho = \rho(\vec{x}, t)$, i.e.~charge per volume. For an idealized point/test charge ($\equiv$ point/test mass) with charge $q$ at $\vec{x}_0$,
+\begin{equation}
+    \eqbox{
+        \rho(\vec{x}) = q \, \delta(\vec{x} - \vec{x}_0)
+    } \, .
+\end{equation}
+
+-> note that point charge is flexible notion; if distance to $\vec{r}$ is large, then even macroscopic source can be taken as point charge! (another similarity to mass and gravitation)
+
+
+Charges obey the superposition principle (like mass), so a collection of charges
+with distribution
+\begin{equation}
+    \eqbox{
+        \rho(\vec{x}) = \sum_i q_i \, \delta(\vec{x} - \vec{x}_i)
+    } \, .
+\end{equation}
+From such a distribution, we can calculate the total charge
+\begin{equation}
+    \eqbox{
+        Q = \sum_i q_i
+    }
+\end{equation}
+according to the general formula
+\begin{equation}
+    \eqbox{
+        Q = \int_V \rho(\vec{x}) dV
+    } \, .
+\end{equation}
+Here we port discrete to continuous by adding a $\delta$-function for each charge, which turns integral into sum.\\
+
+
+
+We are still in classical mechanics, so interactions are studied in terms of forces. The \Def{Coulomb force} (also: \Def{Coulomb's law}) from charge 1 onto charge 2 is
+\begin{equation}
+    \eqbox{
+        \vec{F}_C = \vec{F}_{C, 1 \rightarrow 2}
+        = \fpeps q_1 q_2 \, \frac{\vec{r}_{12}}{\norm{\vec{r}_{12}}^3}
+        = \fpeps q_1 q_2 \, \frac{\vec{r}_2 - \vec{r}_1}{\norm{\vec{r}_2 - \vec{r}_1}^3}
+    } \, .
+\end{equation}
+where $\vec{r}_{12} = \vec{r}_2 - \vec{r}_1$ is the vector connecting object 1 to object 2 (because of this, it naturally obeys the third law). Similarly to Newton's law of gravitation, it has been found empirically. It, too, obeys the superposition principle, which means the Coulomb force from a charge distribution $\rho$ onto a test charge with charge $q$ at position $\vec{x}$ is
+\begin{equation}
+    \eqbox{
+        \vec{F}_C(\vec{x}) = \fpeps q \int_V \rho(\vec{x}') \frac{\vec{x} - \vec{x}'}{\norm{\vec{x} - \vec{x}'}^3} \, dV'
+    } \, .
+\end{equation}
+
+Another interesting property of charges that we did not have before with masses etc.~is the following: charges can be positive \emph{and negative}. Thus the Coulomb force can be attractive ($q_1 / q_2 < 0 \Rightarrow \vec{F}_{12} \parallel \vec{r}$) and repulsive ($q_1 / q_2 > 0$), one of many effects that this has.
+
+
+-> interesting observation: let's say we put two test charges together; of course, they would also have some mass usually, so gravitational interaction would also be present -> thing is: $e \sim 10^{-19}$, while $m_e \sim 10^{-31}$ and the constants in front of charge are also much smaller for gravitational interaction! $G \sim 10^{-11}, 1/\epsilon_0 \sim 10^{12}$; means that on short ranges, electromagnetic interaction is by far dominant; only over long ranges, gravitational takes over because there is no negative mass (for Coulomb force, as we integrate over larger region of space, positive and negative forces will almost completely cancel; mass, on the other hand, only accumulates)
+
+
+
+        \subsection{Electric Field}
+Coulomb's law is great for determining the mutual forces of charged bodies onto each other. But sometimes we would like to get such a statement about how a body interacts electrically that is independent of the nature of the second body. This is a very tricky question because a second body is required for an effect/interaction to be measurable at all. Thus we have to apply a trick, which consists of introducing test charge with $q_2 \rightarrow 0$ (similar to test mass that had $m \rightarrow 0$ \todo{right?}; point is that the second charge does not exert a force itself, we only have force from first body). The force exerted by this object likewise goes to zero -- but by the third law, so does the force felt by it, which means this is not the measure we seek for the strength. Instead, recognize that, while the force tends to zero, the quotient of force and charge does not. This defines the notion of \Def{electric field} emitted by charge $q$ at position $\vec{x}_0$
+\begin{equation}
+    \eqbox{
+        \vec{E}(\vec{x})
+        % = \lim_{q_2 \rightarrow 0} \frac{\vec{F}_C}{q_2}
+        = \lim_{q_2 \rightarrow 0} \frac{\vec{F}_{C, \vec{x}_0 \rightarrow \vec{x}}}{q_2}
+    } \, ,
+\end{equation}
+which is our desired measure of how strongly $q$ interacts with its surroundings.
+
+
+For a given distribution, we can always use Coulomb's law to express it more explicitly as
+\begin{equation}
+    \eqbox{
+        \vec{E}(\vec{x}) = \fpeps \int_V \rho(\vec{x}') \frac{\vec{x} - \vec{x}'}{\norm{\vec{x} - \vec{x}'}^3} \, dV'
+        } \, .
+    \end{equation}
+In case of a point charge, this yields
+\begin{equation}
+    \eqbox{
+        \vec{E}(\vec{x}) = \fpeps q \frac{\vec{x} - \vec{x}_0}{\norm{\vec{x} - \vec{x}_0}^3}
+    } \, .
+\end{equation}
+
+
+
+from entirely mathematical considerations, we can show that Coulomb force coming from a charge distribution $\rho$ has a potential
+\begin{equation}
+    \eqbox{
+        V = \fpeps q \int_V \rho(\vec{x}') \frac{1}{\norm{\vec{x} - \vec{x}'}} \, dV'
+    }
+\end{equation}
+(though this also makes sense physically, Coulomb is a central force)
+
+-> accordingly, we call $\varphi \coloneqq V / q$ the \Def{scalar potential} of the electric field, i.e.~$\vec{E} = - \vec{\nabla} \varphi$
+
+-> existence of potential implies curve-integrals are path-independent; we define \Def{voltage} based on this, as difference of scalar potentials; is related to work in straightforward manner, via $W = q U$ (is amount of work done on a charge, independent of actual charge that is moved, right? Same relation as between electric field and force)
+
+
+
+field lines = nice tool for visualization purposes; we draw from positive to negative charges, i.e.~they represent direction of force acting on a particle with positive charge -> hmm, this statement could be a little ambiguous I think; rather say: electrons move against the field lines in an electric field
+
+
+
+        \subsection{Energy}
+\todo{maybe not extra section}
+
+energy of electric field? we make definition as work required to move charge from infinity to the particular location; for single charge $q_0$, work needed to move it against the presence of some potential to a location $\vec{x}_0$ is given as
+\begin{equation}
+    W_{\infty \rightarrow \vec{x}_0} = q_0 \qty[\varphi(\vec{x}_0) - \varphi(\infty)] = q_0 \varphi(\vec{x}_0)
+\end{equation}
+
+-> huh, but this is work needed to move test particle in presence of another charge $q$, right? So what we have to do is move first particle (no work to do against electric field, $W_{\infty \rightarrow 1} = 0$), then move second particle against first one, then move third particle against first + second one, etc.; using superposition principle for scalar potential, we end up with
+\begin{equation}
+    W_\mathrm{tot} = \sum_i W_{\infty \rightarrow i}
+    % = \sum_i \sum_{j < i} q_i \varphi_j(\vec{x}_i)
+    = \sum_i q_i \sum_{j < i} \varphi_j(\vec{x}_i)
+    = \frac{1}{2} \sum_{\underset{i \neq j}{i, j}} q_j \varphi_i(\vec{x}_j)
+\end{equation}
+in the continuum limit, this reads
+\begin{align}
+    W_\mathrm{tot} &= \frac{1}{2} \int_V \rho(\vec{x}) \varphi(\vec{x}) d^3x
+    \\
+    &= \ldots
+    \notag\\
+    &= \frac{\epsilon_0}{2} \int_V \norm{\vec{E}}^2 d^3x \eqqcolon \int_V w(\vec{x}) d^3x
+\end{align}
+where we have defined the energy density $w = \frac{\epsilon_0}{2} \norm{\vec{E}}^2$
+
+-> encapsulates only interaction energy, not self energy 
+
+
+
+        \subsection{Maxwell Equations}
+
+first one
+
+
+straightforward question: what is \enquote{total electric field} of some charge distribution $\rho$? For that, integrate over surface $S(V)$ enclosing volume $V$ in which $\rho$ is located spatially. we can do that:
+\begin{equation}
+    \oint_{S(V)} \vec{E} \cdot d\vec{S} = \ldots = \frac{1}{\epsilon_0} \int_V \rho(\vec{x}) dV = \frac{Q}{\epsilon_0}
+\end{equation}
+where $d\vec{S}$ is surface element of $S$ (normal vector, right? at least related to). In words: flow of electric field through a surface is proportional to charges inside! In particular, no charges in $V$ means that net flow of $\vec{E}$ through $S$ is zero -- independent of its exact, just has to be connected
+
+-> this is first Maxwell equation (or rather integral version thereof)
+
+moreover, Gauß's law tells us
+\begin{equation*}
+    \int_V \rho(\vec{x}) dV = \oint_{S(V)} \vec{E} \cdot d\vec{S} = \int_V \vec{\nabla} \cdot \vec{E} dV
+\end{equation*}
+which yields the differential version of first Maxwell,
+\begin{equation}
+    \eqbox{
+        \vec{\nabla} \cdot \vec{E} = \frac{\rho}{\epsilon_0}
+    }
+\end{equation}
+
+
+second Maxwell equations is more straightforward:
+\begin{equation}
+    \eqbox{
+        \vec{\nabla} \cross \vec{E} = 0
+    }
+    \quad \Leftrightarrow \quad
+    \eqbox{
+        \oint_C \vec{E} \cdot d\vec{x} = 0
+    }
+\end{equation}
+where $C$ is a closed curve (as indicated by use of $\oint$ instead of $\int$ already)
+
+
+
+in terms of potential, the results here imply \Def{Poisson equation} $\nabla^2 \varphi = \frac{\rho}{\epsilon_0}$ (note that this is implication of both Maxwell equations combined, because second one implies existence of potential, this is how it is used)
+
+-> why should we want to use this partial differential equation of second order? Well, to get electric field from charge distribution that simultaneously fulfills Maxwell equations (which field obtained from Poisson do automatically)
+
+-> note that it is inhomogeneous equation, so its solution can be written as solution of homogenous plus solution of inhomogeneous
+
+
+
+
+    \section{Magnetostatics}
+Even if no electrical field is generated by a conductor\todo{?}, it is possible to have moving charges, i.e.~a \Def{current} (has a direction, parallel to electric field lines, i.e.~from $+$ to $-$)
+
+-> we define the strength of the current (commonly also called \Def{current}) as the amount of charge flowing through some area $S$ per time. In the usual manner, we do this by going to the infinitesimal limit, i.e.~the definition reads
+\begin{equation}
+    \eqbox{
+        I = \dv{Q}{t} = F j
+    }
+\end{equation}
+with the current density
+\begin{equation}
+    \eqbox{
+        \vec{j}(\vec{x}, t) = \rho(\vec{x}, t) \vec{v}(\vec{x}, t) = \frac{I}{S}
+    }
+\end{equation}
+where $\vec{v}$ is the velocity $\perp$ to the are $S$. -> we are still in statics, so $\rho$ independent of $t$ \todo{right?}
+
+
+\todo{I think $j = I / S$ is special case for constant $j$, right? Something is not working here...}
+
+
+Any change in the total charge in some volume, $Q(V)$, must be complemented by some current flowing out of the volume's boundary $S = \partial V$. Mathematically,
+\begin{equation}
+    \eqbox{
+        \pdv{Q}{t} = \pdv{t} \int_V \rho dV = \int_S \dv{\rho}{t} d\vec{S}
+    }
+\end{equation}
+(of course, assuming there is no intrinsic heat loss or something). For the 2D-generalization of a test charge, i.e.~something like a cable of infinitesimal diameter (so that charges can only enter at start and end of it), this takes the form $\dv{Q}{t} = I_A - I_B$ ($A$ is the label for the start of cable, $B$ for the end). Note that the sign here is a consequence of how we defined current, namely parallel to the field lines. Consider a positive charge moving along the current from $A$ to $B$ and leaving the volume $V$. Then it leaves in $B$, meaning the current $I_B$ is larger than $I_A$, so that the right hand side of the continuity equation becomes negative. This corresponds to the $Q(V)$ decreasing, which is what we expect since a positive charge is leaving $V$.
+
+
+With one application of Gauß's law, this becomes
+\begin{equation}
+    \eqbox{
+        \pdv{\rho}{t} + \vec{\nabla} \cdot \vec{j} = 0
+    } \, .
+\end{equation}
+Here we have differential and integral version of the \Def{continuity equation}, which just expresses in mathematical terms the conservation of charge. (Note that we operate under the assumption that no charges are created in $V$, otherwise there would be an extra term on the right hand side of the equation.)
+
+
+
+
+        \subsection{Magnetic Force}
+\todo{do this in separate section?}
+
+From a modern perspective, with relativity theory all developed, it would be straightforward to look at electric field in rest frame of charges moving in the current and then transform back into an \enquote{external}, inertial frame. Historically speaking, however, relativity theory was not there when the aforementioned effect was discovered. Therefore, it was the most natural thing to associate it with new physics, and this is how the \Def{magnetic field} came into existence.\footnote{For a very clear, yet concise derivation of the laws of electromagnetism from Coulomb's law (i.e.~electrostatics), see this article by Leigh Page: \url{https://zenodo.org/record/1450178}.}
+
+
+-> leads to Lorentz force
+
+
+
+\end{document}
