@@ -35,24 +35,24 @@ therefore, physics happens on \Def{manifolds} $M$, so events are points on them 
 		\subsection{Tangent Vectors}
 defining vectors on manifolds is a non-trivial topic, they are now completely distinct notion from points and cannot be visualized as pointing from some origin to this point (problem: thinking of an embedded manifold for now, the vectors would point out of the manifold); instead, we can define vectors locally (!) via derivatives of curves (i.e.~as \Def{tangent vectors}; the corresponding set of all tangent vectors is called \Def{tangent space} $V$)
 
-to describe tangent vectors $\underline{t}$ more explicitly, we have to expand them with respect to some basis and a convenient choice for this is the set of partial derivatives along the coordinate axes of a chart $x^\alpha$, $\qty{\pdv{x^\alpha}}_\alpha$ (note: $\pdv{x^\alpha}$ is often abbreviated as $\partial_\alpha$); this choice yields
+to describe tangent vectors $\fvec{t}$ more explicitly, we have to expand them with respect to some basis and a convenient choice for this is the set of partial derivatives along the coordinate axes of a chart $x^\alpha$, $\qty{\pdv{x^\alpha}}_\alpha$ (note: $\pdv{x^\alpha}$ is often abbreviated as $\partial_\alpha$); this choice yields
 \begin{equation}\label{eq:tangent_vector_def}
-\underline{t} = t^\alpha \underline{e_\alpha} = \dv{x^\alpha}{\sigma} \pdv{x^\alpha} = \dv{\sigma}
+\fvec{t} = t^\alpha \fvec{e_\alpha} = \dv{x^\alpha}{\sigma} \pdv{x^\alpha} = \dv{\sigma}
 \end{equation}
-where $\sigma \in \mathbb{R}$ is the parameter of the curve that $\underline{t}$ is tangent to; that means we can also think of $\underline{t}$ as a tuple of components $t^\alpha$
+where $\sigma \in \mathbb{R}$ is the parameter of the curve that $\fvec{t}$ is tangent to; that means we can also think of $\fvec{t}$ as a tuple of components $t^\alpha$
 
 in this representation vector $\leftrightarrow$ derivative, the derivative of a function $f(x^\alpha)$ along $\gamma$ is (note that we consider a function and curve on the coordinate space, not the manifold itself):
 \begin{equation}\label{eq:func_deriv}
-\dv{f}{\sigma} = \dv{f(x^\alpha(\sigma))}{\sigma} = \pdv{f}{x^\alpha} \dv{x^\alpha}{\sigma} =: \underline{t} \cdot f \, ,
+\dv{f}{\sigma} = \dv{f(x^\alpha(\sigma))}{\sigma} = \pdv{f}{x^\alpha} \dv{x^\alpha}{\sigma} =: \fvec{t} \cdot f \, ,
 \end{equation}
 which is an application of the chain rule and justifies the particular form of vector components in \eqref{eq:tangent_vector_def} (because we want to identify directional derivatives like the one in \eqref{eq:func_deriv} with our new vector notion, the tangent vector)
 
 
 
 
-tangent vectors $\underline{t}$ are invariant quantities, they do not (and should not!) depend on the coordinates we use to express them; their components, on the other hand, are \emph{not} invariant (because the basis vectors change, so must the components for the whole object $\underline{t}$ to stay the same); they obey the following transformation law:
+tangent vectors $\fvec{t}$ are invariant quantities, they do not (and should not!) depend on the coordinates we use to express them; their components, on the other hand, are \emph{not} invariant (because the basis vectors change, so must the components for the whole object $\fvec{t}$ to stay the same); they obey the following transformation law:
 \begin{equation}\label{eq:vec_trafo}
-\underline{t} = t^\alpha \pdv{x^\alpha} = t^\alpha \pdv{x'^\beta}{x^\alpha} \pdv{x'^\beta} \overset{!}{=} t'^\beta \pdv{x'^\beta}
+\fvec{t} = t^\alpha \pdv{x^\alpha} = t^\alpha \pdv{x'^\beta}{x^\alpha} \pdv{x'^\beta} \overset{!}{=} t'^\beta \pdv{x'^\beta}
 \qquad \Leftrightarrow \qquad
 \eqbox{
 t'^\beta = t^\alpha \pdv{x'^\beta}{x^\alpha}
@@ -72,7 +72,7 @@ next natural step: linear maps on tangent space $V$; these are called \Def{covec
 \begin{equation}
 df = \pdv{f}{x^\alpha} dx^\alpha
 \end{equation}
-where we chose a convenient basis $\qty{\underline{e^\alpha}}_\alpha = \qty{dx^\alpha}_\alpha$ of the dual vector space, satisfying
+where we chose a convenient basis $\qty{\fvec{e^\alpha}}_\alpha = \qty{dx^\alpha}_\alpha$ of the dual vector space, satisfying
 \begin{equation}
 \eqbox{
 dx^\alpha\qty(\pdv{x^\beta}) = \pdv{x^\alpha}{x^\beta} = \delta^\alpha_\beta
@@ -81,24 +81,24 @@ dx^\alpha\qty(\pdv{x^\beta}) = \pdv{x^\alpha}{x^\beta} = \delta^\alpha_\beta
 
 More generally, covectors $w: V \rightarrow \mathbb{R}$ obey
 \begin{equation}
-w\qty(\alpha \underline{a} + \beta \underline{b}) = \alpha w\qty(\underline{a}) + \beta w\qty(\underline{b}), \qquad \qquad \forall a, b \in \mathbb{R}, \; \underline{a}, \underline{b} \in V \, .
+w\qty(\alpha \fvec{a} + \beta \fvec{b}) = \alpha w\qty(\fvec{a}) + \beta w\qty(\fvec{b}), \qquad \qquad \forall a, b \in \mathbb{R}, \; \fvec{a}, \fvec{b} \in V \, .
 \end{equation}
 
 
 We can also characterize them via tuples of components
 \begin{equation}
-w_\alpha = w\qty(\underline{e_\alpha}) = w\qty(\partial_\alpha) = \partial_\alpha w \, .
+w_\alpha = w\qty(\fvec{e_\alpha}) = w\qty(\partial_\alpha) = \partial_\alpha w \, .
 \end{equation}
 
 In general, that implies we can write
 \begin{equation}
-w\qty(\underline{a}) = w_\alpha \underline{e^\alpha}\qty(a^\beta \underline{e_\beta}) = w_\alpha a^\alpha \, .
+w\qty(\fvec{a}) = w_\alpha \fvec{e^\alpha}\qty(a^\beta \fvec{e_\beta}) = w_\alpha a^\alpha \, .
 \end{equation}
 
 
 To see how covector components in different coordinates are related, we look at the following inner product (which is also invariant):
 \begin{equation}\label{eq:covec_trafo}
-w\qty(\underline{t}) = w_\alpha t^\alpha \overset{!}{=} w'_\beta t'^\beta = w'_\beta \pdv{x'^\beta}{x^\alpha} t^\alpha
+w\qty(\fvec{t}) = w_\alpha t^\alpha \overset{!}{=} w'_\beta t'^\beta = w'_\beta \pdv{x'^\beta}{x^\alpha} t^\alpha
 \qquad \Leftrightarrow \qquad
 \eqbox{
 w'_\beta = w_\alpha \pdv{x^\alpha}{x'^\beta}
@@ -115,10 +115,10 @@ T: V^n \cross \qty(V^*)^m = V \cross \dots \cross V \cross V^* \cross \dots V^* 
 are called \Def{tensors} of rank $n + m$. Due to their invariance under coordinate-transformations, every physical quantity has to be expressed as a tensor (this follows from the requirements of special relativity).
 
 
-Just like vectors can be collected in components $t^\alpha = \underline{t} \cdot x^\alpha = \partial_\sigma x^\alpha$ and covectors in components $w_\alpha = w\qty(\partial_\alpha)$, we can characterize a tensor of rank $n + m$ using components
+Just like vectors can be collected in components $t^\alpha = \fvec{t} \cdot x^\alpha = \partial_\sigma x^\alpha$ and covectors in components $w_\alpha = w\qty(\partial_\alpha)$, we can characterize a tensor of rank $n + m$ using components
 \begin{equation}\label{eq:tensor_comps}
 \eqbox{
-T^{\alpha_1 \dots \alpha_m}{}_{\beta_1 \dots \beta_n} = T\qty(\underline{e_{\beta_1}}, \dots, \underline{e_{\beta_n}}, \underline{e^{\alpha_1}}, \dots, \underline{e^{\alpha_m}})
+T^{\alpha_1 \dots \alpha_m}{}_{\beta_1 \dots \beta_n} = T\qty(\fvec{e_{\beta_1}}, \dots, \fvec{e_{\beta_n}}, \fvec{e^{\alpha_1}}, \dots, \fvec{e^{\alpha_m}})
 } \, ,
 \end{equation}
 	\rem{it is no typo that there are $m$ upper and $n$ lower indices. This reflects the fact that a tensor of rank $m + n$ can map $m$ covectors with its $m$ \enquote{vectorial} indices and $n$ vectors with its $n$ \enquote{covectorial} indices. This is just like $w_\mu = w\qty(\partial_\mu)$, a vector is needed to get the covector component (and vice versa).}
@@ -126,10 +126,10 @@ T^{\alpha_1 \dots \alpha_m}{}_{\beta_1 \dots \beta_n} = T\qty(\underline{e_{\bet
 which also means that tensors are linear combinations of products of vectors and covectors,
 \begin{equation}\label{eq:tensor_local}
 \eqbox{
-T = T^{\alpha_1 \dots \alpha_m}{}_{\beta_1 \dots \beta_n} \; \underline{e_{\alpha_1}} \dots \underline{e_{\alpha_m}} \underline{e^{\beta_1}} \dots \underline{e^{\beta_n}}
+T = T^{\alpha_1 \dots \alpha_m}{}_{\beta_1 \dots \beta_n} \; \fvec{e_{\alpha_1}} \dots \fvec{e_{\alpha_m}} \fvec{e^{\beta_1}} \dots \fvec{e^{\beta_n}}
 } \, .
 \end{equation}
-	\rem{perhaps, it is a bad idea, but tensor products $\otimes$ between the $\underline{e_\alpha}, \underline{e^\beta}$ are omitted.}
+	\rem{perhaps, it is a bad idea, but tensor products $\otimes$ between the $\fvec{e_\alpha}, \fvec{e^\beta}$ are omitted.}
 
 These components do change under coordinate transformations. The corresponding behaviour can be derived from the ones for vectors \eqref{eq:vec_trafo} and covectors \eqref{eq:covec_trafo},
 \begin{equation}\label{eq:tensor_trafo}
@@ -142,7 +142,7 @@ This is the important \Def{tensor transformation law}.
 
 The rank of a tensor can be reduced if we insert a fixed object into one of the \enquote{slots}, i.e.~in the example of a rank-$4$-tensor
 \begin{equation}
-T(\cdot, \cdot, \cdot, \cdot) \rightarrow T'(\cdot, \cdot, \cdot) = T(\underline{t}, \cdot, \cdot, \cdot) \manyqquad T^{\alpha \beta}{}_{\gamma \delta} \rightarrow T'^{\alpha \beta}{}_{\delta} = T^{\alpha \beta}{}_{\gamma \delta} \, t^\gamma
+T(\cdot, \cdot, \cdot, \cdot) \rightarrow T'(\cdot, \cdot, \cdot) = T(\fvec{t}, \cdot, \cdot, \cdot) \manyqquad T^{\alpha \beta}{}_{\gamma \delta} \rightarrow T'^{\alpha \beta}{}_{\delta} = T^{\alpha \beta}{}_{\gamma \delta} \, t^\gamma
 \end{equation}
 or
 \begin{equation}
@@ -185,24 +185,24 @@ which is a frequently used tool in geometry (for example to measure lengths). Of
 
 Metrics can be used to define inner products, which are not natively present on manifolds,\footnote{Non-tensorial quantities might be not invariant and thus ill-defined. At the same time, the properties do not fix a tensor uniquely, so one has to be specified (no native metric exists).} in the following manner:
 \begin{equation}
-\underline{A} \cdot \underline{B} := g\qty(\underline{A}, \underline{B}) = g_{\mu \nu} A^\mu B^\nu \, .
+\fvec{A} \cdot \fvec{B} := g\qty(\fvec{A}, \fvec{B}) = g_{\mu \nu} A^\mu B^\nu \, .
 \end{equation}
 Just like before, the components are obtained via evaluation in basis vectors,
 \begin{equation}
 \eqbox{
-g_{\mu \nu} = g(\underline{e_\mu}, \underline{e_\nu})
+g_{\mu \nu} = g(\fvec{e_\mu}, \fvec{e_\nu})
 } \, .
 \end{equation}
-Inner products shall be symmetric, i.e.~$\underline{A} \cdot \underline{B} = \underline{B} \cdot \underline{A}$, so
+Inner products shall be symmetric, i.e.~$\fvec{A} \cdot \fvec{B} = \fvec{B} \cdot \fvec{A}$, so
 \begin{equation}
 g_{\mu \nu} = g_{\nu \mu}
 \manyqquad
-g\qty(\underline{A}, \underline{B}) = g_{\mu \nu} A^\mu B^\nu = g_{\nu \mu} A^\nu B^\mu = g\qty(\underline{A}, \underline{B})
+g\qty(\fvec{A}, \fvec{B}) = g_{\mu \nu} A^\mu B^\nu = g_{\nu \mu} A^\nu B^\mu = g\qty(\fvec{A}, \fvec{B})
  \, .
 \end{equation}
 
 The metric provides us with a natural identification %\footnote{More technically speaking, an isomorphism.}
-between vectors and covectors because $g\qty(\cdot, \underline{A})$ is nothing but a map which takes a vector and maps it to a real number -- which is the definition of a covector. Similarly, we can identify covectors $w$ with the unique vector $\underline{A}$ that fulfils $w\qty(\underline{B}) = g\qty(\underline{A}, \underline{B}), \; \forall \underline{B} \in V$. In components, these requirements read
+between vectors and covectors because $g\qty(\cdot, \fvec{A})$ is nothing but a map which takes a vector and maps it to a real number -- which is the definition of a covector. Similarly, we can identify covectors $w$ with the unique vector $\fvec{A}$ that fulfils $w\qty(\fvec{B}) = g\qty(\fvec{A}, \fvec{B}), \; \forall \fvec{B} \in V$. In components, these requirements read
 \begin{equation}
 \eqbox{
 A_\mu = g_{\mu \nu} A^\nu
@@ -222,7 +222,7 @@ g^{\mu \sigma} g_{\sigma \nu} = \delta^\mu_\nu
 Apparently, it is almost trivial to change from vectors to covectors and vice versa in this component notation. For this reason, the strict distinction between $A^\mu$ and $A_\mu$ is often dropped (at least for interpretation purposes). This transfers to tensors of arbitrary rank. Additionally, we can write
 \begin{equation}
 \eqbox{
-\underline{A} \cdot \underline{B} = A^\mu B_\mu = A_\mu B^\mu
+\fvec{A} \cdot \fvec{B} = A^\mu B_\mu = A_\mu B^\mu
 } \, .
 \end{equation}
 
@@ -243,7 +243,7 @@ It is a natural question -- especially in physics -- to ask for the change of a 
 \begin{equation*}
 df = \pdv{f}{x^\alpha} dx^\alpha \equiv \qty{\partial_\alpha f}_\alpha \, ,
 \end{equation*}
-i.e.~essentially using partial derivatives $\partial_\alpha$. Similarly, derivatives of vectors are $\partial_\alpha V^\beta$. That, however, is a problem because the components are not tensors, so the result of this quantity is not invariant. The reason is simple: the basis vectors also change, but $\partial_\alpha V^\beta$ does not account for that. Hence, we need a new operator to take derivatives of tensors like $\underline{V}$.
+i.e.~essentially using partial derivatives $\partial_\alpha$. Similarly, derivatives of vectors are $\partial_\alpha V^\beta$. That, however, is a problem because the components are not tensors, so the result of this quantity is not invariant. The reason is simple: the basis vectors also change, but $\partial_\alpha V^\beta$ does not account for that. Hence, we need a new operator to take derivatives of tensors like $\fvec{V}$.
 
 
 This new operator will be called \Def{covariant derivative} $\nabla$ and we want it to be a map from tensors (tensor fields) to tensors (tensor fields). We can define it by demanding
@@ -259,24 +259,24 @@ This new operator will be called \Def{covariant derivative} $\nabla$ and we want
 Combining these properties with the usual requirement
 \begin{equation}
 \eqbox{
-\nabla_{\underline{V}} = \nabla_{V^\alpha \partial_\alpha} \overset{!}{=} V^\alpha \nabla_{\partial_\alpha} =: V^\alpha \nabla_\alpha
+\nabla_{\fvec{V}} = \nabla_{V^\alpha \partial_\alpha} \overset{!}{=} V^\alpha \nabla_{\partial_\alpha} =: V^\alpha \nabla_\alpha
 }
 \end{equation}
 for tensors\footnote{This is not linearity in the \enquote{classical} sense (which follows from the property (2.), interpreting scalars as $0$-tensors and using $\nabla a = 0$), but rather $C^\infty$-linearity for functions in the lower argument of $\nabla$.} is already sufficient for a well-defined operator. From that, we can derive what the components of the result are. We will start by looking at the action of $\nabla$ on a vector:
 \begin{equation}
-\nabla_\alpha \underline{V} = \nabla_\alpha V^\beta \underline{e_\beta} = \qty(\nabla_\alpha V^\beta) \underline{e_\beta} + V^\beta \nabla_\alpha \underline{e_\beta} = \qty(\partial_\alpha V^\gamma + V^\beta \Gamma^\gamma{}_{\alpha \beta}) \underline{e_\gamma} =: \qty(\nabla_\alpha \underline{V})^\gamma \underline{e_\gamma} \, .
+\nabla_\alpha \fvec{V} = \nabla_\alpha V^\beta \fvec{e_\beta} = \qty(\nabla_\alpha V^\beta) \fvec{e_\beta} + V^\beta \nabla_\alpha \fvec{e_\beta} = \qty(\partial_\alpha V^\gamma + V^\beta \Gamma^\gamma{}_{\alpha \beta}) \fvec{e_\gamma} =: \qty(\nabla_\alpha \fvec{V})^\gamma \fvec{e_\gamma} \, .
 \end{equation}
-	\rem{sometimes, $\qty(\nabla_\alpha \underline{V})^\gamma$ is written as $\nabla_\alpha V^\gamma$. In my opinion, this is misleading since the components $V^\gamma$ are functions, so $\nabla_\alpha$ would act like $d$ and thus essentially $\partial_\alpha$ (it is the whole point of a covariant derivative, that its $\beta$-component is \emph{not} the derivative of the $\beta$-component of the vector). Nonetheless, I still wanted to mention this.}
+	\rem{sometimes, $\qty(\nabla_\alpha \fvec{V})^\gamma$ is written as $\nabla_\alpha V^\gamma$. In my opinion, this is misleading since the components $V^\gamma$ are functions, so $\nabla_\alpha$ would act like $d$ and thus essentially $\partial_\alpha$ (it is the whole point of a covariant derivative, that its $\beta$-component is \emph{not} the derivative of the $\beta$-component of the vector). Nonetheless, I still wanted to mention this.}
 
-In the third step, we have simply used that $\nabla$ maps vectors to vectors and expressed the result $\nabla_\alpha \underline{e_\beta}$ in terms of the corresponding coefficients 
+In the third step, we have simply used that $\nabla$ maps vectors to vectors and expressed the result $\nabla_\alpha \fvec{e_\beta}$ in terms of the corresponding coefficients 
 \begin{equation}\label{eq:christoffel}
 \eqbox{
-\Gamma^\gamma{}_{\alpha \beta} := \qty(\nabla_\alpha \underline{e_\beta})^\gamma
+\Gamma^\gamma{}_{\alpha \beta} := \qty(\nabla_\alpha \fvec{e_\beta})^\gamma
 }
 \end{equation}
-(where indices $\alpha, \beta$ have been added to them to clarify what these components belong to). These coefficients are called \Def{Christoffel symbols} and they do \emph{not} constitute a tensor. Based on these considerations, we can also give components for the object $\nabla_{\underline{W}} \underline{V}$:
+(where indices $\alpha, \beta$ have been added to them to clarify what these components belong to). These coefficients are called \Def{Christoffel symbols} and they do \emph{not} constitute a tensor. Based on these considerations, we can also give components for the object $\nabla_{\fvec{W}} \fvec{V}$:
 \begin{equation}
-\nabla_{\underline{W}} \underline{V} = W^\alpha \nabla_\alpha \underline{V} = W^\alpha \qty(\partial_\alpha V^\gamma + V^\beta \Gamma^\gamma{}_{\alpha \beta}) \underline{e_\gamma} = W^\alpha \qty(\nabla_\alpha \underline{V})^\gamma \underline{e_\gamma} = W^\alpha \qty(\nabla_{\underline{W}} \underline{V})^\gamma_\alpha \underline{e_\gamma} \, .
+\nabla_{\fvec{W}} \fvec{V} = W^\alpha \nabla_\alpha \fvec{V} = W^\alpha \qty(\partial_\alpha V^\gamma + V^\beta \Gamma^\gamma{}_{\alpha \beta}) \fvec{e_\gamma} = W^\alpha \qty(\nabla_\alpha \fvec{V})^\gamma \fvec{e_\gamma} = W^\alpha \qty(\nabla_{\fvec{W}} \fvec{V})^\gamma_\alpha \fvec{e_\gamma} \, .
 \end{equation}
 
 To see how the covariant derivative of a covector looks like, we use a trick similar to the one used when the transformation laws were derived:
@@ -292,7 +292,7 @@ To see how the covariant derivative of a covector looks like, we use a trick sim
 \\
 &= V^\beta \qty(\partial_\alpha w_\beta - w_\gamma \Gamma^\gamma{}_{\alpha \beta}) + w_\beta \nabla_\alpha V^\beta
 \\
-\overset{!}&{=} \nabla_\alpha \qty(w\qty(\underline{V})) = \qty(\nabla_\alpha w)\qty(\underline{V}) + w\qty(\nabla_\alpha \underline{V})
+\overset{!}&{=} \nabla_\alpha \qty(w\qty(\fvec{V})) = \qty(\nabla_\alpha w)\qty(\fvec{V}) + w\qty(\nabla_\alpha \fvec{V})
 \\
 &= V^\beta \qty(\nabla_\alpha w)_\beta + \qty(\nabla_\alpha V)^\beta w_\beta \, .
 \end{align*}
@@ -320,7 +320,7 @@ From that, we also get the action on general tensors because according to \eqref
 \end{equation}
 
 
-While it is possible to calculate the Christoffel symbols according to \eqref{eq:christoffel}, this only works if we know how to calculate changes of the basis vectors $\underline{e_\alpha}$ using $\nabla$. That is not very convenient, after all we might wish to define $\nabla$ using them, so we will now show an alternative way to do it. The whole idea is that coordinate axes in flat space do not change direction such that applying $\nabla_\alpha$ reduces to application of $\partial_\alpha$. However, we can relax the requirements from flat space to \enquote{almost flat}/\enquote{locally flat} space in certain charts. These charts are called \Def{Riemannian normal coordinates} or, more common in physics, \Def{local inertial frames} (LIFs) and their characteristic properties are
+While it is possible to calculate the Christoffel symbols according to \eqref{eq:christoffel}, this only works if we know how to calculate changes of the basis vectors $\fvec{e_\alpha}$ using $\nabla$. That is not very convenient, after all we might wish to define $\nabla$ using them, so we will now show an alternative way to do it. The whole idea is that coordinate axes in flat space do not change direction such that applying $\nabla_\alpha$ reduces to application of $\partial_\alpha$. However, we can relax the requirements from flat space to \enquote{almost flat}/\enquote{locally flat} space in certain charts. These charts are called \Def{Riemannian normal coordinates} or, more common in physics, \Def{local inertial frames} (LIFs) and their characteristic properties are
 \begin{equation}
 \Gamma^\gamma{}_{\alpha \beta} = 0
 \manyqquad
@@ -337,7 +337,7 @@ in a LIF. However, we have written it as a tensorial equation, so it is valid in
 \qquad \Leftrightarrow \qquad
 \Gamma^\gamma{}_{\alpha \beta} \partial_\gamma = \Gamma^\gamma{}_{\beta \alpha} \partial_\gamma
 \qquad \Leftrightarrow \qquad
-\nabla_\alpha \underline{e_\beta} = \nabla_\beta \underline{e_\alpha}
+\nabla_\alpha \fvec{e_\beta} = \nabla_\beta \fvec{e_\alpha}
 \, ,
 \end{equation}
 which clearly holds in a LIF due to $\Gamma^\gamma{}_{\alpha \beta} = 0$, can be generalized to arbitrary coordinate systems. These two properties can be combined to show that

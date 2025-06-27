@@ -60,7 +60,7 @@ We adopt the convention to rescale the time-component to have the same units as 
 Having defined spacetime, we can see why space-time diagrams have been called spacetime diagrams: they visualize the new-defined entity $M$, just like coordinate planes with $x$-, $y$-axis visualize Euclidean space. This also explains why they are often called \Def{Minkowski diagrams}.\\
 
 
-While points and vectors do not necessarily have a direct identification with each other, elements of the vector space $\mathbb{M}$ are also points in $M$ because both are elements of $\mathbb{R}^4$ (which further motivates $M = \mathbb{R}^4$).\footnote{To be more precise, $\mathbb{M}$ is the affine space of $\mathbb{R}^4$, i.e.~we keep the space itself, but not the attached notions of distances and angles. In particular, there is no origin (in accordance with relativity principle).} For this reason, points $x^\mu = (ct, x, y, z)$ in coordinates are often also interpreted as (the components of) a four-vector $\underline{x}$ (so that $\mathbb{M}$ really forms a vector space, justifying the name Minkowski \emph{space}). Over the course of the next sections, we will develop the mathematical tools to describe spacetime. As we will learn throughout this section, it has more structure than what is natively given by \enquote{pure} manifolds, namely a metric. Therefore, $\mathbb{M}$ will turn out to be a \Def{pseudo-Riemannian manifold} or \Def{Lorentz-manifold}, $\mathbb{M} = (\mathbb{R}^4, \eta)$. At this point, the departure from Euclidean space with metric $g$ and line element $ds^2 = dt^2 + dx^2 + dy^2 + dz^2$ begins.
+While points and vectors do not necessarily have a direct identification with each other, elements of the vector space $\mathbb{M}$ are also points in $M$ because both are elements of $\mathbb{R}^4$ (which further motivates $M = \mathbb{R}^4$).\footnote{To be more precise, $\mathbb{M}$ is the affine space of $\mathbb{R}^4$, i.e.~we keep the space itself, but not the attached notions of distances and angles. In particular, there is no origin (in accordance with relativity principle).} For this reason, points $x^\mu = (ct, x, y, z)$ in coordinates are often also interpreted as (the components of) a four-vector $\fvec{x}$ (so that $\mathbb{M}$ really forms a vector space, justifying the name Minkowski \emph{space}). Over the course of the next sections, we will develop the mathematical tools to describe spacetime. As we will learn throughout this section, it has more structure than what is natively given by \enquote{pure} manifolds, namely a metric. Therefore, $\mathbb{M}$ will turn out to be a \Def{pseudo-Riemannian manifold} or \Def{Lorentz-manifold}, $\mathbb{M} = (\mathbb{R}^4, \eta)$. At this point, the departure from Euclidean space with metric $g$ and line element $ds^2 = dt^2 + dx^2 + dy^2 + dz^2$ begins.
 
 
 %introduce four-velocity as tangent vector; then also state that as of now, we are not able to take norm of it -> motivates metric section
@@ -150,9 +150,9 @@ From the general form $ds^2 = \eta_{\mu \nu} dx^\mu dx^\nu$ of line elements, on
 
 Potentially contrary to popular belief, the scope special relativity is not restricted to observers with uniform velocities. Using some of the quantities and tools we have just derived, it is possible to extend the description of certain dynamics to observers moving with non-uniform velocities, i.e.~accelerating ones. For distances, this is possible using integration on manifolds, where the length of a curve $\Gamma(\sigma)$ defined on an interval $I \subset \mathbb{R}$ is
 \begin{equation}
-	L(\Gamma) = \int_\Gamma ds = \int_\Gamma \sqrt{g_{\mu \nu} dx^\mu dx^\nu} = \int_I d\Gamma := \int_I \sqrt{g_{\mu \nu} t^\mu t^\nu} \, d\sigma = \int_I \sqrt{g(\underline{t}, \underline{t})} \, d\sigma \, .
+	L(\Gamma) = \int_\Gamma ds = \int_\Gamma \sqrt{g_{\mu \nu} dx^\mu dx^\nu} = \int_I d\Gamma := \int_I \sqrt{g_{\mu \nu} t^\mu t^\nu} \, d\sigma = \int_I \sqrt{g(\fvec{t}, \fvec{t})} \, d\sigma \, .
 \end{equation}
-$\underline{t} = \dv{\Gamma(\sigma)}{\sigma}$ is the tangent vector (field) along $\Gamma$. Because we are equipped with a metric $g_{\mu \nu} = \eta_{\mu \nu}$ and corresponding line element $d\tau$, we can compute proper times for arbitrary kinds of movements.
+$\fvec{t} = \dv{\Gamma(\sigma)}{\sigma}$ is the tangent vector (field) along $\Gamma$. Because we are equipped with a metric $g_{\mu \nu} = \eta_{\mu \nu}$ and corresponding line element $d\tau$, we can compute proper times for arbitrary kinds of movements.
 \begin{post}[Clock Postulate]\label{post:clock_postulate}
 	Given a world line $\Gamma$ parametrized by $\sigma \in I = [a, b]$, i.e.
 	\begin{equation*}
@@ -181,10 +181,10 @@ Intuitively, we can see that \eqref{eq:proper_time_general} works because it uti
 Instead of $\sigma$, one could also choose arbitrary linear combinations $\sigma' = e \sigma + f$ ($e, f \in \mathbb{R}$) to parametrize $\Gamma$ and then use $d\sigma' = e \, d\sigma$, which means that the integral in \eqref{eq:proper_time_general} is invariant under changes of this \Def{affine parameter}. A very common choice is $\sigma = \tau$ and we will later see how this specific parametrization can be characterized.\\
 
 
-Another remark on this definition is related to the metric. In coordinates $x'^\mu$ which are not inertial Cartesian ones (nothing prevents us from using spherical coordinates for the spatial part, as an example), the metric is very likely to have different components $\eta'_{\mu \nu} \neq \eta_{\mu \nu}$. In this case, the last equality would not hold true anymore, although analogous formulas can be obtained from (again, assuming a world line $\Gamma$ with tangent vector $\underline{t}$)
+Another remark on this definition is related to the metric. In coordinates $x'^\mu$ which are not inertial Cartesian ones (nothing prevents us from using spherical coordinates for the spatial part, as an example), the metric is very likely to have different components $\eta'_{\mu \nu} \neq \eta_{\mu \nu}$. In this case, the last equality would not hold true anymore, although analogous formulas can be obtained from (again, assuming a world line $\Gamma$ with tangent vector $\fvec{t}$)
 \begin{equation}\label{eq:proper_time_non_cartesian}
 	\eqbox{
-	%\tau = \int_\Gamma d\tau = \frac{1}{c} \int_I \sqrt{\eta'(\underline{t}, \underline{t})} \, d\sigma = \frac{1}{c} \int_I \sqrt{\eta'_{\mu \nu} dx^\mu(\underline{t}) dx^\nu(\underline{t})} \, d\sigma = \frac{1}{c} \int_I \sqrt{\eta'_{\mu \nu} t^\mu t^\nu} \, d\sigma
+	%\tau = \int_\Gamma d\tau = \frac{1}{c} \int_I \sqrt{\eta'(\fvec{t}, \fvec{t})} \, d\sigma = \frac{1}{c} \int_I \sqrt{\eta'_{\mu \nu} dx^\mu(\fvec{t}) dx^\nu(\fvec{t})} \, d\sigma = \frac{1}{c} \int_I \sqrt{\eta'_{\mu \nu} t^\mu t^\nu} \, d\sigma
 	\tau = \int_\Gamma d\tau = \frac{1}{c} \int_\Gamma \sqrt{\eta_{\mu \nu} dx^\mu dx^\nu} = \frac{1}{c} \int_I \sqrt{\eta_{\mu \nu} t^\mu t^\nu} \, d\sigma = \frac{1}{c} \int_I \sqrt{\eta'_{\mu \nu} t'^\mu t'^\nu} \, d\sigma
 	} \, ,
 \end{equation}
@@ -239,7 +239,7 @@ Just like the proper time, proper distances between events are also path-depende
 	ds^2 = - c^2 d\tau^2 = dx^2 + dy^2 + dz^2 - c^2 dt^2
 	} 
 \end{equation}
-which is suitable to define the proper distance covered when following an arbitrary, not necessarily straight world line $\Gamma$ (with parameter $\sigma \in I \subset \mathbb{R}$ and tangent vector $\underline{t}$),
+which is suitable to define the proper distance covered when following an arbitrary, not necessarily straight world line $\Gamma$ (with parameter $\sigma \in I \subset \mathbb{R}$ and tangent vector $\fvec{t}$),
 \begin{equation}\label{eq:proper_distance_general}
 	\eqbox{
 	s = \int_\Gamma ds = \int_\Gamma \sqrt{- \eta_{\mu \nu} dx^\mu dx^\nu} = \int_I \sqrt{- \eta_{\mu \nu} t^\mu t^\nu} \, d\sigma
@@ -326,23 +326,23 @@ another hyperbolic equation. The corresponding curve is visualized in figure \re
 The notion of a metric allows for the construction of a rich theory. We have seen how it can be used to define distances and now we will deal with another important structure on manifolds, which has already been used in \eqref{eq:proper_time_non_cartesian}.
 
 \begin{defi}[Minkowski Inner Product]
-The \Def{Minkowski inner product} of two vectors $\underline{v}, \underline{w}$ is
+The \Def{Minkowski inner product} of two vectors $\fvec{v}, \fvec{w}$ is
 \begin{equation}\label{eq:inner_prod}
 	\eqbox{
-	\underline{v} \cdot \underline{w} := \eta(\underline{v}, \underline{w}) = \eta_{\mu \nu} dx^\mu(\underline{v}) dx^\nu(\underline{w}) = \eta_{\mu \nu} v^\mu w^\nu
+	\fvec{v} \cdot \fvec{w} := \eta(\fvec{v}, \fvec{w}) = \eta_{\mu \nu} dx^\mu(\fvec{v}) dx^\nu(\fvec{w}) = \eta_{\mu \nu} v^\mu w^\nu
 	} \, .
 \end{equation}
 
 The induced norm of a vector is
 \begin{equation}\label{eq:vector_norm}
 	\eqbox{
-	\norm{\underline{v}}^2 = \eta(\underline{v}, \underline{v}) = \eta_{\mu \nu} v^\mu v^\nu
+	\norm{\fvec{v}}^2 = \eta(\fvec{v}, \fvec{v}) = \eta_{\mu \nu} v^\mu v^\nu
 	} \, .
 \end{equation}
-This is also the line element of the curve that $\underline{t}$ is tangent to.
+This is also the line element of the curve that $\fvec{t}$ is tangent to.
 \iffalse
 % This is not needed, right?
-Based on that, a general way to define the distance between events $E_1$ at $\underline{x_1} = (ct_1, x_1, y_1, z_1)$ and $E_2$ at $\underline{x_2} = (ct_2, x_2, y_2, z_2)$ in an inertial Cartesian frame is
+Based on that, a general way to define the distance between events $E_1$ at $\fvec{x_1} = (ct_1, x_1, y_1, z_1)$ and $E_2$ at $\fvec{x_2} = (ct_2, x_2, y_2, z_2)$ in an inertial Cartesian frame is
 \begin{equation}
 	\eqbox{
 	\begin{split}
@@ -352,28 +352,28 @@ Based on that, a general way to define the distance between events $E_1$ at $\un
 	\\
 	&= \min_{\Gamma: \; \Gamma(a) = E_1, \Gamma(b) = E_2} L(\Gamma)
 	= \min_{\Gamma: \; \Gamma(a) = E_1, \Gamma(b) = E_2} \int_\Gamma ds
-	% = \min_{\Gamma: \; \Gamma(a) = E_1, \Gamma(b) = E_2} c \int_a^b \norm{\underline{v}} \, d\sigma
+	% = \min_{\Gamma: \; \Gamma(a) = E_1, \Gamma(b) = E_2} c \int_a^b \norm{\fvec{v}} \, d\sigma
 	\end{split}
 	}
 \end{equation}
-%where we have chosen $\Gamma(\sigma)$ to map from $I = [a, b]$.% and $\underline{v} = \dv{\Gamma(\sigma)}{\sigma}$.
+%where we have chosen $\Gamma(\sigma)$ to map from $I = [a, b]$.% and $\fvec{v} = \dv{\Gamma(\sigma)}{\sigma}$.
 i.e.~as the (proper) length of the straight world line connecting them.
 \fi
 \end{defi}
-Strictly mathematically speaking, this does not define an inner product because it is not positive-definite, \enquote{only} non-degenerate. For this reason, $\eta$ is also called \Def{pseudo-Riemannian metric}. For simplicity (in typical physicist-manner) it is commonly called Minkowski inner product despite that. Due to the non-degeneracy of $\eta$, vectors can have negative or even vanishing norm. Other consequences include unit vectors now being defined by $\norm{\underline{t}}^2 = \pm 1$ instead of just $+ 1$ in case of Euclidean geometry.
+Strictly mathematically speaking, this does not define an inner product because it is not positive-definite, \enquote{only} non-degenerate. For this reason, $\eta$ is also called \Def{pseudo-Riemannian metric}. For simplicity (in typical physicist-manner) it is commonly called Minkowski inner product despite that. Due to the non-degeneracy of $\eta$, vectors can have negative or even vanishing norm. Other consequences include unit vectors now being defined by $\norm{\fvec{t}}^2 = \pm 1$ instead of just $+ 1$ in case of Euclidean geometry.
 
 
 Based on \eqref{eq:inner_prod}, we naturally get an equivalent, more formal way of quantifying causality.
 \begin{defi}[Timelike, Lightlike, Spacelike]\label{defi:causality_v2}
-	A world line $\Gamma$ with tangent vector $\underline{t}$ is called
+	A world line $\Gamma$ with tangent vector $\fvec{t}$ is called
 	\begin{itemize}
-		\item \Def{timelike}, if $\abs{v} < c \; \Leftrightarrow \; c^2 d\tau^2 = - ds^2 = \eta(\underline{t}, \underline{t}) > 0$ along $\Gamma$
+		\item \Def{timelike}, if $\abs{v} < c \; \Leftrightarrow \; c^2 d\tau^2 = - ds^2 = \eta(\fvec{t}, \fvec{t}) > 0$ along $\Gamma$
 		
 		
-		\item \Def{null/lightlike}, if $\abs{v} = c \; \Leftrightarrow \; c^2 d\tau^2 = - ds^2 = \eta(\underline{t}, \underline{t}) = 0$ along $\Gamma$
+		\item \Def{null/lightlike}, if $\abs{v} = c \; \Leftrightarrow \; c^2 d\tau^2 = - ds^2 = \eta(\fvec{t}, \fvec{t}) = 0$ along $\Gamma$
 		
 		
-		\item \Def{spacelike}, if $\abs{v} > c \; \Leftrightarrow \; c^2 d\tau^2 = - ds^2 = \eta(\underline{t}, \underline{t}) < 0$ along $\Gamma$
+		\item \Def{spacelike}, if $\abs{v} > c \; \Leftrightarrow \; c^2 d\tau^2 = - ds^2 = \eta(\fvec{t}, \fvec{t}) < 0$ along $\Gamma$
 	\end{itemize}
 \end{defi}
 This very compact characterization translates to events connected by world lines and adds a mathematical counterpart to the intuitive definition \ref{defi:causality_v1} from before. In particular, they show that due to them being related to the metric $\eta$, the causal relation of two events does not depend on the coordinates we use to denote/visualize them.
@@ -459,14 +459,14 @@ Acceleration is not the only topic that has to be developed in a relativistic ma
 		\subsection{Four-Velocity}
 Trajectories or world lines are nothing but curves on manifolds, as we have already seen. A natural question, however, was left unanswered until now: what is the velocity of such a trajectory? Since its role is to quantify how fast and in which direction the trajectory is changing, velocity now becomes a tangent vector. In analogy to the previous Newtonian description, we may try
 \begin{equation}
-	\underline{u} = \dv{t}
+	\fvec{u} = \dv{t}
 	\qquad \Leftrightarrow \qquad
 	u^\alpha = \dv{x^\alpha}{t} = (c, \vec{v}) \, .
 \end{equation}
 Thinking back to the previous sections on clocks and proper time, though, we can immediately see how this definition is flawed: coordinate times $t$ are not invariant, i.e.~the velocity of a world line would change depending on the observer. At the same time, we can immediately come up with a solution: replacing $t$ with the proper time $\tau$ a clock would measure along the world line. This leads to the \Def{four-velocity}
 \begin{equation}\label{eq:four_velocity}
 	\eqbox{
-	\underline{u} = \dv{\tau} = u^\alpha \dv{x^\alpha}
+	\fvec{u} = \dv{\tau} = u^\alpha \dv{x^\alpha}
 	}
 \end{equation}
 with components (in arbitrary coordinates $x^\alpha$)
@@ -477,39 +477,39 @@ with components (in arbitrary coordinates $x^\alpha$)
 \end{equation}
 $\vec{v}$ is the \enquote{regular} three-velocity, which finds its way into the equation by a simple application of the chain rule. Clearly, although $u^\alpha$ is a four-vector, it has only three independent components because the first one is constant. An interesting corollary from this constancy is that the temporal component $u^0$ never vanishes, so time never stops (even if there is no spatial motion, $v = 0\; \Leftrightarrow \; u^1 = u^2 = u^3 = 0$).
 
-An important thing to note is that $\underline{u}$ is only defined for timelike world lines because $d\tau = 0$ for lightlike ones (dividing by zero is not defined), while $d\tau$ is complex for spacelike ones (regardless of whether one can make sense of this derivative mathematically, complex velocities do not make sense physically).
+An important thing to note is that $\fvec{u}$ is only defined for timelike world lines because $d\tau = 0$ for lightlike ones (dividing by zero is not defined), while $d\tau$ is complex for spacelike ones (regardless of whether one can make sense of this derivative mathematically, complex velocities do not make sense physically).
 
 
 
-Information we get from $\vec{v}$ is the direction of an object (through the unit vector $\vec{v} / \norm{v}$) and how fast (through $v = \norm{v}$). As a tangent vector to certain points $x^\alpha(\tau)$ on the corresponding world line $\Gamma$, $\underline{u}$ naturally contains information about the direction, so what about $\norm{\underline{u}}$?
+Information we get from $\vec{v}$ is the direction of an object (through the unit vector $\vec{v} / \norm{v}$) and how fast (through $v = \norm{v}$). As a tangent vector to certain points $x^\alpha(\tau)$ on the corresponding world line $\Gamma$, $\fvec{u}$ naturally contains information about the direction, so what about $\norm{\fvec{u}}$?
 \begin{equation}
 	\eqbox{
-	\norm{\underline{u}}^2 = \eta_{\mu \nu} u^\mu u^\nu = \eta_{\mu \nu} \dv{x^\mu}{\tau} \dv{x^\nu}{\tau} = \frac{\eta_{\mu \nu} dx^\mu dx^\nu}{d\tau^2} = c^2 \frac{d\tau^2}{d\tau^2} = c^2
+	\norm{\fvec{u}}^2 = \eta_{\mu \nu} u^\mu u^\nu = \eta_{\mu \nu} \dv{x^\mu}{\tau} \dv{x^\nu}{\tau} = \frac{\eta_{\mu \nu} dx^\mu dx^\nu}{d\tau^2} = c^2 \frac{d\tau^2}{d\tau^2} = c^2
 	} \, .
 \end{equation}
 The four-velocity possesses a \enquote{built-in} normalization, it has a constant magnitude, the speed of light -- no matter at which actual speed $v$ the particle moves (and also, independent of the time $\tau$ we evaluate it at, i.e.~independent of the point in manifold)! Not only does that imply all observers trivially agree on its value, it also points to the special role of $\tau$ as affine parameter $\sigma$ of the world line. Note that the calculation here only works because the Minkowski metric has constant components. Equivalently, we could calculate
 \begin{equation*}
-	\norm{\underline{u}}^2 = \eta_{\mu \nu} u^\mu u^\nu = \gamma^2 (c^2 - v^2) = c^2 \frac{1 - v^2 / c^2}{1 - v^2 / c^2} = c^2 \, .
+	\norm{\fvec{u}}^2 = \eta_{\mu \nu} u^\mu u^\nu = \gamma^2 (c^2 - v^2) = c^2 \frac{1 - v^2 / c^2}{1 - v^2 / c^2} = c^2 \, .
 \end{equation*}
 
 
 
 		\subsection{Four-Acceleration}\label{subsec:four_acc}
-Now we can come to acceleration. In principle, treating it does not seem to hard, it should just be a matter of taking one more derivative of $\underline{x}$. Indeed, one can treat acceleration this way -- but we have to realize that we still work in inertial, i.e.~non-accelerated, frames when doing that (which is completely valid, just important to note). To start this subsection, we will also go this route of taking a derivative of $\underline{u}$. For tangent vectors, however, this is not as straightforward as taking derivative of $x^\alpha$, instead one has to use a covariant derivative. If we to that, things work out beautifully and we obtain
+Now we can come to acceleration. In principle, treating it does not seem to hard, it should just be a matter of taking one more derivative of $\fvec{x}$. Indeed, one can treat acceleration this way -- but we have to realize that we still work in inertial, i.e.~non-accelerated, frames when doing that (which is completely valid, just important to note). To start this subsection, we will also go this route of taking a derivative of $\fvec{u}$. For tangent vectors, however, this is not as straightforward as taking derivative of $x^\alpha$, instead one has to use a covariant derivative. If we to that, things work out beautifully and we obtain
 \begin{equation}\label{eq:four_acceleration}
 	\eqbox{
-	\underline{a} = \nabla_{\underline{u}} \underline{u}
+	\fvec{a} = \nabla_{\fvec{u}} \fvec{u}
 	}
 	\manyqquad
 	\eqbox{
-	a^\alpha = (\nabla_{\underline{u}} \underline{u})^\alpha = \dv{u^\alpha}{\tau} + \Gamma^\alpha_{\beta \delta} u^\beta u^\delta
+	a^\alpha = (\nabla_{\fvec{u}} \fvec{u})^\alpha = \dv{u^\alpha}{\tau} + \Gamma^\alpha_{\beta \delta} u^\beta u^\delta
 	} \, .
 \end{equation}
 
-In inertial frames (i.e.~in ICCs), $\nabla_{\underline{u}} = \dv{\tau}$ and we obtain more explicit versions:
+In inertial frames (i.e.~in ICCs), $\nabla_{\fvec{u}} = \dv{\tau}$ and we obtain more explicit versions:
 \begin{equation}\label{key}
 	\eqbox{
-	\underline{a} = \dv{\underline{u}}{\tau} = a^\alpha \dv{x^\alpha}
+	\fvec{a} = \dv{\fvec{u}}{\tau} = a^\alpha \dv{x^\alpha}
 	}
 	%\manyqquad
 	\qquad \qquad
@@ -538,14 +538,14 @@ Essentially, the four-acceleration consists of two terms, the first one being pr
 
 
 
-The norm of $\underline{u}$ was a very interesting result, how about the one of $\underline{a}$? For simplicity, we will compute it in ICCs (which is fine because norm is invariant scalar):
+The norm of $\fvec{u}$ was a very interesting result, how about the one of $\fvec{a}$? For simplicity, we will compute it in ICCs (which is fine because norm is invariant scalar):
 \begin{align}\label{eq:norm_four_acc}
-	%\norm{\underline{a}} &= a^\mu a_\mu = \gamma^2 \qty(c^2 \qty(\dv{\gamma}{t})^2 - \qty(\dv{\gamma}{t} \vec{v} + \gamma \vec{a})^2)
+	%\norm{\fvec{a}} &= a^\mu a_\mu = \gamma^2 \qty(c^2 \qty(\dv{\gamma}{t})^2 - \qty(\dv{\gamma}{t} \vec{v} + \gamma \vec{a})^2)
 	%\notag\\
 	%&= \gamma^2 \qty(c^2 \qty(\dv{\gamma}{t})^2 - \qty(\dv{\gamma}{t})^2 v^2 - 2 \dv{\gamma}{t} \gamma \vec{v} \cdot \vec{a} - \gamma^2 a^2)
 	%\notag
 	% V2, using other definition
-	\eqbox{\norm{\underline{a}}^2} &= a^\mu a_\mu = \frac{\gamma^8}{c^4} \qty(\vec{v} \cdot \vec{a})^2 c^2 - \qty(\frac{\gamma^4}{c^2} \qty(\vec{v} \cdot \vec{a}) \vec{v} + \gamma^2 \vec{a})^2
+	\eqbox{\norm{\fvec{a}}^2} &= a^\mu a_\mu = \frac{\gamma^8}{c^4} \qty(\vec{v} \cdot \vec{a})^2 c^2 - \qty(\frac{\gamma^4}{c^2} \qty(\vec{v} \cdot \vec{a}) \vec{v} + \gamma^2 \vec{a})^2
 	\notag\\
 	&= \frac{\gamma^8}{c^4} \qty(\vec{v} \cdot \vec{a})^2 c^2 - \frac{\gamma^8}{c^4} \qty(\vec{v} \cdot \vec{a})^2 v^2 - 2 \frac{\gamma^6}{c^2} \qty(\vec{v} \cdot \vec{a})^2 - \gamma^4 a^2
 	\notag\\
@@ -569,7 +569,7 @@ Two notable special cases exist:
 This amounts to the fact that accelerations of world lines measured in different coordinates are not necessarily equal (just like four-velocities can differ between inertial frames).\\
 
 
-Another notable property of $\underline{a}$ is its orientation relative to $\underline{u}$ as measured by the Minkowski inner product $\underline{a} \cdot \underline{u} = a^\mu u_\mu$:
+Another notable property of $\fvec{a}$ is its orientation relative to $\fvec{u}$ as measured by the Minkowski inner product $\fvec{a} \cdot \fvec{u} = a^\mu u_\mu$:
 \begin{equation}\label{eq:vel_acc_orthogonal}
 	\eqbox{
 	0 = \dv{c^2}{\tau} = \dv{\tau} u^\mu u_\mu = 2 a^\mu u_\mu
@@ -629,10 +629,10 @@ A final note concerns acceleration in such a MCIF. While one works in rest frame
 	a^\alpha = (0, \vec{a})
 	} \qquad \Leftrightarrow
 	\eqbox{
-	\norm{\underline{a}}^2 = \vec{a} \cdot \vec{a} = a^2
+	\norm{\fvec{a}}^2 = \vec{a} \cdot \vec{a} = a^2
 	} \, .
 \end{equation}
-The four-acceleration has only spatial parts here and consequently, its magnitude is equal to the magnitude of the three-acceleration. However, this norm being constant does not mean the components $a^\alpha$ are equal in different MCIFs. Moreover, even if this was the case, coordinate axes of MCIFs at different points will, in general, point into different directions (as seen from another, fixed inertial frame), so constant spatial components in MCIFs would not be equivalent to the three-acceleration pointing into the same direction at all time (as seen from the fixed frame again). Yet another addition to this is that constancy of $\norm{\underline{a}}$ does not necessarily imply uniform acceleration because in a general, perhaps even inertial, frame the magnitude of each component $a^\alpha$ need not be constant (for example, $\underline{a}$ having only spatial components in MCIFs tells us nothing about components in other inertial frames).
+The four-acceleration has only spatial parts here and consequently, its magnitude is equal to the magnitude of the three-acceleration. However, this norm being constant does not mean the components $a^\alpha$ are equal in different MCIFs. Moreover, even if this was the case, coordinate axes of MCIFs at different points will, in general, point into different directions (as seen from another, fixed inertial frame), so constant spatial components in MCIFs would not be equivalent to the three-acceleration pointing into the same direction at all time (as seen from the fixed frame again). Yet another addition to this is that constancy of $\norm{\fvec{a}}$ does not necessarily imply uniform acceleration because in a general, perhaps even inertial, frame the magnitude of each component $a^\alpha$ need not be constant (for example, $\fvec{a}$ having only spatial components in MCIFs tells us nothing about components in other inertial frames).
 
 -> do we even have constancy of $a$ at different points? I mean at a fixed point it has to be constant in all frames, clearly, but at different points? For non-uniform acceleration, this would not be true, would it?
 
@@ -649,7 +649,7 @@ The main statement/takeaway was that even for non-uniform motion $v = v(t)$, the
 and involves no additional terms proportional to acceleration (which also implies the speed of light is $c$, at least locally, i.e.~in the corresponding MCIFs). That is not to say acceleration has no effect on a clock's rate at all -- the corresponding changing speeds do change $d\tau$, but it is really only through $v$ in $\gamma(v)$.\footnote{This is despite \eqref{eq:norm_four_acc} having a non-zero time component, which means that the rate at which the clock rate itself changes is not constant. But still, the clock postulate (which is the only relevant statement in this regard) tells us that this does still not lead to an additional contribution from $a$ in $d\tau$.} To incorporate that, integrals over world lines have been introduced, which essentially sum up all the infinitesimal time intervals $d\tau$. An equivalent interpretation using accelerated frames is that one sums up the times going by in each MCIF along the world line, where the speed is momentarily constant such that the formula for uniform motion can be used -- the clock rate on accelerating world line is at all points equal to rate of clock in the corresponding MCIF at each point. Since these frames have to be changed in every point, these times are also the infinitesimal ones $d\tau$ and summing them all up results in the same formula.
 
 
-The clock postulate applies to more than just the rate of clocks. Proper distances can be measured using integrals over the infinitesimal results obtained for uniform motion as well (which should be clear since $ds$ can be expressed using $d\tau$) and as it turns out, many other quantities involving the Lorentz-factor $\gamma$ can be generalized to $v = v(t)$ by simply using this non-uniform velocity in $\gamma$, for example $\underline{u}$.
+The clock postulate applies to more than just the rate of clocks. Proper distances can be measured using integrals over the infinitesimal results obtained for uniform motion as well (which should be clear since $ds$ can be expressed using $d\tau$) and as it turns out, many other quantities involving the Lorentz-factor $\gamma$ can be generalized to $v = v(t)$ by simply using this non-uniform velocity in $\gamma$, for example $\fvec{u}$.
 
 
 However, it must always be remembered that the clock postulate cannot be proven rigorously (and its statement is by no means obvious, everything could very well depend change once $a \neq 0$). One can only \emph{argue} that it makes sense the way it is (like we just did) and there is also experimental evidence supporting it.
@@ -680,7 +680,7 @@ However, it must always be remembered that the clock postulate cannot be proven 
 Newtonian dynamics in its general form was formulated in terms of momentum, the product of mass and velocity. Continuing the analogous formulation, the \Def{four-momentum} is
 \begin{equation}\label{eq:four_momentum}
 	\eqbox{
-	\underline{p} = m \underline{u}
+	\fvec{p} = m \fvec{u}
 	}
 	\manyqquad
 	\eqbox{
@@ -781,32 +781,32 @@ pointing into the direction of some unit vector $\vec{e}_k$, which is the direct
 		\subsection{Four-Force \& Equation of Motion}
 Our goal in this section will be to find a way to treat dynamics in a (special-)relativistic way, which is equivalent to finding the equation of motion. As it turns out, there is not much work to do. Despite some aspects of Newton's theory being limited in their scope, it is not entirely wrong and nothing we have found out until now speaks against continuing to use Newton's second law (in an appropriate four-vector version).
 
-One difference in notation will be the use of coordinate-independent language, i.e.~covariant derivative over \enquote{regular}, just like it has been used to define the four-acceleration, but the interpretation and idea remains the same. Equating this derivative of $\underline{P}$ with the \Def{four-force} $\underline{F}$ yields the following equation of motion:
+One difference in notation will be the use of coordinate-independent language, i.e.~covariant derivative over \enquote{regular}, just like it has been used to define the four-acceleration, but the interpretation and idea remains the same. Equating this derivative of $\fvec{P}$ with the \Def{four-force} $\fvec{F}$ yields the following equation of motion:
 \begin{equation}\label{eq:eq_of_motion}
 	\eqbox{
-	\underline{F} = \nabla_{\dv{\tau}} \underline{p} = \nabla_{\underline{u}} \underline{p} = \frac{1}{m} \nabla_{\underline{p}} \underline{p}
+	\fvec{F} = \nabla_{\dv{\tau}} \fvec{p} = \nabla_{\fvec{u}} \fvec{p} = \frac{1}{m} \nabla_{\fvec{p}} \fvec{p}
 	}
 	\manyqquad
 	\eqbox{
-	F^\alpha = (\nabla_{\underline{u}} \underline{p})^\alpha = \dv{p^\alpha}{\tau} + \Gamma^\alpha_{\beta \delta} u^\beta p^\delta
+	F^\alpha = (\nabla_{\fvec{u}} \fvec{p})^\alpha = \dv{p^\alpha}{\tau} + \Gamma^\alpha_{\beta \delta} u^\beta p^\delta
 	}
 \end{equation}
 
 Using the product rule for $\nabla$, we can write that out a little further to obtain
 \begin{equation}\label{eq:eq_of_motion_2}
 	\eqbox{
-	\underline{F}% = (\nabla_{\underline{u}} m) \underline{u} + m \nabla_{\underline{u}} \, \underline{u} 
-	= \dv{m}{\tau} \underline{u} + m \nabla_{\underline{u}} \underline{u}
+	\fvec{F}% = (\nabla_{\fvec{u}} m) \fvec{u} + m \nabla_{\fvec{u}} \, \fvec{u} 
+	= \dv{m}{\tau} \fvec{u} + m \nabla_{\fvec{u}} \fvec{u}
 	}
 	\manyqquad
 	\eqbox{
 	F^\alpha = \dv{m}{\tau} u^\alpha + m \dv{u^\alpha}{\tau} + \Gamma^\alpha_{\beta \delta} u^\beta p^\delta
 	}
 \end{equation}
-where $\nabla_{\underline{u}} m = \dv{m}{\tau}$ since the mass is a scalar function. Therefore, we can write the components of $\underline{F}$ as (dropping the assumption $m = \text{const.}$)
+where $\nabla_{\fvec{u}} m = \dv{m}{\tau}$ since the mass is a scalar function. Therefore, we can write the components of $\fvec{F}$ as (dropping the assumption $m = \text{const.}$)
 \begin{equation}\label{eq:four_force}
 	\eqbox{
-	\underline{F} = (\frac{1}{c} \dv{E}{\tau}, \dv{\vec{p}_r}{\tau}) = \gamma (\frac{1}{c} \dv{E}{t}, \dv{\gamma}{t} \vec{p} + \gamma \vec{F}) = (F^0, \gamma \vec{F}_r)
+	\fvec{F} = (\frac{1}{c} \dv{E}{\tau}, \dv{\vec{p}_r}{\tau}) = \gamma (\frac{1}{c} \dv{E}{t}, \dv{\gamma}{t} \vec{p} + \gamma \vec{F}) = (F^0, \gamma \vec{F}_r)
 	}
 \end{equation}
 with
@@ -840,7 +840,7 @@ Therefore, any change in energy corresponds either to a change in mass or to the
 For constant mass $m$, \eqref{eq:eq_of_motion_2} simplifies to
 \begin{equation}\label{eq:eq_of_motion_constant_mass}
 	\eqbox{
-	\underline{F} = m \nabla_{\underline{u}} \underline{u} = m \underline{a}
+	\fvec{F} = m \nabla_{\fvec{u}} \fvec{u} = m \fvec{a}
 	}
 	\manyqquad
 	\eqbox{
@@ -850,7 +850,7 @@ For constant mass $m$, \eqref{eq:eq_of_motion_2} simplifies to
 which clearly resembles Newton's second law \eqref{eq:newton_2}. In fact, it reduces to this exact equation if we assume ICCs, where $\nabla_{\dv{\tau}} = \dv{\tau}$ and thus
 \begin{equation*}
 	\eqbox{
-	\underline{F} = m \dv{\underline{u}}{\tau}
+	\fvec{F} = m \dv{\fvec{u}}{\tau}
 	}
 	\manyqquad
 	\eqbox{
@@ -874,11 +874,11 @@ Both of these equations are known from Newtonian mechanics as well.\\
 In the force-free case, i.e.~for a free particle, \eqref{eq:eq_of_motion} becomes
 \begin{equation}\label{eq:geodesic_eq}
 	\eqbox{
-	\nabla_{\underline{p}} \underline{p} = 0
+	\nabla_{\fvec{p}} \fvec{p} = 0
 	}
 	\manyqquad
 	\eqbox{
-	u^\alpha \nabla_\alpha p^\beta = u^\alpha (\nabla_\alpha \underline{p})^\beta = 0
+	u^\alpha \nabla_\alpha p^\beta = u^\alpha (\nabla_\alpha \fvec{p})^\beta = 0
 	} \, .
 \end{equation}
 This is the \Def{geodesic equation}. It expresses that $U^\beta$ remains constant as long as we take the derivative along the curve that it is tangent to (which explains the $u^\alpha \nabla_\alpha$ part). Consequently, the world lines of freely moving test particles are \Def{geodesics}.
@@ -887,11 +887,11 @@ This is the \Def{geodesic equation}. It expresses that $U^\beta$ remains constan
 For a free particle with constant mass $m$, we can further simplify
 \begin{equation}\label{eq:geodesic_eq_simplified}
 	\eqbox{
-	\nabla_{\underline{u}} \underline{u} = 0
+	\nabla_{\fvec{u}} \fvec{u} = 0
 	}
 	\manyqquad
 	\eqbox{
-	u^\alpha \nabla_\alpha u^\beta = u^\alpha (\nabla_\alpha \underline{u})^\beta = 0
+	u^\alpha \nabla_\alpha u^\beta = u^\alpha (\nabla_\alpha \fvec{u})^\beta = 0
 	} \, .
 \end{equation}
 
@@ -910,7 +910,7 @@ Coordinate versions of equations \eqref{eq:eq_of_motion}, \eqref{eq:eq_of_motion
 from which the one for the geodesic equation follow by setting $F^\alpha = 0$.
 
 \begin{proof}
-We can get to \eqref{eq:geodesic_eq_coordinates} via a straightforward calculation to express $\nabla_{\underline{u}} \underline{u}$ in coordinates. In fact, one can prove this for an arbitrary tangent vector $\underline{t}$ along $\Gamma$, which is parametrized by an arbitrary parameter $\sigma$ and not necessarily the proper time $\tau$.
+We can get to \eqref{eq:geodesic_eq_coordinates} via a straightforward calculation to express $\nabla_{\fvec{u}} \fvec{u}$ in coordinates. In fact, one can prove this for an arbitrary tangent vector $\fvec{t}$ along $\Gamma$, which is parametrized by an arbitrary parameter $\sigma$ and not necessarily the proper time $\tau$.
 \begin{align*}
 	t^\alpha \nabla_\alpha t^\beta &= \dv{x^\alpha}{\sigma} \nabla_\alpha \dv{x^\beta}{\sigma}
 	\\
@@ -982,13 +982,13 @@ When studying electromagnetism, one quickly notices that electric and magnetic f
 	\vec{F} = q (\vec{E} + \vec{v} \cross \vec{B})
 	\, .
 \end{equation*}
-In fact, by analyzing electric fields from different inertial frames (related by Lorentz transforms) shows that electric and magnetic field are actually coming from one and the same entity -- i.e.~there is only one electromagnetic field, which can manifest as what we know as an electrical or magnetic field, depending on the observer. Some algebra shows that the Lorentz force on a particle with charge $q$ and four-velocity $\underline{u}$ can be expressed as
+In fact, by analyzing electric fields from different inertial frames (related by Lorentz transforms) shows that electric and magnetic field are actually coming from one and the same entity -- i.e.~there is only one electromagnetic field, which can manifest as what we know as an electrical or magnetic field, depending on the observer. Some algebra shows that the Lorentz force on a particle with charge $q$ and four-velocity $\fvec{u}$ can be expressed as
 \begin{equation}\label{eq:lorentz_relativistic}
 	\eqbox{
 		K^\mu = q F^{\mu \nu} u_\nu
 	}
 \end{equation}
-with the \Def{electromagnetic field tensor} $\mathbf{F}$. As we can see from the number of indices, it is a 2-tensor. In the Lorentz-force, it appears through its contravariant components
+with the \Def{electromagnetic field tensor} $\tensor{F}$. As we can see from the number of indices, it is a 2-tensor. In the Lorentz-force, it appears through its contravariant components
 \begin{equation}\label{eq:em_field_tensor_contravariant}
 	\eqbox{
 		F^{\mu \nu} = 
@@ -1016,10 +1016,10 @@ are equally important. To switch between the two, we merely have to replace $E_i
 
 % Arguably, the components $F_{\mu \nu}$ might be the more intuitive because they constitute a two-form
 
-Both of these expressions ... -> expression of $\mathbf{F}$ in terms of E-, B-field tells us that electromagnetic when either source or observer are at rest in the respective frame reduces to E-field, while both in motion causes B-field to couple in/appear (motivated by Lorentz force being $K^\mu = q F^{\mu \nu} u_\nu$). This matches our intuitive understanding of those fields
+Both of these expressions ... -> expression of $\tensor{F}$ in terms of E-, B-field tells us that electromagnetic when either source or observer are at rest in the respective frame reduces to E-field, while both in motion causes B-field to couple in/appear (motivated by Lorentz force being $K^\mu = q F^{\mu \nu} u_\nu$). This matches our intuitive understanding of those fields
 
 
-From Eqs.~\eqref{eq:em_field_tensor_contravariant}, \eqref{eq:em_field_tensor_covariant}, one can read off that a systematic way to extract E-, B-field given some field tensor $\mathbf{F}$ is
+From Eqs.~\eqref{eq:em_field_tensor_contravariant}, \eqref{eq:em_field_tensor_covariant}, one can read off that a systematic way to extract E-, B-field given some field tensor $\tensor{F}$ is
 \begin{equation}
 	\eqbox{
 		E_i = c F_{0 i}
@@ -1038,19 +1038,19 @@ From Eqs.~\eqref{eq:em_field_tensor_contravariant}, \eqref{eq:em_field_tensor_co
 other properties:
 \begin{equation}
 	\eqbox{
-		\tr \mathbf{F} = \tr_{1, 2} \mathbf{F} = F^\mu_\mu = 0
+		\tr \tensor{F} = \tr_{1, 2} \tensor{F} = F^\mu_\mu = 0
 	}
 \end{equation}
 and
 \begin{equation}
 	\eqbox{
-		\det \mathbf{F} = \frac{1}{c^2} (\vec{E} \cdot \vec{B})^2
+		\det \tensor{F} = \frac{1}{c^2} (\vec{E} \cdot \vec{B})^2
 	}
 \end{equation}
 also, contracting the square ($\equiv$ inner product) yields
 \begin{equation}
 	\eqbox{
-		\tr_{1, 3} \tr_{2, 4} \mathbf{F} \mathbf{F} = 2 (\norm{B}^2 - \frac{\norm{E}^2}{c^2})
+		\tr_{1, 3} \tr_{2, 4} \tensor{F} \tensor{F} = 2 (\norm{B}^2 - \frac{\norm{E}^2}{c^2})
 	}
 \end{equation}
 (Note that all of these results are invariants because they are tensor equations.)
@@ -1058,7 +1058,7 @@ also, contracting the square ($\equiv$ inner product) yields
 
 
 		\subsection{Maxwell Equations}
-Having defined the field tensor $\mathbf{F}$, we now wish to find expressions for the Maxwell equations in terms of it. There are several ways in which these can be formulated, but perhaps the most concise one can be achieved by exploiting the fact that $\mathbf{F}$ is a differential (!) two-form. That is because one can apply the exterior derivative $d$ to differential forms.
+Having defined the field tensor $\tensor{F}$, we now wish to find expressions for the Maxwell equations in terms of it. There are several ways in which these can be formulated, but perhaps the most concise one can be achieved by exploiting the fact that $\tensor{F}$ is a differential (!) two-form. That is because one can apply the exterior derivative $d$ to differential forms.
 
 
 
@@ -1098,7 +1098,7 @@ which, in flat spacetime, has components
 \end{equation*}
 
 
--> star denotes Hodge star operator; is basically needed because we want to relate two-form $\mathbf{F}$ and vector $J$, which is easy enough in components, but to do this properly with basis vectors we need the Hodge star. The Hodgue dual of $F$ is
+-> star denotes Hodge star operator; is basically needed because we want to relate two-form $\tensor{F}$ and vector $J$, which is easy enough in components, but to do this properly with basis vectors we need the Hodge star. The Hodgue dual of $F$ is
 \begin{equation}
 	\eqbox{
 		\hodge F = \tr_{3, 5} \tr_{4, 6} \frac{1}{2} \epsilon F
@@ -1116,7 +1116,7 @@ i.e.~we have to exchange $B_i \leftrightarrow - \frac{1}{c} E_i$
 -> component forms:
 \begin{equation}
 	\eqbox{
-		\partial_\mu (\hodge \mathbf{F})^{\mu \nu} = \partial^\alpha F^{\beta \gamma} + \partial^\beta F^{\gamma \alpha} + \partial^\gamma F^{\alpha \beta} = 0
+		\partial_\mu (\hodge \tensor{F})^{\mu \nu} = \partial^\alpha F^{\beta \gamma} + \partial^\beta F^{\gamma \alpha} + \partial^\gamma F^{\alpha \beta} = 0
 	}
 	\manyqquad
 	\eqbox{
@@ -1145,7 +1145,7 @@ as this in line with $x^\mu = (c t, \vec{x})$. Based on that, d'Alembertian read
 
 
 		\subsection{Four-Potential}
-There is a rich theory surrounding differential forms, e.g., integration is most generally defined in terms of them. One key result is Stokes' theorem, which we already related to the homogeneous Maxwell equation. Another key result is the Poincare lemma, and applied to our situation it tells us that (due to $d\mathbf{F} = 0$) there is a one-form $A$ with
+There is a rich theory surrounding differential forms, e.g., integration is most generally defined in terms of them. One key result is Stokes' theorem, which we already related to the homogeneous Maxwell equation. Another key result is the Poincare lemma, and applied to our situation it tells us that (due to $d\tensor{F} = 0$) there is a one-form $A$ with
 \begin{equation}\label{eq:em_field_tensor_four_potential}
 	\eqbox{
 		F = dA
