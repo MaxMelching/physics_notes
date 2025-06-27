@@ -170,7 +170,11 @@ $\underline{t} = \dv{\Gamma(\sigma)}{\sigma}$ is the tangent vector (field) alon
 		} \, .
 	\end{equation}
 \end{post}
-Note that while this \enquote{derivation} we provided here does make a lot sense, there is no guarantee for it to be correct -- accelerating clocks could be vastly different from uniformly moving and resting ones. For this reason, we call \eqref{eq:proper_time_general} a postulate rather than a property. Once again, experiments have tested this postulate to very high accelerations of $\approx 10^{16} g$ ($g = 9.81 \frac{\metre}{\second^2}$), which showed no dependence on it (only on the speed $v$).
+Note that while this \enquote{derivation} we provided here does make a lot sense, there is no guarantee for it to be correct -- accelerating clocks could be vastly different from uniformly moving and resting ones. For this reason, we call \eqref{eq:proper_time_general} a postulate rather than a property. Once again, experiments have tested this postulate to very high accelerations of $\approx 10^{16} g$ (where $g = 9.81 \frac{\metre}{\second^2}$), which showed no dependence on it (only on the speed $v$).\footnote{Even more generally, \cite{Misner_1973} §38.4.~discusses the existence of the metric $d\tau$ and local Lorentz frames. Of course, this is closely related to the considerations made when discussing the clock postulate and similar results hold. From the experimental findings, one can \emph{not} deduce the existence of a global Lorentz frame with $g_{\mu \nu} = \eta_{\mu \nu}$. Instead, one has to resort to frames with this property at each point in Minkowski space, which are related by Lorentz transformations, to define the metric as a tensor field.} More details on this are discussed in \ref{subsec:four_acc}.
+
+% \makeheadline
+
+
 
 Intuitively, we can see that \eqref{eq:proper_time_general} works because it utilizes infinitesimal steps $d\tau$ where $v(t)$ does not change, so we can apply what we know at this point and integrate up the results from all points (idea is similar to the rectification of curves). It includes the case of uniform movement $v = \text{const.}$, whence the integrand $\gamma$ is constant and evaluation of the integral simply yields $\tau = \gamma (t_b - t_a)$. In case $v = v(t)$, the most convenient formula to use from \eqref{eq:proper_time_general} really depends on what is given -- it may be the parametrization that is explicitly known or the velocity as a function of time.
 
@@ -389,6 +393,10 @@ Lorentz transformations have been introduced in section \ref{sec:lorentz_transfo
 
 
 
+-> Lorentz transformations transform between frames and in language of manifolds, that means they represent changes between maps, i.e.~$\Lambda_\mu^\nu = \pdv{x'^\nu}{x^\mu}$; we could have seen this beforehand as well, but this shows how it ties in with general notion of changing maps
+
+
+
 -> for more on group-theoretic nature (and mathematical treatment of SR in general), I can recommend \cite{giulini_srt_indepth}
 
 
@@ -486,7 +494,7 @@ The four-velocity possesses a \enquote{built-in} normalization, it has a constan
 
 
 
-		\subsection{Four-Acceleration}
+		\subsection{Four-Acceleration}\label{subsec:four_acc}
 Now we can come to acceleration. In principle, treating it does not seem to hard, it should just be a matter of taking one more derivative of $\underline{x}$. Indeed, one can treat acceleration this way -- but we have to realize that we still work in inertial, i.e.~non-accelerated, frames when doing that (which is completely valid, just important to note). To start this subsection, we will also go this route of taking a derivative of $\underline{u}$. For tangent vectors, however, this is not as straightforward as taking derivative of $x^\alpha$, instead one has to use a covariant derivative. If we to that, things work out beautifully and we obtain
 \begin{equation}\label{eq:four_acceleration}
 	\eqbox{
@@ -963,6 +971,262 @@ with potential energy $U$; we get that from (see Fleury 3.66) action, which is n
 
 	\section{Relativistic Electrodynamics}
 now we come to the key reason why relativity as formulated by Einstein exists in the first place, electrodynamics
+
+
+\hrule
+
+motivation and definition of electromagnetic field tensor $F$:
+
+When studying electromagnetism, one quickly notices that electric and magnetic field are very closely related, which shows for instance in the expression for the Lorentz-force that a charged particle feels:
+\begin{equation*}
+	\vec{F} = q (\vec{E} + \vec{v} \cross \vec{B})
+	\, .
+\end{equation*}
+In fact, by analyzing electric fields from different inertial frames (related by Lorentz transforms) shows that electric and magnetic field are actually coming from one and the same entity -- i.e.~there is only one electromagnetic field, which can manifest as what we know as an electrical or magnetic field, depending on the observer. Some algebra shows that the Lorentz force on a particle with charge $q$ and four-velocity $\underline{u}$ can be expressed as
+\begin{equation}\label{eq:lorentz_relativistic}
+	\eqbox{
+		K^\mu = q F^{\mu \nu} u_\nu
+	}
+\end{equation}
+with the \Def{electromagnetic field tensor} $\mathbf{F}$. As we can see from the number of indices, it is a 2-tensor. In the Lorentz-force, it appears through its contravariant components
+\begin{equation}\label{eq:em_field_tensor_contravariant}
+	\eqbox{
+		F^{\mu \nu} = 
+		\mqty(
+			0 & - \flatfrac{E_x}{c} & - \flatfrac{E_y}{c} & - \flatfrac{E_z}{c} \\
+			\flatfrac{E_x}{c} & 0 & - B_z & B_y \\
+			\flatfrac{E_y}{c} & B_z & 0 & - B_x \\
+			\flatfrac{E_z}{c} & - B_y & B_x & 0
+		)
+	} \, .
+\end{equation}
+But as we will see soon, its covariant components
+\begin{equation}\label{eq:em_field_tensor_covariant}
+	\eqbox{
+		F_{\mu \nu} = 
+		\mqty(
+			0 & \flatfrac{E_x}{c} & \flatfrac{E_y}{c} & \flatfrac{E_z}{c} \\
+			- \flatfrac{E_x}{c} & 0 & - B_z & B_y \\
+			- \flatfrac{E_y}{c} & B_z & 0 & - B_x \\
+			- \flatfrac{E_z}{c} & - B_y & B_x & 0
+		)
+	}
+\end{equation}
+are equally important. To switch between the two, we merely have to replace $E_i \mapsto - E_i$.
+
+% Arguably, the components $F_{\mu \nu}$ might be the more intuitive because they constitute a two-form
+
+Both of these expressions ... -> expression of $\mathbf{F}$ in terms of E-, B-field tells us that electromagnetic when either source or observer are at rest in the respective frame reduces to E-field, while both in motion causes B-field to couple in/appear (motivated by Lorentz force being $K^\mu = q F^{\mu \nu} u_\nu$). This matches our intuitive understanding of those fields
+
+
+From Eqs.~\eqref{eq:em_field_tensor_contravariant}, \eqref{eq:em_field_tensor_covariant}, one can read off that a systematic way to extract E-, B-field given some field tensor $\mathbf{F}$ is
+\begin{equation}
+	\eqbox{
+		E_i = c F_{0 i}
+	}
+	\manyqquad
+	\eqbox{
+		B_i = - \frac{1}{2} \epsilon_{ijk} F^{jk}
+	}
+	\, .
+\end{equation}
+
+
+-> has six independent components; is due to differential form, means it is antisymmetric (so diagonal vanishes and only one of nebendiagonalen is non-zero); reduces number of independent components to $16 - 4 - 6 = 6$ -> means it is not just 2-tensor, but antisymmetric 2-tensor (i.e.~we can associate a 2-differential form with it)
+
+
+other properties:
+\begin{equation}
+	\eqbox{
+		\tr \mathbf{F} = \tr_{1, 2} \mathbf{F} = F^\mu_\mu = 0
+	}
+\end{equation}
+and
+\begin{equation}
+	\eqbox{
+		\det \mathbf{F} = \frac{1}{c^2} (\vec{E} \cdot \vec{B})^2
+	}
+\end{equation}
+also, contracting the square ($\equiv$ inner product) yields
+\begin{equation}
+	\eqbox{
+		\tr_{1, 3} \tr_{2, 4} \mathbf{F} \mathbf{F} = 2 (\norm{B}^2 - \frac{\norm{E}^2}{c^2})
+	}
+\end{equation}
+(Note that all of these results are invariants because they are tensor equations.)
+
+
+
+		\subsection{Maxwell Equations}
+Having defined the field tensor $\mathbf{F}$, we now wish to find expressions for the Maxwell equations in terms of it. There are several ways in which these can be formulated, but perhaps the most concise one can be achieved by exploiting the fact that $\mathbf{F}$ is a differential (!) two-form. That is because one can apply the exterior derivative $d$ to differential forms.
+
+
+
+homogeneous Maxwell:
+\begin{equation}
+	\eqbox{
+		dF = 0
+	}
+\end{equation}
+
+inhomogeneous Maxwell:
+\begin{equation}
+	\eqbox{
+		\hodge d \hodge F = J
+	}
+	\qquad \Leftrightarrow \qquad
+	\eqbox{
+		d \hodge F = \hodge J
+	}
+\end{equation}
+with the \Def{four-current density} $J$. Usually, we define it as a vector via its components
+\begin{equation}
+	\eqbox{
+		J^\mu = (c \rho, \vec{j}) = (c \gamma \rho_0, \gamma \rho_0 \vec{v}) = \rho_0 u^\mu
+	}
+\end{equation}
+where $\rho_0$ is the charge density as measured in the rest frame of the density\todo{is this well phrased?}. In other words, it unites charge density $\rho$ and (three-)current density $\vec{j}$. However, in the Maxwell equations, it appears as a four-current 1-form
+\begin{equation}
+	\eqbox{
+		J = J_\mu dx^\mu = g_{\mu \nu} J^\nu dx^\mu
+	} \, ,
+\end{equation}
+which, in flat spacetime, has components
+\begin{equation*}
+	J_\mu = \mqty(c \rho, - \vec{j})
+	\, .
+\end{equation*}
+
+
+-> star denotes Hodge star operator; is basically needed because we want to relate two-form $\mathbf{F}$ and vector $J$, which is easy enough in components, but to do this properly with basis vectors we need the Hodge star. The Hodgue dual of $F$ is
+\begin{equation}
+	\eqbox{
+		\hodge F = \tr_{3, 5} \tr_{4, 6} \frac{1}{2} \epsilon F
+	}
+\end{equation}
+which is one of the rare equations where the component form is perhaps easier to read:
+\begin{equation}
+	\eqbox{
+		(\hodge F)^{\alpha \beta} = \frac{1}{2} \epsilon^{\alpha \beta \mu \nu} F_{\mu \nu}
+	}
+\end{equation}
+i.e.~we have to exchange $B_i \leftrightarrow - \frac{1}{c} E_i$
+
+
+-> component forms:
+\begin{equation}
+	\eqbox{
+		\partial_\mu (\hodge \mathbf{F})^{\mu \nu} = \partial^\alpha F^{\beta \gamma} + \partial^\beta F^{\gamma \alpha} + \partial^\gamma F^{\alpha \beta} = 0
+	}
+	\manyqquad
+	\eqbox{
+		\partial_\mu F^{\mu \nu} = \mu_0 j^\nu
+	}
+\end{equation}
+
+
+-> note/recall that we use following definition of gradient here:\todo{perhaps introduce this previously}
+\begin{equation}
+	\partial_\mu \coloneqq \pdv{x^\mu} = (\frac{1}{c} \pdv{t}, \vec{\nabla})
+	\manyqquad
+	\partial^\mu \coloneqq \pdv{x^\mu} = (\frac{1}{c} \pdv{t}, - \vec{\nabla})
+\end{equation}
+as this in line with $x^\mu = (c t, \vec{x})$. Based on that, d'Alembertian reads
+\begin{equation}
+	\eqbox{
+		\square \coloneqq \partial_\mu \partial^\mu = \frac{1}{c^2} \pdv[2]{t} - \laplacian
+	}
+\end{equation}
+
+
+
+-> in some sense, this means that the field tensor we associate with a charge is entirely defined by demanding it is a closed differential two-form (homogeneous Maxwell), meaning that the corresponding force is conservative (integral over closed loop\todo{?} vanishes; consequence of general Stokes is that $dF \overset{!}{=} 0$), and that any source of change of it is some 4-current \todo{is this valid interpretation of inhomogenous? -> my idea was that this represents something like flow through area?}
+
+
+
+		\subsection{Four-Potential}
+There is a rich theory surrounding differential forms, e.g., integration is most generally defined in terms of them. One key result is Stokes' theorem, which we already related to the homogeneous Maxwell equation. Another key result is the Poincare lemma, and applied to our situation it tells us that (due to $d\mathbf{F} = 0$) there is a one-form $A$ with
+\begin{equation}\label{eq:em_field_tensor_four_potential}
+	\eqbox{
+		F = dA
+	}
+\end{equation}
+and in general differential-geometric terms, $A$ is referred to as a potential. In our particular case, it is the \Def{electromagnetic four-potential}. In component-form, this means
+\begin{equation}\label{eq:em_field_tensor_four_potential_components}
+	\eqbox{
+		F_{\mu \nu} = \partial_\mu A_\nu - \partial_\nu A_\mu
+	}
+\end{equation}
+note that $\partial_\mu$ are components of the 4-gradient, so pay attention to signs when raising/lowering indices here.
+
+-> just like with four-current, we can relate to non-relativistic quantities:
+\begin{equation}\label{eq:em_four_potential_components}
+	\eqbox{
+		A^\mu = (\frac{1}{c} \varphi, \vec{A})
+	} \, .
+\end{equation}
+
+
+-> we get this via simple calculation:
+\begin{align*}
+	F &= dA
+	= d (A_\mu dx^\mu)
+	= d (A_x dx + A_y dy A_z dz)
+	\\
+	&= \partial_x A_\mu dx^\mu \wedge dx + \partial_y A_\mu dx^\mu \wedge dy + \partial_z A_\mu dx^\mu \wedge dz
+	\\
+	&= (\partial_x A_y dy + \partial_x A_z dz) \wedge dx + (\partial_y A_x dx + \partial_y A_z dz) \wedge dy + (\partial_z A_x dx + \partial_z A_y dy) \wedge dz
+	\\
+	&= (- \partial_x A_y + \partial_y A_x) dx \wedge dy + (- \partial_x A_z + \partial_z A_x) dx \wedge dz + (- \partial_y A_z + \partial_z A_y) dy \wedge dz
+	\\
+	&\todo{add terms with t here!!!}
+\end{align*}
+terms on diagonal vanish due to $F$ possessing a potential. We can perform this calculation in an even more abstract form, not relying at all on on $t, x, y, z$:
+\begin{align*}
+	F &= dA
+	= d (A_\mu dx^\mu)
+	\\
+	&= \epsilon_{\mu \nu \sigma} \partial^\sigma A_\mu dx^\mu \wedge dx^\nu
+	\todo{is this correct?}
+\end{align*}
+
+-> by definition as a differential two-form, that means $F$ is antisymmetric, $F_{\mu \nu} = - F_{\nu \mu}$ (as we can also see from component form)
+
+When we define $F$ using some potential $A$, the homogeneous Maxwell equation is automatically fulfilled, and for inhomogeneous one to be fulfilled $A$ must obey
+\begin{equation}
+	\eqbox{
+		\square A = - \mu_0 J
+	}
+	\todo{check sign here}
+\end{equation}
+There is gauge-freedom in how $A$ is defined, this particular form is only valid in Lorenz\footnote{Yes, there is no \enquote{t} here.} gauge, i.e.~when $\partial_\mu A^\mu = 0$ (vanishing divergence).
+
+
+
+\hrule
+
+notes:
+
+to get correct components etc of Lorentz transform, use this: we know transformation from frame $A$ to $A'$ looks like, where $A'$ moves with $v$ relative to $A$. A vector in $A$ transforms via a matrix multiplication as $V' = L V$ where $L = \mqty(1 & \beta \gamma & \beta \gamma & \beta \gamma \\ \beta \gamma & 0 & 1 0 & 0)$ etc. We can use this to get components of Lorentz transform $L$ because component form of this equation is $V'^\mu = L^\mu_\nu V^\nu$. Also yields inverse transform because this just corresponds to transform into the dual space, which is done by metric; is reflected in equation $(L^{-1})^\mu_\nu = g^\mu_\alpha L^\alpha_\beta g^\beta_\nu = g^{\mu \gamma} L^\delta_\gamma g_{\delta \nu}$; means $V'_\mu = g^\nu_\alpha L^\alpha_\beta g^\beta_\mu V_\mu$, which we could have seen by lowering $\mu$ in $V'^\mu = L^\mu_\nu V^\nu$ and using $V_\nu = g_{\nu \sigma} V^\sigma$ already
+
+
+
+some very high-level stuff: we have non-zero Christoffel symbols when charges are present, which are caused by underlying EM-field (this affects the space that we work in and that everything is formulated with respect to/in terms of); more specifically,
+\begin{equation}\label{eq:cov_deriv_em}
+	\eqbox{
+	\nabla_\mu = \partial_\mu - i e A_\mu
+	}
+\end{equation}
+and correspondingly,
+\begin{equation}\label{eq:em_field_tensor_v2}
+	\eqbox{
+	\qty[\nabla_\mu, \nabla_\nu] = - i e (A_\mu - A_\nu) \eqqcolon - i e F_{\mu \nu}
+	}
+\end{equation}
+which leads to non-zero curvature as measured by the \Def{electromagnetic field tensor} -> makes sense, stress-energy causes curvature and EM-field contains energy (though stress-energy tensor looks more complicated, right? But perhaps this is some contracted form here or something)
+
+this should still all be formulated using Minkowski metric, right? -> not necessarily, also works in curved spacetimes
+
 
 
 
