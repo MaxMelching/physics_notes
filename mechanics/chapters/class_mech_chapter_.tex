@@ -3,6 +3,7 @@
 
 
 \DeclareMathOperator{\fpeps}{\frac{1}{4 \pi \epsilon_0}}
+\DeclareMathOperator{\fpmu}{\frac{\mu_0}{4 \pi}}
 
 
 \begin{document}
@@ -14,6 +15,9 @@
 
 
 In classical mechanics, particles are mostly assumed to be really simple. They have a mass and move in some way. But real particles have more properties. Ignoring quantum-mechanical effects for now, perhaps the most important of these properties is that they may have a charge. This means there is more interaction than what we have seen until now, electromagnetic ones. -> new forces etc
+
+
+-> examining phenomena of charges, we wander on the verge between classical, Newtonian physics and relativity. We treat as part of classical here
 
 
 explain what field is (?)
@@ -39,40 +43,41 @@ We will commonly denote charge by $q$. Every charge is a multiple of an \Def{ele
         e = 1.602 \cdot 10^{-19} \, \mathrm{C}
     } \, .
 \end{equation}
-This is a crucial difference to masses, where no such \enquote{elementary mass} is known. Usually, we characterize charges by distributions $\rho = \rho(\vec{x}, t)$, i.e.~charge per volume. For an idealized point/test charge ($\equiv$ point/test mass) with charge $q$ at $\vec{x}_0$,
+This is a crucial difference to masses, where no such \enquote{elementary mass} is known.
+
+A (idealized) concept that is frequently used is that of a point/test charge (closely related to point/test mass), which has all of its charge $q$ concentrated in a point of infinitesimal spatial extent. For a collection of point charges $q_i$, we can use that charge is additive (like mass) to obtain the total charge as
 \begin{equation}
     \eqbox{
-        \rho(\vec{x}) = q \, \delta(\vec{x} - \vec{x}_0)
+        Q = \sum_i q_i
     } \, .
 \end{equation}
 
--> note that point charge is flexible notion; if distance to $\vec{r}$ is large, then even macroscopic source can be taken as point charge! (another similarity to mass and gravitation)
-
-
-Charges obey the superposition principle (like mass), so a collection of charges
-with distribution
+While point charges are a powerful concept, and quite flexible too (\todo{elaborate}), we cannot always avoid looking in detail at how charges are distributed across a spatial region. In the most general case, we can study this using a charge distribution $\rho = \rho(\vec{x}, t)$, representing charge per volume. The total charge enclosed in a certain volume $V$ can then be calculated as
+\begin{equation}
+    \eqbox{
+        Q = \int_V dq = \int_V \rho \, dV
+    } \, .
+\end{equation}
+For a point charge with charge $q$ at $\vec{x}_0$, we can write down the distribution
+\begin{equation}
+    \eqbox{
+        \rho(\vec{x}) = q \, \delta(\vec{x} - \vec{x}_0)
+    }
+\end{equation}
+and similarly, for a collection of charges $q_i$,
 \begin{equation}
     \eqbox{
         \rho(\vec{x}) = \sum_i q_i \, \delta(\vec{x} - \vec{x}_i)
     } \, .
 \end{equation}
-From such a distribution, we can calculate the total charge
-\begin{equation}
-    \eqbox{
-        Q = \sum_i q_i
-    }
-\end{equation}
-according to the general formula
-\begin{equation}
-    \eqbox{
-        Q = \int_V \rho(\vec{x}) dV
-    } \, .
-\end{equation}
 Here we port discrete to continuous by adding a $\delta$-function for each charge, which turns integral into sum.\\
 
 
+-> note that point charge is flexible notion; if distance to $\vec{r}$ is large, then even macroscopic source can be taken as point charge! (another similarity to mass and gravitation)
 
-We are still in classical mechanics, so interactions are studied in terms of forces. The \Def{Coulomb force} (also: \Def{Coulomb's law}) from charge 1 onto charge 2 is
+
+
+Although one can make the point that any electric interaction means we leave the realm of Newtonian physics and enter the one relativity, we still study interactions in terms of forces. The electrical \Def{Coulomb force} (also: \Def{Coulomb's law}) from charge 1 onto charge 2 is
 \begin{equation}
     \eqbox{
         \vec{F}_C = \vec{F}_{C, 1 \rightarrow 2}
@@ -80,7 +85,7 @@ We are still in classical mechanics, so interactions are studied in terms of for
         = \fpeps q_1 q_2 \, \frac{\vec{r}_2 - \vec{r}_1}{\norm{\vec{r}_2 - \vec{r}_1}^3}
     } \, .
 \end{equation}
-where $\vec{r}_{12} = \vec{r}_2 - \vec{r}_1$ is the vector connecting object 1 to object 2 (because of this, it naturally obeys the third law). Similarly to Newton's law of gravitation, it has been found empirically. It, too, obeys the superposition principle, which means the Coulomb force from a charge distribution $\rho$ onto a test charge with charge $q$ at position $\vec{x}$ is
+where $\vec{r}_{12} = \vec{r}_2 - \vec{r}_1$ is the displacement vector connecting object 1 to object 2 (because of this, it naturally obeys the third law). Similarly to Newton's law of gravitation, it has been found empirically. It, too, obeys the superposition principle, which means the Coulomb force from a charge distribution $\rho$ onto a test charge with charge $q$ at position $\vec{x}$ is
 \begin{equation}
     \eqbox{
         \vec{F}_C(\vec{x}) = \fpeps q \int_V \rho(\vec{x}') \frac{\vec{x} - \vec{x}'}{\norm{\vec{x} - \vec{x}'}^3} \, dV'
@@ -129,7 +134,7 @@ from entirely mathematical considerations, we can show that Coulomb force coming
 \end{equation}
 (though this also makes sense physically, Coulomb is a central force)
 
--> accordingly, we call $\varphi \coloneqq V / q$ the \Def{scalar potential} of the electric field, i.e.~$\vec{E} = - \vec{\nabla} \varphi$
+-> accordingly, we call $\varphi \coloneqq V / q$ the \Def{scalar potential} of the electric field, i.e.~$\vec{E} = - \grad \varphi$
 
 -> existence of potential implies curve-integrals are path-independent; we define \Def{voltage} based on this, as difference of scalar potentials; is related to work in straightforward manner, via $W = q U$ (is amount of work done on a charge, independent of actual charge that is moved, right? Same relation as between electric field and force)
 
@@ -183,12 +188,12 @@ where $d\vec{S}$ is surface element of $S$ (normal vector, right? at least relat
 
 moreover, Gauß's law tells us
 \begin{equation*}
-    \int_V \rho(\vec{x}) dV = \oint_{S(V)} \vec{E} \cdot d\vec{S} = \int_V \vec{\nabla} \cdot \vec{E} dV
+    \int_V \rho(\vec{x}) dV = \oint_{S(V)} \vec{E} \cdot d\vec{S} = \int_V \div \vec{E} dV
 \end{equation*}
 which yields the differential version of first Maxwell,
 \begin{equation}
     \eqbox{
-        \vec{\nabla} \cdot \vec{E} = \frac{\rho}{\epsilon_0}
+        \div \vec{E} = \frac{\rho}{\epsilon_0}
     }
 \end{equation}
 
@@ -196,7 +201,7 @@ which yields the differential version of first Maxwell,
 second Maxwell equations is more straightforward:
 \begin{equation}
     \eqbox{
-        \vec{\nabla} \cross \vec{E} = 0
+        \curl \vec{E} = 0
     }
     \quad \Leftrightarrow \quad
     \eqbox{
@@ -215,55 +220,327 @@ in terms of potential, the results here imply \Def{Poisson equation} $\nabla^2 \
 
 
 
-
-    \section{Magnetostatics}
-Even if no electrical field is generated by a conductor\todo{?}, it is possible to have moving charges, i.e.~a \Def{current} (has a direction, parallel to electric field lines, i.e.~from $+$ to $-$)
-
--> we define the strength of the current (commonly also called \Def{current}) as the amount of charge flowing through some area $S$ per time. In the usual manner, we do this by going to the infinitesimal limit, i.e.~the definition reads
-\begin{equation}
+        \subsection{Multipole Expansions}
+Multipole expansions are a frequently used tool in electrodynamics. The basic idea is to simplify frequently occurring terms of the kind $\frac{1}{\norm{\vec{x} - \vec{a}}}$ by using the general result
+\begin{equation}\label{eq:multipole_exp_general}
     \eqbox{
-        I = \dv{Q}{t} = F j
-    }
-\end{equation}
-with the current density
-\begin{equation}
-    \eqbox{
-        \vec{j}(\vec{x}, t) = \rho(\vec{x}, t) \vec{v}(\vec{x}, t) = \frac{I}{S}
-    }
-\end{equation}
-where $\vec{v}$ is the velocity $\perp$ to the are $S$. -> we are still in statics, so $\rho$ independent of $t$ \todo{right?}
-
-
-\todo{I think $j = I / S$ is special case for constant $j$, right? Something is not working here...}
-
-
-Any change in the total charge in some volume, $Q(V)$, must be complemented by some current flowing out of the volume's boundary $S = \partial V$. Mathematically,
-\begin{equation}
-    \eqbox{
-        \pdv{Q}{t} = \pdv{t} \int_V \rho dV = \int_S \dv{\rho}{t} d\vec{S}
-    }
-\end{equation}
-(of course, assuming there is no intrinsic heat loss or something). For the 2D-generalization of a test charge, i.e.~something like a cable of infinitesimal diameter (so that charges can only enter at start and end of it), this takes the form $\dv{Q}{t} = I_A - I_B$ ($A$ is the label for the start of cable, $B$ for the end). Note that the sign here is a consequence of how we defined current, namely parallel to the field lines. Consider a positive charge moving along the current from $A$ to $B$ and leaving the volume $V$. Then it leaves in $B$, meaning the current $I_B$ is larger than $I_A$, so that the right hand side of the continuity equation becomes negative. This corresponds to the $Q(V)$ decreasing, which is what we expect since a positive charge is leaving $V$.
-
-
-With one application of Gauß's law, this becomes
-\begin{equation}
-    \eqbox{
-        \pdv{\rho}{t} + \vec{\nabla} \cdot \vec{j} = 0
+        \frac{1}{\norm{\vec{x} - \vec{a}}}
+        = \frac{1}{x \norm{\vec{e}_x - \frac{a}{x} \vec{e}_a}}
+        \simeq \frac{1}{r} + \frac{\vec{x} \cdot \vec{a}}{x^3} + \frac{3 (\vec{x} \cdot \vec{a})^2 - x^2 a^2}{2 x^5}
     } \, .
 \end{equation}
-Here we have differential and integral version of the \Def{continuity equation}, which just expresses in mathematical terms the conservation of charge. (Note that we operate under the assumption that no charges are created in $V$, otherwise there would be an extra term on the right hand side of the equation.)
 
+-> for large enough distances, we can replace with first/second order to really good approximation! Especially useful to calculate field generated by some distribution, this way we can avoid the really nasty integrals, e.g., for potentials and fields!
+
+
+
+        \subsection{Image Charges}
+general method to solve Poisson equation with certain boundary conditions
+
+-> idea: to get, for example, field of one charge that shall be perpendicular to certain surface, we can place image charge(s) at certain spot so that field lines cross surface in desired manner (mimick boundary conditions); can be done in general
+
+
+
+        % \subsection{Isolators}
+        % \subsection{Dielectrica}
+        \subsection{Dielectric Media}
+\todo{make whole section? \enquote{Electrostatics Of Dielectrica}?}
+
+until now: theory happened in vacuum, i.e.~no charges were present outside the ones described by $\rho$
+
+idea of what changes in a medium: total electric field now comes from free charges in $\rho$ \emph{and} from charges in the medium; we assume no free charges in medium for now, but still a total charge can be induced via the formation of small dipoles in the medium -> we look at the macroscopic effect only, i.e.~polarization $\vec{\mathbb{P}}$\footnote{We do not call it $\vec{P}$ here because this is already reserved for momentum.}
+
+-> sign of polarization (in Maxwell equation; i.e.~that we add to total electric field in order to get field from free charges, instead of subtracting) comes from sign we choose for dipole moment, right? Or sign of field lines or something, which then affects in which direction dipoles are formed, something like that
+
+-> Maxwell with divergence then only valid for field coming from free charges (not in medium due to all the constraints we have there, as very hand-wavy explanation)
+
+
+
+        \subsection{Boundary Conditions}
+
+
+
+    \section{Magnetostatics}
+Even if no electrical field is generated by a conductor, it is possible to have moving charges, i.e.~a \Def{current} (has a direction, parallel to electric field lines, i.e.~from $+$ to $-$). The strength of the current $I$ (often simply called \Def{current}) is usually quantified as the amount of charge flowing through a certain area in a given time. At a given point, $dq$ over the time interval $dt$ depends on the charge density $\rho$ at this point in space (and time), the velocity $v$ with which the charges move, and the area element $dS$ the flow of charges is analyzed for. All in all,
+\begin{equation}
+    % \eqbox{
+        dq = \rho \, v \, dt \, dS
+    % }
+    \quad\Rightarrow\quad
+    \eqbox{
+        I \coloneqq \dv{q}{t} = \rho v dS
+    } \, .  
+\end{equation}
+Based on the current, it is common to define a \Def{current density} $j$ that quantifies the flow per area element $dS$. Since the flow of charges we are talking about naturally is a quantity with a direction, it makes sense to define it as a vectorial quantity. More specifically, it makes sense to choose as its direction the normal vector $\vec{n}_S$ of the area $dS$, since this is the direction of charge flow (i.e.~also the direction of $\vec{v}$). Hence,
+\begin{equation}
+    \eqbox{
+        \vec{j}(\vec{x}, t) \coloneqq \dv{I}{S} \vec{n}_S = \rho(\vec{x}, t) \, \vec{v}(\vec{x}, t)
+    } \, .
+\end{equation}
+Note that this is a general definition, we are still in magneto\emph{statics}, so $\rho, \vec{v}$ are independent of $t$ for now.
+% Further note that for currents that are uniform over the whole $S$ of interest, division by the area element amounts to division by $S$. -> this is just wrong. In integration, this becomes important
+\\
+
+
+Now suppose that we observe a change in the total charge in some volume, $Q(V)$. In the absence of loss processes like heat loss, such a change in charge must be complemented by some current flowing out of the volume's boundary $S = \partial V$. Mathematically, in integral form
+\begin{equation}\label{eq:cont_eq_int}
+    \eqbox{
+        % \pdv{Q}{t} = \pdv{t} \int_V \rho \, dV = \int_S \pdv{\rho}{t} dS
+        \pdv{Q}{t} + \int_S j \, dS = 0
+    }
+\end{equation}
+For the 2D-generalization of a test charge (sometimes called filamentary current), i.e.~something like a cable of infinitesimal diameter (so that charges can only enter at start and end of it), this takes the form $\dv{Q}{t} = I_A - I_B$ ($A$ is the label for the start of the cable, $B$ for the end). Note that the sign here is a consequence of how we defined current, namely parallel to the field lines. Consider a positive charge moving along the current from $A$ to $B$ and leaving the volume $V$. Then it leaves in $B$, meaning the current $I_B$ is larger than $I_A$, so that the right hand side of the continuity equation becomes negative. This corresponds to the $Q(V)$ decreasing, which is what we expect since a positive charge is leaving $V$.
+
+
+Using that $\pdv{t}$ and $\int_V dV$ may be interchanged, and applying Gauß's law we obtain the differential form of Eq.~\eqref{eq:cont_eq_int}
+\begin{equation}\label{eq:cont_eq_diff}
+    \eqbox{
+        \pdv{\rho}{t} + \div \vec{j} = 0
+    } \, .
+\end{equation}
+This is the (differential form of the) \Def{continuity equation}, which just expresses in mathematical terms conservation of charge. (Note that we operate under the assumption that no charges are created in $V$, otherwise there would be an extra term on the right hand side of the equation.) Its validity can be proven from the Maxwell equations.
+
+
+\todo{treat Ohm's law! In form $\vec{j} = \sigma_\mathrm{el} \vec{E}$}
 
 
 
         \subsection{Magnetic Force}
-\todo{do this in separate section?}
-
-From a modern perspective, with relativity theory all developed, it would be straightforward to look at electric field in rest frame of charges moving in the current and then transform back into an \enquote{external}, inertial frame. Historically speaking, however, relativity theory was not there when the aforementioned effect was discovered. Therefore, it was the most natural thing to associate it with new physics, and this is how the \Def{magnetic field} came into existence.\footnote{For a very clear, yet concise derivation of the laws of electromagnetism from Coulomb's law (i.e.~electrostatics), see this article by Leigh Page: \url{https://zenodo.org/record/1450178}.}
+For the net electric field coming from a volume $V$, it does not matter whether the charges generating the field are moving or not; if the total charge $Q(V) = 0$, then $V$ produces no field, so no force is felt by two particles with opposite charge sitting next to it.\footnote{We take two particles here to produce a situation with no net charge. The whole point of this example is that a force is acting without any net charge being present.} But here is something curious: suppose the two particles now starts moving. Then, what we observe in an experiment is that they suddenly experience a force. How can this be explained?
 
 
--> leads to Lorentz force
+From a modern day perspective, the proper approach is to perform a relativistic analysis of the situation, which indeed yields the correct results and laws. The reason why two moving charges still feel a force is, in two words, length contraction. In the rest frame of $V$, particles moving away it see the charge density $\rho$ constituting the current to be contracted, so that these moving particles a net electric field that exerts a Coulomb force $q \vec{E}$. (Yes, this effect even occurs for non-relativistic speeds, despite the length contraction being incredibly small. This is because the electric force is very strong.)
+
+
+The problem is that relativity theory did not exist when the aforementioned effect was discovered around $\sim$1800, so another explanation was brought forward. The natural conclusion from the observations was that another force is acting, caused by another field -- this is how the \Def{magnetic field} was born. Biot and Savart \todo{really? why is it Lorentz force then?} empirically found the force exerted from current $\vec{j}_1$ onto current $\vec{j}_2$ to be
+\begin{equation}
+    \eqbox{
+        \vec{F}
+        = \fpmu \int_{V'} \int_V \vec{j}_2(\vec{x}') \cross \qty[\vec{j}_1(\vec{x}) \cross \frac{\vec{x}' - \vec{x}}{\norm{\vec{x}' - \vec{x}}^3}] \, d^3x \, d^3x'
+        % \eqqcolon \int_{V'} \vec{j}_2(\vec{x}') \cross \vec{B}_1(\vec{x}') \, d^3x'
+    }
+\end{equation}
+This is the \Def{Lorentz force}, in the special case of vanishing electric field. (The full Lorentz force can be obtained by adding the Coulomb force $\vec{F} = q \vec{E}$ to the expression above.) The magnetic field \todo{B is flow?flux? density} (also: \Def{magnetic induction}), denoted by $\vec{B}$, now comes in by rewriting this in a very particular form, namely as
+\begin{equation}\label{eq:biot_savart_general}
+    \eqbox{
+        \vec{F}
+        \eqqcolon \int_{V'} \vec{j}_2(\vec{x}') \cross \vec{B}_1(\vec{x}') \, d^3x'
+    }
+    , \quad
+    \eqbox{
+        \vec{B}_1(\vec{x}') = \fpmu \int_V \vec{j}_1(\vec{x}) \cross \frac{\vec{x}' - \vec{x}}{\norm{\vec{x}' - \vec{x}}^3} \, d^3x
+    }
+\end{equation}
+The second equation is called \Def{Biot-Savart law}\footnote{Actually, Biot and Savart found a special case of this general law, where both currents are filamentary currents, whence the volume integrals reduce to line integrals. The same goes for the term \enquote{Ampere force}.}, while the first one is called \Def{Ampere force}.
+
+-> $B$ has units of Tesla, $1 \mathrm{T} = 1 \frac{\mathrm{N}}{\mathrm{A} \mathrm{m}}$
+
+-> $\mu_0$ is magnetic field constant
+
+-> $B$ is not field strength, but flow density \todo{find proper term(s) -> flux?}; $E$ is field strength, $D$ is flow density; later we will see field strength $H$
+
+
+\begin{ex}[Magnetic Field of a Filamentary Current]
+    for filamentary current, the wall thickness/are $dS \rightarrow 0$, which means $j \rightarrow \infty$. However, $\int_V \vec{j} dV = \int_V j \vec{n}_S \, dS \, dr = \int_C \int_S \dv{I}{S} dS \, \vec{n}_S dr = \int_C I d\vec{r}$ where $C$ is the curve following the filamentary current and $d\vec{r}$ is the line element of $C$. $I$ denotes the current at each point in the filament.
+
+    this is original Biot-Savart law; corresponding force is called Ampere force
+\end{ex}
+
+-> we can do something very similar to Gauß law, rearrange this and see: there is (a) potential!
+
+
+
+        \subsection{Maxwell Equations}
+Brute-force calculation shows that we can rearrange
+\begin{equation}
+    \eqbox{
+        \vec{B}(\vec{x}) = \curl \vec{A}(\vec{x})
+    }
+    \, , \quad
+    \eqbox{
+        \vec{A}(\vec{x}) = \fpmu \int_{V'} \frac{\vec{j}(\vec{x}')}{\norm{\vec{x} - \vec{x}'}} \, d^3x
+    }
+\end{equation}
+with a \Def{vector potential} $\vec{A}$. A direct implication is that $\vec{B}$ is divergence-free, i.e.
+\begin{equation}\label{eq:maxwell_magnstat_one_diff}
+    \eqbox{
+        \div \vec{B} = 0
+    } \, .
+\end{equation}
+This is the first Maxwell equation of magnetostatics.
+
+-> tells us that there are no magnetic monopoles! Crucial difference to electric fields. (In fact, one can write each vector field as the sum of a divergence-free and a curl-free part, $\vec{E}$ and $\vec{B}$ behave kind of opposite to each other.)
+
+The second one follows from a mathematical theorem, which states that the divergence-free part of a vector field (and thus in case of $\vec{B}$ the whole field) may be calculated:
+\begin{equation*}
+    \vec{B}(\vec{x}) = \curl \frac{1}{4 \pi} \int_{V'} \frac{\curl \vec{B}(\vec{x}')}{\norm{\vec{x} - \vec{x}'}} \, d^3x
+    \, .
+\end{equation*}
+Comparing this with Eq.~\eqref{eq:biot_savart_general} immediately yields the second Maxwell equation of magnetostatics,
+\begin{equation}\label{eq:maxwell_magnstat_two_diff}
+    \eqbox{
+        \curl \vec{B} = \mu_0 \vec{j}
+    } \, .
+\end{equation}
+In integral form, the two equations read
+\begin{equation}\label{eq:maxwell_magnstat_one_int}
+    \eqbox{
+        \oint_{\partial V} \vec{B} \cdot d\vec{S} = 0
+    }
+\end{equation}
+and
+\begin{equation}\label{eq:maxwell_magnstat_two_int}
+    \eqbox{
+        \oint_{C} \vec{B} \dot d\vec{x} = \mu_0 I
+    }
+\end{equation}
+\todo{clarify on this. is curve really closed? what is $I$ here, the total current through the curve or something?}
+
+-> first one tells us total flow/current of $\vec{B}$ through the surface of a volume is zero; second one is Ampere's law
+
+
+We can further express Eq.~\eqref{eq:maxwell_magnstat_two_diff} in terms of the vector potential $\vec{A}$:
+\begin{equation}
+    \mu_0 \vec{j} = \curl \vec{B} = \curl \qty(\curl \vec{A}) = \div \qty(\div \vec{A}) - \laplacian \vec{A}
+    \, .
+\end{equation}
+
+-> now we come to interesting part, namely gauge freedom of the theory; by working in Coulomb gauge, we can turn this into wave equation
+
+
+
+    \section{Electrodynamics}
+In statics, the electric field is curl-free and the magnetic field is divergence-free. As we will see, this changes when looking at electrodynamics, and not just that, there will be a mixing and interaction of electric, magnetic field. More detailed analyses of the interplay between the two fields, and especially a relativistic treatment, then reveals that the two are manifestations of one and the same phenomenon, an electromagnetic field. The electric (magnetic) field only arise in the special cases of electro(magneto-)statics as the curl-(divergence-)free components of this electromagnetic field.
+
+
+We can already see that the lines between electric and magnetic fields are actually more blurry than they seem by studying a very simple example, the interaction of two moving point charges. (Note that this is neither a problem from electrostatics nor from magnetostatics, since there are both net charges and currents in this setup. Thus it falls into the realm of electrodynamics).
+
+% -> basically: is due to length contraction, moving charge sees different distribution of charges than resting. Historical approach: introduce new field and force, magnetic field. This complements electrical interaction between two charges, both of which are moving.
+
+% -> better wording: can be analyzed/explained entirely by a proper relativist analysis of the situation. Results match what was found empirically be Biot and Savart
+
+
+% From a modern perspective, with relativity theory developed (this was not the case when these effects were found), it would be straightforward to look at electric field in rest frame of charges moving in the current and then transform back into an \enquote{external}, inertial frame. Historically speaking, however, relativity theory was not there when the aforementioned effect was discovered. Therefore, it was the most natural thing to associate it with new physics, and this is how the \Def{magnetic field} came into existence.
+% \footnote{For a very clear, yet concise derivation of the laws of electromagnetism from Coulomb's law (i.e.~electrostatics), see this article by Leigh Page: \url{https://zenodo.org/record/1450178}.}
+
+
+
+\begin{ex}[Two Moving Point Charges]\label{ex:point_charge_magn_field}
+    Verbally/In words, I can claim a lot, for instance that electric and magnetic field are essentially the same thing viewed from different frames, but do these claims hold up when looking at actual expressions? For that, let us look at the simples scenario possible, the force between two currents made up of a single test charge each, i.e.~$\vec{j}_i = q_i \vec{v}_i \, \delta (\vec{x} - \vec{x}_i)$. In that case, the Biot-Savart law reads
+    \begin{equation}
+        \vec{B}_1(\vec{x}) = \fpmu q_1 \vec{v}_1 \cross \frac{\vec{x} - \vec{x}_1}{\norm{\vec{x} - \vec{x}_1}^3}
+    \end{equation}
+    and the corresponding Lorentz force exerted on the second particle becomes
+    \begin{align}
+        \vec{F} &= q_2 \vec{v}_2 \cross \vec{B}(\vec{x}_2) = \fpmu \frac{q_1 q_2}{\norm{\vec{x}_2 - \vec{x}_1}^3} \vec{v}_2 \cross \qty[\vec{v}_1 \cross (\vec{x}_2 - \vec{x}_1)]
+        \notag\\
+        &= \fpmu \frac{q_1 q_2}{\norm{\vec{x}_2 - \vec{x}_1}^3} \qty[(\vec{v}_2 \cdot (\vec{x}_2 - \vec{x_1})) \vec{v}_1 - (\vec{v}_2 \cdot \vec{v}_1) (\vec{x}_2 - \vec{x}_1)]
+        \notag
+    \end{align}
+    If you are trained in relativity, then you will recognize that does look a lot like a Lorentz transform (even more so since $\mu_0 = \frac{1}{c^2 \epsilon_0}$). To see this in even more detail, let us assume that $\vec{v}_1 \parallel \vec{v}_2 \parallel \vec{e}_x$ while the displacement vector is $\vec{x}_2 - \vec{x}_1 \parallel \vec{e}_y$. In that case,
+    \begin{align}
+        \vec{F} &= \fpmu \frac{q_1 q_2}{\norm{\vec{x}_2 - \vec{x}_1}^3} \qty[(\vec{v}_2 \cdot (\vec{x}_2 - \vec{x_1})) \vec{v}_1 - (\vec{v}_2 \cdot \vec{v}_1) (\vec{x}_2 - \vec{x}_1)]
+        \notag\\
+        &= - \frac{v_1 v_2}{c^2} \fpeps q_1 q_2 \frac{\vec{x}_2 - \vec{x}_1}{\norm{\vec{x}_2 - \vec{x}_1}^3}
+        \notag
+    \end{align}
+    However, this is not the total Lorentz force yet. Since there is only one test particle for each current in this setup, the electric field is not vanishing. Therefore, the Coulomb force between the particles is also acting and due to the superposition principle for forces, we can simply add the term $q \vec{E}_1(\vec{x}_2)$ to $\vec{F}$, which yields the total Lorentz force
+    \begin{equation}
+        \vec{F} = \fpeps q_1 q_2 \frac{\vec{x}_2 - \vec{x}_1}{\norm{\vec{x}_2 - \vec{x}_1}^3} - \frac{v_1 v_2}{c^2} \fpeps q_1 q_2 \frac{\vec{x}_2 - \vec{x}_1}{\norm{\vec{x}_2 - \vec{x}_1}^3} = \fpeps q_1 q_2 \frac{\vec{x}_2 - \vec{x}_1}{\norm{\vec{x}_2 - \vec{x}_1}^3} \qty(1 - \frac{v_1 v_2}{c^2})
+        \notag\, .
+    \end{equation}
+    where we have further simplified the setup by choosing the test charges to be exactly co-moving, $v_1 = v_2$.\footnote{Granted, this step is mostly done to arrive quickly at a convenient expression, but in my understanding, this simply avoids doing two Lorentz transforms because for $v_1 = v_2$, the rest frame of both test charges is the same. A justification of this is given by the existence of general treatments, which we mention later on.} This equation can be further rewritten by making use of the Lorentz factor $\gamma = (1 - v^2 / c^2)^{-1/2}$:
+    \begin{equation}
+        \eqbox{
+            \vec{F} = \fpeps q_1 q_2 \frac{\gamma(\vec{x}_2 - \vec{x}_1)}{\gamma^3 \norm{\vec{x}_2 - \vec{x}_1}^3}
+        }
+        \, .
+    \end{equation}
+    -> some more stuff goes into this (perhaps already in equation before); we assume that difference only has non-zero components in direction that particles move (otherwise gamma in front of vector difference does not work); is fine, but must be mentioned -> actually this might not even be the case
+
+    Therefore, we see that the Lorentz force exerted in a frame relative to which the point charges move is essentially a boosted version of the Lorentz force in a frame where the charges are stationary. Length contraction changes how the field is perceived in this frame. Granted, we have made many simplifying assumptions here (and also look only at the three-vector $\vec{F}$ here), but sources like \cite{Rosser_1968}, Chapter 3., or \cite{Page_1912} show how this can work in very general setups. Our treatment is merely meant to be an outline of the general strategy used to show the acclaimed equivalence.
+
+    \todo{is this really what we intend to show?} -> yes, it is; from inertial frame with respect to which the charges are moving, it looks like the two charges are interacting via Coulomb force over distance $\norm{\vec{x}_2 - \vec{x}_1}$, and the associated currents are interacting via magnetic force over the same distance; however, what we see upon rewriting is that the total Lorentz force is just a Coulomb force, but acting over a contracted distance $\norm{\vec{x}_2 - \vec{x}_1}$ (analyzing from the rest frame, this is the value that the moving charges measure for their separation)
+
+    \todo{draw simply TikZ plot of situation?}
+\end{ex}
+To summarize this example, relativity shows in quite natural (and, arguably, quite elegant) manner that electric and magnetic force are manifestations of the same phenomenon. It unifies the treatment of problems involving charges and explains different contributions, e.g., to the Lorentz force. So, why does the majority of textbooks still take the approach to explain them separately? Well, in the end still kind of independent because we can treat as separate effects (though mixing is frame-dependent)
+
+-> still makes sense to treat separately, what we have here is really mainly due to movement (as initial thought experiment shows), so the two manifestations occur in independent setups (though, of course, one can have both at a time; this is realm of electrodynamics)
+
+
+
+
+
+%         \subsection{Faraday's Law}
+% Not only do we allow for both electric and magnetic fields now, we also allow these fields to vary with time.
+
+
+% treat electromotive force
+
+
+
+        \subsection{Maxwell Equations}
+Now that we impose no restrictions on the configuration of charges, we have to study a few more interactions in addition to those that have been treated already. Our expectation is that electric and magnetic field are gonna mix, as we have already seen in example \ref{ex:point_charge_magn_field} with point charges, simply because we can now have exposed, i.e.~non-vanishing, charge and motion of said charge at the same time.
+
+Interestingly, in order to do time-independent electrodynamics, i.e.~electromagnetism, the only thing we have to do is take the Maxwell equations from electro-, magnetostatics and continue with this set of equations. It is only when we go to dynamics with $\pdv{\vec{E}}{t} \neq 0$ and/or $\pdv{\vec{B}}{t} \neq 0$ that we have to do more work. This should be intuitive because any change in the two fields can potentially cause charges to move around, due to the changing force that acts on them. This in turn would influence the fields themselves.\\
+
+
+Faraday analyzed experimentally the effects of a time-dependent magnetic field and was able to derive the following relationship:
+\begin{equation}\label{eq:maxwell_edyn_one_int}
+    \eqbox{
+        \oint_{\partial S} \vec{E} \cdot d\vec{x} = - \int_S \pdv{\vec{B}}{t} \cdot d\vec{S}
+    } \, .
+\end{equation}
+This is the (integral form of the) first Maxwell equation of electrodynamics, and to honor its discoverer, this equation is also called \Def{Faraday's law}. In differential form, it reads
+\begin{equation}\label{eq:maxwell_edyn_one_diff}
+    \eqbox{
+        \curl \vec{E} = - \pdv{t} \vec{B}
+    } \, .
+\end{equation}
+In other words, the only situation where an electric field can have vortices is when a time-varying magnetic field is present.
+
+
+A time-dependent electric field (here quantified by the field $\vec{D}$ that the free charges emit) will naturally lead to moving charges, i.e.~a new current. Through some considerations using the continuity equation, one arrives at the conclusion that this new current is properly quantified by $\pdv{t} \vec{D}$. Including this in the Maxwell equation that contains currents in statics then yields the second Maxwell equation of electrodynamics,
+\begin{equation}\label{eq:maxwell_edyn_two_diff}
+    \eqbox{
+        \curl \vec{H} = \vec{j} + \pdv{\vec{D}}{t}
+    } \, .
+\end{equation}
+\todo{integral form?}
+
+
+\todo{treat electromotive force}
+
+-> some high leven overview: basically, Maxwell equations determine curl and divergence of the two fields $\vec{E}, \vec{B}$, thereby determining the whole field (by mathematical theorem). The corresponding four equations can be divided into homogenous (only the fields interplay) and inhomogeneous (charge and current density appear) ones. Moreover, if we have some medium involved, there are material equations (so some statements from above must be rephrased in terms of other variables; does not really change interpretation, though).
+
+-> these Maxwell equations are complemented by the Lorentz force, total expression of which we sneaked into example \ref{ex:point_charge_magn_field} already, and which reads
+\begin{equation}
+    \eqbox{
+        \vec{F} = q \qty(\vec{E} + \vec{v} \cross \vec{B})
+    } \, ,
+\end{equation}
+where $q, \vec{v}$ represent the charge, velocity of the particle in consideration.
+
+
+-> more common approach than solving Maxwell equations (kind of annoying, complicated): solve equivalent equations for potentials (so that Maxwell are automatically fulfilled), determine fields from potentials; in statics, this amounted to solving Poisson equations, and here ...
+
+for potentials in Lorenz gauge, generalization of Poisson reads
+\begin{equation}
+    \eqbox{
+        \square \varphi = - \frac{\rho}{\epsilon_0}
+    }
+    \manyqquad
+    \eqbox{
+        \square \vec{A} = - \mu_0 \vec{j}
+    } \, .
+\end{equation}
+
+
+
+    \section{Notes}
+
+so we can we take viewpoint that there are truly only two Maxwell equations, for field tensor? And one of them being ($dF = 0$) that electromagnetic force is conservative (which directly implies we can find potential)
 
 
 
