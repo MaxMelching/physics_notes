@@ -7,6 +7,8 @@
 
 \chapter{Special Relativity}
 
+% -- LOVE these: https://taleinav.github.io/Lectures/Ph%201b/Relativity%20Questions%20and%20Answers.pdf
+
 \begin{center}
 In modern day (theoretical) physics, I personally feel like there are two competing viewpoints. One is very much based on intuition and the other is based almost solely on a mathematical description. This shows especially in the theory of special relativity, where one can deal (i) in much detail with groups and transformations or (ii) with a much more pictorial version of the theory, mostly utilizing very basic geometry in so-called spacetime diagrams.
 
@@ -40,10 +42,11 @@ It is based on the following principles.
 			\eqbox{
 				\vec{F} = m \vec{a} = m \dv[2]{\vec{r}}{t}
 			}
-			\manyqquad
-			\eqbox{
-				F^k = m a^k = m \ddot{r}^k
-			} \, .
+			% \manyqquad
+			% \eqbox{
+			% 	F^k = m a^k = m \ddot{r}^k
+			% }
+			\, .
 		\end{equation}
 
 		\item If two bodies exert forces on each other, these forces have the same magnitude but opposite directions (\enquote{actio = reactio}),
@@ -51,14 +54,19 @@ It is based on the following principles.
 			\eqbox{
 				\vec{F}_{12} = - \vec{F}_{21}
 			}
-			\manyqquad
-			\eqbox{
-				F_{12}^k = - F_{21}^k
-			} \, .
+			% \manyqquad
+			% \eqbox{
+			% 	F_{12}^k = - F_{21}^k
+			% }
+			\, .
 		\end{equation}
 	\end{enumerate}
 \end{post}
 These axioms define how objects (which are sometimes given the abstract name \Def{observer} $\mathcal{O}$; these give us viewpoints to describe physics from) experience physics. In order to describe this action mathematically, we also need explicit ways to assign the position of observers to points $\vec{r} \in \mathbb{R}^3$ in the Euclidean space we live in. Such an assignment is what physicists call \Def{coordinates} or \Def{frames}.
+
+following Thorne + Blandford in Sec.~1.4, emphasize how we can formulate Newtons laws entirely geometrically, without any coordinates! Of course, we \emph{can} use coordinates (as we do frequently, by writing laws in terms of components), but there is no \emph{need} to do so. This is very special -> this will be true for all of relativity! -> is it, really? In any case, note this down!
+
+-> component forms of laws are not necessarily always true, we can have non-constant basis vectors!
 
 
 Newton's laws have rich implications, some of which we discuss now.
@@ -107,10 +115,10 @@ The second law is probably the second most famous formula in physics. It is a sp
 	\eqbox{
 		\vec{F} = \dv{\vec{p}}{t}
 	}
-	\manyqquad
-	\eqbox{
-		F^k = \dv{p^k}{t}
-	}
+	% \manyqquad
+	% \eqbox{
+	% 	F^k = \dv{p^k}{t}
+	% }
 \end{equation}
 that relates forces to \Def{momenta} $\vec{p} = m \vec{v}$. Because of their relation to forces, some fundamental principles involve momenta. 
 
@@ -228,6 +236,9 @@ The first idea is to make the invariance under chosen reference frame, which has
 	All physical observations must hold independently of the inertial frame that is chosen.
 \end{post}
 This principle can be traced back to Galileo Galilei, who formulated it in 1632. It means if you are in a closed room without any windows, you cannot perform any experiment to determine if you are at rest or moving at a constant velocity. In other words, there is no absolute notion of rest; it is all relative (hence the name \enquote{relativity principle}). Note how this fundamentally disagrees with Newton's concept of an absolute space, where something like a \enquote{master frame} exists.\todo{should we comment on how non-inertial frames can be found? pseudo-forces should be answer, right?}\\
+
+
+-> I love simplicity of following sentence: it is impossible for scientists to set up an experiment that determines the velocity that the frame moves with (tells us already that absolute space is wrong as a concept)
 
 
 The second postulate concerns the speed of light and is definitely something new.
@@ -486,25 +497,24 @@ then the clocks $\mathcal{C}^R, \mathcal{C}, \mathcal{C}'$ are synchronized. By 
 	%\thisfloatpagestyle{onlyheader} % Not needed with caption on side
 	
 	\subfloat[Observers at rest relative to each other in their rest frame]{
-		\input{pictures/synchronization_resting_observers_a.tex}
-	%\hspace*{0.05\textwidth}
-	}\hspace*{0.2\textwidth}
-	%
+		\includegraphics[width=0.3\textwidth]{pictures/synchronization_resting_observers_a.pdf}
+	}
+	% 
+	\hspace*{0.1\textwidth}%
+	% 
 	\subfloat[Observers at rest relative to each other in frame moving relative to them]{
-	%\hspace*{0.05\textwidth}
-		\input{pictures/synchronization_resting_observers_b.tex}
-	}%\hspace*{0.025\textwidth}
+		\includegraphics[width=0.4\textwidth]{pictures/synchronization_resting_observers_b.pdf}
+	}
 	
-	\vspace*{4\baselineskip}
+	\vspace*{2\baselineskip}
 	
 	\begin{minipage}{0.5\textwidth}
 		\centering
 		
 		\subfloat[Comparison of all observers from (a) and (b). For simplicity, we assume that the clock $\mathcal{C}$ and $\mathcal{C}''$ show the same time $t = t''$ on intersection of $\mathcal{O}, \mathcal{O}''$. Despite that, they cannot agree on the time of intersection of $\mathcal{O}', \mathcal{O}'''$, $t' \neq t'''$.]{
-		%\hspace*{0.05\textwidth}
-			\input{pictures/synchronization_resting_observers_c.tex}
+			\includegraphics[width=0.8\textwidth]{pictures/synchronization_resting_observers_c.pdf}
 		}
-	\end{minipage}%\hfill
+	\end{minipage}%
 	\begin{minipage}{0.5\textwidth}
 		\caption[Synchronization procedure in spacetime diagrams for different sets of observers]{Synchronization procedure in spacetime diagrams for different sets of observers. We draw the observers $\mathcal{O}, \mathcal{O}'$ whose clocks we wish to synchronize, the referee $\mathcal{R}$ for them and the light pulses they exchange in order to achieve the synchronization.\\
 		Clocks carried by $\mathcal{O}$ and $\mathcal{O}'$ measure the events at times $t = \frac{t_+ + t_-}{2}$ and $t' = \frac{t'_+ + t'_-}{2}$ to be simultaneous, i.e.~$t = t'$. This is because light (represented as yellow lines) sent out simultaneously by the referee $\mathcal{R}$ to $\mathcal{O}$ and $\mathcal{O}'$ \enquote{sees} times $t$ and $t'$ on the clocks before returning simultaneously to $\mathcal{R}$, where the results are \enquote{reported}.}
@@ -636,6 +646,8 @@ This is a geometrical proof, which was taken more or less from \cite{dragon_geom
 % -> Fig.~\ref{fig:moving_clocks} (a) shows that the moving clocks still run at same rate from perspective of the resting observer. But what if we look at two observers that move with $\abs{v_1} = \abs{v_2}$?
 
 
+\todo{check that all statements regarding referee are correct. Yes, does desynchronize as well, but can still serve as referee, meaning it lies at intersections of lightangles}
+
 
 But what does this result actually mean? It probably looks very puzzling at first, so let us elaborate on it, starting with the viewpoint of $\mathcal{O}$ (for the accompanying illustrations, see Fig.~\ref{fig:moving_clocks}). Because the clocks have been synchronized in the beginning, $\mathcal{O}$ expects that the light signals sent out and received at $t_-, t_+$ saw $\mathcal{O}'$ when $\mathcal{C}'$ showed
 \begin{equation*}
@@ -677,36 +689,33 @@ The question that truly matters now is the following: is this a physical effect?
 	\centering
 	%\thisfloatpagestyle{onlyheader} % Not needed with caption on side
 	
-	\hspace*{-0.05\textwidth}
-	%
 	\subfloat[Observers moving with relative velocity $v = 0.6 c$]{
-		\input{pictures/synchronization_moving_observers_a.tex}
+		\includegraphics[width=0.4\textwidth]{pictures/synchronization_moving_observers_a.pdf}
 	}
 	%
-	%\hspace*{0.2\textwidth}
-	\hspace*{0.05\textwidth}
+	\hspace*{0.1\textwidth}
 	%
 	\subfloat[Observers moving with relative velocity $v = 0.5 c$]{
-	%\hspace*{0.05\textwidth}
-		\input{pictures/synchronization_moving_observers_b.tex}
+		\includegraphics[width=0.36\textwidth]{pictures/synchronization_moving_observers_b.pdf}
 	}
-	%
-	\hspace*{0.05\textwidth}
-	%
-	\subfloat[Sketch for proof help]{
-		\input{../pictures/synchronization_labeled_sketch.tex}
-	}
-	
-	\caption[Synchronization procedure in spacetime diagrams for moving observers]{Synchronization procedure in spacetime diagrams for moving observers.%
-	% \protect\footnotemark
-	\\
-	We also note that it is really the relative velocity that matters because we could always go in the rest frame of one of the observers and examine the situation from there. Also, it does not matter which rest frame because the effect is mutual, i.e.~it does not change if we replace $v \rightarrow -v$.\\
-	\todo{if referee desynchronizes, then note that $t_-, t'_-$ are chosen such that they meet in the middle between the two observers}
-	}
-	\label{fig:moving_clocks}
-\end{figure}
 
-% \footnotetext{Beware that the diagrams are not perfect, e.g.~the referee should be exactly where the light beams cross again. This is most likely due to an error in my code, which I was unable to locate. Nonetheless, the most important ideas should still be conveyed (for an analogous graphic, see Fig.~2.8 of \cite{dragon_geometry_srt}).\todo{is this comment still recent?}}
+	\vspace*{2\baselineskip}
+
+	\begin{minipage}{0.5\textwidth}
+		\centering
+
+		\subfloat[Sketch for proof help]{
+			\includegraphics[width=0.6\textwidth]{pictures/synchronization_labeled_sketch.pdf}
+		}
+	
+	\end{minipage}%
+	\begin{minipage}{0.5\textwidth}
+		\caption[Synchronization procedure in spacetime diagrams for moving observers]{Synchronization procedure in spacetime diagrams for moving observers.\\
+		We also note that it is really the relative velocity that matters because we could always go in the rest frame of one of the observers and examine the situation from there. Also, it does not matter which rest frame because the effect is mutual, i.e.~it does not change if we replace $v \rightarrow -v$.
+		}
+		\label{fig:moving_clocks}
+	\end{minipage}
+\end{figure}
 
 
 %\begin{figure}

@@ -3,6 +3,7 @@
 \documentclass[border=3pt,tikz]{standalone}
 
 \usepackage{newtxmath}  % Use Times in math mode
+\usepackage{tgpagella}  % Use Pagella in text
 \usepackage{tikz}
 \usepackage{fp}
 \usepackage{calc}
@@ -127,7 +128,6 @@
         \coordinate (A) at (0, \tsignal);
         \coordinate (E) at (0, \doppleronetwo*\tsignal + \initsep);
         \coordinate (B) at (0, \doppleronetwo*\doppleronetwo*\tsignal + 2*\initsep);
-        % \coordinate (ABhalf) at (0, {(1+\doppleronetwo*\doppleronetwo)/2*\tsignal});
         \coordinate (ABhalf) at ($ (A)!0.5!(B) $);
     \end{scope}
 
@@ -135,14 +135,14 @@
         \coordinate (C) at (\initsep, \tsignal);
         \coordinate (F) at (\initsep, \doppleronetwo*\tsignal + \initsep);
         \coordinate (D) at (\initsep, \doppleronetwo*\doppleronetwo*\tsignal + 2*\initsep);
-        % \coordinate (CDhalf) at (\initsep, {(1+\doppleronetwo*\doppleronetwo)/2*\tsignal});
         \coordinate (CDhalf) at ($ (C)!0.5!(D) $);
     \end{scope}
     
-    % \draw[light] (A) -- (F) -- (B);  % Light from 1 to 2 -> not so nice with decorate
+    
+    % -- Light signals. Separate paths instead of A-F-B for styling reasons
     \draw[light] (A) -- (F);
     \draw[light] (F) -- (B);
-    % \draw[light] (C) -- (E) -- (D);  % Light from 2 to 1
+    
     \draw[light] (C) -- (E);
     \draw[light] (E) -- (D);
 
@@ -151,6 +151,12 @@
 	\draw[worldline, vlorentz=\vone] (0, \tmin) node[left] {$\mathcal{O}$} -- (0, \tmax) node[left] {$ct$};
 	\draw[worldline, vlorentz=\vtwo] (\initsep, \tmin) node[right] {$\mathcal{O}'$} -- (\initsep, \tmax) node[right] {$ct'$};
 	\draw[worldline, vlorentz=\vreferee] ({\initsep/2}, \tmin) node[below] {$\mathcal{R}$} -- ({\initsep/2}, \tmax);
+
+    % -- Lines of Simultaneity
+    \draw[simultline] (A) -- (C);
+    \draw[simultline] (B) -- (D);
+    \draw[simultline] (E) -- (F);
+    \draw[simultline] (ABhalf) -- (CDhalf);
 
     % -- Point halfway between emission and reception
 	\draw[fill, labelledpoint] (ABhalf) circle(0.08);
@@ -168,12 +174,6 @@
 
     \node[below left] at (E) {$\tau$};
     \node[below right] at (F) {$\tau'$};
-
-    % -- Lines of Simultaneity
-    \draw[simultline] (A) -- (C);
-    \draw[simultline] (B) -- (D);
-    \draw[simultline] (E) -- (F);
-    \draw[simultline] (ABhalf) -- (CDhalf);
 \end{tikzpicture}
 
 
