@@ -1,0 +1,21 @@
+% -- Dragon figure, code just copied from online
+
+
+\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+    % Draw lines of observers
+        \draw[->, thick] (0.2, -0.5) -- (-2.0, 5);
+        \draw[->, thick] (-0.375, -0.5) -- (3.75, 5);
+
+    % Draw trajectories of light
+    \draw[->, thick, black!10!yellow] (-0.4, 1) -- (1.2000000000000002, 1.6);
+    \draw[->, thick, black!10!yellow] (-0.8, 2) -- (2.4000000000000004, 3.2);
+
+    % Make labels
+    \draw (0, -0.5) node[below] {$\mathcal{O}$};
+    \draw (-2.0, 5) node[left] {$\mathcal{U}$};
+    \draw (-0.4, 1) node[left] {$t_\mathcal{U}$};
+    \draw (-0.8, 2) node[left] {$t'_\mathcal{U}$};
+    \draw (3.75, 5) node[right] {$\mathcal{B}$};
+    \draw (1.2000000000000002, 1.6) node[right] {$t_\mathcal{B}$};
+    \draw (2.4000000000000004, 3.2) node[right] {$t'_\mathcal{B}$};
+\end{tikzpicture}

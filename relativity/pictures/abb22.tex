@@ -1,0 +1,28 @@
+% -- Dragon figure, code just copied from online
+
+
+\begin{tikzpicture}[thick, >={[inset=0,angle'=27]Stealth}]
+    % Draw lines of observers and referee
+        \draw[->, thick] (0.2, -0.5) -- (-2.0, 5);
+        \draw[->, thick] (-0.375, -0.5) -- (3.75, 5);
+        \draw[->, thick] (-0.0875, -0.5) -- (0.875, 5);
+
+    % Draw line of simultaneity
+    \draw[thick, black!10!green] (-0.7493997598078078, 1.8734993995195195) -- (1.5, 2);
+
+    % Draw parallelogram
+    \draw[thick] (-0.7493997598078078, 1.8734993995195195) -- (0.15896358541377742, 2.7818627447411046);
+    \draw[thick] (-0.7493997598078078, 1.8734993995195195) -- (0.15896358541377742, 0.9651360542979343);
+    %\draw[thick] (0.15896358541377742, 2.7818627447411046) -- (1.5, 2);
+    %\draw[thick] (0.15896358541377742, 0.9651360542979343) -- (1.5, 2);
+    %\draw[thick] (1.5, 2) -- (0.5916366547784148, 2.908363345221585);
+    %\draw[thick] (-0.7493997598078078, 1.8734993995195195) -- (0.15896358541377742, 2.7818627447411046);
+
+    % Make labels
+    \draw (0, -0.5) node[below] {$\mathcal{O}$};
+    \draw (-2.0, 5) node[left] {$\mathcal{U}$};
+    \draw (-0.7493997598078078, 1.8734993995195195) node[left] {$\tau_\mathcal{U}$};
+    \draw (0.875, 5) node[left] {$\mathcal{S}$};
+    \draw (3.75, 5) node[right] {$\mathcal{B}$};
+    \draw (1.5, 2) node[right] {$\tau_\mathcal{B}$};
+\end{tikzpicture}
