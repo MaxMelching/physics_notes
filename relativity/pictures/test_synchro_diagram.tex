@@ -1,0 +1,369 @@
+\documentclass[border=3pt,tikz]{standalone}
+\input{../header_addons}
+
+\usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{xcolor}
+\usepackage{scrlayer-scrpage}
+
+
+
+% \documentclass[../relativity_main.tex]{subfiles}
+
+
+
+\pgfkeys{
+	/addlightsignal/.is family, /addlightsignal,
+	default/.style = {v = 0, color = red},
+	v/.estore in = \lightsignalVelocity,
+	vtwo/.estore in = \lightsignalVelocityTwo,
+	color/.estore in = \lightsignalColor
+}
+
+% Mandatory argument: x position of first event, y position of first event, x position of second event, y position of second event
+% Optional arguments: relative velocity (important: if negative, must be given as (-1) * v where v is the absolute value, otherwise error), color
+\newcommand{\addlightsignal}[5][]{%
+	\pgfkeys{/addlightsignal, default, #1}
+
+    % Evaluate the Lorentz transformation
+    %\FPeval{\calcgamma}{1/((1-(#3)^2)^.5)}
+    \FPeval{\calcgamma}{1/((1-((\lightsignalVelocity)*(\lightsignalVelocity)))^.5)} % More robust, allows negative v
+    \FPeval{\calcbetagamma}{\calcgamma*\lightsignalVelocity}
+
+	% Draw event
+	% \draw[thick, \lightsignalColor, cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(0,0)}] (#2, #3) -- (#4, #5);
+    
+    \FPeval{\calcgammaone}{1/((1-((\lightsignalVelocity)*(\lightsignalVelocity)))^.5)}
+    \FPeval{\calcbetagammaone}{\calcgammaone*\lightsignalVelocity}
+    \FPeval{\calcgammatwo}{1/((1-((\lightsignalVelocityTwo)*(\lightsignalVelocityTwo)))^.5)}
+    \FPeval{\calcbetagammatwo}{\calcgammatwo*\lightsignalVelocityTwo}
+
+    \draw ({\calcgammaone*#2 + \calcbetagammaone*#3}, {\calcgammaone*#3 + \calcbetagammaone*#2}) -- ({\calcgammatwo*#4 + \calcbetagammatwo*#5}, {\calcgammatwo*#5 + \calcbetagammatwo*#4});
+}
+
+
+
+
+\tikzset{
+  vlorentz/.style={
+    % /pgf/gamma/.expanded=\FPeval{#1},
+    % /pgf/betagamma/.expanded=\FPeval{#2},
+    % Apply the calculated shifts
+    % cm={(\pgfkeysvalueof{/pgf/number1} cm,\pgfkeysvalueof{/pgf/number2} cm)}
+    % 
+    % /pgf/gamma/.expanded=\FPeval{\calcgamma}{1/((1-((#1)*(#1)))^.5)}, % More robust, allows negative v
+    % /pgf/betagamma/.expanded=\FPeval{\calcbetagamma}{\calcgamma*#1},
+    % cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(0,0)}
+    % cm={\pgfkeysvalueof{/pgf/gamma},\pgfkeysvalueof{/pgf/betagamma},\pgfkeysvalueof{/pgf/betagamma},\pgfkeysvalueof{/pgf/gamma},(0,0)}
+    % cm={0.5,0.2,0.2,0.5,(0,0)}
+    % cm={#1,0.0,#1,0.0,(0,0)}
+    % cm={1/((1-((#1)*(#1)))^.5,1/((1-((#1)*(#1)))^.5*#1,1/((1-((#1)*(#1)))^.5*#1,1/((1-((#1)*(#1)))^.5,(0,0)}
+    cm={1/((1-((#1)*(#1)))^.5,#1*1/((1-((#1)*(#1)))^.5,#1*1/((1-((#1)*(#1)))^.5,1/((1-((#1)*(#1)))^.5,(0,0)}
+  }
+}
+
+
+\begin{document}
+
+
+\begin{tikzpicture}[thick]
+    \spacetimediagram[lightcone=false]{5}
+
+    % \def\v{0.0}
+    % \def\v{0.25}
+    \def\v{0.5}
+
+    % \addworldline[v=\v]{0}{0}{0}{6}  % Observer
+    % \addworldline[v=\v]{2}{0}{2}{6}  % Observer
+
+    % \addworldline[v=\v, color=lightyellow]{0}{0}{2}{2}
+    % \addworldline[v=\v, color=lightyellow]{2}{2}{0}{4}
+    
+    % \addworldline[v=\v, color=lightyellow]{2}{0}{0}{2}
+    % \addworldline[v=\v, color=lightyellow]{0}{2}{2}{4}
+
+
+
+    % \def\v{0.2}
+    \def\v{0.0}
+    % \def\vtwo{0.4}
+    \def\vtwo{0.5}
+
+    \addevent[v=\vtwo]{2}{2}  % Test
+    
+    
+    % \FPeval{\calcgammaone}{1/((1-((\v)*(\v)))^.5)}
+    % \FPeval{\calcbetagammaone}{\calcgammaone*\v}
+    % \FPeval{\calcgammatwo}{1/((1-((\vtwo)*(\vtwo)))^.5)}
+    % \FPeval{\calcbetagammatwo}{\calcgammatwo*\vtwo}
+
+    % \def\xone{0}
+    % \def\tone{0}
+    % \def\xtwo{2}
+    % \def\ttwo{2}
+
+    % \draw ({\calcgammaone*(\xone + \calcbetagammaone*\tone)}, {\calcgammaone*(\tone + \calcbetagammaone*\xone)}) -- ({\calcgammatwo*(\xtwo + \calcbetagammatwo*\ttwo)}, {\calcgammatwo*(\ttwo + \calcbetagammatwo*\xtwo)});
+    
+
+    % \def\initsep{1}
+    % % Ah shit, that means clocks are already desynchronized in t=0
+
+    % \addworldline[v=\v]{0}{0}{0}{6}  % Observer
+    % \addworldline[v=\vtwo]{\initsep}{0}{\initsep}{6}  % Observer
+
+    % \addlightsignal[v=\v, vtwo=\vtwo]{0}{0}{\initsep}{\initsep}
+    
+    % % \addlightsignal[v=\v, vtwo=\vtwo]{\initsep}{\initsep}{0}{2*\initsep}
+    % % \addlightsignal[v=\vtwo, vtwo=\v]{\initsep}{\initsep}{0}{2*\initsep}
+    
+    % % \addlightsignal[v=\v, vtwo=\vtwo]{0}{2}{\initsep}{\initsep}
+    % % \addlightsignal[v=\vtwo, vtwo=\v]{\initsep}{\initsep}{0}{2}
+
+    % \addlightsignal[v=\vtwo, vtwo=\v]{\initsep}{\initsep}{0}{2*\initsep*\calcgammaone*\calcgammaone*\calcgammaone}  % Pure luck that it looks good with v=0.2, vtw=0.4
+
+    % % \FPeval{\calcdopplerone}{((1+\v)(1-\v))^.5}
+    % % \FPeval{\calcdopplertwo}{((1+\vtwo)(1-\vtwo))^.5}
+    % \FPeval{\calcdopplerone}{((1-\v)(1+\v))^.5}
+    % \FPeval{\calcdopplertwo}{((1-\vtwo)(1+\vtwo))^.5}
+    % \FPeval{\calcdoppleronetwo}{\calcdopplerone*\calcdopplertwo}
+    
+    % % \addevent{0}{\calcdopplerone*\initsep}
+    % % \addevent[v=\v]{0}{\calcdopplerone*\initsep}
+    % % \addevent[v=\vtwo]{0}{\calcdopplerone*\initsep}
+    
+    % % \addevent[v=\vtwo]{\initsep}{\initsep}
+    % % \addevent[v=\vtwo]{\initsep}{\calcdopplerone*\initsep}
+    % % \addevent[v=\vtwo]{\initsep}{\calcdopplertwo*\initsep}
+    % % \addevent[v=\vtwo]{\initsep}{\calcdoppleronetwo*\initsep}
+
+    % \addevent[]{0}{\calcdoppleronetwo*\initsep}
+    % \addevent[]{0}{\calcdoppleronetwo*\calcdoppleronetwo*2*\initsep}
+    
+    % \addevent[v=\vtwo]{0}{\calcdoppleronetwo*\initsep}
+
+
+
+
+    \def\v{0.0}
+    % \def\v{0.2}
+    \def\vtwo{0.5}
+    \def\initsep{0}
+
+    \def\tsignal{1}
+
+    \addworldline[v=\v]{0}{0}{0}{6}  % Observer
+    \addworldline[v=\vtwo]{0}{0}{0}{6}  % Observer
+
+    \addlightsignal[v=\v, vtwo=\vtwo]{0}{\tsignal}{\tsignal}{2*\tsignal}
+    
+    \addlightsignal[v=\vtwo, vtwo=\v]{\tsignal}{2*\tsignal}{0}{3*\tsignal}
+
+    \FPeval{\calcdopplerone}{((1+\v)/(1-\v))^.5}
+    \FPeval{\calcdopplertwo}{((1+\vtwo)/(1-\vtwo))^.5}
+    % \FPeval{\calcdopplerone}{((1-\v)/(1+\v))^.5}
+    % \FPeval{\calcdopplertwo}{((1-\vtwo)/(1+\vtwo))^.5}
+    \FPeval{\calcdoppleronetwo}{\calcdopplerone*\calcdopplertwo}
+    
+    % \addevent{0}{\calcdopplerone*\initsep}
+    % \addevent[v=\v]{0}{\calcdopplerone*\initsep}
+    % \addevent[v=\vtwo]{0}{\calcdopplerone*\initsep}
+    
+    % \addevent[v=\vtwo]{\initsep}{\initsep}
+    % \addevent[v=\vtwo]{\initsep}{\calcdopplerone*\initsep}
+    % \addevent[v=\vtwo]{\initsep}{\calcdopplertwo*\initsep}
+    % \addevent[v=\vtwo]{\initsep}{\calcdoppleronetwo*\initsep}
+
+
+    \addevent[v=\v]{0}{\tsignal}
+    
+    % \addevent[v=\vtwo]{0}{\calcdoppleronetwo*\tsignal}
+    \FPeval{\vonetwo}{(\v+\vtwo)/(1+\v*\vtwo)}
+    \addevent[v=\vonetwo]{0}{\calcdoppleronetwo*\tsignal}
+
+    % \addevent[v=\v]{0}{\calcdoppleronetwo*\tsignal}
+    \addevent[v=\v]{0}{\calcdoppleronetwo*\calcdoppleronetwo*\tsignal}
+
+
+    % Does not work yet for both moving. Fixed below
+\end{tikzpicture}
+
+
+
+\begin{tikzpicture}
+    \spacetimediagram[lightcone=false]{5}
+    
+	% \draw[] (0,1) node[circle, fill, red] {};
+	% \draw[vlorentz=0.5, ultra thick] (0,1) node[circle, fill, red] {};
+
+    % \begin{scope}[vlorentz=0.2]
+	%     \draw[vlorentz=0.5, ultra thick] (0,1) node[circle, fill, red] {};
+    % \end{scope}
+
+    % Works!!!
+
+    
+
+    % \def\v{0.2}
+    % \def\v{-0.1}
+    \def\v{0.0}
+    \def\vtwo{0.5}
+    \def\initsep{0}
+    
+    \def\tsignal{1}
+
+    \FPeval{\vonetwo}{(\v+\vtwo)/(1+\v*\vtwo)}
+    \FPeval{\vonetworel}{(\v-\vtwo)/(1-\v*\vtwo)}
+
+    \begin{scope}[vlorentz=0.2]  % YESSS, WORKS
+
+    \addworldline[v=\v]{0}{0}{0}{6}  % Observer
+    \addworldline[v=\vonetwo]{0}{0}{0}{6}  % Observer
+
+    
+    \FPeval{\calcdopplerone}{((1+\v)/(1-\v))^.5}
+    \FPeval{\calcdopplertwo}{((1+\vtwo)/(1-\vtwo))^.5}
+    \FPeval{\calcdoppleronetwo}{\calcdopplerone*\calcdopplertwo}
+    
+
+    \addevent[v=\v]{0}{\tsignal}
+    % \addevent[v=\vtwo]{0}{\calcdoppleronetwo*\tsignal}
+
+    % \addevent[v=\vonetwo]{0}{\calcdoppleronetwo*\tsignal}  % Must account for time dilation here, right?
+    \addevent[v=\vonetwo]{0}{\calcdoppleronetwo*\tsignal}
+
+    % \addevent[v=\v]{0}{\calcdoppleronetwo*\tsignal}
+    \addevent[v=\v]{0}{\calcdoppleronetwo*\calcdoppleronetwo*\tsignal}
+
+
+    \addevent[v=\vonetwo, color=blue]{0}{\tsignal}
+    \addevent[v=\v, color=blue]{0}{\calcdoppleronetwo*\tsignal}
+    \addevent[v=\vonetwo, color=blue]{0}{\calcdoppleronetwo*\calcdoppleronetwo*\tsignal}
+    \end{scope}
+\end{tikzpicture}
+
+
+
+% \makeatother
+\makeatletter
+
+\pgfkeys{
+	/synchrobs/.is family, /synchrobs,
+	default/.style = {vone=0.0, vtwo=0.5, tsignal=1, tmin=0.0, tmax=6.0, initsep=0.0},
+	vone/.estore in = \synchrobs@vone,
+	vtwo/.estore in = \synchrobs@vtwo,
+	tsignal/.estore in = \synchrobs@tsignal,
+	tmin/.estore in = \synchrobs@tmin,
+	tmax/.estore in = \synchrobs@tmax,
+	initsep/.estore in = \synchrobs@initsep,
+}
+
+
+\usetikzlibrary{decorations.markings,decorations.pathmorphing}
+
+\tikzset{
+    light/.style={
+        lightyellow,
+        line width=0.8,
+        decorate,
+        decoration={
+            snake,
+            amplitude=0.67,
+            segment length=4.2,
+            post length=4.2,
+        }
+    }
+}
+
+\newcommand{\EinsteinSynchronizedObservers}[1][]{%
+	\pgfkeys{/synchrobs, default, #1}
+
+    \def\vone{\synchrobs@vone}
+    \def\vtwo{\synchrobs@vtwo}
+    \def\tsignal{\synchrobs@tsignal}
+    
+    \FPeval{\vtotal}{(\vone+\vtwo)/(1+\vone*\vtwo)}
+    \FPeval{\vrelative}{(\vtwo-\vone)/(1-\vone*\vtwo)}
+    % \FPeval{\vrelative}{(\vone-\vtwo)/(1-\vone*\vtwo)}
+    % \FPeval{\vrelative}{(\vtwo-\vone)/(1+\vone*\vtwo)}
+    % \FPeval{\vrelative}{(\vtwo-\vone)/(1+\vone*\vtwo)}
+    
+    \FPeval{\dopplerone}{((1+\vone)/(1-\vone))^.5}
+    \FPeval{\dopplertwo}{((1+\vtwo)/(1-\vtwo))^.5}
+    % \FPeval{\doppleronetwo}{\dopplertwo}
+    \FPeval{\doppleronetwo}{\dopplerone*\dopplertwo}
+    
+    % \FPeval{\dopplertwo}{((1+\vrelative)/(1-\vrelative))^.5}
+
+    \FPeval{\doppleronetwo}{\dopplertwo/\dopplerone}
+    % \FPeval{\doppleronetwo}{\dopplerone/\doppletwo}
+
+
+    \begin{scope}[vlorentz=\vone]
+        \coordinate (A) at (0, \tsignal);
+        \coordinate (E) at (0, \doppleronetwo*\tsignal);
+        \coordinate (B) at (0, \doppleronetwo*\doppleronetwo*\tsignal);
+    \end{scope}
+
+    % \begin{scope}[vlorentz=\vtotal]
+    \begin{scope}[vlorentz=\vtwo]
+        \coordinate (C) at (\initsep, \tsignal);
+        \coordinate (F) at (\initsep, \doppleronetwo*\tsignal);
+        \coordinate (D) at (\initsep, \doppleronetwo*\doppleronetwo*\tsignal);
+    \end{scope}
+
+
+    % \begin{scope}[vlorentz=\vone]
+    %     \coordinate (A) at (0, \tsignal);
+    %     \coordinate (E) at (0, \doppleronetwo*\tsignal);
+    %     \coordinate (B) at (0, \doppleronetwo*\doppleronetwo*\tsignal);
+        
+    %     \begin{scope}[vlorentz=\vtwo]
+    %         \coordinate (C) at (0, \tsignal);
+    %         \coordinate (F) at (0, \doppleronetwo*\tsignal);
+    %         \coordinate (D) at (0, \doppleronetwo*\doppleronetwo*\tsignal);
+    %     \end{scope}
+    % \end{scope}
+
+
+    % -- Light from 1 to 2
+    % \begin{scope}[vlorentz=\vtotal]
+    %     \draw[lightyellow] (0, \tsignal) -- (0, \doppleronetwo*\tsignal);
+    %     \draw[lightyellow] (0, \doppleronetwo*\tsignal) -- (0, \doppleronetwo*\doppleronetwo*\tsignal);
+    % \end{scope}
+    
+    % \draw[light] (A) -- (F) -- (B);  % Light from 1 to 2 -> not so nice with decorate
+    \draw[light] (A) -- (F);
+    \draw[light] (F) -- (B);
+    % \draw[light] (C) -- (E) -- (D);  % Light from 2 to 1
+    \draw[light] (C) -- (E);
+    \draw[light] (E) -- (D);
+
+    
+    % -- Observer worldlines
+	\draw[thick, ->, vlorentz=\vone] (0, \synchrobs@tmin) -- (0, \synchrobs@tmax);
+	\draw[thick, ->, vlorentz=\vtwo] (\synchrobs@initsep, \synchrobs@tmin) -- (\synchrobs@initsep, \synchrobs@tmax);
+
+    % TODO: clip here?
+
+    % -- Draw point halfway between emission and reception
+	\draw[vlorentz=\vone] (0, {(1+\doppleronetwo*\doppleronetwo)/2*\tsignal}) node[circle, fill, red] {};
+	\draw[vlorentz=\vtwo] (0, {(1+\doppleronetwo*\doppleronetwo)/2*\tsignal}) node[circle, fill, red] {};
+}
+
+% \makeatletter
+\makeatother
+
+
+\begin{tikzpicture}
+    % \spacetimediagram[]{6}
+
+    % \EinsteinSynchronizedObservers[vone=0.0,tsignal=1,tmax=4.2]
+
+    % \EinsteinSynchronizedObservers[vone=0.2,vtwo=0.7,tsignal=1,tmax=4.2]
+
+    \EinsteinSynchronizedObservers[vone=-0.1,vtwo=0.5,tsignal=1,tmax=4.2]
+\end{tikzpicture}
+
+
+
+\end{document}
