@@ -12,10 +12,6 @@ The ultimate goal of physics is to study the interaction between different objec
 
 
 
-\newpage
-
-
-
     \section{Newton's Laws of Motion}
 % -- Sources:
 % - https://en.wikipedia.org/wiki/Newton%27s_laws_of_motion
@@ -28,7 +24,7 @@ These axioms define how objects (which are sometimes given the abstract name \De
 
 -> introduce reference frame (?); feels natural now that we have defined observer; Wikipedia defines them as \enquote{an abstract coordinate system, whose origin, orientation, and scale have been specified in physical space}
 
--> In order to describe this action mathematically, we also need explicit ways to assign the position of observers to points $\vec{r} \in \mathbb{R}^3$ in the Euclidean space we live in. Such an assignment is what physicists call \Def{coordinates} or \Def{frames}.
+-> In order to describe this action mathematically, we also need explicit ways to assign the position $\vec{r}$ of observers to points $\in \mathbb{R}^3$ in the Euclidean space we live in. Such an assignment is what physicists call \Def{coordinates} or \Def{frames}. -> make clear that $\vec{r}$ is symbol reserved for positions of bodies/particles/observers, while $\vec{x}$ is general form to denote coordinates
 
 -> this is good place to talk about what Thorne+Blandford mention; to write down things, we do \emph{not} need coordinates, Newtonian physics can be approached as a purely geometric theory; however, coordinates are useful and often needed when we are working on real-world problems
 
@@ -189,11 +185,15 @@ mathematically speaking, it tells us something about symmetries of Newtonian dyn
 
 	Exploiting this property alone is already enough to treat many physical problems. One example is the collision of two (or more) particles, where momentum conservation implies
 	\begin{equation}\label{eq:implication_momentum_conservation}
-		\sum_j p_j^k = \sum_j \tilde{p}_j^k \, .
+		\eqbox{
+			\sum_j p_j^k = \sum_j \tilde{p}_j^k
+		} \, .
 	\end{equation}
 	Here, $p_j^k$ denotes the momentum of the $j$-th object before the collision and $\tilde{p}_j^k$ after.
 
 	-> this property is big reason why momenta are useful, despite their kind of abstract meaning
+
+	-> mention that this condition is also called dynamic equilibrium; because of course $\vec{F} = 0$ does not mean nothing happens here with all particles at rest, just means there are no forces acting on particles from the outside
 \end{ex}
 
 As we have seen in this example, if there are no net external forces on a system, the total force vanishes (cf.~Eq.~\eqref{eq:force_equilibrium}). In particular, this characterizes the equilibrium of the system and is thus also a common way to determine how particles behave in such a system, given the forces between them. \todo{check wording here. because no external force does not always imply equilibrium, this is not what we are trying to say} -> point is: to determine how system in equilibrium looks like, we can analyze all forces acting on the system and demand that they cancel each other in the end (because then Newton 2 tells us momentum is conserved); this is frequently done to get relation between different forces in different physical situations
@@ -209,6 +209,26 @@ important: momentum is conserved when no \emph{net} external force is present! T
 -> first law tells us about good frame we may use (inertial), where laws look same; second one tells us how laws look like; third one helps us in practice with writing down second one explicitly
 
 one of the big achievements (advancements?) of these axioms is that they give us a systematic way to write down an equation of motion, which determines how the current state of a system will evolve with time (mainly comes from Newton 2, but insights from other axioms help formulating these equations as well; e.g., trick with no net force can often only be applied due to Newton 3, etc.); granted, we need state of the system at some point for that, i.e.~an initial condition, but this is typically what we have: we ask questions like \enquote{what happens if I drop a ball}, which naturally includes knowledge of the initial setup of the experiment. Solving the equations of motion then gives us the final state of such an experiment, as well as state at every time between beginning and end (we are guaranteed that solution can be found, at least numerically, from the existence of procedures such as the Picard-Lindelöf iteration)
+
+
+
+		\subsection{Gravitation}
+Along with the axioms that bear his name, Newton published his \Def{universal law of gravitation} in the Principia, another revolutionary accomplishment. It states that the gravitational force exerted by a body with mass $M$ onto another body of mass $m$ is
+\begin{equation}\label{eq:newton_gravitation_law}
+	\eqbox{
+		\vec{F} = - \frac{G M m}{\norm{\vec{x}_m - \vec{x}_M}^3} (\vec{x}_m - \vec{x}_M) \eqqcolon - \frac{G M m}{r^3} \vec{e}_r
+	}
+\end{equation}
+where $\vec{e}_r \hat{=} \vec{e}_{Mm}$ is the unit vector pointing from $M$ to $m$, and $r$ is the norm of this connecting vector (the reason that it is usually denotes by $\vec{e}_r$ or $\hat{r}$ is that $r$ is the distance of bodies from Earth's origin, a common application \todo{improve wording here}). This law naturally obeys the third law, since $\vec{e}_{mM} = - \vec{e}_{Mm}$.
+
+\todo{start using $\vec{r}$ to denote positions? Does have advantage that $\vec{x}$ could then be used to describe vectors of arbitrary kind}
+
+-> $G$ is \Def{Newtonian constant of gravitation}, experimentally determined to be
+\begin{equation}
+	\eqbox{
+		G = 6.674 \cdot 10^{-11} \, \frac{\mathrm{m}^3}{\mathrm{kg} \, \mathrm{s}^2}
+	}
+\end{equation}
 
 
 
@@ -230,9 +250,10 @@ one of the big achievements (advancements?) of these axioms is that they give us
 
 Now, let us come to a very philosophical question: Does Newton's second law define forces or does it define momenta? What even is a force and what is momentum?
 
-Intuitively speaking, a force is something that changes the state of motion of an object. This state of motion is quantified by its mass and velocity, i.e.~through the notion of momentum. The second law then relates the two. But in some sense, it also serves as the definition of a force: it formalizes the intuitive concepts of pushing and pulling that we associate a force with into a proper, mathematical definition, by fixing its relation to the change of momentum (fixing in the sense that we choose to include no additional constant factors in the definition, which could alter the units and values of forces, without changing how we think about them).
+Intuitively speaking, a force is something that changes the state of motion of an object. This state of motion is quantified by its mass and velocity, i.e.~through the notion of momentum. The second law then relates the two. But in some sense, it also serves as the definition of a force: it formalizes the intuitive concepts of pushing and pulling that we associate a force with into a proper (though the concept itself exists without the law), mathematical definition, by fixing its relation to the change of momentum (fixing in the sense that we choose to include no additional constant factors in the definition, which could alter the units and values of forces, without changing how we think about them).
 % The second law cannot, however, be seen as a true definition of a specific force because it quantifies the net effect that all present forces have on a certain object; in other words, while this can be used to determine a specific force (having made sure no other forces are present), it is not sufficient as a definition of such a force. \todo{improve wording here, do not like it}
 
+% Forces are our way to quantify interactions between objects and it formalizes the intuitive concepts of pushing and pulling that we associate a force with into a proper, mathematical definition.
 -> forces are our way to quantify interactions between objects
 
 Momentum, on the other hand is an independent concept and we can see why a description of state of motion should involve both mass and velocity. The latter should be kind of obvious, objects move with certain velocities. But it is also intuitive that a fly moving at $42 km/h$ is very different from a car moving at the same speed, these two situations represent very different motions.
@@ -265,20 +286,20 @@ mention that forces are assumed to have instantaneous effect; poses problem in r
 \hrule
 
 
+Now that we have defined forces, here are some of its properties that we should be aware of. Usually when talking about forces, we actually refer to force fields that vary in space and time, i.e.~$\vec{F} = \vec{F}(\vec{x}, t)$ (unlike for momentum, which is defined purely as function of time).
 
-say that we usually talk about force fields that vary in space and time, when referring to a force, i.e.~$F = F(\vec{x}, t)$ (same for vectors)
 
 emphasize properties of a real force here, to be able to contrast it with fictitious forces later on
 
 
--> note conservative property, maybe even connect with following property already: Dass man konservative Kräfte (für die $\nabla \cross F = 0$, die also ein Potential haben) in die Form $F = - \nabla V$ bringen kann, sagt uns schon unglaublich viel ! Wenn man dann nämlich den GGW-Zustand eines Systems finden will, so entspricht das offenbar gerade $F = 0$ und daher sind dann die Extrema von $V$ interessant ! Weil uns Kräfte zudem immer in die Richtung des Minimums von $V$ drücken (so ist es quasi nach Definition), sucht man spezieller Minima (Maxima sind instabil). Daher kommt es, dass Systeme immer in den Zustand minimaler Energie streben, das Potential entspricht nämlich einer Energie und soll ja minimiert werden (daher wird auch Gesamtenergie minimiert, weil ja kinetische im Kräfte-GGW auch konstant ist oder ? -> ok, so doch nicht). Allgemeiner sucht man bei nicht konservativen Kräften dann Kräfte-Gleichgewichte (weil ja immer noch $F = 0$ sein muss) und setzt die daher gleich dann.
+% -> note conservative property, maybe even connect with following property already: Dass man konservative Kräfte (für die $\nabla \cross F = 0$, die also ein Potential haben) in die Form $F = - \nabla V$ bringen kann, sagt uns schon unglaublich viel ! Wenn man dann nämlich den GGW-Zustand eines Systems finden will, so entspricht das offenbar gerade $F = 0$ und daher sind dann die Extrema von $V$ interessant ! Weil uns Kräfte zudem immer in die Richtung des Minimums von $V$ drücken (so ist es quasi nach Definition), sucht man spezieller Minima (Maxima sind instabil). Daher kommt es, dass Systeme immer in den Zustand minimaler Energie streben, das Potential entspricht nämlich einer Energie und soll ja minimiert werden (daher wird auch Gesamtenergie minimiert, weil ja kinetische im Kräfte-GGW auch konstant ist oder ? -> ok, so doch nicht). Allgemeiner sucht man bei nicht konservativen Kräften dann Kräfte-Gleichgewichte (weil ja immer noch $F = 0$ sein muss) und setzt die daher gleich dann.
 
 
 
 		\subsection{Energy}
-Another concept of fundamental importance in physics is \Def{energy}.
+Another concept of fundamental importance in physics is \Def{energy}. What is a good definition of it? And why are we interested in it? This is another tough question and my answer to it is similar to what we noted about forces and momenta: It is a choice that we study this quantity, and this choice is (i) made for historical reasons, but (ii) also because they turn out to be convenient because we can ultimately derive things like conservation laws for them -- it simply turns out to be a good quantity to study the behavior of physical systems.
 
--> kinetic energy that a particle with momentum $\vec{p}$ and mass $m$ carries is
+Now let's come to some definitions. The \Def[energy!kinetic]{kinetic energy} that a particle with momentum $\vec{p}$ and mass $m$ carries is
 \begin{equation}
 	\eqbox{
 		E_\mathrm{kin} = \frac{p^2}{2 m} = \frac{m v^2}{2}
@@ -286,31 +307,84 @@ Another concept of fundamental importance in physics is \Def{energy}.
 \end{equation}
 
 
--> what is a good definition of it? Well, that's a really tough question... In the end, it turns out that it is simply a very convenient quantity because of conservation laws that can be derived involving it; so it is good notion to study behavior of physical systems
-
-
-important: sometimes it is better to think in terms of forces $\vec{F} = \dv{\vec{p}}{t}$, but other times (kinetic) energy $E = \frac{p^2}{2m}$ is preferred (or their relativistic versions)
-
-
-\hrule
-
-say this: energy is also related to forces, in fact one can classify forces in terms of energy -> conservative and dissipative; perfect transition to potential energy
-
-
-comment on relation to forces, especially them being conservative or not; for conservative forces, we can find potential and energy is conserved \todo{?}; for non-conservative (dissipative) force, energy gets lost, according to
-\begin{equation}
+But it is also possible to analyze and classify forces in terms of energy. Some forces have a \Def{potential} $V = V(\vec{x})$ that can be used to express them as
+\begin{equation}\label{eq:conservative_force}
 	\eqbox{
-		\dv{E}{t} = \int_{\vec{x}_1}^{\vec{x}_2} - \vec{F} \cdot d\vec{x} = \int_{t_1}^{t_2} - \vec{F} \cdot \dot{\vec{x}} dt
+		\vec{F} = - \grad V = \pdv{\vec{x}} V
+	} \, .
+\end{equation}
+This type of forces is called \Def[force!conservative]{conservative}, while non-conservative forces are also called \Def[force!dissipative]{dissipative}. $V$ has dimensions of energy and is also called \Def[energy!potential]{potential energy}. Conservative forces play a special role in how they interact with the energy of a system. This is quantifies by the \Def{work} done by a force on a particle moving on a path between two positions $\vec{x}_1, \vec{x}_2$,
+\begin{equation}\label{eq:work}
+	\eqbox{
+		W = \int_{\vec{x}_1}^{\vec{x}_2} \vec{F} \cdot d\vec{x} = \int_{t_1}^{t_2} \vec{F} \cdot \dot{\vec{x}} \, dt
+	}
+	\quad \Leftrightarrow \quad
+	\eqbox{
+		\dv{W}{t} = \vec{F} \cdot \vec{v}
 	}
 \end{equation}
--> work is path-dependent
+-> subtracted when it takes energy away from particle
+
+By some (quite beautiful) mathematical theorem, the property we noted as a definition of conservative forces implies
+\begin{equation}\label{eq:work_conservative_force}
+	\eqbox{
+		W = \int \vec{F} \cdot d\vec{s} = \int_{s_0}^{s_1} - \nabla V \cdot d\vec{s} = - [V(s_1) - V(s_0)] = V(s_0) - V(s_1)
+	} \, ,
+\end{equation}
+work done by them is path-independent; as a bonus, it may be expressed as a potential difference. In particular, work done on a closed path vanishes,
+\begin{equation}\label{eq:work_conservative_force_closed_path}
+	\eqbox{
+		W = \oint \vec{F} \cdot d\vec{x} = 0
+	}
+\end{equation}
+Both Eq.~\eqref{eq:work_conservative_force} and Eq.~\eqref{eq:work_conservative_force_closed_path} are equivalent definitions of conservative forces. A sufficient condition to check whether a force is conservative is that its curl vanishes,
+\begin{equation}\label{eq:conservative_force_condition}
+	\eqbox{
+		\curl \vec{F} = 0
+	}
+\end{equation}
+(which is due to the same beautiful theorem as before; you should really go read up on Stokes' theorem if you don't know it yet).
+
+For dissipative forces like friction, all of these characteristics are not true. Energy lost on closed path gets turned into heat (so, of course, it is still somewhat conserved, but does not go into the motion of the system that we are primarily studying in this chapter), \enquote{mechanical energy = kinetic + potential energy} is not true anymore.\\
 
 
--> nice motivation: say we have particle moving at velocity $v$; what is change in kinetic energy when an external force now acts on particle? Well, should involve $\vec{F} \cdot \vec{v}$ somehow -- turns out, that's already it! This is work
+% -> work is path-dependent in general; if not, we have special type of force, called \Def{conservative force} and one of the characteristics of them is that they have a potential $V$ -> I also like this motivation, but right now things are kind of nicer in order
+
+
+% -> nice motivation: say we have particle moving at velocity $v$; what is change in kinetic energy when an external force now acts on particle? Well, should involve $\vec{F} \cdot \vec{v}$ somehow -- turns out, that's already it! This is work -> not sure this is proper motivation for correct units and so on
+
+
+Now some notes on this definition of work: we see that a force can do no work when acting on a particle, which is precisely the case when $\vec{F} \perp \vec{v}$; however, that does not mean the force has no effect, its interaction simply does not lead to a change in the speed as the magnitude of $\vec{v}$, only in its direction. Moreover, the \enquote{beautiful theorem} used to relate work and potential could very well be applied if we had $\vec{F} = \grad V$ as well; the minus sign in this definition is purely conventional, and in the chosen convention, work is gained from a loss of potential energy. As far as I can see, this is made for consistency with the behavior inferred from kinetic energy, where no motion means no energy. In a similar fashion, the minus sign means that no force is acting when $V$ is minimal (instead of maximal). This is actually a profound insight: Newton's laws dictate that $\vec{F} = 0$ corresponds to particles maintaining their state of motion, so in particular they remain at rest if they are initially. From what we just noticed, an equivalent way to say this is that the particle is in equilibrium when its energy is minimized. Moreover, we see that $\vec{F} = 0 \Rightarrow \dv{E}{t}$, so the total energy is also conserved if a system is in equilibrium, no matter if the equilibrium is static or dynamic.
+
+
+This insight is a first indication that many laws and ways to think about system can be formulated both in terms of forces and energies. While both formulations are equivalent in terms of the physics they imply, depending on the situation it might be much easier to formulate one of them. Hence it is always good to think about which approach seems more promising. We will demonstrate this in an example.
+
+\begin{ex}[Throwing A Ball Up]
+	let's say we launch a ball in straight vertical line (to avoid angles \todo{perhaps not so hard to include them} -> $\theta$ is angle from ground to $\vec{v}$, so $\theta = \pi/2$ means $\parallel \vec{e}_z$) so that it has initial velocity $v_0$
+
+	some interesting questions: how high does ball fly (above point it was launched), as function of $v_0$? how long does ball take until this point?
+
+	\paragraph{Analysis With Forces}
+	only force acting is gravity, $F_g = - m g$
+
+	determine trajectory from second law: $m \vec{a} = - m g \vec{e}_z$, which implies $\vec{v}(t) = - g \vec{e}_z t + v_0$ and $\vec{x}(t) = - 1/2 g \vec{e}_z t^2 + \vec{v}_0 t + \vec{x}_0$
+
+	from initial conditions we have initial velocity and without loss of generality, $\vec{x}_0 = 0$ (we measure difference to initial position)
+
+	maximum height? look for time $t_\mathrm{max}$ where vertical velocity is zero, i.e.~$\dv{z}{t} = - g t_\mathrm{max} + v_0 \sin \theta = 0$, which yields $t_\mathrm{max} = \frac{v_0 \sin \theta}{g}$
+
+	-> substitute into trajectory to get maximum height: $z(t_\mathrm{max}) = - 1/2 g (\frac{v_0 \sin \theta}{g})^2 + v_0 \sin \theta \frac{v_0 \sin \theta}{g} = 1/2 \frac{v_0^2 \sin^2 \theta}{g}$
 
 
 
-\newpage
+	\paragraph{Analysis With Energies}
+
+	initial kinetic energy: $E_0 = \frac{1}{2} m v_0^2$ -> ah, we are only interested in $z$-component of this, right? Because any horizontal component of motion does not change question we want to address
+
+	gravitational force constantly does work on ball, which effectively reduces energy $E_0$; total amount of work done at height $h$ (as long as it is still going ups) above starting point is $W = - m g h$
+
+	in point of turnaround, ball briefly has no energy (after turnaround, it gains energy again due to gravity pulling on it; velocity in different motion, but energy of course still positive -> ah no, work actually becomes positive after turnaround, since then $\vec{F} \parallel \vec{v}$ instead of anti-parallel); from $E_0 + W = 0$ we get $h = \frac{v_0^2}{2 g}$, same we got from force analysis (but much quicker, actual calculation is very short)
+\end{ex}
 
 
 
@@ -476,7 +550,7 @@ We can answer both questions at once. For that, recall that when writing down Ne
 Consequently, the additional terms caused by a change of the coordinate axes $\vec{e}'_i$ themselves in the inertial frame $\Sigma$ are physical. In order to \enquote{save} Newton's second law in the non-inertial frame as well, we can associate with these additional terms a force (or rather multiple forces)
 \begin{equation}\label{eq:pseudo_force_general}
 	\eqbox{
-		- m \dv[2]{\delta \vec{x}_0}{t} - m \sum_k 2 \dv{x'^k}{t} \dv{\vec{e'}_k}{t} + x'^k \dv[2]{\vec{e'}_k}{t}
+		\vec{F}_\mathrm{fict} = - m \dv[2]{\delta \vec{x}_0}{t} - m \sum_k 2 \dv{x'^k}{t} \dv{\vec{e'}_k}{t} + x'^k \dv[2]{\vec{e'}_k}{t}
 	}	\, .
 \end{equation}
 If the expressions that those \enquote{forces} evaluate to are added manually to external forces in $\Sigma'$, then the results obtained from this frame are consistent with inertial frames. The reason that the word forces was put in quotation marks is that the terms in Eq.~\eqref{eq:pseudo_force_general} do not resemble forces arising from interactions between particles. They are merely a product of a specific choice of reference frame, which means they are not \enquote{real forces} and motivates the name \Def[force!fictitious]{fictitious forces} or \Def[force!pseudo]{pseudo-forces}. With these new terms in place, a recipe of how to work with non-inertial frames goes as follows: \enquote{Treat the fictitious forces like real forces, and pretend you are in an inertial frame}\footnote{I have taken this quote from Wikipedia, which in turn cites Louis N. Hand, Janet D. Finch Analytical Mechanics, p. 267.}, i.e.~apply Newton's second law.
@@ -499,6 +573,9 @@ we can interpret $\dv{x'^k}{t} \vec{e'}_k$ as velocity $\vec{v}'$ as measured in
 
 
 -> \todo{leave this in footnote?} It is also possible to circumvent this awkward manual addition of terms. In differential geometry, the concept of a covariant derivative automatically incorporates information from the underlying frame, and happens to produce exactly the same terms that come out of the derivative when it is carried out in $\Sigma$. These additional terms are called Christoffel symbols. If we were to formulate Newton's second law using covariant derivatives, we would automatically get consistent results in all reference frames. As far as I know, this is done in a field called \enquote{Newon-Cartan gravity}; it is certainly done in general relativity.
+
+
+-> pseudo-force = non-zero Christoffel symbol. In some sense, that reflects pseudo-force = any force that is proportional to $m$, except for gravity. The \enquote{except for} part is resolved by general relativity, where gravity shows up as curvature of space and thus also non-zero Christoffel symbols, in some sense making gravity the pseudo-force of general relativity.
 
 
 \hrule
@@ -543,16 +620,20 @@ For any accelerated system with acceleration that is constant in direction (not 
 \end{equation}
 where $\vec{x}_0$ is the initial separation of coordinate origins and $\vec{a}$ is a (potentially time-dependent) acceleration. Setting $\vec{x}_0 = 0$, the expression \eqref{eq:pseudo_force_general} for pseudo-forces evaluates to
 \begin{align}
-	&\quad - m \dv[2]{t} \qty(\vec{e}_k + \vec{a}_u \frac{t^2}{2})
+	\vec{F}_\mathrm{fict}&= - m \dv[2]{t} \qty(\vec{e}_k + \vec{a}_u \frac{t^2}{2})
 	\notag\\
 	&= - m \dv{t} \qty(\dv{\vec{a}_u}{t} \frac{t^2}{2} + \vec{a}_u t)
 	\notag\\
-	&= - m \dv[2]{\vec{a}_u}{t} \frac{t^2}{2} + \dv{\vec{a}_u}{t} t + \dv{\vec{a}_u}{t} t + \vec{a}_u
+	&= \eqbox{
+		- m \dv[2]{\vec{a}_u}{t} \frac{t^2}{2} + \dv{\vec{a}_u}{t} t + \dv{\vec{a}_u}{t} t + \vec{a}_u
+	}
 	\, .
 \end{align}
 For a uniformly accelerated system, this simplifies to
 \begin{equation}
-	- m \vec{a}_u \, .
+	\eqbox{
+		\vec{F}_\mathrm{fict} = - m \vec{a}_u
+	} \, .
 \end{equation}
 As we know very well from the second law, this does indeed represent a force.
 
@@ -579,13 +660,15 @@ Next, we turn to the case where $\Sigma'$ rotates with respect to $\Sigma$ with 
 \end{equation}
 Using this relation for the coordinate axes $\vec{e}'_i$, Eq.~\eqref{eq:pseudo_force_general} turns into
 \begin{align}
-	&\quad - m \sum_k 2 \dv{x'^k}{t} \vec{\omega} \cross \vec{e}'_k + x'^k \dv{t} \qty(\vec{\omega} \cross \vec{e}'_k)
+	\vec{F}_\mathrm{fict}&= - m \sum_k 2 \dv{x'^k}{t} \vec{\omega} \cross \vec{e}'_k + x'^k \dv{t} \qty(\vec{\omega} \cross \vec{e}'_k)
 	\notag\\
 	&= - m \sum_k 2 \dv{x'^k}{t} \vec{\omega} \cross \vec{e}'_k + x'^k \qty(\dv{\vec{\omega}}{t} \cross \vec{e}'_k + \vec{\omega} \cross \dv{\vec{e}'_k}{t})
 	\notag\\
 	&= - m \sum_k 2 \dv{x'^k}{t} \vec{\omega} \cross \vec{e}'_k + x'^k \qty(\dv{\vec{\omega}}{t} \cross \vec{e}'_k + \vec{\omega} \cross \vec{\omega} \cross \vec{e}'_k)
 	\notag\\
-	&= - m \sum_k 2 \vec{\omega} \cross \dv{x'^k}{t} \vec{e}'_k + \dv{\vec{\omega}}{t} \cross \vec{x}_k + \vec{\omega} \cross \vec{\omega} \cross \vec{x}_k
+	&= \eqbox{
+		- m \sum_k 2 \vec{\omega} \cross \dv{x'^k}{t} \vec{e}'_k + \dv{\vec{\omega}}{t} \cross \vec{x}_k + \vec{\omega} \cross \vec{\omega} \cross \vec{x}_k
+	}
     \label{eq:pseudo_force_rot_frame}
 \end{align}
 
@@ -622,10 +705,6 @@ Now, let us come back to expression \eqref{eq:pseudo_force_rot_frame} and analyz
     
     -> usually neglected, on Earth it is only the first two that really appear
 \end{itemize}
-
-
-
-\newpage
 
 
 
@@ -687,7 +766,7 @@ more generally (from Wikipedia):
 	\, .
 \end{equation}
 
-in 2D,
+in 2D, i.e.~in polar coordinates,
 \begin{equation}
 	L = m r^2 \dv{\phi}{t}
 \end{equation}
@@ -698,16 +777,16 @@ in 2D,
 
 We have seen a lot of similarities between momentum and angular momentum, i.e.~motion with and without rotation. However, we have not yet seen the corresponding equation of motion. To obtain it, we must calculate the rate of change in angular momentum is called \Def{torque} (also: \Def[impulse!angular]{angular impulse}):
 \begin{equation}
-    \eqbox{\vec{M}} \coloneqq \dv{t} \vec{L} = \dv{\vec{x}}{t} \cross m \vec{v} + \vec{x} \cross \dv{\vec{p}}{t} = m \underbrace{\vec{v} \cross \vec{v}}_{= 0} + \vec{x} \cross \dv{\vec{p}}{t} \eqbox{= \vec{x} \cross \vec{F}} \, .
+    \eqbox{\vec{M}} \coloneqq \dv{t} \vec{L} = \dv{\vec{r}}{t} \cross m \vec{v} + \vec{r} \cross \dv{\vec{p}}{t} = m \underbrace{\vec{v} \cross \vec{v}}_{= 0} + \vec{r} \cross \dv{\vec{p}}{t} \eqbox{= \vec{r} \cross \vec{F}} \, .
 \end{equation}
 This is the rotational analogue of Newton's second law.
 
-\todo{do we have to note that this in inertial frame? Because we use $\dv{\vec{x}}{t} = \vec{v}$, no derivative from axes -> hmm no, right? Because change in basis vector would also correspond to particle having some velocity, so this is all fine; $\vec{v} \neq \dv{x^k}{t} \vec{e}_k$}
+% \todo{do we have to note that this in inertial frame? Because we use $\dv{\vec{x}}{t} = \vec{v}$, no derivative from axes -> hmm no, right? Because change in basis vector would also correspond to particle having some velocity, so this is all fine; $\vec{v} \neq \dv{x^k}{t} \vec{e}_k$} -> in other words, wouldn't this change in basis vectors also show up in the other $\vec{v}$? I think we're good here
 
 Equivalently, we can express this angular impulse as a change in angular rather than linear momentum, which is most easily done by differentiating the initial definition of angular momentum:
 \begin{align}
 	\vec{M} = \dv{I \vec{\omega}}{t} = \dv{I}{t} \vec{\omega} + I \dv{\vec{\omega}}{t}
-	= (\dv{m}{t} r^2 + 2 m r \dv{r}{t}) \vec{\omega} + I \dv{\vec{\omega}}{t}
+	= \qty(\dv{m}{t} r^2 + 2 m r \dv{r}{t}) \vec{\omega} + I \dv{\vec{\omega}}{t}
 \end{align}
 Similarly to Newton's second law, we obtain a simpler form if the moment of inertia is constant, namely
 \begin{equation}
@@ -717,29 +796,240 @@ In particular, this is valid for the case of a purely rotational motion, where n
 
 
 
-\newpage
-
-
-
-    \section{Kepler's Laws}
-
-these describe orbits of planets (to really good approximation)
-
-
-mention fatal misconception by Kepler, trying to describe everything using ellipses? Which made things unbelievably complicated -> would have to read up on this
-
-
-
-\newpage
-
-
-
 	\section{$N$-Body Mechanics}
-talk about center of mass system; motivation: if we have to particles, we have coupled equations of motion, much harder to solve than two separate differential equations; but by going into CMS, we can decouple the equations
+talk about center of mass system; motivation: if we have two particles, we have coupled equations of motion, much harder to solve than two separate differential equations; but by going into CMS, we can decouple the equations
+
+
+usually sums, but sometimes also integrals; of course, integrals with densities etc effectively correspond to treating an infinite number of particles (the \enquote{continuum limit});
+% (this is actually a theorem from measure theory; every set with finite number of points in it has zero measure, which just means integral over it vanishes; since we usually deal with particles where integral does not vanish, there are infinitely many points in each volume -> on other hand, density does not necessarily assign non-zero value to each point, after all outcome is finite -> unnecessary discussion, just leave out)
+this is not realistic, but sometimes required because it becomes infeasible to treat huge number of particles using sums; but this is realm of statistical physics, in this section we focus on systems where sums can still be used
 
 
 
-\newpage
+very frequently used tool: center of mass (COM) and the related center of mass coordinate system (CMS); we then have COM position and each particle position relative to this, but not all of these vectors are independent, so degrees of freedom do of course not change upon this coordinate transformation
+
+
+-> notable properties: Newton 2 holds for COM, since all internal interactions between particles vanish (due to Newton 3); most quantities behave additively, such as momentum or angular momentum, so we can divide into contribution from COM and from relative coordinates
+
+
+
+	    \subsection{Two Body Problem}
+We will now treat the special case $N = 2$ since it turns out that it can be formulated in a particularly simple manner in the CMS. Besides the COM
+\begin{equation}
+	\vec{R} = \frac{1}{m_1 + m_2} \qty(m_1 \vec{r}_1 + m_2 \vec{r}_2)
+	\, ,
+\end{equation}
+we usually use coordinates relative to the COM, i.e.~something like $\vec{r}_i - \vec{R}$. However, introducing the \Def{relative coordinate}
+\begin{equation}\label{eq:com_relative_coord}
+	\eqbox{
+		\vec{r} \coloneqq \vec{r}_1 - \vec{r}_2
+	}
+\end{equation}
+as the vector from second to first body, we notice that
+\begin{equation}\label{eq:trafo_com_components}
+	\eqbox{
+		\vec{r}_1(t) = \vec{R}(t) + \frac{m_2}{M} \vec{r}(t)
+	} \, , \qquad
+	\eqbox{
+		\vec{r}_2(t) = \vec{R}(t) + \frac{m_1}{M} \vec{r}(t)
+	}
+\end{equation}
+In other words, COM and relative coordinate are already sufficient to describe the two-body problem of $\vec{r}_1, \vec{r}_2$, they are merely a reparametrization. You may very well argue that this should not be surprising, as this is the number of quantities we expect to be needed from an analysis of the available degrees of freedom.
+
+
+But until now, we have not seen the catch. For that, let us look at the equations of motion for the system in the CMS. Newton's second law for the new quantities can be derived from the equations for the individual particles (we operate under the common assumption that all masses $m_i$ are constant here):
+\begin{align}
+	\eqbox{\ddot{\vec{R}}} &= \frac{1}{\sum_i m_i} \sum_i m_i \ddot{\vec{r}}_i = \frac{1}{\sum_i m_i} \vec{F}_i = \eqbox{\frac{1}{M} \sum_i \vec{F}^\mathrm{ext}}_i
+	\\
+	\eqbox{\ddot{\vec{r}}} &= \ddot{\vec{r}}_1 - \ddot{\vec{r}}_2 = \frac{\vec{F}^\mathrm{ext}_1 + \vec{F}_{2 \rightarrow 1}}{m_1} - \frac{\vec{F}^\mathrm{ext}_2 + \vec{F}_{1 \rightarrow 2}}{m_2} = \eqbox{\frac{\vec{F}^\mathrm{ext}_1}{m_1} - \frac{\vec{F}^\mathrm{ext}_2}{m_2} + \qty(\frac{1}{m_1} + \frac{1}{m_2}) \vec{F}_{2 \rightarrow 1}}
+	\, .
+	\footnotemark
+\end{align}%
+\footnotetext{In many textbooks, you will find $\vec{F}_{1, 2}$ instead of $\vec{F}_{21}$. However, they are referring to the body is exerted on in the first index, with the second index referring to the body that is exerting the force. When we write $\vec{F}_{21}$, we mean the same thing, namely the force exerted from body $2$ onto body $1$. To avoid the ambiguity, we use an arrow that clarifies which body is exerting the force and which one it is exerted on.}%
+At this point, it is common to introduce the \Def{reduced mass}
+\begin{equation}
+	\eqbox{
+		\frac{1}{\mu} = \frac{1}{m_1} + \frac{1}{m_2}
+	} \quad \Leftrightarrow \quad
+	\eqbox{
+		\mu = \frac{m_1 m_2}{m_1 + m_2} = \frac{m_1 m_2}{M}
+	} \, .
+\end{equation}
+Therefore, we have now transformed the equations of motion for the particles at $\vec{r}_1, \vec{r}_2$ that have masses $m_1, m_2$ to equations for two bodies at positions $\vec{R}, \vec{r}$ and with masses $M, \mu$.
+
+In an isolated system, where no external forces are present, these equations turn into
+\begin{align}
+	&\eqbox{\ddot{\vec{R}} = 0}
+	\\
+	&\eqbox{\mu \ddot{\vec{r}} = \vec{F}_{2 \rightarrow 1}(\vec{r})}
+	\, .
+\end{align}
+This is the catch: we only have to solve a single equation now -- the two-body system has been mapped to an effective one-body system (of a single particle with mass $\mu$). Part of what makes this set of two equations special is that they are decoupled now, i.e.~the equation for $\ddot{\vec{r}}$ does not depend on $\vec{R}$ and vice versa (a consequence of the fact that the force $\vec{F}_{2 \rightarrow 1}$ will only depend on $\vec{r}_1, \vec{r}_2$ through the vector connecting body $2$ and body $1$, which is nothing but the relative coordinate $\vec{r}$). The Newtonian equations, on the other hand, were always coupled, i.e.~the equation for $\ddot{\vec{r}_1}$ contained $\vec{r}_2$ and vice versa.
+
+
+
+-> many other quantities behave additively here/can be decoupled, similar to how things were in general for $N$-body systems:
+\begin{subequations}
+	\begin{align}
+		T &= T_{\vec{R}} + T_{\vec{r}} = \frac{1}{2} M \dot{R}^2 + \frac{1}{2} \mu \dot{r}^2
+		\\
+		E &= T + V = T_{\vec{R}} + T_{\vec{r}} + V_{12}(\vec{r}) = E_{\vec{R}} + E_{\vec{r}}
+		\\
+		\vec{L} = \vec{L}_{\vec{R}} + \vec{L}_{\vec{r}} = M \vec{R} \cross \dot{\vec{R}} + \mu \vec{r} \cross \dot{\vec{r}}
+	\end{align}
+\end{subequations}
+where we have assumed $\vec{F}_{2 \rightarrow 1}$ to be conservative, so that it has a potential $V_{12} = V_{21}$ (note: $\vec{F}_{2 \rightarrow 1} = - \grad_{\vec{r}} V_{21} = - \grad_{-\vec{r}} V_{12} = - \vec{F}_{1 \rightarrow 2}$)
+
+
+
+% -> advantage: one can decouple equations of motion by using COM and relative coordinate
+
+% -> mention that two-body problem has closed-form solution, but once more bodies get involved, this is not the case anymore -> careful; what we can say though is that three-body systems are chaotic
+
+
+
+% -> seems that the relative coordinate just means we transform into system where one (typically the more massive) body is at rest; then we only model motion of other body (so ellipse is around other body, not around COM; and in expressions, we have to replace second mass by reduced mass, although we do model motion of second body) -> but sun is then approximately also in center of mass
+
+% -> hmm I think ChatGPT was wrong here; what we do is model two-body system via center of mass and relative coordinate; then we can write down two equations of motion for the two associated \enquote{bodies}; 
+
+
+
+	    \subsection{Central Forces -- Kepler's Laws}
+A very common type of problem is a body that is subject to a central force
+\begin{equation}\label{eq:central_force}
+	\eqbox{
+		\vec{F}(\vec{r}) = - k \frac{\vec{r}}{r^3} = - \grad V
+	}
+	\; \text{ where } \;
+	\eqbox{
+		V(\vec{r}) = V(r) = - \frac{k}{r}
+	}
+	\, , \; k > 0
+\end{equation}
+\todo{do we need requirement of radial force here? I.e.~where $\vec{r} = r \vec{e}_r$?}
+exerted by another body. This is a two-body and turns out to be best treated in the CMS form that we have just introduced. Physically, this means we analyze the problem from a non-inertial frame where $m_2$ lies at the origin, obtain a solution for the relative separation $\vec{r}$ in this frame, and transform back to what we really want in $\vec{r}_1, \vec{r}_2$ using Eq.~\eqref{eq:trafo_com_components} (the time evolution of $\vec{R}$ is determined by the initial conditions already).
+
+
+There are many ways in which this problem can be approached. In almost all of them, polar coordinates $(r, \phi)$ are used to describe the vector $\vec{r}$. Furthmore, it is common to give the solution as a trajectory $r(\phi)$ rather than $r(t), \phi(t)$ (for the, slightly unsatisfactory, reason that the solutions are more intuitive). One way to proceed further is to look at the energy of the system.
+
+
+
+
+
+-> in case of motion of planet around sun (what Kepler considered when publishing his ground-breaking work on the topic), reduced mass is mass of smaller body to really good approximation, but this is not true in general, so we do not restrict to/continue with this limit%; Bertrand theorem shows that considerations here are only valid for potentials of the form $- \frac{k}{r}$ or $k r^2$ (but I am actually not really aware of a physical potential that has latter form)
+
+
+
+-> Kepler originally formulated for planets in solar system, but turns out there is nothing that restricts us from extending this to general central forces (are conservative and have potential $V(r) = - \frac{k}{r}$ for some constant $k$; $k = G m_1 m_2$ for gravitation for instance)
+
+\todo{mix previous two comments together}
+
+
+
+% mention fatal misconception by Kepler, trying to describe everything using ellipses? Which made things unbelievably complicated -> would have to read up on this, but sounds like a kind of funny anecdote
+
+
+
+			\paragraph{First Law}
+
+\begin{center}
+	% The orbit of the relative coordinate $\vec{r}$ around the COM $\vec{R}$ is an ellipse with $\vec{R}$ at one of its foci. -> this is WRONG! Relative coordinate is not starting in COM, and COM is not always in focal point
+	The orbit of every planet is an ellipse with the sun at one of the two foci.
+\end{center}
+\todo{really with center?}
+
+% -> we are not satisfied with this, let's solve for the actual orbits (this part was done by Newton, a few decades after Kepler noted nature of orbits)
+
+
+we will look at more general problem (the two-body problem) and then obtain this as corollary; historically speaking, Newton did this after Kepler found special case, but we go reverse route
+
+-> result 1: orbit described by $\vec{r}$ is an ellipse; result 2: one focal point of ellipse is the origin (we can perhaps make drawing for this, with $\vec{r}$ shown; maybe even $\mu$ showing there and commenting on how it is reminiscent of one-body problem for body of this mass; see below)
+
+-> in the more physical/intuitive terms, this means m2 orbits around m1 in elliptical orbit, with m1 sitting at focal point (but note that these are all \emph{not} statements from an inertial frame, unless in Keplerian limit; normally, we have to transform to an inertial frame, which can be done by calculating $\vec{r}_1 = \vec{R} + \frac{m_2}{M} \vec{r}$; then we see that, in general, both bodies perform elliptical motion, and that they both have center of mass in focal point)
+
+-> fact that solution of problem using COM \enquote{looks like} problem for particle of mass $\mu$ only helps us make easy transition in Keplerian case, whence it allows direct transition from $\mu$ to $m_2 \approx \mu$; in most general case, it is probably not suited well because it can easily mess up intuition (about where center of mass is, whether in focal point or not, or how orbits of the two bodies look like); in this general setting, going to COM is really just a coordinate transformation applied to get easier solutions to the equations of motion, but for the really interesting, physical results we still have to map back to the initial (inertial) frame (though some limited statements can be inferred from $\vec{r}$ already, namely about motion of m2 around m1; ultimately, this is not relevant though, since actual motion of m2 might be substantially different)
+
+
+
+-> so for plot with ellipse, just omit any position vectors for description of quantities that describe ellipse (a, b, e, ...) -> may make sense to show $\vec{r}$; but I guess in separate plots would make most sense, to avoid cluttering and confusion
+
+
+
+-> $a$ is semi-major axis; $b$ is semi-minor axis (semi because half of diameter of ellipse)
+
+
+
+			\paragraph{Second Law}
+The first Keplerian law tells us the motion of a body in a central potential follows an elliptical orbit. In other words, the body moves in a plane. The second law can be stated as:
+
+\begin{center}
+	% A line segement connecting the two bodies sweeps out equal ares during equal time intervals.
+	A line segement along the relative coordinate $\vec{r}$ sweeps out equal areas during equal time intervals.
+\end{center}
+\todo{really with center?}
+
+
+
+
+
+In a more explicit (and perhaps modern) interpretation, the second law is usually stated in terms of angular momentum. First, this allows to quantify the plane in which the ellipse lies since More explicitly, since by definition
+\begin{equation}
+	\eqbox{
+		\vec{r} \cdot \vec{L} = 0
+	}
+\end{equation}
+at all times. This means that the orbit lies in a particular plane, the one orthogonal to $\vec{L}$, and justifies in hindsight the use of polar coordinates instead of spherical coordinates in solving for the trajectory $r(\phi)$.
+
+-> \todo{add that this is a temporally constant plane because $L$ is conserved}
+
+-> \todo{there is more to it, since $\vec{r}$ is not some arbitrary position vector here, but relative coordinate}; we know that angular momentum can be split into contribution from COM and from relative coordinate; however, contribution from center of mass could be there -> we can surely make statement that angular momentum of relative motion of body $\vec{L}_{\vec{r}}$ is vanishing -> this is fulfilled in Keplerian case certainly, more generally we must talk about angular momentum w.r.t. COM
+
+Moreover, the area swept out for a given time can be calculated as
+\begin{equation}
+	\eqbox{
+		A = \int_{t_1}^{t_2} \frac{L}{2m} \, dt = \frac{L}{2m} (t_2 - t_1)
+	} \, .
+\end{equation}
+However, this involves the assumption of $\dot{L} = 0$, which is a strong statement as it means angular momentum is conserved. It is valid if
+\begin{equation}
+	\dot{L} = \vec{r} \cross \vec{F} = \vec{r} \cross \qty(- \grad V(r)) = - \vec{r} \cross V'(r) \frac{\vec{r}}{r} = 0
+	\, .
+\end{equation}
+The crucial assumption involved here is $V$ only depending on the distance $r$ rather than the full vector $\vec{r}$, which then allows the application of a general rule for the gradient. Since a central potential is of the form $V(r) = - \frac{k}{r}$, we have just shown that angular momentum is conserved for motion in a central potential. Therefore, the second Keplerian law is often seen as an early formulation of conservation of angular momentum.
+
+% -> notice how potential only depends on distance, not direction, crucial assumption here; moreover, this particular form of gradient means we have radial or quadratic force -> hmm nah, is general law, right? We only use chain rule here
+
+% further characterization of the motion: for any force $\propto \vec{r}$, $\dot{\vec{L}} = \vec{r} \cross \vec{F} \propto \vec{r} \cross \vec{r} = 0$; in terms of potential, that means $\propto \frac{1}{r}$ or $\propto r^2$; so for central force problem as special case of this, we have angular momentum conservation
+
+
+-> constancy of $L$ tells us same about velocity: for smaller $r$, we need larger $v$ to keep $L$ constant (which neglects dependence on angle between $\vec{r}, \vec{v}$, but point stands, think about periastron and apostron for example)
+
+
+
+			\paragraph{Third Law}
+There exists a general formula for the area of an ellipse,
+\begin{equation}
+	A = \pi a b
+	\, .
+\end{equation}
+However, we can also calculate the area in terms of other physical quantities by integrating Kepler's second law over an entire orbit. This results in
+\begin{equation}
+	A = T \frac{L}{2m}
+\end{equation}
+which in turn yields
+\begin{equation}
+	\eqbox{
+		\frac{T^2}{a^3} = \frac{\pi^2 \mu k^2}{- 2 E^3} \frac{- 8 E^3}{k^3} = \frac{4\pi^2 \mu}{k}
+	}
+	\, .
+\end{equation}
+In other words, if we take two different bodies in a central force,
+\begin{equation}
+	\eqbox{
+		\qty(\frac{T_1}{T_2})^2 = \qty(\frac{a_1}{a_2})^3
+	} \, .
+\end{equation}
+For our solar system, this means the orbits of planets farther out in the solar system (larger $a$) have a longer orbital period $T$.
 
 
 
@@ -796,7 +1086,7 @@ component of $\vec{L} \parallel \vec{\omega}$:
 	% \vec{L}_\omega = \vec{L} \cdot \vec{n} \underset{\todo{understand this}}{=} \vec{n}^T J \vec{n} \omega = \vec{M}_\mathrm{ext} \cdot \vec{n}
 	\vec{L}_\omega = \vec{L} \cdot \vec{n} = I_\omega \vec{\omega} \cdot \vec{n} = \vec{n}^T J \vec{n} \omega \underset{\todo{understand this}}{=} \vec{M}_\mathrm{ext} \cdot \vec{n}
 \end{equation}
-hmm I mean we have $\vec{L} = I \vec{\omega}$ where $I$ is moment of inertia around $\ec{n}$
+hmm I mean we have $\vec{L} = I \vec{\omega}$ where $I$ is moment of inertia around $\vec{n}$
 
 -> one has to exert moment of inertia around the axis of rotation in order to change the angular momentum (total angular momentum of the body)
 
@@ -806,6 +1096,10 @@ hmm I mean we have $\vec{L} = I \vec{\omega}$ where $I$ is moment of inertia aro
 
 
 nice for work on rigid body: \url{https://en.wikipedia.org/wiki/Work_(physics)#Work_of_forces_acting_on_a_rigid_body}
+
+
+
+gravitation of rigid bodies: \url{https://en.wikipedia.org/wiki/Shell_theorem}
 
 
 \end{document}
