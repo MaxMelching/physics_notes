@@ -1,18 +1,75 @@
+% -- Add bib file for relativity
+\addbibresource{biblio.bib}
+
+
 % -- Retrieving git hash
 \usepackage{xstring}
 \usepackage{catchfile}
 \CatchFileDef{\HEAD}{../.git/refs/heads/main}{}
 \newcommand{\gitrevision}{%
-\StrLeft{\HEAD}{7}%
+    \StrLeft{\HEAD}{7}%
 }
 
 
-\usepackage{dsfont}  % Provides \mathds for better fonts than amsfonts
+\usepackage{dsfont}  % Provides \mathds for better fonts than amsfonts. Is used here, thus needed
+
+
+% Idea for simpler syntax: renew \boxed command from amsmath; seems to work like fbox, so maybe background color can be changed there
+
+\usepackage[most]{tcolorbox}
+%\colorlet{eqcolor}{}
+\definecolor{atomictangerine}{rgb}{1.0, 0.6, 0.4}
+\definecolor{bittersweet}{rgb}{1.0, 0.44, 0.37}
+\definecolor{burntsienna}{rgb}{0.91, 0.45, 0.32}
+\definecolor{coral}{rgb}{1.0, 0.5, 0.31}
+\definecolor{outrageousorange}{rgb}{1.0, 0.43, 0.29}
+
+\tcbset{
+	on line, 
+	boxsep=4pt, left=0pt,right=0pt,top=0pt,bottom=0pt,
+%	colframe=cyan,colback=cyan!42,
+	% Testing with new colors
+%	colframe=coral,colback=coral!42, % Very nice, decent
+%	colframe=burntsienna,colback=burntsienna!42, % A bit darker than coral, but still Very nice
+%	colframe=bittersweet,colback=bittersweet!42, % More red than coral, thus a bit more punch, but nice still
+	colframe=atomictangerine,colback=atomictangerine!42, % More of a classical orange, very light and thus decent -> might be favorite right now
+%	colframe=outrageousorange,colback=outrageousorange!42, % A bit stronger color, but nice
+	highlight math style={enhanced}
+}
+
+\renewcommand{\eqbox}[1]{\tcbhighmath{#1}}
+
+\newcommand{\manyqquad}{\qquad \qquad \qquad \qquad}  % Four seems to be sweet spot
+
 
 
 \mdtheorem[style=defistyle]{defi}{Definition}[chapter]%[section]
-\mdtheorem[style=satzstyle]{satz}[defi]{Satz}
+\mdtheorem[style=satzstyle]{thm}[defi]{Theorem}
+\mdtheorem[style=satzstyle]{prop}[defi]{Property}
+\mdtheorem[style=satzstyle]{post}[defi]{Postulate}
 \mdtheorem[style=satzstyle]{lemma}[defi]{Lemma}
-\mdtheorem[style=satzstyle]{cor}[defi]{Korollar}
-\mdtheorem[style=bspstyle]{bsp}[defi]{Beispiel}
+\mdtheorem[style=satzstyle]{cor}[defi]{Corollary}
+\mdtheorem[style=bspstyle]{ex}[defi]{Example}
 
+
+\mdfdefinestyle{axiomstyle}{
+  rightline=false,
+  leftline=false,
+  topline=false,
+  bottomline=false,
+  innerleftmargin=0.1\textwidth,
+  innerrightmargin=0.1\textwidth,
+}
+% \mdtheorem[style=axiomstyle]{axiom}[defi]{Axiom}
+\mdtheorem[style=axiomstyle]{axiom}{Axiom}
+
+
+\addtokomafont{chapter}{\color{headercolor}}
+% \addtokomafont{section}{\color{headercolor}}
+% \addtokomafont{subsection}{\color{headercolor}}
+% \addtokomafont{subsubsection}{\color{headercolor}}
+% \addtokomafont{paragraph}{\color{headercolor}}
+
+
+\DeclareMathOperator{\Leg}{Leg}
+% \renewcommand{\grad}{\vec{\nabla}}  % If arrowdel option of physics must be disabled
