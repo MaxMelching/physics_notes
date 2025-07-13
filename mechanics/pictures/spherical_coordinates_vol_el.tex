@@ -1,0 +1,232 @@
+% Author: Max Melching (2025)
+% Inspiration: https://tikz.net/axis3d/
+\documentclass[border=3pt,tikz]{standalone}
+\usepackage{physics}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usepackage[outline]{contour} % glow around text
+\usepackage{xcolor}
+
+\colorlet{mygreen}{green!50!black}
+\colorlet{myblue}{blue!80!black}
+\colorlet{myred}{red!90!black}
+\colorlet{mydarkblue}{blue!50!black}
+
+
+\usetikzlibrary{calc, 3d, arrows.meta, topaths}
+
+
+\tikzset{
+    >={Stealth[inset=0,angle'=27]},
+    vector/.style={
+        ->,
+        % myblue,
+        myred,
+        thick,
+    },
+    unit vector cartesian/.style={
+        ->,
+        thick,
+        black,
+    },
+    unit vector non cartesian/.style={
+        ->,
+        % thick,
+        % mygreen,
+        myblue,
+    },
+    vector projection/.style={
+        % myblue!80!black,
+        myred!80!black,
+        dashed,
+        % line width=0.08,
+        thin,
+    },
+    angles/.style={
+        ->,
+        % myblue,
+        mygreen,
+    },
+    element/.style={
+        % draw=none,
+        purple,
+        fill,
+        fill opacity=0.5,
+    },
+    element lines/.style={
+        purple,
+        % opacity=0.5,
+    },
+    element helplines/.style={
+        thin,
+        % black,
+        purple,
+        dashed,
+        % densely dotted,
+        opacity=0.5,
+    },
+}
+
+
+% -- Quick command for variable vector labelling
+\def\unitvec#1{\hat{#1}}
+% \def\unitvec#1{\vec{e}_{#1}}
+
+
+
+\begin{document}
+
+\def\rvec{0.8}
+% \def\thetavec{30}
+% \def\phivec{36}
+\def\thetavec{42}
+\def\phivec{50}
+
+\def\axislen{1}
+\def\axislabelpad{0.1}
+
+
+\tdplotsetmaincoords{60}{110}
+\begin{tikzpicture}[scale=2.8,tdplot_main_coords]
+    \coordinate (O) at (0,0,0);
+    
+    \begin{scope}[
+        unit vector cartesian,
+        black,
+        shift={(O)},
+    ]
+        \draw (0,0,0) --++ (\axislen,0,0);
+        \node at ({\axislen+\axislabelpad},0,0) {$\unitvec{x}$};
+        
+        \draw (0,0,0) --++ (0,\axislen,0);
+        \node at (0,{\axislen+\axislabelpad},0) {$\unitvec{y}$};
+        
+        \draw (0,0,0) --++ (0,0,\axislen);
+        \node at (0,0,{\axislen+\axislabelpad}) {$\unitvec{z}$};
+    \end{scope}
+
+    
+    \tdplotsetcoord{P}{\rvec}{\thetavec}{\phivec}
+
+    \draw[vector] (O)  -- (P);
+
+
+    \def\dr{0.16}
+    \def\dtheta{8}
+    \def\dphi{8}
+
+    % \tdplotsetcoord{Pppp}{\rvec+\dr}{\thetavec+\dtheta}{\phivec+\dphi}
+    % \tdplotsetcoord{Ppmp}{\rvec+\dr}{\thetavec-\dtheta}{\phivec+\dphi}
+    % \tdplotsetcoord{Pppm}{\rvec+\dr}{\thetavec+\dtheta}{\phivec-\dphi}
+    % \tdplotsetcoord{Ppmm}{\rvec+\dr}{\thetavec-\dtheta}{\phivec-\dphi}
+    % -- No +dr, otherwise we have to use $(r+dr)d\theta$ etc. Could neglect terms quadratic in $dr$ in the end, so same result, but unnecessarily complicated
+    \tdplotsetcoord{Pppp}{\rvec}{\thetavec+\dtheta}{\phivec+\dphi}
+    \tdplotsetcoord{Ppmp}{\rvec}{\thetavec-\dtheta}{\phivec+\dphi}
+    \tdplotsetcoord{Pppm}{\rvec}{\thetavec+\dtheta}{\phivec-\dphi}
+    \tdplotsetcoord{Ppmm}{\rvec}{\thetavec-\dtheta}{\phivec-\dphi}
+    \tdplotsetcoord{Pmpp}{\rvec-\dr}{\thetavec+\dtheta}{\phivec+\dphi}
+    \tdplotsetcoord{Pmmp}{\rvec-\dr}{\thetavec-\dtheta}{\phivec+\dphi}
+    \tdplotsetcoord{Pmpm}{\rvec-\dr}{\thetavec+\dtheta}{\phivec-\dphi}
+    \tdplotsetcoord{Pmmm}{\rvec-\dr}{\thetavec-\dtheta}{\phivec-\dphi}
+
+
+    \begin{scope}[
+        element helplines,
+    ]
+        \draw (O) -- (Pmpp);
+        \draw (O) -- (Pmmp);
+        \draw (O) -- (Pmpm);
+        \draw (O) -- (Pmmm);
+    \end{scope}
+    
+    \draw[element] (Pppp) -- (Pppm) -- (Ppmm) -- (Ppmp) -- cycle;
+    % \draw[element] (Pmpp) -- (Pmpm) -- (Pmmm) -- (Pmmp) -- cycle;
+
+    % \draw[element] (Pppp) -- (Pmpp) -- (Pmmp) -- (Ppmp) -- cycle;
+    \draw[element] (Pppm) -- (Pmpm) -- (Pmmm) -- (Ppmm) -- cycle;
+
+    \draw[element] (Pppp) -- (Pmpp) -- (Pmpm) -- (Pppm) -- cycle;
+    % \draw[element] (Ppmp) -- (Pmmp) -- (Pmmm) -- (Ppmm) -- cycle;
+
+    % -- Omitting some fillings here to get better fill color
+
+
+    \def\fontscale{0.8}
+
+    \begin{scope}[
+        element lines,
+    ]
+        % +dr
+        % \tdplotsetthetaplanecoords{\phivec-\dphi}
+        % \tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{{\rvec+\dr}}{\thetavec-\dtheta}{\thetavec+\dtheta}{}{}
+
+        % \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{{\rvec+\dr}}{0}{\thetavec-\dtheta}{}{}
+        % \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{{\rvec+\dr}}{\thetavec+\dtheta}{90}{}{}
+
+        % \tdplotsetthetaplanecoords{\phivec+\dphi}
+        % \tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{{\rvec+\dr}}{\thetavec-\dtheta}{\thetavec+\dtheta}{above right=-2,scale=\fontscale}{$r d\theta$}
+
+        
+        % \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{{\rvec+\dr}}{0}{\thetavec-\dtheta}{}{}
+        % \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{{\rvec+\dr}}{\thetavec+\dtheta}{90}{}{}
+        
+        % \tdplotdrawarc[element helplines]{(0,0,0)}{{\rvec+\dr}}{\phivec-\dphi}{\phivec+\dphi}{}{}
+
+        
+        \tdplotsetthetaplanecoords{\phivec-\dphi}
+        \tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{\rvec}{\thetavec-\dtheta}{\thetavec+\dtheta}{}{}
+
+        \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{\rvec}{0}{\thetavec-\dtheta}{}{}
+        \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{\rvec}{\thetavec+\dtheta}{90}{}{}
+
+        \tdplotsetthetaplanecoords{\phivec+\dphi}
+        \tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{\rvec}{\thetavec-\dtheta}{\thetavec+\dtheta}{above right=-2,scale=\fontscale}{\contour{white}{$r d\theta$}}
+
+        
+        \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{\rvec}{0}{\thetavec-\dtheta}{}{}
+        \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{\rvec}{\thetavec+\dtheta}{90}{}{}
+        
+        \tdplotdrawarc[element helplines]{(0,0,0)}{\rvec}{\phivec-\dphi}{\phivec+\dphi}{}{}
+
+
+        
+
+        % -dr
+        \tdplotsetthetaplanecoords{\phivec-\dphi}
+        \tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{{\rvec-\dr}}{\thetavec-\dtheta}{\thetavec+\dtheta}{}{}
+
+        \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{{\rvec-\dr}}{0}{\thetavec-\dtheta}{}{}
+        \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{{\rvec-\dr}}{\thetavec+\dtheta}{90}{}{}
+
+        \tdplotsetthetaplanecoords{\phivec+\dphi}
+        \tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{{\rvec-\dr}}{\thetavec-\dtheta}{\thetavec+\dtheta}{}{}
+
+        
+        \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{{\rvec-\dr}}{0}{\thetavec-\dtheta}{}{}
+        \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{{\rvec-\dr}}{\thetavec+\dtheta}{90}{}{}
+        
+        \tdplotdrawarc[element helplines]{(0,0,0)}{{\rvec-\dr}}{\phivec-\dphi}{\phivec+\dphi}{}{}
+    \end{scope}
+
+    % \draw[element lines] (Pppm) -- (Pppp) node[midway,below right=-2,scale=\fontscale] {$r \sin(\theta) d\phi$};
+
+    % \tdplotsetcoord{Plabel}{\rvec}{\thetavec+\dtheta}{\phivec-0.5\dphi}
+    \tdplotsetcoord{Plabel}{\rvec-\dr}{\thetavec+\dtheta}{\phivec-0.5\dphi}  % Technically not correct position, but looks much better
+    \node[element lines,below right=-4,scale=\fontscale] at (Plabel) {\contour{white}{$r \sin(\theta) d\phi$}};
+    \tdplotsetcoord{Plabel}{\rvec-\dr}{\thetavec-\dtheta}{\phivec-0.5*\dphi}
+    \node[element lines,above left=-1,scale=\fontscale] at (Plabel) {\contour{white}{$dr$}};
+
+
+    % -- Some more helper lines
+    \begin{scope}[
+        element helplines,
+    ]
+        \draw[rotate around z=\phivec-\dphi] (\rvec-\dr,0,0) -- (\rvec,0,0);
+        \draw[rotate around z=\phivec+\dphi] (\rvec-\dr,0,0) -- (\rvec,0,0);
+
+        \draw (0,0,\rvec-\dr) -- (0,0,\rvec);
+    \end{scope}
+\end{tikzpicture}
+
+
+\end{document}
