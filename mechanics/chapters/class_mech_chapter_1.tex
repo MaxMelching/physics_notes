@@ -213,6 +213,7 @@ one of the big achievements (advancements?) of these axioms is that they give us
 
 
 		\subsection{Gravitation}
+% https://en.wikipedia.org/wiki/Newton%27s_law_of_universal_gravitation
 Along with the axioms that bear his name, Newton published his \Def{universal law of gravitation} in the Principia, another revolutionary accomplishment. It states that the gravitational force exerted by a body with mass $M$ onto another body of mass $m$ is
 \begin{equation}\label{eq:newton_gravitation_law}
 	\eqbox{
@@ -324,6 +325,8 @@ This type of forces is called \Def[force!conservative]{conservative}, while non-
 	}
 \end{equation}
 -> subtracted when it takes energy away from particle
+
+-> implicit reference point for $V$ is $\infty$, in the sense that $V = \int_r^\infty F(r')\, dr'$
 
 By some (quite beautiful) mathematical theorem, the property we noted as a definition of conservative forces implies
 \begin{equation}\label{eq:work_conservative_force}
@@ -796,6 +799,16 @@ In particular, this is valid for the case of a purely rotational motion, where n
 
 
 
+	\section{Harmonic Oscillations}
+back to one of the absolutely fundamental systems in physics, the harmonic oscillator (reason why its role is so pivotal is explored in Sec.~\ref{subsec:osc_around_equ}, here we just leave hint at that)
+
+
+
+		\subsection{Oscillations Around Equilibrium}
+		\label{subsec:osc_around_equ}
+
+
+
 	\section{$N$-Body Mechanics}
 talk about center of mass system; motivation: if we have two particles, we have coupled equations of motion, much harder to solve than two separate differential equations; but by going into CMS, we can decouple the equations
 
@@ -828,10 +841,11 @@ we usually use coordinates relative to the COM, i.e.~something like $\vec{r}_i -
 as the vector from second to first body, we notice that
 \begin{equation}\label{eq:trafo_com_components}
 	\eqbox{
-		\vec{r}_1(t) = \vec{R}(t) + \frac{m_2}{M} \vec{r}(t)
-	} \, , \qquad
+		\vec{r}_1(t) = \vec{R}(t) + \frac{\mu}{m_1} \vec{r}(t) = \vec{R}(t) + \frac{m_2}{M} \vec{r}(t)
+	}
+	\, , \quad
 	\eqbox{
-		\vec{r}_2(t) = \vec{R}(t) + \frac{m_1}{M} \vec{r}(t)
+		\vec{r}_2(t) = \vec{R}(t) - \frac{\mu}{m_2} \vec{r}(t) = \vec{R}(t) - \frac{m_1}{M} \vec{r}(t)
 	}
 \end{equation}
 In other words, COM and relative coordinate are already sufficient to describe the two-body problem of $\vec{r}_1, \vec{r}_2$, they are merely a reparametrization. You may very well argue that this should not be surprising, as this is the number of quantities we expect to be needed from an analysis of the available degrees of freedom.
@@ -858,12 +872,16 @@ At this point, it is common to introduce the \Def{reduced mass}
 Therefore, we have now transformed the equations of motion for the particles at $\vec{r}_1, \vec{r}_2$ that have masses $m_1, m_2$ to equations for two bodies at positions $\vec{R}, \vec{r}$ and with masses $M, \mu$.
 
 In an isolated system, where no external forces are present, these equations turn into
-\begin{align}
-	&\eqbox{\ddot{\vec{R}} = 0}
-	\\
-	&\eqbox{\mu \ddot{\vec{r}} = \vec{F}_{2 \rightarrow 1}(\vec{r})}
-	\, .
-\end{align}
+\begin{subequations}
+	\begin{align}
+		&\eqbox{\ddot{\vec{R}} = 0}
+		\label{eq:eq_of_motion_two_body_com}
+		\\
+		&\eqbox{\mu \ddot{\vec{r}} = \vec{F}_{2 \rightarrow 1}(\vec{r})}
+		\label{eq:eq_of_motion_two_body_relcoord}
+		\, .
+	\end{align}
+\end{subequations}
 This is the catch: we only have to solve a single equation now -- the two-body system has been mapped to an effective one-body system (of a single particle with mass $\mu$). Part of what makes this set of two equations special is that they are decoupled now, i.e.~the equation for $\ddot{\vec{r}}$ does not depend on $\vec{R}$ and vice versa (a consequence of the fact that the force $\vec{F}_{2 \rightarrow 1}$ will only depend on $\vec{r}_1, \vec{r}_2$ through the vector connecting body $2$ and body $1$, which is nothing but the relative coordinate $\vec{r}$). The Newtonian equations, on the other hand, were always coupled, i.e.~the equation for $\ddot{\vec{r}_1}$ contained $\vec{r}_2$ and vice versa.
 
 
@@ -871,11 +889,11 @@ This is the catch: we only have to solve a single equation now -- the two-body s
 -> many other quantities behave additively here/can be decoupled, similar to how things were in general for $N$-body systems:
 \begin{subequations}
 	\begin{align}
-		T &= T_{\vec{R}} + T_{\vec{r}} = \frac{1}{2} M \dot{R}^2 + \frac{1}{2} \mu \dot{r}^2
+		T &= T_{\vec{R}} + T_{\vec{r}} = \frac{1}{2} M \dot{\vec{R}}^2 + \frac{1}{2} \mu \dot{\vec{r}}^2
 		\\
 		E &= T + V = T_{\vec{R}} + T_{\vec{r}} + V_{12}(\vec{r}) = E_{\vec{R}} + E_{\vec{r}}
 		\\
-		\vec{L} = \vec{L}_{\vec{R}} + \vec{L}_{\vec{r}} = M \vec{R} \cross \dot{\vec{R}} + \mu \vec{r} \cross \dot{\vec{r}}
+		\vec{L} &= \vec{L}_{\vec{R}} + \vec{L}_{\vec{r}} = M \vec{R} \cross \dot{\vec{R}} + \mu \vec{r} \cross \dot{\vec{r}}
 	\end{align}
 \end{subequations}
 where we have assumed $\vec{F}_{2 \rightarrow 1}$ to be conservative, so that it has a potential $V_{12} = V_{21}$ (note: $\vec{F}_{2 \rightarrow 1} = - \grad_{\vec{r}} V_{21} = - \grad_{-\vec{r}} V_{12} = - \vec{F}_{1 \rightarrow 2}$)
@@ -894,35 +912,223 @@ where we have assumed $\vec{F}_{2 \rightarrow 1}$ to be conservative, so that it
 
 
 
-	    \subsection{Central Forces -- Kepler's Laws}
-A very common type of problem is a body that is subject to a central force
+	    \subsection{Central Forces}
+% https://en.wikipedia.org/wiki/Classical_central-force_problem
+% https://en.wikipedia.org/wiki/Two-body_problem
+% https://en.wikipedia.org/wiki/Kepler%27s_laws_of_planetary_motion
+% https://physics.stackexchange.com/questions/599329/how-does-the-orbital-motion-of-reduced-mass-tell-us-how-the-individual-planets-s/602997#602997
+% https://physics.stackexchange.com/questions/275822/solving-a-two-body-problem-using-relative-motion-and-reduced-mass?rq=1
+
+Physically speaking, formulating the two-body problem in the CMS corresponds to switching to a (potentially) non-inertial frame of reference, centered in the second body at $\vec{r}_2$. We then solve for the relative separation of body $1$ in this frame, which is nothing but the relative coordinate $\vec{r}$. Usually, we try to avoid non-inertial frames because they can have strange effects such as pseudo-forces. However, this particular frame allows the formulation of much simpler equations of motion in Eqs.\eqref{eq:eq_of_motion_two_body_com}, \eqref{eq:eq_of_motion_two_body_relcoord}. Also, after solving for the evolution of $\vec{r}$, Eq.~\eqref{eq:trafo_com_components} allows us to easily transform back to what we really want in $\vec{r}_1, \vec{r}_2$ (the time evolution of $\vec{R}$ is determined by the initial conditions already).
+
+
+Another advantage of reformulating ths two-body problem in the CMS is that, with no external forces, the only force left is $\vec{F}_{2 \rightarrow 1}(\vec{r})$. Many physical forces do not depend on the orientation between the interacting objects, but only on their distance (the forces are isotropic in a certain sense). If $\vec{F}_{2 \rightarrow 1}(\vec{r})$ is of such nature, the relative coordinate $\vec{r}$ being a position vector (i.e.~it is centered at the origin at all times) implies that the only force present in $\vec{F}_{2 \rightarrow 1}(\vec{r})$ is a \Def{central force}. Central forces pose a very common type of problem in physics. They occur when is a body is subject to a force\footnote{In principle, central forces are characterized by $F(r) = - k r^n$. However, $n = -2$ is the most common case, so we will focus on that.}
 \begin{equation}\label{eq:central_force}
 	\eqbox{
-		\vec{F}(\vec{r}) = - k \frac{\vec{r}}{r^3} = - \grad V
+		% \vec{F}(\vec{r}) = - k \frac{\vec{r}}{r^3} = - k \frac{1}{r^2} \vec{e}_r = F(r) \vec{e}_r
+		\vec{F}(\vec{r}) = - k \, \vec{r} \, r^{n - 1} = - k \, r^n \, \vec{e}_r = F(r) \vec{e}_r
 	}
-	\; \text{ where } \;
-	\eqbox{
-		V(\vec{r}) = V(r) = - \frac{k}{r}
-	}
-	\, , \; k > 0
+	\; \text{ where } \; k > 0
 \end{equation}
-\todo{do we need requirement of radial force here? I.e.~where $\vec{r} = r \vec{e}_r$?}
-exerted by another body. This is a two-body and turns out to be best treated in the CMS form that we have just introduced. Physically, this means we analyze the problem from a non-inertial frame where $m_2$ lies at the origin, obtain a solution for the relative separation $\vec{r}$ in this frame, and transform back to what we really want in $\vec{r}_1, \vec{r}_2$ using Eq.~\eqref{eq:trafo_com_components} (the time evolution of $\vec{R}$ is determined by the initial conditions already).
+that is pointing radially outwards from the origin (note that $k > 0$ ensures the force is attractive, not repulsive). Due to general laws of the gradient, it can be shown that such a force always has a potential, namely
+\begin{equation}\label{eq:central_force_potential}
+	\eqbox{
+		% V(\vec{r}) = V(r) = - \frac{k}{r}
+		V(\vec{r}) = V(r) = - k \, r^{n + 1}
+	}
+	\, .
+\end{equation}
+The most common example is $n = -2$ with $F(r) = - \frac{k}{r^2}, \; V(r) = - \frac{k}{r}$, which includes Newton's law of gravitation, the Coulomb interaction of charged particles, and many more.
 
 
-There are many ways in which this problem can be approached. In almost all of them, polar coordinates $(r, \phi)$ are used to describe the vector $\vec{r}$. Furthmore, it is common to give the solution as a trajectory $r(\phi)$ rather than $r(t), \phi(t)$ (for the, slightly unsatisfactory, reason that the solutions are more intuitive). One way to proceed further is to look at the energy of the system.
+Time to back up for a second. Our initial goal of understanding the two-body problem of Newtonian physics has now lead us the the classical central-force problem. Therefore, our current objective is to find the trajectory $\vec{r} = \vec{r}(t)$ of a body subject to a central force. (Note that the mass of this \enquote{body} we are looking at is $\mu$. Body is in quotation marks here because we do not actually have a physical object with mass $\mu$ in our problem, but rather have this as an intermediate step and reformulation.) There are many ways in which this problem can be approached. In almost all of them, polar coordinates $(r, \phi)$ are used to describe $\vec{r}$. This should make you curious because polar coordinates describe positions in 2D, while we are dealing with a 3D problem -- or do we?
+
+Well, actually, no. Objects in a central force perform a planar motion, i.e.~we can indeed describe this motion using polar coordinates that are assigned to this plane in which the body moves. We can see this (and actually find the corresponding plane) by considering angular momentum. Defining angular momentum with respect to the center of mass (reduces to $\vec{L}$ if $\vec{R}$ is in origin), i.e.~looking only at the component $\vec{L}_{\vec{r}}$, we trivially have
+\begin{equation}
+	\eqbox{
+		\vec{r} \cdot \vec{L}_{\vec{r}} = \vec{r} \cdot \qty(\vec{r} \cross \mu \dot{\vec{r}}) = 0
+	} \, ,
+\end{equation}
+the relative coordinate is always perpendicular to the angular momentum. This defines a plane because
+\begin{equation}
+	\eqbox{
+		\dot{\vec{L}}_{\vec{r}} = \dv{t} \vec{r} \cross \mu \dot{\vec{r}} = \vec{r} \cross \vec{F}_{2 \rightarrow 1}(\vec{r}) = \vec{F}_{2 \rightarrow 1}(r) \, \vec{r} \cross \vec{e}_r = 0
+	} \, ,
+\end{equation}
+angular momentum is conserved in both direction and magnitude. This holds true for all central forces.% \footnote{More generally, conservative forces with potential $V(\vec{r}) = V(r) = - \frac{k}{r}$ or $V(\vec{r}) = V(r) = - k r^2$ are required since both will yield forces $\propto \vec{e}_r$. The first case includes central forces.}
+Thus, the statement $\vec{r} \perp \vec{L}_{\vec{r}}$ is sufficient to prove the claim that $\vec{r}$ can be described in a plane.
+
+
+Having justified the use of polar coordinates, let us proceed with actually solving for $\vec{r}$. Furthermore, it is common to give the solution as a trajectory $r(\phi)$ rather than $r(t), \phi(t)$ (for the, slightly unsatisfactory, reason that the solutions are more intuitive). One way to proceed further is to look at the energy of the system. For that, we note that in polar coordinates
+\begin{align}
+	\vec{r} &= x \vec{e}_x + y \vec{e}_y = r \cos(\phi) \vec{e}_x + r \sin(\phi) \vec{e}_y = r \vec{e}_r \equiv \mqty(r \cos(\phi) \\ r \sin(\phi)) \equiv \mqty(x \\ y)
+	\, ,
+	\\
+	\Rightarrow \quad \dot{\vec{r}} &= \dot{r} \mqty(\cos(\phi) \\ \sin(\phi)) + r \dot{\phi} \mqty(- \sin(\phi) \\ \cos(\phi)) = \dot{r} \vec{e}_r + r \dot{\phi} \vec{e}_\phi
+	\, .
+\end{align}
+Bearing in mind that $\vec{e}_r, \vec{e}_\phi$ are orthogonal, the total energy then becomes
+\begin{equation}\label{eq:energy_central_force}
+	E = T + V = \frac{1}{2} \mu \dot{\vec{r}}^2 + V = \frac{1}{2} \mu \dot{r}^2 + \frac{L}{2 \mu r^2} + V \eqqcolon \frac{1}{2} \mu \dot{r}^2 + U
+\end{equation}
+where we have substituted the angular momentum, which reads\footnote{Here we drop the index ${}_{\vec{r}}$ since we are just writing out the angular momentum in polar coordinates. It is to be understood that when interpreted as the angular momentum in the CMS, this is only the component $\vec{L}_{\vec{r}}$.}
+\begin{equation}
+	\vec{L} = \mu \vec{r} \cross \dot{\vec{r}} = m r^2 \dot{\phi} \vec{e}_z
+	\, .
+\end{equation}
+$U$ is an effective potential that contains the energy coming from the interaction in $V$ and the centrifugal term $\frac{L}{2 \mu r^2}$ that comes about from $\vec{r}$ orbiting (i.e.~rotating) around the origin.
+
+
+-> we get effective potential due to contribution from centrifugal potential; is centrifugal term consequence of analysis non-inertial frame? Nahh, don't think so, just comes from particle rotating, i.e.~accelerating.
+
+
+Equation \eqref{eq:energy_central_force} is equivalent to
+\begin{equation}
+	\dot{r} = \pm \sqrt{\frac{2}{\mu} (E - U)}
+	\, .
+\end{equation}
+Forming the quotient $\flatfrac{\dot{{r}}}{\dot{\phi}}$ then gives an inhomogenous differential equation for $\dv{r}{\phi}$, which can be solved by making a harmonic oscillator ansatz. The solution reads
+\begin{equation}\label{eq:central_force_r_of_phi}
+	\eqbox{
+		r(\phi) = \frac{p}{1 + \epsilon \cos(\phi)}
+	} \, .
+\end{equation}
+This is the general formula for a \Def{conic section}. (Note that it takes this particular form because we have chosen to $\phi$ to be the \Def{true anomaly} here, which is measured with respect to the point of minimal distance $r_\mathrm{min}$.) The exact nature of the graph of $r(\phi)$ depends on the values of the new parameters, and some other quantities related to ellipses.
+
+
+
+\begin{figure}
+	\centering
+
+	\includegraphics[width=0.5\textwidth]{pictures/central_force_ellipse.pdf}
+
+	\caption{Quantities in an ellipse.}
+	\label{fig:central_force_ellipse}
+\end{figure}
+
+
+
+First, we have $\epsilon$, which is called \Def{numerical eccentricity}:
+\begin{center}
+	$\epsilon < 1$: ellipse
+	\qquad
+	$\epsilon = 1$: parabola
+	\qquad
+	$\epsilon > 1$: hyperbola
+\end{center}
+Note that $\epsilon = 0$ represents a special form of ellipse, a circle. In terms of physical quantities,
+\begin{equation}
+	\eqbox{
+		\epsilon = \sqrt{1 + 2 \frac{E L^2}{m k^2}}
+	} \, .
+\end{equation}
+Since all quantities in the square root are greater than zero, except for the energy, statements about the form of the orbit can be translated to statements in terms of energy: $E < 0$ means $\epsilon < 1$ and thus an elliptical orbit, which matches our understanding of a bound orbit; $E >= 0$ then corresponds to unbound orbits like parabola or hyperbola.
+
+
+$p$ is another prominent one, the \Def{semi-latus rectum} of the conic section, which basically determines the size of the orbit. It involves the same physical quantities as $E$ (but combined in a different way, it plays a different role than $\epsilon$) and reads
+\begin{equation}
+	\eqbox{
+		p = \frac{L^2}{m k}
+	}
+	\, .
+\end{equation}
+
+
+These quantities play a sort of hybrid role because they can be interpreted physically or mathematically, via their role in the general description of conic sections (cf.~Fig.~\ref{fig:central_force_ellipse}). 
+
+
+The lengths along these axes are called \Def[major axis]{major} and \Def{minor axis}, describing the longer and shorter axis. In Fig.~\ref{fig:central_force_ellipse}, we elect to draw the \Def{semi-major axis}
+\begin{equation}
+	\eqbox{
+		a = \frac{p}{1 - \epsilon^2} = \frac{r_\mathrm{min} + r_\mathrm{max}}{2}
+	}
+\end{equation}
+and \Def{semi-minor axis}
+\begin{equation}
+	\eqbox{
+		b = \frac{p}{\sqrt{1 - \epsilon^2}} = \sqrt{r_\mathrm{min} r_\mathrm{max}}
+	} \, ,
+\end{equation}
+as is commonly done (\enquote{semi} = half). Here we have chosen to also express them in terms of the minimal and maximal distance. In celestial mechanics, one calls those \Def{perihelion}\footnote{\enquote{Peri} $\hat{=}$ close, to memorize which point represents minimum/maximum.}
+\begin{equation}
+	\eqbox{
+		r_\mathrm{min} = \frac{p}{1 + \epsilon}
+	}
+\end{equation}
+and \Def{aphelion}
+\begin{equation}
+	\eqbox{
+		r_\mathrm{max} = \frac{p}{1 - \epsilon}
+	}
+	\, .
+\end{equation}
+For the convention on the angle $\phi$ that we have chosen, these occur at $\phi = 0\degree, 180\degree$, respectively (where $\cos(\phi) = \pm 1$).
+
+Besides the arithmetic ($a$) and geometric ($b$) mean of perihelion and aphelion, their harmonic mean also plays an important role. In fact, we have seen it already in the semi-latus rectum
+\begin{equation}
+	\eqbox{
+		p = \qty(\frac{r_\mathrm{min}^{-1} + r_\mathrm{max}^{-1}}{2})^{-1} = \frac{b^2}{a}
+	}
+\end{equation}
+which is the radius at $\phi = 90\degree, 270\degree$. Additionally, the numerical eccentricity receives a nicer interpretation: it is the coefficient of variation between perihelion, aphelion, i.e.
+\begin{equation}
+	\eqbox{
+		\epsilon = \frac{r_\mathrm{max} - r_\mathrm{min}}{r_\mathrm{max} + r_\mathrm{min}}
+	}
+	\, .
+\end{equation}
+For completeness, we note that there is also another notion of eccentricity in the \Def{linear eccentricity}
+\begin{equation}
+	\eqbox{
+		e = \epsilon a
+	}
+	\, .
+\end{equation}\\
+
+% -> nice expressions here: \url{https://en.wikipedia.org/wiki/Kepler%27s_laws_of_planetary_motion#First_law}
+
+
+-> possibly some nice things on trajectory: \url{https://en.wikipedia.org/wiki/Kepler_orbit#Properties_of_trajectory_equation}
+
+
+
+Let us get back to physics now. The first result of note is that, when fixing the position of body $2$, body $1$ performs an elliptical motion around it with the first body sitting at a focal point of this ellipse. (This is a direct consequence of the result we have calculated in Eq.~\eqref{eq:central_force_r_of_phi}, which shows that the reduced mass $\mu$ performs such a motion around the origin; body $1$ need not be in the origin for this interpretation to be true.) However, this is not how the actual orbit of body $1$ looks like, when viewed from a proper, inertial frame; similarly, in such a frame, body $2$ is not necessarily at rest for all times.
+
+To obtain the trajectories of both bodies, we must use the transformations from $\vec{R}, \vec{r}$ back to $\vec{r}_{1, 2}$ in Eq.~\eqref{eq:trafo_com_components}. Those tranformation equations immediatelly tell us that, generally speaking, the physical trajectories of both bodies are ellipses (of different extent, determined by $\frac{\mu}{m_i} = \frac{m_j}{M} (1 - \delta_{ij})$ for the $i$-th body), and that they both have $\vec{R}$ in one of their focal points (as this is the constant offset from the focal point $O = (0, 0)$ of $\vec{r}$). We show some examples for different mass ratios $\flatfrac{m_1}{m_2}$ in Fig.~\ref{fig:central_force_orbits}.
+
+
+
+% -> in the more physical/intuitive terms, this means m2 orbits around m1 in elliptical orbit, with m1 sitting at focal point (but note that these are all \emph{not} statements from an inertial frame, unless in Keplerian limit; normally, we have to transform to an inertial frame, which can be done by calculating $\vec{r}_1 = \vec{R} + \frac{m_2}{M} \vec{r}$; then we see that, in general, both bodies perform elliptical motion, and that they both have center of mass in focal point)
+
+% -> fact that solution of problem using COM \enquote{looks like} problem for particle of mass $\mu$ only helps us make easy transition in Keplerian case, whence it allows direct transition from $\mu$ to $m_2 \approx \mu$; in most general case, it is probably not suited well because it can easily mess up intuition (about where center of mass is, whether in focal point or not, or how orbits of the two bodies look like); in this general setting, going to COM is really just a coordinate transformation applied to get easier solutions to the equations of motion, but for the really interesting, physical results we still have to map back to the initial (inertial) frame (though some limited statements can be inferred from $\vec{r}$ already, namely about motion of m2 around m1; ultimately, this is not relevant though, since actual motion of m2 might be substantially different)
+
+
+
+\begin{figure}
+	\centering
+
+	\includegraphics[height=0.1\textheight]{pictures/central_force_orbits.pdf}
+
+	\caption{Some orbits. Keplerian limit is uppermost one \todo{fix plot}}
+	\label{fig:central_force_orbits}
+\end{figure}
 
 
 
 
+		\subsection{Kepler's Laws}
+From a historical point of view, the solution of the two-body problem in the way presented here was found by Newton, a few decades after Johannes Kepler famously formulated his three laws about the orbits of planets in our solar system. For Kepler, these laws were empirical insights gained from data collected by Tycho Brahe; for us, they will come quite naturally as corollaries from the general two-body and central-force problem over the last few subsections. To see that, let us consider the case $m_2 \gg m_1$, which means $M \approx m_2, \mu \approx m_1$.
 
--> in case of motion of planet around sun (what Kepler considered when publishing his ground-breaking work on the topic), reduced mass is mass of smaller body to really good approximation, but this is not true in general, so we do not restrict to/continue with this limit%; Bertrand theorem shows that considerations here are only valid for potentials of the form $- \frac{k}{r}$ or $k r^2$ (but I am actually not really aware of a physical potential that has latter form)
 
+Kepler considered two objects that interact gravitationally, which means the potential is given by
+\begin{equation}
+	\eqbox{
+		V(r) = - \frac{G M m}{r}
+	}
+	\, .
+\end{equation}
+Here we have started to use $M$ for the mass $m_2$ of the larger body (the sun) and $m$ for the mass $m_1$ of the smaller body (the planet in consideration).
 
-
--> Kepler originally formulated for planets in solar system, but turns out there is nothing that restricts us from extending this to general central forces (are conservative and have potential $V(r) = - \frac{k}{r}$ for some constant $k$; $k = G m_1 m_2$ for gravitation for instance)
-
-\todo{mix previous two comments together}
 
 
 
@@ -936,26 +1142,23 @@ There are many ways in which this problem can be approached. In almost all of th
 	% The orbit of the relative coordinate $\vec{r}$ around the COM $\vec{R}$ is an ellipse with $\vec{R}$ at one of its foci. -> this is WRONG! Relative coordinate is not starting in COM, and COM is not always in focal point
 	The orbit of every planet is an ellipse with the sun at one of the two foci.
 \end{center}
-\todo{really with center?}
 
 % -> we are not satisfied with this, let's solve for the actual orbits (this part was done by Newton, a few decades after Kepler noted nature of orbits)
 
 
-we will look at more general problem (the two-body problem) and then obtain this as corollary; historically speaking, Newton did this after Kepler found special case, but we go reverse route
-
--> result 1: orbit described by $\vec{r}$ is an ellipse; result 2: one focal point of ellipse is the origin (we can perhaps make drawing for this, with $\vec{r}$ shown; maybe even $\mu$ showing there and commenting on how it is reminiscent of one-body problem for body of this mass; see below)
-
--> in the more physical/intuitive terms, this means m2 orbits around m1 in elliptical orbit, with m1 sitting at focal point (but note that these are all \emph{not} statements from an inertial frame, unless in Keplerian limit; normally, we have to transform to an inertial frame, which can be done by calculating $\vec{r}_1 = \vec{R} + \frac{m_2}{M} \vec{r}$; then we see that, in general, both bodies perform elliptical motion, and that they both have center of mass in focal point)
-
--> fact that solution of problem using COM \enquote{looks like} problem for particle of mass $\mu$ only helps us make easy transition in Keplerian case, whence it allows direct transition from $\mu$ to $m_2 \approx \mu$; in most general case, it is probably not suited well because it can easily mess up intuition (about where center of mass is, whether in focal point or not, or how orbits of the two bodies look like); in this general setting, going to COM is really just a coordinate transformation applied to get easier solutions to the equations of motion, but for the really interesting, physical results we still have to map back to the initial (inertial) frame (though some limited statements can be inferred from $\vec{r}$ already, namely about motion of m2 around m1; ultimately, this is not relevant though, since actual motion of m2 might be substantially different)
+Other than the implication that all planets have inclination $< 1$, this is really just a corollary of planets orbiting the sun being an example of the two-body problem in a central force. Schematically, Fig.~\ref{fig:kepler_orbits} shows how the orbits of several planets look like; notice in particular how the sun is always in a focal point. In the Keplerian limit, Fig.~\ref{fig:central_force_ellipse} depicts accurately the orbit of a planet if we place $\vec{R}$ in $F_1$ (which is the origin in this plot, though this is not required), since $\vec{r}_1 \approx \vec{R}$ and $\vec{r}_2 \approx \vec{r}$.
 
 
 
--> so for plot with ellipse, just omit any position vectors for description of quantities that describe ellipse (a, b, e, ...) -> may make sense to show $\vec{r}$; but I guess in separate plots would make most sense, to avoid cluttering and confusion
+\begin{figure}
+	\centering
 
+	\includegraphics[width=0.5\textwidth]{pictures/central_force_planets.pdf}
 
+	\caption{Some planet orbits. 3D, unlike in previous plots}
+	\label{fig:kepler_orbits}
+\end{figure}
 
--> $a$ is semi-major axis; $b$ is semi-minor axis (semi because half of diameter of ellipse)
 
 
 
@@ -969,33 +1172,13 @@ The first Keplerian law tells us the motion of a body in a central potential fol
 \todo{really with center?}
 
 
-
-
-
-In a more explicit (and perhaps modern) interpretation, the second law is usually stated in terms of angular momentum. First, this allows to quantify the plane in which the ellipse lies since More explicitly, since by definition
-\begin{equation}
-	\eqbox{
-		\vec{r} \cdot \vec{L} = 0
-	}
-\end{equation}
-at all times. This means that the orbit lies in a particular plane, the one orthogonal to $\vec{L}$, and justifies in hindsight the use of polar coordinates instead of spherical coordinates in solving for the trajectory $r(\phi)$.
-
--> \todo{add that this is a temporally constant plane because $L$ is conserved}
-
--> \todo{there is more to it, since $\vec{r}$ is not some arbitrary position vector here, but relative coordinate}; we know that angular momentum can be split into contribution from COM and from relative coordinate; however, contribution from center of mass could be there -> we can surely make statement that angular momentum of relative motion of body $\vec{L}_{\vec{r}}$ is vanishing -> this is fulfilled in Keplerian case certainly, more generally we must talk about angular momentum w.r.t. COM
-
-Moreover, the area swept out for a given time can be calculated as
+In a more explicit (and perhaps modern) interpretation, the second law is usually stated in terms of angular momentum. We had seen that $\vec{L}$ is conserved, i.e.~constant in time (both direction and magnitude). The area swept out for a given time can be calculated as
 \begin{equation}
 	\eqbox{
 		A = \int_{t_1}^{t_2} \frac{L}{2m} \, dt = \frac{L}{2m} (t_2 - t_1)
 	} \, .
 \end{equation}
-However, this involves the assumption of $\dot{L} = 0$, which is a strong statement as it means angular momentum is conserved. It is valid if
-\begin{equation}
-	\dot{L} = \vec{r} \cross \vec{F} = \vec{r} \cross \qty(- \grad V(r)) = - \vec{r} \cross V'(r) \frac{\vec{r}}{r} = 0
-	\, .
-\end{equation}
-The crucial assumption involved here is $V$ only depending on the distance $r$ rather than the full vector $\vec{r}$, which then allows the application of a general rule for the gradient. Since a central potential is of the form $V(r) = - \frac{k}{r}$, we have just shown that angular momentum is conserved for motion in a central potential. Therefore, the second Keplerian law is often seen as an early formulation of conservation of angular momentum.
+This means we are already done proving Kepler's second law: the area swept out is a constant multiplied with the time interval. Due to its close relation to angular momentum, the second Keplerian law is often seen as an early formulation of conservation of angular momentum.
 
 % -> notice how potential only depends on distance, not direction, crucial assumption here; moreover, this particular form of gradient means we have radial or quadratic force -> hmm nah, is general law, right? We only use chain rule here
 
@@ -1003,6 +1186,10 @@ The crucial assumption involved here is $V$ only depending on the distance $r$ r
 
 
 -> constancy of $L$ tells us same about velocity: for smaller $r$, we need larger $v$ to keep $L$ constant (which neglects dependence on angle between $\vec{r}, \vec{v}$, but point stands, think about periastron and apostron for example)
+
+
+-> in Keplerian case, $\vec{R}$ coincides with $\vec{r}_1$; thus $\vec{L} = \vec{L}_{\vec{r}}$ and all claims involving angular momentum do not require so much case \todo{mention here or after starting Kepler section?}
+
 
 
 
@@ -1033,6 +1220,183 @@ For our solar system, this means the orbits of planets farther out in the solar 
 
 
 
+		\subsection{Collisions}
+\todo{wouldn't that fit really well here?}
+
+
+
+		\subsection{Scattering}
+We have looked at $\epsilon < 1$ case extensively now, but what about $\epsilon \geq 1$. Formally, this is the case of hyperbolic trajectories and we can think of it as \enquote{collisions at a distance}: $m_1$ flies in, interacts with the potential generated by $m_2$, and flies off again. This is what physicists call \Def{scattering}. It occurs in a variety of places throughout virtually all physical theories (celestial bodies, nuclear physics, particles moving through the atmosphere, ...). % This is also the scope that we discuss it in, i.e.~we drop the assumption of gravitational interaction for now and return to a general central force. \todo{really? Even at this stage? Right now we just need conservative, don't we? -> hmm not 100\% sure, I think we assume central force actually}
+
+% -> this is hyperbolic case, and there are some interesting dynamics going on as well; make transition to scattering, talk about deflection angle
+
+% -> this central force problem not only occurs for celestial objects that pass by a planet or something, but all over the place in physics; another example is Rayleigh scattering of particles in the atmosphere (then talk about cross section)
+
+We follow the discussion provided in \cite{Thornton_2003}, so we have to pay a little attention to the scope of certain formulas. 
+
+
+We will analyze the situation from a frame (\enquote{lab frame}) where $m_2$ is initially at rest, while $m_1$ enters the frame with velocity $v_1$. Given this information (or equivalent one, like the charges if a Coulomb force is considered), the strength of the interaction taking place is entirely determined by $b$, the \Def{impact parameter}, which is the minimal distance of the particles if no force was acting (Fig.~\ref{fig:scattering}). $b$ determines what trajectories after scattering process look like, which can be encapsulated in the \Def{scattering angle} $\theta$.
+
+
+The previous paragraph needs some clarification. It follows an argument from \cite{Thornton_2003}, which goes as follows: $b$ is sufficient to determine trajectories etc.~because all expression we saw for central force involved just energy $E$, potential $V$, angular momentum $L$. However, assuming that $m_2$ is at rest before the particles interact, the total angular momentum is given entirely by the angular momentum of $m_1$. Since we are free to choose a reference point for $\vec{L}$, we can choose to look at angular momentum of $m_1$ about $m_2$. For $m_1$ far away from $m_2$, this is given by
+\begin{equation}
+	L = m_1 v_1 b = b \sqrt{2 m_1 T'_1}
+\end{equation}
+where $v_1$ also refers to the velocity far away from $m_2$ (which just means the force exerted by $m_2$ has a negligible effect). Since the magnitude $L$ is conserved in a central force, $b$ is the quantity that determines the whole interaction (because mass, initial velocity are considered to be known).\footnote{It might be possible to get away with the less restrictive requirement of conserved angular momentum, not necessarily central force. But we chose to focus on central forces here.} The fact that we have to assume $\dot{L} = 0$ for this argument was not entirely obvious to me from reading the discussion in \cite{Thornton_2003}, which is why we emphasize it here.
+
+-> also, $E = T'_1$ where $T'_1$ is kinetic energy far away from origin, since we have energy conservation (prime indicates we compute it in CMS)
+
+% better justification of why $b$ is sufficient: ; we assume $E$ to be given (via mass, velocity) and $V$ as well (since nature of force is known); angular momentum of $m_1$ about $m_2$, however, can be expressed in terms of $b$ as $L = m_1 v_1 b$ (which is value of $L$ at particular point, but the magnitude of this value is conserved, so we can just use it); therefore, $b$ already determines quantities such as $r(\phi)$
+
+
+
+\begin{figure}
+	\centering
+
+	\includegraphics[width=0.5\textwidth]{pictures/scattering.pdf}
+
+	\caption{Scattering. $\theta$ is same angle as $\psi$, but when viewed from CMS (whence motion of $m_1$ in this plot becomes motion of $\mu$; i.e.~$\theta$ is angle of trajectory of $m_1$ relative to $m_2$).}
+	\label{fig:scattering}
+\end{figure}
+
+
+
+Treating the problem of scattering in a manner suitable for general application requires a paradigm shift because most of the time when we try to model scattering, we do not know what value $b$ exactly has. For planets as macroscopic objects, we may be able to find it; but when scattering electrons off of atoms, the story is very different because we have no way to measure $b$ in this case and thus no way to determine $\theta(b)$ exactly. Instead, we have to resort to assigning probabilities to ranges of values for $\theta$.
+
+% -> i.e.~we would like to have $d\theta(db)$ for some range of $b$-values; factor of proportionality involves cross section
+
+But first, we need some meaningful notions to describe the whole situation. For this, we can drop the assumption of a central force or conserved angular momentum, at least temporarily. Say we have particle beam with intensity $I$ that is incident on $m_2$. Then one can write the number of particles $dN$ scattered into a solid angle element $d\Omega'$ at scattering angle $\theta$ (and per unit time) as\footnote{The fact that we use $\theta$ means this is a definition in the CMS. We do this to be consistent with the treatment in \cite{Thornton_2003}, but note that a definition in the lab frame takes the same form, upon replacing $\theta \mapsto \psi, d\Omega' \mapsto d\Omega$ (since $\sigma(\theta) d\Omega' = \sigma(\psi) d\Omega$; must be the case since the amount of scattering into a given path of the sphere is something that does not depend on coordinates, and this is what both expressions represent in CMS, lab frame, respectively; this is visualized nicely in Fig.9-20 of \cite{Thornton_2003}).}
+\begin{equation}\label{eq:cross_section_cms}
+	\eqbox{
+		dN = I \sigma(\theta) \, d\Omega'
+	}
+	\quad \Leftrightarrow \quad
+	\eqbox{
+		\sigma(\theta) = \dv{\sigma}{\Omega'} = \frac{1}{I} \dv{N}{\Omega'}
+	}
+\end{equation}
+for some factor of proportionality $\sigma$. This factor quantifies how effectively particles from the beam are scattered into a specific solid angle element $d\Omega'$ by computing the ratio of particles scattered into $d\Omega'$ ($\dv{N}{\Omega'}$) and the total number of incident particles (per unit area and time, which is quantified by $I$). This ratio is called \Def{differential scattering cross section}.
+
+% where the \Def{differential scattering cross section} $\sigma(\theta)$ quantifies \enquote{the number of interactions per target particle that lead to scattering into $d\Omega'$ at the angle $\theta$ (this is $dN$), divided by number of incident particles per unit area (this is $I$)}
+
+% -> idea: intensity is also something like number per area (and time), but for the incoming particle stream; cross section thus compares incoming particles per area to particles per are (solid angle element) at a given angle; in other words, it tells us how effectively beam is scattered into the specific part of the sky that this solid angle element represents -> is number of particles scattered into specific solid angle element, normalized by total number of particles that are interacting (right?) -> intensity is power per area = energy per time and per area (= flux density)
+
+
+The definition of $\sigma$ we have just provided can be used no matter what the nature of the force exerted by the second body is. For more detailed discussions, however, we now return to the assumption of a central force. This is a force that has axial symmetry, so
+\begin{equation}
+	d\Omega' = \sin(\theta) d\theta d\phi = 2\pi \sin(\theta) d\theta
+\end{equation}
+($d\Omega'$ is intended for integration, and we have carried one out now). We had stated that $b$ is sufficient to describe the scattering process, which means our goal is to find an expression for some range of scattering values in terms of a range of impact parameter values, i.e.~$d\theta = d\theta(db)$. For ease of analysis, we continue in the CMS and deal with the transformation back to the lab frame later on. In our axially symmetric setup, if we consider a disk of width $db$ and radius $b$ (centered on $b = 0$), then the area of this disk is just $2\pi b \, db$. Axial symmetry also implies all particles incident on this area are scattered to the same solid angle element $d\Omega'(\theta)$ (remember that we have \enquote{integrated out} the azimuthal dependence, the integration over the whole circumference of the circle here accounts for that), and since $\mathrm{number} = \mathrm{intensity} \cdot \mathrm{area}$,
+% In our current setup, we have an intensity $I$ that is incident on the range $db$. Continuing continued axially symmetric must, upon multiplication with circumference $2\pi b$ (due to symmetry), correspond to particles scattered into $d\Omega'(\theta)$, i.e.
+\begin{equation}
+	\eqbox{
+		I 2\pi b \, db = dN = - I \sigma(\theta) d\Omega' %= - I \sigma(\theta) 2\pi \sin(\theta) d\theta
+	} \, .
+\end{equation}
+The minus comes from the fact that increasing the impact parameter $b$ decreases the amount of angular deflection $\theta$, i.e.~$\dv{b}{\theta} < 0$. Therefore, remembering the axial symmetry in expressing $d\Omega'$, we get
+\begin{equation}\label{eq:cross_section_cms_2}
+	\eqbox{
+		\sigma(\theta) = \frac{b}{\sin(\theta)} \abs{\dv{b}{\theta}}
+	} \, .
+\end{equation}
+
+This expression is helpful because for a central force interaction, one can show that the change in angle between the points of closest and largest distance is
+\begin{equation}
+	\Theta = \frac{\pi - \theta}{2} = \int_{r_\mathrm{min}}^{r_\mathrm{max}} \frac{L}{r^2 \sqrt{2 \mu \qty(E - V - \frac{L^2}{2 \mu r^2})}} \, dr
+	\, .
+\end{equation}
+Using that $L = \mu v_1 b = b \sqrt{2 m_1 T'_1}$ (where, again, $T'_1$ denotes the kinetic energy \emph{before} any interaction with the central potential exerted from the origin takes place, and measured in the CMS), we obtain
+\begin{equation}\label{eq:angle_as_func_of_b}
+	\Theta = \int_{r_\mathrm{min}}^{\infty} \frac{b}{\sqrt{1 - \frac{b^2}{r^2} - \frac{U}{T'_1}}} \, dr
+	\, .
+\end{equation}
+This determines how $\theta$ depends on $b$, which in turn allows determining $\sigma$ via Eq.~\eqref{eq:cross_section_cms_2}.\\
+
+
+Having found an expression for the cross section in the CMS, our next task is to transform this expression to the lab frame. This involves a substantial amount of math (the calculation is based on $\sigma(\theta) d\Omega' = \sigma(\psi) d\Omega$), and the result also reflects this:
+\begin{equation}\label{eq:cross_section_general}
+	\eqbox{
+		\sigma(\psi) = \eval{\sigma(\theta)}_{\theta = \arcsin(q \sin(\psi)) + \psi} \frac{\qty(1 \cos(\psi) + \sqrt{1 - q^2\sin[2](\psi)})^2}{\sqrt{1 - q^2\sin[2](\psi)}}
+		, \quad q = \frac{m_1}{m_2}
+	}
+	\, .
+\end{equation}
+% -> note that this assumes $q \leq 1$; is fine, because we can always transform so that it is larger of the masses that is at rest, and reassign larger mass to $m_2$ -> uuum nope, we do not have something greater 1 in arcsin
+Evaluating this expression is complicated for general $q$, but at least we have simple special cases: for $q = 1 \Leftrightarrow m_1 = m_2$, both particles get scattered at same angle in lab frame, so the relative angle between particles (which is what we have from CMS) being $\theta$, implies $\psi = \frac{\theta}{2}$, so that
+\begin{equation}\label{eq:cross_section_q1}
+	\eqbox{
+		\sigma(\psi) = \eval{\sigma(\theta)}_{\theta = 2\psi} 4 \cos(\psi)
+	}
+\end{equation}
+Similarly, for $m_1 \ll m_2 \Leftrightarrow q \approx 0$, the second particle remains at rest so that $\psi \approx \theta$ and
+\begin{equation}\label{eq:cross_section_q0}
+	\eqbox{
+		\sigma(\psi) = \eval{\sigma(\theta)}_{\theta = \psi}
+	}
+\end{equation}
+
+
+
+Although we have mostly used the symbol $\sigma$ for now, the cross sections used up until this point have been differential ones, i.e.~they only referred to an infinitesimal solid angle element. To obtain a \Def{total scattering cross section}, we thus have to integrate over the angular dependence
+\begin{equation}
+	\eqbox{
+		\sigma = \int \sigma(\theta) \, d\Omega' = \int \sigma(\psi) \, d\Omega
+	}
+	\, .
+\end{equation}
+
+-> comment on different integration ranges
+
+-> interpretation: this is what we should look at if we are interested in probability that any interaction with second particle $m_2$ takes place; resulting $\sigma$ is effective area of target particle (strongly interacting = large effective area)
+
+
+\todo{show example? For solid sphere for example}
+
+
+
+
+			\paragraph{Rutherford Scattering}
+Let us discuss a particular example of a central force, namely once again
+\begin{equation*}
+	V(r) = - \frac{k}{r} \, ,
+\end{equation*}
+which describes, e.g., a massive particle in a gravitational field or a charged particle in a Coulomb field. For this force, one can evaluate Eq.~\eqref{eq:angle_as_func_of_b} to obtain
+\begin{equation}
+	\cos(\Theta) = \frac{k}{2 T'_1 \sqrt{1 + \qty(\frac{k}{2 T'_1})^2}}
+\end{equation}
+and this can be rearranged to
+\begin{equation}
+	\eqbox{
+		b = \frac{k \cot(\theta/2)}{2 T'_1} = \frac{\mu k \cot(\theta/2)}{p^2}
+	}
+	\,. 
+\end{equation}
+Differentiating with respect to $\theta$ gives
+\begin{equation}
+	\dv{b}{\theta} = - \frac{k}{4 T'_1} \frac{1}{\sin[2](\theta/2)}
+\end{equation}
+and substitution of this into Eq.~\eqref{eq:cross_section_cms_2} then yields the final result
+\begin{equation}\label{eq:rutherford_scat}
+	\eqbox{
+		\sigma(\theta) = \frac{k^2}{(4 T'_1)^2} \frac{1}{\sin[4](\theta/2)}
+	}
+	\, .
+\end{equation}
+This is the \Def{Rutherford scattering formula}. We see a strong dependence on $\theta$. Recall that $\sin[4](\theta/2) \simeq (\theta/2)^4$ for small angles, so the cross section falls off extremely steeply. On the other hand, there is no dependence on sign of $k$. That means we get same cross sections for attractive and repulsive forces.
+
+Also, as a little aside, this classical result actually agrees with experimental evidence -- which means it agrees with QM-prediction of the same phenomenon (quite remarkably).\\
+
+
+-> interesting: total cross section diverges!
+
+
+For $m_1 = m_2$, $T'_1 = T_1/2$, so Eq.~\eqref{eq:rutherford_scat} becomes
+\begin{equation}
+	\sigma(\theta) = \frac{k^2}{(4 T_1)^2} \frac{1}{\sin[4](\theta/2)}
+\end{equation}
+
+
+
     \section{Rigid Bodies}
 
 now we go away from point particle/test mass
@@ -1049,7 +1413,7 @@ first of all, there is no truly rigid body; relativity says maximum speed at whi
 
 given mass density $\rho(\vec{x})$ of a continuous body occupying some volume $V$, we can define its (total) mass
 \begin{equation}
-	M = int_V dm
+	M = \int_V dm
 	% = \int_V \rho dV
 	= \int_V \rho(\vec{x}) d^3x
 \end{equation}
@@ -1100,6 +1464,12 @@ nice for work on rigid body: \url{https://en.wikipedia.org/wiki/Work_(physics)#W
 
 
 gravitation of rigid bodies: \url{https://en.wikipedia.org/wiki/Shell_theorem}
+
+
+
+		\subsection{Rotating Rigid Bodies}
+talk about Euler angles
+
 
 
 \end{document}
