@@ -232,6 +232,11 @@ where $\vec{e}_r \hat{=} \vec{e}_{Mm}$ is the unit vector pointing from $M$ to $
 \end{equation}
 
 
+\Def{gravitational field} is $\vec{g} = \frac{\vec{F}}{m}$ (\enquote{force per unit mass exerted on some particle that is subject to gravitational force from body of mass $M$})
+
+there is a gravitational potential $\Phi$ with $\vec{g} = - \grad \Phi$; it is easy to show that $\Phi = - \frac{M}{r}$; implies force is conservative, $\vec{F} = - \grad U$ with $U = m \Phi$
+
+
 
         % \subsection{What Is A Force?}
         \subsection{Forces \& Momenta}
@@ -388,6 +393,315 @@ This insight is a first indication that many laws and ways to think about system
 
 	in point of turnaround, ball briefly has no energy (after turnaround, it gains energy again due to gravity pulling on it; velocity in different motion, but energy of course still positive -> ah no, work actually becomes positive after turnaround, since then $\vec{F} \parallel \vec{v}$ instead of anti-parallel); from $E_0 + W = 0$ we get $h = \frac{v_0^2}{2 g}$, same we got from force analysis (but much quicker, actual calculation is very short)
 \end{ex}
+
+
+therefore, we can circumvent solving equations of motion if energy is conserved! similar for other quantities, this is why \Def{integrals of motion} are so useful
+
+
+
+	\section{(Harmonic) Oscillations}
+back to one of the absolutely fundamental systems in physics, the harmonic oscillator
+
+first, let us motivate why we should even deal with it -- turns out, plays pivotal role in physics!
+
+
+
+		\subsection{Oscillations Around Equilibrium}
+		\label{subsec:osc_around_equ}
+physicists like Taylor expansions and one of the places where it is really useful is the analysis of equilibrium states
+
+reason: we know that equilibrium means no net force; in terms of the potential, equilibrium means $\nabla V = 0$, potential is at a minimum
+
+-> for a particle that moves around equilibrium position $x_0$, we can Taylor-expand potential:
+\begin{equation*}
+	V(x) = V(x_0) + \dv{V}{x}(x_0) \, (x - x_0) + \frac{1}{2} \dv[2]{V}{x}(x_0) \, (x - x_0)^2 + \mathcal{O}((x - x_0)^3) = V(x_0) + \frac{1}{2} \dv[2]{V}{x}(x_0) \, (x - x_0)^2 + \mathcal{O}((x - x_0)^3)
+\end{equation*}
+since the equilibrium condition translates to $\dv{V}{x}(x_0) = 0$. Therefore, choosing $V(x_0)$ as our reference for the potential (in other words: setting it to zero), the potential around an equilibrium is approximately quadratic,
+\begin{equation}
+	\eqbox{
+		V(x) \simeq \frac{1}{2} \dv[2]{V}{x} \, (x - x_0)^2 \eqqcolon \frac{k}{2} (x - x_0)^2
+	}
+	\, .
+\end{equation}
+
+-> equilibrium is \Def{stable} if $\dv[2]{V}{x}(x_0) > 0$ (minimum, upon a small perturbation the system will tend back into $x_0$) and unstable if $\dv[2]{V}{x}(x_0) < 0$ (maximum, any small perturbation will lead to evolution into very different position); in case of $\dv[2]{V}{x}(x_0) = 0$, we must go to higher terms
+
+
+
+but what about associated forces? For that, we assume equilibrium $x_0$ exists and choose coordinates so that $x_0 = 0$ (1D for now)
+
+-> restoring force: we also do expansion to leading order; where do we stop? Well, let's use $V(x) = \frac{k}{2} (x - x_0)^2 = \frac{k}{2} x^2$ (where we know that $k = \dv[2]{V}{x}(x_0 = 0)$; but this explicit form does not matter, most important part is that it is constant with respect to $x$) and
+\begin{equation}\label{eq:restoring_force}
+	\eqbox{
+		\vec{F} = - \grad V = - k x
+	} \, .
+\end{equation}
+Thus linear order seems sufficient, and this force we call \Def{restoring force}. Basically, it pushes any displacement from equilibrium back to the equilibrium at $x_0 = 0$. (Note that this is equivalent to Taylor-expanding the force, i.e.~to $F(x) \simeq F(0) + \dv{F}{x}(x_0) \, x \eqqcolon - k x$.) This implies $k > 0$ (makes sense, we assume stable equilibrium), and we also see that restoring forces are linear forces because only $x$ is appearing.
+
+\todo{but how does that work here, just because one of the forces is conservative, this does not mean its potential is at minimum, right? I mean if total force is vanishing, then this just means total potential is at minimum, right? Or do we refer to dynamical equilibrium here, i.e.~we have restoring force equal to $m a$? -> yeah, think so; don't worry about it I guess...}
+
+
+systems with forces of type $F = - k x$ are said to obey \Def{Hooke's law} (for many systems, this is approximate, but for some it holds more exactly)
+
+
+
+		\subsection{The Harmonic Oscillator}
+If a restoring force is acting on a physical system, then Newton's second law tells us
+\begin{equation}
+	- k x = m \ddot{x}
+	\quad \Leftrightarrow \quad
+	\eqbox{
+		\ddot{x} + \omega_0^2 x = 0
+	}
+	, \quad
+	\eqbox{
+		% \omega_0 = \sqrt{\frac{k}{m}}
+		\omega_0^2 = \frac{k}{m}
+	}
+\end{equation}
+where we have used the common reformulation in terms of the quantity $\omega_0$, the meaning of which we do not know yet.
+
+-> note: just as something general to remember, here we have second order differential equation; means two integrations are required to solve it, so we anticipate two constants will appear and are to be determined
+
+
+-> general solution is complex exponential, but since physical trajectories are real functions, we can always rewrite them as either one of the following two:
+\begin{subequations}
+	\begin{align}
+		x(t) &= A \sin(\omega_0 t - \delta_1)
+		\\
+		x(t) &= A \cos(\omega_0 t - \delta_2)
+	\end{align}
+\end{subequations}
+where $\abs{\delta_1 - \delta_2} = \pi/2$ (this is just relation between sine and cosine). $A$ and $\delta_i$ are determined by the initial conditions of the problem.
+
+\todo{think about using general solution with complex exponentials... Like that more in ExPhy 1 summary} -> at least take expressions for $\delta$ from there
+
+
+
+Period:
+\begin{equation}
+	\eqbox{
+		T_0 = \frac{2\pi}{\omega_0} = 2\pi \sqrt{\frac{m}{k}}
+	}
+\end{equation}
+(since this is time where argument of sine/cosine increases by $2\pi$). Therefore, $\omega_0$ is the angular (!) frequency of the motion (which just means it has an additional factor of $2\pi$ compared to frequencies).
+
+-> more facts from Thornton: period is independent of energy, thus system is called \Def{isochronous}
+
+
+
+\begin{ex}[Pendulum]
+	Thornton example 3.3
+
+
+	idea: gravity = restoring force; $- m \vec{g}$ always acts downwards, i.e.~$\parallel \vec{e}_y$, but we want component that acts along angular direction (pointing towards origin), and this is $- m g \sin(\phi)$ -> see \url{https://en.wikipedia.org/wiki/Pendulum_(mechanics)#/media/File:Pendulum_gravity.svg}
+
+	therefore, end up with
+	\begin{equation}
+		m l \ddot{\theta} + m g \sin(\theta) = 0
+	\end{equation}
+	this is pretty nasty (elliptical integral \todo{right?}, so no analytical/closed-form solution)
+
+	-> why $l \ddot{\theta}$? Well, pendulum moves along circle (pendulum arm is assumed to be stiff, i.e.~length is always $l$), so we must calculate arc length; when moving by some angle $\theta$, the corresponding arc length is circumference of circle element cut out by this, which is simply $l \theta$ (we know this, for whole circle $\theta = 2\pi$ and yields formula for circumference of circle
+
+	assuming oscillation around equilibrium are small, which corresponds to small angles $\theta$, we can use $\sin(\theta) \simeq \theta$ and find harmonic oscillator equation
+	\begin{equation}
+		\ddot{\theta} + \omega_0^2 \theta = 0, \quad \omega_0 = \sqrt{\frac{g}{l}}
+	\end{equation}
+\end{ex}
+
+
+
+		\subsection{Phase Space Portraits}
+general idea: eliminate dependence on time from solutions, in most cases by relating position $x$ and velocity $\dot{x}$ somehow (since these are variables that constitute the phase space) -> we can also model time evolution in there, i.e.~position for each time step; but for pictures, we are usually interested in the entirety of phase plots
+
+-> for free (undamped, not driven, etc.) harmonic oscillator for example we get ellipse
+
+
+
+		\subsection{The Damped Harmonic Oscillator}
+Until now we have considered oscillators where the energy is conserved, so in particular we have eternal conversion from potential to kinetic energy and vice versa, the oscillation would never stop. Of course, this is not a good model of reality, where dissipative processes lead to a loss of energy. We now start to take this into account, by adding another force. This force is \enquote{restrictive} in nature, it acts against the restoring force and leads to dissipation a of energy.
+
+-> commonly, $\vec{F} = \alpha \vec{v}$ is used as model for \Def{damping force}; for 1D, we like to express as $F = -b \dot{x}$ for $b > 0$ ($b < 0$ would not represent damping, but quite the opposite)
+
+
+new equation of motion:
+\begin{equation}
+	\eqbox{
+		m \ddot{x} + b \dot{x} + k x = 0
+	}
+	\quad \Leftrightarrow \quad
+	\eqbox{
+		\ddot{x} + 2 \gamma \dot{x} + \omega_0^2 x = 0
+	}
+\end{equation}
+with the \Def{damping parameter}
+\begin{equation}
+	\eqbox{
+		\gamma = \frac{b}{2m}
+	}
+\end{equation}
+
+
+Making same ansatz as before yields solution
+\begin{equation}
+	\eqbox{
+		x(t) = e^{-\gamma t} \qty[A_1 e^{\sqrt{\gamma^2 - \omega_0^2} t} + A_1 e^{-\sqrt{\gamma^2 - \omega_0^2} t}]
+	} \, .
+\end{equation}
+
+-> type of motion now depends on the values of $\gamma$ relative to $\omega_0$
+
+
+
+			\paragraph{$\gamma^2 = \omega_0^2$}
+			% Yes, we need squares. There is nothing that tells us \gamma, \omega_0 must be greater than 1
+Mathematically speaking the simplest case since exponentials in the brackets disappear.
+
+\begin{equation}
+	\eqbox{
+		x(t) = C(t) e^{- \gamma t}
+	}
+\end{equation}
+where $C(t)$ may be determined from the initial conditions (possibly consists of two constants, thus the time dependence; i.e.~$C(t) = a + b t$)
+
+
+-> this is called \Def{critical damping} because amplitude falls off quickest, quicker than in both over-, underdamped cases. Such a behavior is desirable for many applications in practice, e.g., damping in cars where we do not want continuous oscillation after hitting a speed bump, or a door that closes with one of those fancy pneumatic tubes
+
+
+
+			\paragraph{$\gamma^2 > \omega_0^2$}
+relatively boring, there is no oscillatory behavior since the exponent is real, not imaginary; the motion just slowly creeps to zero
+
+
+\Def{overdamped motion}
+
+
+
+			\paragraph{$\gamma^2 < \omega_0^2$}
+Now things finally become interesting. We get solution that looks very similar to the one from before:
+\begin{equation}
+	\eqbox{
+		x(t) = A e^{- \gamma t} \cos(\omega_1 t - \delta)
+	}, \quad
+	\eqbox{
+		\omega_1 = \pm \sqrt{\omega_0^2 - \gamma^2}
+	} \, .
+\end{equation}
+We do have oscillations in this case of \Def{underdamped motion}.
+
+Some subtle differences to free harmonic oscillator exist, though. First the overall damping factor $e^{- \gamma t}$, which we have encountered before already. This slowly \enquote{damps away} the oscillation until it eventually, and inevitably, reaches an amplitude of zero. One can quantify this by comparing the amplitude of successive maxima $T_{1, 2}$, which is called the \Def{decrement}
+\begin{equation}
+	\eqbox{
+		\frac{A e^{- \gamma T_1}}{A e^{- \gamma (T_1 + T_2)}} = e^{\gamma T_2}
+	} \, .
+\end{equation}
+This factor determines the decrease in amplitude over the period $T_2$. Note that it is also common to look at the \Def[decrement!logarithmic]{logarithmic decrement} $\gamma T_2$.
+
+But besides impacting the amplitude, the frequency is also slightly different compared to the free motion. Generally speaking $\omega_1 < \omega_0$. But we must take a little more care to even speak about $\omega_1$ as a frequency because the motion is not actually periodic. We could try to talk ourselves out of this by noting that the underlying periodic motion, which is damped away by $\gamma$, warrants this interpretation; but on the other hand, the frequency of this underlying oscillation is $\omega_0$. This is an issue because the (temporal) distance of successive zero crossings for instance is determined by $\omega_1$. Therefore, we still use $\omega_1$ as a (kind of) frequency and also rely on a definition via the distance of zero crossings: two of them mean one period and from this we get the (angular) frequency.
+
+
+% regarding period: there is an underlying periodic motion that is damped down in amplitude; we have to think about period of this underlying motion when talking about period of the damped motion -> nope, wrong; is about zero crossings
+
+
+energy:
+
+
+
+\begin{ex}[Damped Pendulum]
+	Thornton example 3.3
+\end{ex}
+
+
+
+		\subsection{The Driven Harmonic Oscillator}
+Driven means we apply an external force to the harmonic oscillator as well. We here consider the simplest case of a sinusoidal driving force (still in 1D)
+\begin{equation}
+	F_d = F_0 \cos(\omega_d t) \, .
+\end{equation}
+This modifies the equation of motion to
+\begin{equation}
+	\eqbox{
+		m \ddot{x} + b \dot{x} + k x = F_0 \cos(\omega_d t)
+	}
+	\quad \Leftrightarrow \quad
+	\eqbox{
+		\ddot{x} + 2 \gamma \dot{x} + \omega_0^2 x = \kappa \cos(\omega_d t) \eqqcolon x_d(t)
+	}
+\end{equation}
+with $\kappa = \frac{F_0}{m} = x_d(0)$. We are now dealing with an inhomogenous differential equation; the solution of this consists of two parts, one solution (\Def{complementary solution}) $x_\mathrm{hom}$ of the homogenous equation (with $x_d = 0$) and one solution (the \Def{particular solution}) $x_\mathrm{inhom}$ of the full differential equation. The latter can be shown to read
+\begin{equation}\label{eq:driven_harm_osc_params}
+	\eqbox{
+		x_\mathrm{inhom}(t) = \frac{x_d(0)}{\sqrt{(\omega_0^2 - \omega_d^2)^2 + 4 \gamma^2 \omega_d^2}} \cos(\omega_d t + \delta) = x_{i0} \cos(\omega_d t + \delta)
+	}, \quad
+	\eqbox{
+		\tan(\delta) = \frac{2 \omega_d \gamma}{\omega_0^2 - \omega_d^2}
+	} \, .
+\end{equation}
+$\delta$ is a phase difference between driving force and motion of the harmonic oscillator that occurs as a consequence. It goes from $\delta(0) = 0$ through $\delta(\omega_0) = \frac{\pi}{2}$ up to $\delta(\infty) = \pi$, with the exact shape (especially slope) of the curve depending on the ratio between $\omega_0, \gamma, \omega_d$.
+
+While in general, the motion is modelled by $x(t) = x_\mathrm{hom}(t) + x_\mathrm{inhom}(t)$, we have seen before that in the realistic case where damping losses are present, $x_\mathrm{hom}$ is a transient will go to zero at some point in time (at $t \ll 1/\gamma$). After this period of initial mixing of the two solutions, the driven motion will thus eventually dominate. During this initial transient period, the motion is heavily dependent on the initial conditions, e.g., the state of the oscillator (in both phase and amplitude) when the force is first applied.
+
+
+One phenomenon of great importance in harmonic oscillators is \Def{resonance}. It basically deals with the question under which conditions $x_{i0}$ attains a maximum. From its expression, we see that this depends on the parameters $x_d(0), \omega_d$. The linear decrease with $x_d(0)$ poses a clear condition on the overall amplitude of the driving force (the more, the better), but the dependence on $\omega_d$ is more complicated. Differentiate $x_{i0}$ with respect to it yields that it is maximal at
+\begin{equation}
+	\eqbox{
+		\omega_r = \sqrt{\omega_0^2 - 2 \gamma^2}
+	} \, .
+\end{equation}
+(Note how compared to the frequencies of the free and damped oscillator, $\omega_r < \omega_1 < \omega_0$.)
+
+An interesting follow-up on resonance is the following: what is shape of $x_{i0}$ as function of frequency around $\omega_r$? Eq.~\eqref{eq:driven_harm_osc_params} reveals a characteristic profile that is known as \Def{Lorentz curve}. It peaks at $\omega_r$, and its width is heavily dependent on the damping parameter $\gamma$. The width is thus customarily quantified by the \Def{Q-factor} (\Def{quality factor})
+\begin{equation}
+	\eqbox{
+		Q = \frac{\omega_r}{2\gamma}
+	} \, .
+\end{equation}
+For a fixed $\omega_0$, larger $\gamma$ lead to a broader line shape (along with the shift in peak location $\omega_r$). In the limiting case $\gamma = 0$, we encounter what is called \Def{catastrophic resonance} in German: $x_{i0}$ becomes infinite, with vanishing width (i.e.~in essence a $\delta$-function).
+
+Besides its impact on $x_{i0}$, $Q$ also has an effect on how $\delta$ evolves as a function of frequency, the phase lag between driven and oscillator motion. High $Q$ correspond to a quick transition between $0$ and $\pi$, with very steep slope, i.e.~there is basically a phase jump $\omega_0$; low $Q$, on the other hand, produce curves of almost uniform slope.
+
+(Note: if the damping is small, $Q \approach \frac{\omega_0}{\Delta \omega}$ with the full-width-at-half-maximum [FWHM] $\Delta \omega$, which is defined by $x_{i0}(\omega_r \pm \Delta \omega) = x_{i0}(\omega_r)/\sqrt{2}$.)
+
+-> some examples for $Q$-values: loudspeakers have roughly $100$; precisely tuned electrical circuits can have $10^4$; atoms have $10^7 - 10^8$; lasers can have $10^{14}$
+
+
+
+		\subsection{Energy}
+Let us now look at the energy of the different harmonic oscillator setups.
+
+
+For the free case, we can simply calculate the kinetic energy
+\begin{equation}\label{eq:free_harm_osc_total_energy}
+	\eqbox{E} = T + V = \frac{m}{2} \dot{x}^2 + \frac{k}{2} x^2 \eqbox{= \frac{1}{2} k A^2} \, .
+\end{equation}
+$E \propto A^2$ is a general result for linear systems. As expected, $E$ is conserved (we are looking at a closed systems without losses at the moment).
+
+Once we take into account damping, energy will not be conserved anymore. Losses to friction lead to
+\begin{equation}
+	\eqbox{
+		\dv{E}{t} = - \vec{F} \cdot \vec{v} = - b \dot{x} = - 2 \gamma m \dot{x}^2
+	} \, .
+\end{equation}
+Hence, the initial energy Eq.~\eqref{eq:free_harm_osc_total_energy} is reduced by
+\begin{equation}
+	W_T = \int_0^{T_1} \dv{E}{t} \, dt = \frac{m}{2} A^2 (\omega_0^2 + \gamma^2) (e^{- 2 \gamma T_1} - 1)
+\end{equation}
+per period ($W_{T_1}$ is turned into heat). If $\gamma$ is small, $e^{- 2 \gamma t} \approx 1 \Rightarrow W_{T_1} = 0$ and Eq.~\eqref{eq:free_harm_osc_total_energy} holds to good approximation.
+
+
+For the driven oscillator, on the other hand,
+\begin{equation}
+	\dv{E}{t} = F_d(t) \dot{x} - b \dot{x}^2
+	\, .
+\end{equation}
+Therefore, the system can reach a stationary state (after the initial transient period), where the velocity is such that the energy entering the system is precisely balanced by heat losses. This is why the energy does not diverge, despite the constant pouring of energy into the system (only divergence if $b = 0 = \gamma$, i.e.~in case of catastrophic resonance).
+
+
+-> energy average of kinetic and potential for free case are equal, $\frac{1}{4} k A^2$ each
+
+
+-> for driven oscillator, kinetic $T$ attains maximum at $\omega = \omega_0$, \emph{not} $\omega_r$; potential energy, on the other, is maximal at $\omega_r$ (since it is directly proportional to $x_{i0}$); the two energies resonating at different frequencies is a consequence of the system being non-conservative, there is this steady exchange of energy that was already mentioned
 
 
 
@@ -729,7 +1043,7 @@ One way to look at this is to argue that $\vec{p}$ represents linear momentum, w
 \begin{equation}
 	\eqbox{\vec{L} = I \vec{\omega}} \, .
 \end{equation}
-What we are yet to determine is the \Def{moment of inertia} $I$, which is the analogue of inertia for the linear momentum. Continuing with the thought process of this being \enquote{how much an object resists against rotation} \todo{improve this}, it should be surprising that $I \propto m$.
+What we are yet to determine is the \Def{moment of inertia} $I$, which is the analogue of inertia for the linear momentum. Continuing with the thought process of this being \enquote{how much an object resists against rotation} \todo{improve this}, it should not be surprising that $I \propto m$.
 But also depends on distance from origin; and on the circumference
 
 -> makes sense for angular momentum to have angular velocity; then define with proper notion of inertia and we're done; is not just mass now because also depends on distance from origin (quadratically; I guess we can argue via formula for circumference of circle, something like rotating with same angular velocity means sweeping out same part of this, i.e. we rescale by radius squared?)
@@ -804,14 +1118,14 @@ Similarly to Newton's second law, we obtain a simpler form if the moment of iner
 In particular, this is valid for the case of a purely rotational motion, where no change in radius is present), assuming there is no change in mass too. If, on the other hand, linear momentum parallel to $\vec{r}$ is present, i.e.~some push or pull in radial direction, this is not true (any perpendicular component of $\vec{p}$ just corresponds to an increase in $\omega$).
 
 
+\todo{note expression for rotational energy}
 
-	\section{Harmonic Oscillations}
-back to one of the absolutely fundamental systems in physics, the harmonic oscillator (reason why its role is so pivotal is explored in Sec.~\ref{subsec:osc_around_equ}, here we just leave hint at that)
-
-
-
-		\subsection{Oscillations Around Equilibrium}
-		\label{subsec:osc_around_equ}
+-> work is $dW = F dx$ \todo{I think no minus here, right?}, so for rotational quantities we get $dW = M d\theta = I \dv{\omega}{t} d\theta$ \todo{vectors?} -> nah, we want $\dv{W}{t} = \vec{F} \cdot \vec{v}$, which in terms of rotational quantities becomes $\dv{W}{t} = \vec{M} \vec{\omega} = I \dv{\vec{\omega}}{t} \vec{\omega}$ and integration yields
+\begin{equation}
+	\eqbox{
+		E = W \frac{1}{2} I \omega^2
+	}
+\end{equation}
 
 
 
@@ -1469,7 +1783,7 @@ nice for work on rigid body: \url{https://en.wikipedia.org/wiki/Work_(physics)#W
 
 
 
-gravitation of rigid bodies: \url{https://en.wikipedia.org/wiki/Shell_theorem}
+gravitation of rigid bodies: \url{https://en.wikipedia.org/wiki/Shell_theorem} -> Thornton treats this in detail as well, see Chapter 5
 
 
 
