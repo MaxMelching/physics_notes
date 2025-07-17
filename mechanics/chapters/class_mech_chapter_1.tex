@@ -493,6 +493,8 @@ Period:
 \begin{ex}[Pendulum]
 	Thornton example 3.3
 
+	visualization: Fig.~\ref{fig:pendulum}
+
 
 	idea: gravity = restoring force; $- m \vec{g}$ always acts downwards, i.e.~$\parallel \vec{e}_y$, but we want component that acts along angular direction (pointing towards origin), and this is $- m g \sin(\phi)$ -> see \url{https://en.wikipedia.org/wiki/Pendulum_(mechanics)#/media/File:Pendulum_gravity.svg}
 
@@ -512,10 +514,40 @@ Period:
 
 
 
+\begin{figure}
+	\centering
+
+	\includegraphics[width=0.3\textwidth]{pictures/pendulum.pdf}
+
+	\caption{Pendulum setup. Taken from \url{https://tikz.net/dynamics_pendulum/}}
+	\label{fig:pendulum}
+\end{figure}
+
+
+
 		\subsection{Phase Space Portraits}
 general idea: eliminate dependence on time from solutions, in most cases by relating position $x$ and velocity $\dot{x}$ somehow (since these are variables that constitute the phase space) -> we can also model time evolution in there, i.e.~position for each time step; but for pictures, we are usually interested in the entirety of phase plots
 
 -> for free (undamped, not driven, etc.) harmonic oscillator for example we get ellipse
+
+
+
+\begin{figure}
+	\centering
+
+	% \includepdf[pages={1-4},nup=2x2]{pictures/dynamics_phaseportrait/dynamics_phaseportrait.pdf}
+
+	\subfloat[Free harmonic oscillator (initial condition indicated as dark red point)]{\includegraphics[width=0.42\textwidth,page=1]{pictures/dynamics_phaseportrait/dynamics_phaseportrait.pdf}}%
+	% 
+	\subfloat[Two free harmonic oscillators with different periods]{\includegraphics[width=0.42\textwidth,page=2]{pictures/dynamics_phaseportrait/dynamics_phaseportrait.pdf}}
+
+	\subfloat[Damped harmonic oscillator]{\includegraphics[width=0.42\textwidth,page=3]{pictures/dynamics_phaseportrait/dynamics_phaseportrait.pdf}}%
+	% 
+	\subfloat[Pendulum]{\includegraphics[width=0.42\textwidth,page=4]{pictures/dynamics_phaseportrait/dynamics_phaseportrait.pdf}}
+
+	\caption{Phase space portraits. Taken from \url{https://tikz.net/dynamics_phaseportrait/}.}
+	\label{fig:harm_osc_phase_space}
+\end{figure}
 
 
 
@@ -640,7 +672,7 @@ with $\kappa = \frac{F_0}{m} = x_d(0)$. We are now dealing with an inhomogenous 
 \end{equation}
 $\delta$ is a phase difference between driving force and motion of the harmonic oscillator that occurs as a consequence. It goes from $\delta(0) = 0$ through $\delta(\omega_0) = \frac{\pi}{2}$ up to $\delta(\infty) = \pi$, with the exact shape (especially slope) of the curve depending on the ratio between $\omega_0, \gamma, \omega_d$.
 
-While in general, the motion is modelled by $x(t) = x_\mathrm{hom}(t) + x_\mathrm{inhom}(t)$, we have seen before that in the realistic case where damping losses are present, $x_\mathrm{hom}$ is a transient will go to zero at some point in time (at $t \ll 1/\gamma$). After this period of initial mixing of the two solutions, the driven motion will thus eventually dominate. During this initial transient period, the motion is heavily dependent on the initial conditions, e.g., the state of the oscillator (in both phase and amplitude) when the force is first applied.
+While in general, the motion is modelled by $x(t) = x_\mathrm{hom}(t) + x_\mathrm{inhom}(t)$, we have seen before that in the realistic case where damping losses are present, $x_\mathrm{hom}$ is a transient will go to zero at some point in time (at $t \ll 1/\gamma$). After this period of initial mixing of the two solutions, the driven motion will thus eventually dominate (i.e.~it represents the steady-state solution). During this initial transient period, the motion is heavily dependent on the initial conditions, e.g., the state of the oscillator (in both phase and amplitude) when the force is first applied.
 
 
 One phenomenon of great importance in harmonic oscillators is \Def{resonance}. It basically deals with the question under which conditions $x_{i0}$ attains a maximum. From its expression, we see that this depends on the parameters $x_d(0), \omega_d$. The linear decrease with $x_d(0)$ poses a clear condition on the overall amplitude of the driving force (the more, the better), but the dependence on $\omega_d$ is more complicated. Differentiate $x_{i0}$ with respect to it yields that it is maximal at
@@ -659,9 +691,12 @@ An interesting follow-up on resonance is the following: what is shape of $x_{i0}
 \end{equation}
 For a fixed $\omega_0$, larger $\gamma$ lead to a broader line shape (along with the shift in peak location $\omega_r$). In the limiting case $\gamma = 0$, we encounter what is called \Def{catastrophic resonance} in German: $x_{i0}$ becomes infinite, with vanishing width (i.e.~in essence a $\delta$-function).
 
+-> many definitions of this exist; also (for damped, so perhaps not for driven) $\frac{\omega_0}{2\gamma}$ and $2\pi \frac{\text{energy stored}}{\text{energy lost per cycle}}$
+
+
 Besides its impact on $x_{i0}$, $Q$ also has an effect on how $\delta$ evolves as a function of frequency, the phase lag between driven and oscillator motion. High $Q$ correspond to a quick transition between $0$ and $\pi$, with very steep slope, i.e.~there is basically a phase jump $\omega_0$; low $Q$, on the other hand, produce curves of almost uniform slope.
 
-(Note: if the damping is small, $Q \approach \frac{\omega_0}{\Delta \omega}$ with the full-width-at-half-maximum [FWHM] $\Delta \omega$, which is defined by $x_{i0}(\omega_r \pm \Delta \omega) = x_{i0}(\omega_r)/\sqrt{2}$.)
+(Note: if the damping is small, $Q \approx \frac{\omega_0}{\Delta \omega}$ with the full-width-at-half-maximum [FWHM] $\Delta \omega$, which is defined by $x_{i0}(\omega_r \pm \Delta \omega) = x_{i0}(\omega_r)/\sqrt{2}$.)
 
 -> some examples for $Q$-values: loudspeakers have roughly $100$; precisely tuned electrical circuits can have $10^4$; atoms have $10^7 - 10^8$; lasers can have $10^{14}$
 
@@ -782,21 +817,23 @@ Additionally, we introduce abbreviations for quantities related to the motion of
 \end{equation}
 
 Eqs.~\eqref{eq:vel_non_inert_frame_v1}, \eqref{eq:accel_non_inert_frame_v1} then become
-\begin{align}\label{eq:vel_accel_non_inert_frame}
+\begin{align}
 	&\eqbox{
 		\vec{v}_\Sigma = \vec{v}_0 + \vec{v}_{\Sigma'} + \sum_k x'^k \dv{\unitvec{k'}}{t}
 	}
+	\label{eq:vel_non_inert_frame_final}
 	\\
 	&\eqbox{
 		\vec{a}_\Sigma = \vec{a}_0 + \vec{a}_{\Sigma'} + \sum_k x'^k 2 a'^k \dv{\unitvec{k}}{t} + \dv[2]{\unitvec{k'}}{t}
 	}
+	\label{eq:accel_non_inert_frame_final}
 \end{align}
 where we used that velocity, acceleration in the inertial frame fulfill\footnote{Technically, this assumes $\dv{t} \vec{e}_k = 0$ in the frame where we write things out, i.e.~that we are in rest frame of the observer. We do this without loss of generality since even if we had a term there, it would be constant and thus vanish in second derivative, which is the more relevant quantity here. That we can make the assumption to evaluate from an inertial frame at all simply comes from the fact that Newtonian physics is formulated in these frames, and we do not intend to leave this realm here.}
 \begin{equation}
 	\dv{\vec{x}}{t} = \dv{t} \sum_k x^k \unitvec{k} = \vec{v}_\Sigma, \quad \dv[2]{\vec{x}}{t} = \dv[2]{t} \sum_k x^k \unitvec{k} = \vec{a}_\Sigma
 	\, .
 \end{equation}
-Eq.~\eqref{eq:vel_accel_non_inert_frame} then follows directly from Eq.~\eqref{eq:vector_different_frames}.
+Eqs.~\eqref{eq:vel_non_inert_frame_final}, \eqref{eq:accel_non_inert_frame_final} then follows directly from Eq.~\eqref{eq:vector_different_frames}.
 
 
 Therefore, Newton's second law in the non-inertial frame reads
@@ -848,9 +885,9 @@ Let's do (ii) first, requires less new mathematical notions.
 
 -> we have this done implicitly already in Eq.~\eqref{eq:vector_different_frames} (we have not really made an explicit frame transformation here to be honest, just written things out in different frame); this uses that $\vec{x}$ is an entity in Euclidean space that has meaning \emph{without any coordinate system}. One can write it out in different frames, as we have done, but this is not needed for it to be meaningful. We have not fully explored the consequences of this. It actually provides a solution to the problem we had, namely formulating the second law in a geometric manner as $\vec{F} = m \vec{a}$ where the derivatives appearing in $\vec{a}$ are applied to both components and basis vectors.
 
--> always yields correct results, pseudo-forces come naturally out of this geometric approach; in fact, we can see this immediately because in fact, this is exactly what we did before and which led to Eq.~\eqref{eq:vel_accel_non_inert_frame}; we just applied \enquote{wrong} version of second law
+-> always yields correct results, pseudo-forces come naturally out of this geometric approach; in fact, we can see this immediately because in fact, this is exactly what we did before and which led to Eq.~\eqref{eq:vel_non_inert_frame_final}; we just applied \enquote{wrong} version of second law
 
--> if we had required substituting $\vec{a}$, then things would have been equal already; after all, for the situation we observed where $\vec{a}$ represented an acceleration in $\Sigma$, we could have used $\vec{a} = \vec{a}_\Sigma$; by definition, this coincides with what formulation of second law from $\Sigma$ yields, but since the right hand side of Eq.~\eqref{eq:vel_accel_non_inert_frame} just represents $\dv[2]{t} \vec{x}$, it too is equal to $\vec{a}$!!!
+-> if we had required substituting $\vec{a}$, then things would have been equal already; after all, for the situation we observed where $\vec{a}$ represented an acceleration in $\Sigma$, we could have used $\vec{a} = \vec{a}_\Sigma$; by definition, this coincides with what formulation of second law from $\Sigma$ yields, but since the right hand side of Eq.~\eqref{eq:accel_non_inert_frame_final} just represents $\dv[2]{t} \vec{x}$, it too is equal to $\vec{a}$!!!
 
 Thus, using $\vec{F} = m \vec{a}$ always yields the correct equation of motion, without the artificial introduction of pseudo-forces. These come naturally out of the derivatives in $\vec{a}$.
 
@@ -950,10 +987,10 @@ Using this relation for the coordinate axes $\vec{e}'_i$, Eq.~\eqref{eq:pseudo_f
 	\notag\\
 	&= - m \sum_k 2 \dv{x'^k}{t} \vec{\omega} \cross \unitvec{k'} + x'^k \qty(\dv{\vec{\omega}}{t} \cross \unitvec{k'} + \vec{\omega} \cross \dv{\unitvec{k'}}{t})
 	\notag\\
-	&= - m \sum_k 2 \dv{x'^k}{t} \vec{\omega} \cross \unitvec{k'} + x'^k \qty(\dv{\vec{\omega}}{t} \cross \unitvec{k'} + \vec{\omega} \cross \vec{\omega} \cross \unitvec{k'})
+	&= - m \sum_k 2 \dv{x'^k}{t} \vec{\omega} \cross \unitvec{k'} + x'^k \qty(\dv{\vec{\omega}}{t} \cross \unitvec{k'} + \vec{\omega} \cross (\vec{\omega} \cross \unitvec{k'}))
 	\notag\\
 	&= \eqbox{
-		- m \qty(2 \vec{\omega} \cross \sum_k \dv{x'^k}{t} \unitvec{k'} + \dv{\vec{\omega}}{t} \cross \vec{x} + \vec{\omega} \cross \vec{\omega} \cross \vec{x})
+		- m \qty(2 \vec{\omega} \cross \sum_k \dv{x'^k}{t} \unitvec{k'} + \dv{\vec{\omega}}{t} \cross \vec{x} + \vec{\omega} \cross (\vec{\omega} \cross \vec{x}))
 	}
     \label{eq:pseudo_force_rot_frame}
 \end{align}
@@ -964,7 +1001,7 @@ Now, let us come back to expression \eqref{eq:pseudo_force_rot_frame} and analyz
     \item Centrifugal force:
     \begin{equation}\label{eq:f_centrifugal}
 		\eqbox{
-			\vec{F}_\mathrm{centri} = - m \vec{\omega} \cross \vec{\omega} \vec{x}
+			\vec{F}_\mathrm{centri} = - m \vec{\omega} \cross (\vec{\omega} \vec{x})
 		}
 	\end{equation}
 	for $\vec{\omega} \parallel \vec{x}$:
@@ -1040,8 +1077,10 @@ Now, let us come back to expression \eqref{eq:pseudo_force_rot_frame} and analyz
 The preceding discussion of rotating frames of reference showed that this type/state of motion is not properly described by just the momentum $\vec{p}$. One indicator of this is the occurrence of pseudo-forces, which cause an acceleration even in the absence of forces and accordingly, a change in momentum.
 
 One way to look at this is to argue that $\vec{p}$ represents linear momentum, which is best suited to describe motion into constant direction. If a rotational component is present, we need a new notion. In analogy to $\vec{p}$, this new notion is called \Def{angular momentum} and denoted by $\vec{L}$. For the sake of definition, it makes sense to focus on the situation in which the motion is of purely rotational nature, and the previous section showed that the pivotal factor controlling a rotation is the angular velocity $\vec{\omega}$. It also makes sense to have an \emph{angular momentum} being proportional to \emph{(orbital) angular velocity},
-\begin{equation}
-	\eqbox{\vec{L} = I \vec{\omega}} \, .
+\begin{equation}\label{eq:angular_momentum_1}
+	\eqbox{
+		\vec{L} = I \vec{\omega}
+	} \, .
 \end{equation}
 What we are yet to determine is the \Def{moment of inertia} $I$, which is the analogue of inertia for the linear momentum. Continuing with the thought process of this being \enquote{how much an object resists against rotation} \todo{improve this}, it should not be surprising that $I \propto m$.
 But also depends on distance from origin; and on the circumference
@@ -1067,8 +1106,10 @@ It made sense to define angular momentum in the way we did, but in many textbook
 	\vec{\omega} = \frac{\vec{r} \cross \vec{v}}{r^2} \, .
 \end{equation}
 This yields
-\begin{equation}
-    \eqbox{\vec{L}} = I \vec{\omega} = m r^2 \frac{\vec{r} \cross \vec{v}}{r^2} \eqbox{= \vec{r} \cross \vec{p}} \, .
+\begin{equation}\label{eq:angular_momentum_2}
+    \eqbox{
+		\vec{L}} = I \vec{\omega} = m r^2 \frac{\vec{r} \cross \vec{v}}{r^2} \eqbox{= \vec{r} \cross \vec{p}
+	} \, .
 \end{equation}
 
 
@@ -1123,13 +1164,14 @@ In particular, this is valid for the case of a purely rotational motion, where n
 -> work is $dW = F dx$ \todo{I think no minus here, right?}, so for rotational quantities we get $dW = M d\theta = I \dv{\omega}{t} d\theta$ \todo{vectors?} -> nah, we want $\dv{W}{t} = \vec{F} \cdot \vec{v}$, which in terms of rotational quantities becomes $\dv{W}{t} = \vec{M} \vec{\omega} = I \dv{\vec{\omega}}{t} \vec{\omega}$ and integration yields
 \begin{equation}
 	\eqbox{
-		E = W \frac{1}{2} I \omega^2
+		E = W = \frac{1}{2} I \omega^2 = \frac{1}{2} \vec{\omega} \cdot \vec{L}
 	}
 \end{equation}
 
 
 
 	\section{$N$-Body Mechanics}
+	\label{sec:n_body_mechanics}
 talk about center of mass system; motivation: if we have two particles, we have coupled equations of motion, much harder to solve than two separate differential equations; but by going into CMS, we can decouple the equations
 
 
@@ -1718,20 +1760,13 @@ For $m_1 = m_2$, $T'_1 = T_1/2$, so Eq.~\eqref{eq:rutherford_scat} becomes
 
 
     \section{Rigid Bodies}
-
-now we go away from point particle/test mass
-
-
-center of mass -> or introduce this in separate section on multi-particle systems?
+In this section, we finally go away from the model of a point particle/test mass to bodies that have a spatial extent and shape. Granted, some idealized assumptions are still made, for example that distances between different particles in the body remain fixed at all times and no matter if it is moving or rotating (i.e.~undergoing some kind of dynamics). This is where \enquote{rigidity} comes from.\footnote{In reality, things do not work like that. Atoms and molecules are constantly vibrating due to thermal energy (Brownian motion\todo{right?}) and relativity theory also tells us that the maximum speed at which information can be transmitted is finite at $c$ (in matter, the propagation speed is the speed of sound of the respective material and thus usually much smaller than $c$). Hence, if I push one end of a rod, the other one does not move immediately, but we assume this anyway for our model of a rigid body.} Moreover, although bodies are always composed of a finite number of particles, for a macroscopic number of particles we will sometimes approximate them as continuous bodies (corresponds to what is done in statistical physics). This has mostly mathematical consequences, in that sums over particles must be replaced by integrals over appropriate densities (the former can be recovered from the latter using densities that involve $\delta$-functions).
 
 
-
-first of all, there is no truly rigid body; relativity says maximum speed at which information can be transmitted is $c$, i.e.~finite, so if I push one end of a rod, the other one does not move immediately
-
+-> in essence, rigid body = $N$-particle system for $N$ large; so we can utilize many results from Sec.~\ref{sec:n_body_mechanics}
 
 
-
-given mass density $\rho(\vec{x})$ of a continuous body occupying some volume $V$, we can define its (total) mass
+Before proceeding with some physics, we note down how a number of definitions translate from particles to rigid bodies. Given the mass density $\rho(\vec{x})$ of a continuous body that occupies some volume $V$, we can define its (total) mass
 \begin{equation}
 	M = \int_V dm
 	% = \int_V \rho dV
@@ -1739,7 +1774,7 @@ given mass density $\rho(\vec{x})$ of a continuous body occupying some volume $V
 \end{equation}
 its center of mass
 \begin{equation}
-	\vec{X} = \frac{1}{M} \int_V \rho(\vec{x}) \vec{x} d^3x
+	\vec{R} = \frac{1}{M} \int_V \rho(\vec{x}) \vec{x} d^3x
 \end{equation}
 and its momentum
 \begin{equation}
@@ -1771,6 +1806,7 @@ component of $\vec{L} \parallel \vec{\omega}$:
 	\vec{L}_\omega = \vec{L} \cdot \vec{n} = I_\omega \vec{\omega} \cdot \vec{n} = \vec{n}^T J \vec{n} \omega \underset{\todo{understand this}}{=} \vec{M}_\mathrm{ext} \cdot \vec{n}
 \end{equation}
 hmm I mean we have $\vec{L} = I \vec{\omega}$ where $I$ is moment of inertia around $\vec{n}$
+-> I think this does not make sense here
 
 -> one has to exert moment of inertia around the axis of rotation in order to change the angular momentum (total angular momentum of the body)
 
@@ -1788,7 +1824,164 @@ gravitation of rigid bodies: \url{https://en.wikipedia.org/wiki/Shell_theorem} -
 
 
 		\subsection{Rotating Rigid Bodies}
-talk about Euler angles
+Turns out to be useful to define one inertial system (\enquote{fixed/inertial coordinate system}) and one attached to the body in a specific way (\enquote{body coordinate system}). The general transformation between the two systems requires a translation (from origin of the inertial frame to the origin of the body coordinate system with the latter usually being defined as the bodie's center of mass) and a rotation about the body system's origin.
+
+
+The rotation is normally described in terms of \Def{Euler angles}. These are basically an algorithm for transformation between arbitrarily oriented coordinate systems; mathematically speaking, rotation matrix between the systems is decomposed into three rotation matrices about the $x$-/$y$-/$z$-axis, i.e.~we can parametrize the transformation using three angles -> order is $z$-axis, rotated $x$-axis, rotated $z$-axis
+
+
+-> transformation from fixed to body system (and even more generally between different frames; not necessarily between all coordinate systems, though; e.g., not from Cartesian to spherical coordinates) can be described as matrix multiplication $\vec{x} = \tensor{\lambda} \vec{x}_f$ -> idea of Euler angles is that we can decompose $\tensor{\lambda} = \tensor{\lambda}_\psi \tensor{\lambda}_\theta \tensor{\lambda}_\phi$
+
+
+
+why three though, after all we can specify a position in spherical coordinates using two angles? That is true but to rotate an entire coordinate system, we need three (because relative orientation of the axis shall be maintained)
+
+-> basically: specifying position is something very different; it is not even clear from which axis we should start rotations here, could be $x$- or $z$-axis, from all positions we can find rotation using the two angles $\theta, \phi$ that rotates us into correct position; but now we want to rotate a body and not a point, so we want to preserve orientation in a certain way
+-> not sure if this discussion is helpful...
+-> I think following is best: we can specify how points and thus single vectors transform using two angles already, e.g., polar and azimuthal to transform $z$-axis into $P$; but this transformation does not fix how $x, y$ shall be oriented in the plane perpendicular to $z$ yet, so to preserve the orientation of different unit axes, we need three rotations with corresponding rotation angles
+
+-> this is best phrasing: two points are sufficient to fix the orientation of a point, i.e.~of a single axis, say the $z$-axis; but this is not sufficient to uniquely fix the orientation of a whole coordinate system, for this we must also fix how $x, y$ shall be oriented in the plane perpendicular to $z$; this required another angle, so in total there are three rotations with corresponding rotation angles
+
+
+
+		% \subsection{Moment Of Inertia \& Angular Momentum}
+		\subsection{Kinetic Energy, Angular Momentum \& Moment Of Inertia}
+The goal of this subsection is to derive an expression for the angular momentum of a rigid body (and based on that, for the kinetic energy). More specifically, we are referring to the angular momentum in the body system, i.e.~relative to the center of mass of the body. (Careful with wording: we will derive an expression in the fixed coordinate frame. But what it will represent is angular momentum in the body system.) To keep the discussion as general as possible, we consider a body rotating with angular velocity $\vec{\omega}$, which means the body system is a non-inertial frame. We must therefore use Eq.~\eqref{eq:vel_non_inert_frame_final} to determine the velocity of each point. Since we assume the body to be rigid, there can be no velocity relative to the body system. Hence the velocity of any point on (or particle in) the body, as measured from the fixed frame, is
+\begin{equation}
+	\eqbox{
+		\vec{v}_f = \vec{V} + \vec{\omega} \cross \vec{r}
+	}
+\end{equation}
+i.e.~it is composed of motion of the center of mass $\vec{V}$ and rotation about the center of mass. We omit the subscript ${}_f$ from now on.
+
+
+Using this expression, we can do many things now, and all of them require quite a bit of algebra.
+
+
+angular momentum, with respect to some point in the body coordinate system (e.g., the center of mass): relative to the body coordinate system,
+\begin{equation}
+	\vec{p}_\alpha = m_\alpha \vec{v}_\alpha = m_\alpha \vec{\omega} \cross \vec{r}_\alpha
+\end{equation}
+and angular momentum
+\begin{equation*}
+	\vec{L} = \sum_\alpha \vec{r}_\alpha \cross \vec{p}_\alpha
+\end{equation*}
+becomes
+\begin{equation}
+	\eqbox{
+		\vec{L} = \tensor{I} \cdot \vec{\omega} = \sum_i \unitvec{i} \sum_j I_{ij} \omega_j
+	}
+\end{equation}
+where we are introduced to the \Def{inertia tensor}
+\begin{equation}
+	\eqbox{
+		% I_{ij} = \sum_\alpha m_\alpha \qty[\delta_{ij} \sum_k x_{\alpha, k} x_{\alpha, k} - x_{\alpha, i} x_{\alpha, j}]
+		% -> denoting sum differently below
+		I_{ij} = \sum_\alpha m_\alpha \qty[\delta_{ij} \norm{x_{\alpha}}^2 - x_{\alpha, i} x_{\alpha, j}]
+	}
+\end{equation}
+
+
+
+% Although we have mostly used $\vec{L} = \vec{r} \cross \vec{p}$ for the angular momentum, it also reads 
+-> this is actually reminiscent of alternative definition of angular momentum that we had, $\vec{L} = I \vec{\omega}$ (cf.~Eq.~\eqref{eq:angular_momentum_1}) -- but now $I$ is not a scalar anymore, as it was for point particle, but rather a two-tensor (matrix); this is now the case because due to the geometry of the body, it can be the case that $\vec{\omega} \nparallel \vec{L}$ and this cannot be achieved with a scalar moment of inertia; let's immediately look at an example for this
+
+
+\begin{ex}[Rotating Dumbbell]
+	Thornton around Eq (11.20)
+
+	-> does he actually deal with that?
+\end{ex}
+
+
+
+kinetic energy (note that we here need center of mass in body system origin; unlike before, where angular momentum was given with respect to arbitrary point):
+\begin{equation}
+	\eqbox{
+		T = T_\mathrm{transl} + T_\mathrm{rot} = \frac{1}{2} M V^2 + \frac{1}{2} \sum_\alpha m_\alpha \qty(\vec{\omega} \cross \vec{r}_\alpha)^2
+	}
+\end{equation}
+\todo{Thornton uses leading up to 11.6 that $\vec{R} = 0$ in body system; does that make sense?} -> ah, is just an odd phrasing: he has there sum over all relative coordinates (because I guess this is something like center of mass, which is origin of center of mass system of course), which just yields $\sum_\alpha \vec{r}_\alpha = \sum_ \alpha \vec{r}_{f, \alpha} - \vec{R}$ and due to the factors of $m_\alpha$ that I cannot remember, this vanishes by definition
+-> this is just splitting into center-of-mass terms and relative coordinate terms, with the particular form of relative velocity substituted
+
+-> this can be further massaged into
+\begin{equation}
+	\eqbox{
+		T_\mathrm{rot} = \frac{1}{2} \vec{\omega} \cdot \vec{L} = \frac{1}{2} \vec{\omega} \cdot \tensor{I} \cdot \vec{\omega} = \frac{1}{2} \sum_{i, j} I_{ij} \omega_i \omega_j
+	}
+\end{equation}
+
+
+
+		\subsection{Moment Of Inertia}
+We found a new object, the moment of inertia $\tensor{I}$, so it makes sense to look at some of its properties. Initially, it has been defined for an $N$-particle system, the generalization for continuous rigid body reads
+\begin{equation}
+	\eqbox{
+		I_{ij}
+		% = \sum_\alpha m_\alpha \qty[\delta_{ij} \sum_k x_{\alpha, k} x_{\alpha, k} - x_{\alpha, i} x_{\alpha, j}]
+		% = \int_V \rho(\vec{x}) \, [\delta_{ij} \underbrace{\sum_k x_k x_k}_{\vec{x} \cdot \vec{x}} - x_i x_j] dV
+		% -> denoting square of x differently below
+		= \sum_\alpha m_\alpha \qty[\delta_{ij} \norm{\vec{x}_{\alpha}}^2 - x_{\alpha, i} x_{\alpha, j}]
+		= \int_V \rho(\vec{x}) \, \qty[\delta_{ij} \norm{x}^2 - x_i x_j] dV
+	} \, .
+\end{equation}
+
+
+
+In the previous section, we mainly derived two expressions: the one for angular momentum and the one for kinetic energy. Both involved the moment of inertia, but one subtle difference in the derivation was the placement of the respective reference point (and thus the origin) of the body system. The kinetic energy required the center of mass to be in the origin, while the angular momentum was less strict and could be calculated with respect to an arbitrary point in the body. Thinking about this in more detail, the latter is actually very convenient because it may be easier to calculate the moment of inertia for instance with respect to a different origin/reference point (depending on the geometry of the body). Therefore, it is worthwhile looking into how moments of inertia around different, parallel rotation axes are connected.
+
+Such a situation corresponds to a coordinate transformation into a system whose origin is shifted by some displacment vector $\vec{a}$ from the center of mass (the orientation of the axes remains the same), i.e.~$\vec{r}_a = \vec{r} + \vec{a}$. The moment of inertia tensor in this shifted coordinate system then reads
+\begin{align*}
+	(\tensor{I}^a)_{ij}
+	&= \sum_\alpha m_\alpha \qty[\delta_{ij} \norm{(\vec{x}_a)_\alpha}^2 - (x_a)_{\alpha, i} (x_a)_{\alpha, j}]
+	\\
+	&= \sum_\alpha m_\alpha \qty[\delta_{ij} \qty(\norm{\vec{x}_\alpha}^2 + 2 \vec{x} \cdot \vec{a} + \norm{\vec{a}}^2) - x_{\alpha, i} x_{\alpha, j} - x_{\alpha, i} a_j - x_{\alpha, j} a_i - a_i a_j]
+	\\
+	&= \sum_\alpha m_\alpha \qty(
+	\qty[\delta_{ij} \norm{\vec{x}_\alpha}^2 - x_{\alpha, i} x_{\alpha, j}] + 
+	\qty[\delta_{ij} 2 \vec{x} \cdot \vec{a} - x_{\alpha, i} a_j - x_{\alpha, j} a_i]
+	\qty[\delta_{ij} \norm{\vec{a}}^2 -  - a_i a_j]
+	)
+	\, .
+\end{align*}
+This looks very messy. However, we must notice that the first term in the bracket is nothing but the (components of the) moment of inertia computed in a body system with origin in the center of mass, $\tensor{I} = \tensor{I}^{\vec{R}}$. Moreover, the second term contains in all constituents a term like $\sum_\alpha m_\alpha x_{\alpha, k}$. This is proportional to the center of mass of the $\vec{x}_{\alpha, k}$, but since they come from a coordinate system that is defined relative to the center of mass, all terms of this kind vanish. The resulting equation is called \Def{parallel-axis theorem},
+\begin{equation}\label{eq:parallel_axis_theorem}
+	\eqbox{
+		(\tensor{I}^a)_{ij} = I_{ij} + M (a^2 \delta_{ij} - a_i a_j)
+	} \, .
+\end{equation}
+Note that there is no particular restriction on $\vec{a}$, for instance it need not be located in the body.
+
+-> structure of this formula is very similar to definition moment of inertia tensor itself (which should not be surprising); so basically moment is sum (difference) of moments along the different axes, and the $M$ appears because the displacements do not depend on the particle
+
+You may know a less general version of this theorem, \Def{Steiner's parallel-axis theorem}. It determines how the moment of inertia $I_{\vec{n}}$\footnote{Yes, we are running out of symbols here. In an attempt to distinguish the moment of inertia tensor calculated in some frame and the moment of inertia around a certain axis, we use super- and subscript.} around a chosen axis $\vec{n} = \frac{\vec{\omega}}{\omega}$ evolves upon a displacement, which can be inferred as a corollary of Eq.~\eqref{eq:parallel_axis_theorem}:
+\begin{equation}\label{eq:steiner_theorem}
+	\begin{split}
+		\eqbox{
+			(I^a)_{\vec{n}}
+		}
+		&= \vec{n} \cdot \tensor{I}^a \cdot \vec{n}
+		= \sum_{i, j} n_i (\tensor{I}^a)_{ij} n_j
+		= \sum_{i, j} n_i \tensor{I} n_j + M (\norm{\vec{a}}^2 \delta_{ij} n_i n_j - a_i a_j \, n_i n_j)
+		\\
+		&= I_{\vec{n}} + \sum_{i, j} M (\norm{\vec{a}}^2 \norm{\vec{n}}^2 - a_i n_i \, a_j n_j)
+		\eqbox{
+			= I_{\vec{n}} + M (\norm{\vec{a}}^2 - (\vec{a} \cdot \vec{n})^2)
+		}
+	\end{split}
+\end{equation}
+-> this is Steiner Satz in a little disguise, is usually formulated for displacements perpendicular to rotation axis; but we can see equivalence by looking at said case, $\vec{a} \cdot \vec{n} = 0$, which yields the familiar result $(I^a)_{\vec{n}} = I_{\vec{n}} + M \norm{\vec{a}}^2$; for a displacement of the axis parallel to the axis, we expect that the moment of inertia does not change (body is still rotated in same way), and indeed since $\vec{a} \cdot \vec{n} = \norm{a}$ implies that the term in the parentheses vanishes, so $I_{\vec{n}} = J_{\vec{n}}$\\
+
+
+A general result from the mathematical theory of matrices (equivalent: two-tensors) is that there exists a basis, which for us represents a coordinate system, in which their component form is diagonal, i.e.~$I_{ij} = I_{ii} \delta_{ij}$ (under certain conditions, which we assume to be fulfilled). In physical terms, this corresponds to axes where rotation axis and the resulting angular momentum are aligned, $\vec{L} \parallel \vec{\omega}$. We call these axes \Def[principal axis]{principal axes}.
+
+
+-> classification of rigid bodies based on eigenvalues of inertia tensor: $I_1 = I_2 = I_3$ means body = spherical top; $I_1 = I_2 \neq I_3$ means body = symmetric top; none of them equal means body = asymmetric top; very special case is $I_1 = 0, I_2 = I_3$, whence body is called rotor (two pointmasses connected by weightless shaft for example)
+
+-> only around axis for largest and smallest eigenvalue we have stable rotations, middle one is unstable
+
+
+-> Thornton 11.7 is just some algebra to show properties of tensor (eigenvalues are real, so are eigenvectors, etc.)
 
 
 
