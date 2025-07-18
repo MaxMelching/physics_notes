@@ -1,0 +1,136 @@
+% Author: Max Melching (2025)
+% Inspiration: https://tikz.net/axis3d/
+\documentclass[border=3pt,tikz]{standalone}
+\input{../colors.tex}
+
+\usepackage{physics}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usepackage[outline]{contour} % glow around text
+\usepackage{xcolor}
+
+\usepackage{newtxmath}
+\usepackage{tgpagella}
+
+\colorlet{mygreen}{green!60!black}
+\colorlet{myred}{red!75!black}
+\colorlet{myblue}{blue!70!black}
+
+
+\usetikzlibrary{calc, 3d, arrows.meta}
+
+
+\tikzset{
+    >={Stealth[inset=0,angle'=27]},
+    vector/.style={
+        ->,
+        myred,
+        thick,
+    },
+    unit vector cartesian/.style={
+        ->,
+        thick,
+        black,
+    },
+    unit vector non cartesian/.style={
+        ->,
+        semithick,
+        myblue,
+    },
+    vector projection/.style={
+        myred!90!black,
+        dashed,
+        thin,
+    },
+    angles/.style={
+        ->,
+        mygreen,
+    },
+    element/.style={
+        % draw=none,
+        purple,
+        fill,
+        fill opacity=0.5,
+    },
+    element lines/.style={
+        purple,
+        % opacity=0.5,
+    },
+    element helplines/.style={
+        thin,
+        purple,
+        dashed,
+        opacity=0.6,
+    },
+}
+
+
+% -- Quick command for variable vector labelling
+\def\unitvec#1{\hat{#1}}
+% \def\unitvec#1{\vec{e}_{#1}}
+
+
+
+\begin{document}
+
+\def\rvec{0.8}
+\def\phivec{60}
+
+\def\dr{0.1}
+\def\dphi{8}
+
+\def\axislen{1}
+\def\axislabelpad{0.1}
+
+
+\begin{tikzpicture}[scale=2.8]
+    \coordinate (O) at (0,0);
+    
+    \begin{scope}[
+        unit vector cartesian,
+        black,
+        shift={(O)},
+    ]
+        \draw (0,0) --++ (\axislen,0);
+        \node at ({\axislen+\axislabelpad},0) {\contour{white}{$\unitvec{x}$}};
+        
+        \draw (0,0) --++ (0,\axislen);
+        \node at (0,{\axislen+\axislabelpad}) {\contour{white}{$\unitvec{y}$}};
+    \end{scope}
+
+    
+    \coordinate (P) at ({\rvec*cos(\phivec)},{\rvec*sin(\phivec)});
+    \coordinate (Ppp) at ({(\rvec+\dr)*cos(\phivec+\dphi)},{(\rvec+\dr)*sin(\phivec+\dphi)});
+    \coordinate (Ppm) at ({(\rvec+\dr)*cos(\phivec-\dphi)},{(\rvec+\dr)*sin(\phivec-\dphi)});
+    \coordinate (Pmp) at ({(\rvec-\dr)*cos(\phivec+\dphi)},{(\rvec-\dr)*sin(\phivec+\dphi)});
+    \coordinate (Pmm) at ({(\rvec-\dr)*cos(\phivec-\dphi)},{(\rvec-\dr)*sin(\phivec-\dphi)});
+
+
+    \draw[vector] (O)  -- (P);
+
+
+    \draw[element] (Ppp) arc(\phivec+\dphi:\phivec-\dphi:\rvec+\dr) -- (Ppm) -- (Pmm) arc(\phivec-\dphi:\phivec+\dphi:\rvec-\dr) -- (Pmp) -- (Ppp);  % First angle in arc must represent where we are currently at, second one where we want to go (and last input is radius of circle that we want to move in with respect to origin)
+    
+
+    \def\fontscale{0.8}
+
+    \draw[opacity=0] (Pmm) -- (Ppm) node[midway,below right=-3,element lines,opacity=1,scale=\fontscale] {\contour{white}{$dr$}};
+    \draw[opacity=0] (Ppm) -- (Ppp) node[midway,above right=-3,element lines,opacity=1,scale=\fontscale] {\contour{white}{$r d\phi$}};
+
+
+    \begin{scope}[
+        element helplines,
+    ]
+        \draw (0,0) -- (Pmm);
+        \draw (0,0) -- (Pmp);
+
+        % -- Not sure if following required
+        \draw (Pmm) arc(\phivec-\dphi:0:\rvec-\dr);
+        \draw (Ppm) arc(\phivec-\dphi:0:\rvec+\dr);
+        \draw (Pmp) arc(\phivec+\dphi:90:\rvec-\dr);
+        \draw (Ppp) arc(\phivec+\dphi:90:\rvec+\dr);
+    \end{scope}
+\end{tikzpicture}
+
+
+\end{document}

@@ -1,0 +1,85 @@
+% Author: Izaak Neutelings (October 2020)
+% Instructions: To compile, include data files from
+%   https://github.com/IzaakWN/CodeSnippets/tree/master/LaTeX/TikZ/physics/dynamics_pendulum
+% Other sources:
+%   https://www.scielo.br/scielo.php?script=sci_arttext&pid=S1806-11172007000400024
+%   https://www.researchgate.net/publication/262746594_Exact_solution_for_the_nonlinear_pendulum
+%   https://tex.stackexchange.com/questions/545590/phase-portrait-of-van-der-pol-oscillator-with-pgfplots
+%   http://matlab.cheme.cmu.edu/2011/08/09/phase-portraits-of-a-system-of-odes/
+\documentclass[border=3pt,tikz]{standalone}
+\usepackage{physics}
+\usepackage{siunitx}
+\sisetup{detect-all} % to allow \pi in \SI
+\usepackage{tikz,pgfplots}
+\usepackage[outline]{contour} % glow around text
+\usetikzlibrary{calc}
+\usetikzlibrary{angles,quotes} % for pic
+\usetikzlibrary{arrows.meta}
+\tikzset{>=latex} % for LaTeX arrow head
+\contourlength{1.2pt}
+
+\colorlet{xcol}{blue!70!black}
+\colorlet{vcol}{green!60!black}
+\colorlet{myred}{red!70!black}
+\colorlet{myblue}{blue!70!black}
+\colorlet{mygreen}{green!70!black}
+\colorlet{mydarkred}{myred!70!black}
+\colorlet{mydarkblue}{myblue!60!black}
+\colorlet{mydarkgreen}{mygreen!60!black}
+\colorlet{acol}{red!50!blue!80!black!80}
+\tikzstyle{CM}=[red!40!black,fill=red!80!black!80]
+\tikzstyle{xline}=[xcol,thick,smooth]
+\tikzstyle{mass}=[line width=0.6,red!30!black,fill=red!40!black!10,rounded corners=1,
+                  top color=red!40!black!20,bottom color=red!40!black!10,shading angle=20]
+\tikzstyle{faded mass}=[dashed,line width=0.1,red!30!black!40,fill=red!40!black!10,rounded corners=1,
+                        top color=red!40!black!10,bottom color=red!40!black!10,shading angle=20]
+\tikzstyle{rope}=[brown!70!black,very thick,line cap=round]
+\def\rope#1{ \draw[black,line width=1.4] #1; \draw[rope,line width=1.1] #1; }
+\tikzstyle{force}=[->,myred,very thick,line cap=round]
+\tikzstyle{velocity}=[->,vcol,very thick,line cap=round]
+\tikzstyle{Fproj}=[force,myred!40]
+\tikzstyle{myarr}=[-{Latex[length=3,width=2]},thin]
+\def\tick#1#2{\draw[thick] (#1)++(#2:0.12) --++ (#2-180:0.24)}
+\DeclareMathOperator{\sn}{sn}
+\DeclareMathOperator{\cn}{cn}
+\DeclareMathOperator{\dn}{dn}
+\def\N{80} % number of samples in plots
+
+
+\begin{document}
+
+
+% PENDULUM
+\def\L{2.8}  % string length
+\def\ang{28} % angle string
+\def\R{0.25} % ball radius
+\def\F{1.0}  % force magnitude
+\begin{tikzpicture}
+  \message{^^JPendulum}
+  \coordinate (M) at (\ang-90:\L);
+  \coordinate (M') at (0,-\L);
+  \coordinate (O) at (0,0);
+  \coordinate (B) at (0,-\L-2.2*\R);
+  \coordinate (FT) at ($(M)+(90+\ang:{\F*cos(\ang)+\R})$);
+  \coordinate (FG) at ($(M)+(-90:{\F+\R})$);
+  \coordinate (FGx) at ($(M)+(-90+\ang:{0.55*\F+\R})$);
+  \coordinate (MA) at ($(M)+(180+\ang:{\F*sin(\ang)+\R})$);
+  %\draw[faded mass] (M') circle(\R);
+  \draw[<->] (M)++(\ang-32:0.2*\L) node[below right=-1,scale=0.9] {$x$}
+    --++ (\ang:0.17*\L) --++ (90+\ang:0.17*\L) node[above right=-1,scale=0.9] {$y$};
+  \draw[dashed] (O) -- (B);
+  %\draw[dashed,myred!60!black] (MA) -- (FG);
+  \draw[dashed,myred!60!black] (M) -- (FGx);
+  \draw[dashed] (-90+\ang+10:\L) arc(-90+\ang+10:-110:\L) (B);
+  \rope{(O) -- (M)} \path (O) -- (M) node[midway,above right=-1] {$L$};
+  \fill[black] (O) circle(0.04);
+  \draw[force] (M) -- (FT) node[midway,left=0] {$\vb{T}$};
+  \draw[force] (M) -- (FG) node[right=0] {$m\vb{g}$};
+  \draw[force,acol] (M) -- (MA) node[right=2,below=0] {$m\vb{a}$}; %{\contour{white}{$m\vb{a}$}};
+  \draw[mass] (M) circle(\R) node {$m$};
+  \draw pic[myarr,"$\theta$",xcol,draw=xcol,angle radius=22,angle eccentricity=1.30] {angle=B--O--M}; %_\text{max}
+  \draw pic[myarr,"$\theta$",xcol,draw=xcol,angle radius=14,angle eccentricity=1.45] {angle=FG--M--FGx};
+\end{tikzpicture}
+
+
+\end{document}
