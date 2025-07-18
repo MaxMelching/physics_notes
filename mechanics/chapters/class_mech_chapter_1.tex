@@ -140,6 +140,9 @@ This means Newton's second law looks exactly the same in both (and thus all) ine
 This motto is sometimes stated as \enquote{actio = reactio}, though this is much too short to properly encapsulate what the third law expresses.
 
 
+-> sometimes (for instance in \cite{Thornton_2003}), this is called \enquote{weak form} of the third law; \enquote{strong form} would be that force between particles is also directed along the straight line connecting both particles, i.e.~that they are a central force (is often the case, but there are counterexamples, e.g., the magnetic force)
+
+
 -> in the end, this tells us something about equilibrium of objects (how we can quantify); not directly from expression, but third law allows us to calculate net forces (e.g., between system of multiple particles) that we need in second law; in particular, tells us how a system of particles can have no net force if no external forces are present, despite intrinsic interactions taking place
 
 
@@ -331,7 +334,11 @@ This type of forces is called \Def[force!conservative]{conservative}, while non-
 \end{equation}
 -> subtracted when it takes energy away from particle
 
--> implicit reference point for $V$ is $\infty$, in the sense that $V = \int_r^\infty F(r')\, dr'$
+-> implicit reference point for $V$ is $\infty$, in the sense that $V = \int_r^\infty F(r')\, dr'$; but we are free to choose any other one, as well (is just basically an integration constant)
+
+
+-> \todo{figure following out:} is it even possible to specify potential energy for non-conservative forces? I guess so, via work-integral. But there is no general way probably? Second hypothesis would be that we can simply not relate dissipative force and potential energy term in energy so easily -> this is probably correct, actually (matches first observation presented here); plus potential energy is probably function of more than just position (also velocity, time, for example)
+
 
 By some (quite beautiful) mathematical theorem, the property we noted as a definition of conservative forces implies
 \begin{equation}\label{eq:work_conservative_force}
@@ -740,7 +747,8 @@ Therefore, the system can reach a stationary state (after the initial transient 
 
 
 
-    \section{Non-Inertial Frames}\label{sec:non_inertial_frames}
+    \section{Non-Inertial Frames}
+	\label{sec:non_inertial_frames}
 % -- Sources:
 % - https://en.wikipedia.org/wiki/Non-inertial_reference_frame
 % - https://en.wikipedia.org/wiki/Rotating_reference_frame
@@ -869,7 +877,7 @@ Make no mistake, although terms like \enquote{pseudo} and \enquote{fictitious} s
 
 
 
-% Here is an important note, in the vein of how \cite{Thorne_2018} approaches things: $\vec{x}$ is a purely geometric quantity that describes a vector in Euclidean space. In other words, while we can choose to express in the primed or unprimed coordinate system, it has a clear meaning \emph{without any} coordinate system. The same is true for the velocity $\vec{v} = \dv{\vec{x}}{t}$ and acceleration $\vec{a} = \dv[2]{\vec{x}}{t}$.
+% Here is an important note, in the vein of how \cite{Thorne_2017} approaches things: $\vec{x}$ is a purely geometric quantity that describes a vector in Euclidean space. In other words, while we can choose to express in the primed or unprimed coordinate system, it has a clear meaning \emph{without any} coordinate system. The same is true for the velocity $\vec{v} = \dv{\vec{x}}{t}$ and acceleration $\vec{a} = \dv[2]{\vec{x}}{t}$.
 
 % -> then we would also have $\vec{x}$ as a purely abstract, geometric quantity, which does not require any coordinate system yet -- it CAN be expanded in the different coordinates, upon choice of origin and axes orientation, but is just generally used to denote the position (this does not need coordinates; also emphasized by Thorne+Blandford I think)
 
@@ -878,7 +886,7 @@ Make no mistake, although terms like \enquote{pseudo} and \enquote{fictitious} s
 
 		\subsection{A Detailed Examination}
 
-Before we examine two types of accelerations in more detail for the remainder of this section, there is a final remark to be made that will lead us down a rabbit hole (or perhaps two rabbit holes). At the heart of this section lies the problem that an accelerated observer ignores acceleration that comes from his own coordinates/frame of reference, which do appear upon a frame transformation. These have to be added manually to get valid equations of motions. We can correct for this in two ways: (i) by using four-vectors and different derivative operator (this is done in relativity) or (ii) we fully lean into the geometric interpretation of quantities that, e.g., \cite{Thorne_2018} advocates for (which I agree with).
+Before we examine two types of accelerations in more detail for the remainder of this section, there is a final remark to be made that will lead us down a rabbit hole (or perhaps two rabbit holes). At the heart of this section lies the problem that an accelerated observer ignores acceleration that comes from his own coordinates/frame of reference, which do appear upon a frame transformation. These have to be added manually to get valid equations of motions. We can correct for this in two ways: (i) by using four-vectors and different derivative operator (this is done in relativity) or (ii) we fully lean into the geometric interpretation of quantities that, e.g., \cite{Thorne_2017} advocates for (which I agree with).
 
 
 Let's do (ii) first, requires less new mathematical notions. 
@@ -950,7 +958,7 @@ where $\vec{x}_0$ is the initial separation of coordinate origins and $\vec{a}_u
 	\, .
 \end{align}
 For a uniformly accelerated system, this simplifies to
-\begin{equation}
+\begin{equation}\label{eq:uniform_accel_pseudo_force}
 	\eqbox{
 		\vec{F}_\mathrm{fict} = - m \vec{a}_u
 	} \, .
@@ -971,6 +979,14 @@ As we know very well from the second law, this does indeed represent a force.
 
 
 	also love example from Tal Einav, who is talking about person standing on car and trying to balance; but as soon as car accelerates, he falls off; in the accelerated frame, this is caused by pseudo-force pushing him back so that he does not stay on car; from inertial frame, we see that this is due to his inertia, which keeps him in same place, because no force is acting upon him (the car just goes, does not affect him)
+\end{ex}
+
+
+
+\begin{ex}[Jumping In A Train]
+	train moves uniformly, e.g., right in between two stations: you jump and come down in same position; consequence of being in an inertial frame in combination with Newton's first law
+
+	train accelerates, e.g., when leaving or entering a station: you jump and to not come down in same position; this is because you are not in an inertial, but rather an accelerated and thus non-inertial frame; what pushes you back (from your perspective) is the pseudo-force from Eq.~\eqref{eq:uniform_accel_pseudo_force}; an inertial observer, on the other hand, would recognize that it is simply the train moving at different speed than you are (it gains speed via acceleration), which causes basically a relative displacement between train and you, and leads to coming down in different spot
 \end{ex}
 
 
@@ -1001,7 +1017,7 @@ Now, let us come back to expression \eqref{eq:pseudo_force_rot_frame} and analyz
     \item Centrifugal force:
     \begin{equation}\label{eq:f_centrifugal}
 		\eqbox{
-			\vec{F}_\mathrm{centri} = - m \vec{\omega} \cross (\vec{\omega} \vec{x})
+			\vec{F}_\mathrm{centri} = - m \vec{\omega} \cross (\vec{\omega} \cross \vec{x})
 		}
 	\end{equation}
 	for $\vec{\omega} \parallel \vec{x}$:
@@ -1085,6 +1101,11 @@ One way to look at this is to argue that $\vec{p}$ represents linear momentum, w
 What we are yet to determine is the \Def{moment of inertia} $I$, which is the analogue of inertia for the linear momentum. Continuing with the thought process of this being \enquote{how much an object resists against rotation} \todo{improve this}, it should not be surprising that $I \propto m$.
 But also depends on distance from origin; and on the circumference
 
+
+-> equivalent viewpoint: constant direction means $\vec{r} \parallel \vec{v}$; we thus look at relative orientation of these two vectors; but not do not to this using their angle $\propto \vec{r} \cdot \vec{v}$, but by looking at the plane that these two vectors span; this may be quantified by the normal vector of this plane, $\vec{r} \cross \vec{v}$ (which forms a vectorial quantity, not a scalar one like the angle; remember, Newtonian theory is a theory of mostly vectors); we then also add a factor of $m$ to account for the inertia of the object we study, to turn this into something like a momentum; this new notion is termed \Def{angular momentum}
+
+
+
 -> makes sense for angular momentum to have angular velocity; then define with proper notion of inertia and we're done; is not just mass now because also depends on distance from origin (quadratically; I guess we can argue via formula for circumference of circle, something like rotating with same angular velocity means sweeping out same part of this, i.e. we rescale by radius squared?)
 
 -> my argument: inertia upon rotation must increase as we increase distance between object and origin (this is factor of $r$); then also we have to account for increase in circumference covered if we keep angular velocity fixed -> not sure if this is repetitive, I mean it does get harder to rotate stuff further away at same velocity due to increase in same circumference swept out, right? Meaning we potentially account for this twice here -> I guess we could argue via area swept out during this, but I do not see how this can be related to inertia
@@ -1101,10 +1122,15 @@ motivation why this particular expression is interesting: we had seen that momen
 important note: angular momentum depends on coordinates because it involves position vector, which is measured relative to origin! momentum (also, to distinguish from angular momentum: linear momentum) can also depend on the frame of reference, but this is different from depending on the chosen coordinate frame (for frame of reference, the origin is not so important)
 
 
-It made sense to define angular momentum in the way we did, but in many textbooks you might encounter another expression for it. We can recover this by noticing that the orbital angular velocity of a test particle about the origin is
+It made sense to define angular momentum in the way we did, but in many textbooks you might encounter another expression for it. We can recover this by noticing that the orbital angular velocity of a test particle about the origin (measured counter-clockwise) is
 \begin{equation}
 	\vec{\omega} = \frac{\vec{r} \cross \vec{v}}{r^2} \, .
 \end{equation}
+% (This is \emph{not} inconsistent with $\vec{v} = \vec{\omega} \cross \vec{r}$, which we have seen before when treating non-inertial frames. After all, the three vectors involved here are not orthogonal, so putting them in different order into cross products will produce different outcomes; for instance, $\vec{r} \cross \vec{v} = \vec{r} \cross (\vec{v}_\parallel + \vec{v}_\perp) = \vec{r} \cross \vec{v}_\perp$. $\perp$ is meant with respect to the plane of angular displacement, i.e.~the plane in which $\vec{r}$ is displaced in the instant of time $dt$; in other words, parallel to $\omega$. By contrast, $\vec{\omega} \cross \vec{r} = \vec{v}_\parallel$ extracts the component in the plane of angular displacement.)
+(This is \emph{not} inconsistent with $\vec{v} = \vec{\omega} \cross \vec{r}$, which we have seen before when treating non-inertial frames. After all, the three vectors involved here are not orthogonal, so putting them in different order into cross products will produce different outcomes. Thinking about the simple example of a circular motion for instance, $\vec{r} \cross \vec{v} = \vec{r} \cross (\vec{v}_\parallel + \vec{v}_\perp) = \vec{r} \cross \vec{v}_\perp$ only uses the component of $\vec{v}$ tangential to the circle ($\perp$ to $\vec{r}$). By contrast, $\vec{\omega} \cross \vec{r} = \vec{v}_\parallel$ extracts the component in the plane of angular displacement.)
+
+-> this equation calculates the rotational component of $\vec{v}$ (there can be a linear motion component $\parallel \vec{r}$ as well; but this we do not want for rotational analysis, and luckily is naturally projected out by cross product); $\vec{v} = \vec{\omega} \cross \vec{r}$ calculates the instantaneous velocity induced at $\vec{r}$ by a rotation with angular velocity $\vec{\omega}$ these are different things and thus different expressions should not surprise us
+
 This yields
 \begin{equation}\label{eq:angular_momentum_2}
     \eqbox{
@@ -1172,19 +1198,196 @@ In particular, this is valid for the case of a purely rotational motion, where n
 
 	\section{$N$-Body Mechanics}
 	\label{sec:n_body_mechanics}
-talk about center of mass system; motivation: if we have two particles, we have coupled equations of motion, much harder to solve than two separate differential equations; but by going into CMS, we can decouple the equations
+Until now, the mechanics we did treated every object as a point particle. Even if they have spatial extent and possibly weird geometry in reality, we approximated them as being point particles. In many cases, this is justified because internal interactions of the body do not influence the problem we are examining. However, there are cases where this is not the case, i.e.~where the composition of a body plays a role. We begin to examine implications of the interaction between constituents in this section, where we treat systems made up of a finite number of $N$ particles. (The continuum limit, called \Def{rigid body}, is treated in a separate section later on, see Sec.~\ref{sec:rigid_body}.)
 
 
-usually sums, but sometimes also integrals; of course, integrals with densities etc effectively correspond to treating an infinite number of particles (the \enquote{continuum limit});
-% (this is actually a theorem from measure theory; every set with finite number of points in it has zero measure, which just means integral over it vanishes; since we usually deal with particles where integral does not vanish, there are infinitely many points in each volume -> on other hand, density does not necessarily assign non-zero value to each point, after all outcome is finite -> unnecessary discussion, just leave out)
-this is not realistic, but sometimes required because it becomes infeasible to treat huge number of particles using sums; but this is realm of statistical physics, in this section we focus on systems where sums can still be used
+% usually sums, but sometimes also integrals; of course, integrals with densities etc effectively correspond to treating an infinite number of particles (the \enquote{continuum limit});
+% % (this is actually a theorem from measure theory; every set with finite number of points in it has zero measure, which just means integral over it vanishes; since we usually deal with particles where integral does not vanish, there are infinitely many points in each volume -> on other hand, density does not necessarily assign non-zero value to each point, after all outcome is finite -> unnecessary discussion, just leave out)
+% this is not realistic, but sometimes required because it becomes infeasible to treat huge number of particles using sums; but this is realm of statistical physics, in this section we focus on systems where sums can still be used
+
+
+			\paragraph{Position}
+One of the most important tools when working with systems of particles is to realize that using the positions of each particle in a particular inertial frame with the associated coordinate system is not necessarily best suited to describe an arbitrary problem. A very viable alternative (as we will see throughout the rest of this chapter) is the \Def{center-of-mass coordinate system}, sometimes abbreviated CMS. In this coordinate system, we work with the position of a particle relative to a different origin, the \Def{center of mass}
+\begin{equation}\label{eq:center_of_mass_definition}
+	\eqbox{
+		\vec{R} = \frac{1}{M} \sum_k m_k \vec{r}_k
+	}
+\end{equation}
+where $M = \sum_k m_k$ is the total mass of the system. Each particle is then assigned a different position vector $\vec{r}'_k$ and we can easily transform into the CMS (and back) by using
+\begin{equation}
+	\eqbox{
+		\vec{r}'_k = \vec{r}_k - \vec{R}
+	} \, .
+\end{equation}
+An important consequence of this formula, which we will frequently use is that the center of mass forms the origin of the CMS,
+\begin{equation}
+	\eqbox{
+		\vec{R}'
+	}= \frac{1}{M} \sum_k m_k \vec{r}'_k = \frac{1}{M} \sum_k m_k \vec{r}_k - \frac{1}{M} \sum_k m_k \vec{R} = \vec{R} - \vec{R}
+	\eqbox{
+		= 0
+	} \, .
+\end{equation}
+(Note that we use $0$ synonymously to $\vec{0}$ here.)
+
+-> not all of these vectors are independent, so degrees of freedom do of course not change upon this coordinate transformation (we know position of $N$-th particle given center of mass and positions of the $N-1$ other particles)
 
 
 
-very frequently used tool: center of mass (COM) and the related center of mass coordinate system (CMS); we then have COM position and each particle position relative to this, but not all of these vectors are independent, so degrees of freedom do of course not change upon this coordinate transformation
+			\paragraph{Momentum}
+Unlike before, where we only had to consider external forces, a system of particles also has internal interactions. The total force on the $j$-th particle is a sum of these two sources,
+\begin{equation}
+	\eqbox{
+		\vec{F}_j = \vec{F}_{j, \mathrm{ext}} + \sum_k \vec{F}_{k \rightarrow j} \eqqcolon \vec{F}_{j, \mathrm{ext}} + \sum_k \vec{f}_j
+	} \, .
+\end{equation}
+The total force acting in and on the system is therefore
+\begin{equation}
+	\vec{F} = \sum_j \vec{F}_j = \vec{F}_{j, \mathrm{ext}} + \sum_k \vec{F}_{k \rightarrow j} = \vec{F}_\mathrm{ext} + \sum_{k \neq j} \vec{F}_{k \rightarrow j} \, .
+\end{equation}
+The index $k \neq j$ is short-hand notation for \enquote{sum over $k$ and $j$, leaving out terms with $k = j$}. Looking at the second sum more closely, we realize that it consists exclusively of terms like $\vec{F}_{i + \rightarrow j} + \vec{F}_{j \rightarrow i}$ for all possible particle combinations $i, j$. In the usual case where the internal forces obey Newton's third law, all of these combinations vanish,\footnote{If you want this proved in an actual calculation, here you go:
+\begin{equation}
+	% \sum_{k \neq j} \vec{F}_{j \rightarrow k} = \sum_{k < j} \vec{F}_{j \rightarrow k} + \vec{F}_{k \rightarrow j} = \sum_{k < j} \vec{F}_{j \rightarrow k} - \vec{F}_{j \rightarrow k} = 0
+	\sum_{k \neq j} \vec{F}_{j \rightarrow k} = \sum_{k < j} \vec{F}_{j \rightarrow k} + \vec{F}_{k \rightarrow j} = \sum_{k < j} \vec{F}_{j \rightarrow k} + \sum_{k < j} \vec{F}_{k \rightarrow j} = \sum_{k < j} \vec{F}_{j \rightarrow k} - \sum_{k < j} \vec{F}_{j \rightarrow k}
+\end{equation}%
+} so that
+\begin{equation}
+	\eqbox{
+		\vec{F} = \vec{F}_\mathrm{ext} = \sum_k \vec{F}_{k, \mathrm{ext}}
+	} \, .
+\end{equation}
+Further, using Newton's second law for all the individual particles, we obtain
+\begin{equation}
+	\eqbox{
+		\vec{F}_\mathrm{ext}
+	} = \vec{F} = \sum_k \vec{F}_k = \sum_k \dv[2]{t} m_k \vec{r}_k = \dv[2]{t} \sum_k m_k \vec{r}_k
+	\eqbox{
+		= \dv[2]{t} M \vec{R}
+	} \, .
+\end{equation}
+This result indicates that the motion of such an $N$-particle system obeys the same law (and thus can be thought of as) the motion of a single particle with mass $M$ and position $\vec{R}$ that is subject to an external force $\vec{F}_\mathrm{ext}$.
 
 
--> notable properties: Newton 2 holds for COM, since all internal interactions between particles vanish (due to Newton 3); most quantities behave additively, such as momentum or angular momentum, so we can divide into contribution from COM and from relative coordinates
+Forces are, by definition, closely related to the definition of (linear) momentum. At least this is how it was for single particle systems. Let us now examine if this is also the case for $N$-particle systems. The total momentum is
+\begin{equation}
+	\eqbox{
+		\vec{P}
+	} = \sum_k \vec{p}_k = \sum_k \dv{t} m_k \vec{r}_k = \dv{t} \sum_k m_k \vec{r}_k = \dv{t} M \vec{R}
+	\eqbox{
+		\underset{M = \text{const}}{=} M \dot{\vec{R}} \eqqcolon M \vec{V}
+	} \, .
+\end{equation}
+The total (linear) momentum of the system also takes the form of the momentum of a single particle with mass $M$ that moves with velocity $\vec{V}$.
+
+Combining these two results yields
+\begin{equation}
+	\eqbox{
+		\dot{\vec{P}} = M \ddot{\vec{R}} = \vec{F}
+	} \, .
+\end{equation}
+Therefore, we also have conservation of total momentum if no external forces are present.
+
+
+\begin{ex}[Exploding Projectile]
+	say we shoot projectile (which we have treated before \todo{do this}), but it explodes at some point on the trajectory; since no internal force is acting, the linear momentum of the center of mass is conserved and this allows derivation of equation of motion (and ultimately, of trajectory)
+\end{ex}
+
+
+Note that we could, in analogy to positions relative to $\vec{R}$, also define a momentum relative to the center of mass for each particle,
+\begin{equation}\label{eq:momentum_in_cms}
+	\eqbox{
+		\vec{p}'_j
+		= m_j \dot{\vec{r}'}_j
+		= m_j \dot{\vec{r}}_j - m_j \dot{\vec{R}}
+		= m_j \vec{v}_j - m_j \vec{V}
+		\eqqcolon m_j \vec{v}'_j
+	} \, .
+\end{equation}
+Note that $\vec{p}'_j \neq 0$ is possible even if $\vec{P} = 0$ and similarly, $\dot{\vec{p}'}_j$ even if $\dot{\vec{P}} = 0$. \todo{first part yes; but I think second part can is wrong, how shold this be possible when internal forces are cancelling? I do not think we can target any force like that, so that one particle moves up and other down (which would then lead to center of mass remaining stationary)... -> uhh, maybe we can, think about two oppositely charged particles, could this be example for that (one is attracted by external E-field, while other one is repelled; so their COM could remain stationary)}
+
+Note that, analogously to $\vec{R}' = 0$,
+\begin{equation}\label{eq:cms_vel_in_cms}
+	\eqbox{
+		% \vec{P}' = \sum_k \vec{p}'_k = \vec{P} - \vec{P} = 0
+		\vec{V}' = \sum_k \vec{v}'_k = \vec{V} - \vec{V} = 0
+	}
+	\quad \Rightarrow \quad
+	\eqbox{
+		\vec{P}' = 0
+	}
+\end{equation}
+This just means in CMS, the center of mass has no momentum (which should make sense as CMS $=$ rest frame of center of mass).
+
+
+
+			\paragraph{Angular Momentum}
+For angular momentum, we proceed in the same manner as before and write out the total angular momentum in the CMS to see what happens:
+\begin{align}
+	\eqbox{\vec{L}} &= \sum_k \vec{L}_k = \sum_k \vec{r}_k \cross \vec{p}_k = \sum_k (\vec{R} + \vec{r}'_k) \cross m_k (\vec{V} + \vec{v}'_k)
+	\notag\\
+	&= \sum_k m_k \vec{R} \cross \vec{V} + \sum_k \vec{R} \cross \underbrace{m_k \vec{v}'_k}_{= \vec{P}' = 0} + \sum_k \underbrace{m_k \vec{r}'_k}_{= \vec{R}' = 0} \cross \vec{V} + \sum_k m_k \vec{r}'_k \cross \vec{v}'_k
+	\notag\\
+	&\eqbox{
+		= M \vec{R} \cross \vec{V} + \sum_k m_k \vec{r}'_k \cross \vec{v}'_k
+		= \vec{R} \cross \vec{P} + \sum_k \vec{r}'_k \cross \vec{p}'_k
+	} \, .
+\end{align}
+The angular momentum too splits into contributions from the center of mass and relative to the center of mass.
+
+
+For a single particle, any change in angular momentum is related to a torque. Again, we ask: does a similar relationship hold in the CMS?
+\begin{align}
+	\eqbox{\dot{\vec{L}}} &= \sum_k \dot{\vec{L}}_k = \sum_k \vec{r}_k \cross \vec{F}_k
+	\notag\\
+	&= \sum_k \vec{r}_k \cross \vec{F}_{k, \mathrm{ext}} + \sum_{k \neq j} \vec{r}_k \cross \vec{F}_{j \rightarrow k}
+	\notag\\
+	&= \sum_k \vec{M}_{k, \mathrm{ext}} + \sum_{k < j} \vec{r}_k \cross \vec{F}_{j \rightarrow k} + \vec{r}_j \cross \vec{F}_{k \rightarrow j}
+	\notag\\
+	&\eqbox{= \vec{M}_\mathrm{ext} + \sum_{k < j} (\vec{r}_k - \vec{r}_j) \cross \vec{F}_{j \rightarrow k}}
+\end{align}
+Here, we have to impose an additional assumption on the internal interactions $\vec{F}_{j \rightarrow k}$, namely that they also obey the \enquote{strong third law} $\vec{F}_{j \rightarrow k} \propto \vec{r}_k - \vec{r}_j$ (in other words, they are \Def[central force]{central forces}; cf.~Sec.~\ref{sec:central_force}). Only then does the \Def{internal torque} $\sum_{k < j} (\vec{r}_k - \vec{r}_j) \cross \vec{F}_{j \rightarrow k}$ vanish, making the total torque of the system equal to the external torque.\footnote{For total force = total external force, we only had to assume Newton's third law is fulfilled for the $\vec{F}_{j \rightarrow k}$ (which is asserted in an axiomatic manner by Newton's third law, so this is not really a strong assumption). It is an interesting note that we have to impose an actual additional assumption to get the same for the torque, which was introduced as the quantity playing an analogous role to force in the context of angular momentum. (I presume this is the reason why \cite{Thornton_2003} calls the central force property \enquote{strong third law}; to emphasize the analogy.)}
+
+However, if the internal torque vanishes, then we obtain the analogous interpretation that the $N$-body system behaves like a single particle with angular momentum $\vec{L}$. In particular, if no external torque is acting on the system, its angular momentum is conserved. This is even the case if individual particles feel a torque, as long as this happens in a manner that keeps the total torque zero (yes, this can happen; again, magnetic force is probably a good example).
+
+
+
+			\paragraph{Energy}
+Let us now calculate the kinetic energy in the CMS
+\begin{align}
+	\eqbox{T} &= \sum_k T_k = \sum_k \frac{1}{2} m_k v_k^2 = \frac{1}{2} \sum_k m_k (\vec{V} + \vec{v}'_k)^2
+	\notag\\
+	&= \frac{1}{2} \sum_k m_k (V^2 + 2 v'_k V + (v')_k^2) = \frac{1}{2} \sum_k m_k V^2 + \underbrace{\sum_k v'_k}_{Eq.~\eqref{eq:cms_vel_in_cms}} V + \frac{1}{2} \sum_k m_k (v')_k^2 \eqbox{= \frac{1}{2} M V^2 + \frac{1}{2} \sum_k m_k (v')_k^2} \, .
+\end{align}
+In other words, the kinetic energy computed in the CMS splits into contributions from the center-of-mass motion and motion of the particles relative to it. Hence, if all particles are at rest with respect to the center of mass, the kinetic energy of an $N$-particle system is the same as the one of a particle with mass $M$ moving with velocity $V$.
+(Note that, due to energy being a scalar quantity, computing the kinetic energy in the CMS must yield the same result as in any other frame.) \todo{this is actually not true! Kinetic energy is intrinsically dependent on frame we select, even for inertial ones; but this is ok, physically relevant statements like conservation of energy have no such dependence (in particular, inferred laws also do not have this)}
+
+
+
+The potential energy, on the other hand, requires additional assumptions to proceed. If all external forces acting are conservative, $U_\mathrm{ext} = \sum_k U_k$. If in addition to that all internal interactions are mediated by conservative forces, then the potential energy reads
+\begin{equation}
+	\eqbox{
+		U = U_\mathrm{ext} + U_\mathrm{int} = \sum_k U_k + \sum_{k < j} U_{kj}
+	} \, .
+\end{equation}
+Here we have a first term that, as before, represents potential energy imprinted on a single particle, namely the one that $\vec{F}_\mathrm{ext}$ acts on (i.e.~with total mass $M$ at position $\vec{R}$). However, the second contribution, which stems from the internal interaction of the particles, will generally not vanish\todo{what if we choose certain reference?}.
+
+Continuing with the assumption of a system with only cosnervative forces, there is no way that energy can get dissipated, so that the total energy is conserved,
+\begin{equation}
+	\eqbox{
+		E = T + V = \text{const}
+	} \, .
+\end{equation}
+We call such systems as a whole \Def{conservative}.
+
+definition of potential energies:
+\begin{equation}
+	\vec{F}_{k, \mathrm{ext}} = - \grad_k U_k
+	\vec{F}_{j \rightarrow k} = - \grad_k U_{kj} = - \grad_k U_{jk} (\overset{!}{=} \grad_j U_{jk} = \grad_j U_{jk} = - \vec{F}_{k \rightarrow j})
+\end{equation}
+where index of gradient refers to point of evaluation
+
+
+-> internal potential energy is just a constant if there is no motion of particles in CMS (i.e.~relative to center of mass) during evolution system; for such a \Def{rigid body} (cf.~Sec.~\ref{sec:rigid_body}), this term can be neglected
 
 
 
@@ -1275,6 +1478,7 @@ where we have assumed $\vec{F}_{2 \rightarrow 1}$ to be conservative, so that it
 
 
 	    \subsection{Central Forces}
+		\label{sec:central_force}
 % https://en.wikipedia.org/wiki/Classical_central-force_problem
 % https://en.wikipedia.org/wiki/Two-body_problem
 % https://en.wikipedia.org/wiki/Kepler%27s_laws_of_planetary_motion
@@ -1301,6 +1505,8 @@ that is pointing radially outwards from the origin (note that $k > 0$ ensures th
 	\, .
 \end{equation}
 The most common example is $n = -2$ with $F(r) = - \frac{k}{r^2}, \; V(r) = - \frac{k}{r}$, which includes Newton's law of gravitation, the Coulomb interaction of charged particles, and many more.
+
+-> central forces are cool in context of two-body problem because they further simplify the single equation that we have (the one for relative coordinate), through conservation of angular momentum (which we prove now is actually the case)
 
 
 Time to back up for a second. Our initial goal of understanding the two-body problem of Newtonian physics has now lead us the the classical central-force problem. Therefore, our current objective is to find the trajectory $\vec{r} = \vec{r}(t)$ of a body subject to a central force. (Note that the mass of this \enquote{body} we are looking at is $\mu$. Body is in quotation marks here because we do not actually have a physical object with mass $\mu$ in our problem, but rather have this as an intermediate step and reformulation.) There are many ways in which this problem can be approached. In almost all of them, polar coordinates $(r, \phi)$ are used to describe $\vec{r}$. This should make you curious because polar coordinates describe positions in 2D, while we are dealing with a 3D problem -- or do we?
@@ -1469,12 +1675,15 @@ To obtain the trajectories of both bodies, we must use the transformations from 
 \begin{figure}
 	\centering
 
-	\includegraphics[height=0.1\textheight]{pictures/central_force_orbits.pdf}
+	\subfloat[$\frac{m_1}{M} = 0.25, \frac{m_2}{M} = 0.75$]{\includegraphics[width=0.25\textwidth,page=1]{pictures/central_force_orbits.pdf}}%
+	\hspace{0.1\textwidth}%
+	\subfloat[$\frac{m_1}{M} = 0.5, \frac{m_2}{M} = 0.5$]{\includegraphics[width=0.25\textwidth,page=2]{pictures/central_force_orbits.pdf}}%
+	\hspace{0.1\textwidth}%
+	\subfloat[$\frac{m_1}{M} = 0.001, \frac{m_2}{M} = 0.999$]{\includegraphics[width=0.25\textwidth,page=3]{pictures/central_force_orbits.pdf}}
 
-	\caption{Some orbits. Keplerian limit is uppermost one \todo{fix plot}}
+	\caption{Some orbits. Rightmost plot is closest to Keplerian limit, though this is usually even more extreme (but qualitatively, this is how situation looks like; we see no motion of heavier body).}
 	\label{fig:central_force_orbits}
 \end{figure}
-
 
 
 
@@ -1508,7 +1717,7 @@ Here we have started to use $M$ for the mass $m_2$ of the larger body (the sun) 
 % -> we are not satisfied with this, let's solve for the actual orbits (this part was done by Newton, a few decades after Kepler noted nature of orbits)
 
 
-Other than the implication that all planets have inclination $< 1$, this is really just a corollary of planets orbiting the sun being an example of the two-body problem in a central force. Schematically, Fig.~\ref{fig:kepler_orbits} shows how the orbits of several planets look like; notice in particular how the sun is always in a focal point. In the Keplerian limit, Fig.~\ref{fig:central_force_ellipse} depicts accurately the orbit of a planet if we place $\vec{R}$ in $F_1$ (which is the origin in this plot, though this is not required), since $\vec{r}_1 \approx \vec{R}$ and $\vec{r}_2 \approx \vec{r}$.
+Other than the implication that all planets have eccentricity $< 1$, this is really just a corollary of planets orbiting the sun being an example of the two-body problem in a central force. Schematically, Fig.~\ref{fig:kepler_orbits} shows how the orbits of several planets look like; notice in particular how the sun is always in a focal point. In the Keplerian limit, Fig.~\ref{fig:central_force_ellipse} depicts accurately the orbit of a planet if we place $\vec{R}$ in $F_1$ (which is the origin in this plot, though this is not required), since $\vec{r}_1 \approx \vec{R}$ and $\vec{r}_2 \approx \vec{r}$.
 
 
 
@@ -1760,6 +1969,7 @@ For $m_1 = m_2$, $T'_1 = T_1/2$, so Eq.~\eqref{eq:rutherford_scat} becomes
 
 
     \section{Rigid Bodies}
+	\label{sec:rigid_body}
 In this section, we finally go away from the model of a point particle/test mass to bodies that have a spatial extent and shape. Granted, some idealized assumptions are still made, for example that distances between different particles in the body remain fixed at all times and no matter if it is moving or rotating (i.e.~undergoing some kind of dynamics). This is where \enquote{rigidity} comes from.\footnote{In reality, things do not work like that. Atoms and molecules are constantly vibrating due to thermal energy (Brownian motion\todo{right?}) and relativity theory also tells us that the maximum speed at which information can be transmitted is finite at $c$ (in matter, the propagation speed is the speed of sound of the respective material and thus usually much smaller than $c$). Hence, if I push one end of a rod, the other one does not move immediately, but we assume this anyway for our model of a rigid body.} Moreover, although bodies are always composed of a finite number of particles, for a macroscopic number of particles we will sometimes approximate them as continuous bodies (corresponds to what is done in statistical physics). This has mostly mathematical consequences, in that sums over particles must be replaced by integrals over appropriate densities (the former can be recovered from the latter using densities that involve $\delta$-functions).
 
 
