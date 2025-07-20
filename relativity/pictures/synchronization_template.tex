@@ -17,7 +17,7 @@
 
 
 % -- Styling
-\colorlet{lightyellow}{black!10!yellow}  % Mix with 10% of yellow
+\colorlet{lightyellow}{black!10!yellow}
 \colorlet{mydarkred}{red!55!black}
 \colorlet{myred}{red!85!black}
 \colorlet{mydarkorange}{orange!40!yellow!85!black}
@@ -29,7 +29,8 @@
     light/.style={
         ->,
         lightyellow,
-        line width=0.6,
+        % line width=0.6,
+        semithick,
         decorate,
         decoration={
             snake,
@@ -85,7 +86,10 @@
 
     \def\vone{0.2}
     \def\vtwo{0.5}
-    \def\tsignal{3}
+    \def\tsignalone{3}
+    \def\tsignaltwo{\tsignalone}
+    % -- tsignaltwo must be equal to tsignalone for synchrony; change if you want to show how desynchronized observers look like
+    % \def\tsignaltwo{2.5}
     \def\initsep{0}
 
     \def\tmin{2}
@@ -124,17 +128,18 @@
     \fi
     
 
+    % -- Calculate relevant coordinates
     \begin{scope}[vlorentz=\vone]
-        \coordinate (A) at (0, \tsignal);
-        \coordinate (E) at (0, \doppleronetwo*\tsignal + \initsep);
-        \coordinate (B) at (0, \doppleronetwo*\doppleronetwo*\tsignal + 2*\initsep);
+        \coordinate (A) at (0, \tsignalone);
+        \coordinate (E) at (0, \doppleronetwo*\tsignaltwo + \initsep);
+        \coordinate (B) at (0, \doppleronetwo*\doppleronetwo*\tsignalone + 2*\initsep);
         \coordinate (ABhalf) at ($ (A)!0.5!(B) $);
     \end{scope}
 
     \begin{scope}[vlorentz=\vtwo]
-        \coordinate (C) at (\initsep, \tsignal);
-        \coordinate (F) at (\initsep, \doppleronetwo*\tsignal + \initsep);
-        \coordinate (D) at (\initsep, \doppleronetwo*\doppleronetwo*\tsignal + 2*\initsep);
+        \coordinate (C) at (\initsep, \tsignaltwo);
+        \coordinate (F) at (\initsep, \doppleronetwo*\tsignalone + \initsep);
+        \coordinate (D) at (\initsep, \doppleronetwo*\doppleronetwo*\tsignaltwo + 2*\initsep);
         \coordinate (CDhalf) at ($ (C)!0.5!(D) $);
     \end{scope}
     
@@ -148,32 +153,45 @@
 
     
     % -- Observer worldlines
-	\draw[worldline, vlorentz=\vone] (0, \tmin) node[left] {$\mathcal{O}$} -- (0, \tmax) node[left] {$ct$};
-	\draw[worldline, vlorentz=\vtwo] (\initsep, \tmin) node[right] {$\mathcal{O}'$} -- (\initsep, \tmax) node[right] {$ct'$};
-	\draw[worldline, vlorentz=\vreferee] ({\initsep/2}, \tmin) node[below] {$\mathcal{R}$} -- ({\initsep/2}, \tmax);
+    \begin{scope}[
+        worldline,
+    ]
+        \draw[vlorentz=\vone] (0, \tmin) node[left=-2] {$\mathcal{O}$} -- (0, \tmax) node[above=-2] {\contour{white}{$ct$}};
+
+        \draw[vlorentz=\vtwo] (\initsep, \tmin) node[right=-2] {$\mathcal{O}'$} -- (\initsep, \tmax) node[above=-2] {\contour{white}{$ct'$}};
+
+        \draw[vlorentz=\vreferee] ({\initsep/2}, \tmin) node[below=-2] {\contour{white}{$\mathcal{R}$}} -- ({\initsep/2}, \tmax);
+    \end{scope}
+    
 
     % -- Lines of Simultaneity
-    \draw[simultline] (A) -- (C);
-    \draw[simultline] (B) -- (D);
-    \draw[simultline] (E) -- (F);
-    \draw[simultline] (ABhalf) -- (CDhalf);
+    \begin{scope}[
+        simultline,
+    ]
+        \draw (A) -- (C);
+        \draw (B) -- (D);
+        \draw (E) -- (F);
+        \draw (ABhalf) -- (CDhalf);
+    \end{scope}
 
-    % -- Point halfway between emission and reception
+
+    % -- Point halfway between emission and reception (= \tau = \tau' if no relative velocity between O, O')
 	\draw[fill, labelledpoint] (ABhalf) circle(0.08);
 	\draw[fill, labelledpoint] (CDhalf) circle(0.08);
 
+
     % -- Labels. Comment if you do not like
-    \node[left] at (A) {$t_-$};
-    \node[right] at (C) {$t'_-$};
+    \node[left] at (A) {\contour{white}{$t_-$}};
+    \node[right] at (C) {\contour{white}{$t'_-$}};
 
-    \node[left] at (B) {$t_+$};
-    \node[right] at (D) {$t'_+$};
+    \node[left] at (B) {\contour{white}{$t_+$}};
+    \node[right] at (D) {\contour{white}{$t'_+$}};
 
-    \node[above left, labelledpoint] at (ABhalf) {$t$};
-    \node[above right, labelledpoint] at (CDhalf) {$t'$};
+    \node[above left=-1, labelledpoint] at (ABhalf) {\contour{white}{$t$}};
+    \node[above right=-1, labelledpoint] at (CDhalf) {\contour{white}{$t'$}};
 
-    \node[below left] at (E) {$\tau$};
-    \node[below right] at (F) {$\tau'$};
+    \node[below left=-2] at (E) {\contour{white}{$\tau$}};
+    \node[below right=-2] at (F) {\contour{white}{$\tau'$}};
 \end{tikzpicture}
 
 
