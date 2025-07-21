@@ -40,7 +40,7 @@ We will commonly denote charge by $q$. Every charge is a multiple of an \Def{ele
     }, \; N \in \mathbb{N}
     , \quad
     \eqbox{
-        e = 1.602 \cdot 10^{-19} \, \mathrm{C}
+        e = 1.602 \cdot 10^{-19} \, \unit{\coulomb}
     } \, .
 \end{equation}
 This is a crucial difference to masses, where no such \enquote{elementary mass} is known.
@@ -178,15 +178,15 @@ where we have defined the energy density $w = \frac{\epsilon_0}{2} \norm{\vec{E}
 first one
 
 
-straightforward question: what is \enquote{total electric field} of some charge distribution $\rho$? For that, integrate over surface $S(V)$ enclosing volume $V$ in which $\rho$ is located spatially. we can do that:
+straightforward question: what is \enquote{total electric field} of some charge distribution $\rho$? For that, integrate over surface $S(V)$ enclosing volume $V$ in which $\rho$ is located spatially. We can do that:
 \begin{equation}
     \oint_{S(V)} \vec{E} \cdot d\vec{S} = \ldots = \frac{1}{\epsilon_0} \int_V \rho(\vec{x}) dV = \frac{Q}{\epsilon_0}
 \end{equation}
-where $d\vec{S}$ is surface element of $S$ (normal vector, right? at least related to). In words: flow of electric field through a surface is proportional to charges inside! In particular, no charges in $V$ means that net flow of $\vec{E}$ through $S$ is zero -- independent of its exact, just has to be connected
+where $dS$ is surface element of $S$, which is formally turned into a vector by multiplying it with the normal vector $\vec{n}_S$ of the surface.\footnote{The job of the normal vector is to extract the component of $\vec{E}$ that actually flows through the surface (any flux tangential to the surface is not interesting for the intended use of calculating flux through $S$).} In words: flux of electric field through a surface is proportional to charges inside! In particular, no charges in $V$ means that net flow of $\vec{E}$ through $S$ is zero -- independent of its exact, just has to be connected
 
 -> this is first Maxwell equation (or rather integral version thereof)
 
-moreover, Gauß's law tells us
+moreover, Gauß's law can be used to obtain
 \begin{equation*}
     \int_V \rho(\vec{x}) dV = \oint_{S(V)} \vec{E} \cdot d\vec{S} = \int_V \div \vec{E} dV
 \end{equation*}
@@ -221,23 +221,146 @@ in terms of potential, the results here imply \Def{Poisson equation} $\nabla^2 \
 
 
         \subsection{Multipole Expansions}
-Multipole expansions are a frequently used tool in electrodynamics. The basic idea is to simplify frequently occurring terms of the kind $\frac{1}{\norm{\vec{x} - \vec{a}}}$ by using the general result
+Multipole expansions are a frequently used tool in electrodynamics. The basic idea is to simplify terms of the kind $\frac{1}{\norm{\vec{x} - \vec{a}}}$ by using the general result
 \begin{equation}\label{eq:multipole_exp_general}
     \eqbox{
         \frac{1}{\norm{\vec{x} - \vec{a}}}
-        = \frac{1}{x \norm{\vec{e}_x - \frac{a}{x} \vec{e}_a}}
-        \simeq \frac{1}{r} + \frac{\vec{x} \cdot \vec{a}}{x^3} + \frac{3 (\vec{x} \cdot \vec{a})^2 - x^2 a^2}{2 x^5}
+        \simeq \frac{1}{x \norm{\vec{e}_x - \frac{a}{x} \vec{e}_a}}
+        \simeq \frac{1}{x} + \frac{\vec{x} \cdot \vec{a}}{x^3} + \frac{3 (\vec{x} \cdot \vec{a})^2 - x^2 a^2}{2 x^5}
     } \, .
 \end{equation}
+This can be seen as a Taylor-expansion each component $\frac{a_k}{x}$, or one in $\frac{a}{x}$ if we are careful with how we write things out:
+\begin{align*}
+    \frac{1}{\norm{\unitvec{x} - \frac{a}{x} \unitvec{a}}} &\simeq \eval{\frac{1}{\norm{\unitvec{x} - \frac{a}{x} \unitvec{a}}}}_{\frac{a}{x} = 0} + \eval{\partial_{\frac{a}{x}} \frac{1}{\norm{\unitvec{x} - \frac{a}{x} \unitvec{a}}}}_{\frac{a}{x} = 0} \frac{a}{x}
+    \\
+    &= 1 + \eval{\partial_{\frac{a}{x}} \qty[(\unitvec{x} - \frac{a}{x} \unitvec{a}) \cdot (\unitvec{x} - \frac{a}{x} \unitvec{a})]^{-1/2}}_{\frac{a}{x} = 0} \frac{a}{x}
+    \\
+    &= 1 + \frac{-1}{2} \eval{\partial_{\frac{a}{x}} (\unitvec{x} - \frac{a}{x} \unitvec{a}) \cdot (\unitvec{x} - \frac{a}{x} \unitvec{a})}_{\frac{a}{x} = 0} \frac{a}{x}
+    \\
+    &= 1 + \frac{-1}{2} \eval{2 (\unitvec{x} - \frac{a}{x} \unitvec{a}) \cdot \partial_{\frac{a}{x}} (\unitvec{x} - \frac{a}{x} \unitvec{a})}_{\frac{a}{x} = 0} \frac{a}{x}
+    \\
+    &= 1 + \frac{-1}{2} \eval{2 (\unitvec{x} - \frac{a}{x} \unitvec{a}) \cdot (- \unitvec{a})}_{\frac{a}{x} = 0} \frac{a}{x}
+    \\
+    &= 1 + \unitvec{x} \cdot \unitvec{a} \frac{a}{x} = 1 + \frac{\vec{x} \cdot \vec{a}}{x^2}
+\end{align*}
+The crucial thing was to \emph{not} multiply out the $(\unitvec{x} - \frac{a}{x} \unitvec{a}) \cdot (\unitvec{x} - \frac{a}{x} \unitvec{a})$ because this would suddenly involve only $\frac{a^2}{x^2}$ and thus no vector anymore (this is fine, we can still take derivative of this, but then separately for each component $\frac{a_k}{x}$ would be required).
+
+\todo{rather look at $\grad_{\vec{a}}$ at $\vec{a} = 0$? Then $\grad_{\vec{x}}$ follows directly, nice for field calculations below}
 
 -> for large enough distances, we can replace with first/second order to really good approximation! Especially useful to calculate field generated by some distribution, this way we can avoid the really nasty integrals, e.g., for potentials and fields!
 
 
+Is useful because it allows analysis of arbitrary potential in far-field limit $\norm{\vec{x}} \gg R$, where $R$ is the radius of a ball we assume that the charge distribution can be enclosed in. If this is warranted, so is the expansion
+\begin{align}
+    \eqbox{
+        \varphi(\vec{x})
+    }
+    &\simeq \fpeps \int_V \rho(\vec{a}) \qty[\frac{1}{x} + \frac{\vec{x} \cdot \vec{a}}{x^3} + \frac{3 (\vec{x} \cdot \vec{a})^2 - x^2 a^2}{2 x^5}] d^3a
+    \\
+    &= 
+    \eqbox{
+        \fpeps \qty[\frac{Q(V)}{x} + \frac{\vec{x} \cdot \vec{p}}{x^3} + \frac{1}{2} \sum_{i, j} \frac{Q_{ij}}{x^5} \vec{x}_i \vec{x}_j]
+    }
+\end{align}
+where for instance
+\begin{equation}
+    \eqbox{
+        \vec{p} = \int_V \rho(\vec{a}) \vec{a} \, d^3a
+    } \, ,
+\end{equation}
+which is independent of $\vec{x}$. For the rest of this subsection, our goal is to give a physical meaning to each order of the expansion, and also find expressions for the unknown factors. The general idea will be to find a setup that eliminates terms from all order below the one we wish to investigate. This will allow to investigate each order separately.
 
-        \subsection{Image Charges}
-general method to solve Poisson equation with certain boundary conditions
 
--> idea: to get, for example, field of one charge that shall be perpendicular to certain surface, we can place image charge(s) at certain spot so that field lines cross surface in desired manner (mimick boundary conditions); can be done in general
+
+            \paragraph{Monopole}
+Easiest description: $V$ is so small that it appears as point with no spatial extent. In that case, it can be treated as point charge with charge $Q(V)$. This is the easiest, most simplified description that one can think of, so it naturally corresponds to leading order term
+\begin{equation}
+    \eqbox{
+        \varphi_\mathrm{mono}(\vec{x}) = \fpeps \frac{Q(V)}{\norm{\vec{x}}}
+    } \, .
+\end{equation}
+
+
+
+\begin{figure}
+    \centering
+
+    \subfloat[Positive charge]{\includegraphics[page=1, width=0.25\textwidth]{pictures/monopole.pdf}}%
+    \hspace*{0.1\textwidth}%
+    \subfloat[Negative charge]{\includegraphics[page=2, width=0.25\textwidth]{pictures/monopole.pdf}}
+
+    \caption{Monopoles emitted by oppositely charged particles. Taken from \url{https://tikz.net/electric_fieldlines1/}.}
+    \label{fig:monopoles}
+\end{figure}
+
+
+
+            \paragraph{Dipole}
+In order to eliminate the monopole term, we need $Q(V) = 0$. The simplest way to achieve this is to place to point charges with opposite charge together. Placing particle 1 (charge $-q$) in the origin and particle 2 (charge $q$) at a position $\vec{a}$,\footnote{Note that it does not matter whether $q > 0$ or $q < 0$. It is just important that the particles have opposite charge.} the field of this setup is just the superposition
+\begin{equation}
+    \varphi_\mathrm{dipo}(\vec{x})
+    = \fpeps \qty[\frac{-q}{\norm{\vec{x}}} + \frac{q}{\norm{\vec{x} - \vec{a}}}]
+    \simeq \fpeps \frac{\vec{x} \cdot \vec{p}}{x^3}
+\end{equation}
+
+-> here $\vec{p} \coloneqq q \vec{a}$
+
+
+-> in multipole expansion, we have carried out far-field limit, so to understand connection to different order terms better we should do same now for dipole potential; this is what happens in second equality (along with $\lim_{a \rightarrow 0, q \rightarrow \infty}$ so that product remains defined)
+
+-> it is not always clear whether the actual dipole with most general field or the second, approximate formula is meant (\cite{Griffiths_2017} calls these two physical dipole, referring to the full potential with $Q(V) = 0$ where highest order is dipole term, and ideal/pure dipole, referring to equations where we actually add positive and negative charge)
+
+-> means I can do two things to improve approximation: increase $r = \norm{\vec{x}}$ or decrease $a$ (we want $r \ll a$)
+
+
+-> field generated by pure dipole can simply be calculated as
+\begin{align}
+    \vec{E}(\vec{x}) &= - \nabla V(\vec{x}) = \fpeps \qty[-q \frac{-\vec{x}}{x^3} + q \frac{-\vec{x}}{\norm{\vec{x} - \vec{a}}^3}]
+    \\
+    &\simeq \fpeps \qty[q \frac{\vec{x}}{x^3} - q \frac{\vec{x}}{x} (1 + )]
+\end{align}
+
+
+
+We have mainly studied the potential and field associated with a dipole until now. But what about its interaction with another electric field $\vec{E}(\vec{x})$? From the most general expression, we quickly arrive at the following force on the dipole:
+\begin{equation}
+    \eqbox{
+        \vec{F}(\vec{x})
+    }
+    = - q \vec{E}(\vec{x}) + q \vec{E}(\vec{x} + \vec{a})
+    \eqbox{
+        \simeq \grad \vec{p} \cdot \vec{E}(\vec{x})
+    }
+    \eqqcolon - \grad V(\vec{x})
+    \, .
+\end{equation}
+First of all, that means the dipole force has a potential, i.e.~is conservative. Moreover, in a spatially homogenous field, there is no force acting on a dipole. Nonetheless, there is an effect of the force, namely a torsion
+\begin{equation}
+    \eqbox{
+        \vec{M}
+        = \vec{a} \cross q \vec{E}(\vec{x} + \vec{a})
+        = \vec{p} \cross \vec{E}(\vec{x})
+    }
+\end{equation}
+acting on a dipole, which leads to change in orientation until $\vec{p} \parallel \vec{E}$ where the potential is minimized\footnote{While an antiparallel configuration formally also extremizes the potential, this configuration corresponds to a maximum, which means it is not stable.} This can be understood similar to a statement in terms of center of mass: the dipole itself is not moving in the electric field, but it constituents do; via the complex interplay of both forces moving in the external $\vec{E}$-field while the two particles still interact, the total effect is merely a rotation of the dipole.
+
+
+
+\begin{figure}
+    \centering
+
+    \subfloat[Near field]{\includegraphics[page=1, width=0.4\textwidth]{pictures/dipole.pdf}}%
+    \hspace*{0.2\textwidth}%
+    \subfloat[Far field]{\includegraphics[page=2, height=0.3\textheight]{pictures/dipole.pdf}}
+
+    \caption{Dipole in near- and far-field. As we see, the far-field case has a much simpler structure compared to the near-field case, where field lines come in many different forms and shapes. Adapted from \url{https://tikz.net/electric_fieldlines2/}.}
+    \label{fig:dipoles}
+\end{figure}
+
+
+
+            \paragraph{Quadrupole}
+now we put two dipoles together in opposite orientation, to eliminate dipole moment. next leading order is thus a quadrupole
 
 
 
@@ -257,6 +380,15 @@ idea of what changes in a medium: total electric field now comes from free charg
 
 
         \subsection{Boundary Conditions}
+
+
+
+        \subsection{Image Charges}
+general method to solve Poisson equation along with certain boundary conditions
+
+-> idea: to get, for example, field of one charge that shall be perpendicular to certain surface, we can place image charge(s) at certain spot so that field lines cross surface in desired manner (mimick boundary conditions); can be done in general
+
+-> isn't idea also somewhat borrowed from multipole expansion? Which allows us to describe arbitrary distribution with discrete number of particles; basically same is now done for boundary conditions
 
 
 
@@ -286,10 +418,10 @@ Now suppose that we observe a change in the total charge in some volume, $Q(V)$.
 \begin{equation}\label{eq:cont_eq_int}
     \eqbox{
         % \pdv{Q}{t} = \pdv{t} \int_V \rho \, dV = \int_S \pdv{\rho}{t} dS
-        \pdv{Q}{t} + \int_S j \, dS = 0
+        \pdv{Q}{t} + \int_S j \, dS \todo{$\vec{j} \cdot d\vec{S}$?} = 0
     }
 \end{equation}
-For the 2D-generalization of a test charge (sometimes called filamentary current), i.e.~something like a cable of infinitesimal diameter (so that charges can only enter at start and end of it), this takes the form $\dv{Q}{t} = I_A - I_B$ ($A$ is the label for the start of the cable, $B$ for the end). Note that the sign here is a consequence of how we defined current, namely parallel to the field lines. Consider a positive charge moving along the current from $A$ to $B$ and leaving the volume $V$. Then it leaves in $B$, meaning the current $I_B$ is larger than $I_A$, so that the right hand side of the continuity equation becomes negative. This corresponds to the $Q(V)$ decreasing, which is what we expect since a positive charge is leaving $V$.
+For the 2D-generalization of a test charge (sometimes called \Def{filamentary current}), i.e.~something like a cable of infinitesimal diameter (so that charges can only enter at start and end of it), this takes the form $\dv{Q}{t} = I_A - I_B$ ($A$ is the label for the start of the cable, $B$ for the end). Note that the sign here is a consequence of how we defined current, namely parallel to the field lines. Consider a positive charge moving along the current from $A$ to $B$ and leaving the volume $V$. Then it leaves in $B$, meaning the current $I_B$ is larger than $I_A$, so that the right hand side of the continuity equation becomes negative. This corresponds to the $Q(V)$ decreasing, which is what we expect since a positive charge is leaving $V$.
 
 
 Using that $\pdv{t}$ and $\int_V dV$ may be interchanged, and applying Gauß's law we obtain the differential form of Eq.~\eqref{eq:cont_eq_int}
@@ -359,7 +491,7 @@ Brute-force calculation shows that we can rearrange
     \, , \quad
     \eqbox{
         \vec{A}(\vec{x}) = \fpmu \int_{V'} \frac{\vec{j}(\vec{x}')}{\norm{\vec{x} - \vec{x}'}} \, d^3x
-    }
+    } \, .
 \end{equation}
 with a \Def{vector potential} $\vec{A}$. A direct implication is that $\vec{B}$ is divergence-free, i.e.
 \begin{equation}\label{eq:maxwell_magnstat_one_diff}
@@ -391,12 +523,12 @@ In integral form, the two equations read
 and
 \begin{equation}\label{eq:maxwell_magnstat_two_int}
     \eqbox{
-        \oint_{C} \vec{B} \dot d\vec{x} = \mu_0 I
+        \oint_{C} \vec{B} \cdot d\vec{x} = \mu_0 I
     }
 \end{equation}
 \todo{clarify on this. is curve really closed? what is $I$ here, the total current through the curve or something?}
 
--> first one tells us total flow/current of $\vec{B}$ through the surface of a volume is zero; second one is Ampere's law
+-> first one tells us total flux of $\vec{B}$ through the surface of a volume is zero; second one is Ampere's law, which tells us about sources of magnetic field
 
 
 We can further express Eq.~\eqref{eq:maxwell_magnstat_two_diff} in terms of the vector potential $\vec{A}$:
@@ -458,6 +590,8 @@ We can already see that the lines between electric and magnetic fields are actua
     \end{equation}
     -> some more stuff goes into this (perhaps already in equation before); we assume that difference only has non-zero components in direction that particles move (otherwise gamma in front of vector difference does not work); is fine, but must be mentioned -> actually this might not even be the case
 
+    -> mention that even in non-relativistic case we get correct result -> ah, but then we have electric field mostly... This is difference to Feynman lecture example, where no net charge, so that B-field is \emph{only} field left (then the argument of \enquote{electric interaction so strong that this tiny length contraction has effect even for non-relativistic speeds} makes sense, here not so much)
+
     Therefore, we see that the Lorentz force exerted in a frame relative to which the point charges move is essentially a boosted version of the Lorentz force in a frame where the charges are stationary. Length contraction changes how the field is perceived in this frame. Granted, we have made many simplifying assumptions here (and also look only at the three-vector $\vec{F}$ here), but sources like \cite{Rosser_1968}, Chapter 3., or \cite{Page_1912} show how this can work in very general setups. Our treatment is merely meant to be an outline of the general strategy used to show the acclaimed equivalence.
 
     \todo{is this really what we intend to show?} -> yes, it is; from inertial frame with respect to which the charges are moving, it looks like the two charges are interacting via Coulomb force over distance $\norm{\vec{x}_2 - \vec{x}_1}$, and the associated currents are interacting via magnetic force over the same distance; however, what we see upon rewriting is that the total Lorentz force is just a Coulomb force, but acting over a contracted distance $\norm{\vec{x}_2 - \vec{x}_1}$ (analyzing from the rest frame, this is the value that the moving charges measure for their separation)
@@ -481,7 +615,7 @@ To summarize this example, relativity shows in quite natural (and, arguably, qui
 
 
         \subsection{Maxwell Equations}
-Now that we impose no restrictions on the configuration of charges, we have to study a few more interactions in addition to those that have been treated already. Our expectation is that electric and magnetic field are gonna mix, as we have already seen in example \ref{ex:point_charge_magn_field} with point charges, simply because we can now have exposed, i.e.~non-vanishing, charge and motion of said charge at the same time.
+Now that we impose no restrictions on the configuration of charges, we have to study a few more interactions in addition to those that have been treated already. Our expectation is that electric and magnetic field are gonna mix, as we have already seen in example \ref{ex:point_charge_magn_field} with point charges, simply because we can now have non-vanishing charge and motion of said charge at the same time.
 
 Interestingly, in order to do time-independent electrodynamics, i.e.~electromagnetism, the only thing we have to do is take the Maxwell equations from electro-, magnetostatics and continue with this set of equations. It is only when we go to dynamics with $\pdv{\vec{E}}{t} \neq 0$ and/or $\pdv{\vec{B}}{t} \neq 0$ that we have to do more work. This should be intuitive because any change in the two fields can potentially cause charges to move around, due to the changing force that acts on them. This in turn would influence the fields themselves.\\
 
@@ -489,25 +623,31 @@ Interestingly, in order to do time-independent electrodynamics, i.e.~electromagn
 Faraday analyzed experimentally the effects of a time-dependent magnetic field and was able to derive the following relationship:
 \begin{equation}\label{eq:maxwell_edyn_one_int}
     \eqbox{
-        \oint_{\partial S} \vec{E} \cdot d\vec{x} = - \int_S \pdv{\vec{B}}{t} \cdot d\vec{S}
-    } \, .
+        \oint_C \vec{E} \cdot d\vec{x} = - \int_{S(C)} \pdv{\vec{B}}{t} \cdot d\vec{S}
+    }
 \end{equation}
-This is the (integral form of the) first Maxwell equation of electrodynamics, and to honor its discoverer, this equation is also called \Def{Faraday's law}. In differential form, it reads
+where $S(C)$ is the area that is enclosed by $C$ (equivalently, we could replace $C \mapsto \partial S, S(C) \mapsto S$). This is the (integral form of the) first Maxwell equation of electrodynamics. To honor its discoverer, this equation is also called \Def{Faraday's law}. In differential form, it reads
 \begin{equation}\label{eq:maxwell_edyn_one_diff}
     \eqbox{
         \curl \vec{E} = - \pdv{t} \vec{B}
     } \, .
 \end{equation}
-In other words, the only situation where an electric field can have vortices is when a time-varying magnetic field is present.
+In other words, the only situation where an electric field can have broken symmetry in the form of vortices is when a time-varying magnetic field is present. This symmetry breaking manifests as non-zero line integrals over a closed path.
 
 
-A time-dependent electric field (here quantified by the field $\vec{D}$ that the free charges emit) will naturally lead to moving charges, i.e.~a new current. Through some considerations using the continuity equation, one arrives at the conclusion that this new current is properly quantified by $\pdv{t} \vec{D}$. Including this in the Maxwell equation that contains currents in statics then yields the second Maxwell equation of electrodynamics,
+A time-dependent electric field (here quantified by the field $\vec{D}$ that the free charges emit) must be accompanied by a change in the associated charge density $\pdv{\rho}{t}$, which implies there must be charges moving around, i.e.~a new current. Through some considerations involving the continuity equation, one arrives at the conclusion that the corresponding current density is nothing but $\pdv{t} \vec{D}$. Adding this to the currents that appear in the Maxwell equation in statics then yields the second Maxwell equation of electrodynamics,
 \begin{equation}\label{eq:maxwell_edyn_two_diff}
     \eqbox{
         \curl \vec{H} = \vec{j} + \pdv{\vec{D}}{t}
     } \, .
 \end{equation}
-\todo{integral form?}
+The corresponding integral form is \todo{verify this equation}
+\begin{equation}\label{eq:maxwell_edyn_two_int}
+    \eqbox{
+        \oint_C \vec{H} \cdot d\vec{x} = I + \oint_{S(C)} \pdv{\vec{D}}{t} \cdot d\vec{S} = I - \epsilon_0 \pdv[2]{t} \vec{B} + \oint_{S(C)} \pdv{\vec{\mathbb{P}}}{t} \cdot d\vec{S}
+    }
+\end{equation}
+where $S(C)$ is the area that is enclosed by $C$.
 
 
 \todo{treat electromotive force}
