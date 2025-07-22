@@ -70,7 +70,6 @@ In addition to serving as a definition of inertial frames, the first law implici
 
 
 
-
 		\subsection{Second Law}
 \begin{axiom}
 	\centering
@@ -98,10 +97,15 @@ The change in momentum in Eq.~\eqref{eq:newton_second_law} is also called \Def{i
 
 
 If $m = \text{const.}$, as is commonly the case, the second law simplifies to
-\begin{equation}
-	\vec{F} = m \vec{a} % = m \dv[2]{\vec{r} \todo{$\vec{x}$?}}{t}
+\begin{equation}\label{eq:newton_second_law_simple}
+	\eqbox{
+		\vec{F} = m \vec{a} % = m \dv[2]{\vec{r} \todo{$\vec{x}$?}}{t}
+	}
 \end{equation}
 which is perhaps the second most famous formula in physics (right after $E = m c^2$). In either form, the second law determines dynamics in the Newtonian physics.
+
+
+-> equivalent wording of this: total force on system must be equal to mass times acceleration, a quantity sometimes termed \Def{inertial force}. this is force needed to accelerate object of mass $m$, so Eq.~\eqref{eq:newton_second_law_simple} ($\equiv$ equality of total and inertial force) just expresses that the amount of inertial force used to get the particle into motion is nothing but the total force acting on the system -- forces are what causes the motion of a particle -> might sound trivial, but this is super important realization! I even struggle to formulate this properly, so the intellectual (in the end philosophical) achievement to realize this from scratch basically, just from observations of nature, cannot be understated (kudos to Newton).
 
 
 We have chosen to include the superposition principle in the formulation of the second law, which may not be really common. Note that this property is not trivial, although it feels very natural because forces are vectors and can thus be added together in a straightforward manner; still, a priori there is no obvious reasons why it is their linear combination that yields $\vec{F}_\mathrm{tot}$, instead of something like $\vec{F}_\mathrm{tot}^2 = \sum_k \vec{F}_k^2$. In the literature, there are many ways in which this is handled, some even choose to propose this as a fourth law of motion. No matter what is your preferred option, the most important takeaway is that the superposition principle is \emph{not} something that holds by definition, it is an empirical insight and should thus be considered (part of) an axiom.\\
@@ -118,7 +122,7 @@ We can see this as follows: by definition, velocities $\vec{v}, \vec{v}'$ measur
 	\vec{F} = m \vec{a} = m \vec{a}' = \vec{F}'
 	\, .
 \end{equation}
-This means Newton's second law looks exactly the same in both (and thus all) inertial frames -- the laws obtained for the same physical situation in each inertial frame are the same, and thus also the inferred physics. A very convenient consequence of this is that we as applicants of Newton's theory are free to choose the frame from which we treat problems, there is no preferred frame that we must use.\footnote{This is a manifestation of the relativity principle (the origins of which date back to Galileo Galilei; but it was Einstein who first recognized and explored the full consequences of it). It is also this point where cracks in the interpretation of absolute space begin to show. While it does not hinder us in any way, it is also not required to do physics -- then, what is it even good/required for?}
+This means Newton's second law looks exactly the same in both (and thus all) inertial frames -- the laws obtained for the same physical situation in each inertial frame are the same, and thus also the inferred physics (\Def{Galilei invariance}). A very convenient consequence of this is that we as applicants of Newton's theory are free to choose the frame from which we treat problems, there is no preferred frame that we must use.\footnote{This is a manifestation of the relativity principle (the origins of which date back to Galileo Galilei; but it was Einstein who first recognized and explored the full consequences of it). It is also this point where cracks in the interpretation of absolute space begin to show. While it does not hinder us in any way, it is also not required to do physics -- then, what is it even good/required for?}
 
 % -> while the values of $\vec{v}$ and $\vec{v}'_2'$ might differ and thus depend on the inertial frame we choose, the physics inferred from them does not (forces are what we observe \todo{but this is not decisive factor, is it? Is simply that interplay of chosen coordinates and forces acting in them is always equivalent}). This explains the preferred role of inertial frames when describing physics. Laws stated in inertial frames hold in all of them, while laws in non-inertial frames do not, whence it is often non-trivial to find out whether effects can be attributed to some physical process or to the frame/coordinates used to describe the situation (for example, the Coriolis force is needed to explain effects on Earth's surface, which is a rotating and thus non-inertial frame of reference).
 
@@ -214,30 +218,7 @@ important: momentum is conserved when no \emph{net} external force is present! T
 one of the big achievements (advancements?) of these axioms is that they give us a systematic way to write down an equation of motion, which determines how the current state of a system will evolve with time (mainly comes from Newton 2, but insights from other axioms help formulating these equations as well; e.g., trick with no net force can often only be applied due to Newton 3, etc.); granted, we need state of the system at some point for that, i.e.~an initial condition, but this is typically what we have: we ask questions like \enquote{what happens if I drop a ball}, which naturally includes knowledge of the initial setup of the experiment. Solving the equations of motion then gives us the final state of such an experiment, as well as state at every time between beginning and end (we are guaranteed that solution can be found, at least numerically, from the existence of procedures such as the Picard-Lindelöf iteration)
 
 
-
-		\subsection{Gravitation}
-% https://en.wikipedia.org/wiki/Newton%27s_law_of_universal_gravitation
-Along with the axioms that bear his name, Newton published his \Def{universal law of gravitation} in the Principia, another revolutionary accomplishment. It states that the gravitational force exerted by a body with mass $M$ onto another body of mass $m$ is
-\begin{equation}\label{eq:newton_gravitation_law}
-	\eqbox{
-		\vec{F} = - \frac{G M m}{\norm{\vec{x}_m - \vec{x}_M}^3} (\vec{x}_m - \vec{x}_M) \eqqcolon - \frac{G M m}{r^3} \vec{e}_r
-	}
-\end{equation}
-where $\vec{e}_r \hat{=} \vec{e}_{Mm}$ is the unit vector pointing from $M$ to $m$, and $r$ is the norm of this connecting vector (the reason that it is usually denotes by $\vec{e}_r$ or $\hat{r}$ is that $r$ is the distance of bodies from Earth's origin, a common application \todo{improve wording here}). This law naturally obeys the third law, since $\vec{e}_{mM} = - \vec{e}_{Mm}$.
-
-\todo{start using $\vec{r}$ to denote positions? Does have advantage that $\vec{x}$ could then be used to describe vectors of arbitrary kind}
-
--> $G$ is \Def{Newtonian constant of gravitation}, experimentally determined to be
-\begin{equation}
-	\eqbox{
-		G = 6.674 \cdot 10^{-11} \, \frac{\mathrm{m}^3}{\mathrm{kg} \, \mathrm{s}^2}
-	}
-\end{equation}
-
-
-\Def{gravitational field} is $\vec{g} = \frac{\vec{F}}{m}$ (\enquote{force per unit mass exerted on some particle that is subject to gravitational force from body of mass $M$})
-
-there is a gravitational potential $\Phi$ with $\vec{g} = - \grad \Phi$; it is easy to show that $\Phi = - \frac{M}{r}$; implies force is conservative, $\vec{F} = - \grad U$ with $U = m \Phi$
+\todo{take over some of the things from Thornton 2.4 (he has a recipe for solving equation of motion)}
 
 
 
@@ -297,6 +278,8 @@ mention that forces are assumed to have instantaneous effect; poses problem in r
 
 Now that we have defined forces, here are some of its properties that we should be aware of. Usually when talking about forces, we actually refer to force fields that vary in space and time, i.e.~$\vec{F} = \vec{F}(\vec{x}, t)$ (unlike for momentum, which is defined purely as function of time).
 
+-> if also function of velocity (to whatever power, if even at all), they are called \Def{retarding forces} -> see Thornton p.~58ff
+
 
 emphasize properties of a real force here, to be able to contrast it with fictitious forces later on
 
@@ -306,47 +289,92 @@ emphasize properties of a real force here, to be able to contrast it with fictit
 
 
 		\subsection{Energy}
-Another concept of fundamental importance in physics is \Def{energy}. What is a good definition of it? And why are we interested in it? This is another tough question and my answer to it is similar to what we noted about forces and momenta: It is a choice that we study this quantity, and this choice is (i) made for historical reasons, but (ii) also because they turn out to be convenient because we can ultimately derive things like conservation laws for them -- it simply turns out to be a good quantity to study the behavior of physical systems.
+Another concept of fundamental importance in physics is \Def{energy}. Why is that, why are we interested in it? And what is a good definition of it? This is another set of tough questions and my answer to it is similar to what we noted about forces and momenta: It is a choice that we study this quantity, and this choice is (i) made for historical reasons, but (ii) also because they turn out to be convenient because we can ultimately derive things like conservation laws for them -- it simply turns out to be a good quantity to study the behavior of physical systems.
 
-Now let's come to some definitions. The \Def[energy!kinetic]{kinetic energy} that a particle with momentum $\vec{p}$ and mass $m$ carries is
+At least though, its definition is not completely without motivation (I should rather say we try to motivate it; in the end, the previous paragraph is still true). Following \cite{Thornton_2003} Sec.~2.5, notice how $\vec{F} = 0$ can be restated as $\vec{F} \cdot \vec{s}$ at all times, for a constant but otherwise arbitrary vector $\vec{s}$. This implies
 \begin{equation}
-	\eqbox{
-		E_\mathrm{kin} = \frac{p^2}{2 m} = \frac{m v^2}{2}
-	} \, .
+	\dot{\vec{p}} \cdot \vec{s} = 0
+	\quad \Rightarrow \quad
+	\vec{p} \cdot \vec{s} = \text{const}
 \end{equation}
-
-
-But it is also possible to analyze and classify forces in terms of energy. Some forces have a \Def{potential} $V = V(\vec{x})$ that can be used to express them as
-\begin{equation}\label{eq:conservative_force}
-	\eqbox{
-		\vec{F} = - \grad V = \pdv{\vec{x}} V
-	} \, .
-\end{equation}
-This type of forces is called \Def[force!conservative]{conservative}, while non-conservative forces are also called \Def[force!dissipative]{dissipative}. $V$ has dimensions of energy and is also called \Def[energy!potential]{potential energy}. Conservative forces play a special role in how they interact with the energy of a system. This is quantifies by the \Def{work} done by a force on a particle moving on a path between two positions $\vec{x}_1, \vec{x}_2$,
+since we required $\vec{s}$ to be constant in time. Momentum is constant in directions $\vec{s}$ in which the force vanishes. This property motivates us to study more systematically how the product between force and displacement evolves along arbitrary paths $\vec{\gamma}(t)$. For this, we consider infinitesimal displacements and integrate them up (so that we can drop requirement $\vec{F} \cdot \vec{x} = 0$ on $\vec{x}$), i.e.~the path integral
 \begin{equation}\label{eq:work}
 	\eqbox{
-		W = \int_{\vec{x}_1}^{\vec{x}_2} \vec{F} \cdot d\vec{x} = \int_{t_1}^{t_2} \vec{F} \cdot \dot{\vec{x}} \, dt
-	}
-	\quad \Leftrightarrow \quad
+		W = \int_{\vec{\gamma}} \vec{F} \cdot d\vec{x}
+		% = \int_{\vec{r}_1}^{\vec{r}_2} \vec{F} \cdot d\vec{x}
+		= \int_{t_1}^{t_2} \vec{F} \cdot \vec{v} \, dt
+	} \, .
+\end{equation}
+The value of this integral is called the \Def{work} done between two positions $\vec{r}_1, \vec{r}_2$, which are connected by $\vec{\gamma}$.\footnote{Please note that the work does, in general, depend on the path $\vec{\gamma}$ taken between the positions. If this is not the case, then this is a very special property of the force $\vec{F}$ (which is studied later in this section, in the bit on conservative forces).} Equivalently, we can integrate the product between force and velocity $\vec{v} = \dv{\vec{\gamma}}{t}$ between $t_1$ and $t_2$ (the connection between these times and the positions is $\vec{\gamma}(t_1) = \vec{r}_1, \vec{\gamma}(t_2) = \vec{r}_2$). This product, i.e.~the integrand in the second equality,
+\begin{equation}\label{eq:power}
 	\eqbox{
 		\dv{W}{t} = \vec{F} \cdot \vec{v}
 	}
 \end{equation}
--> subtracted when it takes energy away from particle
+is called \Def{power} (it is sometimes denoted by $P$, not to be confused with ). It represents the work done in the infinitesimal time interval $dt$.
 
--> implicit reference point for $V$ is $\infty$, in the sense that $V = \int_r^\infty F(r')\, dr'$; but we are free to choose any other one, as well (is just basically an integration constant)
+-> Wikipedia definition: work = energy transferred to or from an object via the application of a force along a displacement
+
+-> positive work if $\vec{F} \parallel d\vec{x}$, negative work if $\vec{F} \upharpoonleft \! \downharpoonright d\vec{x}$
+
+The connection between $W$ and the quantity we wish to study in this section, the energy $E$, is that work done on a particle is converted into energy of the particle, i.e.~this is how energy of particle is \enquote{created}. In other words, energy is the ability/capacity of a physical system to do work (which can be used to move against forces acting on the system).\\
+
+In Newtonian mechanics, it was usually our goal to find the forces of a physical setup to equate them with the inertial force $m \vec{a}$ (following Newton's second law). Thus our first application of Eq.~\eqref{eq:work} is to compute the work that has to be done on a particle against the inertial force (i.e.~the work that needs to be done to accelerate it). For that, we first calculate just the integrand of Eq.~\eqref{eq:work},
+\begin{equation}
+	dW = \vec{F} \cdot d\vec{x} = m \vec{a} \cdot \vec{v} \, dt
+	\, .
+\end{equation}
+The anti-derivative of this is
+\begin{equation}
+	\eqbox{
+		T \coloneqq \frac{m v^2}{2} = \frac{p^2}{2m}
+	} \, .
+\end{equation}
+Since this is the work that has to be done to get the particle in motion, this energy $T$ is termed \Def[energy!kinetic]{kinetic energy} and sometimes denoted by $E_\mathrm{kin}$. (Notice that the explicit value of $T$ depends on the chosen reference frame since it involves the velocity $v$. Similar to the frame dependencies encountered before, this is fine, because the physics inferred from it is still the same.) The work done on a path against the inertial force can then be written as
+\begin{equation}
+	\eqbox{
+		W = T_2 - T_1 = T(t_2) - T(t_1)
+	} \, .
+\end{equation}
+Consequently, an equivalent form of the second law can be stated as follows: any work done by a force on a particle is work done against the inertial force, meaning it is converted into kinetic energy (and an analogous statement is true for work done by the particle against the force, whence kinetic energy is lost). In equation-form, this means
+\begin{equation}\label{eq:energy_form_newton_2}
+	\eqbox{
+		T_2 - T_1 = \int \vec{F} \cdot d\vec{x}
+	} \, .
+\end{equation}
+This is a direct implication on energy from Newton's second law. But it opens the way to an alternative treatment of systems, not in terms of forces, but in terms of energy. We will realize this only over the course of the remaining chapter,\footnote{And also the other chapters. In fact, in Chap.~\ref{chap:ana_mech} discusses physical theories that do mechanics solely in terms of energies, without ever looking at forces (\enquote{Lagrangian, Hamiltonian physics}).} where energy will develop an important meaning in itself. For now, what is most useful for us that we have found an equivalent way to formulate the dynamics of a system
+
+-> having a second formulation is nice because we might sometimes know work and/or energy, meaning we can get equation of motion from there; $dW = \vec{F} \cdot d\vec{x}$ is just how we can translate from force to energy, to motivate basically, right?
+
+-> basically, work is our tool to translate from forces to energy
 
 
--> \todo{figure following out:} is it even possible to specify potential energy for non-conservative forces? I guess so, via work-integral. But there is no general way probably? Second hypothesis would be that we can simply not relate dissipative force and potential energy term in energy so easily -> this is probably correct, actually (matches first observation presented here); plus potential energy is probably function of more than just position (also velocity, time, for example)
+\todo{check if these statements are all is actually true or a little too strong sometimes}
 
 
-By some (quite beautiful) mathematical theorem, the property we noted as a definition of conservative forces implies
+\begin{ex}
+	treat how we can solve 1D motion completely? Using these weird integrals? would serve as great proof of all the claims we just made
+
+	-> ah, no; we need potential energy for that; but then do after this was introduced
+
+
+	-> here we see the power of the energy approach (no pun intended)
+\end{ex}
+
+
+Energy (work) is also convenient because it allows a useful classification of forces. Some of them have a \Def{potential} $V = V(\vec{x}, t)$ (though it often has no time-dependence; in some cases, $V$ also depends on $\dot{\vec{x}}$) that can be used to express them as
+\begin{equation}\label{eq:conservative_force}
+	\eqbox{
+		\vec{F} = - \grad V = - \pdv{\vec{x}} V
+	} \, .
+\end{equation}
+This type of forces is called \Def[force!conservative]{conservative}, while non-conservative forces are also called \Def[force!dissipative]{dissipative}. $V$ has dimensions of energy and is also called \Def[energy!potential]{potential energy}. Conservative forces play a special role in how they interact with the energy of a system. By some (quite beautiful) mathematical theorem, the property we noted as a definition of conservative forces implies
 \begin{equation}\label{eq:work_conservative_force}
 	\eqbox{
-		W = \int \vec{F} \cdot d\vec{s} = \int_{s_0}^{s_1} - \nabla V \cdot d\vec{s} = - [V(s_1) - V(s_0)] = V(s_0) - V(s_1)
+		W = \int \vec{F} \cdot d\vec{s} = \int_{\vec{r}_1}^{\vec{r}_2} - \nabla V \cdot d\vec{s} = - [V(\vec{r}_2) - V(\vec{r}_1)] = V(\vec{r}_1) - V(\vec{r}_2)
 	} \, ,
 \end{equation}
-work done by them is path-independent; as a bonus, it may be expressed as a potential difference. In particular, work done on a closed path vanishes,
+the work done by them upon a transport between two locations $\vec{r}_1, \vec{r}_2$ is path-independent (note that we assume the net energy between the two points is assumed to remain constant). As a bonus, the work may be expressed as a potential difference. In particular, work done on a closed path vanishes,
 \begin{equation}\label{eq:work_conservative_force_closed_path}
 	\eqbox{
 		W = \oint \vec{F} \cdot d\vec{x} = 0
@@ -360,16 +388,47 @@ Both Eq.~\eqref{eq:work_conservative_force} and Eq.~\eqref{eq:work_conservative_
 \end{equation}
 (which is due to the same beautiful theorem as before; you should really go read up on Stokes' theorem if you don't know it yet).
 
-For dissipative forces like friction, all of these characteristics are not true. Energy lost on closed path gets turned into heat (so, of course, it is still somewhat conserved, but does not go into the motion of the system that we are primarily studying in this chapter), \enquote{mechanical energy = kinetic + potential energy} is not true anymore.\\
 
 
-% -> work is path-dependent in general; if not, we have special type of force, called \Def{conservative force} and one of the characteristics of them is that they have a potential $V$ -> I also like this motivation, but right now things are kind of nicer in order
+-> interesting consequence for conservative force: then from Eq.~\eqref{eq:energy_form_newton_2} we have $T_2 - T_1 = - (V_2 - V_1)$ no matter of the path, i.e.~$T_2 + V_2 = T_1 + V_1$; in other words, the total energy is conserved! -> hmmm, how does $V$ not explicitly dependent on time enter here? (Thornton statement: total energy is conserved when force is conservative and potential time-independent) -> ah, for this quantity to really earn the label \enquote{conserved}, we have to make sure this holds independently of the times $t_1, t_2$ involved here, and this amounts to demanding the potential is not explicitly time-dependent, $\pdv{V}{t} = 0$ (is equivalent to $\pdv{E}{t} = 0$ since $\pdv{T}{t} = 0$)
 
 
-% -> nice motivation: say we have particle moving at velocity $v$; what is change in kinetic energy when an external force now acts on particle? Well, should involve $\vec{F} \cdot \vec{v}$ somehow -- turns out, that's already it! This is work -> not sure this is proper motivation for correct units and so on
+-> For dissipative forces like friction, all of these characteristics are not true. Energy lost on closed path gets turned into heat (so, of course, it is still somewhat conserved, but does not go into the motion of the system that we are primarily studying in this chapter), \enquote{mechanical energy = kinetic + potential energy} is not true anymore. -> energy lost due to them is just $\dv{E}{t} = \dv{W}{t} = \vec{F}_\mathrm{dissip} \cdot \vec{v}$ ($\vec{F}_\mathrm{dissip}$ is sum of all dissipative forces); in other words, we have add more energy sources to $E$ to have conservation of it ($T + V$ is often called \Def{mechanical energy})
 
 
-Now some notes on this definition of work: we see that a force can do no work when acting on a particle, which is precisely the case when $\vec{F} \perp \vec{v}$; however, that does not mean the force has no effect, its interaction simply does not lead to a change in the speed as the magnitude of $\vec{v}$, only in its direction. Moreover, the \enquote{beautiful theorem} used to relate work and potential could very well be applied if we had $\vec{F} = \grad V$ as well; the minus sign in this definition is purely conventional, and in the chosen convention, work is gained from a loss of potential energy. As far as I can see, this is made for consistency with the behavior inferred from kinetic energy, where no motion means no energy. In a similar fashion, the minus sign means that no force is acting when $V$ is minimal (instead of maximal). This is actually a profound insight: Newton's laws dictate that $\vec{F} = 0$ corresponds to particles maintaining their state of motion, so in particular they remain at rest if they are initially. From what we just noticed, an equivalent way to say this is that the particle is in equilibrium when its energy is minimized. Moreover, we see that $\vec{F} = 0 \Rightarrow \dv{E}{t}$, so the total energy is also conserved if a system is in equilibrium, no matter if the equilibrium is static or dynamic.
+
+
+-> \todo{make one explicit example -> or say we will see a plethora of examples where this principle is applied} if we have particle that has some initial velocity (and thus some initial kinetic energy), then work $\Delta W$ done by a force like gravity is added to energy ($\Delta E = \Delta T = \Delta W$) if particle is falling, while it must be subtracted if the particle is doing work against the force (e.g., if it is shot upwards; then $\Delta E = \Delta T = - \Delta W$)
+
+-> example: if we have raise particle against some gravity and thus given it energy $m g h$ (meaning we did positive work $W > 0$ on the particle, by acting against gravity), then particle can give equal amount of work to force field (i.e.~it can fall down again, resulting in loss of energy and thus negative work done \emph{on the particle})
+
+
+
+Now a collection of notes on the definitions in this chapter, which did not fit in the main body:
+\begin{itemize}
+	\item You might have been introduced to kinetic and potential energy as separate quantities. But when approaching them in the way we did, we see that they can actually be derived in a unified manner, namely using work.
+	
+
+	\item Implicit reference point if we only quote single values of $V(\vec{x})$ (which is way that potential is usually quoted) is $\infty$, in the sense that $V = \int_r^\infty F(\vec{x}')\, d\vec{x}'$; but we are free to choose any other one, as well (is just basically an integration constant)
+
+	-> note that potential energy has no absolute meaning, only changes in potential matter (i.e.~only values relative to other values)
+
+
+	\item We see that a force can do no work when acting on a particle, which is precisely the case when $\vec{F} \perp \vec{v}$; however, that does not mean the force has no effect, its interaction simply does not lead to a change in the speed as the magnitude of $\vec{v}$, only in its direction. Moreover, the \enquote{beautiful theorem} used to relate work and potential could very well be applied if we had $\vec{F} = \grad V$ as well; the minus sign in this definition is purely conventional, and in the chosen convention, work is gained from a loss of potential energy. As far as I can see, this is made for consistency with the behavior inferred from kinetic energy, where no motion means no energy. In a similar fashion, the minus sign means that no force is acting when $V$ is minimal (instead of maximal). This is actually a profound insight: Newton's laws dictate that $\vec{F} = 0$ corresponds to particles maintaining their state of motion, so in particular they remain at rest if they are initially. From what we just noticed, an equivalent way to say this is that the particle is in equilibrium when its energy is minimized. Moreover, we see that $\vec{F} = 0 \Rightarrow \dv{E}{t}$, so the total energy is also conserved if a system is in equilibrium, no matter if the equilibrium is static or dynamic.
+
+
+	\item for non-conservative (= dissipative) forces, we cannot define potential energy via path integral -> so idea of application is less general, more dependent on application; for instance, it is common to find the power $\dv{W}{t} = \vec{F} \cdot \vec{v}$ (with \emph{total} force $\vec{F}$) and then integrate this over time -> work done on the system is always equal to change in total energy (can be negative!),
+	\begin{equation}
+		\eqbox{
+			\Delta E = W
+		}
+	\end{equation}
+	no matter how $E$ is composed (i.e.~independently if it consists only of $T$, or if potential is also there, or even if lost)
+
+	-> often we can determine $dW$ in some way and then integrate this up
+
+	-> bottom line: rely more on intuition here, when which definition should be applied, than strict definition; anything that gives us an equation of motion is sufficient in the end, no matter from which approach it initially comes
+\end{itemize}
 
 
 This insight is a first indication that many laws and ways to think about system can be formulated both in terms of forces and energies. While both formulations are equivalent in terms of the physics they imply, depending on the situation it might be much easier to formulate one of them. Hence it is always good to think about which approach seems more promising. We will demonstrate this in an example.
@@ -406,10 +465,38 @@ therefore, we can circumvent solving equations of motion if energy is conserved!
 
 
 
+		\subsection{Gravitation}
+% https://en.wikipedia.org/wiki/Newton%27s_law_of_universal_gravitation
+Along with the axioms that bear his name, Newton published his \Def{universal law of gravitation} in the Principia, another revolutionary accomplishment. It states that the gravitational force exerted by a body with mass $M$ onto another body of mass $m$ is
+\begin{equation}\label{eq:newton_gravitation_law}
+	\eqbox{
+		\vec{F} = - \frac{G M m}{\norm{\vec{x}_m - \vec{x}_M}^3} (\vec{x}_m - \vec{x}_M) \eqqcolon - \frac{G M m}{r^3} \vec{e}_r
+	}
+\end{equation}
+where $\vec{e}_r \hat{=} \vec{e}_{Mm}$ is the unit vector pointing from $M$ to $m$, and $r$ is the norm of this connecting vector (the reason that it is usually denotes by $\vec{e}_r$ or $\hat{r}$ is that $r$ is the distance of bodies from Earth's origin, a common application \todo{improve wording here}). This law naturally obeys the third law, since $\vec{e}_{mM} = - \vec{e}_{Mm}$.
+
+\todo{start using $\vec{r}$ to denote positions? Does have advantage that $\vec{x}$ could then be used to describe vectors of arbitrary kind}
+
+-> $G$ is \Def{Newtonian constant of gravitation}, experimentally determined to be
+\begin{equation}
+	\eqbox{
+		G = 6.674 \cdot 10^{-11} \, \frac{\mathrm{m}^3}{\mathrm{kg} \, \mathrm{s}^2}
+	}
+\end{equation}
+
+
+\Def{gravitational field} is $\vec{g} = \frac{\vec{F}}{m}$ (\enquote{force per unit mass exerted on some particle that is subject to gravitational force from body of mass $M$})
+
+there is a gravitational potential $\Phi$ with $\vec{g} = - \grad \Phi$; it is easy to show that $\Phi = - \frac{M}{r}$; implies force is conservative, $\vec{F} = - \grad U$ with $U = m \Phi$
+
+
+
 	\section{(Harmonic) Oscillations}
 back to one of the absolutely fundamental systems in physics, the harmonic oscillator
 
 first, let us motivate why we should even deal with it -- turns out, plays pivotal role in physics!
+
+more super nice plots: \url{https://tikz.net/dynamics_oscillator/}
 
 
 
@@ -544,13 +631,13 @@ general idea: eliminate dependence on time from solutions, in most cases by rela
 
 	% \includepdf[pages={1-4},nup=2x2]{pictures/dynamics_phaseportrait/dynamics_phaseportrait.pdf}
 
-	\subfloat[Free harmonic oscillator (initial condition indicated as dark red point)]{\includegraphics[width=0.42\textwidth,page=1]{pictures/dynamics_phaseportrait/dynamics_phaseportrait.pdf}}%
-	% 
-	\subfloat[Two free harmonic oscillators with different periods]{\includegraphics[width=0.42\textwidth,page=2]{pictures/dynamics_phaseportrait/dynamics_phaseportrait.pdf}}
+	\subfloat[Free harmonic oscillator (initial condition indicated as dark red point)]{\includegraphics[width=0.4\textwidth,page=1]{pictures/dynamics_phaseportrait/dynamics_phaseportrait.pdf}}%
+	\hspace*{0.1\textwidth}%
+	\subfloat[Two free harmonic oscillators with different periods]{\includegraphics[width=0.4\textwidth,page=2]{pictures/dynamics_phaseportrait/dynamics_phaseportrait.pdf}}
 
-	\subfloat[Damped harmonic oscillator]{\includegraphics[width=0.42\textwidth,page=3]{pictures/dynamics_phaseportrait/dynamics_phaseportrait.pdf}}%
-	% 
-	\subfloat[Pendulum]{\includegraphics[width=0.42\textwidth,page=4]{pictures/dynamics_phaseportrait/dynamics_phaseportrait.pdf}}
+	\subfloat[Damped harmonic oscillator]{\includegraphics[width=0.4\textwidth,page=3]{pictures/dynamics_phaseportrait/dynamics_phaseportrait.pdf}}%
+	\hspace*{0.1\textwidth}%
+	\subfloat[Pendulum]{\includegraphics[width=0.5\textwidth,page=4]{pictures/dynamics_phaseportrait/dynamics_phaseportrait.pdf}}
 
 	\caption{Phase space portraits. Taken from \url{https://tikz.net/dynamics_phaseportrait/}.}
 	\label{fig:harm_osc_phase_space}
@@ -876,6 +963,8 @@ The assignment of these terms to the total \enquote{saves} Newton's second law b
 Make no mistake, although terms like \enquote{pseudo} and \enquote{fictitious} suggest that they are something imaginary, pseudo-forces are a real phenomenon that observers in non-inertial frames experience; it is just that we should try to avoid the term \enquote{force} for this phenomenon. (We will see plenty examples in the rest of the section.) In fact, these pseudo-forces are how an observer can detect whether his rest frame is accelerating or not. A profound insight from this is that acceleration is an absolute quantity in Newtonian physics.\footnote{Once again, this is not true anymore in a more modern understanding of the universe, the theory of relativity. You may, however, be surprised to hear that this interpretation does not change in special relativity. It is only in general relativity that gravity becomes equivalent to acceleration, so that acceleration loses its role as an absolute quantity.}
 
 
+-> therefore, we see that it is by no means impossible to do physics in a non-inertial frame of reference and there is no reason to be afraid; we just have to be a little more careful when writing out equations
+
 
 % Here is an important note, in the vein of how \cite{Thorne_2017} approaches things: $\vec{x}$ is a purely geometric quantity that describes a vector in Euclidean space. In other words, while we can choose to express in the primed or unprimed coordinate system, it has a clear meaning \emph{without any} coordinate system. The same is true for the velocity $\vec{v} = \dv{\vec{x}}{t}$ and acceleration $\vec{a} = \dv[2]{\vec{x}}{t}$.
 
@@ -997,6 +1086,7 @@ Next, we turn to the case where $\Sigma'$ rotates with respect to $\Sigma$ with 
 \begin{equation}
     \dv{\vec{x'}}{t} = \vec{\omega} \cross \vec{x'} \, .
 \end{equation}
+\todo{mention how it can also be written as linear transformation using a skew-symmetric matrix? Cf.~\url{https://en.wikipedia.org/wiki/Angular_velocity_tensor}}
 Using this relation for the coordinate axes $\vec{e}'_i$, Eq.~\eqref{eq:pseudo_force_general} turns into
 \begin{align}
 	\vec{F}_\mathrm{fict} &= - m \sum_k 2 \dv{x'^k}{t} \vec{\omega} \cross \unitvec{k'} + x'^k \dv{t} \qty(\vec{\omega} \cross \unitvec{k'})
@@ -1090,47 +1180,40 @@ Now, let us come back to expression \eqref{eq:pseudo_force_rot_frame} and analyz
 % - https://en.wikipedia.org/wiki/Torque
 % 
 % 
+			\subsection{Definition Of Angular Momentum}
 The preceding discussion of rotating frames of reference showed that this type/state of motion is not properly described by just the momentum $\vec{p}$. One indicator of this is the occurrence of pseudo-forces, which cause an acceleration even in the absence of forces and accordingly, a change in momentum.
 
-One way to look at this is to argue that $\vec{p}$ represents linear momentum, which is best suited to describe motion into constant direction. If a rotational component is present, we need a new notion. In analogy to $\vec{p}$, this new notion is called \Def{angular momentum} and denoted by $\vec{L}$. For the sake of definition, it makes sense to focus on the situation in which the motion is of purely rotational nature, and the previous section showed that the pivotal factor controlling a rotation is the angular velocity $\vec{\omega}$. It also makes sense to have an \emph{angular momentum} being proportional to \emph{(orbital) angular velocity},
+One way to look at this is to argue that $\vec{p}$ represents \Def{linear momentum}, which is best suited to describe motion into constant direction. If a rotational component is present, a new notion $\vec{L}$ might be more beneficial. In analogy to $\vec{p}$, this new notion is called \Def{angular momentum}. For the sake of definition, it makes sense to focus on the situation in which the motion is of purely rotational nature, and the previous section showed that the pivotal factor controlling a rotation is the angular velocity $\vec{\omega}$. It also makes sense to have an \emph{angular momentum} being proportional to \emph{(orbital) angular velocity},
 \begin{equation}\label{eq:angular_momentum_1}
 	\eqbox{
 		\vec{L} = I \vec{\omega}
 	} \, .
 \end{equation}
-What we are yet to determine is the \Def{moment of inertia} $I$, which is the analogue of inertia for the linear momentum. Continuing with the thought process of this being \enquote{how much an object resists against rotation} \todo{improve this}, it should not be surprising that $I \propto m$.
-But also depends on distance from origin; and on the circumference
+What we are yet to determine is the \Def{moment of inertia} $I$, which is the analogue of inertia for the linear momentum. Continuing with the thought process of this being \enquote{how much an object resists against rotation} \todo{improve this}, it should not be surprising that $I \propto m$. But there must also be a dependency on the particle's distance from origin, since keeping up the same angular velocity farther away from it requires higher linear velocities and thus more energy (since farther out, a larger circumference is covered by the same angular element\footnote{Note that this only explains a factor of $r$, not $r^2$. So there is more going into this, I just want to give an easy reason why $r$ must appear in $I$.}). Indeed, for a point particle
+\begin{equation}
+	\eqbox{
+		I = m r^2
+	} \, .
+\end{equation}
+% -> my argument: inertia upon rotation must increase as we increase distance between object and origin (this is factor of $r$); then also we have to account for increase in circumference covered if we keep angular velocity fixed -> not sure if this is repetitive, I mean it does get harder to rotate stuff further away at same velocity due to increase in same circumference swept out, right? Meaning we potentially account for this twice here -> I guess we could argue via area swept out during this, but I do not see how this can be related to inertia
+Notice how this means the values for $\vec{L}$ intrinsically depend on the chosen coordinate origin, as it involves distance from it and angular velocity around it. Both of these quantities are always relative to the specified origin. (For linear momentum, we had a similar phenomenon. It can vary between different inertial frames, depending on the relative velocity between them.)
 
-
--> equivalent viewpoint: constant direction means $\vec{r} \parallel \vec{v}$; we thus look at relative orientation of these two vectors; but not do not to this using their angle $\propto \vec{r} \cdot \vec{v}$, but by looking at the plane that these two vectors span; this may be quantified by the normal vector of this plane, $\vec{r} \cross \vec{v}$ (which forms a vectorial quantity, not a scalar one like the angle; remember, Newtonian theory is a theory of mostly vectors); we then also add a factor of $m$ to account for the inertia of the object we study, to turn this into something like a momentum; this new notion is termed \Def{angular momentum}
-
-
-
--> makes sense for angular momentum to have angular velocity; then define with proper notion of inertia and we're done; is not just mass now because also depends on distance from origin (quadratically; I guess we can argue via formula for circumference of circle, something like rotating with same angular velocity means sweeping out same part of this, i.e. we rescale by radius squared?)
-
--> my argument: inertia upon rotation must increase as we increase distance between object and origin (this is factor of $r$); then also we have to account for increase in circumference covered if we keep angular velocity fixed -> not sure if this is repetitive, I mean it does get harder to rotate stuff further away at same velocity due to increase in same circumference swept out, right? Meaning we potentially account for this twice here -> I guess we could argue via area swept out during this, but I do not see how this can be related to inertia
-
--> note that $I = m r^2$ for case of test mass, i.e.~point particle, that we still look at!
-
-\todo{finish intuitive interpretation}
 
 If you find this intuitive motivation for the expression of $I$ (and $\vec{L}$ in general) unsatisfactory, then the following remark might be helpful for you. This particular expression is of interest because it turns out to be what is conserved in physical setups that have rotational invariance. Akin to linear momentum, which is conserved when translational symmetry is present (meaning I can move test mass whereever I want in space and get same results; not fulfilled if there are objects mediating forces, such as a planet or charges, since these have particular position, so force would change if we were to move test mass)
-
-
 motivation why this particular expression is interesting: we had seen that momentum is very useful quantity when studying motion of objects, partly because it is conserved in the absence of external forces (and more generally because Newton 2 involves it). well, it turns out that another such quantity exists, $\vec{x} \cross \vec{p}$. is especially useful when studying rotations, which motivates name angular momentum.\footnote{For the advanced reader: this is related to what is arguably one of the most important (and beautiful) theorems in physics, \Def{Noether's theorem}.}
 
-important note: angular momentum depends on coordinates because it involves position vector, which is measured relative to origin! momentum (also, to distinguish from angular momentum: linear momentum) can also depend on the frame of reference, but this is different from depending on the chosen coordinate frame (for frame of reference, the origin is not so important)
+
+% -> idea: define in differential manner as (something), i.e.~$d\vec{L} = m r^2 d\phi$ -> hmm idea was that $r d\phi$ is infinitesimal rotation step, but don't think this helps us at the moment...
 
 
-It made sense to define angular momentum in the way we did, but in many textbooks you might encounter another expression for it. We can recover this by noticing that the orbital angular velocity of a test particle about the origin (measured counter-clockwise) is
+
+		\subsection{Equivalent Expressions For Angular Momentum}
+It made sense to define angular momentum in the way we did, but in many textbooks you might encounter another expression for it. We can recover this by noticing that the orbital angular velocity of a test particle about the origin (measured counter-clockwise, like azimuthal angle in spherical coordinates) is\footnote{This is \emph{not} inconsistent with $\vec{v} = \vec{\omega} \cross \vec{r}$, which we have seen before when treating non-inertial frames. After all, the three vectors involved here are not orthogonal, so putting them in different order into cross products will produce different outcomes. $\vec{\omega} = \frac{\vec{r} \cross \vec{v}}{r^2}$ calculates the rotational component of $\vec{r}$, i.e.~the one $\perp \vec{r}$. In particular, it works in cases where a linear component $\vec{v} \parallel \vec{r}$ is present, since this component is naturally projected out by the cross product. $\vec{v} = \vec{\omega} \cross \vec{r}$, on the other hand, calculates the instantaneous velocity induced at $\vec{r}$ by a rotation with angular velocity $\vec{\omega}$. These are two very different scopes for eacc formula and thus different expressions should not surprise us.}
 \begin{equation}
-	\vec{\omega} = \frac{\vec{r} \cross \vec{v}}{r^2} \, .
+	\eqbox{
+		\vec{\omega} = \frac{\vec{r} \cross \vec{v}}{r^2}
+	} \, .
 \end{equation}
-% (This is \emph{not} inconsistent with $\vec{v} = \vec{\omega} \cross \vec{r}$, which we have seen before when treating non-inertial frames. After all, the three vectors involved here are not orthogonal, so putting them in different order into cross products will produce different outcomes; for instance, $\vec{r} \cross \vec{v} = \vec{r} \cross (\vec{v}_\parallel + \vec{v}_\perp) = \vec{r} \cross \vec{v}_\perp$. $\perp$ is meant with respect to the plane of angular displacement, i.e.~the plane in which $\vec{r}$ is displaced in the instant of time $dt$; in other words, parallel to $\omega$. By contrast, $\vec{\omega} \cross \vec{r} = \vec{v}_\parallel$ extracts the component in the plane of angular displacement.)
-(This is \emph{not} inconsistent with $\vec{v} = \vec{\omega} \cross \vec{r}$, which we have seen before when treating non-inertial frames. After all, the three vectors involved here are not orthogonal, so putting them in different order into cross products will produce different outcomes. Thinking about the simple example of a circular motion for instance, $\vec{r} \cross \vec{v} = \vec{r} \cross (\vec{v}_\parallel + \vec{v}_\perp) = \vec{r} \cross \vec{v}_\perp$ only uses the component of $\vec{v}$ tangential to the circle ($\perp$ to $\vec{r}$). By contrast, $\vec{\omega} \cross \vec{r} = \vec{v}_\parallel$ extracts the component in the plane of angular displacement.)
-
--> this equation calculates the rotational component of $\vec{v}$ (there can be a linear motion component $\parallel \vec{r}$ as well; but this we do not want for rotational analysis, and luckily is naturally projected out by cross product); $\vec{v} = \vec{\omega} \cross \vec{r}$ calculates the instantaneous velocity induced at $\vec{r}$ by a rotation with angular velocity $\vec{\omega}$ these are different things and thus different expressions should not surprise us
-
 This yields
 \begin{equation}\label{eq:angular_momentum_2}
     \eqbox{
@@ -1138,34 +1221,42 @@ This yields
 	} \, .
 \end{equation}
 
+-> equivalent viewpoint (for the other definition): constant direction means $\vec{r} \parallel \vec{v}$; we thus look at relative orientation of these two vectors; but not do not to this using their angle $\propto \vec{r} \cdot \vec{v}$, but by looking at the plane that these two vectors span; this may be quantified by the normal vector of this plane, $\vec{r} \cross \vec{v}$ (which forms a vectorial quantity, not a scalar one like the angle; remember, Newtonian theory is a theory of mostly vectors); we then also add a factor of $m$ to account for the inertia of the object we study, to turn this into something like a momentum; this new notion is termed \Def{angular momentum}
 
 
-we can see how it fulfills intended usage by rewriting in polar (spherical?) coordinates:
-\begin{equation}
-    \vec{L} = m r^2 \dots \vec{e}_L \todo{can this be done?}
-\end{equation}
-and in case the motion occurs in a 2D-plane, choosing this orbital plane to be the $xy$-plane yields
-\begin{equation}
-    % \vec{L} = m r^2 \dv{\phi}{t} \vec{e}_z \todo{can this be done?}
-    \vec{L} = - m r^2 \dv{\phi}{t} \vec{e}_\theta
+Another way to see how this definition of angular momentum is equivalent to Eq.~\eqref{eq:angular_momentum_1} is rewriting it in spherical coordinates (using calculations we do in the appendix, cf.~Eq.~\eqref{eq:spherical_coords_deriv}):
+\begin{align}
+	\eqbox{\vec{L}}
+	&= m \vec{r} \cross \vec{v}
+	= m r \unitvec{r} \cross \dv{t} \vec{r}
+	\notag\\
+	&= m r \unitvec{r} \cross \dv{t} \qty[\unitvec{r} \dv{r}{t} + r \unitvec{\theta} \dv{\theta}{t} + r \sin(\theta) \unitvec{\phi} \dv{\phi}{t}]
+	\notag\\
+	&= m r \qty[\dv{r}{t} \unitvec{r} \cross \unitvec{r} + r \dv{\theta}{t} \unitvec{r} \cross \unitvec{\theta} + r \sin(\theta) \dv{\phi}{t} \unitvec{r} \cross \unitvec{\phi}]
+	\notag\\
+	&\eqbox{
+		= m r^2 \qty[\dv{\theta}{t} \vec{e}_\phi - \sin(\theta) \dv{\phi}{t} \vec{e}_\theta]
+	}
 	\, .
-\end{equation}
-more generally (from Wikipedia):
+\end{align}
+If the motion occurs in a plane, we may choose coordinates so that this is the $xy$-plane where $\theta = \pi/2$. This yields
 \begin{equation}
-	\vec{L} = m \vec{r} \cross \vec{v} = m r^2 (\dv{\theta}{t} \vec{e}_\phi - \dv{\phi}{t} \vec{e}_\theta)
-	\, .
+	\eqbox{
+		L = - m r^2 \dv{\phi}{t}
+	}
 \end{equation}
-
-in 2D, i.e.~in polar coordinates,
+which is the (absolute value of) the angular momentum in polar coordinates. If we choose cylindrical coordinates for the ascribed situation (to also be able to assign a direction to the angular momentum),
 \begin{equation}
-	L = m r^2 \dv{\phi}{t}
+	\eqbox{
+		\vec{L} = - m r^2 \dv{\phi}{t} \unitvec{z}
+	} \, .
 \end{equation}
+As we can see, in both cases the angular momentum is naturally proportional to how angles change in time (with no radial component), which is what the initial definition using $\omega = \dv{\phi}{t}$ quantified.
 
 
-\hrule
 
-
-We have seen a lot of similarities between momentum and angular momentum, i.e.~motion with and without rotation. However, we have not yet seen the corresponding equation of motion. To obtain it, we must calculate the rate of change in angular momentum is called \Def{torque} (also: \Def[impulse!angular]{angular impulse}):
+		\subsection{Changes In Angular Momentum}
+We have seen a lot of similarities between momentum and angular momentum, i.e.~motion with and without rotation. However, we have not yet seen the corresponding equation of motion. To obtain it, we must calculate the rate of change in angular momentum is called \Def{torque} (also: \Def[impulse!angular]{angular impulse} or \Def{moment of force}):
 \begin{equation}
     \eqbox{\vec{M}} \coloneqq \dv{t} \vec{L} = \dv{\vec{r}}{t} \cross m \vec{v} + \vec{r} \cross \dv{\vec{p}}{t} = m \underbrace{\vec{v} \cross \vec{v}}_{= 0} + \vec{r} \cross \dv{\vec{p}}{t} \eqbox{= \vec{r} \cross \vec{F}} \, .
 \end{equation}
@@ -1176,23 +1267,40 @@ This is the rotational analogue of Newton's second law.
 Equivalently, we can express this angular impulse as a change in angular rather than linear momentum, which is most easily done by differentiating the initial definition of angular momentum:
 \begin{align}
 	\vec{M} = \dv{I \vec{\omega}}{t} = \dv{I}{t} \vec{\omega} + I \dv{\vec{\omega}}{t}
-	= \qty(\dv{m}{t} r^2 + 2 m r \dv{r}{t}) \vec{\omega} + I \dv{\vec{\omega}}{t}
+	%\underset{\text{point particle}}{=} \qty(\dv{m}{t} r^2 + 2 m r \dv{r}{t}) \vec{\omega} + I \dv{\vec{\omega}}{t}
 \end{align}
 Similarly to Newton's second law, we obtain a simpler form if the moment of inertia is constant, namely
 \begin{equation}
-	\vec{M} = I \dv{\vec{\omega}}{t} \eqqcolon I \vec{\alpha} \, .
+	\eqbox{
+		\vec{M} = I \dv{\vec{\omega}}{t} \eqqcolon I \vec{\alpha}
+	} \, .
 \end{equation}
 In particular, this is valid for the case of a purely rotational motion, where no change in radius is present), assuming there is no change in mass too. If, on the other hand, linear momentum parallel to $\vec{r}$ is present, i.e.~some push or pull in radial direction, this is not true (any perpendicular component of $\vec{p}$ just corresponds to an increase in $\omega$).
 
+-> main takeaway: one must exert a moment about the rotation axis to change angular momentum (this is what torque is \todo{right?})
 
-\todo{note expression for rotational energy}
 
--> work is $dW = F dx$ \todo{I think no minus here, right?}, so for rotational quantities we get $dW = M d\theta = I \dv{\omega}{t} d\theta$ \todo{vectors?} -> nah, we want $\dv{W}{t} = \vec{F} \cdot \vec{v}$, which in terms of rotational quantities becomes $\dv{W}{t} = \vec{M} \vec{\omega} = I \dv{\vec{\omega}}{t} \vec{\omega}$ and integration yields
+-> torque looks horrible in spherical coordinates (\url{https://en.wikipedia.org/wiki/Spherical_coordinate_system#Kinematics})
+
+
+
+
+		\subsection{Rotational Energy}
+Lastly, we want to derive an expression for the kinetic energy involved in rotational motion, i.e.~an expression for \Def{rotational energy}. Usually, we compute the work done by a force starting from $dW = \vec{F} \cdot d\vec{x}$. But now we want to express this in terms of rotational quantities, where it becomes
 \begin{equation}
-	\eqbox{
-		E = W = \frac{1}{2} I \omega^2 = \frac{1}{2} \vec{\omega} \cdot \vec{L}
-	}
+	dW = \vec{M} \cdot d\theta = \vec{M} \cdot \vec{\omega} \, dt = I \dv{\vec{\omega}}{t} \vec{\omega} dt
+	% \quad \Leftrightarrow \quad
 \end{equation}
+the anti-derivative of which yields the energy
+\begin{equation}\label{eq:rotational_energy}
+	\eqbox{
+		E = \frac{1}{2} I \omega^2 = \frac{1}{2} \vec{\omega} \cdot \vec{L}
+	} \, .
+\end{equation}
+This is rotational energy because it quantifies the work somebody or something has done on the particle to put it in rotation (by the previous equation), so it characterizes the kinetic/rotational energy of the particle.
+
+
+\todo{look at this bit here. think is largely the same, but make sure of that} \url{https://en.wikipedia.org/wiki/Work_(physics)#Torque_and_rotation}
 
 
 
@@ -1381,10 +1489,16 @@ We call such systems as a whole \Def{conservative}.
 
 definition of potential energies:
 \begin{equation}
-	\vec{F}_{k, \mathrm{ext}} = - \grad_k U_k
-	\vec{F}_{j \rightarrow k} = - \grad_k U_{kj} = - \grad_k U_{jk} (\overset{!}{=} \grad_j U_{jk} = \grad_j U_{jk} = - \vec{F}_{k \rightarrow j})
+	\eqbox{
+		\vec{F}_{k, \mathrm{ext}} = - \grad_k V_k
+	}
+	\quad
+	\eqbox{
+		\vec{F}_{j \rightarrow k} = - \grad_k V_{kj} = - \grad_k V_{jk} \overset{!}{=} \grad_j V_{jk} = -(- \grad_j V_{jk}) = - \vec{F}_{k \rightarrow j}
+	}
 \end{equation}
-where index of gradient refers to point of evaluation
+where index of gradient refers to (index of) point of evaluation
+% this might seem puzzling since $V_{kj} = V_{jk}$, while $\grad_k V_{jk} = - \grad_j V_{jk}$, but this is very natural if, for example, $V_{jk} \propto r^m = \norm{\vec{r}_j - \vec{r}_k}^m$; then, while exchanging the order of $\vec{r}_j, \vec{r}_k$ may not change the value of $V_{jk}$, but it does change the associated function $V_j(\vec{r}) \propto \norm{\vec{r} - \vec{r}_j}$ that fulfills $V_{jk} = V_j(\vec{r}_k)$ because the direction of change does not remain constant when exchanging the order (basically, just ask yourself this: what happens when I change $\vec{r}_j$ a little bit vs.~what happens when I change $\vec{r}_k$ a little bit; there is a sign difference in them, which translates to sign difference in the gradient) \todo{too verbose...}
 
 
 -> internal potential energy is just a constant if there is no motion of particles in CMS (i.e.~relative to center of mass) during evolution system; for such a \Def{rigid body} (cf.~Sec.~\ref{sec:rigid_body}), this term can be neglected
@@ -1461,7 +1575,7 @@ This is the catch: we only have to solve a single equation now -- the two-body s
 		\vec{L} &= \vec{L}_{\vec{R}} + \vec{L}_{\vec{r}} = M \vec{R} \cross \dot{\vec{R}} + \mu \vec{r} \cross \dot{\vec{r}}
 	\end{align}
 \end{subequations}
-where we have assumed $\vec{F}_{2 \rightarrow 1}$ to be conservative, so that it has a potential $V_{12} = V_{21}$ (note: $\vec{F}_{2 \rightarrow 1} = - \grad_{\vec{r}} V_{21} = - \grad_{-\vec{r}} V_{12} = - \vec{F}_{1 \rightarrow 2}$)
+where we have assumed $\vec{F}_{2 \rightarrow 1}$ to be conservative, so that it has a potential $V_{12} = V_{21}$. (Note that despite $V_{12}(\vec{r}) = V_{21}(\vec{r})$, Newton's third law holds up. This can be seen already from $\vec{r}_1 \propto \vec{r}, \vec{r}_2 \propto -\vec{r}$, which means differentiating with respect to the different positions yields the same sign difference as differentiating in a lab frame does.)
 
 
 
@@ -1996,33 +2110,6 @@ and its momentum
 -> good for us that all of these are additive quantities (sometimes this is also called extensive, a notion coming from thermodynamics)
 
 
-inner forces in a rigid body? Must be zero, because of the third law. Therefore, second law for rigid body reads
-\begin{equation}
-	\eqbox{
-		\vec{F}_\mathrm{ext} = \dv{\vec{P}}{t}
-	}
-\end{equation}
-
-
-its moment of inertia when rotated about some axis $\vec{n} = \frac{\vec{\omega}}{\omega}$
-\begin{equation}
-	I \coloneqq \vec{n}^T J \vec{n}, \quad J_{ij} = \int_V \rho(\vec{x}) \qty[\vec{x} \cdot \vec{x} \delta_{ij} - x_i x_j] d^3x
-\end{equation}
-
-
-component of $\vec{L} \parallel \vec{\omega}$:
-\begin{equation}
-	% \vec{L}_\omega = \vec{L} \cdot \vec{n} \underset{\todo{understand this}}{=} \vec{n}^T J \vec{n} \omega = \vec{M}_\mathrm{ext} \cdot \vec{n}
-	\vec{L}_\omega = \vec{L} \cdot \vec{n} = I_\omega \vec{\omega} \cdot \vec{n} = \vec{n}^T J \vec{n} \omega \underset{\todo{understand this}}{=} \vec{M}_\mathrm{ext} \cdot \vec{n}
-\end{equation}
-hmm I mean we have $\vec{L} = I \vec{\omega}$ where $I$ is moment of inertia around $\vec{n}$
--> I think this does not make sense here
-
--> one has to exert moment of inertia around the axis of rotation in order to change the angular momentum (total angular momentum of the body)
-
--> not sure we can see this from the equation here; but this holds in general, right? Not just for rigid body
-
-
 
 
 nice for work on rigid body: \url{https://en.wikipedia.org/wiki/Work_(physics)#Work_of_forces_acting_on_a_rigid_body}
@@ -2038,6 +2125,9 @@ Turns out to be useful to define one inertial system (\enquote{fixed/inertial co
 
 
 The rotation is normally described in terms of \Def{Euler angles}. These are basically an algorithm for transformation between arbitrarily oriented coordinate systems; mathematically speaking, rotation matrix between the systems is decomposed into three rotation matrices about the $x$-/$y$-/$z$-axis, i.e.~we can parametrize the transformation using three angles -> order is $z$-axis, rotated $x$-axis, rotated $z$-axis
+
+
+-> picture and terms \enquote{precession axis, nutation axis} from \url{https://en.wikipedia.org/wiki/Angular_velocity#Components_from_Euler_angles} might be interesting
 
 
 -> transformation from fixed to body system (and even more generally between different frames; not necessarily between all coordinate systems, though; e.g., not from Cartesian to spherical coordinates) can be described as matrix multiplication $\vec{x} = \tensor{\lambda} \vec{x}_f$ -> idea of Euler angles is that we can decompose $\tensor{\lambda} = \tensor{\lambda}_\psi \tensor{\lambda}_\theta \tensor{\lambda}_\phi$
