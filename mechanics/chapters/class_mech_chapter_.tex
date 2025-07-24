@@ -134,6 +134,7 @@ For a collection of charges, described by its distribution, we can always use Co
         \vec{E}(\vec{r}) = \fpeps q \frac{\vec{r} - \vec{r}_0}{\norm{\vec{r} - \vec{r}_0}^3}
     } \, .
 \end{equation}
+-> this particular expression is supremely useful because it is easily integrated in spherical coordinates; using the superposition principle can then, possible, allow us to calculate arbitrary fields more easily (also true if $\rho$ is a function of $r$ only, not direction, or even entirely uniform; then we do not even need to use superposition for this to be true)
 
 -> fields are cool because no matter how charge emitting field is constituted, as soon as we have field, we also get the force on charge $q$ as $\vec{F} = q \vec{E}$ (consequence of superposition principle)
 
@@ -149,48 +150,53 @@ interesting feature of Coulomb force coming from a charge distribution $\rho$: f
     }
     \quad \quad
     \eqbox{
-        \varphi(\vec{r}_0) = - \int_{P}^{\vec{r}_0} \vec{E}(\vec{r}) \cdot d\vec{r}
+        \varphi(\vec{r}_0) - \varphi(\vec{P}) = - \int_{\vec{P}}^{\vec{r}_0} \vec{E}(\vec{r}) \cdot d\vec{r}
     } \, .
 \end{equation}
-(One quick note: the lower limit $P$ just comes out as an integration constant that vanishes when taking a gradient, so it is arbitrary. This is a common theme with potentials, only potential differences are uniquely determined. It is common to choose $P = \infty$ because for real-world electric fields, $V(\infty) = 0$. If you have a textbook problem where this is not the case, you are free to choose $P$ differently.) The explicit path $\vec{C}$ taken between the integration limits does not influence the result here (a consequence of the fundamental theorem of calculus, due to the existence of the anti-derivative $V$; equivalently, a consequence of $\curl \vec{E} = 0$), so we straight up omitted here and just wrote down the integration limits.
+(One quick note: the lower limit $\vec{P}$ just comes out as an integration constant that vanishes when taking a gradient, so it is arbitrary. This is a common theme with potentials, only potential differences are uniquely determined. It is common to choose $\vec{P} = \infty$ because for real-world electric fields, $V(\infty) = 0$. If you have a textbook problem where this is not the case, you are free to choose $\vec{P}$ differently.) The explicit path $\vec{C}$ taken between the integration limits does not influence the result here (a consequence of the fundamental theorem of calculus, due to the existence of the anti-derivative $V$; equivalently, a consequence of $\curl \vec{E} = 0$), so we straight up omitted here and just wrote down the integration limits.
 
 
--> careful with the name \enquote{potential}; in mechanics, potentials of forces were directly equal to energy; but potential is a general, in fact mathematical term, and we are looking at the potential of a field here; granted, it is possible to define an analogous potential $q V$ for the Coulomb-force, but we should generally be more careful with identifying potential and energy in electromagnetism
+Let us now collect a few notes regarding the potential, especially regarding names in this context:
+\begin{itemize}
+    \item Careful with the name \enquote{potential}. In mechanics, potentials of forces were directly equal to energy. However, \enquote{potential} is a more general, in fact mathematical term, and we are looking at the potential of a field in case of $\varphi$. It is possible to define an analogous potential for the Coulomb force in
+    \begin{equation}
+        \eqbox{
+            V \coloneqq q \varphi
+        } \, ,
+    \end{equation}
+    and as we will see in Sec.~\ref{subsec:estatics_energy}, this potential is indeed related to the energy of an electrostatic field. But the initial point stands, we have to be more careful with the identification because several notions of potential exist.
+    
+    (Note that the existence of $V$ implies that the Coulomb force is conservative. We could have seen this immediately since it is a central force.)
+    
+    
+    \item A potential difference $\Delta \varphi$ between two points is called \Def{voltage}. This name is closely connected to the unit of the potential, which is defined as \Def{volt}. Since the expression of $\varphi$ is just force ($\unit{\newton}$) multiplied with $\unit{\meter}$ (due to different power in norm) and divided by $\unit{\coulomb}$ (because we are missing a $q$); thus,
+    \begin{equation}
+        \eqbox{
+            \qty[\varphi] = \unit{\newton \meter \per \coulomb} \unit{\joule \per \coulomb} \eqqcolon \unit{\volt}
+        }
+    \end{equation}
+    (I guess here it would be cool to use $V$ instead of $\varphi$...)
 
--> the remarkable fact that all information from a \emph{vector} field (three components/numbers for each point in space) is already contained in a \emph{scalar} field (one number for each point in space) is quickly explained by the fact that the specific form and physical origin $\vec{E}$ do not permit fully independent components (e.g., the curl vanishing is inherently a condition on combinations of components, essentially reducing the degrees of freedom of them)
+
+    \item The remarkable fact that all information from a \emph{vector} field (three components/numbers for each point in space) is already contained in a \emph{scalar} field (one number for each point in space) is quickly explained by the fact that the specific form and physical origin $\vec{E}$ do not permit fully independent components (e.g., the curl vanishing is inherently a condition on combinations of components, essentially reducing the degrees of freedom of them)
+\end{itemize}
 
 
--> Coulomb force has superposition principle, electric field has it, and due to the linearity of the gradient, the potential also has it
-
-% -> units: charge density has $\unitvec{\coulomb \per \meter \cubed}$, inverse norm has $\unit{\per \meter}$, volume element has $\unitvec{\per \meter \cubed}$; therefore,
--> units: unit-wise, this expression is just force ($\unit{\newton}$) multiplied with $\unit{\meter}$ (due to different power in norm) and divided by $\unit{\coulomb}$ (because we are missing a $q$); thus,
-\begin{equation}
-    \eqbox{
-        \qty[\varphi] = \unit{\newton \meter \per \coulomb} \unit{\joule \per \coulomb} \eqqcolon \unit{\volt}
-    }
-\end{equation}
-(I guess here it would be cool to use $V$ instead of $\varphi$...)
-
-
-using Eq.~\eqref{eq:efield_general}, we obtain as a general expression
-\begin{equation}
+Coulomb force has superposition principle, electric field has it, and due to the linearity of the gradient, the potential also has it. Similarly, the preceding discussions allow us to write down a general expression for $\varphi$. Eq.~\eqref{eq:efield_general} implies
+\begin{equation}\label{eq:potential_general}
     \eqbox{
         \varphi(\vec{r}) = \fpeps \int_{\mathcal{V}'} \rho(\vec{r}') \frac{1}{\norm{\vec{r} - \vec{r}'}} \, d\mathcal{V}'
-    }
+    } \, .
 \end{equation}
-
--> accordingly, we call
-\begin{equation}
-    \eqbox{
-        V \coloneqq q \varphi
-    }
-\end{equation}
-the potential of the Coulomb force
-
--> existence of potential implies curve-integrals are path-independent; we define \Def{voltage} based on this, as difference of scalar potentials; is related to work in straightforward manner, via $W = q U$ (is amount of work done on a charge, independent of actual charge that is moved, right? Same relation as between electric field and force)
+(Note that the sign in $\norm{\vec{r} - \vec{r}'}$ is important here because it determines the sign in the electric field Eq.~\eqref{eq:efield_general}.)
 
 
--> say we have charge enclosed in sphere of radius $R$. Then for $r \leq R$, we can obtain $\varphi$ by the usual integration. What about $r > R$? Well, since $\rho(\vec{r}) = 0$ for these points, so $\varphi(r > R) = \varphi(R)$ \todo{right?}
+-> existence of potential implies curve-integrals are path-independent; we define \Def{voltage} based on this, as difference of scalar potentials; is related to work in straightforward manner, via $W = q U$ (is amount of work done on a charge, independent of actual charge that is moved, right? Same relation as between electric field and force) \todo{rather introduce notion of voltage later on?}
+
+
+-> say we have sphere of radius $R$ with uniform surface charge. What is potential? Gauss's law yields field outside of sphere (the cool trick with symmetry), while inside is zero (because no charge enclosed). So for $r \geq R$, we can obtain $\varphi$ by the usual integration of $E$ from our reference point $\infty$ to $r$. What about $r < R$? Field vanishes inside, does it too? Well, no, since we start our integration from $\infty$ and not zero. But intuition is not completely off, $\rho(\vec{r}) = 0$ for these points, so $\varphi(r > R) = \varphi(R) = \mathrm{const}$ (as it should, field as gradient of potential must vanish)
+
+-> now say we have charge enclosed in sphere of radius $R$
 
 
 
@@ -206,46 +212,14 @@ field lines are drawn from positive to negative charges, i.e.~they represent dir
 
 if we start to draw a field line, we must either also draw its ending (though we might leave out some part in between, in case they extend too far out) or they must go to infinity; this must be the case since $\vec{E}$ is divergence-free in free space
 
-be consistent: if charge $q$ has four field lines, then a charge $2q$ in the same plot should get eight lines (this is motivated by Gauß's law, which we learn about in a minute)
+be consistent: if charge $q$ has four field lines, then a charge $2q$ in the same plot should get eight lines (this is motivated by Gauss's law, which we learn about in a minute)
 
 
 another possibility to visualize fields: \Def{equipotential lines}, i.e.~lines where $V = \mathrm{const}$; these are everywhere perpendicular to the field lines
 
 
 
-        \subsection{Energy}
-\todo{maybe not extra section}
-
-energy of electric field? we make definition as work required to move charge from infinity to the particular location; for single charge $q_0$, work needed to move it against the presence of some potential to a location $\vec{r}_0$ is given as
-\begin{equation}
-    W_{\infty \rightarrow \vec{r}_0} = q_0 \qty[\varphi(\vec{r}_0) - \varphi(\infty)] = q_0 \varphi(\vec{r}_0)
-\end{equation}
-
--> huh, but this is work needed to move test particle in presence of another charge $q$, right? So what we have to do is move first particle (no work to do against electric field, $W_{\infty \rightarrow 1} = 0$), then move second particle against first one, then move third particle against first + second one, etc.; using superposition principle for scalar potential, we end up with
-\begin{equation}
-    W_\mathrm{tot} = \sum_i W_{\infty \rightarrow i}
-    % = \sum_i \sum_{j < i} q_i \varphi_j(\vec{r}_i)
-    = \sum_i q_i \sum_{j < i} \varphi_j(\vec{r}_i)
-    = \frac{1}{2} \sum_{\underset{i \neq j}{i, j}} q_j \varphi_i(\vec{r}_j)
-\end{equation}
-in the continuum limit, this reads
-\begin{align}
-    W_\mathrm{tot} &= \frac{1}{2} \int_{\mathcal{V}} \rho(\vec{r}) \varphi(\vec{r}) d\mathcal{V}
-    \\
-    &= \ldots
-    \notag\\
-    &= \frac{\epsilon_0}{2} \int_{\mathcal{V}} \norm{\vec{E}}^2 d\mathcal{V} \eqqcolon \int_{\mathcal{V}} w(\vec{r}) d\mathcal{V}
-\end{align}
-where we have defined the energy density $w = \frac{\epsilon_0}{2} \norm{\vec{E}}^2$
-
--> encapsulates only interaction energy, not self energy 
-
-
-
         \subsection{Maxwell Equations}
-
-first one
-
 
 straightforward question: what is \enquote{total electric field} of some charge distribution $\rho$? For that, integrate over surface $\mathcal{S}(\mathcal{V})$ enclosing volume $\mathcal{V}$ in which $\rho$ is located spatially. We can do that:
 \begin{equation}\label{eq:gauss_law_integral}
@@ -258,9 +232,9 @@ where $d\mathcal{S}$ is surface element of $\mathcal{S}$, which is formally turn
 
 -> this is first Maxwell equation (or rather integral version thereof)
 
--> very interesting note: any $1/r^2$ force has its own Gauß law because the only thing we rely on is surface $\propto r^2$, which then cancels radius from force (why is this true for surface? Well, we can always choose \enquote{equivalent} surface to integrate over, where all charges are enclosed as well, namely a sphere of a certain radius -> I think this is the reasoning, not 100\% sure)
+-> very interesting note: any $1/r^2$ force has its own Gauss law because the only thing we rely on is surface $\propto r^2$, which then cancels radius from force (why is this true for surface? Well, we can always choose \enquote{equivalent} surface to integrate over, where all charges are enclosed as well, namely a sphere of a certain radius -> I think this is the reasoning, not 100\% sure)
 
-moreover, Gauß's law (the other one, relating surface integral to volume integral over divergence) can be used to obtain
+moreover, Gauss's law (the other one, relating surface integral to volume integral over divergence) can be used to obtain
 \begin{equation*}
     \frac{Q}{\epsilon_0} = \frac{1}{\epsilon_0}\int_\mathcal{V} \rho(\vec{r}) \, d\mathcal{V} = \oint_{\mathcal{S}(\mathcal{V})} \vec{E} \cdot d\vec{\mathcal{S}} = \int_\mathcal{V} \div \vec{E} \, d\mathcal{V}
 \end{equation*}
@@ -270,13 +244,14 @@ which yields the differential version of first Maxwell,
         \div \vec{E} = \frac{\rho}{\epsilon_0}
     }
 \end{equation}
+(Notice how this implies $\vec{E}(\vec{r}) = \fpeps \frac{\div \vec{E}(\vec{r}')}{\norm{\vec{r} - \vec{r}'}} \, d\mathcal{V}'$, which is a reflection and consequence of the Helmholtz theorem \ref{thm:helmholtz_thm})
 
 
 -> differential might be more concise, but integral one is immensely powerful: it yields total charge in a volume, we only have to measure electric field on some closed surface around it; or, if we know (i) the total charge in the volume and (ii) that the electric field is uniform, it is a shortcut to $\vec{E}$, by using the \Def{Gaussian surface} technique: if the volume $\mathcal{V}$ is sufficiently symmetric (\cite{Griffiths_2017} quotes three possibilities that work: sphere, cylinder, plane; basically shapes for which we have nice curvilinear coordinates tailored to them, so that $\vec{E} \parallel \vec{S}_n$) and the charge density indeed uniform, we can indeed place a volume $\mathcal{V}'$ of the same shape (sphere around sphere, etc) around $\mathcal{V}$, but so that $\mathcal{V}'$ is larger than $\mathcal{V}$; we might still apply it if this symmetry is not present though, namely for systems where individual parts have such a symmetry (compute individual fields, use superposition)
 
 
 second Maxwell equations is more straightforward:
-\begin{equation}
+\begin{equation}\label{eq:maxwell_estat_two}
     \eqbox{
         \curl \vec{E} = 0
     }
@@ -285,52 +260,85 @@ second Maxwell equations is more straightforward:
         \oint_\mathcal{C} \vec{E} \cdot d\vec{r} = 0
     }
 \end{equation}
-where $\mathcal{C}$ is a closed curve (as indicated by use of $\oint$ instead of $\int$ already)
+where $\mathcal{C}$ is a closed curve (as indicated by use of $\oint$ instead of $\int$)
 
 -> proof is relatively simple: calculate line integral along closed loop of field generated by point charge (turns out to be zero), apply Stokes's theorem to conclude vanishing curl for this setup, use superposition principle to conclude this must be true for general charge distribution (works because curl is linear)
 
 
 
         \subsection{Poisson Equation}
-
-in terms of potential, the Maxwell equations imply that the potential fulfills the \Def{Poisson equation}
-\begin{equation}\label{eq:poisson}
+In terms of the potential, Maxwell's equations imply that the potential fulfills the \Def{Poisson equation}
+\begin{equation}\label{eq:poisson_eq}
     \eqbox{
         \nabla^2 \varphi = - \frac{\rho}{\epsilon_0}
-    }
+    } \, .
 \end{equation}
-(note that this is implication of both Maxwell equations combined, because second one implies existence of potential, this is how it is used)
+Yes, it is actually a consequence of \emph{both} Maxwell equations. While this particular form is derived by inserting $\vec{E} = - \grad \varphi$ into the first Maxwell equation, the second one is implicitly used in the fact that we work with a potential, the existence of which is only asserted by the second Maxwell equation.
 
--> \Def{Laplace equation} is Poisson with $\rho = 0$
-
--> why should we want to use this partial differential equation of second order? Well, to get electric field from charge distribution that simultaneously fulfills Maxwell equations (which field obtained from Poisson do automatically)
-
--> note that it is inhomogeneous equation, so its solution can be written as solution of homogenous plus solution of inhomogeneous
+-> interesting: we cannot write down analytical, general solutions to PDEs; is because is not possible to write things out with finite number of constants
 
 
+For the positions where no charges are present, Poisson's equation turns into the \Def{Laplace equation}
+\begin{equation}\label{eq:laplace_equ}
+    \eqbox{
+        \nabla^2 \varphi = 0
+    } \, .
+\end{equation}
+Discussing and solving this equation not only solves physical problems in many cases (namely when no charge is located in the volume where we wish to obtain $\varphi$), but also because an inhomogeneous differential equation like the Laplace equation is always solved by a linear combination of a solution to the full, inhomogeneous equation plus a solution to the corresponding homogenous equation (one can always add the latter and the inhomogeneous equation is still fulfilled). In short, we can learn a lot about the solutions of Poisson's equation by studying those to Laplace's.
 
-differential equations must always be supplemented with a suitable boundary conditions
+-> interesting features are (i) each value of solution is average of its neighboring values and (ii) extrema of $V$ must occur at the boundaries of the volume we integrate over, Laplace's equation does not permit local minima/maxima (\cite{Griffiths_2017} says the following about this: \enquote{Laplace's equation picks most featureless function possible, consistent with the boundary conditions} and \enquote{a harmonic function in two dimensions minimizes the surface area spanning the given boundary line}, where harmonic functions are a general name for the solution of Laplace's equation)
 
--> convenient property of Poisson in particular: there are uniqueness theorems, which guarantee that if we find solution, it is the only one
+-> \emph{very} interesting: the value of $\varphi$ at point $\vec{r}$ is equal to the average value of $V$ over a spherical surface of radius $R$ centered at $\vec{R}$,
+\begin{equation}
+    V(\vec{r}) = \frac{1}{4\pi R^2} \oint_\mathrm{sphere} V \, d\mathcal{S}
+\end{equation}
+(for solution of Laplace's equation)
+
+
+
+        \paragraph{Why Use It?}
+We have started to look at some of the features and difficulties of dealing with the Poisson equation. But we have not justified why it should even be used. Why should we even want to use this partial differential equation of second order? After all, just give me the charge distribution $\rho$ and I can calculate $\varphi$ and $\vec{E}$ using the formulas \eqref{eq:efield_general}, \eqref{eq:potential_general}.
+
+However, these equations are all stated in terms of integrals that are not particularly easy to evaluate. (Well, at least analytically, since it is seldomly the case that geometries of bodies are sufficiently simple to allow us to use some of the tricks we have seen before. Integrating numerically is also not trivial, though. Partly, this is because the geometry of the involved bodies might be hard to parametrize. \todo{this must play a role here, right?}) More importantly, however, the integration only works if we indeed know $\rho$. As it turns out, this is by no means guaranteed and for many applications, we only know the total charge of a body, but have no clue about how this charge is distributed (which is quite reasonable, there might be a lot of motion due to the interaction of charges, until the equilibrium is reached).
+
+Hence we are sometimes forced to solve differential equations instead of doing integration. If we are indeed interested in positions where $\rho(\vec{r}) = 0$, then we are left with the Laplace equation or equivalently the homogenous Maxwell equation. (The crucial difference to the the integrals in Eqs.~\eqref{eq:efield_general}, \eqref{eq:potential_general} is that they require $\rho$ even if we just want the field in positions where $\rho = 0$.) Having to choose between the two is then a matter of making the most economic decision: we can choose a partial differential equation of second order for a scalar field or a partial differential equation of first order for three scalar fields (each component enters in the Maxwell equation). This is why solving the Laplace/Poisson equation is an important task in electrostatics.
+
+
+
+-> Fig.~2.35 of \cite{Griffiths_2017} is incredible, shows how we may translate between $\rho, \vec{E}, \varphi$
+
+
+
+            \paragraph{Boundary Conditions}
+Differential equations must always be supplemented with a set of suitable boundary conditions. A priori, it is not clear which boundary conditions are suitable, in fact it can be quite difficult to specify them (must be restrictive enough that they constrain solutions, but not too restrictive that they prohibit us from finding a solution at all). For the Laplace and Poisson equation in particular, there are a several possible choices, which each come with a theorem proving that the choice makes a \enquote{good} boundary condition (in form of a uniqueness theorem, which means that the condition permit finding a unique solution).
+
 
 \begin{thm}[First Uniqueness Theorem]\label{thm:uniqueness_poisson_1}
     The solution to Laplace's equation in a volume $\mathcal{V}$ is uniquely determined if the potential is specified on the boundary surface $\mathcal{S} = \partial \mathcal{V}$.
 
     This implies that the potential, a solution to Poisson's equation, in a volume $\mathcal{V}$ is uniquely determined if the charge density throughout all of $\mathcal{V}$ along with the potential value on all boundaries is specified.
 \end{thm}
+This is a remarkable statement: if I find any solution for a given boundary condition, then it is \emph{the} solution -- there is no other one.
+-> there are uniqueness theorems, which guarantee that if we find solution, it is the only one
 
 
-What if we do not know charge density? Luckily, there is another way.
+What if we do not know charge density? Was one of the motivations to treat Poisson at all... Luckily, there is another theorem for this case. (Note that we have not formally introduced conductors yet... That is what happens when you follow a book, but structure your notes differently, I guess, but for us a conductor can just be any surface with uniform charge density on it at the moment.)
 
 \begin{thm}[Second Uniqueness Theorem]\label{thm:uniqueness_poisson_2}
     In a volume $\mathcal{V}$ surrounded by conductors and containing a specified charge density $\rho$, the electric field is uniquely determined if the total charge of each conductor is given.
 \end{thm}
-(The region as a whole can be bounded by another conductor or else unbounded.)
+Hence, what we need is the charges on all conducting surfaces around (inside and outside) the volume of interest. (The region as a whole can be bounded by another conductor or else unbounded, whence the outer boundary is at infinity.)
+
+
+-> these have interesting consequences for electrostatics, even when we do treat it by solving Laplace's equation: if we find solution for electric field that fits boundary conditions, then this is the unique solution to the problem; the way in which we obtain the solution does not matter. This justifies, for example, the method we had used before to determine uniform electric fields for symmetric configurations
+
+-> one application for this is discussed in next subsection, where we show how to circumvent cumbersome solution techniques like the separation of variables that are normally used to solve Laplace's equation (and that also do not work all the time)
 
 
 
-        \subsection{Image Charges}
-general method to solve Poisson equation along with certain boundary conditions
+        % \subsection{Image Charges}
+            \paragraph{Image Charges}
+Here we present a general method to solve Poisson equation subject to certain boundary conditions. The idea is best explained by means of an explicit example: take the problem where a charge is placed in front of a conductor (of infinite length). 
 
 -> idea: to get, for example, field of one charge that shall be perpendicular to certain surface, we can place image charge(s) at certain spot so that field lines cross surface in desired manner (mimick boundary conditions)
 
@@ -343,33 +351,84 @@ general method to solve Poisson equation along with certain boundary conditions
 % -> isn't idea also somewhat borrowed from multipole expansion? Which allows us to describe arbitrary distribution with discrete number of particles; basically same is now done for boundary conditions
 
 
+-> potential is guaranteed to agree between the setups; but this determines e-field and force, so they agree too. From this we can, e.g., compute force from conductor onto the charge (noting that $\eval{\frac{\vec{r} - \vec{r}'}{\norm{\vec{r} - \vec{r}'}}}_{\vec{r}' = 0} = 0$ because it is zero component-wise; is single application of l'Hospital)
+
+-> BUT: energy is not same; should also make sense, since image charges only apply to region \emph{above} the plate, but energy calculated for point charge takes into account all space, not just above; by symmetry argument, energy in field of conductor plate is half of the result
+
+
+
+        \subsection{Energy}
+        \label{subsec:estatics_energy}
+\todo{move in front of Poisson equation section, in case we deal with energy of image charges. Or make image charges a subsection again and move it between energy, multipole expansion}
+In this section, we answer a very simple question: what is the energy of an electric field? (By \enquote{simple} we mean conceptually simple, as we do not know how simple it is to answer.)
+
+In Newtonian physics, energy is the ability to do work. We continue in this vein, starting with a simple example. Suppose some electric field $\vec{E}$ is present. Then we can use the definition of work to require how much of it is required to move a single charge $q$ between two positions $\vec{a}, \vec{b}$:
+\begin{equation}\label{eq:work_test_part_1}
+    W = \int_{\vec{a}}^{\vec{b}} \vec{F} \cdot d\vec{r} = \int_{\vec{a}}^{\vec{b}} q \vec{E}(\vec{r}) d\vec{r} = - q \qty[\varphi(\vec{b}) - \varphi(\vec{a})] = - \qty[V(\vec{b}) - V(\vec{a})]
+    \, .
+\end{equation}
+% This is not a surprising result, it matches what we are used to from Newtonian physics. It represents the work that somebody (or something) has to do in order to move a point charge $q$ through the electric field $\vec{E}$, which can be positive (force between $q$ and the field is repulsive) or negative (force between $q$ and the field is attractive).
+This is not a surprising result, it matches what we are used to from Newtonian physics. It represents the amount of resistance by the Coulomb upon moving a point charge $q$ through the electric field $\vec{E}$. Conversely, somebody (or something) has to do the work $- W$ on the charge for it to be able to move through the electric field (we need a minus sign here because the force exerted must always be exactly opposite the Coulomb force). $W$ can be positive (force between $q$ and the field is repulsive) or negative (force between $q$ and the field is attractive).
+
+To make sure we do not \enquote{miss out} on work that needs to be done against the electric field, it is common to choose $\vec{a} = \infty$. The work required to move a charge $q$ to the position $\vec{r}$ (which replaces $\vec{b}$ now) is then simply
+\begin{eqnarray}\label{eq:work_test_part_2}
+    \eqbox{
+        W \coloneqq W_{\infty \rightarrow \vec{r}} = V(\vec{r}) - V(\infty) = V(\vec{r}) = q \varphi(\vec{r})
+    }
+\end{eqnarray}
+where the second equality assumes we have $\infty$ as our reference point for $\varphi, V$, so that $V(\infty) = 0$. The last equality means electric work is charge multiplied by voltage. (A quick sanity check: the voltage $\varphi$ had unit volts, charge has coulomb. But since volt = joule per coulomb, work indeed comes out as joule, so everything is nice and consistent.)
+
+
+Just like before, this result for a single point charge can be generalized to other charge distributions. We do just that now, calculating how much work is required to assemble a certain collection of charges from $\infty$. For the first particle, there is no electric field to do work against, so $W_{\infty \rightarrow 1} = 0$); for the second particle, one has to do work against $\vec{E}_1$; for the third one, against $\vec{E}_1 + \vec{E}_2$; etc. Using the superposition principle for the scalar potential, we end up with
+\begin{equation}\label{eq:work_discr_distr}
+    W
+    = \sum_i W_{\infty \rightarrow i}
+    = \sum_i q_i \sum_{j < i} \varphi_j(\vec{r}_i)
+    = \frac{1}{2} \sum_{\underset{i \neq j}{i, j}} q_j \varphi_i(\vec{r}_j)
+    = \frac{1}{2} \sum_j q_j \varphi_{\qty{q_i}_{i \neq j}}(\vec{r}_j)
+\end{equation}
+where the weird subscript of $\varphi$ is used to denote the potential of all charges, except for the $j$-th one. We were able to obtain this result because we replaced the sum over $j < i$ with two sums of this kind (accounting for this the factor $\frac{1}{2}$) because it is easier to evaluate. (Note that this expression, as all before, encapsulate only interaction energy, not self energy.)
+
+\todo{this does not account for energy needed to keep the distribution together, right? So I guess we assume that all particles are brought in instantaneously, immediately one after the other. But then I wonder how this is a good model of true energy density...}
+
+in the continuum limit, this reads
+\begin{equation}\label{eq:work_cont_distr_1}
+    \eqbox{
+        W = \frac{1}{2} \int_{\mathcal{V}} \rho(\vec{r}) \varphi(\vec{r}) d\mathcal{V}
+    } \, .
+\end{equation}
+In contrast to Eq.~\eqref{eq:work_discr_distr}, self-energy is now included because we integrate over \emph{all} of $\varphi$ and not just $\varphi_{\qty{q_i}_{i \neq j}}$. By choosing to integrate not only over $\mathcal{V}$, but over all space, this takes the form
+\begin{equation}\label{eq:work_cont_distr_2}
+    \eqbox{
+        W = \frac{\epsilon_0}{2} \int \norm*{\vec{E}}^2 \, d\mathcal{V} \eqqcolon \int w(\vec{r}) \, d\mathcal{V}
+    }
+\end{equation}
+with the energy density $w$ (of electrostatics).
+
+
+Discussion: Eq.~\eqref{eq:work_test_part_2} does not contain self-energy, while Eq.~\eqref{eq:work_cont_distr_2} does. Therefore, the former is energy we gain when disassembling the charge configuration, but the latter is not.
+
+-> there is good and bad to both: good for first expression is that we do not create charges in practice, we just use already existing electrons etc., so not including self-energy is the correct thing; good for second expression is that it is more complete as it truly contains the total energy stored in the charge distribution (which is nicer if we actually want energy of it, not work needed to assemble)
+
+-> general issue: energy of point charge is (just use Eq.~\eqref{eq:work_cont_distr_2} with single $\delta$-function for $\rho$) infinite. This is not because formula is at fault, but because the concept is weird. Actually, that makes matters worse, though, because point charges are an integral concept in electrodynamics, so the fact that their energy diverges is concerning.
+
+-> very interesting question: where exactly is the energy we have just calculated stored? In the charges? Or is it spread throughout the volume? Well, right now both interpretations are totally valid. We will see later on, though, that it is more customary to think about it as being stored in the field, as a density $w$ throughout all space (this is the preferred interpretation for radiation theory and also general relativity)
+
+-> just like kinetic energy is not additive although velocities are, the electric energy does not obey superposition principle although force/field/potential do (is quadratic in field after all)
+
+
 
         \subsection{Multipole Expansions}
 Multipole expansions are a frequently used tool in electrodynamics. The basic idea is to simplify terms of the kind $\frac{1}{\norm{\vec{r} - \vec{a}}}$ by using the general result
 \begin{equation}\label{eq:multipole_exp_general}
     \eqbox{
         \frac{1}{\norm{\vec{r} - \vec{a}}}
-        \simeq \frac{1}{x \norm{\vec{e}_x - \frac{a}{x} \vec{e}_a}}
-        \simeq \frac{1}{x} + \frac{\vec{r} \cdot \vec{a}}{x^3} + \frac{3 (\vec{r} \cdot \vec{a})^2 - x^2 a^2}{2 x^5}
+        % \simeq \frac{1}{r \norm{\vec{e}_r - \frac{a}{r} \vec{e}_a}}
+        \simeq \frac{1}{r} + \frac{\vec{r} \cdot \vec{a}}{r^3} + \frac{3 (\vec{r} \cdot \vec{a})^2 - r^2 a^2}{2 r^5}
     } \, .
 \end{equation}
-This can be seen as a Taylor-expansion each component $\frac{a_k}{x}$, or one in $\frac{a}{x}$ if we are careful with how we write things out:
-\begin{align*}
-    \frac{1}{\norm{\unitvec{x} - \frac{a}{x} \unitvec{a}}} &\simeq \eval{\frac{1}{\norm{\unitvec{x} - \frac{a}{x} \unitvec{a}}}}_{\frac{a}{x} = 0} + \eval{\partial_{\frac{a}{x}} \frac{1}{\norm{\unitvec{x} - \frac{a}{x} \unitvec{a}}}}_{\frac{a}{x} = 0} \frac{a}{x}
-    \\
-    &= 1 + \eval{\partial_{\frac{a}{x}} \qty[(\unitvec{x} - \frac{a}{x} \unitvec{a}) \cdot (\unitvec{x} - \frac{a}{x} \unitvec{a})]^{-1/2}}_{\frac{a}{x} = 0} \frac{a}{x}
-    \\
-    &= 1 + \frac{-1}{2} \eval{\partial_{\frac{a}{x}} (\unitvec{x} - \frac{a}{x} \unitvec{a}) \cdot (\unitvec{x} - \frac{a}{x} \unitvec{a})}_{\frac{a}{x} = 0} \frac{a}{x}
-    \\
-    &= 1 + \frac{-1}{2} \eval{2 (\unitvec{x} - \frac{a}{x} \unitvec{a}) \cdot \partial_{\frac{a}{x}} (\unitvec{x} - \frac{a}{x} \unitvec{a})}_{\frac{a}{x} = 0} \frac{a}{x}
-    \\
-    &= 1 + \frac{-1}{2} \eval{2 (\unitvec{x} - \frac{a}{x} \unitvec{a}) \cdot (- \unitvec{a})}_{\frac{a}{x} = 0} \frac{a}{x}
-    \\
-    &= 1 + \unitvec{x} \cdot \unitvec{a} \frac{a}{x} = 1 + \frac{\vec{r} \cdot \vec{a}}{x^2}
-\end{align*}
-The crucial thing was to \emph{not} multiply out the $(\unitvec{x} - \frac{a}{x} \unitvec{a}) \cdot (\unitvec{x} - \frac{a}{x} \unitvec{a})$ because this would suddenly involve only $\frac{a^2}{x^2}$ and thus no vector anymore (this is fine, we can still take derivative of this, but then separately for each component $\frac{a_k}{x}$ would be required).
+(For the explicit calculation, see Eq.~\eqref{eq:eq:multipole_exp_general_calc}.)
 
-\todo{rather look at $\grad_{\vec{a}}$ at $\vec{a} = 0$? Then $\grad_{\vec{r}}$ follows directly, nice for field calculations below}
 
 -> for large enough distances, we can replace with first/second order to really good approximation! Especially useful to calculate field generated by some distribution, this way we can avoid the really nasty integrals, e.g., for potentials and fields!
 
@@ -379,11 +438,11 @@ Is useful because it allows analysis of arbitrary potential in far-field limit $
     \eqbox{
         \varphi(\vec{r})
     }
-    &\simeq \fpeps \int_\mathcal{V} \rho(\vec{a}) \qty[\frac{1}{x} + \frac{\vec{r} \cdot \vec{a}}{x^3} + \frac{3 (\vec{r} \cdot \vec{a})^2 - x^2 a^2}{2 x^5}] d^3a
+    &\simeq \fpeps \int_\mathcal{V} \rho(\vec{a}) \qty[\frac{1}{r} + \frac{\vec{r} \cdot \vec{a}}{r^3} + \frac{3 (\vec{r} \cdot \vec{a})^2 - r^2 a^2}{2 r^5}] d^3a
     \\
     &= 
     \eqbox{
-        \fpeps \qty[\frac{Q(\mathcal{V})}{x} + \frac{\vec{r} \cdot \vec{p}}{x^3} + \frac{1}{2} \sum_{i, j} \frac{Q_{ij}}{x^5} \vec{r}_i \vec{r}_j]
+        \fpeps \qty[\frac{Q(\mathcal{V})}{r} + \frac{\vec{r} \cdot \vec{p}}{r^3} + \frac{1}{2} \sum_{i, j} \frac{Q_{ij}}{r^5} \vec{r}_i \vec{r}_j]
     }
 \end{align}
 where for instance
@@ -422,26 +481,41 @@ Easiest description: $\mathcal{V}$ is so small that it appears as point with no 
             \paragraph{Dipole}
 In order to eliminate the monopole term, we need $Q(\mathcal{V}) = 0$. The simplest way to achieve this is to place to point charges with opposite charge together. Placing particle 1 (charge $-q$) in the origin and particle 2 (charge $q$) at a position $\vec{a}$,\footnote{Note that it does not matter whether $q > 0$ or $q < 0$. It is just important that the particles have opposite charge.} the field of this setup is just the superposition
 \begin{equation}
-    \varphi_\mathrm{dipo}(\vec{r})
+    \eqbox{
+        \varphi_\mathrm{dipo}(\vec{r})
+    }
     = \fpeps \qty[\frac{-q}{\norm{\vec{r}}} + \frac{q}{\norm{\vec{r} - \vec{a}}}]
-    \simeq \fpeps \frac{\vec{r} \cdot \vec{p}}{x^3}
+    \eqbox{
+        \simeq \fpeps \frac{\vec{r} \cdot \vec{p}}{x^3}
+    }
 \end{equation}
+where we defined the \Def{dipole moment}
+\begin{equation}
+    \eqbox{
+        \vec{p} \coloneqq q \vec{a}
+    } \, .
+\end{equation}
+Not only does this approximated expression look like the second term in Eq.~\eqref{eq:multipole_exp_general}, it \emph{is} this expression for the physical setup of two oppositely charged point masses:
+\begin{equation}
+    \eqbox{
+        \rho(\vec{r}) = q \delta(\vec{r} - \vec{a}/2) - q \delta(\vec{r} + \vec{a}/2)
+    } \, .
+\end{equation}
+Therefore, the second term does indeed represent 
 
--> here $\vec{p} \coloneqq q \vec{a}$
 
+-> in multipole expansion, we have carried out far-field limit, so to understand connection to different order terms better we should do same now for dipole potential; this is what happens in second equality (along with $\lim_{a \rightarrow 0, q \rightarrow \infty}$ so that product remains well-defined) -> this would be the ideal/pure dipole
 
--> in multipole expansion, we have carried out far-field limit, so to understand connection to different order terms better we should do same now for dipole potential; this is what happens in second equality (along with $\lim_{a \rightarrow 0, q \rightarrow \infty}$ so that product remains defined)
+-> it is not always clear whether the actual dipole with most general field or the second, approximate formula is meant, but we do our best to distinguish the two (\cite{Griffiths_2017} calls these two physical dipole, referring to the full potential with $Q(\mathcal{V}) = 0$ where highest order is dipole term, and ideal/pure dipole, referring to equations where we actually add positive and negative charge -> ahhh no, that's wrong; for some reason, he calls pure dipole the term that comes out of approximation and physical dipole the one comprised of two charges; I do not like this and will not adopt)
 
--> it is not always clear whether the actual dipole with most general field or the second, approximate formula is meant (\cite{Griffiths_2017} calls these two physical dipole, referring to the full potential with $Q(\mathcal{V}) = 0$ where highest order is dipole term, and ideal/pure dipole, referring to equations where we actually add positive and negative charge)
-
--> means I can do two things to improve approximation: increase $r = \norm{\vec{r}}$ or decrease $a$ (we want $r \ll a$)
+-> means I can do two things to improve approximation: increase $r = \norm{\vec{r}}$ or decrease $a$ (we want/need $r \ll a$)
 
 
 -> field generated by pure dipole can simply be calculated as
 \begin{align}
-    \vec{E}(\vec{r}) &= - \nabla V(\vec{r}) = \fpeps \qty[-q \frac{-\vec{r}}{x^3} + q \frac{-\vec{r}}{\norm{\vec{r} - \vec{a}}^3}]
+    \vec{E}(\vec{r}) &= - \grad V(\vec{r}) = - \fpeps \qty[-q \frac{-\vec{r}}{r^3} + q \frac{-(\vec{r} - \vec{a})}{\norm{\vec{r} - \vec{a}}^3}]
     \\
-    &\simeq \fpeps \qty[q \frac{\vec{r}}{x^3} - q \frac{\vec{r}}{x} (1 + )]
+    &\simeq \fpeps q \frac{\vec{a})}{\norm{\vec{r} - \vec{a}}^3} = \fpeps \frac{\vec{p})}{\norm{\vec{r} - \vec{a}}^3}
 \end{align}
 
 
@@ -488,12 +562,32 @@ now we put two dipoles together in opposite orientation, to eliminate dipole mom
 
 
 
+        \subsection{Conductors}
+Until now, all theory we treated happened in vacuum, i.e.~no charges were present outside the ones described by $\rho$. Next, we turn our attention to electric fields in matter. We can divide matter into three different categories, when it comes to their properties regarding charges and interactions with electric fields: \Def[insulator]{insulators} with no free charges, \Def[conductor]{conductors} with one or more free electrons per atom, and \Def[dielectricum]{dielectrics} which are somewhere in between. Insulators do not react in any significant way to external electric field, so discussing them here is kind of pointless. Dielectrics are interesting and we dedicate the next subsection to them. This one is focussing on conductors.
+
+
+As we already said, conductors have free charges inside of them, i.e.~electrons attached to atoms that are basically free to roam around in the material. If the number of free charges was infinity, we would call the material a \Def{perfect conductor}. While this is of course not possible in reality, many materials (especially metals) come very close to that and such an approximation is justified. (This is not so different from using a continuous charge distribution $\rho$. In reality, there is always a finite number of particles occupying discrete positions in space, but using $\rho$ can still be more convenient and thus justified.)
+
+Let us now note down some properties, which immediately follow from this definition.
+
+definition: has unlimited amount of free charges
+
+
+-> fields are cancelled because there are so many free charges
+
+
+Nice thought experiment: what happens if we have a hole (cavity) inside of a conductor? Does it contain a field? Does the answer to this depend on whether the cavity itself contains charge?
+
+-> field in space that contains no charges, but is surrounded by a conductor, must be zero -- if there were any field lines, where would the begin and end? Would have to be on the conducting surface, but there \todo{finish argument}; this construction is called a \Def{Faraday cage}
+
+
+
         % \subsection{Isolators}
         % \subsection{Dielectrica}
         \subsection{Dielectric Media}
 \todo{make whole section? \enquote{Electrostatics Of Dielectrica}?}
 
-until now: theory happened in vacuum, i.e.~no charges were present outside the ones described by $\rho$
+
 
 idea of what changes in a medium: total electric field now comes from free charges in $\rho$ \emph{and} from charges in the medium; we assume no free charges in medium for now, but still a total charge can be induced via the formation of small dipoles in the medium -> we look at the macroscopic effect only, i.e.~polarization $\vec{\mathbb{P}}$\footnote{We do not call it $\vec{P}$ here because this is already reserved for momentum.}
 
@@ -504,8 +598,95 @@ idea of what changes in a medium: total electric field now comes from free charg
 
 
         \subsection{Boundary Conditions}
+\todo{look at Griffiths 2.3.5}
+We have seen that boundary conditions play an important part in obtaining the electric field (and thereby interaction between charges) during our discussions of the Poisson equation. Normally, boundary conditions are specified as part of the problem, i.e.~they are given to us by the physical setup. But they cannot be arbitrary, as we can see by thinking in general about the behavior of static electric fields at a boundary surface with surface charge $\sigma$. Our tool to study this has, not surprisingly, been developed by Gauss and is called a \Def{Gaussian pillow} (Fig.~\ref{fig:gaussian_pillow}).
 
-do with and without media
+
+
+\begin{figure}
+    \centering
+
+    \subfloat{\includegraphics[width=0.45\textwidth,page=1]{pictures/gauss_pillow.pdf}}%
+    \hspace*{0.1\textwidth}%
+    \subfloat{\includegraphics[width=0.45\textwidth,page=2]{pictures/gauss_pillow.pdf}}
+
+    \caption{Heavily inspired by Figs.~2.36, 2.37 in \cite{Griffiths_2017}. Note that $\vec{E}_{\perp, \parallel}$ are meant to be the fields in the immediate (in fact, infinitesimal) vicinity of the surface.}
+    \label{fig:gaussian_pillow}
+\end{figure}
+
+
+
+            \paragraph{In Free Space}
+Let us begin by discussing the case where no medium present outside of the boundary surface. 
+
+
+-> we enclose very small volume $\mathcal{V} = A \epsilon$, in fact we are interested in $\epsilon \rightarrow 0$ (and, depending on the shape of the surface and how quickly the field $\vec{E}$ varies with position, we might also have to look at $A \rightarrow 0$)
+
+-> idea: evaluate same expression twice, once explicitly and once using Gauss's law
+
+-> second one yields $\int_{\mathcal{S} = \partial \mathcal{V}} \vec{E} \cdot d\vec{\mathcal{S}} = \frac{Q(\mathcal{V})}{\epsilon_0} = \frac{A \sigma}{\epsilon_0}$
+
+-> for explicit evaluation let's look at contributions more closely (we can divide surface and add up integrals): top and bottom each give contribution of the kind $\int_A \vec{E} \cdot d\vec{A} = E_\perp A$ where $E_\perp$ is the field above and below the surface, respectively (which is parallel to the normal vector of $A$ and, if we choose $A$ sufficiently small, constant over it, this is how result comes to be); but when we evaluate the expression for every other area is proportional to $\epsilon$, so the contribution vanishes; accounting properly for orientations of the surfaces (given by their normal vectors), we are left with
+\begin{equation}\label{eq:bound_cond_estat_vacuum_1}
+    \eqbox{
+        E_{\perp, \mathrm{above}} - E_{\perp, \mathrm{below}} = \frac{\sigma}{\epsilon_0}
+    } \, .
+\end{equation}
+(which is also valid in the limit $A \rightarrow 0$ because the $A$'s on both sides cancel.) The electric field is discontinuous when it goes through a surface that has surface charge $\sigma \neq 0$. The latter is the most important part here, though, in case of a uniformly charged sphere for instance the field is actually continuous.
+
+
+-> selecting any of the surfaces on side of the pillow, we can also calculate the line integral along their boundary $\mathcal{C}$ (e.g., the red line in Fig.~\ref{fig:gaussian_pillow}):
+\begin{equation*}
+    \int_{\mathcal{C} = \partial \mathcal{S}} \vec{E} \cdot d\vec{r} = E_{\parallel, \text{above}} l - E_{\parallel, \text{below}} l - E_{\perp, \text{above}, \text{left}} \frac{\epsilon}{2} - E_{\perp, \text{below}, \text{left}} \frac{\epsilon}{2} + E_{\perp, \text{above}, \text{right}} \frac{\epsilon}{2} + E_{\perp, \text{below}, \text{right}} \frac{\epsilon}{2}
+\end{equation*}
+where $l$ is the length of one of the edges of the pillow (the one indicated in Fig.~\ref{fig:gaussian_pillow}). In the limit $\epsilon \rightarrow 0$, many terms do not survive. Further, we must recognize that the integral along a boundary $\partial \mathcal{S}$ is a closed integral by definition -- but then it must be zero, according to the second Maxwell equation (cf.~Eq.~\eqref{eq:maxwell_estat_two}). Therefore, the tangential components fulfil
+\begin{equation}\label{eq:bound_cond_estat_vacuum_2}
+    \eqbox{
+        E_{\parallel, \text{above}} = E_{\parallel, \text{below}}
+    }
+\end{equation}
+
+Using $\vec{E} = \vec{E}_\perp + \vec{E}_\parallel$ the two conditions on $\vec{E}$ can be summarized in a single, concise equation:
+\begin{equation}\label{eq:bound_cond_estat_vacuum}
+    \eqbox{
+        \vec{E}_\text{above} - \vec{E}_\text{below} = \frac{\sigma}{\epsilon_0} \vec{n}
+    } \, .
+\end{equation}
+
+
+
+In terms of potential, these equations read
+\begin{equation}
+    \grad \varphi_\text{above} - \grad \varphi_\text{below} = - \frac{\sigma}{\epsilon_0} \vec{n}
+\end{equation}
+(reminder: $\vec{n}$ is the unit normal vector to the surface) or, defining the \Def{normal derivative}
+\begin{equation}
+    \eqbox{
+        \pdv{\varphi}{n} \coloneqq \vec{n} \cdot \grad \varphi
+    } \, ,
+\end{equation}
+they take the form
+\begin{equation}
+    \eqbox{
+        \pdv{\varphi_\text{above}}{n} - \pdv{\varphi_\text{below}}{n} = - \frac{\sigma}{\epsilon_0}
+    } \, .
+\end{equation}
+
+
+But while the gradient of the potential inherits a discontinuity from the field, the potential itself \emph{is} continuous since
+\begin{equation}
+    \varphi_\text{above} - \varphi_\text{below} = \int_{-\epsilon/2}^{\epsilon/2} \vec{E} \cdot d\vec{r} \underset{\epsilon \rightarrow}{=} 0
+    \quad \Leftrightarrow \quad
+    \eqbox{
+        \varphi_\text{above} = \varphi_\text{below}
+    } \, .
+\end{equation}
+(We omit integration over the other spatial dimensions here since only the one in the direction normal to the surface matters.)
+
+
+
+            \paragraph{In A Medium}
+?or should we say in a dielectric?
 
 
 
@@ -541,7 +722,7 @@ Now suppose that we observe a change in the total charge in some volume, $Q(\mat
 For the 2D-generalization of a test charge (sometimes called \Def{filamentary current}), i.e.~something like a cable of infinitesimal diameter (so that charges can only enter at start and end of it), this takes the form $\dv{Q}{t} = I_A - I_B$ ($A$ is the label for the start of the cable, $B$ for the end). Note that the sign here is a consequence of how we defined current, namely parallel to the field lines. Consider a positive charge moving along the current from $A$ to $B$ and leaving the volume $\mathcal{V}$. Then it leaves in $B$, meaning the current $I_B$ is larger than $I_A$, so that the right hand side of the continuity equation becomes negative. This corresponds to the $Q(\mathcal{V})$ decreasing, which is what we expect since a positive charge is leaving $\mathcal{V}$.
 
 
-Using that $\pdv{t}$ and $\int_\mathcal{V} d\mathcal{V}$ may be interchanged, and applying Gauß's law we obtain the differential form of Eq.~\eqref{eq:cont_eq_int}
+Using that $\pdv{t}$ and $\int_\mathcal{V} d\mathcal{V}$ may be interchanged, and applying Gauss's law we obtain the differential form of Eq.~\eqref{eq:cont_eq_int}
 \begin{equation}\label{eq:cont_eq_diff}
     \eqbox{
         \pdv{\rho}{t} + \div \vec{j} = 0
@@ -595,7 +776,7 @@ The second equation is called \Def{Biot-Savart law}\footnote{Actually, Biot and 
     this is original Biot-Savart law; corresponding force is called Ampere force
 \end{ex}
 
--> we can do something very similar to Gauß law, rearrange this and see: there is (a) potential!
+-> we can do something very similar to Gauss law, rearrange this and see: there is (a) potential!
 
 
 
