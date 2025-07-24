@@ -521,26 +521,30 @@ Therefore, the second term does indeed represent
 
 
 We have mainly studied the potential and field associated with a dipole until now. But what about its interaction with another electric field $\vec{E}(\vec{r})$? From the most general expression, we quickly arrive at the following force on the dipole:
-\begin{equation}
+\begin{equation}\label{eq:dipole_force}
     \eqbox{
         \vec{F}(\vec{r})
     }
     = - q \vec{E}(\vec{r}) + q \vec{E}(\vec{r} + \vec{a})
     \eqbox{
-        \simeq \grad \vec{p} \cdot \vec{E}(\vec{r})
+        \simeq \vec{p} (\div \vec{E}(\vec{r}))
     }
-    \eqqcolon - \grad V(\vec{r})
+    \underset{\div \vec{p} = 0}{=} \grad (\vec{p} \cdot \vec{E}(r))
+    % \eqqcolon - \grad V(\vec{r})
     \, .
 \end{equation}
-First of all, that means the dipole force has a potential, i.e.~is conservative. Moreover, in a spatially homogenous field, there is no force acting on a dipole. Nonetheless, there is an effect of the force, namely a torsion
-\begin{equation}
+First of all, that means the dipole force has a potential $\vec{p} \cdot \vec{E}(r)$, i.e.~is conservative. Moreover, in a spatially homogenous field, there is no force acting on a dipole. Nonetheless, there is an effect of the force, namely a torque\footnote{This torque is measured about the center of the dipole, though the first term vanishes trivially for the chosen setup with $\vec{r}_1 = 0$. For more general reference points, the torque becomes $\vec{p} \cross \vec{E} + \vec{r} \cross \vec{F}$.}
+\begin{equation}\label{eq:dipole_torque}
     \eqbox{
         \vec{M}
+    }
+        = \vec{r}_1 \cross \vec{F}_1 + \vec{r}_2 \cross \vec{F}_2
         = \vec{a} \cross q \vec{E}(\vec{r} + \vec{a})
+    \eqbox{
         = \vec{p} \cross \vec{E}(\vec{r})
     }
 \end{equation}
-acting on a dipole, which leads to change in orientation until $\vec{p} \parallel \vec{E}$ where the potential is minimized\footnote{While an antiparallel configuration formally also extremizes the potential, this configuration corresponds to a maximum, which means it is not stable.} This can be understood similar to a statement in terms of center of mass: the dipole itself is not moving in the electric field, but it constituents do; via the complex interplay of both forces moving in the external $\vec{E}$-field while the two particles still interact, the total effect is merely a rotation of the dipole.
+acting on a dipole, which leads to change in orientation until $\vec{p} \parallel \vec{E}$ where the potential is minimized.\footnote{While an antiparallel configuration formally also extremizes the potential, this configuration corresponds to a maximum, which means it is not stable.} This can be understood similar to a statement in terms of center of mass: the dipole itself is not moving in the electric field, but it constituents do; via the complex interplay of both forces moving in the external $\vec{E}$-field while the two particles still interact, the total effect is merely a rotation of the dipole.
 
 
 
@@ -558,12 +562,15 @@ acting on a dipole, which leads to change in orientation until $\vec{p} \paralle
 
 
             \paragraph{Quadrupole}
-now we put two dipoles together in opposite orientation, to eliminate dipole moment. next leading order is thus a quadrupole
+now we put two dipoles together in opposite orientation, to eliminate dipole moment. next leading order is thus a \Def{quadrupole}
 
 
 
         \subsection{Conductors}
 Until now, all theory we treated happened in vacuum, i.e.~no charges were present outside the ones described by $\rho$. Next, we turn our attention to electric fields in matter. We can divide matter into three different categories, when it comes to their properties regarding charges and interactions with electric fields: \Def[insulator]{insulators} with no free charges, \Def[conductor]{conductors} with one or more free electrons per atom, and \Def[dielectricum]{dielectrics} which are somewhere in between. Insulators do not react in any significant way to external electric field, so discussing them here is kind of pointless. Dielectrics are interesting and we dedicate the next subsection to them. This one is focussing on conductors.
+
+
+-> idea of what changes in a medium: total electric field now comes from free charges in $\rho$ \emph{and} from charges in the medium; we assume no free charges in medium for now, but still a total charge can be induced via the formation of small dipoles in the medium -> we look at the macroscopic effect only, i.e.~polarization $\vec{\mathbb{P}}$\footnote{We do not call it $\vec{P}$ here because this is already reserved for momentum.}
 
 
 As we already said, conductors have free charges inside of them, i.e.~electrons attached to atoms that are basically free to roam around in the material. If the number of free charges was infinity, we would call the material a \Def{perfect conductor}. While this is of course not possible in reality, many materials (especially metals) come very close to that and such an approximation is justified. (This is not so different from using a continuous charge distribution $\rho$. In reality, there is always a finite number of particles occupying discrete positions in space, but using $\rho$ can still be more convenient and thus justified.)
@@ -573,7 +580,7 @@ Let us now note down some properties, which immediately follow from this definit
 definition: has unlimited amount of free charges
 
 
--> fields are cancelled because there are so many free charges
+-> fields are cancelled because there are so many free charges -> and only then we have equilibrium (also seems to happen instantaneously, for all practical matters)
 
 
 Nice thought experiment: what happens if we have a hole (cavity) inside of a conductor? Does it contain a field? Does the answer to this depend on whether the cavity itself contains charge?
@@ -582,25 +589,187 @@ Nice thought experiment: what happens if we have a hole (cavity) inside of a con
 
 
 
-        % \subsection{Isolators}
-        % \subsection{Dielectrica}
         \subsection{Dielectric Media}
-\todo{make whole section? \enquote{Electrostatics Of Dielectrica}?}
+Dielectrics are specific materials, which we can roughly characterize in the following manner: There are charges available for an external field to act on (in contrast to insulators), but they cannot move freely throughout the whole material and instead stay attached to their atoms (in contrast to conductors). Depending on how badly the atom wants to keep its electron(s), there can be two ways that charges in such a material react to an external field: stretching and/or rotating. (Note, however, that both of them imply there is no total cancellation of the field inside a dielectric, only a partial one, unlike in conductors.)
 
 
 
-idea of what changes in a medium: total electric field now comes from free charges in $\rho$ \emph{and} from charges in the medium; we assume no free charges in medium for now, but still a total charge can be induced via the formation of small dipoles in the medium -> we look at the macroscopic effect only, i.e.~polarization $\vec{\mathbb{P}}$\footnote{We do not call it $\vec{P}$ here because this is already reserved for momentum.}
+            \paragraph{Single Atoms}
+Even though atoms can be neutral objects, they certainly consist of charged particles (positive charge in core, negative charge in shell electrons). We thus expect that an atom reacts to an external field. In very extreme cases, the atom is torn apart, making the electrons free and turning the material into a conductor (this process is called \Def{ionization}). If the field is not that extreme, the net effect is that the atom's constituents remain together, but in a slightly different configuration, namely with an effective dipole moment (equilibrium of force from external field and the internal electrical interaction between core, electrons)
+\begin{equation}
+    \eqbox{
+        \vec{p} = \alpha \vec{E}
+    } \, .
+\end{equation}
+In such a case, we say that the atom is polarized and $\alpha$ is the \Def[polarizability]{(atomic) polarizability}, which is a number specific to each atom there is.
 
--> sign of polarization (in Maxwell equation; i.e.~that we add to total electric field in order to get field from free charges, instead of subtracting) comes from sign we choose for dipole moment, right? Or sign of field lines or something, which then affects in which direction dipoles are formed, something like that
+% -> this leads to formation of a dipole moment $\vec{p}$; since $\vec{p}$ is induced by $\vec{E}$, we expect that it is proportional to $\vec{E}$; the factor relating them is called \Def{polarizability} $\alpha$ of the atom and is a number that depends entirely on the material; interesting: depending on geometry of materials, which may consist of molecules rather than atoms, it can happen that we need a polarization tensor $\tensor{\alpha}$ to describe the effect of $\vec{E}$; intermediate step: $\vec{p} = \alpha_\perp \vec{E}_\perp + \alpha_\parallel \vec{E}_\parallel$
 
--> Maxwell with divergence then only valid for field coming from free charges (not in medium due to all the constraints we have there, as very hand-wavy explanation)
+If a material is not composed of atoms, but instead of molecules (such as water), the reaction to an external field can be more complicated. We might be required to model the dipole moment as the sum of different components
+\begin{equation}
+    \vec{p} = \alpha_\perp \vec{E}_\perp + \alpha_\parallel \vec{E}_\parallel
+\end{equation}
+or even using a \Def{polarizability tensor}
+\begin{equation}
+    \vec{p} = \tensor{\alpha} \vec{E} \, .
+\end{equation}
+
+
+Another effect that may occur is molecules that have an initial dipole moment, that is present without an external field inducing one (\Def{polar molecules}). The external field will then not induce a higher/lower dipole moment because the force of a homogenous field on a dipole vanishes, as shown in Eq.~\eqref{eq:dipole_force}. (Note that we only need homogeneity over the dipole, not in general, which is a reasonable assumption on the atomic length scales we are talking about.) However, there is still an effect, namely a torque (cf.~Eq.~\eqref{eq:dipole_torque})
+\begin{equation*}
+    \vec{M} = \vec{p} \cross \vec{E} \, .
+\end{equation*}
+This leads to an alignment of the dipole moment with the electric field, until $\vec{p} \parallel \vec{E}$. Hence the net result is also a dipole moment of the kind $\vec{p} = \alpha \vec{E}$, as was the case for a dielectric consisting of atoms.
+
+
+As \cite{Griffiths_2017} also notes, nature is (of course) often more complicated than that, but understanding the exact mechanism in every detail will not be required for us to proceed. Note, however, that we cannot always assume $\vec{p} \parallel \vec{E}$ anymore, although our sketch how the dipole moment was created was based on this.
+
+
+
+            \paragraph{Overall Effect}
+Having discussed the effect of an external field on a single atom (or molecule), we now wish to extend this to the effect on the whole dielectric. We will do that assuming each atom/molecule (or at least, the average atom/molecule) has a dipole moment $\vec{p}(\vec{r})$ (possibly $\parallel \vec{E}$, but this need not be the case), i.e.~that the material is \Def{polarized}. (In principle, the degree to which this alignment happens depends on temperature; the higher it is, the more random motion, the less alignment. But this is not our primary interest here and rather a problem in statistical mechanics.) A good and common way to proceed is to calculate the material's polarization
+\begin{equation}
+    \vec{\mathbb{P}} \coloneqq \text{(average) dipole moment per volume} \, ,
+\end{equation}
+\emph{assuming} there are microscopic dipole moments $\vec{p}$ (and not worrying about how they got created). Integrating them up over the whole body $\mathcal{V}$ yields the potential
+\begin{equation}
+    \varphi(\vec{r}) = \fpeps \int_{\mathcal{V}} \frac{\vec{\mathbb{P}}(\vec{r}') \cdot (\vec{r} - \vec{r}')}{\norm{\vec{r} - \vec{r}'}^3} \, d\mathcal{V}'
+\end{equation}
+from which we an application of the gradient can be used to obtain the electric field created in the dielectric.
+
+
+This can be done, but we can also choose to bring this in a physically more illuminating form. As \cite{Griffiths_2017} shows more explicitly in Sec.~4.2.1, observing $\frac{\vec{r} - \vec{r}'}{\norm{\vec{r} - \vec{r}'}^3} = \grad_{\vec{r}'} \frac{1}{\norm{\vec{r} - \vec{r}'}}$, applying the product rule, and using the divergence theorem leads to the expression
+\begin{align}
+    \eqbox{
+        \varphi(\vec{r}) = \fpeps \oint_{\mathcal{S} = \partial \mathcal{V}} \frac{1}{\norm{\vec{r} - \vec{r}'}} \underbrace{\vec{\mathbb{P}} \cdot \vec{n}_{\mathcal{S}}}_{\eqqcolon \sigma_b} \, d\mathcal{S} - \fpeps \int_{\mathcal{V}} \frac{1}{\norm{\vec{r} - \vec{r}'}} \underbrace{\grad' \cdot \vec{\mathbb{P}}}_{\eqqcolon - \rho_b} \, d\mathcal{V}'
+    } \, .
+\end{align}
+In words, the potential of the polarized object gets contributions from a charge density $\rho_b$ from its volume $\mathcal{V}$, as well as a charge density $\sigma_b$ from its surface $\mathcal{S} = \partial \mathcal{V}$. \cite{Griffiths_2017} shows in great detail that this is not just a notational tweak or curious, accidental finding. The field of a polarized object \emph{is} made up of \Def{bound charges}, which accumulate during the process of polarization (hence the subscript \enquote{b}). We have just chosen the equivalent approach in terms of dipole moments. (I will not go into further detail on the discussion in \cite{Griffiths_2017} 4.2.3, where he talks about the field in a dielectric. The bottom line of the whole discussion is: working with dipoles in the way we did is fine, even if the microscopic dipole structure does play a role for the interaction of atoms.)
+
+% \todo{skipping the more detailed explanation in Griffiths Sec.~4.2.3; bottom line is that microscopic treatment of actual dipoles to obtain the effective, macroscopic field can be equivalently done by treatment of uniformly polarized sphere with the same total dipole moment (which is apparently what is done before to derive $\vec{\mathbb{P}}$)}
+
+
+
+-> \todo{inquire on what he notes on page 183, that \enquote{surface bound charge is precisely this term} -- is surface charge = derivative of charge density?!}
+
+
+
+            \paragraph{Modified Maxwell Equations}
+After focussing on understanding and describing the field inside a dielectric, now is the time to calculate the \emph{total} electric field, caused by all charges present. To do that, we write the total charge density (anywhere, within the dielectric or outside; though outside, $\rho_b = 0$) as
+\begin{equation}
+    \rho = \rho_b + \rho_f \, .
+\end{equation}
+This just means it is composed of the bound charges $\rho_b$ inside the dielectric (which generates $\vec{\mathbb{P}}$) and everything else, the so-called free charges $\rho_f$. These sources combined are what generates the net/total electric field $\vec{E}$, i.e.
+\begin{equation}
+    \epsilon_0 \div \vec{E} = \rho = \rho_b + \rho_f = - \div \vec{\mathbb{P}} + \rho_f \, .
+\end{equation}
+From this, it is clear why the quantity
+\begin{equation}
+    \eqbox{
+        \vec{D} \coloneqq \epsilon_0 \vec{E} + \vec{\mathbb{P}}
+    }
+\end{equation}
+(the \Def{electric displacement}) is of interest, it is the field generated by the free charges. In other words,
+\begin{equation}\label{eq:gauss_law_estat_in_matter}
+    \eqbox{
+        \oint_{\partial \mathcal{V}} \vec{D} \cdot d\vec{\mathcal{S}} = Q_f(\mathcal{V})
+    }
+\end{equation}
+where $Q_f(\mathcal{V})$ denotes the total amount of free charge in the volume $\mathcal{V}$. This is a formulation of Gauss's law in the presence of bound charges and this particular form is useful because it refers only to the free charges (which is what we as experimentalists have control over).
+
+-> sign of polarization in $\vec{D}$ comes from sign we choose for dipole moment, right? Or sign of field lines or something, which then affects in which direction dipoles are formed, something like that -> and perhaps also with direction of induced charges
+
+
+Quote from \cite{Griffiths_2017}, page 183: It may appear to you that I left out the surface bound charge $\sigma_b$ in deriving Eq. 4.22, and in a sense that is true. We cannot apply Gauss's law precisely at the surface of a dielectric, for here $\sigma_b$ blows up, taking the divergence of E with it. But everywhere else the logic is sound, and in fact if we picture the edge of the dielectric as having some finite thickness, within which the polarization tapers off to zero (probably a more realistic model than an abrupt cut-off anyway), then there is no surface bound charge; $\sigma_b$ varies rapidly but smoothly within this \enquote{skin}, and Gauss's law can be safely applied everywhere. At any rate, the integral form (Eq. 4.23) is free from this \enquote{defect}.
+
+
+
+
+Despite this form of Gauss's law, $\vec{D}$ is not \enquote{the $\vec{E}$ of electrostatics in matter}. One reason is that we cannot apply the Helmholtz theorem to it to obtain an analog of Eq.~\eqref{eq:efield_general} because the curl of $\vec{D}$ is not always zero:
+\begin{equation}
+    \curl \vec{D} = \epsilon_0 \curl \vec{E} + \curl{\vec{\mathbb{P}}} = \curl{\vec{\mathbb{P}}}
+\end{equation}
+which we have no reason to assume to be zero at all times. Since $\curl \vec{D} = 0$ is also a necessary condition for $\vec{D}$ to have a potential, we can further conclude that there is no such potential -- $\vec{E}$ and $\vec{D}$ are not necessarily on an equal footing. For this reason, the general Maxwell equations of electrostatics in media are
+\begin{equation}\label{eq:maxwell_estat_dielec_diff}
+    \eqbox{
+        \div \vec{D} = \rho_f
+    } \, , \qquad
+    \eqbox{
+        \curl \vec{E} = 0
+    } \, ,
+\end{equation}
+or in integral form
+\begin{equation}\label{eq:maxwell_estat_dielec_diff}
+    \eqbox{
+        \oint_{\partial \mathcal{V}} \vec{D} \cdot d\vec{\mathcal{S}} = Q_f(\mathcal{V})
+    } \, , \qquad
+    \eqbox{
+        \oint \vec{E} \cdot d\vec{r} = 0
+    } \, .
+\end{equation}
+
+
+-> to compute $\vec{D}$, we either need special symmetry (so that it is constant and we can rearrange Eq.~\eqref{eq:gauss_law_estat_in_matter} to get it) or there is probably a lot of work to do to determine $\vec{\mathbb{P}}$
+
+
+
+            \paragraph{Linear Dielectrics}
+While non-linear optics and the related electromagnetic theory are a branch that has gained (and is still gaining) quite some importance over the past years, it is common for elements to be \Def{linear dielectrics}, where the polarization is given by
+\begin{equation}\label{eq:linear_medium}
+    \eqbox{
+        \vec{\mathbb{P}} = \epsilon \chi_e \vec{E}
+    } \, ,
+\end{equation}
+$\chi_e$ is the \Def{electric susceptibility}, a dimensionless quantity encapsulating properties of the medium. This scenario lines up with the discussion we had when motivating polarization -- $\vec{p} \parallel \vec{E}$.
+
+But beware -- $\vec{E}$ is the \emph{total} electric field here, not just the external one. So calculating $\vec{\mathbb{P}}$ is not as easy as plugging a field into Eq.~\eqref{eq:linear_medium}. In fact, we usually have to hope that we can somehow obtain the displacement $\vec{D}$ and from this obtain $\vec{E}$ via their relationship (in linear media)
+\begin{equation}
+    \eqbox{
+        \vec{D}
+    } = \epsilon_0 \vec{E} + \vec{\mathbb{P}}
+    \eqbox{
+        = \epsilon_0 (1 + \chi_e) \vec{E} \eqqcolon \epsilon_0 \epsilon_r \vec{E} \eqqcolon \epsilon \vec{E}
+    }
+\end{equation}
+where $\epsilon$ is the \Def{permittivity} of the material and $\epsilon_r$ the \Def{relative permittivity} (also: \Def{dielectric constant}), which are just abbreviations to save some letters.
+
+
+Please note that the exact nature of $\chi_e$ (or, accordingly, $\epsilon, \epsilon_r$) depends on more material properties. In general, it can still be a tensor, unless the medium is \Def{isotropic}, meaning the material properties do not depend on the direction we look at in the medium. In addition to that, a medium can be \Def{homogenous} with properties not even depending on the position in the material (these two can, but need not occur together; e.g., a body can be isotropic, but not homogenous). It is common to assume these two even when we just refer to \enquote{linear media}, but technically not correct.
+
+
+In terms of Maxwell equations, things do not change so much for linear media because still
+\begin{equation}
+    \curl \vec{D} = \curl \vec{\mathbb{P}} = - \epsilon_0 \vec{E} \cross (\grad \chi_e) \neq 0
+\end{equation}
+in general. This is simply because the medium might still be inhomogeneous (i.e.~$\epsilon, \chi_e$ may depend on position $\vec{r}$). It is only in linear, homogenous media that have $\curl \vec{D} = 0$, so that the second Maxwell equation reads
+\begin{equation}
+    \curl \vec{D} = 0 \, .
+\end{equation}
+
+
+-> ahh, interesting note on page page 188 (end of 4.4.1): if all space (or at least, all relevant space) is filled with the dielectric, then we do not have problems with line integrals of $\vec{\mathbb{P}}$ not vanishing (assuming homogenous linear dielectric); then electric field inside of dielectric is just the one outside, reduced by $\frac{1}{\epsilon}$
+
+-> also talk about approach to make capacitors with higher $C$
+
+
+
+            \paragraph{Energy}
+4.4.3
+
+
+
+\todo{treat 4.4.4? \enquote{Forces on Dielectrics}}
 
 
 
         \subsection{Boundary Conditions}
-\todo{look at Griffiths 2.3.5}
+% Griffiths 2.3.5, 4.3.3, 4.4.2
 We have seen that boundary conditions play an important part in obtaining the electric field (and thereby interaction between charges) during our discussions of the Poisson equation. Normally, boundary conditions are specified as part of the problem, i.e.~they are given to us by the physical setup. But they cannot be arbitrary, as we can see by thinking in general about the behavior of static electric fields at a boundary surface with surface charge $\sigma$. Our tool to study this has, not surprisingly, been developed by Gauss and is called a \Def{Gaussian pillow} (Fig.~\ref{fig:gaussian_pillow}).
 
+\todo{is this a good reasoning?}
+
+
+-> idea: how does some charged volume change electric field? We will look at case of very thin one, which is effectively surface (which means we look at $\sigma$ rather than $\rho$), just to make sure we truly observe changes caused by the volume itself rather than the usual changes in the electric field \todo{right? or what is reason?}
 
 
 \begin{figure}
@@ -652,14 +821,14 @@ Using $\vec{E} = \vec{E}_\perp + \vec{E}_\parallel$ the two conditions on $\vec{
         \vec{E}_\text{above} - \vec{E}_\text{below} = \frac{\sigma}{\epsilon_0} \vec{n}
     } \, .
 \end{equation}
+(Reminder: $\vec{n}$ is the unit normal vector to the surface.)
 
 
-
-In terms of potential, these equations read
+In terms of potential, these equations read (note the different sign on the right side)
 \begin{equation}
     \grad \varphi_\text{above} - \grad \varphi_\text{below} = - \frac{\sigma}{\epsilon_0} \vec{n}
 \end{equation}
-(reminder: $\vec{n}$ is the unit normal vector to the surface) or, defining the \Def{normal derivative}
+or, defining the \Def{normal derivative}
 \begin{equation}
     \eqbox{
         \pdv{\varphi}{n} \coloneqq \vec{n} \cdot \grad \varphi
@@ -675,7 +844,7 @@ they take the form
 
 But while the gradient of the potential inherits a discontinuity from the field, the potential itself \emph{is} continuous since
 \begin{equation}
-    \varphi_\text{above} - \varphi_\text{below} = \int_{-\epsilon/2}^{\epsilon/2} \vec{E} \cdot d\vec{r} \underset{\epsilon \rightarrow}{=} 0
+    \varphi_\text{above} - \varphi_\text{below} = \int_{-\epsilon/2}^{\epsilon/2} \vec{E} \cdot d\vec{r} \underset{\epsilon \rightarrow 0}{=} 0
     \quad \Leftrightarrow \quad
     \eqbox{
         \varphi_\text{above} = \varphi_\text{below}
@@ -685,8 +854,38 @@ But while the gradient of the potential inherits a discontinuity from the field,
 
 
 
-            \paragraph{In A Medium}
-?or should we say in a dielectric?
+            \paragraph{In A Dielectric}
+The boundary conditions on $\vec{E}$ remain valid even in a dielectric (but beware that the surface charge density appearing there is $\sigma = \sigma_f + \sigma_b$, not just $\sigma_f$). But as we have seen, $\vec{D}$ is sometimes more convenient to work with, so we might also be interested in finding boundary conditions for this case.
+
+Upon an application of Gauss's and Stokes's law that relate differential and integral laws, the expressions we derived for $\div \vec{D}, \curl \vec{D}$ can be turned into boundary conditions by the same procedure of a Gauss pillow and Stokes surface. The results read
+\begin{equation}\label{eq:bound_cond_estat_dielec}
+    \eqbox{
+        D_{\perp, \text{above}} - D_{\perp, \text{below}} = \sigma_f
+    }, \qquad
+    \eqbox{
+        \vec{D}_{\parallel, \text{above}} - \vec{D}_{\parallel, \text{below}} = \vec{\mathbb{P}}_{\parallel, \text{above}} - \vec{\mathbb{P}}_{\parallel, \text{below}}
+    } \, .
+\end{equation}
+(Note that we could also write down a vectorial version of the first law, by adding the normal vector $\vec{n}$ on both sides.)\\
+
+
+In linear media, it is possible to obtain slightly simpler conditions, in the sense that they concern $\vec{E}$ and are still formulated in terms of $\sigma_f$. More specifically, for homogenous isotropic linear dielectrics,
+\begin{equation}
+    \rho_b = - \div \vec{\mathbb{P}} ? - \div \epsilon_0 \frac{\chi_e}{\epsilon} \vec{D} = - \qty(\frac{\chi_e}{1 + \chi_e}) \rho_f \, .
+\end{equation}
+\todo{maybe this is mentioned before already, in that case just reference the corresponding equation}
+Eq.~\eqref{eq:bound_cond_estat_dielec} then turns into
+\begin{equation}
+    \eqbox{
+        \epsilon_\text{above} E_{\perp, \text{above}} - \epsilon_\text{below} E_{\perp, \text{below}} = \sigma_f
+    }
+\end{equation}
+which is equivalent to
+\begin{equation}
+    \eqbox{
+        \epsilon_\text{above} \pdv{\varphi_\text{above}}{n} - \epsilon_\text{above} \pdv{\varphi_\text{below}}{n} = - \sigma_f
+    }
+\end{equation}
 
 
 
