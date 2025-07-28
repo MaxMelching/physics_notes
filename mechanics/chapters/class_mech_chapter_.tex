@@ -562,47 +562,10 @@ now we put two dipoles together in opposite orientation, to eliminate dipole mom
 
 
 
-        \subsection{Conductors}
-Until now, all theory we treated happened in vacuum, i.e.~no charges were present outside the ones described by $\rho$. Next, we turn our attention to electric fields in matter. We can divide matter into three different categories, when it comes to their properties regarding charges and interactions with electric fields: \Def[insulator]{insulators} with no free charges, \Def[conductor]{conductors} with one or more free electrons per atom, and \Def[dielectricum]{dielectrics} which are somewhere in between. Insulators do not react in any significant way to external electric field, so discussing them here is kind of pointless. Dielectrics are interesting and we dedicate the next subsection to them. This one is focussing on conductors.
+        \subsection{Boundary Conditions}
+% We have seen that boundary conditions play an important part in obtaining the electric field (and thereby interaction between charges) during our discussions of the Poisson equation. Normally, boundary conditions are specified as part of the problem, i.e.~they are given to us by the physical setup. But they cannot be arbitrary, as we can see by thinking in general about the behavior of static electric fields at a boundary surface with surface charge $\sigma$. Our tool to study this has, not surprisingly, been developed by Gauss and is called a \Def{Gaussian pillow} (Fig.~\ref{fig:gaussian_pillow}).
 
-
--> idea of what changes in a medium: total electric field now comes from free charges in $\rho$ \emph{and} from charges in the medium; we assume no free charges in medium for now, but still a total charge can be induced via the formation of small dipoles in the medium -> we look at the macroscopic effect only, i.e.~polarization $\vec{\mathbb{P}}$\footnote{We do not call it $\vec{P}$ here because this is already reserved for momentum.}
-
-
-As we already said, conductors have free charges inside of them, i.e.~electrons attached to atoms that are basically free to roam around in the material. If the number of free charges was infinity, we would call the material a \Def{perfect conductor}. While this is of course not possible in reality, many materials (especially metals) come very close to that and such an approximation is justified. (This is not so different from using a continuous charge distribution $\rho$. In reality, there is always a finite number of particles occupying discrete positions in space, but using $\rho$ can still be more convenient and thus justified.)
-
-Let us now note down some properties, which immediately follow from this definition.
-\begin{enumerate}[(i)]
-    \item First implication: the net field inside the conductor must be zero. This is because an external field exerts a force on the free electrons, which are pushed opposite to the field lines. In the process, the electrons (and holes, i.e.~positive charges, they leave behind) form a field of opposite direction, the \Def{induced field} formed by the \Def{induced charges}. This process ends once there is no force on the free charges anymore, i.e.~equilibrium is only reached when $\vec{E}_\text{int} = - \vec{E}_\text{ext} \quad \Leftrightarrow \quad \vec{E}_\text{int} + \vec{E}_\text{ext} \eqqcolon \vec{E}_\text{total} = 0$. This flux happens really fast, practically instantaneously for most purposes (so we do not have to argue so much about how we are still in electro\emph{statics}).
-    
-    (Important: this does not mean the field in all space is zero. The field coming from the free charges outside of the conductor can look very different than the field inside. \todo{put in figure?})
-
-
-    \item Direct implication from (ii): $\frac{\rho}{\epsilon_0} \div \vec{E}_\text{total} = 0$, there is no net charge inside the conductor. This does \emph{not} mean there are not free charges at all; there are free electrons, but they are bound to the atoms and their charges cancel.
-    
-
-    \item Charges must reside on the surface. As \cite{Griffiths_2017} says, \enquote{That's the only place left}. But it also makes sense from what we noted about the motion of electrons in the external electric field.
-    
-    (A very interesting note on this is that such a behavior only occurs in 3D, lower-dimensional materials are very different. \cite{Griffiths_2017} further points out on page 99 that this is inherently related to the $\flatfrac{1}{r^2}$-nature of the Coulomb force.)
-
-    
-    \item A conductor is an equipotential. This is clear since the potential is related to an integral over the electric field, but $\vec{E}_\text{total} = 0$.
-    
-    
-    \item $\vec{E}_\text{total}$ is perpendicular to the (outer) surface of the conductor. The argument is simple, if there were any tangential component, then this would exert a force on the free electrons in the conductor and there would immediately be flux of electrons until this tangential component is cancelled.
-\end{enumerate}
-
-
-
-            \paragraph{Cavities In Conductors}
-Nice thought experiment: what happens if we have a hole (cavity) inside of a conductor? Does it contain a field? Does the answer to this depend on whether the cavity itself contains charge?
-
--> field in space that contains no charges, but is surrounded by a conductor, must be zero -- if there were any field lines, where would the begin and end? Would have to be on the conducting surface, but there \todo{finish argument}; this construction is called a \Def{Faraday cage}
-
-
-
-            \paragraph{Boundary Conditions}
-We have claimed that the electric field just outside a conducting surface must be perpendicular to the surface. But this is not a very precise statement yet. Therefore, let us examine in detail the behavior of static electric fields at a boundary surface with surface charge $\sigma$ (this surface need not be a conductor, it is just that the answer also applies if the charge was induced on a conductor). Our tool to study this has, not surprisingly, been developed by Gauss and is called a \Def{Gaussian pillow} (Fig.~\ref{fig:gaussian_pillow}).
+We have seen that boundary conditions play an important part in obtaining the electric field (and thereby interaction between charges) during our discussions of the Poisson equation. Therefore, let us think about them in a little more detail. More specifically, let us examine the behavior of static electric fields at a boundary surface with surface charge $\sigma$ (no matter how $\sigma$ was created or what the exact material properties of the surface are). Our tool to study this has, not surprisingly, been developed by Gauss and is called a \Def{Gaussian pillow} (Fig.~\ref{fig:gaussian_pillow}).
 
 
 
@@ -652,7 +615,7 @@ Using $\vec{E} = \vec{E}_\perp + \vec{E}_\parallel$ the two conditions on $\vec{
         \vec{E}_\text{above} - \vec{E}_\text{below} = \frac{\sigma}{\epsilon_0} \vec{n}
     } \, .
 \end{equation}
-(Reminder: $\vec{n}$ is the unit normal vector to the surface.) Please note that this does not mean the field produced by the surface is $\frac{\sigma}{\epsilon_0} \vec{n}$. We find this field in the next subsection.
+(Reminder: $\vec{n}$ is the unit normal vector to the surface.) Please note that this does not mean the field produced by the surface is $\frac{\sigma}{\epsilon_0} \vec{n}$. It might, however, be possible to calculate the surface density and field from the above condition (as shown, e.g., for conductors in the next subsection; cf.~Eq.~\eqref{eq:extfield_surfacecharge_surfacefield}).
 
 
 In terms of potential, these equations read (note the different sign on the right side)
@@ -685,19 +648,92 @@ But while the gradient of the potential inherits a discontinuity from the field,
 
 
 
-            \paragraph{Force On A Conductor}
-One of the properties of a conductor is that the field inside of it is zero, $\vec{E}_\text{below} = 0$. The boundary conditions we have just derived then imply that the field just outside the conductor is given by
-\begin{equation}
+        \subsection{Conductors}
+Until now, all theory we treated happened in vacuum, i.e.~no charges were present outside the ones described by $\rho$. Next, we turn our attention to electric fields in matter. We can divide matter into three different categories, when it comes to their properties regarding charges and interactions with electric fields: \Def[insulator]{insulators} with no free charges, \Def[conductor]{conductors} with one or more free electrons per atom, and \Def[dielectricum]{dielectrics} which are somewhere in between. Insulators do not react in any significant way to external electric field, so discussing them here is kind of pointless. Dielectrics are interesting and we dedicate the next subsection to them. This one is focussing on conductors.
+
+
+% -> idea of what changes in a medium: total electric field now comes from free charges in $\rho$ \emph{and} from charges in the medium; we assume no free charges in medium for now, but still a total charge can be induced via the formation of small dipoles in the medium -> we look at the macroscopic effect only, i.e.~polarization $\vec{\mathbb{P}}$\footnote{We do not call the polarization $\vec{P}$ because this is already reserved for momentum.}
+
+
+As we already said, conductors have free charges inside of them, i.e.~electrons attached to atoms that are basically free to roam around in the material. If the number of free charges was infinity, we would call the material a \Def{perfect conductor}. While this is of course not possible in reality, many materials (especially metals) come very close to that and such an approximation is justified. (This is not so different from using a continuous charge distribution $\rho$. In reality, there is always a finite number of particles occupying discrete positions in space, but using $\rho$ can still be more convenient and thus justified.)
+
+Let us now note down some properties, which immediately follow from this definition.
+\begin{enumerate}[(i)]
+    \item First implication: the net field inside the conductor must be zero. This is because an external field exerts a force on the free electrons, which are pushed opposite to the field lines. In the process, the electrons (and holes, i.e.~positive charges, they leave behind) form a field of opposite direction, the \Def{induced field} formed by the \Def{induced charges}. This process ends once there is no force on the free charges anymore, i.e.~equilibrium is only reached when $\vec{E}_\text{int} = - \vec{E}_\text{ext} \quad \Leftrightarrow \quad \vec{E}_\text{int} + \vec{E}_\text{ext} \eqqcolon \vec{E}_\text{total} = 0$. This flux happens really fast, practically instantaneously for most purposes (so we do not have to argue so much about how we are still in electro\emph{statics}).
+    
+    (Important: this does not mean the field in all space is zero. The field coming from the free charges outside of the conductor can look very different than the field inside. \todo{put in figure?})
+
+
+    \item Direct implication from (ii): $\frac{\rho}{\epsilon_0} \div \vec{E}_\text{total} = 0$, there is no net charge inside the conductor. This does \emph{not} mean there are not free charges at all; there are free electrons, but they are bound to the atoms and their charges cancel.
+    
+
+    \item Charges must reside on the surface. As \cite{Griffiths_2017} says, \enquote{That's the only place left}. But it also makes sense from what we noted about the motion of electrons in the external electric field.
+    
+    (A very interesting note on this is that such a behavior only occurs in 3D, lower-dimensional materials are very different. \cite{Griffiths_2017} further points out on page 99 that this is inherently related to the $\flatfrac{1}{r^2}$-nature of the Coulomb force.)
+
+    
+    \item A conductor is an equipotential. This is clear since the potential is related to an integral over the electric field, but $\vec{E}_\text{total} = 0$. We can also conclude it from $\vec{E} = - \grad \varphi = 0$, take your choosing.
+    
+    
+    \item $\vec{E}_\text{total}$ is perpendicular to the (outer) surface of the conductor. The argument is simple, if there were any tangential component, then this would exert a force on the free electrons in the conductor and there would immediately be flux of electrons until this tangential component is cancelled.
+\end{enumerate}
+
+
+-> charges spread out as much as possible still (because they repel each other), but all of them (again, \enquote{all} means net charge) reside on the surface; a viewpoint confirming this is energy: all charges on surface is configuration of the system with minimal energy
+
+
+\begin{ex}[Cavities In Conductors]
+    Here is a fun thought experiment: what happens if we carve a hole (cavity) into of a conductor? Does it contain a field? Does the answer to this depend on whether the cavity itself contains charge?
+
+    First of all, if a charge $q$ is present in this cavity, then the field inside will not be zero. -> charges exert field, which induce charge on wall where cavity, conductor intersect as well (and opposite of this charge is induced on outer conductor wall)
+
+    \todo{I do not understand this fully, at least not how this is supposed to work when external field is present; example with no external field makes sense, though (where cavity produces net field equal to the one inside, because it is communicated outside via influence)}
+
+    Griffiths Figs.~2.44, 2.45 are nice
+
+    % \\
+
+    How about the case where no charge is in the cavity? In that case, $\vec{E}_\text{total} = 0$ from inside the conductor must translate to the inside of the cavity as well. We can see this by asking the simple question: where would the any field line beginning in the cavity begin and end? Since field lines start and end on charges, none of which are present in the cavity, the only possibility is that the line starts and end on the cavity wall. So far, there is nothing unreasonable, such a field between two points on the cavity could exist. But if we close the field line with a path that goes through the conductor, where $\vec{E} = 0$, then $\oint \vec{E} \cdot d\vec{r} \overset{!}{=} 0$ requires that the field we picked up when going through the cavity must also be zero.
+
+    Griffiths Fig.2.47 is nice visualization of this
+
+    In other words, if you surround yourself with a conducting surface (which need not be entirely closed), you are safe against any electric field from the outside. This construction is called a \Def{Faraday cage} and is the reason why lightning strikes have no effect on people in cars or planes.
+    \todo{we need the cage to be grounded}
+\end{ex}
+
+
+
+            \paragraph{Field Of And Force On A Conductor}
+One of the properties of a conductor is that the field inside of it is zero, $\vec{E}_\text{below} = 0$. The boundary condition Eq.~\eqref{eq:bound_cond_estat_vacuum} we have derived earlier\footnote{We did not assume the surface to be a conductor during the derivation, but the answer still applies if the surface charge was induced on a conductor.} then implies that the field just outside the conductor is given by
+\begin{equation}\label{eq:conductor_field_above}
     \eqbox{
         \vec{E}_\text{above} = \frac{\sigma}{\epsilon_0} \vec{n}
     } \, .
 \end{equation}
+Combining $\vec{E}_\text{surface, below} + \vec{E}_\text{ext, below} = \vec{E}_\text{below} = 0$ on the inside together with $\vec{E}_\text{surface, below} = - \vec{E}_\text{surface, above}$ and $\vec{E}_\text{ext, below} = \vec{E}_\text{ext, above} \eqqcolon \vec{E}_\text{ext}$ (since the external field does not change direction) yields
+\begin{align*}
+    \vec{E}_\text{above}
+    = \vec{E}_\text{ext, above} + \vec{E}_\text{surface, above}
+    = \vec{E}_\text{ext, above} - \vec{E}_\text{surface, below}
+    = \vec{E}_\text{ext, above} + \vec{E}_\text{ext, below}
+    = 2 \vec{E}_\text{ext}
+\end{align*}
+and thus (Eq.~\eqref{eq:conductor_field_above}, which follows from Eq.~\eqref{eq:bound_cond_estat_vacuum})
+\begin{equation}\label{eq:extfield_surfacecharge_surfacefield}
+    \eqbox{
+        \vec{E}_\text{ext} = \frac{1}{2} \vec{E}_\text{above} = \frac{\sigma}{2 \epsilon_0} \vec{n}
+        = \vec{E}_\text{surface, above} = - \vec{E}_\text{surface, below}
+    } \, .
+\end{equation}
+Given the external field that we as experimentalists apply, this determines the surface charge that accumulates on the conductor (and thus the field produced by the conductor surface).
+
+
 Now, say the total charge on the surface is $Q = \int \sigma \, d\mathcal{S}$. The total force on the surface exerted by $\vec{E}$ is $\vec{F} = Q \vec{E}$, which means we can define a force per unit area
 \begin{equation}
     \vec{f} = \sigma \vec{E} \, .
 \end{equation}
 There exists an ambiguity which field should be used here, $\vec{E}_\text{below}$ or $\vec{E}_\text{above}$? It turns out that their average is what we should take, i.e.
-\begin{equation}
+\begin{equation}\label{eq:estat_force_per_area}
     \eqbox{
         \vec{f} = \sigma \frac{1}{2} (\vec{E}_\text{below} + \vec{E}_\text{above}) = \frac{\sigma^2}{2 \epsilon_0} \vec{n}
     } \, .
@@ -708,11 +744,33 @@ This force per area element, which is akin of an \Def{electrostatic pressure} $P
         P = \norm{\vec{f}} = \frac{\epsilon_0 E_\text{above}^2}{2}
     } \, .
 \end{equation}
-Note that the force is, of course, not exerted by the surface itself onto itself (this would be a tautology), although it being proportional to the surface charge suggests that. But this proportionality just stems from the fact that inside the conductor, the inner field and outer field cancel each other, plus the fact that the field is entirely produced by charges on the surface. But the field of the surface is $\pm \frac{\sigma}{2\epsilon_0} \vec{n}$ above, below, so the external field must be $\frac{\sigma}{2\epsilon_0} \vec{n} = \vec{E}_\text{above}/2$. Given an external electric field, this determines the surface charge that accumulates on the conductor.
+We have examined the effect of a single surface charge, while a conductor consists of two such induced surface charges. So, perhaps the total pressure on the conductor is canceled, right? Well, actually no. As we have mentioned, Eq.~\eqref{eq:estat_force_per_area} depends on the \emph{square} of $\sigma$, so it is not sensitive to the sign. Both surface charges in the conductor experience the same electrostatic pressure.
+
+
+Note that the force is, of course, not exerted by the surface itself onto itself (this would be a tautology), although it being proportional to the surface charge may look like it suggests that. But this proportionality just stems from the fact that the conductor is induced by the external field, so that they can be expressed in terms of each other, plus the fact that the conductor field is entirely due to the surface charge. All in all, this means the external field can be related to the surface charge, as reflected in Eq.~\eqref{eq:extfield_surfacecharge_surfacefield}.
 
 
 
             \paragraph{Capacitors}
+Suppose we do the following: take two conductors (shape does not matter for now) and place a charge $+Q > 0$ on one of them, while the other one receives $- Q$. Since each conductor is an equipotential, we can define a potential difference
+\begin{equation}
+    \varphi = \varphi_+ - \varphi_- = - \int_{-}^{+} \vec{E} \cdot d\vec{r} \, .
+\end{equation}
+between them. Accordingly, there is an electric field between them.
+
+-> $\pm Q$ is distributed uniformly across each conductor. Why? Because this is a possible configuration, and thus by the uniqueness theorem \ref{thm:uniqueness_poisson_2} the only solution. In particular, doubling the amount of charge $\pm Q$ on both conductors doubles the electric field between them (non-trivial because for non-uniform distribution, doubling $Q$ would not imply the new $\rho$ is also twice the old one).
+
+-> therefore, $\vec{E} \propto Q$ (implication of Coulomb's law) implies $\rho \propto Q$, which also implies $\varphi \propto Q$; their constant of proportionality is called the \Def{capacitance}
+\begin{equation}
+    \eqbox{
+        C \coloneqq \frac{Q}{\varphi}
+    } \, .
+\end{equation}
+-> is geometric quantity describing capacitors; measured in a unit called \Def{Farad} with $\unit{\farad} = \unit{\coulomb \per \volt}$ (in SI units); note that $1 \unit{\farad}$ is huge, common capacitors often have micro- or picofarad
+
+-> since $Q > 0$ is charge of positive conductor and $\varphi$ is potential measured on positive conductor as well, $C > 0$
+
+-> capacitance of a single conductor: in that case, the second one (with negative charge) is assumed to be placed at infinity in form of a shell; potential would then be calculated with reference point at infinity (since second conductor contributes nothing to the field)
 
 
 
@@ -754,7 +812,7 @@ As \cite{Griffiths_2017} also notes, nature is (of course) often more complicate
 
 
             \paragraph{Overall Effect}
-Having discussed the effect of an external field on a single atom (or molecule), we now wish to extend this to the effect on the whole dielectric. We will do that assuming each atom/molecule (or at least, the average atom/molecule) has a dipole moment $\vec{p}(\vec{r})$ (possibly $\parallel \vec{E}$, but this need not be the case), i.e.~that the material is \Def{polarized}. (In principle, the degree to which this alignment happens depends on temperature; the higher it is, the more random motion, the less alignment. But this is not our primary interest here and rather a problem in statistical mechanics.) A good and common way to proceed is to calculate the material's polarization
+Having discussed the effect of an external field on a single atom (or molecule), we now wish to extend this to the effect on the whole dielectric. We will do that assuming each atom/molecule (or at least, the average atom/molecule) has a dipole moment $\vec{p}(\vec{r})$ (possibly $\parallel \vec{E}$, but this need not be the case), i.e.~that the material is \Def{polarized}. (In principle, the degree to which this alignment happens depends on temperature; the higher it is, the more random motion, the less alignment. But this is not our primary interest here and rather a problem in statistical mechanics.) A good and common way to proceed is to calculate the material's polarization\footnote{We do not call the polarization $\vec{P}$ because this is already reserved for multiple physical quantities (momentum, pressure, and perhaps more).}
 \begin{equation}
     \vec{\mathbb{P}} \coloneqq \text{(average) dipole moment per volume} \, ,
 \end{equation}
@@ -878,16 +936,36 @@ in general. This is simply because the medium might still be inhomogeneous (i.e.
 
 -> ahh, interesting note on page page 188 (end of 4.4.1): if all space (or at least, all relevant space) is filled with the dielectric, then we do not have problems with line integrals of $\vec{\mathbb{P}}$ not vanishing (assuming homogenous linear dielectric); then electric field inside of dielectric is just the one outside, reduced by $\frac{1}{\epsilon}$
 
--> also talk about approach to make capacitors with higher $C$
+
+
+\begin{ex}[Capacitor and Dielectric]
+    Another interesting question: what if I put a homogenous isotropic linear dielectric between the plates of a capacitor? Comparing $\vec{D} = \epsilon_0 \epsilon_r \vec{E}$ with the corresponding relation in vacuum, $\vec{D} = \epsilon_0 \vec{E}$ (which is the correct thing to do because we have the same amount of free charges on the capacitor and these are the sources of $\vec{D}$), we notice that $\vec{E}$ changes by a factor $\flatfrac{1}{\epsilon_r}$. This translates to the potential $\varphi$ as well, which means the capacitance is \emph{increased} by $\epsilon_r$, $C = \epsilon_r C_\text{vac}$.
+\end{ex}
 
 
 
             \paragraph{Energy}
-4.4.3
+% 4.4.3
+We have defined the energy of a charge distribution as the work required to assemble it. In dielectrics, this notion becomes ambiguous: do we interpret the dielectric as \enquote{already there}, meaning that we must do work to polarize it while bringing in the free charges? Or do we bring in both bound, free charges?
+
+
+-> for latter, no modification to prior expression needed
+
+
+-> for latter, we anticipate a different expression than before; indeed, using the same procedure as before, we obtain the slightly modified expression
+\begin{equation}
+    \eqbox{
+        W = \frac{1}{2} \int \vec{D} \cdot \vec{E} \, d\mathcal{V}
+    } \, ,
+\end{equation}
+which is valid for linear dielectrics
 
 
 
-\todo{treat 4.4.4? \enquote{Forces on Dielectrics}}
+            \paragraph{Forces on Dielectrics}
+Griffiths 4.4.4
+
+dielectric in conductor experiences a force, if we take into account finite length of the conductor and the resulting \Def{fringing field} (which is not perfectly parallel between conductor plates, for example)
 
 
 
