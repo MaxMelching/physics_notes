@@ -1449,26 +1449,54 @@ but its derivative is not:
 
 
         \subsection{Multipole Expansion}
-When dealing with the scalar potential $\varphi$, one of the interesting things that we did was expand the factor $\frac{1}{\norm{\vec{r} - \vec{r}'}}$ in what we called \enquote{multipole expansion}. But
+When dealing with the scalar potential $\varphi$, one of the interesting things that we did was expand the factor $\frac{1}{\norm{\vec{r} - \vec{r}'}}$ in what we called \enquote{multipole expansion}. But the vector potential coming from some volume $\mathcal{V}'$ that contains a current density $\vec{j}(\vec{r}')$,
 \begin{equation*}
-    \vec{A}(\vec{r}) = \fpmu \int_{\mathcal{V}'} \frac{\vec{j}(\vec{r}')}{\norm{\vec{r} - \vec{r}'}} \, d\mathcal{V}'
+    \vec{A}(\vec{r}) = \fpmu \int_{\mathcal{V}'} \frac{\vec{j}(\vec{r}')}{\norm{\vec{r} - \vec{r}'}} \, d\mathcal{V}' \, ,
 \end{equation*}
-contains the same factor, so what prevents us from doing the same? Well, nothing. We obtain (cf.~Eq.\eqref{eq:multipole_exp_general})
+contains the same factor, so nothing prevents us from doing the same expansion. We obtain (using Eq.\eqref{eq:multipole_exp_general})
 \begin{align}\label{eq:multipole_exp_vectorpot}
     \eqbox{
         \vec{A}(\vec{r})
     }
-    &\simeq \fpmu \int_\mathcal{V} \vec{j}(\vec{a}) \qty[\frac{1}{r} + \frac{\vec{r} \cdot \vec{a}}{r^3} + \frac{3 (\vec{r} \cdot \vec{a})^2 - r^2 a^2}{2 r^5}] d^3a
+    % &\simeq \fpmu \int_\mathcal{V} \vec{j}(\vec{a}) \qty[\frac{1}{r} + \frac{\vec{r} \cdot \vec{a}}{r^3} + \frac{3 (\vec{r} \cdot \vec{a})^2 - r^2 a^2}{2 r^5}] d^3a
+    &\simeq \fpmu \int_{\mathcal{V}'} \vec{j}(\vec{r}') \qty[\frac{1}{r} + \frac{\vec{r} \cdot \vec{r}'}{r^3}] d\mathcal{V}'
     \\
     &= 
     \eqbox{
-        \fpmu \qty[\frac{\vec{r} \cdot \vec{p}}{r^3} + \frac{1}{2} \sum_{i, j} \frac{Q_{ij}}{r^5} \vec{r}_i \vec{r}_j]
+        % \fpmu \qty[\frac{\vec{r} \cdot \vec{p}}{r^3} + \frac{1}{2} \sum_{i, j} \frac{Q_{ij}}{r^5} \vec{r}_i \vec{r}_j]
+        \fpmu \qty[\frac{\vec{r}}{r^3} \cdot \int_{\mathcal{V}'} \vec{r}' \vec{j}(\vec{r}') \, d\mathcal{V}']
     }
 \end{align}
-where we have used that the monopole term must vanish (though one can also calculate this explicitly). It is only seldomly the case that the dipole term vanishes, so let us focus on this one. Using some mathematical manipulations, one can rewrite it as
+since the monopole term vanishes,
+\begin{equation}\label{eq:magn_monopole_term}
+    \eqbox{
+        \int_{\mathcal{V}'} \vec{j}(\vec{r}') d\mathcal{V}'
+        = \frac{1}{r} \underbrace{\int_{\mathcal{V}'} \vec{j}(\vec{r}') d\mathcal{V}'}_{= 0}
+        = 0
+    }
+\end{equation}
+(as it should, since there are no magnetic monopoles, but this can be shown in a rigorous calculation).\footnote{Key in the calculation of the dipole term is the identity
+\begin{equation}\label{eq:magn_dipole_identity}
+    \eqbox{
+        \int_{\mathcal{V}'} \vec{a} \cdot \vec{r}' \vec{j}(\vec{r}') \, d\mathcal{V}'
+        = - \frac{1}{2} \vec{a} \cross \int_{\mathcal{V}'} \vec{r}' \cross \vec{j}(\vec{r}') \, d\mathcal{V}'
+        = \frac{1}{2} \qty[\int_{\mathcal{V}'} \vec{r}' \cross \vec{j}(\vec{r}') \, d\mathcal{V}'] \cross \vec{a}
+    } \, ,
+\end{equation}
+which holds for arbitrary vectors $\vec{a}$.} Note that this integral vanishes no matter the $\mathcal{V}'$ we look at, in particular for a closed tube of infinitesimal diameter (closed is important here, otherwise this is not a connected volume), i.e.~a filamentary current,
 \begin{equation}
     \eqbox{
-        \vec{A}_\mathrm{dip} = \fpmu \frac{\vec{m} \cross \vec{r}}{r^3}
+        \oint_{\mathcal{C}'} \vec{j}(\vec{r}') \, d\mathcal{C}' = \oint_{\mathcal{C}'} d\vec{I}' = 0
+    } \, ,
+\end{equation}
+which can be seen as a reflection of the fact no magnetic monopoles exist.
+
+Back to actual expression now. It is only seldomly the case that the dipole term vanishes, so let us focus on this one and omit any higher-order terms. Using some mathematical manipulations, one can rewrite it as
+\begin{equation}
+    \eqbox{
+        \vec{A}_\mathrm{dip}
+        = \fpmu \frac{\vec{r}}{r^3} \int_{\mathcal{V}'} \vec{r}' \vec{j}(\vec{r}') \, d\mathcal{V}'
+        \underset{\text{Eq.~\eqref{eq:magn_dipole_identity}}}{=} \fpmu \frac{\vec{m} \cross \vec{r}}{r^3}
     }
 \end{equation}
 with the \Def{magnetic dipole moment}
@@ -1479,14 +1507,28 @@ with the \Def{magnetic dipole moment}
     } \, .
 \end{equation}
 % \todo{here I have discrepancy between previous notes and Griffiths (I have a $\frac{1}{2}$)... translates to result for current loop, $\vec{m} = I \vec{S}$ is Griffiths result; interpretation is supposed to be relation to area in both cases, but I have additional $\frac{1}{2}$ here as well...} -> ah, Griffiths 5.90 is same formula
-(Note that, just like the electric dipole moment, this does not depend on position. Once we specify some configuration, $\vec{m}$ is specified. It is easy to get caught up in all the integrals, but nothing in $\vec{m}$ leaves a dependence on position.)
--> \todo{$d\mathcal{C}'$ or $d\mathcal{V}'$?}
+(Note that, just like the electric dipole moment, this does not depend on position. Once we specify some configuration, $\vec{m}$ is specified. It is easy to get caught up in all the integrals, but nothing in $\vec{m}$ leaves a dependence on position.) If we take as source an Amperian loop (whence integration $\mathcal{V}'$ must be replaced by integration over $\mathcal{C}'$), the dipole moment takes the form $m = I \mathcal{S}$, where $I$ is the current in the loop and $\mathcal{S}$ the area covered by it (i.e.~the area enclosed by $\mathcal{C}$).
 
 
 -> once again, dipole formula is only exact formula for $\vec{A}$ if loop size goes to zero, while current goes to infinity (so that $m = I a$ remains finite); but in practice, $r \gg a$ is sufficient to invoke dipole form
 
 
--> interesting: as Eq.~(5.88) shows, dipole term (and thus far-field limit) of both magnetic potential and field induced by a dipole looks identical to electric dipole (cf.~Eq.~\eqref{eq:el_dipole_field})
+-> interesting: as Eq.~(5.88) shows, dipole term (and thus far-field limit) of both magnetic potential and field induced by a dipole looks identical to electric dipole (cf.~Eq.~\eqref{eq:el_dipole_field} and Fig.~\ref{fig:magn_dipole})
+
+
+
+\begin{figure}
+    \centering
+
+    \subfloat[Magnetic Dipole]{\includegraphics[width=0.4\textwidth]{pictures/magnetic_dipole.pdf}}%
+    \hspace*{0.1\textwidth}
+    \subfloat[Electric Dipole]{\includegraphics[width=0.4\textwidth,page=3,angle=0]{pictures/dipole.pdf}}
+
+
+    \caption{Comparison of magnetic and electric dipole}
+    \label{fig:magn_dipole}
+\end{figure}
+
 
 
 dipole field:
@@ -1495,10 +1537,9 @@ dipole field:
         \vec{B}_\mathrm{dip}(\vec{r}) = \fpmu \qty[\frac{3(\vec{m} \cdot \vec{r}) \vec{r}}{r^5} - \frac{\vec{m}}{r^3}]
     }
 \end{equation}
-(notice how \emph{both} terms scale as $\frac{1}{r^3}$)
+(notice how \emph{both} terms scale as $\frac{1}{r^3}$, there is no difference in hierarchy between the two)
 
 
-\todo{do all the interesting things with dipole energy + force, torque}
 
 Using the same assumption that $\vec{j}(\vec{r}) \neq 0$ only in a small region around some point $\vec{r}_0$ (which is why the Taylor-expansion leading up to Eq.~\eqref{eq:multipole_exp_vectorpot} is warranted), the magnetic field that this region experiences only deviates to first order. This can be used to Taylor-expand the magnetic force (note that we must not expand $\vec{j}$, this still changes significantly since it is a current and not something like a charge density)
 \begin{align}
@@ -1507,20 +1548,17 @@ Using the same assumption that $\vec{j}(\vec{r}) \neq 0$ only in a small region 
     \notag\\
     &= \int \vec{j}(\vec{r}') \cross \qty[\vec{B}(\vec{r}_0) + \eval{\grad_{\vec{r}} \vec{B}}_{\vec{r}_0} (\vec{r} - \vec{r}_0)] \, d\mathcal{V}'
     \notag\\
-    &= \underbrace{\qty[\int \vec{j}(\vec{r}') \, d\mathcal{V}'] \cross \vec{B}(\vec{r}_0)}_{= 0} + \int \vec{j}(\vec{r}') \cross \eval{\grad_{\vec{r}} \vec{B}}_{\vec{r}_0} (\vec{r} - \vec{r}_0) \, d\mathcal{V}'
+    &= \underbrace{\qty[\int \vec{j}(\vec{r}') \, d\mathcal{V}']}_{= 0, \text{ cf.~Eq.~\eqref{eq:magn_monopole_term}}} \cross \vec{B}(\vec{r}_0) + \int \vec{j}(\vec{r}') \cross \eval{\grad_{\vec{r}} \vec{B}}_{\vec{r}_0} (\vec{r} - \vec{r}_0) \, d\mathcal{V}'
     \notag\\
-    &= \qty[\qty(\int \vec{j}(\vec{r}') \cross (\vec{r} - \vec{r}_0) \, d\mathcal{V}') \cross \grad] \vec{B}(\vec{r}_0)
+    % &= \qty[\qty(\int \vec{j}(\vec{r}') \cross (\vec{r} - \vec{r}_0) \, d\mathcal{V}') \cross \grad] \vec{B}(\vec{r}_0)
+    &= \qty[\qty(\int \vec{j}(\vec{r}') \cross \vec{r} \, d\mathcal{V}') \cross \grad - \qty(\qty(\int \vec{j}(\vec{r}') \, d\mathcal{V}') \cross \vec{r}_0) \cross \grad] \vec{B}(\vec{r}_0)
     \notag\\
-    &= \qty[\vec{m} \cross \grad] \vec{B}(\vec{r}_0)
+    \underset{\text{Eqs.~\eqref{eq:magn_dipole_moment}, \eqref{eq:magn_monopole_term}}}&{=} \qty[\vec{m} \cross \grad] \vec{B}(\vec{r}_0)
     \notag\\
     &= - \vec{m} \cdot \qty(\div \vec{B}(\vec{r}_0)) + \grad \qty(\vec{m} \cdot \vec{B}(\vec{r}_0))
     \notag\\
     &\eqbox{= \grad \qty(\vec{m} \cdot \vec{B}(\vec{r}_0))}
 \end{align}
-\todo{I only had this in my notes with $\vec{r}_0 = 0$, but not sure why this is required, so I added arbitrary point; anyway, I do not understand all steps}
-\todo{maybe we can argue that $\int \vec{j}(\vec{r}') \cross \vec{r}_0 \, d\mathcal{V}'$ must vanish, that would be first step on the way; and seems kind of reasonable actually, is something like total circulation or so}
-\todo{ahhh, progress: as Griffiths notes before Eq.~(6.2), the total displacement around a closed loop always vanishes, which should imply $\int \vec{j}(\vec{r}') \, d\mathcal{V}' = 0$; helps with $\cross \vec{B}(\vec{r}_0)$ term and also $\cross \vec{r}_0$ term}
--> ahh, this is problem 6.22 in Griffiths; so I was on the right track with the expression (he uses the \emph{exact} same one; noice)
 
 
 -> again, completely analogous to electric dipole; is conservative force with potential
@@ -1541,9 +1579,9 @@ which, as we see from $V_\mathrm{dip}$, acts until $\vec{m} \parallel \vec{B}$, 
 
 
 
-to end this bit, here is something curious; the cross product in Eq.~\eqref{eq:magn_dipole_moment} looks remarkably like a very familiar quantity, when we calculate it for a single moving test charge with charge $Q$ and mass $M$ (screw it that this is not strictly part of magnetostatics, this is just meant to be a nice demonstration):
+To end this bit on dipoles, here is something curious; the cross product in Eq.~\eqref{eq:magn_dipole_moment} looks remarkably like a very familiar quantity, when we calculate it for a single moving test charge with charge $Q$ and mass $M$ (screw it that this is not strictly part of magnetostatics, this is just meant to be a nice demonstration):
 \begin{equation}\label{eq:dipole_ang_mom}
-    \eqbox{\vec{m}} = \frac{1}{2} \vec{r}_0 \cross Q \vec{v}_0 = \frac{Q}{2 M} \, \vec{r}_0 \cross M \vec{v}_0 \eqqcolon \eqbox{g \vec{L}}
+    \eqbox{\vec{m}} = \frac{1}{2} \vec{r}_0 \cross Q \vec{v}_0 = \frac{Q}{2 M} \, \vec{r}_0 \cross M \vec{v}_0 = \eqbox{g \vec{L}}
 \end{equation}
 with the \Def{gyromagnetic ratio}
 \begin{equation}\label{eq:gyromagnetic_ratio}
