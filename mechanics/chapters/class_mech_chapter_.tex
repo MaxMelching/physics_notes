@@ -1152,7 +1152,7 @@ Using that $\pdv{t}$ and $\int_\mathcal{V} d\mathcal{V}$ may be interchanged, an
 This is the (differential form of the) \Def{continuity equation}, which just expresses in mathematical terms conservation of charge. (Note that we operate under the assumption that no charges are created in $\mathcal{V}$, otherwise there would be an extra term on the right hand side of the equation.) Its validity can be proven from the Maxwell equations.
 
 
--> Griffths Eq 5.33: in magnetostatics, continuity equation implies $\div \vec{j} = 0$; for example, this implies we can only consider (in magnetostatics) wires with constant $I$ throughout the whole wire, we need steady current
+-> Griffths Eq 5.33: in magnetostatics, continuity equation implies $\div \vec{j} = 0$; for example, this implies we can only consider (in magnetostatics) wires with constant $I$ throughout the whole wire, we need steady current (in particular, $I_A = I_B$ in example above)
 
 
 
@@ -1522,7 +1522,8 @@ with the \Def{magnetic dipole moment}
 
     \subfloat[Magnetic Dipole]{\includegraphics[width=0.4\textwidth]{pictures/magnetic_dipole.pdf}}%
     \hspace*{0.1\textwidth}
-    \subfloat[Electric Dipole]{\includegraphics[width=0.4\textwidth,page=3,angle=0]{pictures/dipole.pdf}}
+    % \subfloat[Electric Dipole]{\includegraphics[width=0.4\textwidth,page=3,angle=0]{pictures/dipole.pdf}}
+    \subfloat[Electric Dipole]{\begin{tikzpicture}\node[rotate=-90] at (0,0) {\includegraphics[width=0.4\textwidth,page=3,angle=0]{pictures/dipole.pdf}};\end{tikzpicture}}
 
 
     \caption{Comparison of magnetic and electric dipole}
@@ -1798,25 +1799,248 @@ To summarize this example, relativity shows in quite natural (and, arguably, qui
 
 
 
+        % \subsection{Electromotive Force \& Induction}
+        \subsection{Electromotive Force}
+On our way towards electrodynamics, it is crucial to understand the interplay between charges and currents. A natural first question in this context is: how can we even create a current, i.e.~how can we get charges into motion? Well, the answer is not too hard: by exerting a force on them. Therefore, we can write down the general expression
+\begin{equation}\label{eq:ohm_law_generalized}
+    \eqbox{
+        \vec{j} = \sigma \vec{f}% = \frac{1}{\rho} \vec{f}
+    }
+    \quad \Leftrightarrow \quad
+    \eqbox{
+        \vec{f} = \rho \vec{j}
+    }
+\end{equation}
+with a force per unit charge $\vec{f}$. We have shown two ways in which this proportionality may be expressed; the one involving the \Def{conductivity} $\sigma$ is more straightforward to write down, but numbers are usually given for its inverse, the \Def{resistivity} $\rho = \frac{1}{\sigma}$ (these two have \emph{nothing} to do with charge or surface density; these are just more symbols that are used multiple times).
 
 
-%         \subsection{Faraday's Law}
-% Not only do we allow for both electric and magnetic fields now, we also allow these fields to vary with time.
+In case we use the electromagnetic (Lorentz) force to move the charges, this equation becomes
+\begin{equation}\label{eq:ohm_law}
+    \eqbox{
+        \vec{j} = \sigma (\vec{E} + \vec{v} \cross \vec{B}) \approx \sigma \vec{E}
+    }
+\end{equation}
+which is known as \Def{Ohm's law}. (We have used that the magnetic contribution is much smaller for the far from relativistic velocities that charges usually move with; this is not valid if we aim to analyze plasmas for instance.)
+
+In conductors, where the number of available charges is practically infinite, $\sigma = \infty$ implies $E = J / \sigma = 0$ no matter if a current is present or not (i.e.~even in electrodynamics, there is no electric field in conductors). It is for this reason that wires in electric circuits are often treated as lossless, i.e.~as equipotentials. Resistors, on the other hand, do not conduct well ($\rho$ large $\Leftrightarrow \sigma$ low), so that large fields are required to produce a significant current.
 
 
-% treat electromotive force
-
-
-\todo{treat Ohm's law! In form $\vec{j} = \sigma_\mathrm{el} \vec{E}$}
+A note on Ohm's law: it is not a \enquote{law} in the truest sense, meaning it does not hold on the same level as, e.g., Coulomb's law. It just happens to be a relationship that holds reasonably well for practical calculations (we can see it as macroscopic formula that neglects microscopic physics, or rather assumes it can be encapsulated in macroscopic constants like the conductivity).
 
 
 
-        \subsection{Maxwell Equations}
+\begin{ex}[Ohm's Law]
+    You may be familiar with a different form of Ohm's law, $U = R I$. And while Eq.~\eqref{eq:ohm_law} may not look exactly like that, we can see the equivalence in a special case, namely when we look at the current flowing through a body of length $L$ with area $A$ perpendicular to $L$
+
+    -> important property (not trivial, this one must prove; uniqueness theorem is helpful here, as virtually always -> details in Griffiths Ex.~7.3, where field is even calculated explicitly): field through the body is constant, and by Ohm's law so is the current
+
+    -> total current through surface with area is simply $I = j A$ ($j$ constant)
+
+    -> we know that $\int_0^L \vec{E} \cdot d\vec{r} = \varphi_L - \varphi_0$; the field throughout the volume is constant, so that $\int_0^L \vec{E} \cdot d\vec{r} = E L$; in total, this means
+    \begin{equation}
+        I = A \sigma \frac{U}{L}
+    \end{equation}
+    which reads $U = R I$ if we agree to call $\frac{L}{A \sigma} \eqqcolon R$ the resistance and denote the voltage between both ends as $U \coloneqq \varphi_L - \varphi_0$
+
+    resistance is measured in \Def{Ohms} with
+    \begin{equation}
+        \eqbox{
+            1 \unit{\ohm} = 1 \unit{\volt \per \ampere}
+        }
+    \end{equation}
+    -> is a geometrical quantity that encapsulates the geometry of the shape and its material properties (conductivity)
+
+    -> this is interesting because it means that I can double current flow between capacitor plates with conducting material between them (as example) by doubling charge on the plates (which doubles electric field and thus also potential)
+
+
+    -> main effect of non-zero resistance: work done by electric field is lost (converted to heat in the resistor, through collisions of charges with particles of medium);
+    % we have the work done by an electric field on a charge $q$ in Eq.~\eqref{eq:work_test_part_1}, it is $W = q U$; but here we do not have a single $q$, but rather a charge density
+    the work done per unit volume $d\mathcal{V}$ (must be used here, there is not a single charge; we look at force on $\rho d\mathcal{V}$) is
+    \begin{equation}
+        dW_{\mathcal{V}} = \rho d\mathcal{V} \, \vec{E} \cdot d\vec{r} = \rho d\mathcal{V} \, \vec{E} \cdot \vec{v} dt = \vec{E} \cdot \vec{j} d\mathcal{V} dt
+    \end{equation}
+    this equation is still generally applicable; for special case of constant current and electrical field (which are also parallel, by Eq.~\eqref{eq:ohm_law_generalized}), the power (or rather: power loss) is
+    \begin{equation}
+        \eqbox{P}
+            = \dv{W}{t} = E j V = E j (L A) \eqbox{= U I = R I^2 = \frac{U^2}{R}}
+    \end{equation}
+    this equation is called \Def{Joule heating law}
+
+    -> unit of power is the old familiar \Def{Watts} with
+    \begin{equation}
+        1 \unit{\watt} = 1 \unit{\joule \per \second} \, ,
+    \end{equation}
+    just as in Newtonian physics
+\end{ex}
+
+
+
+We have asked ourselves how to produce a current and found that it can be produced by pushing charges around, i.e.~applying a force to them. In an electric circuit, this \enquote{pushing} is done by devices like batteries. But batteries are only connected to the two ends of the circuit, so the only place where a force is applied by them is on those two ends and inside the battery itself. That means we are able to calculate the current only in those places, but not the rest of the circuit. Right?
+
+Actually, we are lucky and there is an automatic feedback built into circuits. Suppose we have some current $\vec{j}_s \coloneqq \vec{j}_\text{source}$ in the battery and some other current $\vec{j}_o \coloneqq \vec{j}_\text{other}$ elsewhere in the circuit. With $j_s$ being larger than $j_o$, it is clear that the charge density must vary throughout the circuit (charges flow faster inside the battery). However, this produces an electric field. Say the current in the battery flows from left to right, so that there are more positive forces on the right side of the battery; then this accumulation of positive charges induces an electric field that points to the \emph{left}, i.e.~opposite of the current flow. This results in the current flow slowing down, allowing the charge accumulation to slowly flow away; this results in a decrease of the opposed electric field, and the net result is an equilibrium where $j_s = j_o$. In other words, the current throughout the whole circuit is the same. This automatic feedback happens extremely fast in reality, so that we can always assume that currents are the same throughout a circuit.
+
+
+This process is very interesting (and in fact, beautiful, as it makes the theoretical analysis a lot easier), so let us look at it in more detail. Throughout the source, there are two forces that act: $\vec{f}_s$, the force in the source driving the current; and $\vec{E}$, the force one can attribute to any potential difference building up over the circuit (the opposing electric field would contribute to that, in the parts of the circuit where it builds up, but this $\vec{E}$ is more general; note that $\vec{E}$ can be regarded as a force in the sense that $\vec{E} = \vec{F} / q$, which is what we defined $\vec{f}$ as). \cite{Griffiths_2017} uses the nice analogy that $\vec{E}$ is the force that \enquote{smooths out the flow} (i.e.~that ensures $j_s = j_o$, using the terms from above) and thus \enquote{communicates the influence of the source to distant parts of the circuit}. In other words, the total force per unit charge is
+\begin{equation}
+    \eqbox{
+        \vec{f} = \vec{}_s + \vec{E}
+    } \, ,
+\end{equation}
+from which the total force throughout the circuit can be obtained as a line integral
+\begin{equation}
+    \eqbox{
+        \mathcal{E} = \oint \vec{f} \cdot d\vec{r} = \oint \vec{f} \cdot d\vec{r}
+    }
+\end{equation}
+Here we have used the property $\oint \vec{E} \cdot d\vec{r} = 0$ from electrostatics. (It is justified to use electrostatics here because we have already established that the charge density must be constant. Any change in it would immediately be compensated by an increase in the opposing electric field.) Although this is not truly a force (we have integrated a force density per unit charge over a spatial dimension), this quantity is commonly called \Def{electromotive force} (EMF).
+
+The fact that the EMF is not quite a force can also seen by the following consideration. Say our source is ideal, i.e.~there is no net force on charges in it, which is equivalent to $\vec{f}_s = - \vec{E}$. Then the potential difference between the two points $a, b$ at which the source is attached reads
+\begin{equation}
+    U = - (\varphi_b - \varphi_a) = - \int_a^b \vec{E} \cdot d\vec{r} = \int_a^b \vec{f}_s \cdot d\vec{r} = \oint \vec{f}_s \cdot d\vec{r} = \mathcal{E}
+\end{equation}
+where we can replace integrating over the source (i.e.~between $a, b$) by integrating over the whole circuit because $\vec{f}_s$ is zero anyway outside of the source. Therefore, the EMF is equal to the voltage between the source ends (which is equal to the voltage going from $b$ to $a$ through the rest of the circuit). In other words, the job of the source is to drive the voltage in the circuit (this is what, e.g., the chemical work done in Lithium batteries is used for). The resulting electric field $\vec{E} = - \vec{f}_s$ then sources the current throughout the rest of the circuit.
+
+
+
+            \paragraph{Motional EMFs}
+I do not like, skipping most of it for now
+
+-> explains generators, i.e.~what happens when I move wire inside a magnetic field
+
+most important result: \Def{flux rule},
+\begin{equation}
+    \eqbox{
+        \mathcal{E} = - \dv{\Phi}{t}
+    }
+\end{equation}
+where $\Phi$ is the flux of the magnetic field through the loop,
+\begin{equation}
+    \eqbox{
+        \Phi \coloneqq \int_{\mathcal{S}} \vec{B} \cdot d\vec{\mathcal{S}}
+    }
+\end{equation}
+
+-> can be applied for every possible scenario, even non-uniform magnetic fields and weird wire geometries (need not be rectangular or in specific direction)
+
+
+-> flux rule is just based on Lorentz force, so in that sense it does not reveal anything new, but it is still a convenient tool for calculations
+
+-> careful, though: flux rule only works for a single wire loop; this loop can be super complicated, weirdly deformed or whatever, but it must be a single one
+
+
+
+\begin{ex}[Eddy Currents]
+    ugly... But important. they can help us to make effect of magnetic field zero, in case we do not want to have it (by making sure currents generated by different parts of geometry cancel)
+\end{ex}
+
+
+
+        \subsection{Induction}
+Faraday analyzed experimentally the effects of a time-dependent magnetic field and was able to derive the following relationship:
+\begin{equation}\label{eq:maxwell_edyn_one_int}
+    \eqbox{
+        \oint_\mathcal{C} \vec{E} \cdot d\vec{r} = - \int_{\mathcal{S}(\mathcal{C})} \pdv{\vec{B}}{t} \cdot d\vec{\mathcal{S}}
+    }
+\end{equation}
+where $\mathcal{S}(\mathcal{C})$ is the area that is enclosed by $\mathcal{C}$ (equivalently, we could replace $\mathcal{C} \mapsto \partial \mathcal{S}, \mathcal{S}(\mathcal{C}) \mapsto \mathcal{S}$). To honor its discoverer, this equation is also called \Def{Faraday's law}. In differential form, it reads
+\begin{equation}\label{eq:maxwell_edyn_one_diff}
+    \eqbox{
+        \curl \vec{E} = - \pdv{t} \vec{B}
+    } \, .
+\end{equation}
+
+
+What the current treatment of the topic does not reveal is that Faraday carried out not one, but multiple experiments playing around with wire loops and magnetic fields. All of them can be explained by a \Def{generalized/universal flux rule} (though the setups are really different for all of them): whenever the magnetic flux throughout a loop changes, an EMF
+\begin{equation}
+    \mathcal{E} = - \dv{\Phi}{t}
+\end{equation}
+will appear in the loop; however, in order to use the flux rule, one fundamentally new insight is required: a changing magnetic field induces an electric field (\cite{Griffiths_2017} has some words to say on the term \enquote{induces}, since an electric field being produced by the magnetic one does not tell the whole story). This is the content of what we have termed Faraday's law, since other experiments may be seen as manifestations of the motional EMF. The main reason to mention the other experiments is that the variety of situations involved in them makes it confusing to get signs right. While in principle, we can always deduce them from the definitions made, there is an intuitive rule for this, called \Def{Lenz's law}: quoting \cite{Griffiths_2017}, it states
+\begin{center}
+    Nature abhors a change in flux.
+\end{center}
+In terms of current this means that any induced current will flow in such a manner that the change in flux that produced the induced current is opposed (note that Lenz's law is concerned with the direction of the flow, not so much with the magnitude).
+
+
+
+            \paragraph{About the Induced Electric Field}
+Here is something interesting: if the electric field is produced exclusively by a time-varying magnetic field, with $\rho = 0$, then the equations that determine $\vec{E}$ are Faraday's law and the first Maxwell equation of electrostatics,
+\begin{equation}
+    \div \vec{E} = 0
+    \qquad
+    \curl \vec{E} = - \pdv{\vec{B}}{t} \, .
+\end{equation}
+This is equivalent to the set of equations that dictated magnetostatics, so we can apply all knowledge and intuition we have gained there. For example, we can write down a Biot-Savart like law that determines the electric field as
+\begin{equation}
+    \vec{E}(\vec{r}) = - \frac{1}{4\pi} \pdv{\vec{B}}{t} \cross \frac{\vec{r} - \vec{r}'}{\norm{\vec{r} - \vec{r}'}^3} \, d\mathcal{V}' = - \frac{1}{4\pi} \pdv{t} \vec{B} \cross \frac{\vec{r} - \vec{r}'}{\norm{\vec{r} - \vec{r}'}^3} \, d\mathcal{V}'
+\end{equation}
+(with no restriction on the time-dependence of $\pdv{\vec{B}}{t}$). Moreover, the second equality can be restated as an integral equation,
+\begin{equation}
+    \oint \vec{E} \cdot d\vec{r} = - \dv{\Phi}{t}
+\end{equation}
+akin to Ampere's law. This gives us a recipe to quickly obtain induced electric fields, if the setup is sufficiently symmetric.
+
+
+note from Griffiths, page 319: \enquote{I must warn you, now, of a small fraud that tarnishes many applications of Faraday's law: Electromagnetic induction, of course, occurs only when the magnetic fields are changing, and yet we would like to use the apparatus of magnetostatics (Ampère's law, the Biot-Savart law, and the rest) to calculate those magnetic fields. Technically, any result derived in this way is only approximately correct. But in practice the error is usually negligible, unless the field fluctuates extremely rapidly, or you are interested in points very far from the source. Even the case of a wire snipped by a pair of scissors (Prob. 7.18) is static enough for Ampère's law to apply. This régime, in which magnetostatic rules can be used to calculate the magnetic field on the right hand side of Faraday's law, is called quasistatic. Generally speaking, it is only when we come to electromagnetic waves and radiation that we must worry seriously about the breakdown of magnetostatics itself.}
+
+
+
+            \paragraph{Inductance}
+Magnetic forces between objects are mutual, i.e.~if I have one loop exerting force on another loop, then Newton's third law tells us this other loop the same force onto the first loop.
+
+
+
+            \paragraph{Magnetic Field Energy}
+-> work that must be done to get current flowing (against) can be regarded as stored in the circuit (released when current is turned off, EMF tries to keep it going)
+
+
+
+        \subsection{Ampere's Law -- Revisited}
 Now that we impose no restrictions on the configuration of charges, we have to study a few more interactions in addition to those that have been treated already. Our expectation is that electric and magnetic field are gonna mix, as we have already seen in example \ref{ex:point_charge_magn_field} with point charges, simply because we can now have non-vanishing charge and motion of said charge at the same time.
 
 Interestingly, in order to do time-independent electrodynamics, i.e.~electromagnetism, the only thing we have to do is take the Maxwell equations from electro-, magnetostatics and continue with this set of equations. It is only when we go to dynamics with $\pdv{\vec{E}}{t} \neq 0$ and/or $\pdv{\vec{B}}{t} \neq 0$ that we have to do more work. This should be intuitive because any change in the two fields can potentially cause charges to move around, due to the changing force that acts on them. This in turn would influence the fields themselves.\\
 
 
+% -> Not only do we allow for both electric and magnetic fields now, we also allow these fields to vary with time.
+
+
+-> in magnetostatics, currents fulfil $\div \vec{j} = 0$, they have no sources on which they originate and end (we only have loops; right?)
+
+
+-> when induction stuff is removed: Faraday's law tells us what happens when we have magnetic fields that change in time; what is still missing is the effect of electric fields that change in time -> formally, we can associate with current (via continuity equation); but only insofar as to equality with $\curl \vec{B}$, is not an actual current (although Maxwell gave name that contains current)
+-> why? After all, any change in $\rho$, which is required for change in $\vec{D}$, automatically means charges are moving -- i.e.~a current; right? Yes, this is true; but the changing electric field also propagates further out in space and thus to positions where the motion of charges induced by $\pdv{\rho}{t}$ does not take place; we only feel the \emph{effect} of it, a time-varying electric field; this effect is \emph{akin to} a current, by the continuity equation, but it does not mean there \emph{is} a motion of current that \emph{caused} this.
+
+-> basically: I experience effect of change in charge density and associated current $\vec{j}_c$ elsewhere too, as change in electric field -- even in places where $\vec{j}_c = 0$; for this reason, we should refrain from thinking about displacement current as an actual current; formally, though, we can associate change in e-field with divergence of current, so we have to account for it as source of b-field -- but this is something new and changes the way we think about b-fields: they are caused by currents and time-varying electric fields (two distinct effects; their identification via continuity is just tool to make sense of derivation; this derivation is not super rigorous, it just happens that this reasoning yields same result that we observe empirically when conducting experiments)
+
+
+-> the presence of a time-varying electric field acts as a source for magnetic fields; i.e.~if I enclose an area and it contains currents, then it produces magnetic field; but in just the same manner, if I enclose an area and it contains a time-varying electric field (is possible, even if $\rho = 0$ throughout the area!), then it too produces a magnetic field
+
+-> we are used to magnetic fields extending out of the region where it is sourced, otherwise how would there be a magnetic force? But here, it not justs \emph{exists} outside of an area where no current is present, it is \emph{produced/sourced} there!
+
+
+
+-> result is Ampere-Maxwell law
+
+
+
+        \subsection{Maxwell Equations}
+Now that we have studied the effects of time-varying electric and magnetic fields, we are ready to assemble the Maxwell equations of electrodynamics.
+
+
+
+            \paragraph{In Vacuum}
+We have seen them all, is merely about collecting them together.
+
+
+
+            \paragraph{In Media}
+also write down in terms of $\vec{D}, \vec{H}$ (?) -> does this even make sense
+
+
+-> this is just different way of stating them, information contained is the exact same!
+
+
+
+    \section{Old Notes}
 Faraday analyzed experimentally the effects of a time-dependent magnetic field and was able to derive the following relationship:
 \begin{equation}\label{eq:maxwell_edyn_one_int}
     \eqbox{
@@ -1847,9 +2071,8 @@ The corresponding integral form is \todo{verify this equation}
 where $\mathcal{S}(\mathcal{C})$ is the area that is enclosed by $\mathcal{C}$.
 
 
-\todo{treat electromotive force}
 
--> some high leven overview: basically, Maxwell equations determine curl and divergence of the two fields $\vec{E}, \vec{B}$, thereby determining the whole field (by mathematical theorem). The corresponding four equations can be divided into homogenous (only the fields interplay) and inhomogeneous (charge and current density appear) ones. Moreover, if we have some medium involved, there are material equations (so some statements from above must be rephrased in terms of other variables; does not really change interpretation, though).
+-> some high level overview: basically, Maxwell equations determine curl and divergence of the two fields $\vec{E}, \vec{B}$, thereby determining the whole field (by mathematical theorem). The corresponding four equations can be divided into homogenous (only the fields interplay) and inhomogeneous (charge and current density appear) ones. Moreover, if we have some medium involved, there are material equations (so some statements from above must be rephrased in terms of other variables; does not really change interpretation, though).
 
 -> these Maxwell equations are complemented by the Lorentz force, total expression of which we sneaked into example \ref{ex:point_charge_magn_field} already, and which reads
 \begin{equation}
@@ -1857,8 +2080,11 @@ where $\mathcal{S}(\mathcal{C})$ is the area that is enclosed by $\mathcal{C}$.
         \vec{F} = q \qty(\vec{E} + \vec{v} \cross \vec{B})
     } \, ,
 \end{equation}
-where $q, \vec{v}$ represent the charge, velocity of the particle in consideration.
+where $q, \vec{v}$ represent the charge, velocity of the particle in consideration. -> determines effect of fields on other particles (more generally, we must look force density, i.e.~force per unit charge, $\vec{f}$ and integrate this to obtain total force on a body confined to volume $\mathcal{V}'$, $\vec{F} = \int_{\mathcal{V}'} \vec{f} \, dq = \int_{\mathcal{V}'} \vec{f} \rho \, d\mathcal{V}'$; this assumes $\vec{f} = \vec{E} + \vec{v} \cross \vec{B}$; we could also choose to include $\rho$ in $\vec{f}$, making it force per unit volume instead)
 
+
+
+        \subsection{Potentials}
 
 -> more common approach than solving Maxwell equations (kind of annoying, complicated): solve equivalent equations for potentials (so that Maxwell are automatically fulfilled), determine fields from potentials; in statics, this amounted to solving Poisson equations, and here ...
 
@@ -1875,9 +2101,47 @@ for potentials in Lorenz gauge, generalization of Poisson reads
 
 
 
+        \subsection{Conservation Laws}
+        \subsection{Radiation}
+accelerated charges are special; we have energy that is transported away from them in a process called \Def{radiation} (we say that the energy is radiated away)
+
+
+common thing to study: radiation from a dipole (motivated by multipole expansion)
+-> what comes out are electromagnetic waves
+-> electric and magnetic fields again have super similar behavior
+
+
+also interesting: radiation of point charge (but this is more complicated)
+
+
+radiation reaction: accelerating charges radiate, which results in a decrease in energy -- \emph{kinetic} energy, to be more precise; direction implication: same force acting on charged particle vs.~neutral one results in different accelerations; formally (to be consistent with Newtonian notions), we can attribute this to a force from radiation back onto the charged particle; this whole process is called \Def{radiation reaction}
+
+-> in a more realistic model, this is due to self-force: an extended charge distribution exerts a force on itself (each particle onto others in the configuration; these forces do not cancel anymore, in the body, i.e.~Newton's third law breaks down there)
+
+
+
+    \section{Electromagnetic Waves}
+First application of electrodynamics, rather than development of theory.
+
+
+
+
+
+
+how can they propagate forever in vacuum, when electric field and magnetic field are constantly produced? Well, vacuum means there is nothing to interact with -- so there nothing that photons could do work on; so, how is energy supposed to get lost?
+
+
+-> in matter, things are very different and we have energy loss due to interaction, which ultimately results in finite attenuation length
+
+
+
     \section{Notes}
 
 so we can we take viewpoint that there are truly only two Maxwell equations, for field tensor? And one of them being ($dF = 0$) that electromagnetic force is conservative (which directly implies we can find potential)
+
+
+
+-> creating the field does cost energy (via creation of particles that have this field), but maintaining does not -- once created, it is just \enquote{there}, as part of property that the respective particle has a charge for instance; but as soon as other particles appear and interact, work might be done and field looses energy -> nahhhh, this can't be right; other particle does work, too, so maybe they are equal? Not sure, forces are definitely equal, and equal work would then mean that heavier particle for example gets displaced less (right? Since we demand $dW = \vec{F} \cdot d\vec{x}$ to be the same)
 
 
 
