@@ -237,6 +237,40 @@
 \end{tikzpicture}
 
 
+% OPPOSITE, +1 -1 (for magnetic field analog)
+\begin{tikzpicture}%[rotate=-90]
+  \def\xmin{-3}
+  \def\xmax{3}
+  \def\ymax{3.2}
+  \def\a{1}
+  \def\q{+1}
+  \def\Q{-1}
+  \def\R{1.0}
+  % \def\range{0.05,0.1,0.2,0.3,0.4}
+  % \def\range{0.05,0.2,0.6,1.0,1.4,1.8,1.98}
+  \def\range{0.05,0.1,0.2,0.3,0.4,0.6,1.0,1.4,1.8,1.98}
+
+  % LINES
+  \EFieldLines
+  
+  % VECTORS
+  % \def\Cx{-0.4}
+  % \def\C{0.6,1.0}
+  % \EVectorOnFieldLines
+  % \def\Cx{-1.26}
+  % \EVectorOnFieldLines
+  % \def\Cx{1.26}
+  % \EVectorOnFieldLines
+  
+  % CHARGES
+  
+  \draw[charge+] (-\a,0) circle (9pt) node[black,scale=1.0,rotate=90] {$+q$};
+  \draw[charge-] (+\a,0) circle (9pt) node[black,scale=1.0,rotate=90] {$-q$};
+   
+\end{tikzpicture}
+
+
+
 % % OPPOSITE, +2 -1
 % \begin{tikzpicture}
 %   \def\xmin{-3}
