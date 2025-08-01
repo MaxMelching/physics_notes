@@ -497,7 +497,10 @@ Not only does this approximated expression look like the second term in Eq.~\eqr
         \rho(\vec{r}) = q \delta(\vec{r} - \vec{a}/2) - q \delta(\vec{r} + \vec{a}/2)
     } \, .
 \end{equation}
-Therefore, the second term does indeed represent 
+Therefore, the second term in Eq.~\eqref{eq:multipole_exp_general} does indeed represent the potential emitted by a dipole, if viewed from far ($r \ll a$).
+
+
+-> interesting in Griffiths 3.4.3: if total charge is zero, then the dipole moment is independent of the choice of origin
 
 
 -> in multipole expansion, we have carried out far-field limit, so to understand connection to different order terms better we should do same now for dipole potential; this is what happens in second equality (along with $\lim_{a \rightarrow 0, q \rightarrow \infty}$ so that product remains well-defined) -> this would be the ideal/pure dipole
@@ -1152,7 +1155,7 @@ Using that $\pdv{t}$ and $\int_\mathcal{V} d\mathcal{V}$ may be interchanged, an
 This is the (differential form of the) \Def{continuity equation}, which just expresses in mathematical terms conservation of charge. (Note that we operate under the assumption that no charges are created in $\mathcal{V}$, otherwise there would be an extra term on the right hand side of the equation.) Its validity can be proven from the Maxwell equations.
 
 
--> Griffths Eq 5.33: in magnetostatics, continuity equation implies $\div \vec{j} = 0$; for example, this implies we can only consider (in magnetostatics) wires with constant $I$ throughout the whole wire, we need steady current (in particular, $I_A = I_B$ in example above)
+-> Griffths Eq 5.33: in magnetostatics (actually, electrostatics as well), continuity equation implies $\div \vec{j} = 0$; for example, this implies we can only consider (in magnetostatics) wires with constant $I$ throughout the whole wire, we need steady current (in particular, $I_A = I_B$ in example above); Griffiths characterizes them as \enquote{continuous flows that have been going on forever, without change and without charge piling up anywhere}
 
 
 
@@ -1733,6 +1736,10 @@ One interesting consequence of this expression is that, if the free current does
 
 
     \section{Electrodynamics}
+Now that we impose no restrictions on the configuration of charges, we have to study a few more interactions in addition to those that have been treated already. Our expectation is that electric and magnetic field are gonna mix, as we have already seen in example \ref{ex:point_charge_magn_field} with point charges, simply because we can now have non-vanishing charge and motion of said charge at the same time.
+
+
+
 In statics, the electric field is curl-free and the magnetic field is divergence-free. As we will see, this changes when looking at electrodynamics, and not just that, there will be a mixing and interaction of electric, magnetic field. More detailed analyses of the interplay between the two fields, and especially a relativistic treatment, then reveals that the two are manifestations of one and the same phenomenon, an electromagnetic field. The electric (magnetic) field only arise in the special cases of electro(magneto-)statics as the curl-(divergence-)free components of this electromagnetic field.
 
 
@@ -1874,6 +1881,15 @@ A note on Ohm's law: it is not a \enquote{law} in the truest sense, meaning it d
 \end{ex}
 
 
+-> another interesting consideration: say the conductivity is uniform (otherwise arbitrary) and all currents are steady. Then, by Ohm's law
+\begin{equation}
+    \eqbox{
+        \div \vec{E} = \div \frac{\vec{j}}{\sigma} = \frac{1}{\sigma} \div \vec{j} = 0
+    }
+\end{equation}
+which implies that there can be no charge density inside the material. Just as was the case in electrostatics, all charges reside on the surface. Therefore, it is Laplace's equation that may be solved in a homogenous material with ohmic resistance, not Poisson's and all the machinery for that may be used.
+
+
 
 We have asked ourselves how to produce a current and found that it can be produced by pushing charges around, i.e.~applying a force to them. In an electric circuit, this \enquote{pushing} is done by devices like batteries. But batteries are only connected to the two ends of the circuit, so the only place where a force is applied by them is on those two ends and inside the battery itself. That means we are able to calculate the current only in those places, but not the rest of the circuit. Right?
 
@@ -1995,92 +2011,176 @@ Magnetic forces between objects are mutual, i.e.~if I have one loop exerting for
 
 
         \subsection{Ampere's Law -- Revisited}
-Now that we impose no restrictions on the configuration of charges, we have to study a few more interactions in addition to those that have been treated already. Our expectation is that electric and magnetic field are gonna mix, as we have already seen in example \ref{ex:point_charge_magn_field} with point charges, simply because we can now have non-vanishing charge and motion of said charge at the same time.
+In magnetostatics, currents are steady and fulfil $\div \vec{j} = 0$, they have no sources on which they originate and end (we only have loops \todo{right?}). In electrodynamics, this need not be true, which poses a problem since
+\begin{equation}
+    \mu_0 \div \vec{j} = \div \qty(\curl \vec{B}) = 0
+\end{equation}
+because the curl of a divergence is always zero. Consequently, we must add a term to the left hand side to make it zero. What offers help is the continuity equation. In statics, $\pdv{\rho}{t} = 0$, so we knew that $\div \vec{j} = 0$. But now, the continuity equation implies vanishing of another expression, namely
+\begin{equation}
+    \div \vec{j} + \pdv{\rho}{t} = \div \vec{j} + \pdv{t} \epsilon_0 \div \vec{E} = \div \qty(\vec{j} + \pdv{\vec{E}}{t}) \, .
+\end{equation}
+(Here we assume vacuum for now.) The intuitive explanation goes as follows: If there are non-steady currents, then there must also be a change in charge density with divergence equal to the current, i.e.~an electric field that changes in time.
 
-Interestingly, in order to do time-independent electrodynamics, i.e.~electromagnetism, the only thing we have to do is take the Maxwell equations from electro-, magnetostatics and continue with this set of equations. It is only when we go to dynamics with $\pdv{\vec{E}}{t} \neq 0$ and/or $\pdv{\vec{B}}{t} \neq 0$ that we have to do more work. This should be intuitive because any change in the two fields can potentially cause charges to move around, due to the changing force that acts on them. This in turn would influence the fields themselves.\\
-
-
-% -> Not only do we allow for both electric and magnetic fields now, we also allow these fields to vary with time.
-
-
--> in magnetostatics, currents fulfil $\div \vec{j} = 0$, they have no sources on which they originate and end (we only have loops; right?)
-
-
--> when induction stuff is removed: Faraday's law tells us what happens when we have magnetic fields that change in time; what is still missing is the effect of electric fields that change in time -> formally, we can associate with current (via continuity equation); but only insofar as to equality with $\curl \vec{B}$, is not an actual current (although Maxwell gave name that contains current)
--> why? After all, any change in $\rho$, which is required for change in $\vec{D}$, automatically means charges are moving -- i.e.~a current; right? Yes, this is true; but the changing electric field also propagates further out in space and thus to positions where the motion of charges induced by $\pdv{\rho}{t}$ does not take place; we only feel the \emph{effect} of it, a time-varying electric field; this effect is \emph{akin to} a current, by the continuity equation, but it does not mean there \emph{is} a motion of current that \emph{caused} this.
-
--> basically: I experience effect of change in charge density and associated current $\vec{j}_c$ elsewhere too, as change in electric field -- even in places where $\vec{j}_c = 0$; for this reason, we should refrain from thinking about displacement current as an actual current; formally, though, we can associate change in e-field with divergence of current, so we have to account for it as source of b-field -- but this is something new and changes the way we think about b-fields: they are caused by currents and time-varying electric fields (two distinct effects; their identification via continuity is just tool to make sense of derivation; this derivation is not super rigorous, it just happens that this reasoning yields same result that we observe empirically when conducting experiments)
-
-
--> the presence of a time-varying electric field acts as a source for magnetic fields; i.e.~if I enclose an area and it contains currents, then it produces magnetic field; but in just the same manner, if I enclose an area and it contains a time-varying electric field (is possible, even if $\rho = 0$ throughout the area!), then it too produces a magnetic field
-
--> we are used to magnetic fields extending out of the region where it is sourced, otherwise how would there be a magnetic force? But here, it not justs \emph{exists} outside of an area where no current is present, it is \emph{produced/sourced} there!
-
-
-
--> result is Ampere-Maxwell law
-
-
-
-        \subsection{Maxwell Equations}
-Now that we have studied the effects of time-varying electric and magnetic fields, we are ready to assemble the Maxwell equations of electrodynamics.
-
-
-
-            \paragraph{In Vacuum}
-We have seen them all, is merely about collecting them together.
-
-
-
-            \paragraph{In Media}
-also write down in terms of $\vec{D}, \vec{H}$ (?) -> does this even make sense
-
-
--> this is just different way of stating them, information contained is the exact same!
-
-
-
-    \section{Old Notes}
-Faraday analyzed experimentally the effects of a time-dependent magnetic field and was able to derive the following relationship:
-\begin{equation}\label{eq:maxwell_edyn_one_int}
+A different reasoning lead Maxwell to the same conclusion: we should add what he called the \Def{displacement current} to Ampere's law.\footnote{The \enquote{displacement} part occurs because more generally, we would have to use $\vec{D}$ here rather than $\vec{E}$, since this is what free charge densities source. For a discussion in vacuum, it is merely a matter of taste if we use $\vec{E}$ or $\vec{D}$}. This modified version,
+\begin{equation}
     \eqbox{
-        \oint_\mathcal{C} \vec{E} \cdot d\vec{r} = - \int_{\mathcal{S}(\mathcal{C})} \pdv{\vec{B}}{t} \cdot d\vec{\mathcal{S}}
+        \curl \vec{B} = \mu_0 \vec{j} + \mu_0 \epsilon_0 \pdv{\vec{E}}{t}
     }
 \end{equation}
-where $\mathcal{S}(\mathcal{C})$ is the area that is enclosed by $\mathcal{C}$ (equivalently, we could replace $\mathcal{C} \mapsto \partial \mathcal{S}, \mathcal{S}(\mathcal{C}) \mapsto \mathcal{S}$). This is the (integral form of the) first Maxwell equation of electrodynamics. To honor its discoverer, this equation is also called \Def{Faraday's law}. In differential form, it reads
-\begin{equation}\label{eq:maxwell_edyn_one_diff}
-    \eqbox{
-        \curl \vec{E} = - \pdv{t} \vec{B}
-    } \, .
-\end{equation}
-In other words, the only situation where an electric field can have broken symmetry in the form of vortices is when a time-varying magnetic field is present. This symmetry breaking manifests as non-zero line integrals over a closed path.
+is thus called \Def{Ampere-Maxwell law}. This passes all sanity checks we can come up with; in magnetostatics for example, the additional term vanishes and leaves our existing theory unaffected. In fact, for many experiments with magnetic fields, its impact is negligible (so Faraday's, for instance, never saw this term). But it also makes a bold new prediction: say we have no currents in the volume we analyze, $\vec{j} = 0$. While in statics, this would directly imply $\vec{B} = 0$, now we another source term for magnetic fields: the presence changing electric fields. (Note here that it is truly just the presence. This field need not be produced by charges in the volume $\mathcal{V}$ we are analyzing, yet can still serve as the source of a magnetic field originating from $\mathcal{V}$. Before, we had seen that magnetic fields can extend beyond the volumes occupied by the currents that sourced them; but this is very different, since the magnetic field not just extends into $\mathcal{V}$, it is actually produced there solely because of the changing electric field.) Note also that, although the name \enquote{displacement current} suggests that, this new source has nothing to do with currents except being related to them by the continuity equation (and now by being a source of magnetic fields); but they \emph{are not} currents.
 
 
-A time-dependent electric field (here quantified by the field $\vec{D}$ that the free charges emit) must be accompanied by a change in the associated charge density $\pdv{\rho}{t}$, which implies there must be charges moving around, i.e.~a new current. Through some considerations involving the continuity equation, one arrives at the conclusion that the corresponding current density is nothing but $\pdv{t} \vec{D}$. Adding this to the currents that appear in the Maxwell equation in statics then yields the second Maxwell equation of electrodynamics,
-\begin{equation}\label{eq:maxwell_edyn_two_diff}
-    \eqbox{
-        \curl \vec{H} = \vec{j} + \pdv{\vec{D}}{t}
-    } \, .
-\end{equation}
-The corresponding integral form is \todo{verify this equation}
+While the validity of this law would introduce a nice duality into the relation of magnetic and electric fields (Faraday's law states that changing magnetic fields produce an electric field), symmetry is not a good argument -- at least not if it contradicts experimental evidence. Here, fortunately, it was experiments conducted by Heinrich Hertz on electromagnetic waves that \emph{confirmed} Maxwell's modification.
+
+
+
+
+% -> when induction stuff is removed: Faraday's law tells us what happens when we have magnetic fields that change in time; what is still missing is the effect of electric fields that change in time -> formally, we can associate with current (via continuity equation); but only insofar as to equality with $\curl \vec{B}$, is not an actual current (although Maxwell gave name that contains current)
+% -> why? After all, any change in $\rho$, which is required for change in $\vec{D}$, automatically means charges are moving -- i.e.~a current; right? Yes, this is true; but the changing electric field also propagates further out in space and thus to positions where the motion of charges induced by $\pdv{\rho}{t}$ does not take place; we only feel the \emph{effect} of it, a time-varying electric field; this effect is \emph{akin to} a current, by the continuity equation, but it does not mean there \emph{is} a motion of current that \emph{caused} this.
+
+% -> basically: I experience effect of change in charge density and associated current $\vec{j}_c$ elsewhere too, as change in electric field -- even in places where $\vec{j}_c = 0$; for this reason, we should refrain from thinking about displacement current as an actual current; formally, though, we can associate change in e-field with divergence of current, so we have to account for it as source of b-field -- but this is something new and changes the way we think about b-fields: they are caused by currents and time-varying electric fields (two distinct effects; their identification via continuity is just tool to make sense of derivation; this derivation is not super rigorous, it just happens that this reasoning yields same result that we observe empirically when conducting experiments)
+
+
+% -> the presence of a time-varying electric field acts as a source for magnetic fields; i.e.~if I enclose an area and it contains currents, then it produces magnetic field; but in just the same manner, if I enclose an area and it contains a time-varying electric field (is possible, even if $\rho = 0$ throughout the area!), then it too produces a magnetic field
+
+% -> we are used to magnetic fields extending out of the region where it is sourced, otherwise how would there be a magnetic force? But here, it not justs \emph{exists} outside of an area where no current is present, it is \emph{produced/sourced} there!
+
+
+The corresponding integral form is%\todo{verify this equation. I have never seen it anywhere}
 \begin{equation}\label{eq:maxwell_edyn_two_int}
     \eqbox{
-        \oint_\mathcal{C} \vec{H} \cdot d\vec{r} = I + \oint_{\mathcal{S}(\mathcal{C})} \pdv{\vec{D}}{t} \cdot d\vec{\mathcal{S}} = I - \epsilon_0 \pdv[2]{t} \vec{B} + \oint_{\mathcal{S}(\mathcal{C})} \pdv{\vec{\mathbb{P}}}{t} \cdot d\vec{\mathcal{S}}
+        \oint_\mathcal{C} \vec{H} \cdot d\vec{r}
+        = I + \oint_{\mathcal{S}(\mathcal{C})} \pdv{\vec{D}}{t} \cdot d\vec{\mathcal{S}}
+        % = I - \epsilon_0 \pdv[2]{t} \vec{B} + \oint_{\mathcal{S}(\mathcal{C})} \pdv{\vec{\mathbb{P}}}{t} \cdot d\vec{\mathcal{S}}
     }
 \end{equation}
 where $\mathcal{S}(\mathcal{C})$ is the area that is enclosed by $\mathcal{C}$.
 
 
 
--> some high level overview: basically, Maxwell equations determine curl and divergence of the two fields $\vec{E}, \vec{B}$, thereby determining the whole field (by mathematical theorem). The corresponding four equations can be divided into homogenous (only the fields interplay) and inhomogeneous (charge and current density appear) ones. Moreover, if we have some medium involved, there are material equations (so some statements from above must be rephrased in terms of other variables; does not really change interpretation, though).
+        \subsection{Maxwell Equations}
+Interestingly, in order to do time-independent electrodynamics, i.e.~electromagnetism, the only thing we have to do is take the Maxwell equations from electro-, magnetostatics and continue with this set of equations. It is only when we go to dynamics with $\pdv{\vec{E}}{t} \neq 0$ and/or $\pdv{\vec{B}}{t} \neq 0$ that we have to do more work. This work has been done over the past two subsections, which is paying off now because we merely have to assemble the appropriate set of equations.
+\todo{uhhh, does this make sense? Is there even something like \enquote{time-independent electrodynamics}?}
 
--> these Maxwell equations are complemented by the Lorentz force, total expression of which we sneaked into example \ref{ex:point_charge_magn_field} already, and which reads
+
+
+            \paragraph{In Vacuum}
+In vacuum, Maxwell's equations in their most general form are
+\begin{subequations}
+\begin{align}
+    \div \vec{E} &= \frac{\rho}{\epsilon_0}
+    \\
+    \div \vec{B} &= 0
+    \\
+    \curl \vec{E} &= - \pdv{\vec{B}}{t}
+    \\
+    \curl \vec{B} &= \mu_0 \vec{j} + \mu_0 \epsilon_0 \pdv{\vec{E}}{t}
+\end{align}
+\end{subequations}
+Equivalently, in integral form,
+\begin{subequations}\label{eq:maxwell_collection}
+\begin{align}
+    \int_{\mathcal{S}} \vec{E} \cdot d\vec{\mathcal{S}} &= \frac{Q(\mathcal{V})}{\epsilon_0}
+    \\
+    \int_{\mathcal{S}} \vec{B} \cdot d\vec{\mathcal{S}} &= 0
+    \\
+    \int_{\mathcal{C}} \vec{E} \cdot d\vec{\mathcal{C}} &= - \pdv{t} \int_{\mathcal{S}(\mathcal{C})} \vec{B} \cdot d\mathcal{S}
+    \\
+    \int_{\mathcal{C}} \vec{B} \cdot d\vec{\mathcal{C}} &= \mu_0 I_{\mathcal{C}} + \mu_0 \epsilon_0 \pdv{t} \int_{\mathcal{S}(\mathcal{C})} \vec{E} \cdot d\mathcal{S}
+\end{align}
+\end{subequations}
+
+
+-> some interpretations:
+
+the only situation where an electric field can have broken symmetry in the form of vortices is when a time-varying magnetic field is present. This symmetry breaking manifests as non-zero line integrals over a closed path.
+
+
+
+            \paragraph{In Media}
+Nothing really changes in the form of Maxwell's equations when we make the transition in media, except that $\rho$ and $\vec{j}$ now have multiple contributions.
+
+-> charge density: from free and bound charges, $\rho = \rho_f + \rho_b$
+
+-> current density: also from free and bound charges, $\vec{j} = \vec{j}_f + \vec{j}_b$; but it actually also gets new contribution, from \Def{polarization current} $\vec{j}_p = \pdv{\vec{\mathbb{P}}}{t}$ (can, again, be derived from continuity equation for the flow of bound charge $\rho_b$; nope, the flow of bound charges is \emph{not} related to the bound current via the continuity equation, their origin is very different)
+
+
+However, it is possible to rewrite them in terms of $\vec{D}, \vec{H}$, which may be a little more convenient if we intend to calculate these quantities instead of $\vec{E}, \vec{B}$ (but again, the amount of information in these new equations does not change):
+\begin{subequations}
+\begin{align}
+    \div \vec{D} &= \rho_f
+    \\
+    \div \vec{B} &= 0
+    \\
+    \curl \vec{E} &= - \pdv{\vec{B}}{t}
+    \\
+    \curl \vec{H} &= \vec{j}_f + \pdv{\vec{D}}{t}
+\end{align}
+\end{subequations}
+or in integral form
+\begin{subequations}\label{eq:maxwell_collection_media}
+\begin{align}
+    \int_{\mathcal{S}} \vec{D} \cdot d\vec{\mathcal{S}} &= \frac{Q_f(\mathcal{V})}{\epsilon_0}
+    \\
+    \int_{\mathcal{S}} \vec{B} \cdot d\vec{\mathcal{S}} &= 0
+    \\
+    \int_{\mathcal{C}} \vec{E} \cdot d\vec{\mathcal{C}} &= - \pdv{t} \int_{\mathcal{S}(\mathcal{C})} \vec{B} \cdot d\mathcal{S}
+    \\
+    \int_{\mathcal{C}} \vec{H} \cdot d\vec{\mathcal{C}} &= \mu_0 I_{\mathcal{C}, f} + \mu_0 \epsilon_0 \pdv{t} \int_{\mathcal{S}(\mathcal{C})} \vec{D} \cdot d\mathcal{S}
+\end{align}
+\end{subequations}
+
+
+sometimes, the constitution equation are also added in this context, i.e.
+\begin{subequations}
+\begin{align}
+    \vec{D} &= \epsilon_0 \vec{E} + \vec{\mathbb{P}}
+    \\
+    \vec{B} &= \mu_0 (\vec{H} + \vec{M})
+\end{align}
+\end{subequations}
+(which are slightly asymmetric, since $\vec{B}, \vec{E}$ are total field, while $\vec{D}, \vec{H}$ come from free charges/currents, and they are not on same side; but this is just a small nag\todo{is nag the word I meant to use?})
+
+
+
+            \paragraph{Recap}
+Now that we have finished our derivations, it is time to take a step back and give a high level overview over what we just did and how electromagnetism works.
+
+
+The physical setup that we start with is a volume that contains stationary charges and moving charges, called currents, described by the charge density $\rho$ and a current density $\vec{j}$. Maxwell's equations determine curl and divergence of the two fields $\vec{E}, \vec{B}$ that these source charges and currents produce, thereby determining the whole field (by the Helmholtz theorem). The corresponding four equations can be divided into homogenous (only the fields interplay) and inhomogeneous (charge and current density appear) ones. Moreover, if we have some medium involved, there are material equations (so some statements from above must be rephrased in terms of other variables; does not really change interpretation, though).
+
+
+These Maxwell equations are complemented by the Lorentz force, which determines how the produced fields interact with the environment, i.e.~other charges. There are several way in which it can be stated; the force on a single charged particle with charge $q$ and velocity $\vec{v}$, for example, is
 \begin{equation}
     \eqbox{
         \vec{F} = q \qty(\vec{E} + \vec{v} \cross \vec{B})
-    } \, ,
+    } \, .
 \end{equation}
-where $q, \vec{v}$ represent the charge, velocity of the particle in consideration. -> determines effect of fields on other particles (more generally, we must look force density, i.e.~force per unit charge, $\vec{f}$ and integrate this to obtain total force on a body confined to volume $\mathcal{V}'$, $\vec{F} = \int_{\mathcal{V}'} \vec{f} \, dq = \int_{\mathcal{V}'} \vec{f} \rho \, d\mathcal{V}'$; this assumes $\vec{f} = \vec{E} + \vec{v} \cross \vec{B}$; we could also choose to include $\rho$ in $\vec{f}$, making it force per unit volume instead)
+More generally, one looks at force densities of various kind. One possibility is to take a force per unit charge,
+\begin{equation}
+    \vec{f} = \vec{E} + \vec{v} \cross \vec{B}
+\end{equation}
+and integrate this to obtain the total force on a volume $\mathcal{V}'$,
+\begin{equation}
+    \vec{F} = \int_{\mathcal{V}'} \vec{f}(\vec{r}') \, d\mathcal{q}' = \int_{\mathcal{V}'} \vec{f}(\vec{r}') \rho(\vec{r}') \, d\mathcal{V}' \, .
+\end{equation}
+Or, we could choose a force per unit volume, $\vec{f}' = \rho \vec{f} = \rho \qty(\vec{E} + \vec{v} \cross \vec{B})$ and perform the analogous integral (the second equality in the above equation). In any case, then our job is done, since forces determine all physical interactions in Newtonian theory.
+
+
+
+            \paragraph{Boundary Conditions}
+Any time that the fields $\vec{E}, \vec{B}$ (or likewise $\vec{D}, \vec{H}$) cross a boundary between media a surface with charge density $\sigma$ and/or current density $\vec{K}$, we should expect them to be discontinuous (e.g., because of the field from the surface overlapping with the field from the source that initially created the fields). As before, the conditions on the fields when encountering such discontinuities can be inferred from the Maxwell equations, more specifically their integral versions Eqs.~\eqref{eq:maxwell_collection}, \eqref{eq:maxwell_collection_media}, by using the Gaussian pillbox technique:
+\begin{subequations}
+\begin{align}
+    D_{1, \perp} - D_{2, \perp} &= \sigma_f
+    \\
+    B_{1, \perp} - B_{2, \perp} &= 0
+    \\
+    \vec{E}_{1, \parallel} - \vec{E}_{2, \parallel} &= 0
+    \\
+    \vec{H}_{1, \parallel} - \vec{H}_{2, \parallel} &= \vec{K}_f \cross \vec{n}
+\end{align}
+\end{subequations}
 
 
 
