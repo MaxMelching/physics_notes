@@ -172,6 +172,10 @@ $\fvec{t} = \dv{\Gamma(\sigma)}{\sigma}$ is the tangent vector (field) along $\G
 \end{post}
 Note that while this \enquote{derivation} we provided here does make a lot sense, there is no guarantee for it to be correct -- accelerating clocks could be vastly different from uniformly moving and resting ones. For this reason, we call \eqref{eq:proper_time_general} a postulate rather than a property. Once again, experiments have tested this postulate to very high accelerations of $\approx 10^{16} g$ (where $g = 9.81 \frac{\metre}{\second^2}$), which showed no dependence on it (only on the speed $v$).\footnote{Even more generally, \cite{Misner_1973} §38.4.~discusses the existence of the metric $d\tau$ and local Lorentz frames. Of course, this is closely related to the considerations made when discussing the clock postulate and similar results hold. From the experimental findings, one can \emph{not} deduce the existence of a global Lorentz frame with $g_{\mu \nu} = \eta_{\mu \nu}$. Instead, one has to resort to frames with this property at each point in Minkowski space, which are related by Lorentz transformations, to define the metric as a tensor field.} More details on this are discussed in \ref{subsec:four_acc}.
 
+-> only the instantaneous speeds are relevant, i.e.~$v(t)$ at each time; but not how fast this value changes, i.e.~$\dv{v}{t}$ does not matter
+
+-> this clock postulate seems to be due to Rindler
+
 % \makeheadline
 
 
@@ -941,6 +945,11 @@ maybe something similar discussed here: \url{https://de.wikipedia.org/wiki/Besch
 
 
 
+		\subsection{Collisions}
+before: shooting particle of some mass onto particle of same mass means angle of particles after collision is same for both; but in relativity, it is energy-momentum that is important (and we also have to take $\gamma$ into account), which the incoming particle has more of, so they do not have same angle after collision
+
+
+
 		\subsection{Lagrangian Approach}
 review Lagrangian approach here
 
@@ -970,25 +979,23 @@ with potential energy $U$; we get that from (see Fleury 3.66) action, which is n
 
 
 	\section{Relativistic Electrodynamics}
-now we come to the key reason why relativity as formulated by Einstein exists in the first place, electrodynamics
+% https://en.wikipedia.org/wiki/Classical_electromagnetism_and_special_relativity
+% https://en.wikipedia.org/wiki/Relativistic_Lagrangian_mechanics
+% https://en.wikipedia.org/wiki/Covariant_formulation_of_classical_electromagnetism#Lagrangian_for_classical_electrodynamics
+Now we come to the key reason why relativity as formulated by Einstein exists in the first place, electrodynamics. This is where many of the issues with Newtonian physics were detected, mainly because electromagnetic waves (aka light) is moving at relativistic speeds.
 
-
-\hrule
-
-motivation and definition of electromagnetic field tensor $F$:
-
-When studying electromagnetism, one quickly notices that electric and magnetic field are very closely related, which shows for instance in the expression for the Lorentz-force that a charged particle feels:
+Interestingly, and in contrast to much of Newtonian physics, electromagnetism does not require a huge make-over. A careful analysis shows that electromagnetism even in its classical formulation is already a relativistic theory, the transformations that leave expressions invariant are Lorentz transforms and not Galilei transforms. However, it is customary to reformulate the theory to make this invariance more clear. In the classical formulation, it is sort of hidden, also because equations are formulated in terms of separate quantities for electricity and magnetism. However, when studying electromagnetism, one quickly notices that electric and magnetic field are not so separate, but actually very closely related. This shows for instance in the expression for the Lorentz-force that a charged particle feels, which reads
 \begin{equation*}
 	\vec{F} = q (\vec{E} + \vec{v} \cross \vec{B})
 	\, .
 \end{equation*}
-In fact, by analyzing electric fields from different inertial frames (related by Lorentz transforms) shows that electric and magnetic field are actually coming from one and the same entity -- i.e.~there is only one electromagnetic field, which can manifest as what we know as an electrical or magnetic field, depending on the observer. Some algebra shows that the Lorentz force on a particle with charge $q$ and four-velocity $\fvec{u}$ can be expressed as
+In fact, by analyzing electric fields from different inertial frames (related by Lorentz transforms) shows that electric and magnetic field are actually coming from one and the same entity -- i.e.~there is only one electromagnetic field, which can manifest as what we know as an electrical or magnetic field, depending on the observer. Some algebra shows that the Lorentz four-force $\fvec{F}$ on a particle with charge $q$ and four-velocity $\fvec{u}$ can be expressed as
 \begin{equation}\label{eq:lorentz_relativistic}
 	\eqbox{
-		K^\mu = q F^{\mu \nu} u_\nu
+		F^\mu = q F^{\mu \nu} u_\nu
 	}
 \end{equation}
-with the \Def{electromagnetic field tensor} $\tensor{F}$. As we can see from the number of indices, it is a 2-tensor. In the Lorentz-force, it appears through its contravariant components
+with the \Def{electromagnetic field tensor} $\tensor{F}$. As can be seen from the number of indices, it is a 2-tensor(-field). In the Lorentz-force, it appears through its contravariant components
 \begin{equation}\label{eq:em_field_tensor_contravariant}
 	\eqbox{
 		F^{\mu \nu} = 
@@ -1020,7 +1027,7 @@ Both of these expressions ... -> expression of $\tensor{F}$ in terms of E-, B-fi
 
 
 From Eqs.~\eqref{eq:em_field_tensor_contravariant}, \eqref{eq:em_field_tensor_covariant}, one can read off that a systematic way to extract E-, B-field given some field tensor $\tensor{F}$ is
-\begin{equation}
+\begin{equation}\label{eq:field_calc_from_tensor}
 	\eqbox{
 		E_i = c F_{0 i}
 	}
@@ -1029,57 +1036,130 @@ From Eqs.~\eqref{eq:em_field_tensor_contravariant}, \eqref{eq:em_field_tensor_co
 		B_i = - \frac{1}{2} \epsilon_{ijk} F^{jk}
 	}
 	\, .
+\end{equation}\\
+
+
+The field tensor has many interesting properties. From both expressions we see that it is antisymmetric,
+\begin{equation}
+	\eqbox{
+		F_{\mu \nu} = - F_{\nu \mu}
+	} \, .
 \end{equation}
+An interesting consequence of this is that, when regarding $\tensor{F}$ as a two-form, it is not just a regular two-form, but rather a differential form. This will come in handy in future calculations. The asymmetry also implies that it only has six independent components. (We could tell this already from the expressions we gave for the components, but this is actually a general property of asymmetric tensors in four-dimensional spaces.)
 
+% -> has six independent components; is due to differential form, means it is antisymmetric (so diagonal vanishes and only one of nebendiagonalen is non-zero); reduces number of independent components to $16 - 4 - 6 = 6$ -> means it is not just 2-tensor, but antisymmetric 2-tensor (i.e.~we can associate a 2-differential form with it)
 
--> has six independent components; is due to differential form, means it is antisymmetric (so diagonal vanishes and only one of nebendiagonalen is non-zero); reduces number of independent components to $16 - 4 - 6 = 6$ -> means it is not just 2-tensor, but antisymmetric 2-tensor (i.e.~we can associate a 2-differential form with it)
-
-
-other properties:
+Other properties of $\tensor{F}$, which require some computations, are its trace
 \begin{equation}
 	\eqbox{
 		\tr \tensor{F} = \tr_{1, 2} \tensor{F} = F^\mu_\mu = 0
-	}
+	} \, ,
 \end{equation}
-and
+its determinant
 \begin{equation}
 	\eqbox{
-		\det \tensor{F} = \frac{1}{c^2} (\vec{E} \cdot \vec{B})^2
-	}
+		\det \tensor{F} = \frac{1}{c^2} \qty(\vec{E} \cdot \vec{B})^2
+	} \, ,
 \end{equation}
-also, contracting the square ($\equiv$ inner product) yields
+and its \enquote{inner product} (double contraction of $\tensor{F}$ squared)
 \begin{equation}
 	\eqbox{
-		\tr_{1, 3} \tr_{2, 4} \tensor{F} \tensor{F} = 2 (\norm{B}^2 - \frac{\norm{E}^2}{c^2})
-	}
+		\tr_{1, 3} \tr_{2, 4} \tensor{F} \tensor{F} = F_{\mu \nu} F^{\mu \nu} = 2 \qty(\norm{B}^2 - \frac{\norm{E}^2}{c^2})
+	} \, .
 \end{equation}
-(Note that all of these results are invariants because they are tensor equations.)
+(Note that all of these results are invariants because they are tensorial equations.)The factor of $2$ in this equation is easily explained by the (a)symmetry of the field tensor, which means that each contribution is counted twice.
+
+
+-> nice implications: from these results, things like $\norm{B}^2 - \frac{\norm{E}^2}{c^2} > (<) 0$ tell us that electric (magnetic) field will vanish in certain frame, if $\vec{E} \cdot \vec{B} = 0$. Otherwise there is no frame in which one of the fields disappears (taken from Boblest, section 7.3.4)
+
+
+
+\begin{ex}[Field Transformations]
+	% -- https://en.wikipedia.org/wiki/Classical_electromagnetism_and_special_relativity#Transformation_of_the_fields_between_inertial_frames
+	Not a fan of tensors? In that case, we are free to express index laws such as Eq.~\eqref{eq:field_calc_from_tensor} in terms of the three-vectors $\vec{E}, \vec{B}$:
+	\todo{I'm sure there is some nice and relatively simple derivation}
+
+
+	ChatGPT says this is Lorentz boost in general direction. Could perhaps be useful
+	\[
+   \Lambda = 
+   \begin{pmatrix}
+   \gamma & -\gamma \beta (\unitvec{v})_x & -\gamma \beta (\unitvec{v})_y & -\gamma \beta (\unitvec{v})_z
+   \\
+   -\gamma \beta (\unitvec{v})_x & 1 + (\gamma - 1) (\unitvec{v})_x^2 & (\gamma - 1) (\unitvec{v})_x (\unitvec{v})_y & (\gamma - 1) (\unitvec{v})_x (\unitvec{v})_z
+   \\
+   -\gamma \beta (\unitvec{v})_y & (\gamma - 1) (\unitvec{v})_y (\unitvec{v})_x & 1 + (\gamma - 1) (\unitvec{v})_y^2 & (\gamma - 1) (\unitvec{v})_y (\unitvec{v})_z
+   \\
+   -\gamma \beta (\unitvec{v})_z & (\gamma - 1) (\unitvec{v})_z (\unitvec{v})_x & (\gamma - 1) (\unitvec{v})_z (\unitvec{v})_y & 1 + (\gamma - 1) (\unitvec{v})_z^2
+   \end{pmatrix}
+   \]
+
+
+   $E'_i = c F'_{0i} = c \delta_0^j F'{ji} = c \delta_0^j \Lambda_j^k F_{kl} \Lambda_i^l = c \delta_0^j \Lambda_{jk} F^{kl} \Lambda_{il}$
+   -> I guess inserting above general form then yields correct result; though I can imagine calculations are a little cumbersome
+
+   -> maybe this also helps (again from ChatGPT):
+   \[
+	F_{\mu\nu} = \begin{cases} 
+	F_{0i} = -F_{i0} = E_i/c & \text{for the electric field} \\
+	F_{ij} = -F_{ji} = \epsilon_{ijk} B_k & \text{for the magnetic field}
+	\end{cases}
+	\]
+
+
+   result:
+   \begin{align}
+		&\eqbox{
+			\vec{E}' = \gamma (\vec{E} + \vec{v} \cross \vec{B}) - (\gamma - 1) (\vec{E} \cdot \unitvec{v}) \unitvec{v}
+		}
+		\\
+		&\eqbox{
+			\vec{B}' = \gamma (\vec{B} - \frac{\vec{v} \cross \vec{E}}{c^2}) - (\gamma - 1) (\vec{B} \cdot \unitvec{v}) \unitvec{v}
+		}
+   \end{align}
+   noticing that $(\vec{E} \cdot \unitvec{v}) \unitvec{v}$ is just the component parallel to $\vec{v}$, one can also write this in the following way:
+   \begin{subequations}
+   \begin{align}
+		&\eqbox{
+			\vec{E}'_\parallel = \gamma \vec{E}_\parallel - (\gamma - 1) \vec{E}_\parallel = \vec{E}_\parallel
+		}
+		\\
+		&\eqbox{
+			\vec{B}'_\parallel = \gamma \vec{B}_\parallel - (\gamma - 1) \vec{B}_\parallel = \vec{B}_\parallel
+		}
+		\\
+		&\eqbox{
+			\vec{E}'_\perp = \gamma (\vec{E}_\perp + \vec{v} \cross \vec{B})
+		}
+		\\
+		&\eqbox{
+			\vec{B}'_\perp = \gamma (\vec{B}_\perp - \frac{\vec{v} \cross \vec{E}}{c^2})
+		}
+   \end{align}
+   \end{subequations}
+   (remember that the cross product with $\vec{v}$ means there is no component parallel to it). Remarkably, both parallel components are the same in resting and moving system.
+\end{ex}
 
 
 
 		\subsection{Maxwell Equations}
-Having defined the field tensor $\tensor{F}$, we now wish to find expressions for the Maxwell equations in terms of it. There are several ways in which these can be formulated, but perhaps the most concise one can be achieved by exploiting the fact that $\tensor{F}$ is a differential (!) two-form. That is because one can apply the exterior derivative $d$ to differential forms.
-
-
-
-homogeneous Maxwell:
+Having defined the field tensor $\tensor{F}$, we now wish to reformulate the laws of electromagnetism in terms of it, which amounts to reexpressing the Maxwell equations. There are several ways in which these can be formulated, but perhaps the most concise one can be achieved by exploiting the fact that $\tensor{F}$ is a differential two-form. That is because one can apply the exterior derivative $d$ to differential forms. Using this operation, which is basically an extension of the curl operation $\curl$ to arbitrary dimensions, the homogeneous Maxwell equation reads
 \begin{equation}
 	\eqbox{
-		dF = 0
-	}
+		d\tensor{F} = 0
+	} \, ,
 \end{equation}
-
-inhomogeneous Maxwell:
+while the inhomogeneous one becomes
 \begin{equation}
 	\eqbox{
-		\hodge d \hodge F = J
+		\hodge d \hodge \tensor{F} = \tensor{J}
 	}
 	\qquad \Leftrightarrow \qquad
 	\eqbox{
-		d \hodge F = \hodge J
+		d \hodge \tensor{F} = \hodge \tensor{J}
 	}
 \end{equation}
-with the \Def{four-current density} $J$. Usually, we define it as a vector via its components
+with the \Def{four-current density} $\tensor{J}$. Usually, we define it as a vector $\fvec{J}$ via its components
 \begin{equation}
 	\eqbox{
 		J^\mu = (c \rho, \vec{j}) = (c \gamma \rho_0, \gamma \rho_0 \vec{v}) = \rho_0 u^\mu
@@ -1088,7 +1168,7 @@ with the \Def{four-current density} $J$. Usually, we define it as a vector via i
 where $\rho_0$ is the charge density as measured in the rest frame of the density\todo{is this well phrased?}. In other words, it unites charge density $\rho$ and (three-)current density $\vec{j}$. However, in the Maxwell equations, it appears as a four-current 1-form
 \begin{equation}
 	\eqbox{
-		J = J_\mu dx^\mu = g_{\mu \nu} J^\nu dx^\mu
+		\tensor{J} = J_\mu dx^\mu = g_{\mu \nu} J^\nu dx^\mu
 	} \, ,
 \end{equation}
 which, in flat spacetime, has components
@@ -1096,46 +1176,59 @@ which, in flat spacetime, has components
 	J_\mu = \mqty(c \rho, - \vec{j})
 	\, .
 \end{equation*}
-
-
--> star denotes Hodge star operator; is basically needed because we want to relate two-form $\tensor{F}$ and vector $J$, which is easy enough in components, but to do this properly with basis vectors we need the Hodge star. The Hodgue dual of $F$ is
+The well-known continuity equation that encapsulates charge conservation becomes beautifully short in this formulation:
 \begin{equation}
 	\eqbox{
-		\hodge F = \tr_{3, 5} \tr_{4, 6} \frac{1}{2} \epsilon F
+		\partial_\mu J^\mu = 0
+	} \, .
+\end{equation}
+It emerges as a consequence of the inhomogeneous Maxwell equation. -> uhh I like that this can be inferred from Maxwell! See Meinel Eq.~(6.12)
+
+
+Having explained the new symbol $\tensor{J}$, we go to another new symbol in the equations, the \Def{Hodge star operator} $\hodge$
+-> is basically needed because we want to relate two-form $\tensor{F}$ and vector $J$, which is easy enough in components, but to do this properly with basis vectors we need the Hodge star $\hodge$ (though this is mostly a notational issue, the component forms look \enquote{normal} and do not require this operation). The Hodgue dual of $\tensor{F}$ is
+\begin{equation}
+	\eqbox{
+		\hodge \tensor{F} = \tr_{3, 5} \tr_{4, 6} \frac{1}{2} \epsilon F
 	}
 \end{equation}
-which is one of the rare equations where the component form is perhaps easier to read:
+which is one of the rare occasions where the component form is perhaps easier to read:
 \begin{equation}
 	\eqbox{
-		(\hodge F)^{\alpha \beta} = \frac{1}{2} \epsilon^{\alpha \beta \mu \nu} F_{\mu \nu}
+		(\hodge \tensor{F})^{\alpha \beta} = \frac{1}{2} \epsilon^{\alpha \beta \mu \nu} F_{\mu \nu}
 	}
 \end{equation}
 i.e.~we have to exchange $B_i \leftrightarrow - \frac{1}{c} E_i$
 
 
--> component forms:
-\begin{equation}
+-> Hodge dual of $\tensor{F}$ is pseudo-tensor, signs flips upon spatial inversion (mirroring). is important because this is example of Lorentz transformation!
+
+
+With this definition in place, we can finally give the component form of the Maxwell equations:
+\begin{equation}\label{eq:em_maxwell_component}
 	\eqbox{
 		\partial_\mu (\hodge \tensor{F})^{\mu \nu} = \partial^\alpha F^{\beta \gamma} + \partial^\beta F^{\gamma \alpha} + \partial^\gamma F^{\alpha \beta} = 0
 	}
 	\manyqquad
 	\eqbox{
 		\partial_\mu F^{\mu \nu} = \mu_0 j^\nu
-	}
+	} \, .
 \end{equation}
-
-
--> note/recall that we use following definition of gradient here:\todo{perhaps introduce this previously}
+When reading these, recall that the four-gradient is defined as follows:\todo{perhaps introduce this previously}
 \begin{equation}
-	\partial_\mu \coloneqq \pdv{x^\mu} = (\frac{1}{c} \pdv{t}, \vec{\nabla})
+	\eqbox{
+		\partial_\mu \coloneqq \pdv{x^\mu} = \qty(\frac{1}{c} \pdv{t}, \grad)
+	}
 	\manyqquad
-	\partial^\mu \coloneqq \pdv{x^\mu} = (\frac{1}{c} \pdv{t}, - \vec{\nabla})
+	\eqbox{
+		\partial^\mu \coloneqq \pdv{x^\mu} = \qty(\frac{1}{c} \pdv{t}, - \grad)
+	} \, ,
 \end{equation}
-as this in line with $x^\mu = (c t, \vec{x})$. Based on that, d'Alembertian reads
+akin to $x^\mu = (c t, \vec{x})$. Based on that, the d'Alembertian reads
 \begin{equation}
 	\eqbox{
 		\square \coloneqq \partial_\mu \partial^\mu = \frac{1}{c^2} \pdv[2]{t} - \laplacian
-	}
+	} \, .
 \end{equation}
 
 
@@ -1148,28 +1241,19 @@ as this in line with $x^\mu = (c t, \vec{x})$. Based on that, d'Alembertian read
 There is a rich theory surrounding differential forms, e.g., integration is most generally defined in terms of them. One key result is Stokes' theorem, which we already related to the homogeneous Maxwell equation. Another key result is the Poincare lemma, and applied to our situation it tells us that (due to $d\tensor{F} = 0$) there is a one-form $A$ with
 \begin{equation}\label{eq:em_field_tensor_four_potential}
 	\eqbox{
-		F = dA
+		\tensor{F} = d\tensor{A}
 	}
 \end{equation}
-and in general differential-geometric terms, $A$ is referred to as a potential. In our particular case, it is the \Def{electromagnetic four-potential}. In component-form, this means
+and in general differential-geometric terms, $\tensor{A}$ is referred to as a potential. In our particular case, it is the \Def{electromagnetic four-potential}. In component-form, this means
 \begin{equation}\label{eq:em_field_tensor_four_potential_components}
 	\eqbox{
 		F_{\mu \nu} = \partial_\mu A_\nu - \partial_\nu A_\mu
-	}
-\end{equation}
-note that $\partial_\mu$ are components of the 4-gradient, so pay attention to signs when raising/lowering indices here.
-
--> just like with four-current, we can relate to non-relativistic quantities:
-\begin{equation}\label{eq:em_four_potential_components}
-	\eqbox{
-		A^\mu = (\frac{1}{c} \varphi, \vec{A})
 	} \, .
 \end{equation}
-
-
--> we get this via simple calculation:
+(Note that $\partial_\mu$ are components of the 4-gradient, so pay attention to signs when raising/lowering indices here.)
+We get this via a simple calculation:
 \begin{align*}
-	F &= dA
+	\tensor{F} &= d\tensor{A}
 	= d (A_\mu dx^\mu)
 	= d (A_x dx + A_y dy A_z dz)
 	\\
@@ -1181,33 +1265,52 @@ note that $\partial_\mu$ are components of the 4-gradient, so pay attention to s
 	\\
 	&\todo{add terms with t here!!!}
 \end{align*}
-terms on diagonal vanish due to $F$ possessing a potential. We can perform this calculation in an even more abstract form, not relying at all on on $t, x, y, z$:
-\begin{align*}
-	F &= dA
-	= d (A_\mu dx^\mu)
-	\\
-	&= \epsilon_{\mu \nu \sigma} \partial^\sigma A_\mu dx^\mu \wedge dx^\nu
-	\todo{is this correct?}
-\end{align*}
+% terms on diagonal vanish due to $F$ possessing a potential. We can perform this calculation in an even more abstract form, not relying at all on on $t, x, y, z$:
+% \begin{align*}
+% 	\tensor{F} &= d\tensor{A}
+% 	= d (A_\mu dx^\mu)
+% 	\\
+% 	&= \epsilon_{\mu \nu \sigma} \partial^\sigma A_\mu dx^\mu \wedge dx^\nu
+% 	\todo{is this correct?}
+% \end{align*}
+Since $\tensor{F}$ is now defined via an exterior derivative, this confirms what we had noted already from the component forms, namely that it is antisymmetric and thus a differential two-form.
 
--> by definition as a differential two-form, that means $F$ is antisymmetric, $F_{\mu \nu} = - F_{\nu \mu}$ (as we can also see from component form)
 
-When we define $F$ using some potential $A$, the homogeneous Maxwell equation is automatically fulfilled, and for inhomogeneous one to be fulfilled $A$ must obey
-\begin{equation}
+The new four-potential can, just like any other four-quantity, be related to its non-relativistic pendants:
+\begin{equation}\label{eq:em_four_potential_components}
 	\eqbox{
-		\square A = - \mu_0 J
+		A^\mu = \qty(\frac{1}{c} \varphi, \vec{A})
+	} \, .
+\end{equation}
+When we define/compute $F$ using some potential $A$, the homogeneous Maxwell equation is automatically fulfilled ($d^2 \tensor{F}$ is an inherent property of the exterior derivative, in fact one of the defining ones). For the inhomogeneous one to be fulfilled $A$ must obey
+\begin{equation}\label{eq:em_potential_wave_eq}
+	\eqbox{
+		\square \tensor{A} = - \mu_0 \tensor{J}
 	}
 	\todo{check sign here}
 \end{equation}
-There is gauge-freedom in how $A$ is defined, this particular form is only valid in Lorenz\footnote{Yes, there is no \enquote{t} here.} gauge, i.e.~when $\partial_\mu A^\mu = 0$ (vanishing divergence).
+Relativity also permits gauge-freedom in how $A$ is defined, and this particular wave-equation-like form is only valid in the Lorenz\footnote{Yes, there is no \enquote{t} here, this gauge does not go back to Hendrik Antoon Lorentz from the Lorenth transformation, but to Ludvig Lorenz.} gauge, i.e.~when the divergence of $\tensor{A}$ vanishes,
+\begin{equation}
+	\eqbox{
+		\partial_\mu A^\mu = 0
+	} \, .
+\end{equation}
 
+
+
+		\subsection{Energy-Momentum}
+
+talk about energy-momentum tensor
+
+-> if matter + EM field is present, we can add them together!
 
 
 \hrule
 
 notes:
 
-to get correct components etc of Lorentz transform, use this: we know transformation from frame $A$ to $A'$ looks like, where $A'$ moves with $v$ relative to $A$. A vector in $A$ transforms via a matrix multiplication as $V' = L V$ where $L = \mqty(1 & \beta \gamma & \beta \gamma & \beta \gamma \\ \beta \gamma & 0 & 1 0 & 0)$ etc. We can use this to get components of Lorentz transform $L$ because component form of this equation is $V'^\mu = L^\mu_\nu V^\nu$. Also yields inverse transform because this just corresponds to transform into the dual space, which is done by metric; is reflected in equation $(L^{-1})^\mu_\nu = g^\mu_\alpha L^\alpha_\beta g^\beta_\nu = g^{\mu \gamma} L^\delta_\gamma g_{\delta \nu}$; means $V'_\mu = g^\nu_\alpha L^\alpha_\beta g^\beta_\mu V_\mu$, which we could have seen by lowering $\mu$ in $V'^\mu = L^\mu_\nu V^\nu$ and using $V_\nu = g_{\nu \sigma} V^\sigma$ already
+
+Lorentz transformation form a group, so defining transformations for specific types is sufficient to define in general, via composition; note that rotation is also a transformation between inertial frames because it does not constantly rotate as time goes on, is fixed relation; combination of rotation and boost is called homogeneous transformation (leaves origin invariant), if things like shifts are involved we can also have inhomogeneous transformations (latter form Poincare group; former form Lorentz group, where reflections = spatial and temporal inversion are included as well)
 
 
 
