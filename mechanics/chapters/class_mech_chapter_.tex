@@ -482,7 +482,7 @@ In order to eliminate the monopole term, we need $Q(\mathcal{V}) = 0$. The simpl
     }
     = \fpeps \qty[\frac{-q}{\norm{\vec{r}}} + \frac{q}{\norm{\vec{r} - \vec{a}}}]
     \eqbox{
-        \simeq \fpeps \frac{\vec{r} \cdot \vec{p}}{x^3}
+        \simeq \fpeps \frac{\vec{r} \cdot \vec{p}}{r^3}
     }
 \end{equation}
 where we defined the \Def{dipole moment}
@@ -530,7 +530,7 @@ We have mainly studied the potential and field associated with, i.e.~exerted by,
         \vec{F}(\vec{r})
     }
     = - q \vec{E}(\vec{r}) + q \vec{E}(\vec{r} + \vec{a})
-    \simeq - q \vec{E}(\vec{r}) + q \qty(\vec{E}(\vec{r}) + (\grad \vec{E}(\vec{r})) \cdot \vec{a}
+    \simeq - q \vec{E}(\vec{r}) + q \qty(\vec{E}(\vec{r}) + (\grad \vec{E}(\vec{r})) \cdot \vec{a})
     % If we had chosen \pm d/2 as locations, then we would have to expand around -d/2; but subtracting -d/2 in Taylor-expansion from location at d/2 yields same term
     \eqbox{
         = \vec{p} (\div \vec{E}(\vec{r}))
@@ -1469,7 +1469,7 @@ contains the same factor, so nothing prevents us from doing the same expansion. 
     &= 
     \eqbox{
         % \fpmu \qty[\frac{\vec{r} \cdot \vec{p}}{r^3} + \frac{1}{2} \sum_{i, j} \frac{Q_{ij}}{r^5} \vec{r}_i \vec{r}_j]
-        \fpmu \qty[\frac{\vec{r}}{r^3} \cdot \int_{\mathcal{V}'} \vec{r}' \vec{j}(\vec{r}') \, d\mathcal{V}']
+        \fpmu \qty[\frac{1}{r^3} \cdot \int_{\mathcal{V}'} (\vec{r} \cdot \vec{r}') \vec{j}(\vec{r}') \, d\mathcal{V}']
     }
 \end{align}
 since the monopole term vanishes,
@@ -1483,7 +1483,7 @@ since the monopole term vanishes,
 (as it should, since there are no magnetic monopoles, but this can be shown in a rigorous calculation).\footnote{Key in the calculation of the dipole term is the identity
 \begin{equation}\label{eq:magn_dipole_identity}
     \eqbox{
-        \int_{\mathcal{V}'} \vec{a} \cdot \vec{r}' \vec{j}(\vec{r}') \, d\mathcal{V}'
+        \int_{\mathcal{V}'} (\vec{a} \cdot \vec{r}') \vec{j}(\vec{r}') \, d\mathcal{V}'
         = - \frac{1}{2} \vec{a} \cross \int_{\mathcal{V}'} \vec{r}' \cross \vec{j}(\vec{r}') \, d\mathcal{V}'
         = \frac{1}{2} \qty[\int_{\mathcal{V}'} \vec{r}' \cross \vec{j}(\vec{r}') \, d\mathcal{V}'] \cross \vec{a}
     } \, ,
@@ -1516,6 +1516,9 @@ with the \Def{magnetic dipole moment}
 
 
 -> once again, dipole formula is only exact formula for $\vec{A}$ if loop size goes to zero, while current goes to infinity (so that $m = I a$ remains finite); but in practice, $r \gg a$ is sufficient to invoke dipole form
+
+
+-> say we have counter-clockwise current in a circular loop; then $\vec{m}$ points upwards; for magnet, it points from south to north pole
 
 
 -> interesting: as Eq.~(5.88) shows, dipole term (and thus far-field limit) of both magnetic potential and field induced by a dipole looks identical to electric dipole (cf.~Eq.~\eqref{eq:el_dipole_field} and Fig.~\ref{fig:magn_dipole})
@@ -1565,6 +1568,7 @@ Using the same assumption that $\vec{j}(\vec{r}) \neq 0$ only in a small region 
     \notag\\
     &\eqbox{= \grad \qty(\vec{m} \cdot \vec{B}(\vec{r}_0))}
 \end{align}
+-> last equality is only valid if B-field is homogeneous; otherwise, we have to stick to $\qty[\vec{m} \cross \grad] \vec{B}(\vec{r}_0)$
 
 
 -> again, completely analogous to electric dipole; is conservative force with potential
