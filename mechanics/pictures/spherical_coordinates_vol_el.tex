@@ -7,20 +7,21 @@
 \usepackage[outline]{contour} % glow around text
 \usepackage{xcolor}
 
-\colorlet{mygreen}{green!50!black}
-\colorlet{myblue}{blue!80!black}
-\colorlet{myred}{red!90!black}
-\colorlet{mydarkblue}{blue!50!black}
+\usepackage{newtxmath}
+\usepackage{tgpagella}
+
+\colorlet{mygreen}{green!60!black}
+\colorlet{myred}{red!75!black}
+\colorlet{myblue}{blue!70!black}
 
 
-\usetikzlibrary{calc, 3d, arrows.meta, topaths}
+\usetikzlibrary{calc, 3d, arrows.meta}
 
 
 \tikzset{
     >={Stealth[inset=0,angle'=27]},
     vector/.style={
         ->,
-        % myblue,
         myred,
         thick,
     },
@@ -31,20 +32,17 @@
     },
     unit vector non cartesian/.style={
         ->,
-        % thick,
-        % mygreen,
+        semithick,
         myblue,
     },
     vector projection/.style={
         % myblue!80!black,
         myred!80!black,
         dashed,
-        % line width=0.08,
         thin,
     },
     angles/.style={
         ->,
-        % myblue,
         mygreen,
     },
     element/.style={
@@ -59,11 +57,9 @@
     },
     element helplines/.style={
         thin,
-        % black,
         purple,
         dashed,
-        % densely dotted,
-        opacity=0.5,
+        opacity=0.6,
     },
 }
 
@@ -80,7 +76,7 @@
 % \def\thetavec{30}
 % \def\phivec{36}
 \def\thetavec{42}
-\def\phivec{50}
+\def\phivec{42}
 
 \def\axislen{1}
 \def\axislabelpad{0.1}
@@ -111,19 +107,19 @@
     \draw[vector] (O)  -- (P);
 
 
-    \def\dr{0.16}
+    \def\dr{0.08}
     \def\dtheta{8}
     \def\dphi{8}
 
-    % \tdplotsetcoord{Pppp}{\rvec+\dr}{\thetavec+\dtheta}{\phivec+\dphi}
-    % \tdplotsetcoord{Ppmp}{\rvec+\dr}{\thetavec-\dtheta}{\phivec+\dphi}
-    % \tdplotsetcoord{Pppm}{\rvec+\dr}{\thetavec+\dtheta}{\phivec-\dphi}
-    % \tdplotsetcoord{Ppmm}{\rvec+\dr}{\thetavec-\dtheta}{\phivec-\dphi}
-    % -- No +dr, otherwise we have to use $(r+dr)d\theta$ etc. Could neglect terms quadratic in $dr$ in the end, so same result, but unnecessarily complicated
-    \tdplotsetcoord{Pppp}{\rvec}{\thetavec+\dtheta}{\phivec+\dphi}
-    \tdplotsetcoord{Ppmp}{\rvec}{\thetavec-\dtheta}{\phivec+\dphi}
-    \tdplotsetcoord{Pppm}{\rvec}{\thetavec+\dtheta}{\phivec-\dphi}
-    \tdplotsetcoord{Ppmm}{\rvec}{\thetavec-\dtheta}{\phivec-\dphi}
+    \tdplotsetcoord{Pppp}{\rvec+\dr}{\thetavec+\dtheta}{\phivec+\dphi}
+    \tdplotsetcoord{Ppmp}{\rvec+\dr}{\thetavec-\dtheta}{\phivec+\dphi}
+    \tdplotsetcoord{Pppm}{\rvec+\dr}{\thetavec+\dtheta}{\phivec-\dphi}
+    \tdplotsetcoord{Ppmm}{\rvec+\dr}{\thetavec-\dtheta}{\phivec-\dphi}
+    % -- No +dr, otherwise we have to use $(r+dr)d\theta$ etc. Could neglect terms quadratic in $dr$ in the end, so same result, but unnecessarily complicated -> BS
+    % \tdplotsetcoord{Pppp}{\rvec}{\thetavec+\dtheta}{\phivec+\dphi}
+    % \tdplotsetcoord{Ppmp}{\rvec}{\thetavec-\dtheta}{\phivec+\dphi}
+    % \tdplotsetcoord{Pppm}{\rvec}{\thetavec+\dtheta}{\phivec-\dphi}
+    % \tdplotsetcoord{Ppmm}{\rvec}{\thetavec-\dtheta}{\phivec-\dphi}
     \tdplotsetcoord{Pmpp}{\rvec-\dr}{\thetavec+\dtheta}{\phivec+\dphi}
     \tdplotsetcoord{Pmmp}{\rvec-\dr}{\thetavec-\dtheta}{\phivec+\dphi}
     \tdplotsetcoord{Pmpm}{\rvec-\dr}{\thetavec+\dtheta}{\phivec-\dphi}
@@ -157,36 +153,37 @@
         element lines,
     ]
         % +dr
-        % \tdplotsetthetaplanecoords{\phivec-\dphi}
-        % \tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{{\rvec+\dr}}{\thetavec-\dtheta}{\thetavec+\dtheta}{}{}
-
-        % \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{{\rvec+\dr}}{0}{\thetavec-\dtheta}{}{}
-        % \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{{\rvec+\dr}}{\thetavec+\dtheta}{90}{}{}
-
-        % \tdplotsetthetaplanecoords{\phivec+\dphi}
-        % \tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{{\rvec+\dr}}{\thetavec-\dtheta}{\thetavec+\dtheta}{above right=-2,scale=\fontscale}{$r d\theta$}
-
-        
-        % \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{{\rvec+\dr}}{0}{\thetavec-\dtheta}{}{}
-        % \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{{\rvec+\dr}}{\thetavec+\dtheta}{90}{}{}
-        
-        % \tdplotdrawarc[element helplines]{(0,0,0)}{{\rvec+\dr}}{\phivec-\dphi}{\phivec+\dphi}{}{}
-
-        
         \tdplotsetthetaplanecoords{\phivec-\dphi}
-        \tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{\rvec}{\thetavec-\dtheta}{\thetavec+\dtheta}{}{}
+        \tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{{\rvec+\dr}}{\thetavec-\dtheta}{\thetavec+\dtheta}{}{}
 
-        \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{\rvec}{0}{\thetavec-\dtheta}{}{}
-        \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{\rvec}{\thetavec+\dtheta}{90}{}{}
+        \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{{\rvec+\dr}}{0}{\thetavec-\dtheta}{}{}
+        \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{{\rvec+\dr}}{\thetavec+\dtheta}{90}{}{}
 
         \tdplotsetthetaplanecoords{\phivec+\dphi}
-        \tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{\rvec}{\thetavec-\dtheta}{\thetavec+\dtheta}{above right=-2,scale=\fontscale}{\contour{white}{$r d\theta$}}
+        \tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{{\rvec+\dr}}{\thetavec-\dtheta}{\thetavec+\dtheta}{above right=-2,scale=\fontscale}{$r d\theta$}
 
         
-        \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{\rvec}{0}{\thetavec-\dtheta}{}{}
-        \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{\rvec}{\thetavec+\dtheta}{90}{}{}
+        \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{{\rvec+\dr}}{0}{\thetavec-\dtheta}{}{}
+        \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{{\rvec+\dr}}{\thetavec+\dtheta}{90}{}{}
         
-        \tdplotdrawarc[element helplines]{(0,0,0)}{\rvec}{\phivec-\dphi}{\phivec+\dphi}{}{}
+        \tdplotdrawarc[element helplines]{(0,0,0)}{{\rvec+\dr}}{\phivec-\dphi}{\phivec+\dphi}{}{}
+
+
+        % No +dr
+        % \tdplotsetthetaplanecoords{\phivec-\dphi}
+        % \tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{\rvec}{\thetavec-\dtheta}{\thetavec+\dtheta}{}{}
+
+        % \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{\rvec}{0}{\thetavec-\dtheta}{}{}
+        % \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{\rvec}{\thetavec+\dtheta}{90}{}{}
+
+        % \tdplotsetthetaplanecoords{\phivec+\dphi}
+        % \tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{\rvec}{\thetavec-\dtheta}{\thetavec+\dtheta}{above right=-2,scale=\fontscale}{\contour{white}{$r d\theta$}}
+
+        
+        % \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{\rvec}{0}{\thetavec-\dtheta}{}{}
+        % \tdplotdrawarc[element helplines,tdplot_rotated_coords]{(0,0,0)}{\rvec}{\thetavec+\dtheta}{90}{}{}
+        
+        % \tdplotdrawarc[element helplines]{(0,0,0)}{\rvec}{\phivec-\dphi}{\phivec+\dphi}{}{}
 
 
         
@@ -215,6 +212,9 @@
     \node[element lines,below right=-4,scale=\fontscale] at (Plabel) {\contour{white}{$r \sin(\theta) d\phi$}};
     \tdplotsetcoord{Plabel}{\rvec-\dr}{\thetavec-\dtheta}{\phivec-0.5*\dphi}
     \node[element lines,above left=-1,scale=\fontscale] at (Plabel) {\contour{white}{$dr$}};
+
+
+    \draw[element lines] (Pmmm) -- (Pmmp) -- (Ppmp);  % Some contour in the back
 
 
     % -- Some more helper lines

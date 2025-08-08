@@ -1,0 +1,561 @@
+% Author: Max Melching (2025)
+\documentclass[border=3pt,tikz]{standalone}
+\input{../colors.tex}
+
+\usepackage{physics}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usepackage[outline]{contour} % glow around text
+\usepackage{xcolor}
+
+\usepackage{newtxmath}
+\usepackage{tgpagella}
+
+\colorlet{mygreen}{green!60!black}
+\colorlet{myred}{red!90!black}
+\colorlet{myblue}{blue!80!black}
+
+
+\usetikzlibrary{calc, 3d, arrows.meta, decorations.markings, patterns}
+
+
+\tikzset{
+    >={Stealth[inset=0,angle'=27]},
+    coordinate axis/.style={
+        ->,
+        thick,
+        black,
+    },
+    component projection/.style={
+        dashed,
+        black,
+        thin,
+    },
+    ab parallelogram/.style={
+        mygreen,
+        opacity=0.5,
+        fill,
+        fill opacity=0.5,
+        pattern=north west lines,
+        pattern color=mygreen,
+    },
+    ab rectangle/.style={
+        % yellow,
+        purple,
+        opacity=0.5,
+        fill,
+        fill opacity=0.5,
+        % pattern=crosshatch,
+        pattern=north east lines,
+        % pattern color=yellow,
+        pattern color=purple,
+    },
+}
+
+\def\axislen{3}
+\def\axislabelpad{0.2}
+
+\def\pointlabelpos{1.25}
+
+\def\unitvec#1{\hat{#1}}
+
+
+
+\begin{document}
+
+
+\tdplotsetmaincoords{60}{110}
+% \tdplotsetmaincoords{89}{110}
+% \tdplotsetmaincoords{10}{110}
+
+
+\pgfmathsetmacro{\ax}{1.2}
+\pgfmathsetmacro{\ay}{0.6}
+\pgfmathsetmacro{\az}{0}
+
+\pgfmathsetmacro{\bx}{0.6}
+\pgfmathsetmacro{\by}{1.2}
+\pgfmathsetmacro{\bz}{0.2}
+
+
+
+% \pgfmathsetmacro{\ax}{1}
+% \pgfmathsetmacro{\ay}{0}
+% \pgfmathsetmacro{\az}{0}
+
+% \pgfmathsetmacro{\bx}{0}
+% \pgfmathsetmacro{\by}{1}
+% \pgfmathsetmacro{\bz}{0}
+
+
+
+\pgfmathsetmacro{\cx}{\ay*\bz-\az*\by}
+\pgfmathsetmacro{\cy}{\az*\bx-\ax*\bz}
+\pgfmathsetmacro{\cz}{\ax*\by-\ay*\bx}
+
+
+% \begin{tikzpicture}[
+%     tdplot_main_coords,
+% ]
+%     \coordinate (O) at (0,0,0);
+    
+%     \coordinate (A) at (\ax,\ay,\az);
+%     \coordinate (Ax) at (\ax,0,0);
+%     \coordinate (Ay) at (0,\ay,0);
+%     \coordinate (Az) at (0,0,\az);
+    
+%     \coordinate (B) at (\bx,\by,\bz);
+%     \coordinate (Bx) at (\bx,0,0);
+%     \coordinate (By) at (0,\by,0);
+%     \coordinate (Bz) at (0,0,\bz);
+    
+%     \coordinate (C) at (\cx,\cy,\cz);
+%     \coordinate (Cx) at (\cx,0,0);
+%     \coordinate (Cy) at (0,\cy,0);
+%     \coordinate (Cz) at (0,0,\cz);
+    
+
+%     \begin{scope}[
+%         coordinate axis,
+%         shift={(O)},
+%     ]
+%         \draw (0,0,0) --++ (\axislen,0,0);
+%         \node at ({\axislen+\axislabelpad},0,0) {\contour{white}{$\unitvec{x}$}};
+        
+%         \draw (0,0,0) --++ (0,\axislen,0);
+%         \node at (0,{\axislen+\axislabelpad},0) {\contour{white}{$\unitvec{y}$}};
+        
+%         \draw (0,0,0) --++ (0,0,\axislen);
+%         \node at (0,0,{\axislen+\axislabelpad}) {\contour{white}{$\unitvec{z}$}};
+%     \end{scope}
+
+
+%     \draw[
+%         ->,
+%         thick,
+%         myred,
+%     ] (O) -- (A) node[below] {$\vec{A}$};
+    
+%     \draw[
+%         ->,
+%         thick,
+%         myred,
+%     ] (O) -- (B) node[right] {$\vec{B}$};
+    
+%     \draw[
+%         ->,
+%         thick,
+%         myblue,
+%     ] (O) -- (C) node[above] {$\vec{C}$};
+
+
+%     % -- Selected coordinate projections
+%     % \draw[component projection] (A) -- (Ax);
+%     % \draw[component projection] (B) -- (By);
+
+
+%     \coordinate (-A) at ($-1*(A)$);
+%     \coordinate (-B) at ($-1*(B)$);
+
+%     \draw[
+%         % dashed,
+%         mygreen,
+%         opacity=0.5,
+%         fill,
+%         fill opacity=0.5,
+%         % pattern=crosshatch,
+%         % % pattern={crosshatch,distance=1pt},
+%         % % pattern distance=2pt,
+%         pattern=north west lines,
+%         pattern color=mygreen,
+%     ] (O) -- (A) --++ (B) --++ (-A) --++ (-B);
+
+%     \pgfmathsetmacro{\anorm}{sqrt(\ax^2+\ay^2+\az^2)}
+%     \pgfmathsetmacro{\bnorm}{sqrt(\bx^2+\by^2+\bz^2)}
+%     \pgfmathsetmacro{\abinnprod}{\ax*\bx+\ay*\by+\az*\bz}
+%     % \pgfmathsetmacro{\abangle}{acos(\abinnprod/\anorm/\bnorm)}
+%     \pgfmathsetmacro{\abangle}{acos(\abinnprod/(\anorm*\bnorm))}
+
+
+    
+%     % \begin{scope}[
+%     %     rotate around z=-90+\abangle,
+%     % ]
+%     %     % -- Assumes C is parallel to z-axis
+%     %     \coordinate (Aortho) at (\ax,\ay,\az);
+%     % \end{scope}
+
+
+%     % \coordinate (Aunit) at ($1/\anorm*(A)$);
+%     % \coordinate (Bunit) at ($1/\bnorm*(B)$);
+
+%     \begin{scope}[
+%         canvas is plane={A}{B}  % Not sure if it works, though supposed to be equivalent
+%         % 
+%         % plane x={(A)},
+%         % plane y={(B)},
+%         % canvas is plane,
+%         % -- Important: need unit vectors, otherwise plane is warped (?)
+%         % plane x={($1/\anorm*(A)$)},
+%         % plane y={($1/\bnorm*(B)$)},
+%         % canvas is plane,
+%         % 
+%         % canvas is plane={($1/\anorm*(A)$)}{($1/\bnorm*(B)$)},  % Seems to work, actually
+%     ]
+%         % -- Advantage: in this plane, we can use the built-in rotate function
+%         \begin{scope}[
+%             % rotate=-90+\abangle
+%             % % rotate=90-\abangle
+%             % 
+%             % rotate around={-90+\abangle:(0,0,0)}
+%             % rotate around={90-\abangle:(0,0,0)}
+%             % 
+%             % rotate around={-\abangle:(0,0,0)}
+%             % 
+%             rotate=-90+\abangle,
+%         ]
+%             % \coordinate (Aortho) at (\ax,\ay,\az);
+%             % \coordinate (Aortho) at (\ax,\ay);
+            
+%             % \coordinate (Aortho) at (1,0);  % This is A in the transformed coordinates
+
+%             % -- For plane spanned by unit vectors
+%             \coordinate (Aortho) at (\anorm,0);  % This is A in the transformed coordinates
+
+
+
+%             \draw[
+%                 % yellow,
+%                 purple,
+%                 opacity=0.5,
+%                 fill,
+%                 fill opacity=0.5,
+%                 % pattern=crosshatch,
+%                 pattern=north east lines,
+%                 % pattern color=yellow,
+%                 pattern color=purple,
+%             ] (0,0) -- (1,0) -- (1,1) -- (0,1) -- (0,0);
+%         \end{scope}
+%     \end{scope}
+
+%     % \draw[
+%     %     yellow,
+%     %     very thick,
+%     % ] (O) -- (Aortho);
+    
+%     % \coordinate (-Aortho) at ($-1*(Aortho)$);
+
+
+%     % -- New approach. Old one does not work because A, B may not be orthogonal, then the plane spanned is weird and warped (no matter if they are unit vectors or not)
+
+%     \coordinate (Bnormal) at (-\by, \bx, 0);
+%     \coordinate (Aortho) at ($\anorm/\bnorm*(Bnormal)$);  % Only works in xy-plane again
+    
+%     % \draw[
+%     %     yellow,
+%     %     very thick,
+%     % ] (O) -- (Aortho);
+
+%     \coordinate (-Aortho) at ($-1*(Aortho)$);
+
+%     \draw[
+%         % yellow,
+%         purple,
+%         opacity=0.5,
+%         fill,
+%         fill opacity=0.5,
+%         % pattern=crosshatch,
+%         pattern=north east lines,
+%         % pattern color=yellow,
+%         pattern color=purple,
+%     % ] (O) -- (Aortho) -- (A) -- (O);
+%     ] (O) -- (-Aortho) --++ (B) --++ (Aortho) --++ (-B);
+% \end{tikzpicture}
+
+
+
+
+
+% -- Clean version
+
+\pgfmathsetmacro{\ax}{1}
+\pgfmathsetmacro{\ay}{0}
+\pgfmathsetmacro{\az}{0}
+
+\pgfmathsetmacro{\bx}{0}
+\pgfmathsetmacro{\by}{1}
+\pgfmathsetmacro{\bz}{0}
+
+
+\begin{tikzpicture}[
+    tdplot_main_coords,
+]
+    % -- Calculate cross product
+    \pgfmathsetmacro{\cx}{\ay*\bz-\az*\by}
+    \pgfmathsetmacro{\cy}{\az*\bx-\ax*\bz}
+    \pgfmathsetmacro{\cz}{\ax*\by-\ay*\bx}
+
+
+    % -- Set coordinates
+    \coordinate (O) at (0,0,0);
+    
+    \coordinate (A) at (\ax,\ay,\az);
+    \coordinate (Ax) at (\ax,0,0);
+    \coordinate (Ay) at (0,\ay,0);
+    \coordinate (Az) at (0,0,\az);
+    
+    \coordinate (B) at (\bx,\by,\bz);
+    \coordinate (Bx) at (\bx,0,0);
+    \coordinate (By) at (0,\by,0);
+    \coordinate (Bz) at (0,0,\bz);
+    
+    \coordinate (C) at (\cx,\cy,\cz);
+    \coordinate (Cx) at (\cx,0,0);
+    \coordinate (Cy) at (0,\cy,0);
+    \coordinate (Cz) at (0,0,\cz);
+    
+
+    \begin{scope}[
+        coordinate axis,
+        shift={(O)},
+    ]
+        \draw (0,0,0) --++ (\axislen,0,0);
+        \node at ({\axislen+\axislabelpad},0,0) {\contour{white}{$\unitvec{x}$}};
+        
+        \draw (0,0,0) --++ (0,\axislen,0);
+        \node at (0,{\axislen+\axislabelpad},0) {\contour{white}{$\unitvec{y}$}};
+        
+        \draw (0,0,0) --++ (0,0,\axislen);
+        \node at (0,0,{\axislen+\axislabelpad}) {\contour{white}{$\unitvec{z}$}};
+    \end{scope}
+
+
+    \draw[
+        ->,
+        thick,
+        myred,
+    ] (O) -- (A) node[pos=\pointlabelpos] {\contour{white}{$\vec{A}$}};
+    
+    \draw[
+        ->,
+        thick,
+        myred,
+    ] (O) -- (B) node[pos=\pointlabelpos] {\contour{white}{$\vec{B}$}};
+    
+    \draw[
+        ->,
+        thick,
+        myblue,
+    ] (O) -- (C) node[pos=\pointlabelpos] {\contour{white}{$\vec{C}$}};
+
+
+    % -- Selected coordinate projections
+    % \draw[component projection] (A) -- (Ax);
+    % \draw[component projection] (B) -- (By);
+
+
+    \coordinate (-A) at ($-1*(A)$);
+    \coordinate (-B) at ($-1*(B)$);
+
+    \draw[ab parallelogram] (O) -- (A) --++ (B) --++ (-A) --++ (-B);
+
+    \pgfmathsetmacro{\anorm}{sqrt(\ax^2+\ay^2+\az^2)}
+    \pgfmathsetmacro{\bnorm}{sqrt(\bx^2+\by^2+\bz^2)}
+
+
+    \coordinate (Bnormal) at (-\by, \bx, 0);  % Only works if A, B in xy-plane
+    \coordinate (Aortho) at ($\anorm/\bnorm*(Bnormal)$);
+    
+    \coordinate (-Aortho) at ($-1*(Aortho)$);
+
+    \draw[ab rectangle] (O) -- (-Aortho) --++ (B) --++ (Aortho) --++ (-B);
+\end{tikzpicture}
+
+
+
+
+\pgfmathsetmacro{\ax}{1}
+\pgfmathsetmacro{\ay}{0.4}
+\pgfmathsetmacro{\az}{0}
+
+\pgfmathsetmacro{\bx}{0.3}
+\pgfmathsetmacro{\by}{1}
+\pgfmathsetmacro{\bz}{0}
+
+
+\begin{tikzpicture}[
+    tdplot_main_coords,
+]
+    % -- Calculate cross product
+    \pgfmathsetmacro{\cx}{\ay*\bz-\az*\by}
+    \pgfmathsetmacro{\cy}{\az*\bx-\ax*\bz}
+    \pgfmathsetmacro{\cz}{\ax*\by-\ay*\bx}
+
+    % -- Set coordinates
+    \coordinate (O) at (0,0,0);
+    
+    \coordinate (A) at (\ax,\ay,\az);
+    \coordinate (Ax) at (\ax,0,0);
+    \coordinate (Ay) at (0,\ay,0);
+    \coordinate (Az) at (0,0,\az);
+    
+    \coordinate (B) at (\bx,\by,\bz);
+    \coordinate (Bx) at (\bx,0,0);
+    \coordinate (By) at (0,\by,0);
+    \coordinate (Bz) at (0,0,\bz);
+    
+    \coordinate (C) at (\cx,\cy,\cz);
+    \coordinate (Cx) at (\cx,0,0);
+    \coordinate (Cy) at (0,\cy,0);
+    \coordinate (Cz) at (0,0,\cz);
+    
+
+    \begin{scope}[
+        coordinate axis,
+        shift={(O)},
+    ]
+        \draw (0,0,0) --++ (\axislen,0,0);
+        \node at ({\axislen+\axislabelpad},0,0) {\contour{white}{$\unitvec{x}$}};
+        
+        \draw (0,0,0) --++ (0,\axislen,0);
+        \node at (0,{\axislen+\axislabelpad},0) {\contour{white}{$\unitvec{y}$}};
+        
+        \draw (0,0,0) --++ (0,0,\axislen);
+        \node at (0,0,{\axislen+\axislabelpad}) {\contour{white}{$\unitvec{z}$}};
+    \end{scope}
+
+
+    \draw[
+        ->,
+        thick,
+        myred,
+    ] (O) -- (A) node[pos=\pointlabelpos] {\contour{white}{$\vec{A}$}};
+    
+    \draw[
+        ->,
+        thick,
+        myred,
+    ] (O) -- (B) node[pos=\pointlabelpos] {\contour{white}{$\vec{B}$}};
+    
+    \draw[
+        ->,
+        thick,
+        myblue,
+    ] (O) -- (C) node[pos=\pointlabelpos] {\contour{white}{$\vec{C}$}};
+
+
+    % -- Selected coordinate projections
+    % \draw[component projection] (A) -- (Ax);
+    % \draw[component projection] (B) -- (By);
+
+
+    \coordinate (-A) at ($-1*(A)$);
+    \coordinate (-B) at ($-1*(B)$);
+
+    \draw[ab parallelogram] (O) -- (A) --++ (B) --++ (-A) --++ (-B);
+
+    \pgfmathsetmacro{\anorm}{sqrt(\ax^2+\ay^2+\az^2)}
+    \pgfmathsetmacro{\bnorm}{sqrt(\bx^2+\by^2+\bz^2)}
+
+
+    \coordinate (Bnormal) at (-\by, \bx, 0);  % Only works if A, B in xy-plane
+    \coordinate (Aortho) at ($\anorm/\bnorm*(Bnormal)$);
+    
+    \coordinate (-Aortho) at ($-1*(Aortho)$);
+
+    \draw[ab rectangle] (O) -- (-Aortho) --++ (B) --++ (Aortho) --++ (-B);
+\end{tikzpicture}
+
+
+
+
+% -- Nice trick to allow for arbitrary orientation (only works nicely when line with "Undo rotation" is added; otherwise coordinate axes also rotated)
+
+\begin{tikzpicture}[
+    tdplot_main_coords,
+    rotate around z=10,
+    rotate around x=20,
+]
+    % -- Calculate cross product
+    \pgfmathsetmacro{\cx}{\ay*\bz-\az*\by}
+    \pgfmathsetmacro{\cy}{\az*\bx-\ax*\bz}
+    \pgfmathsetmacro{\cz}{\ax*\by-\ay*\bx}
+
+    % -- Set coordinates
+    \coordinate (O) at (0,0,0);
+    
+    \coordinate (A) at (\ax,\ay,\az);
+    \coordinate (Ax) at (\ax,0,0);
+    \coordinate (Ay) at (0,\ay,0);
+    \coordinate (Az) at (0,0,\az);
+    
+    \coordinate (B) at (\bx,\by,\bz);
+    \coordinate (Bx) at (\bx,0,0);
+    \coordinate (By) at (0,\by,0);
+    \coordinate (Bz) at (0,0,\bz);
+    
+    \coordinate (C) at (\cx,\cy,\cz);
+    \coordinate (Cx) at (\cx,0,0);
+    \coordinate (Cy) at (0,\cy,0);
+    \coordinate (Cz) at (0,0,\cz);
+    
+
+    \begin{scope}[
+        tdplot_main_coords,  % Undo rotation
+        coordinate axis,
+        shift={(O)},
+    ]
+        \draw (0,0,0) --++ (\axislen,0,0);
+        \node at ({\axislen+\axislabelpad},0,0) {\contour{white}{$\unitvec{x}$}};
+        
+        \draw (0,0,0) --++ (0,\axislen,0);
+        \node at (0,{\axislen+\axislabelpad},0) {\contour{white}{$\unitvec{y}$}};
+        
+        \draw (0,0,0) --++ (0,0,\axislen);
+        \node at (0,0,{\axislen+\axislabelpad}) {\contour{white}{$\unitvec{z}$}};
+    \end{scope}
+
+
+    \draw[
+        ->,
+        thick,
+        myred,
+    ] (O) -- (A) node[pos=\pointlabelpos] {\contour{white}{$\vec{A}$}};
+    
+    \draw[
+        ->,
+        thick,
+        myred,
+    ] (O) -- (B) node[pos=\pointlabelpos] {\contour{white}{$\vec{B}$}};
+    
+    \draw[
+        ->,
+        thick,
+        myblue,
+    ] (O) -- (C) node[pos=\pointlabelpos] {\contour{white}{$\vec{C}$}};
+
+
+    % -- Selected coordinate projections
+    % \draw[component projection] (A) -- (Ax);
+    % \draw[component projection] (B) -- (By);
+
+
+    \coordinate (-A) at ($-1*(A)$);
+    \coordinate (-B) at ($-1*(B)$);
+
+    \draw[ab parallelogram] (O) -- (A) --++ (B) --++ (-A) --++ (-B);
+
+    \pgfmathsetmacro{\anorm}{sqrt(\ax^2+\ay^2+\az^2)}
+    \pgfmathsetmacro{\bnorm}{sqrt(\bx^2+\by^2+\bz^2)}
+
+
+    \coordinate (Bnormal) at (-\by, \bx, 0);  % Only works if A, B in xy-plane
+    \coordinate (Aortho) at ($\anorm/\bnorm*(Bnormal)$);
+    
+    \coordinate (-Aortho) at ($-1*(Aortho)$);
+
+    \draw[ab rectangle] (O) -- (-Aortho) --++ (B) --++ (Aortho) --++ (-B);
+\end{tikzpicture}
+
+
+\end{document}

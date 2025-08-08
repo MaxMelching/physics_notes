@@ -8,8 +8,71 @@
 
 % \todo{put in appendix?}
 
+    \section{Integration}
+idea: it is possible to integrate a vector field over an area, but it depends on what we want; in case we want flux through the surface, we can must extract component of vector field perpendicular to the area (which is commonly done by making area element a vectorial quantity, with direction given by unit normal vector $\vec{n}$ of the surface)
+
+
+
+    \section{Vector Operations}
+
+cross product produces pseudovectors; is because things depend on orientation, right? -> not sure, but they transform like real vectors under continuous transformations such as rotations, translations, just not under discontinuous ones such as reflections (i.e.~cross product of mirrored vectors is not necessarily mirror of the initial cross product); cf.~\url{https://en.wikipedia.org/wiki/Pseudovector}
+
+
+
+Levi-Civita symbol:
+\begin{equation}
+    \eqbox{
+        \epsilon_{ijk} = \begin{cases}
+            1, & i, j, k \text{ are even permutation of } 1, 2, 3 \\
+            1, & i, j, k \text{ are even permutation of } 1, 2, 3 \\
+            0, & \text{ else}
+        \end{cases}
+    }
+\end{equation}
+-> there is interesting formula for product of two Levi-Civita symbols:
+\begin{equation}
+    \dots
+\end{equation}
+and a frequently used special case of this is
+\begin{equation}
+    \eqbox{
+        \epsilon_{ijk} \epsilon_{ljm} = \delta_{il} \delta_{km} - \delta_{im} \delta_{kl}
+    }
+\end{equation}
+\todo{check if this correct special case}
+
+
+most important application in basic physics: is used in definition of cross product
+\begin{equation}
+    \eqbox{
+        (\vec{A} \cross \vec{B})_i = A_j B_k \epsilon_{ijk}
+    }
+\end{equation}
+-> convenient formula for calculation (and memorization):
+\begin{equation}
+    \eqbox{
+        \vec{A} \cross \vec{B} = \abs{
+            \begin{matrix}
+                \unitvec{1} & \unitvec{2} & \unitvec{3} \\
+                A_1 & A_2 & A_3 \\
+                B_1 & B_2 & B_3 \\
+            \end{matrix}
+        }
+    }
+\end{equation}
+
+
+
     \section{Useful Identities}
         \subsection{Differentials}
+\begin{equation}
+    \eqbox{
+        \laplacian \frac{1}{r} = - 4 \pi \delta(\vec{r})
+    }
+\end{equation}
+with $\delta$-function in 3D
+
+
 % \begin{equation}\label{eq:gradient_rvec}
 %     \eqbox{
 %         % \grad_{\vec{r}} \vec{r}
@@ -75,63 +138,41 @@
         m \qty(\sum_k r_k^2)^{m/2 - 1} \vec{r}
     }
 \end{align}
-
-
-
-
--> here is something very interesting:
+This result is also true if we replace $\vec{r}$ by a vector difference such as $\vec{r} - \vec{r}'$. But here is something interesting: although $\norm{\vec{r} - \vec{r}'} = \norm{\vec{r}' - \vec{r}}$, the gradients taken with respect to $\vec{r}, \vec{r}'$ differ by a sign:
 \begin{equation}\label{eq:gradient_diffnorm}
     \eqbox{
         \grad_{\vec{r}} \frac{1}{\norm{\vec{r} - \vec{r}'}} = - \frac{\vec{r} - \vec{r}'}{\norm{\vec{r} - \vec{r}'}^3} = \frac{\vec{r}' - \vec{r}}{\norm{\vec{r}' - \vec{r}}^3} = - \grad_{\vec{r}'} \frac{1}{\norm{\vec{r} - \vec{r}'}}
     }
 \end{equation}
-where subscript denotes point of evaluation
+where subscript denotes point with respect to which the gradient is taken (i.e.~the point of evaluation)
 -> this might seem puzzling since $\norm{\vec{r} - \vec{r}'} = \norm{\vec{r}' - \vec{r}}$, while $\grad_{\vec{r}} \frac{1}{\norm{\vec{r} - \vec{r}'}} = - \grad_{\vec{r}'} \frac{1}{\norm{\vec{r} - \vec{r}'}}$, but this is actually very natural; while exchanging the order of $\vec{r}, \vec{r}'$ may not change the value of the norm, it does change the associated function; basically, just ask yourself this: what happens when I change $\vec{r}$ a little bit vs.~what happens when I change $\vec{r}'$ a little bit (when evaluated in $\vec{r}$, the direction where norm gets smaller is the vector pointing from $\vec{r}$ towards $\vec{r}'$; but conversely, when evaluated in $\vec{r}'$, going in the same direction does not decrease the distance, but rather increase!); there is a sign difference in them, which translates to sign difference in the gradient, and is thus related to the direction of the respective vector in the norm
 -> in essence: when evaluating in $\vec{r}$, we have to go in opposite direction of vector connecting $\vec{r}'$ and $\vec{r}$, this is why we have minus in the formula
 
 
-
-
-This can be seen as a Taylor-expansion each component $\frac{a_k}{x}$, or one in $\frac{a}{x}$ if we are careful with how we write things out:
-% \begin{align*}
-%     \frac{1}{\norm{\unitvec{x} - \frac{a}{x} \unitvec{a}}} &\simeq \eval{\frac{1}{\norm{\unitvec{x} - \frac{a}{x} \unitvec{a}}}}_{\frac{a}{x} = 0} + \eval{\partial_{\frac{a}{x}} \frac{1}{\norm{\unitvec{x} - \frac{a}{x} \unitvec{a}}}}_{\frac{a}{x} = 0} \frac{a}{x}
-%     \\
-%     &= 1 + \eval{\partial_{\frac{a}{x}} \qty[(\unitvec{x} - \frac{a}{x} \unitvec{a}) \cdot (\unitvec{x} - \frac{a}{x} \unitvec{a})]^{-1/2}}_{\frac{a}{x} = 0} \frac{a}{x}
-%     \\
-%     &= 1 + \frac{-1}{2} \eval{\partial_{\frac{a}{x}} (\unitvec{x} - \frac{a}{x} \unitvec{a}) \cdot (\unitvec{x} - \frac{a}{x} \unitvec{a})}_{\frac{a}{x} = 0} \frac{a}{x}
-%     \\
-%     &= 1 + \frac{-1}{2} \eval{2 (\unitvec{x} - \frac{a}{x} \unitvec{a}) \cdot \partial_{\frac{a}{x}} (\unitvec{x} - \frac{a}{x} \unitvec{a})}_{\frac{a}{x} = 0} \frac{a}{x}
-%     \\
-%     &= 1 + \frac{-1}{2} \eval{2 (\unitvec{x} - \frac{a}{x} \unitvec{a}) \cdot (- \unitvec{a})}_{\frac{a}{x} = 0} \frac{a}{x}
-%     \\
-%     &= 1 + \unitvec{x} \cdot \unitvec{a} \frac{a}{x} = 1 + \frac{\vec{r} \cdot \vec{a}}{x^2}
-% \end{align*}
-% The crucial thing was to \emph{not} multiply out the $(\unitvec{x} - \frac{a}{x} \unitvec{a}) \cdot (\unitvec{x} - \frac{a}{x} \unitvec{a})$ because this would suddenly involve only $\frac{a^2}{x^2}$ and thus no vector anymore (this is fine, we can still take derivative of this, but then separately for each component $\frac{a_k}{x}$ would be required).
-
-\todo{rather look at $\grad_{\vec{a}}$ at $\vec{a} = 0$? Then $\grad_{\vec{r}}$ follows directly, nice for field calculations below}
--> that would be wrong thing to do; what we want is Taylor-expansion with respect to $\vec{a}$ around $\vec{a} = 0$, and multi-dimensional Taylor is:
+We now show how the difference norm can be Taylor-expanded (proving Eq.~\eqref{eq:gradient_diffnorm} in the process).\footnote{It is possible to do this by expanding $\frac{1}{\norm{\vec{r} - \vec{a}}} = \frac{1}{r \norm{\unitvec{r} - \frac{a}{r} \unitvec{a}}}$ in $\frac{a}{r}$ (around $\frac{a}{r} = 0$), but I feel like for higher derivatives the \enquote{brute-force} method is more readily applicable.} More specifically, what we want is Taylor-expansion with respect to $\vec{a}$ around $\vec{a} = 0$, and multi-dimensional Taylor is:
 \begin{align}
     \frac{1}{\norm{\vec{r} - \vec{a}}}
     &\simeq \eval{\frac{1}{\norm{\vec{r} - \vec{a}}}}_{\vec{a} = 0}
     + \sum_k \eval{\partial_{a_k} \frac{1}{\norm{\vec{r} - \vec{a}}}}_{\vec{a} = 0} a_k
     + \frac{1}{2} \sum_{k, j} \eval{\partial_{a_j} \partial_{a_k} \frac{1}{\norm{\vec{r} - \vec{a}}}}_{\vec{a} = 0} a_k a_j
 \end{align}
+This is gonna be long, but sometimes you have to get your hands dirty.
 
 we can repeat most of what we did for Eq.~\eqref{eq:gradient_rnorm}:
 \begin{align}
     \partial_{a_k} \frac{1}{\norm{\vec{r} - \vec{a}}}
-    &= \partial_{a_k} \qty(\sum_j r_j^2 - 2 r_j a_j \cos(\theta) + a_j^2)^{-1/2}
+    &= \partial_{a_k} \qty(\sum_j r_j^2 - 2 r_j a_j + a_j^2)^{-1/2}
     \notag\\
-    &= \frac{-1}{2} \qty(\sum_k r_k^2 - 2 r_k a_k \cos(\theta) + a_k^2)^{-3/2} \partial_{a_k} \sum_j r_j^2 - 2 r_j a_j \cos(\theta) + a_j^2
+    &= \frac{-1}{2} \qty(\sum_k r_k^2 - 2 r_k a_k + a_k^2)^{-3/2} \partial_{a_k} \sum_j r_j^2 - 2 r_j a_j + a_j^2
     \notag\\
-    &= \frac{-1}{2} \norm{\vec{r} - \vec{a}}^{-3} \sum_j - 2 r_j \delta_{kj} \cos(\theta) + 2 a_j \delta_{kj}
+    &= \frac{-1}{2} \norm{\vec{r} - \vec{a}}^{-3} \sum_j - 2 r_j \delta_{kj} + 2 a_j \delta_{kj}
     \notag\\
-    &= \norm{\vec{r} - \vec{a}}^{-3} \qty(r_k \cos(\theta) - a_k)
+    &= \norm{\vec{r} - \vec{a}}^{-3} \qty(r_k - a_k)
 \end{align}
-where $\theta$ is the angle between $\unitvec{r}, \unitvec{a}$.\todo{do we even need this here? We use components, no need for $\cos(\theta)$, right? Unlike for Griffiths, who expresses their scalar product as $\vec{r} \cdot \vec{a} = \norm{\vec{r}} \norm{\vec{a}} \cos(\theta)$ -> the $\cos$ would be a problem if we try to retrieve Eq.\eqref{eq:gradient_diffnorm} from it by collecting them together using basis vectors in gradient} This implies
+where $\theta$ is the angle between $\unitvec{r}, \unitvec{a}$. (Note that do not have terms like $\cos(\theta)$, with $\theta$ being the angle between $\vec{r}, \vec{a}$, because we use the components of each vector. If we were to use their norms, this would be required since $\vec{r} \cdot \vec{a} = \norm{\vec{r}} \norm{\vec{a}} \cos(\theta)$.) This implies
 \begin{align}
     \sum_k \eval{\partial_{a_k} \frac{1}{\norm{\vec{r} - \vec{a}}}}_{\vec{a} = 0} a_k
-    &= \sum_k \norm{\vec{r}}^{-3} r_k \cos(\theta) a_k
+    &= \sum_k \norm{\vec{r}}^{-3} r_k a_k
     \notag\\
     &= \frac{\vec{r} \cdot \vec{a}}{\norm{\vec{r}}^3}
 \end{align}
@@ -139,24 +180,24 @@ where $\theta$ is the angle between $\unitvec{r}, \unitvec{a}$.\todo{do we even 
 Based on that,
 \begin{align}
     \partial_{a_m} \partial_{a_k} \frac{1}{\norm{\vec{r} - \vec{a}}}
-    &= \partial_{a_m} \norm{\vec{r} - \vec{a}}^{-3} \qty(r_k \cos(\theta) - a_k)
+    &= \partial_{a_m} \norm{\vec{r} - \vec{a}}^{-3} \qty(r_k - a_k)
     \notag\\
-    &= \qty(r_k \cos(\theta) - a_k) \partial_{a_m} \qty(\sum_j r_j^2 - 2 r_j a_j \cos(\theta) + a_j^2)^{-3/2}
-    + \norm{\vec{r} - \vec{a}}^{-3} \partial_{a_m} \qty(r_k \cos(\theta) - a_k)
+    &= \qty(r_k - a_k) \partial_{a_m} \qty(\sum_j r_j^2 - 2 r_j a_j + a_j^2)^{-3/2}
+    + \norm{\vec{r} - \vec{a}}^{-3} \partial_{a_m} \qty(r_k - a_k)
     \notag\\
-    &= \qty(r_k \cos(\theta) - a_k) \frac{-3}{2} \norm{\vec{r} - \vec{a}}^{-5} \partial_{a_m} \sum_j r_j^2 - 2 r_j a_j \cos(\theta) + a_j^2
+    &= \qty(r_k - a_k) \frac{-3}{2} \norm{\vec{r} - \vec{a}}^{-5} \partial_{a_m} \sum_j r_j^2 - 2 r_j a_j + a_j^2
     + \norm{\vec{r} - \vec{a}}^{-3} \delta_{km}
     \notag\\
-    &= \qty(r_k \cos(\theta) - a_k) \frac{-3}{2} \norm{\vec{r} - \vec{a}}^{-5} \sum_j - 2 r_j \delta_{jm} \cos(\theta) + 2 a_j \delta_{jm}
+    &= \qty(r_k - a_k) \frac{-3}{2} \norm{\vec{r} - \vec{a}}^{-5} \sum_j - 2 r_j \delta_{jm} + 2 a_j \delta_{jm}
     + \norm{\vec{r} - \vec{a}}^{-3} \delta_{km}
     \notag\\
-    &= \qty(r_k \cos(\theta) - a_k) 3 \norm{\vec{r} - \vec{a}}^{-5} \qty(r_m \cos(\theta) - a_m)
+    &= \qty(r_k - a_k) 3 \norm{\vec{r} - \vec{a}}^{-5} \qty(r_m - a_m)
     + \norm{\vec{r} - \vec{a}}^{-3} \delta_{km}
 \end{align}
 which implies
 \begin{align}
     \frac{1}{2} \sum_{k, j} \eval{\partial_{a_j} \partial_{a_k} \frac{1}{\norm{\vec{r} - \vec{a}}}}_{\vec{a} = 0} a_k a_j
-    &= \frac{1}{2} \sum_{k, j} r_k \cos(\theta) 3 \norm{\vec{r}}^{-5} r_j \cos(\theta) a_k a_j + \norm{\vec{r}}^{-3} \delta_{kj} a_k a_j
+    &= \frac{1}{2} \sum_{k, j} r_k 3 \norm{\vec{r}}^{-5} r_j a_k a_j + \norm{\vec{r}}^{-3} \delta_{kj} a_k a_j
     \notag\\
     &= \frac{1}{2} \qty[\frac{3 (\vec{r} \cdot \vec{a}) (\vec{r} \cdot \vec{a})}{\norm{\vec{r}}^5} + \frac{\vec{a} \cdot \vec{a}}{\norm{\vec{r}}^3}]
 \end{align}
@@ -172,6 +213,9 @@ Therefore we have proven that
 
 -> apparently, this can be re-expressed in terms of Legendre polynomials; in fact, $\frac{1}{r}$ is generating function of Legendre (something like that, \cite{Griffiths_2017} treats this)
 
+
+
+        \subsection{Integrals}
 
 
 
@@ -209,24 +253,23 @@ other functions defined from combination of exponentials:
 
         \subsection{Vectors, Tensors}
 
-\begin{equation}
+\begin{equation}\label{eq:cross_product_switch}
     \eqbox{
         \vec{A} \cross \vec{B} = - \vec{B} \cross \vec{A}
     }
 \end{equation}
 
+
+careful,
 \begin{equation}
     \eqbox{
-        \vec{A} \cross (\vec{B} \cross \vec{C}) = (\vec{A} \cross \vec{B}) \cross \vec{C}
+        \vec{A} \cross (\vec{B} \cross \vec{C}) \neq (\vec{A} \cross \vec{B}) \cross \vec{C}
     }
 \end{equation}
-
-\todo{this is wrong. cross product is not associative. equation hereafter might still be true}
-
-these two together imply
+-> however, due to Eq.~\eqref{eq:cross_product_switch},
 \begin{equation}
     \eqbox{
-        \vec{A} \cross (\vec{B} \cross \vec{C}) = \vec{C} \cross \vec{A} \cross \vec{B}
+        \vec{A} \cross (\vec{B} \cross \vec{C}) = - (\vec{B} \cross \vec{C}) \cross \vec{A} = (\vec{C} \cross \vec{B}) \cross \vec{A}
     }
 \end{equation}
 
@@ -241,23 +284,53 @@ these two together imply
 
 \begin{equation}
     \eqbox{
-        (\vec{A} \cross \vec{B})^2 = \vec{A}^2 \vec{B}^2 - (\vec{A} \cdot \vec{B})^2
+        \vec{A} \cdot (\vec{B} \cross \vec{C}) = (\vec{A} \cross \vec{B}) \cdot \vec{C}
     }
 \end{equation}
-where squares are to be understood as scalar products
 
 
 \begin{equation}
     \eqbox{
-        \vec{A} = \vec{B} \cross \vec{C}
-        \quad \Leftrightarrow \quad
-        \vec{B} = \vec{C} \cross \vec{A}
-        \quad \Leftrightarrow \quad
-        \vec{C} = \vec{A} \cross \vec{B}
+        (\vec{A} \cross \vec{B})^2 = \vec{A}^2 \vec{B}^2 - (\vec{A} \cdot \vec{B})^2
     }
 \end{equation}
-we are free to permutate in cross product (taking into account signs, depending on number of permutations done) \todo{check explicit equations} -> when in doubt, think about Cartesian
--> uahhhhhh this only works when we have vectors that are orthogonal!!!
+where squares are to be understood as scalar products; why does it have this form? We can intuitively understand from identification of the cross product of two vectors with plane spanned by these two (it serves as normal vectors); if $\vec{A}, \vec{B}$ are orthogonal, then they span a rectangle; if not, they span a triangular shape, so the area is not equal to $\norm{A} \cdot \norm{B}$, which would be the area of rectangle; instead, we must subtract
+
+-> easy derivation: $\vec{A}, \vec{B}$ span parallelogram, which by definition has area $A B \sin(\theta)$, where $\theta$ is angle between the two (this is just height times one edge length, the old trick where we shift triangle across the parallelogram; and height is then just $\sin(\theta)$ times other edge length); therefore,
+\begin{equation*}
+    (\vec{A} \cross \vec{B})^2
+    = A^2 B^2 \sin[2](\theta)
+    = A^2 B^2 (1 - \cos[2](\theta))
+    = A^2 B^2 - A^2 B^2 \cos[2](\theta)
+    = \vec{A}^2 \vec{B}^2 - (\vec{A} \cdot \vec{B})^2
+\end{equation*}
+
+
+
+\begin{figure}
+    \centering
+
+    \subfloat[$\vec{A}, \vec{B}$ orthogonal]{\includegraphics[width=0.4\textwidth,page=1]{pictures/cross_product_norm.pdf}}%
+    \hspace*{0.1\textwidth}%
+    \subfloat[$\vec{A}, \vec{B}$ not orthogonal]{\includegraphics[width=0.4\textwidth,page=2]{pictures/cross_product_norm.pdf}}
+
+    \caption{}
+    \label{fig:cross_product_norm}
+\end{figure}
+
+
+
+% \begin{equation}
+%     \eqbox{
+%         \vec{A} = \vec{B} \cross \vec{C}
+%         \quad \Leftrightarrow \quad
+%         \vec{B} = \vec{C} \cross \vec{A}
+%         \quad \Leftrightarrow \quad
+%         \vec{C} = \vec{A} \cross \vec{B}
+%     }
+% \end{equation}
+% we are free to permutate in cross product (taking into account signs, depending on number of permutations done) \todo{check explicit equations} -> when in doubt, think about Cartesian
+% -> uahhhhhh this only works when we have vectors that are orthogonal!!!
 
 
 

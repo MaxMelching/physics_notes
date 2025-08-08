@@ -7,10 +7,12 @@
 \usepackage[outline]{contour} % glow around text
 \usepackage{xcolor}
 
-\colorlet{mygreen}{green!50!black}
-\colorlet{myblue}{blue!80!black}
-\colorlet{myred}{red!90!black}
-\colorlet{mydarkblue}{blue!50!black}
+\usepackage{newtxmath}
+\usepackage{tgpagella}
+
+\colorlet{mygreen}{green!60!black}
+\colorlet{myred}{red!75!black}
+\colorlet{myblue}{blue!70!black}
 
 
 \usetikzlibrary{calc, 3d, arrows.meta}
@@ -20,7 +22,6 @@
     >={Stealth[inset=0,angle'=27]},
     vector/.style={
         ->,
-        % myblue,
         myred,
         thick,
     },
@@ -31,20 +32,16 @@
     },
     unit vector non cartesian/.style={
         ->,
-        % thick,
-        % mygreen,
+        semithick,
         myblue,
     },
     vector projection/.style={
-        % myblue!80!black,
-        myred!80!black,
+        myred!90!black,
         dashed,
-        % line width=0.08,
         thin,
     },
     angles/.style={
         ->,
-        % myblue,
         mygreen,
     },
 }
@@ -92,6 +89,7 @@
     \draw[vector] (O)  -- (P);% node[right=-5] {$P = (\rho, \phi, z)$};
     \node[vector] at (0.8*\axislen,0.8*\axislen,0) {$P = (\rho, \phi, z)$};
 
+    \def\fontscale{0.9}
     
     \begin{scope}[
         unit vector non cartesian,
@@ -99,8 +97,6 @@
         shift={(P)},
         scale=0.4,
     ]
-        \def\fontscale{0.8}
-
         \draw (0,0,0) --++ (\axislen,0,0);
         \node[scale=\fontscale] at ({\axislen+\axislabelpad},0,0) {\contour{white}{$\unitvec{\rho}$}};
         
@@ -145,7 +141,7 @@
         angles,
     ]
         % \tdplotdrawarc[->,scale=sin(\thetavec)]{(0,0,0)}{\rvec}{0}{\phivec}{anchor=north}{\contour{white}{$\phi$}}
-        \tdplotdrawarc[->]{(0,0,0)}{{\rvec*sin(\thetavec)}}{0}{\phivec}{anchor=north}{\contour{white}{$\phi$}}
+        \tdplotdrawarc[->]{(0,0,0)}{{\rvec*sin(\thetavec)}}{0}{\phivec}{anchor=north,scale=\fontscale}{\contour{white}{$\phi$}}
     \end{scope}
 \end{tikzpicture}
 

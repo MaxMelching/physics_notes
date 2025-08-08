@@ -7,20 +7,21 @@
 \usepackage[outline]{contour} % glow around text
 \usepackage{xcolor}
 
-\colorlet{mygreen}{green!50!black}
-\colorlet{myblue}{blue!80!black}
-\colorlet{myred}{red!90!black}
-\colorlet{mydarkblue}{blue!50!black}
+\usepackage{newtxmath}
+\usepackage{tgpagella}
+
+\colorlet{mygreen}{green!60!black}
+\colorlet{myred}{red!75!black}
+\colorlet{myblue}{blue!70!black}
 
 
-\usetikzlibrary{calc, 3d, arrows.meta, topaths}
+\usetikzlibrary{calc, 3d, arrows.meta}
 
 
 \tikzset{
     >={Stealth[inset=0,angle'=27]},
     vector/.style={
         ->,
-        % myblue,
         myred,
         thick,
     },
@@ -31,20 +32,16 @@
     },
     unit vector non cartesian/.style={
         ->,
-        % thick,
-        % mygreen,
+        semithick,
         myblue,
     },
     vector projection/.style={
-        % myblue!80!black,
-        myred!80!black,
+        myred!90!black,
         dashed,
-        % line width=0.08,
         thin,
     },
     angles/.style={
         ->,
-        % myblue,
         mygreen,
     },
     element/.style={
@@ -59,11 +56,9 @@
     },
     element helplines/.style={
         thin,
-        % black,
         purple,
         dashed,
-        % densely dotted,
-        opacity=0.5,
+        opacity=0.6,
     },
 }
 
