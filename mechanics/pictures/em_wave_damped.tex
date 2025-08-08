@@ -1,0 +1,144 @@
+% Author: Max Melching (2025)
+% Adapted from the TiKz manual, https://tikz.dev/library-3d#sec-40.3
+% Heavily inspired by Fig. 9.10 in Griffiths Electrodynamics (4th edition)
+\documentclass[border=3pt,tikz]{standalone}
+
+\usepackage{physics}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usepackage[outline]{contour} % glow around text
+\usepackage{xcolor}
+
+\usepackage{newtxmath}
+\usepackage{tgpagella}
+
+\colorlet{mygreen}{green!60!black}
+\colorlet{myred}{red!90!black}
+\colorlet{myblue}{blue!80!black}
+
+
+\usetikzlibrary{calc, 3d, arrows.meta, decorations.markings, decorations.pathreplacing}
+
+
+\tikzset{
+    >={Stealth[inset=0,angle'=27]},
+    surface/.style={
+        left color=gray!10,
+        right color=gray!80,
+    },
+    labelarrow/.style={
+        ->,
+        thick,
+        myblue,
+    },
+}
+
+
+\def\N{99}
+\def\zmax{8}
+\def\zdampingtime{\zmax*0.8}
+
+
+% \tdplotsetmaincoords{60}{105}
+\tdplotsetmaincoords{70}{115}
+
+
+\begin{document}
+
+\begin{tikzpicture}[
+  % % z={(10:10mm)},x={(-45:5mm)},  % Default
+  % z={(-20:5mm)},x={(-45:5mm)},
+  tdplot_main_coords,
+  rotate around y=-90,
+  rotate around x=-90,
+]
+  \def\wave#1{
+    % \draw[fill,thick,fill opacity=.2]
+    %  (0,0) sin (1,1) cos (2,0) sin (3,-1) cos (4,0)
+    %        sin (5,1) cos (6,0) sin (7,-1) cos (8,0)
+    %       %  sin (9,1) cos (10,0)sin (11,-1)cos (12,0)
+    %        ;
+    
+    % \draw[fill,thick,fill opacity=.2,samples=\N,smooth,variable=\z,domain=0:\zmax] plot ({\z},{sin(2*pi*\z*2/\zmax r+#1 r)});
+
+    % \draw[fill,thick,fill opacity=.2,samples=\N,smooth,variable=\z,domain=0:\zmax] (0,0) -- plot%[name=\plottedwave]
+    % % ({\z},{sin(2*pi*14.34*\z+#1)}) -- (\zmax,0);  % Try & error...
+    % ({\z},{sin(2*pi*\z*2/\zmax r+#1 r)}) -- (\zmax,0);  % Achieves period of \zmax/2
+
+    % -- Trick: draw full period, clip to correct range later on
+    \draw[fill,thick,fill opacity=.2,samples=\N,smooth,variable=\z,domain=-#1:\zmax+#1] plot ({\z},{exp(-\z/\zdampingtime)*sin(2*pi*(\z+#1)*2/\zmax r)});  % Achieves period of \zmax/2
+
+    % % \foreach \shift in {0,4,8}
+    % \foreach \shift in {0,4}
+    % {
+    %   \begin{scope}[
+    %     xshift=\shift cm,
+    %     thin,
+    %     ->,
+    %     % help lines,
+    %     opacity=0.6,
+    %   ]
+    %     \draw (.5,0)  -- (0.5,0 |- 45:1cm);
+    %     \draw (1,0)   -- (1,1);
+    %     \draw (1.5,0) -- (1.5,0 |- 45:1cm);
+    %     \draw (2.5,0) -- (2.5,0 |- -45:1cm);
+    %     \draw (3,0)   -- (3,-1);
+    %     \draw (3.5,0) -- (3.5,0 |- -45:1cm);
+    %   \end{scope}
+    % }
+
+    \foreach \z [evaluate=\z as \z using \z*\zmax/2-#1] in {0.125, 0.25, 0.375, 0.625, 0.75, 0.875}
+    {
+      \draw[->, thin, opacity=0.6] (\z, 0) -- (\z, {exp(-\z/\zdampingtime)*sin(2*pi*(\z+#1)*2/\zmax r)});
+
+      \pgfmathsetmacro{\z}{\z+\zmax/2}  % Second period
+      \draw[->, thin, opacity=0.6] (\z, 0) -- (\z, {exp(-\z/\zdampingtime)*sin(2*pi*(\z+#1)*2/\zmax r)});
+
+      \pgfmathsetmacro{\z}{\z+\zmax/2}  % Third period (may be started due to shift)
+      % \draw[->, thin, opacity=0.6] (\z, 0) -- (\z, {exp(-\z/\zdampingtime)*sin(2*pi*(\z+#1)*2/\zmax r)});
+      % TODO: only draw third period if #1!=0?
+    }
+
+    \draw[dashed,thin,samples=\N,smooth,variable=\z,domain=-#1:\zmax+#1] plot ({\z},{exp(-\z/\zdampingtime)});
+
+    \draw[dashed, thin] (0,0) -- (0,1);
+    \draw[dashed, thin] (\zmax,0) -- (\zmax,{exp(-\zmax/\zdampingtime)});
+  }
+
+  \begin{scope}[
+    ->,
+    black,
+    semithick,
+  ]
+    \draw (0,0,0) -- (2,0,0) node[pos=1.1] {$x$};
+    \draw (0,0,0) -- (0,2,0) node[pos=1.1] {$y$};
+    \draw (0,0,0) -- (0,0,9) node[pos=1.01] {$z$};
+  \end{scope}
+
+  \begin{scope}[canvas is zy plane at x=0,fill=blue]
+    % \wave{pi/2}
+
+    \clip (0,-2) rectangle (\zmax, 2);  % Generous clipping in y-direction; x-direction much more important
+    \wave{1}  % For shift in time units
+  \end{scope}
+
+  \begin{scope}[canvas is zx plane at y=0,fill=red]
+    % % \draw[help lines] (0,-2) grid (12,2);
+    % \draw[help lines] (0,-2) grid (8,2);
+
+    % \clip (0,-2) rectangle (\zmax, 2);  % Generous clipping in y-direction; x-direction much more important -> do not show arrows in third period
+    \wave{0}
+  \end{scope}
+
+
+  \draw[dashed, thin] (1,0,0) node[left] {$E_0$};
+  \draw[dashed, thin] (0,1,0) node[above left=-3] {$B_0 = E_0 / c$};
+
+  \node[above] at (1,0,1) {$\vec{E}$};
+  \node[below=-2] at (0,1,0) {$\vec{B}$};
+
+  \draw[->, thick, shift={(1.25,0,4.5)}] (0,0,0) -- ++(0,0,1) node[midway, above] {$c/n$};
+\end{tikzpicture}
+
+
+\end{document}

@@ -1,0 +1,109 @@
+% Author: Max Melching (2025)
+% Adapted from the TiKz manual, https://tikz.dev/library-3d#sec-40.3
+% Heavily inspired by Fig. 9.10 in Griffiths Electrodynamics (4th edition)
+\documentclass[border=3pt,tikz]{standalone}
+
+\usepackage{physics}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usepackage[outline]{contour} % glow around text
+\usepackage{xcolor}
+
+\usepackage{newtxmath}
+\usepackage{tgpagella}
+
+\colorlet{mygreen}{green!60!black}
+\colorlet{myred}{red!90!black}
+\colorlet{myblue}{blue!80!black}
+
+
+\usetikzlibrary{calc, 3d, arrows.meta, decorations.markings, decorations.pathreplacing}
+
+
+\tikzset{
+    >={Stealth[inset=0,angle'=27]},
+    surface/.style={
+        left color=gray!10,
+        right color=gray!80,
+    },
+    labelarrow/.style={
+        ->,
+        thick,
+        myblue,
+    },
+}
+
+
+% \tdplotsetmaincoords{60}{105}
+\tdplotsetmaincoords{70}{115}
+
+
+\begin{document}
+
+\begin{tikzpicture}[
+  % % z={(10:10mm)},x={(-45:5mm)},  % Default
+  % z={(-20:5mm)},x={(-45:5mm)},
+  tdplot_main_coords,
+  rotate around y=-90,
+  rotate around x=-90,
+]
+  \def\wave{
+    \draw[fill,thick,fill opacity=.2]
+     (0,0) sin (1,1) cos (2,0) sin (3,-1) cos (4,0)
+           sin (5,1) cos (6,0) sin (7,-1) cos (8,0)
+          %  sin (9,1) cos (10,0)sin (11,-1)cos (12,0)
+           ;
+    % \foreach \shift in {0,4,8}
+    \foreach \shift in {0,4}
+    {
+      \begin{scope}[
+        xshift=\shift cm,
+        thin,
+        ->,
+        % help lines,
+        opacity=0.6,
+      ]
+        \draw (.5,0)  -- (0.5,0 |- 45:1cm);
+        \draw (1,0)   -- (1,1);
+        \draw (1.5,0) -- (1.5,0 |- 45:1cm);
+        \draw (2.5,0) -- (2.5,0 |- -45:1cm);
+        \draw (3,0)   -- (3,-1);
+        \draw (3.5,0) -- (3.5,0 |- -45:1cm);
+      \end{scope}
+    }
+  }
+
+  \begin{scope}[
+    ->,
+    black,
+    semithick,
+  ]
+    \draw (0,0,0) -- (2,0,0) node[pos=1.1] {$x$};
+    \draw (0,0,0) -- (0,2,0) node[pos=1.1] {$y$};
+    \draw (0,0,0) -- (0,0,9) node[pos=1.01] {$z$};
+  \end{scope}
+
+  \begin{scope}[canvas is zy plane at x=0,fill=blue]
+    \wave
+    % \node at (6,-1.5) [transform shape] {magnetic field};
+  \end{scope}
+
+  \begin{scope}[canvas is zx plane at y=0,fill=red]
+    % % \draw[help lines] (0,-2) grid (12,2);
+    % \draw[help lines] (0,-2) grid (8,2);
+    \wave
+    % \node at (6,1.5) [rotate=180,xscale=-1,transform shape] {electric field};
+  \end{scope}
+
+
+  \draw[dashed, thin] (0,0,0) -- ++(1,0,0) node[left] {$E_0$} -- ++(0,0,9) -- ++(-1,0,0);
+  \draw[dashed, thin] (0,0,0) -- ++(0,1,0) node[above left=-3] {$B_0 = E_0 / c$} -- ++(0,0,9) -- ++ (0,-1,0);
+
+  \node[above] at (1,0,1) {$\vec{E}$};
+  \node[below left=-3] at (0,1,1) {$\vec{B}$};
+
+  \draw[->, thick, shift={(1.25,0,4.5)}] (0,0,0) -- ++(0,0,1) node[midway, above] {$c$};
+\end{tikzpicture}
+
+
+\end{document}

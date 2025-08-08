@@ -2078,7 +2078,7 @@ Interestingly, in order to do time-independent electrodynamics, i.e.~electromagn
 
             \paragraph{In Vacuum}
 In vacuum, Maxwell's equations in their most general form are
-\begin{subequations}
+\begin{subequations}\label{eq:maxwell_collection_diff}
 \begin{align}
     \div \vec{E} &= \frac{\rho}{\epsilon_0}
     \\
@@ -2090,7 +2090,7 @@ In vacuum, Maxwell's equations in their most general form are
 \end{align}
 \end{subequations}
 Equivalently, in integral form,
-\begin{subequations}\label{eq:maxwell_collection}
+\begin{subequations}\label{eq:maxwell_collection_int}
 \begin{align}
     \int_{\mathcal{S}} \vec{E} \cdot d\vec{\mathcal{S}} &= \frac{Q(\mathcal{V})}{\epsilon_0}
     \\
@@ -2118,7 +2118,7 @@ Nothing really changes in the form of Maxwell's equations when we make the trans
 
 
 However, it is possible to rewrite them in terms of $\vec{D}, \vec{H}$, which may be a little more convenient if we intend to calculate these quantities instead of $\vec{E}, \vec{B}$ (but again, the amount of information in these new equations does not change):
-\begin{subequations}
+\begin{subequations}\label{eq:maxwell_collection_media_diff}
 \begin{align}
     \div \vec{D} &= \rho_f
     \\
@@ -2130,7 +2130,7 @@ However, it is possible to rewrite them in terms of $\vec{D}, \vec{H}$, which ma
 \end{align}
 \end{subequations}
 or in integral form
-\begin{subequations}\label{eq:maxwell_collection_media}
+\begin{subequations}\label{eq:maxwell_collection_media_int}
 \begin{align}
     \int_{\mathcal{S}} \vec{D} \cdot d\vec{\mathcal{S}} &= \frac{Q_f(\mathcal{V})}{\epsilon_0}
     \\
@@ -2181,7 +2181,7 @@ Or, we could choose a force per unit volume, $\vec{f}' = \rho \vec{f} = \rho \qt
 
 
             \paragraph{Boundary Conditions}
-Any time that the fields $\vec{E}, \vec{B}$ (or likewise $\vec{D}, \vec{H}$) cross a boundary between media a surface with charge density $\sigma$ and/or current density $\vec{K}$, we should expect them to be discontinuous (e.g., because of the field from the surface overlapping with the field from the source that initially created the fields). As before, the conditions on the fields when encountering such discontinuities can be inferred from the Maxwell equations, more specifically their integral versions Eqs.~\eqref{eq:maxwell_collection}, \eqref{eq:maxwell_collection_media}, by using the Gaussian pillbox technique:
+Any time that the fields $\vec{E}, \vec{B}$ (or likewise $\vec{D}, \vec{H}$) cross a boundary between media a surface with charge density $\sigma$ and/or current density $\vec{K}$, we should expect them to be discontinuous (e.g., because of the field from the surface overlapping with the field from the source that initially created the fields). As before, the conditions on the fields when encountering such discontinuities can be inferred from the Maxwell equations, more specifically their integral versions Eqs.~\eqref{eq:maxwell_collection_int}, \eqref{eq:maxwell_collection_media_int}, by using the Gaussian pillbox technique:
 \begin{subequations}
 \begin{align}
     D_{1, \perp} - D_{2, \perp} &= \sigma_f
@@ -2255,7 +2255,7 @@ Relating the two different expressions for the power from the first and last lin
 in integral, differential form. These tell us there is a balance between mechanical energy (that is converted into kinetic energy of the particles), field energy (what the name says...), and flux of energy out of $\mathcal{V}$. The latter is quantified by the \Def{Poynting vector}
 \begin{equation}
     \eqbox{
-        \vec{S} = \frac{1}{\mu_0} \vec{E} \cross \vec{B}
+        \vec{S} = \frac{1}{\mu_0} \vec{E} \cross \vec{B} = \vec{E} \cross \vec{H}
     }
 \end{equation}
 which is the energy transported by the EM field per unit time and unit area (making it an energy flux density; $\vec{S} \cdot d\vec{\mathcal{S}}$ would be the flux through $\mathcal{S}$).
@@ -2302,7 +2302,7 @@ Even Griffiths admits that this is kind of ugly. One can introduce the \Def{Maxw
 But the definition of $\tensor{T}$ in turn is really complicated; as we can see, it represents (negative) \enquote{momentum current}. For us, the most important part of this result is the second term, representing the contribution from the fields. Their momentum density reads
 \begin{equation}
     \eqbox{
-        \vec{g} = \epsilon_0 \mu_0 \vec{S} = \epsilon_0 \vec{E} \cross \vec{B}
+        \vec{g} = \epsilon_0 \mu_0 \vec{S} = \epsilon_0 \vec{E} \cross \vec{B} = \vec{D} \cross \vec{B}
     }
 \end{equation}
 -> momentum (density) of EM-field is proportional to its energy (density) and in same direction that energy is transported into; on second thought, this should not be surprising, can only exert a force when it is present, i.e.~when some of its energy is in this region (so that it can do work) \todo{right?}
@@ -2344,17 +2344,485 @@ radiation reaction: accelerating charges radiate, which results in a decrease in
 
 
     \section{Electromagnetic Waves}
-First application of electrodynamics, rather than development of theory.
+First true application of electrodynamics, rather than development of theory.
+
+
+-> what is a wave? Interesting take from Griffiths: \enquote{disturbance of a continuous medium that propagates with a fixed shape at constant velocity}; this is good enough for now, although we will see that realistic examples involve certain modifications to this definitions (but we can always start from it and then modify, so I think it is good basis)
+
+
+-> mathematically, a wave may described by function $f(z, t)$ that only depends on the two inputs via the combination $z - vt$ ($v$ represents the speed of the wave); any function of this form $f(z, t) = g(z - vt)$ describes a wave of some shape
 
 
 
 
+        \subsection{Wave Equation}
+How come we even talk about EM waves? For this to be a thing, some quantity must fulfil a wave equation -- but the Maxwell equation look nothing like one. However, it is possible to obtain such a form from them (we start in vacuum and in empty space, i.e.~$\rho = 0 = \vec{j}$):
+\begin{align*}
+    \curl \qty(\curl \vec{E}) &= \grad \qty(\div \vec{E}) - \laplacian \vec{E} = \curl \qty(- \pdv{\vec{B}}{t}) = - \pdv{t} \curl \vec{B} = - \mu_0 \epsilon_0 \pdv[2]{\vec{E}}{t}
+    \\
+    \curl \qty(\curl \vec{B}) &= \grad (\div \vec{B}) - \laplacian \vec{B} = \curl \qty(\mu_0 \epsilon_0 \pdv{\vec{E}}{t}) = - \mu_0 \epsilon_0 \pdv[2]{\vec{B}}{t}
+\end{align*}
+which implies
+\begin{equation}\label{eq:vacuum_empty_wave_equation}
+    \eqbox{
+        \laplacian \vec{E} = \mu_0 \epsilon_0 \pdv[2]{\vec{E}}{t}
+    } \quad , \quad
+    \eqbox{
+        \laplacian \vec{B} = \mu_0 \epsilon_0 \pdv[2]{\vec{B}}{t}
+    } \, .
+\end{equation}
+This means the Maxwell equations \emph{can} be brought into a wave-equation form. There are pros and cons to this: the equations are not coupled anymore (good), but of second order in the derivative operators (not good).
+
+Here is a particularly interesting consequence of this equation: from the general form of the wave solutions we have noted, $g(z - vt)$ (in 1D, but the same argument applies in 3D), the chain rule tells us that two time derivatives will produce a factor $(-v) \, (-v) = v^2$, whereas a spatial derivative will not produce such a factor. The factor in front of $\pdv[2]{t}$ in Eq.\eqref{eq:vacuum_empty_wave_equation} serves to cancel this $v^2$, which implies
+\begin{equation}
+    \eqbox{
+        v = \frac{1}{\sqrt{\epsilon_0 \mu_0}} = c \approx 3 \cdot 10^8 \unit{\meter \per \second}
+    }
+\end{equation}
+for EM waves -- their speed \emph{perfectly coincides} with the speed of light $c$. What do we make of this astonishing finding? Do we just brush it off as a coincidence? Well, \enquote{coincidence} is not an answer that physicists are easily satisfied with; a few more investigations (and perhaps also experiments) are needed to settle this question. This is why Heinrich Hertz's experiments are so crucial: they established that this relation is \emph{not} a coincidence. \todo{make sure this is historically accurate}
 
 
-how can they propagate forever in vacuum, when electric field and magnetic field are constantly produced? Well, vacuum means there is nothing to interact with -- so there nothing that photons could do work on; so, how is energy supposed to get lost?
+
+It will be customary to spend most of the time working with complex expressions for the waves, simply because of the mathematical properties of complex numbers in the context of waves (e.g., how their products look like etc.). The \emph{physical} fields that one observes in practice, however, are always real -- we must not forget this. In order to make this clear from a notational standpoint, we will use a tilde to denote complex quantities (no tilde, as before, denotes the real fields $\vec{E}, \vec{B}$).
 
 
--> in matter, things are very different and we have energy loss due to interaction, which ultimately results in finite attenuation length
+
+            \paragraph{Plane Waves}
+The simplest possible case we can study are \Def{plane waves}, which only oscillate along a single spatial direction. Ordinarily, this is chosen to be the $z$-direction (which implies the amplitude of the waves does not depend on $x, y$). (Spherical waves are also relevant, e.g., for radiation. But over a small enough region [so that their curvature is negligible], even they look like plane waves.)
+
+
+Another restriction is that we focus on \Def{monochromatic} planes waves, which means they have a single frequency. This is well justified because the discussion can easily be generalized, thanks to Fourier transformation properties. Lastly, before we come to actual calculations, it is common to make the following trick: replace the real (where real refers to the real numbers) fields $\vec{E}, \vec{B}$ with complex ones $\vec{\tilde{E}}, \vec{\tilde{B}}$, in order to be able to exploit their convenient properties when it comes to periodic functions, and then take the real part of the obtained solutions. The usual plane-wave ansatz for those complex fields is
+\begin{equation}\label{eq:plane_wave}
+    \vec{\tilde{E}}(x, y, z, t) = \vec{\tilde{E}}_0(x, y) e^{i (k z - \omega t)}
+    \quad , \quad
+    \vec{\tilde{B}}(x, y, z, t) = \vec{\tilde{B}}_0(x, y) e^{i (k z - \omega t)}
+    \, .
+\end{equation}
+For the wave equations to be fulfilled,
+\begin{equation}
+    \omega = \frac{k}{\epsilon_0 \mu_0} = c k \, .
+\end{equation}
+This type of equation, relating $k, \omega$, is called \Def{dispersion relation}. Therefore, the velocity of plane waves can be defined as $v = \frac{\omega}{k}$.
+
+
+Because $\vec{\tilde{E}}, \vec{\tilde{B}}$ must also obey the Maxwell equations (as a constraint basically), we cannot freely choose amplitudes $\vec{\tilde{E}}_0, \vec{\tilde{B}}_0$. The homogenous equations imply
+\begin{equation}
+    \eqbox{
+        \tilde{E}_{0, z} = 0 = \tilde{B}_{0, z}
+    }
+\end{equation}
+and inhomogeneous ones imply a relation
+\begin{equation}\label{eq:plane_wave_orthogonality}
+    \curl \vec{E} = - \pdv{\vec{B}}{t}
+    \quad \Leftrightarrow \quad
+    % \vec{k} \cross \vec{E}_0 = - (-\omega) \vec{B}_0
+    % \quad \Leftrightarrow \quad
+    \eqbox{
+        \vec{\tilde{B}}_0 = \frac{k}{\omega} \unitvec{z} \cross \vec{\tilde{E}}_0
+    }
+\end{equation}
+(the same result is obtained from $\curl \vec{B} = \mu_0 \epsilon_0 \pdv{\vec{E}}{t}$). Therefore, the three vectors $\unitvec{z}, \vec{\tilde{E}}_0, \vec{\tilde{B}}_0$ form an orthogonal (not orthonormal!) coordinate system.
+
+
+
+\begin{figure}
+    \centering
+
+    \includegraphics[width=0.6\textwidth]{pictures/em_wave.pdf}
+
+    \caption{Depiction of a plane EM wave. This is an adaption of Fig.~9.10 in \cite{Griffiths_2017}.}
+    \label{eq:em_wave}
+\end{figure}
+
+
+
+Lastly, we note that propagation into an arbitrary direction does not complicate the equations much. Using $\unitvec{n} \coloneqq \unitvec{E}$ as the unit direction of $\vec{\tilde{E}}$ (the \Def{polarization}), we obtain
+\begin{align}
+    &\eqbox{
+        \vec{\tilde{E}}(\vec{r}, t) = \tilde{E}_0 e^{i (\vec{k} \cdot \vec{r} - \omega t)} \unitvec{n}
+    }
+    \\
+    &\eqbox{
+        % \vec{\tilde{B}}(\vec{r}, t) = \tilde{B}_0 e^{i (\vec{k} \cdot \vec{r} - \omega t)} \unitvec{B} = \frac{\tilde{E}_0}{c} e^{i (\vec{k} \cdot \vec{r} - \omega t)} \unitvec{k} \cross \unitvec{n} = \frac{1}{c} \unitvec{k} \cross \vec{\tilde{E}}
+        \vec{\tilde{B}}(\vec{r}, t)
+        = \frac{\vec{k}}{\omega} \cross \vec{\tilde{E}}
+        = \frac{\unitvec{k}}{c} \cross \vec{\tilde{E}}
+        = \frac{\tilde{E}_0}{c} e^{i (\vec{k} \cdot \vec{r} - \omega t)} \unitvec{k} \cross \unitvec{n}
+        = \tilde{B}_0 e^{i (\vec{k} \cdot \vec{r} - \omega t)} \unitvec{B}
+    }
+\end{align}
+$\vec{k}$ is the \Def{wave vector}, which is defined by demanding (i) its direction if the direction of propagation and (ii) its magnitude is $k$. In the preceding discussion, $\vec{k} = k \unitvec{z}$, which explains the generalized version of Eq.~\eqref{eq:plane_wave_orthogonality} that we have used to express $\vec{\tilde{B}}$ in terms of $\vec{\tilde{E}}$. As a consequence of the orthogonality relations, $\unitvec{n} \cdot \vec{k} = 0$. Similarly, $\unitvec{n}$ is orthogonal to $\vec{\tilde{B}}$. Note that the real amplitudes are related in the same manner (to each other and to $\vec{k}$) since $\vec{k}$ is already real, so taking real parts does not alter any of the relations (there is no product of complex numbers involved), i.e.
+\begin{align}
+    &\eqbox{
+        \vec{E}(\vec{r}, t) = E_0 \cos\qty(\vec{k} \cdot \vec{r} - \omega t + \delta) \unitvec{n}
+    }
+    \\
+    &\eqbox{
+        \vec{B}(\vec{r}, t)
+        = \frac{E_0}{c} \cos\qty(\vec{k} \cdot \vec{r} - \omega t + \delta) \unitvec{k} \cross \unitvec{n}
+    }
+\end{align}
+
+-> electric and magnetic field are in phase!
+
+
+
+            \paragraph{Energy, Momentum}
+We have developed expressions for the energy and momentum of \emph{fields} already. How do they look like for plane waves? A few quick calculations yield the energy density
+\begin{equation}
+    \eqbox{u}
+    = \frac{1}{2} \qty(\epsilon_0 E^2 + \frac{1}{\mu_0} B^2)
+    = \frac{1}{2} \qty(\epsilon_0 E^2 + \frac{1}{\mu_0} \frac{E^2}{c^2})
+    \eqbox{
+        \epsilon_0 E^2 = \epsilon_0 E_0^2 \cos[2](k z - \omega t + \delta)
+    } \, ,
+\end{equation}
+the Poynting vector (energy per unit area and unit time = energy flux density)
+\begin{equation}
+    \eqbox{\vec{S}}
+    = \frac{1}{\mu_0} \vec{E} \cross \vec{B}
+    = \frac{1}{\mu_0} \frac{1}{c} E_0^2 \cos[2](k z - \omega t + \delta) \unitvec{z}
+    \eqbox{= c u \unitvec{z}}
+    \, .
+\end{equation}
+The Poynting vector transports the entire density in its direction. (We can see how this formula makes sense: per $dt$, a portion $c \, dt$ passes through an area $A$; if $u$ is the energy per unit area, $c u$ is the flux = density per unit area and unit time.) Based on that, the momentum density is
+\begin{equation}
+    \eqbox{
+        \vec{g} = \frac{1}{c^2} \vec{S} = \frac{u}{c} \unitvec{z}
+    } \, .
+\end{equation}
+
+
+For most light sources of practical interest, their frequencies are on the order of $10^{15} \unit{\hertz}$. There is no photodiode that is capable of detecting such rapid changes, so what we observe in practice is the integral \todo{or average?} over many cycles. For this reason, it makes sense to work with quantities that are averaged over time. A particularly customary one is the average over one period of oscillation $T$ because the average of a sinusoidal wave over such a period is
+\begin{equation}
+    \expval{\sin^2}_T = \expval{\cos^2}_T = \frac{1}{T} \int_0^T \cos[2](k z - \omega t / T + \delta) \, dt = \frac{1}{2}
+\end{equation}
+so that one can eliminate oscillatory behavior entirely. This defines the \Def{intensity} (average power per unit area)
+\begin{equation}
+    \eqbox{
+        I \coloneqq \expval{S} = \frac{c \epsilon_0}{2} E_0^2
+    } \, .
+\end{equation}
+Similarly,
+\begin{equation}
+    \eqbox{
+        \expval{u} = \frac{1}{2} \epsilon_0 E_0^2
+    } \quad , \quad
+    \eqbox{
+        \expval{\vec{g}} = \frac{1}{2} \frac{\epsilon_0}{c} E_0^2 \unitvec{z}
+    } \, .
+\end{equation}
+
+As we have learned, EM fields carry a momentum along with energy. For EM fields, this momentum is called \Def{radiation pressure}. Assuming $\vec{k}$ is perpendicular to its surface $A$, the momentum exerted on a body over a time period $\Delta t$ is
+\begin{equation}
+    \Delta \vec{p} = \expval{\vec{g}} A c \Delta t \, ,
+\end{equation}
+which corresponds to a radiation pressure (average force per unit area) of
+\begin{equation}
+    \eqbox{
+        P = \frac{1}{A} \frac{\Delta p}{\Delta t} = \frac{\epsilon_0}{2} E_0^2 = \frac{I}{c}
+    } \, .
+\end{equation}
+(Note that this assumes the surface is a perfect absorber, i.e.~that all of the EM field passes through it. The other extreme is a perfect reflector, which would have double the radiation pressure imprinted on it by the same field; essentially from infalling field pushing on it and outgoing field pushing on it.)
+
+
+-> in plane wave configuration with $\vec{k} \parallel \unitvec{z}$ (so that surface is lying in $xy$-plane), this is roughly how this force on the surface comes to be: electric component of Lorentz force is parallel to $\vec{E}$ and thus moves charges up in the surface; this motion with $\vec{v} \parallel \vec{E} \parallel \unitvec{x}$ then couples to the magnetic field and produces a force $\vec{v} \cross \vec{B} \propto \unitvec{x} \cross \unitvec{y} = \unitvec{z}$, i.e.~perpendicular to the surface
+
+
+
+        \subsection{In Dielectrics}
+Having discussed vacuum solutions to the wave equation, it is time to study them in matter. Let us start with homogenous linear media first because they are so nice and simple (from a mathematical viewpoint).The Maxwell equations in a region free of charge or currents in those media read (special cases of Eq.~\eqref{eq:maxwell_collection_media_diff})
+\begin{subequations}%\label{eq:}
+\begin{align}
+    \div \vec{E} &= 0
+    \\
+    \div \vec{B} &= 0
+    \\
+    \curl \vec{E} &= - \pdv{\vec{B}}{t}
+    \\
+    \curl \vec{B} &= \mu \epsilon \pdv{\vec{E}}{t}
+\end{align}
+\end{subequations}
+Through careful comparison with the vacuum equations (Eq.~\eqref{eq:maxwell_collection_diff}), one notices a simple rule of how they may be obtained: just replace $\epsilon_0 \rightarrow \epsilon, \mu_0 \rightarrow \mu$. As it turns out, this pattern continues for many derived quantities as well. The velocity of an EM wave, for instance, is
+\begin{equation}
+    \eqbox{
+        v = \frac{1}{\sqrt{\epsilon \mu}} = \frac{1}{\sqrt{\epsilon_0 \mu_0}} \frac{1}{\epsilon_r \mu_r} = \frac{c}{n}
+    }
+\end{equation}
+where
+\begin{equation}
+    \eqbox{
+        n \coloneqq \sqrt{\frac{\epsilon \mu}{\epsilon_0 \mu_0}} = \sqrt{\epsilon_r \mu_r} = \frac{c k}{\omega}
+    }
+\end{equation}
+is the \Def{index of refraction} (also: \Def{refractive index}). In many materials, $\mu_r$ is very close to $1$, so
+\begin{equation}
+    \eqbox{
+        n \simeq \sqrt{\epsilon_r}
+    } \, .
+\end{equation}
+Since the vast majority of media have $n > 1$, light travels slower in media. Note, however, that apart from the smaller velocity, nothing changes about the nature of EM waves; in particular, they are still able to propagate through the entire medium without loosing amplitude (through absorption, for example).\footnote{This should astonish you. We have seen that an electric field induces dipoles for every atom of a linear medium, creating many electric fields. While we have seen that the total field was considerably less complex, this referred to the field outside the medium -- inside is a whole different story. But here we see that EM waves traveling right through the medium likewise have a very simple mathematical description. And \emph{this} should really surprise you.} This phenomenon is responsible for the existence of \Def{transparent} media, such as glass or water.
+
+The same rule of simply replacing $\epsilon_0 \rightarrow \epsilon, \mu_0 \rightarrow \mu$ from our previous results is true for the energy density (should not really be surprising, was $\propto c$ before), and thus also the Poynting vector and intensity.
+
+
+
+            \paragraph{Boundary Conditions}
+Now we come to a seemingly trivial question: What happens at the boundary between two linear, homogeneous media with different permittivities? Well, just look at the boundary conditions, right? Yes, indeed, but you may remember that the total electric field suffers from a discontinuity at a boundary; what does this mean for an EM wave?
+
+
+-> some part of wave is transmitted, some is reflected
+
+
+
+        \subsection{In Conductors}
+While it is often (vacuum, many dielectrics) reasonable to assume external fields create no free charge or current density, this is not justified for conductors like metal. For if we have an electric field present that surrounds a conductor, Ohm's law tells us this creates a free current $\vec{j}_f = \sigma \vec{E}$ in the conductor. (Note that we still assume linear media here.) By the continuity equation, there is a corresponding accumulation of free charges $\rho_f$. From
+\begin{equation}
+    \pdv{\rho_r}{t} = - \div \vec{j}_f = - \div \sigma \vec{E} = - \sigma \div \vec{E} = - \frac{\sigma}{\epsilon} \rho_f
+\end{equation}
+we see that in a homogeneous linear medium
+\begin{equation}
+    \rho_f(t) = \rho_f(0) e^{- \frac{\sigma}{\epsilon} t} \, .
+\end{equation}
+For conductors with significantly high conductivities, any free charge accumulation dies off exponentially -- which allows us to neglect it (remember, a perfect conductor has $\sigma = \infty$, so that $\rho_f(t) = 0$). In the end, the only thing that changes in the Maxwell equations \eqref{eq:maxwell_collection_media_diff} when going from dielectrics to conductors is the Ampere-Maxwell law, which now reads:
+\begin{equation}
+    \eqbox{
+        \curl \vec{B} = \mu \epsilon \pdv{\vec{E}}{t} + \mu \sigma \vec{E}
+    } \, .
+\end{equation}
+The derived wave equations are also strikingly similar (except for one additional term $\propto \sigma$ for each of the fields) and so are their solutions. The same plane wave ansatz as before may be used, but the wave number becomes a complex number now:
+\begin{equation}
+    \eqbox{
+        \tilde{k}^2 = \mu \epsilon \omega^2 + i \, \mu \sigma \omega
+    } \quad \Leftrightarrow \quad
+    \eqbox{
+        \tilde{k} = k + i \kappa \coloneqq \omega \sqrt{\frac{\epsilon \mu}{2}} \sqrt{\sqrt{1 + \qty(\frac{\sigma}{\epsilon \omega})^2} + 1} + i \, \omega \sqrt{\frac{\epsilon \mu}{2}} \sqrt{\sqrt{1 + \qty(\frac{\sigma}{\epsilon \omega})^2} - 1}
+    } \, .
+\end{equation}
+Using this notation, the plane wave solution for $\unitvec{k} = \unitvec{z}$ becomes
+\begin{equation}
+    \vec{\tilde{E}}(z, t)
+    = \vec{\tilde{E}}_0 e^{i (\tilde{k} z - \omega t)}
+    = \vec{\tilde{E}}_0 e^{- \kappa z} e^{i (k z - \omega t)}
+    \, .
+\end{equation}
+The usual solution $\propto e^{i (k z - \omega t)}$ is damped/\Def{attenuated} because of the requirement that no field exists inside of a conductor. As usual when damping is present, the point at which the initial amplitude is reduced by a factor of $\frac{1}{e}$ is interesting. In this case, we call this point the \Def{skin depth}
+\begin{equation}
+    \eqbox{
+        d \coloneqq \frac{1}{\kappa} = \frac{1}{\Im{\tilde{k}}}
+    } \, .
+\end{equation}
+For a perfect conductor, $\sigma = \infty$ implies $d = 0$, which reproduces the result we noted when discussing this type of material before, namely that the EM wave and its field cannot extend at all into the material (their only effect is inducing a surface charge); for imperfect conductors, there are not enough charges available to completely cancel the field right after the surface and instead there is a gradual decrease of field strength.
+
+We have deliberately chosen to give the real part of $\tilde{k}$ the same symbol that the wave number had before -- they are the same thing. It makes perfect sense to choose this because many definitions that previously contained $k$ are unchanged by the imaginary part of $\tilde{k}$, so their expressions do not have to be modified; examples include the wavelength $\lambda = \frac{2 \pi}{k}$, the propagation speed $v = \frac{\omega}{k}$, or the index of refraction $n = \frac{c k}{\omega}$.\\
+
+
+The wave number becoming a complex quantity is not the only aspect that changes for EM waves in conductors. The Ampere-Maxwell law also relates $\vec{\tilde{E}}_0, \vec{\tilde{B}}_0$, so the new term in it should lead to a different relation of these quantities.
+
+-> result: B-field lags begin E-field (see Fig.~\ref{fig:em_wave_damped}) by an amount
+\begin{equation}
+    \eqbox{
+        \phi = \atan(\kappa / k) = \arg(\tilde{k})
+    }
+\end{equation}
+(note that this lagging does not affect the damping, just how much the underlying, damped plane wave is already evolved in phase)
+
+
+
+\begin{figure}
+    \centering
+
+    \includegraphics[width=0.6\textwidth]{pictures/em_wave_damped.pdf}
+
+    \caption{Depiction of a damped plane EM wave. This is an adaption of Fig.~9.10 in \cite{Griffiths_2017}.}
+    \label{fig:em_wave_damped}
+\end{figure}
+
+
+
+        \subsection{Frequency-Dependent Permittivity}
+Even the case of homogenous linear media permits (no pun intended) material properties such as permittivity, permeability, conductivity that depend on frequency. As a consequence, $n = n(\omega)$ (note that we continue to assume that the permeability is negligible, $n \simeq \sqrt{\epsilon_r}$). Such a medium is termed \Def{dispersive} and the effect itself is usually referred to as \Def{dispersion}.
+
+-> this explains behavior of prism, which splits up white light
+
+-> should not even be so surprising, why should induced dipole moment be same for light of all frequencies? Electrons in atoms are on certain energy level, so in a harmonic oscillator picture (where energy can be associated with a certain frequency),\footnote{\enquote{Physicists and their harmonic oscillator again!}, you might complain. But even in quantum mechanics, this turns out to be a pretty appropriate description, so this is not just a toy model that we use here.} how susceptible they are to be driven by an external field/light source is clearly dependent of the driving frequency
+
+
+Studying a single plane wave does not make so much sense anymore, since it is not achievable in practice. We can come close though, by forming wave packets with really narrow frequency distribution. This produces very long waves, whereas short pulses are achieved by very broad frequency distributions.\footnote{Interestingly, this is a reflection of the uncertainty principle that you might know from quantum mechanics! Particles are described in terms of wave functions there, so from that perspective this connection should not be too surprising.} In vacuum, such wave packets maintain their shape as they evolve through time and space. But in a medium with a frequency-dependent permittivity, index of refraction, this is not the case. We can see this as follows: a wave packet is just a superposition of many plane waves; each of these plane waves travels with a velocity
+\begin{equation}
+    \eqbox{
+        v = \omega / k = c / n(\omega)
+    } \, ,
+\end{equation}
+which is different for each plane wave. In fact, $v$ may exceed the speed of light! This sounds wrong, but does not violate any important laws because the wave packet as a whole moves with a different speed, the \Def{group velocity}
+\begin{equation}
+    \eqbox{
+        v_g = \dv{\omega}{k}
+    } = \flatfrac{1}{\dv{k}{\omega}}
+\end{equation}
+\todo{evaluated at peak frequency/wave number?} (For the sake of distinguishing the velocity of each plane wave component $v$ from $v_g$, $v$ is called \Def{phase velocity}.)
+
+
+-> wondering about this distinction? Well, maybe it becomes natural when you think about how you would define the velocity of something that changes shape as time goes on -- for which point do you measure the velocity? Is this point even something that is well-defined as the shape changes? All that matters from a physics perspective is that causality is not violated, i.e.~that information is not transmitted faster than $c$ (which is true)
+
+
+
+-> electron in atom model (in a dielectric, i.e.~not a conductor!): describe as harmonic oscillator; there are phase differences occurring of several atoms are excited in a molecule, so $\vec{P} \nparallel \vec{E}$; however, $\vec{\tilde{P}} \parallel \vec{\tilde{E}}$ if we agree to use a complex susceptibility $\tilde{\chi}_e$ (and accordingly, a complex dielectric constant $\tilde{\epsilon}_r$).
+Solving the wave equation for the complex field $\vec{\tilde{E}}$ then involves using a complex wave number
+\begin{equation}
+    \eqbox{
+        \tilde{k} = \sqrt{\tilde{\epsilon} \mu_0} \, \omega = \sqrt{\tilde{\epsilon}_r} \frac{\omega}{c}
+    } \, .
+\end{equation}
+Using the notation $\tilde{k} = k + i \kappa$ (often assuming $\Im{\tilde{\epsilon}_r} \ll \Re{\tilde{\epsilon}_r} = \epsilon_r \Rightarrow \sqrt{\tilde{\epsilon}_r} = \epsilon_r \sqrt{1 + \frac{\Im{\tilde{\epsilon}_r}}{\epsilon_r}} \simeq \epsilon_r + i \frac{\Im{\tilde{\epsilon}_r}}{2}$ or a similar simplification), the plane wave solution for $\unitvec{k} = \unitvec{z}$ becomes
+\begin{equation}
+    \vec{\tilde{E}}(z, t)
+    = \vec{\tilde{E}}_0 e^{i (\tilde{k} z - \omega t)}
+    = \vec{\tilde{E}}_0 e^{- \kappa z} e^{i (k z - \omega t)}
+    \, .
+\end{equation}
+The usual solution $\propto e^{i (k z - \omega t)}$ is damped/\Def{attenuated} due to absorption of energy, which goes into driving the electron harmonic oscillators. It is common to look at this effect in terms of the intensity
+\begin{equation}
+    I \propto \abs{\vec{\tilde{E}}}^2 = \abs{\vec{\tilde{E}}_0}^2 e^{- 2 \kappa z} \, ,
+\end{equation}
+which leads to the definition of an \Def{absorption coefficient}
+\begin{equation}
+    \eqbox{
+        \alpha \coloneqq 2 \kappa = 2 \Im{\tilde{k}}
+    } \, .
+\end{equation}
+% Again, while one can formally write down a complex index of refraction, $\tilde{n} = \frac{c \tilde{k}}{\omega}$, the above splitting in new, imaginary component of $\tilde{k}$ and the usual, real component $k$ (the one we know as the wave number from the very beginning of this section on EM waves) allows us to keep the unmodified refractive index $n = \frac{c k}{\omega}$ from linear media; the phase velocity, likewise, remains $v = \frac{\omega}{k}$.
+Again, while one can formally write down a complex index of refraction, $\tilde{n} = \frac{c \tilde{k}}{\omega}$, this would not play the same role as $n$ before. Instead, quantities such as the refractive index $n = \frac{c k}{\omega}$ and the phase velocity $v = \frac{\omega}{k} = \frac{c}{n}$ are still defined in terms of $k$ and are not affected by $\kappa$.
+
+
+-> effect of complex contribution is negligible for many frequencies (but not for all; we can have resonance, then important) \todo{verify in Griffiths}
+
+
+-> also note how similar this discussion is to the one we had for conductors! Although we have no conductivity here
+
+
+
+        \subsection{Guided Waves}
+In this subsection, we study what happens when a plane wave is not allowed to extend to infinity in the plane $\perp \vec{k}$. More specifically, we look at a hollow pipe in which the plane wave is allowed to propagate perpendicular to the pipe walls (note that we do \emph{not} necessarily assume the walls to have infinitesimal extent). Further assuming that the pipe is made of a perfect conductor, we know that in the material itself $\vec{E} = 0$. Faraday's law then implies $\pdv{\vec{B}}{t} = 0$. Assuming there are no initial fields yields the following boundary conditions at the inner side of the wall:
+\begin{equation}\label{eq:bound_cond_waveguide}
+    \eqbox{
+        \vec{E}_\parallel = 0
+    } \qquad
+    \eqbox{
+        \vec{B}_\perp = 0 \, .
+    }
+\end{equation}
+(For them to be achieved, the appearance of free charges and currents on the surface is usually required. \todo{footnote 22 on page 425 in Griffiths has comment on this, how this makes sense with what he said at some point before -> basically: there are no surface currents, but volume currents; this goes away to more realistic model of shell with finite thickness, anyway better because more realistic}) Such a device is called a \Def{wave guide}.
+
+Assuming the pipe is oriented so that it extends along the $z$-direction, the usual monochromatic planar-wave ansatz reads (assuming $\vec{\tilde{k}} \approx \vec{k}$ to good approximation; otherwise, the waveguide would be kind of pointless for practical applications)
+\begin{equation}
+    \vec{\tilde{E}}(x, y, z, t) = \vec{\tilde{E}}_0(x, y) e^{i (kz - \omega t)}
+    \quad , \quad
+    \vec{\tilde{B}}(x, y, z, t) = \vec{\tilde{B}}_0(x, y) e^{i (kz - \omega t)}
+    \, .
+\end{equation}
+As generic solutions to the wave equations, these fields automatically satisfy the Maxwell equations -- separately. Our job is to find amplitudes $\vec{\tilde{E}}_0, \vec{\tilde{B}}_0$ that satisfy both the Maxwell equations \emph{and} the boundary conditions in Eq.~\eqref{eq:bound_cond_waveguide}. Our general ansatz for this is
+\begin{equation}
+    \vec{\tilde{E}}_0(x, y) = E_x(x, y) \unitvec{x} E_y(x, y) \unitvec{y} + E_z(x, y) \unitvec{z}
+    \quad , \quad
+    \vec{\tilde{B}}_0(x, y) = B_x(x, y) \unitvec{x} B_y(x, y) \unitvec{y} + B_z(x, y) \unitvec{z}
+    \, .
+\end{equation}
+Yes, we have to include $z$-components here, although the EM wave is propagating in this direction.
+
+One can then use the Maxwell equations to derive the following general, solution:
+\begin{subequations}
+\begin{align}
+    &\eqbox{
+        E_x = \frac{i}{\qty(\frac{\omega}{c})^2 - k^2} \qty[k \pdv{E_z}{x} + \omega \pdv{B_z}{y}]
+    }
+    \\
+    &\eqbox{
+        E_y = \frac{i}{\qty(\frac{\omega}{c})^2 - k^2} \qty[k \pdv{E_z}{y} - \omega \pdv{B_z}{x}]
+    }
+    \\
+    &\eqbox{
+        B_x = \frac{i}{\qty(\frac{\omega}{c})^2 - k^2} \qty[k \pdv{B_z}{x} - \omega \pdv{E_z}{y}]
+    }
+    \\
+    &\eqbox{
+        B_y = \frac{i}{\qty(\frac{\omega}{c})^2 - k^2} \qty[k \pdv{B_z}{y} + \omega \pdv{E_z}{x}]
+    }
+    \, .
+\end{align}
+\end{subequations}
+These are solutions in terms of the longitudinal components $E_z, B_z$, which in turn can be obtained from
+\begin{subequations}
+\begin{align}
+    &\eqbox{\qty[\pdv[2]{x} + \pdv[2]{y} + \qty(\frac{\omega}{c})^2 - k^2] E_z = 0}
+    \\
+    &\eqbox{\qty[\pdv[2]{x} + \pdv[2]{y} + \qty(\frac{\omega}{c})^2 - k^2] E_z = 0}
+    \, .
+\end{align}
+\end{subequations}
+Permitted solutions are TE waves ($E_z = 0$) and TM waves ($B_z = 0$). TEM waves ($E_z = 0 = B-z$), as we had before, are not permitted (once again, due to a uniqueness argument involving Laplace's equation; this only applies if the pipe is indeed hollow, i.e.~its inside indeed empty).
+
+
+
+            \paragraph{Rectangular Wave Guide}
+Let us look at TE waves, i.e.~$E_z = 0$ in a rectangular wave guide of dimensions $a \cross b$ (with $a \geq b$). We will use separation of variables for $B_z$.
+
+
+-> yields $\text{TE}_{mn}$ modes
+\begin{equation}
+    B_z = B_0 \cos(\frac{m \pi}{a} x) \cos(\frac{n \pi}{b} y)
+\end{equation}
+$m, n$ represent the number of maxima the mode has in the respective direction ($m$ belongs to side $a$, $n$ to $b$, where we assume $a \geq b$); $m = 0 = n$ is impossible
+
+
+For each mode, we have what is called a \Def{cutoff frequency}
+\begin{equation}
+    \eqbox{
+        \omega_{mn} = c \pi \sqrt{\qty(\frac{m}{a})^2 + \qty(\frac{n}{b})^2}
+    }
+\end{equation}
+and from dispersion relation\todo{is this the appropriate name?}
+\begin{equation}
+    \eqbox{
+        k = \frac{1}{c} \sqrt{\omega^2 - \omega_{mn}^2}
+    }
+\end{equation}
+we see that the \enquote{cutoff} part of the name comes from the fact that an $mn$-mode can only exist with frequencies $\omega \geq \omega_{mn}$ (otherwise, $k$ is fully imaginary, i.e.~does not propagate and just dies off).
+
+-> in other words, in case of driving frequency $\omega_{10} < \omega < \omega_{20}$ (which is certainly $\leq \omega_{11}$ because $a \geq b \Leftrightarrow 1/a \leq 1/b$) we would only excite the $10$-mode
+
+
+-> if we try to excite frequencies lower than $\omega_{10}$, then nothing will happen since this is the lower cutoff frequency; below that, no mode can propagate in the wave guide
+
+
+
+-> phase/wave velocity:
+\begin{equation}
+    \eqbox{
+        v = \frac{\omega}{k} = c \frac{1}{\sqrt{\omega^2 - \omega_{mn}^2}}
+    }
+\end{equation}
+which may exceed $c$; group velocity:
+\begin{equation}
+    \eqbox{
+        v_g = \frac{1}{\dv{k}{\omega}} = \frac{1}{\frac{1}{c} \frac{1}{2 \sqrt{\omega^2 - \omega_{mn}^2}} 2 \omega} = c \sqrt{1 - \qty(\frac{\omega_{mn}}{\omega})^2}
+    }
+\end{equation}
+which is definitely $\leq c$
+
+
+
+\todo{maybe mention Figure 9.25?}
+
+
+
+            \paragraph{The Coaxial Transmission Line}
+We put something into the hollow pipe, namely a wire (need not fully fill the inside, there can be air between wire and pipe). As we noted, TEM \emph{are} possible for such a configuration.
+
+-> results in fields with cylindrical symmetry (because cable is not rectangular, but circular); E-field points radially from inside the cable to outside, while B-field is in angular direction; each have amplitude $\propto \frac{1}{r}$
+
+-> they are also non-dispersive, i.e.~$k = \frac{\omega}{c}$
+
 
 
 
@@ -2369,6 +2837,14 @@ so we can we take viewpoint that there are truly only two Maxwell equations, for
 
 
 nice note by Griffiths right after start of 8.2.1: Imagine a point charge q traveling in along the x axis at a constant speed v. Because it is moving, its electric field is not given by Coulomb's law; nevertheless, E still points radially outward from the instantaneous position of the charge (Fig. 8.2a), as we'll see in Chapter 10. Since, moreover, a moving point charge does not constitute a steady current, its magnetic field is not given by the Biot-Savart law. Nevertheless, it's a fact that B still circles around the axis in a manner suggested by the right-hand rule (Fig. 8.2b); again, the proof will come in Chapter 10.
+
+
+
+
+how can EM waves propagate forever in vacuum, when electric field and magnetic field are constantly produced? Well, vacuum means there is nothing to interact with -- so there nothing that photons could do work on; so, how is energy supposed to get lost?
+
+
+-> in matter, things are very different and we have energy loss due to interaction, which ultimately results in finite attenuation length; where does the energy go? Clearly, into the polarization and magnetization of the material, which displaces charges and gives them potential energy \todo{right?} -> also, the infalling wave does not vanish all of a sudden; in some sense, it still there, but just not visible because the material produces waves that cancel it -- so there is no \emph{net} field anymore, but there sure are many fields present
 
 
 
