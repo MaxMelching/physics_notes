@@ -404,6 +404,24 @@ Both Eq.~\eqref{eq:work_conservative_force} and Eq.~\eqref{eq:work_conservative_
 
 
 
+\begin{ex}[Finding The Right Sign]
+	There is often confusion around the sign of work, but signs can easily be explained by specifying precisely what we are talking about.
+
+	Take the example of gravity again, which exerts a force $\vec{F} = - m g \unitvec{z}$. The work done by this force is
+	\begin{equation}
+		W = \int_{\vec{r}_1}^{\vec{r}_2} - m g \, dz = - m g (r_{2, z} - r_{1, z}) \eqqcolon - m g \Delta h
+	\end{equation}
+	where we have abbreviated $r_{2, z} - r_{1, z}$ as a height difference $\Delta h$. This is the work done by the gravitational force on the particle. If no other forces are acting, the particle will be falling down, so that $\Delta h < 0$ (we start from $\vec{a}$ and go to $\vec{b}$) and thus $W > 0$. From the consideration presented before, we know that this is equal to the work done on the inertial force, i.e.
+	\begin{eqnarray}
+		W = T_2 - T_1
+	\end{eqnarray}
+	and $W > 0$ means $T_2 > T_1$, the kinetic energy increases (which is intuitive, the particle is falling down and accelerates in the process).
+
+	The part where confusion about the sign comes in is the following: we are often interested in the work that we have to do on the particle to counteract against gravity and usually, people simply state that this can be obtained by integrating the negative force. Initially, this was (at least to me personally) always a little confusing, but having in mind the discussions from this subsection, it is the natural thing to do. After all, in order to achieve $T_2 = T_1$ (particle remains at rest), we can simply add a force to the right hand side of Newton's law to cancel the gravitational force, so that the inertial $m \vec{a}$ force also vanishes (which, in a conserved system, is just another way to say $T_2 = T_1$). This force needs to have the same magnitude as $\vec{F} = - m g \unitvec{z}$, but must be opposite in direction. Integrating this force then means we as experimentalists have to do a work $- W = m g \Delta h$ on the particle (and against gravitation) to keep the particle at rest.
+\end{ex}
+
+
+
 Now a collection of notes on the definitions in this chapter, which did not fit in the main body:
 \begin{itemize}
 	\item You might have been introduced to kinetic and potential energy as separate quantities. But when approaching them in the way we did, we see that they can actually be derived in a unified manner, namely using work.
