@@ -1239,6 +1239,8 @@ This yields
 	} \, .
 \end{equation}
 
+-> implies that its magnitude can be written as $L = m r v_\perp$ where $v_\perp = v \sin(\angle(\vec{r}, \vec{v}))$ is the component of $\vec{v}$ orthogonal to $\vec{r}$
+
 -> equivalent viewpoint (for the other definition): constant direction means $\vec{r} \parallel \vec{v}$; we thus look at relative orientation of these two vectors; but not do not to this using their angle $\propto \vec{r} \cdot \vec{v}$, but by looking at the plane that these two vectors span; this may be quantified by the normal vector of this plane, $\vec{r} \cross \vec{v}$ (which forms a vectorial quantity, not a scalar one like the angle; remember, Newtonian theory is a theory of mostly vectors); we then also add a factor of $m$ to account for the inertia of the object we study, to turn this into something like a momentum; this new notion is termed \Def{angular momentum}
 
 
@@ -1416,6 +1418,8 @@ Therefore, we also have conservation of total momentum if no external forces are
 
 \begin{ex}[Exploding Projectile]
 	say we shoot projectile (which we have treated before \todo{do this}), but it explodes at some point on the trajectory; since no internal force is acting, the linear momentum of the center of mass is conserved and this allows derivation of equation of motion (and ultimately, of trajectory)
+
+	-> example 9.4 in \cite{Thornton_2003}
 \end{ex}
 
 
@@ -1485,7 +1489,9 @@ Let us now calculate the kinetic energy in the CMS
 	&= \frac{1}{2} \sum_k m_k (V^2 + 2 v'_k V + (v')_k^2) = \frac{1}{2} \sum_k m_k V^2 + \underbrace{\sum_k v'_k}_{Eq.~\eqref{eq:cms_vel_in_cms}} V + \frac{1}{2} \sum_k m_k (v')_k^2 \eqbox{= \frac{1}{2} M V^2 + \frac{1}{2} \sum_k m_k (v')_k^2} \, .
 \end{align}
 In other words, the kinetic energy computed in the CMS splits into contributions from the center-of-mass motion and motion of the particles relative to it. Hence, if all particles are at rest with respect to the center of mass, the kinetic energy of an $N$-particle system is the same as the one of a particle with mass $M$ moving with velocity $V$.
-(Note that, due to energy being a scalar quantity, computing the kinetic energy in the CMS must yield the same result as in any other frame.) \todo{this is actually not true! Kinetic energy is intrinsically dependent on frame we select, even for inertial ones; but this is ok, physically relevant statements like conservation of energy have no such dependence (in particular, inferred laws also do not have this)}
+(Note that, due to energy being a scalar quantity, computing the kinetic energy in the CMS must yield the same result as in any other frame.)
+\todo{this is actually not true! Kinetic energy is intrinsically dependent on frame we select, even for inertial ones; but this is ok, physically relevant statements like conservation of energy have no such dependence (in particular, inferred laws also do not have this)}
+-> ah, careful: when changing \emph{frames}, then the energy will (generally speaking) change. But going from lab frame to CMS is a \emph{coordinate} transformation, so the kinetic energy is the same in both frames (quite obviously, this is in fact shown by equation we write down above). At least if we account for the portion $\frac{1}{2} M V^2$; if we only account for the energy that each particle has in the CMS, $\frac{1}{2} \sum_k m_k (v')_k^2$, then this will not necessarily be equal to $\frac{1}{2} \sum_k m_k v_k^2$.
 
 
 
@@ -1503,7 +1509,8 @@ Continuing with the assumption of a system with only cosnervative forces, there 
 		E = T + V = \text{const}
 	} \, .
 \end{equation}
-We call such systems as a whole \Def{conservative}.
+We call such systems as a whole \Def{conservative} (we mark this as a new term here because we only knew conservative forces before).
+
 
 definition of potential energies:
 \begin{equation}
@@ -1924,21 +1931,215 @@ For our solar system, this means the orbits of planets farther out in the solar 
 
 
 		\subsection{Collisions}
-\todo{wouldn't that fit really well here?}
+Apart from the orbits that result two objects interacting in central-force fields, physicists also more violent scenarios, where particles are smashed into each other -- particle \Def[collision]{collisions}. Not all collisions are the same though, there are some subtleties that require careful distinction of different scenarios. This is what we will do in this subsection.
+
+
+As before, calculations often simplify in the COM frame. But always remember that comparing the predictions from this frame with experimentally obtained, real-world results requires numbers in the lab(oratory) frame.
+
+
+
+			\paragraph{Elastic Collisions}
+think of this as two billard balls bouncing off of each other
+
+(Note that this situation can still be regarded as a central-force problem, depending on the situation Take the case of two colliding electrons, for example: the two electrons do not actually \enquote{touch}, the just come really close and then repel each other. But from far away, it looks like they bounce off each other like two balls would do.)
+
+
+lots of notation on page 347 of \cite{Thornton_2003}; most important notes are primes indicating CMS quantities, index $1$ indicating we refer to moving particle ($2$ to particle struck by collision), while index $0$ refers to total quantities (such as energy or momentum; there is no before or after for them because they are conserved); angles are complicated -> figure 9-10 is nice visualization of \enquote{geometry of elastic collisions} (9-11 as well)
+
+
+
+we select a very specific lab frame, namely the one comoving with the second particle (is inertial frame because system is closed from $t = 0$ on, which implies $v_2 = \text{const}$); therefore, our lab speeds are $v_2 = 0, v_1 \neq 0$ -> justified because for this allows us to obtain results for any initial velocity $\vec{u}_2$, by transforming positions and lab velocities into this frame (is transformation between inertial frames)
+
+
+
+Let us look at numbers first and then get some intuition on the whole situation. Since $u_2 = 0$, % and accounting for the fact that the COM velocity is conserved even after the collision,
+% \begin{equation}
+% 	m_1 u_1 = m_1 u_1 + m_2 u_2 = M V = m_1 v_1 + m_2 v_2 \, .
+% \end{equation}
+% -> $m_1 u'_1 + m_2 u'_2 = m_1 v'_1 + m_2 v'_2$ also
+% This is just a consequence of conservation of momentum. Therefore,
+conservation of angular momentum and kinetic energy allow the derivation of the following relations:
+\begin{alignat}{2}
+	u_1 &= \frac{M}{m_1} V
+	&\qquad
+	u_2 &= 0
+	\\
+	u'_1 &= u_1 - V = \frac{M}{m_1} V - V = \frac{m_2}{m_1} V = \frac{m_2}{M} u_1
+	&\qquad
+	u'_2 &= u_2 - V = - V = - \frac{m_1}{M} u_1
+	\\
+	v'_1 &= u'_1 = \frac{m_2}{M} u_1
+	&\qquad
+	v'_2 &= u'_2 = \frac{m_1}{M} u_1
+	% \\
+	% v_1 &= v'_1 + V = u_1
+	% \qquad
+	% v_2 &= v'_2 + V = u'_2 + V = 0
+	% &
+\end{alignat}
+-> CMS is so convenient because of last two equalities, the speeds before and after the collision are equal there! This is solely due to the fact that the collision is elastic, i.e.~masses remain unchanged, in combination with conservation of momentum and (kinetic) energy.
+
+-> we \emph{cannot} obtain lab velocities $v_{1, 2}$ from this because it is not possible to reduce the corresponding relation from its vectorial nature to a scalar one, as was possible for initial speeds. The reason is that for $\vec{u}_{1, 2} \parallel \vec{V}$ there, while $\vec{v}_{1, 2} \nparallel \vec{V}$ in general.
+
+
+-> nice because specifying $u_1$ as initial condition then allows to solve things!
+
+
+
+speeds in CMS before and after collision are the same; speeds are just magnitudes of velocities, the directions \emph{do} change. but how? well, we look at projections and use conservation laws again. note that the $y$-components of both velocity vectors can be arbitrarily large, as long as they cancel in the end (although there ways no initial momentum in $y$-direction)
+
+
+
+Depending on certain conditions of the problem, we can or cannot afford to not really care about which quantities are known/measured. There are two basic classes of solutions: for $V < v'_1$, there is a unique relationship between virtually any combination of CMS and lab quantities, which means one can infer all of them from any given combination; for $V > v'_1$, on the other hand, one has to be more careful because combinations such as $\psi, v'_1$ are not sufficient anymore to uniquely determine all vectorial velocities, unlike for $V < v'_1$. (Note that $V = v'_1$ cannot occur as it would imply $v'_2 = 0$. Thus it is truly just \emph{two} classes of solutions.)
+% 
+% -> think about it like this: we draw circle around $\vec{V}$, whose boundary touches/goes through $\vec{v}_1$; CMS laws dictate that $\vec{v}'_1 = \vec{v}_1 - \vec{V}$, so we only have unique identification if $V < v'_1$; in Figure, $v'_{1, b} = v'_{1, f} = v'_1$, but direction is different
+% 
+Think about it like this: CMS laws dictate that $\vec{v}'_1 = \vec{v}_1 - \vec{V}$, so determining $v'_1$ allows us to get all possible $\vec{v}'_1$ (since $\vec{V}$ is known, as it is conserved throughout elastic collision). To do this, we draw a circle of radius $v'_1$ around the tip of $\vec{V}$; given an angle then determine the direction of $\vec{v}'_1$ and thus also $\vec{v}_1$ -- you would think. But this is only true for $V < v'_1$ because otherwise, given $\psi$ only there are two intersections with this circle and thus two CMS scattering angles $\theta$ (which we denote by $\theta_b, \theta_f$ for backward and forward scattering).
+
+
+-> since one can show that $\frac{V}{v'_1} = \frac{m_1}{m_2}$, we can reexpress $V < v'_1$ as $m_1 < m_2$ and $V > v'_1$ as $m_1 > m_2$
+
+
+
+
+
+maximum value of $\theta$ is $180 \degree$ (due to constraint of anti-parallel final velocities, right?)
+
+basically the most important result is
+\begin{equation}
+	\eqbox{
+		\tan \psi = \frac{\sin \theta}{\cos \theta + \frac{m_1}{m_2}}
+	}
+\end{equation}
+
+$m_1 \ll m_2$: $\psi \approx \theta$; $m_1 \approx m_2$: $\psi = \frac{\theta}{2}$ (which implies no scattering angle larger than $90 \degree$)
+
+
+
+for $m_1 = m_2$, the two particles are always at a right angle, i.e.~their relative angle is $\frac{\pi}{2}$, if second particle is initially at rest. (Note that this is not necessarily true anymore in relativistic collisions. But we assume the masses remain constant, so this is a valid conclusion.)
+
+
+
+the analogous relation for second particle is
+\begin{equation}
+	\eqbox{
+		\tan \zeta = \cot \frac{\theta}{2} = \tan\qty(\frac{\pi}{2} - \frac{\theta}{2}) = \tan \frac{\phi}{2}
+	}
+\end{equation}
+
+-> for $m_1 \ll m_2$ we have $\zeta = \frac{\phi}{2} = \frac{\pi - \psi}{2}$ (which does not really tell us much...); for $m_1 = m_2$, on the other hand, $\psi = \frac{\theta}{2}$ implies $\zeta + \psi = \frac{\pi}{2}$, the particles are at a right angle in their final states
+
+
+
+example 9-6: for $V > v'_1$,
+\begin{equation}
+	\eqbox{
+		\psi_\mathrm{max} = \arcsin \frac{m_2}{m_1}
+	}
+\end{equation}
+-> some observations $m_1 \ll m_2$: $\psi_\mathrm{max} = 0$, no scattering; $m_1 = m_2$: $\psi_\mathrm{max} = \frac{\pi}{2}$; in general, for $m_1 > m_2$ (which is equivalent to condition $V > v'_1$ that was used to derive above equation) $m_1$ cannot be scattered at angle smaller than $\frac{\pi}{2}$
+
+
+one can also study relations for kinetic energy; for $m_1 = m_2$:
+\begin{equation}
+	\eqbox{
+		\frac{T_1}{T_0} = \cos[2](\psi)
+	} \qquad
+	\eqbox{
+		\frac{T_2}{T_0} = \sin[2](\psi)
+	}
+\end{equation}
+-> general relations are horrible
+
+
+
+\begin{ex}[Head-On Collision]
+	example 9.7 from \cite{Thornton_2003}
+\end{ex}
+
+
+
+\begin{figure}
+	\centering
+
+	% \subfloat[Initial State]{\includegraphics[width=0.5\textwidth, page=1]{pictures/collision_states.pdf}}%
+	% \hspace*{0.1\textwidth}%
+	% \subfloat[Final State]{\includegraphics[width=0.4\textwidth, page=2]{pictures/collision_states.pdf}}
+	\subfloat[Initial State]{\includegraphics[width=0.7\textwidth, page=1]{pictures/collision_states.pdf}}
+	
+	\subfloat[Final State]{\includegraphics[width=0.6\textwidth, page=2]{pictures/collision_states.pdf}}
+
+	\caption{States involved in an elastic collision}
+	\label{fig:collision_states}
+\end{figure}
+
+
+
+\begin{figure}
+	\centering
+
+	\subfloat[$m_1 < m_2$]{\includegraphics[width=0.4\textwidth, page=1]{pictures/collision_final_state_m1.pdf}}%
+	\hspace*{0.1\textwidth}%
+	\subfloat[$m_1 > m_2$]{\includegraphics[width=0.4\textwidth, page=2]{pictures/collision_final_state_m1.pdf}}
+
+	\caption{Different solutions for $\vec{v}'_1$, depending on the ratio of $m_1, m_2$.}
+	\label{fig:collision_m1_cases}
+\end{figure}
+
+
+
+			\paragraph{Inelastic Collisions}
+For many types of collisions, the elastic approximation does not work because a substantial amount of heat is generated, or due to energy losses to other sources. We then have to modify the conservation laws used to account for that. A common way to do this is to write
+\begin{equation}
+	\frac{1}{2} m_1 u_1^2 + \frac{1}{2} m_2 u_2^2 + Q = \frac{1}{2} m_1 v_1^2 + \frac{1}{2} m_2 v_2^2 \, ,
+\end{equation}
+i.e.~to just add the \Def{$Q$-value} (a very creative name). $Q = 0$ corresponds to elastic collisions; $Q > 0$ corresponds to \Def{exergic} collisions, where energy is gained during the collision; $Q < 0$ corresponds to \Def{endoergic} collisions, where energy is lost during the collision.
+
+Inelastic collisions such as nuclear collisions are examples of the endoergic type, while particle decays are examples of the exoergic type.
+
+
+-> measure of inelasticity: \Def{coefficient of restitution}
+\begin{equation}
+	\eqbox{
+		\epsilon = \frac{\abs{v_2 - v_1}}{\abs{u_2 - u_1}}
+	}
+\end{equation}
+is $1$ for perfectly elastic, $0$ for totally inelastic (pretty much independent of type of bodies that collide); Newton found this experimentally; note that this can only be applied for head-on collisions with no rotations involved; moreover, it only applies to the velocity components normal to the plane of contact of the bodies, so careful when collisions are oblique
+
+
+			\paragraph{Impulsive Forces}
+During any type of collision, the forces exerted by the colliding bodies typically act over a short period of time. The type of forces involved there are called \Def{impulsive forces}.
+
+-> say collision takes place between times $t_1, t_2$. During that time, Newton's second law is valid and the impulse may be calculated as
+\begin{equation}
+	\int_{t_1}^{t_2} \vec{F} \, dt \, .
+\end{equation}
+In an experiment, it can be quantified by the change of momentum.
+
+-> ideal impulse (no displacement during the collision): infinite force acting during an infinitesimally small time span
+
+
+-> not sure what's the point... Maybe example 9.10 helps understanding
+
+-> ahh I see. Point is that we have to add something called impulse force if the interaction happens over an extended period of time (e.g., because momentum and thus velocity changes as bodies collide)
 
 
 
 		\subsection{Scattering}
-We have looked at $\epsilon < 1$ case extensively now, but what about $\epsilon \geq 1$. Formally, this is the case of hyperbolic trajectories and we can think of it as \enquote{collisions at a distance}: $m_1$ flies in, interacts with the potential generated by $m_2$, and flies off again. This is what physicists call \Def{scattering}. It occurs in a variety of places throughout virtually all physical theories (celestial bodies, nuclear physics, particles moving through the atmosphere, ...). % This is also the scope that we discuss it in, i.e.~we drop the assumption of gravitational interaction for now and return to a general central force. \todo{really? Even at this stage? Right now we just need conservative, don't we? -> hmm not 100\% sure, I think we assume central force actually}
+We have looked at different types of interactions of two bodies extensively now, notably one orbiting the other and collisions of the two. What we have not studied yet is central-force interaction with eccentricity $\epsilon \geq 1$ (orbits had $\epsilon < 1$). Formally, this is the case of hyperbolic trajectories and we can think of it as \enquote{collisions at a distance}: $m_1$ flies in, interacts with the potential generated by $m_2$, and flies off again. This is what physicists call \Def{scattering}. It occurs in a variety of places throughout virtually all physical theories (celestial bodies, nuclear physics, particles moving through the atmosphere, ...). % This is also the scope that we discuss it in, i.e.~we drop the assumption of gravitational interaction for now and return to a general central force. \todo{really? Even at this stage? Right now we just need conservative, don't we? -> hmm not 100\% sure, I think we assume central force actually}
 
 % -> this is hyperbolic case, and there are some interesting dynamics going on as well; make transition to scattering, talk about deflection angle
 
 % -> this central force problem not only occurs for celestial objects that pass by a planet or something, but all over the place in physics; another example is Rayleigh scattering of particles in the atmosphere (then talk about cross section)
 
+
+-> as \cite{Thornton_2003} argues, this is natural continuation of the collision section; after all, the \enquote{collision} of two electrons does not involve them actually touching, it is still a central-force interaction after which they are scattered. Before, we only relied on kinematic relations that could be used to relate properties of the interaction in a certain manner; but no predictions were made to determine things like the scattering angle from initial conditions. Using information about the force that governs the scattering process, we now attempt to do just that, predicting scattering angles.
+
+
 We follow the discussion provided in \cite{Thornton_2003}, so we have to pay a little attention to the scope of certain formulas. 
 
 
-We will analyze the situation from a frame (\enquote{lab frame}) where $m_2$ is initially at rest, while $m_1$ enters the frame with velocity $v_1$. Given this information (or equivalent one, like the charges if a Coulomb force is considered), the strength of the interaction taking place is entirely determined by $b$, the \Def{impact parameter}, which is the minimal distance of the particles if no force was acting (Fig.~\ref{fig:scattering}). $b$ determines what trajectories after scattering process look like, which can be encapsulated in the \Def{scattering angle} $\theta$.
+We will analyze the situation from a frame (serving as the \enquote{lab frame}) where $m_2$ is initially at rest, while $m_1$ enters the frame with velocity $v_1$. Given this information (or equivalent one, like the charges if a Coulomb force is considered), the strength of the interaction taking place is entirely determined by $b$, the \Def{impact parameter}, which is the minimal distance of the particles if no force was acting (Fig.~\ref{fig:scattering}). $b$ determines what trajectories after scattering process look like, which can be encapsulated in the \Def{scattering angle} $\theta$.
 
 
 The previous paragraph needs some clarification. It follows an argument from \cite{Thornton_2003}, which goes as follows: $b$ is sufficient to determine trajectories etc.~because all expression we saw for central force involved just energy $E$, potential $V$, angular momentum $L$. However, assuming that $m_2$ is at rest before the particles interact, the total angular momentum is given entirely by the angular momentum of $m_1$. Since we are free to choose a reference point for $\vec{L}$, we can choose to look at angular momentum of $m_1$ about $m_2$. For $m_1$ far away from $m_2$, this is given by
