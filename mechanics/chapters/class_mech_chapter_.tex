@@ -1241,6 +1241,15 @@ As promised, we now look at the analogs of Eq.~\eqref{eq:biot_savart_general}, w
     \end{equation}
 
 
+    field of an infinitely long, straight wire along the $z$-axis (in cylindrical coordinates):
+    \begin{equation}
+        \eqbox{
+            \vec{B} = \frac{\mu_0}{2\pi} \frac{I}{r} \unitvec{\phi}
+        }
+    \end{equation}
+    where the direction may be determined using the right-hand rule (thumb of your right hand = direction of current means you can find direction of B-field by curling your fingers together). Regarding magnitude, we have $1/r$-falloff, similar to field of a line charge (though this pointed radially\todo{right?})
+
+
     Griffiths 5.15
     \begin{equation}
         \vec{F}
@@ -2174,7 +2183,7 @@ More generally, one looks at force densities of various kind. One possibility is
 \end{equation}
 and integrate this to obtain the total force on a volume $\mathcal{V}'$,
 \begin{equation}
-    \vec{F} = \int_{\mathcal{V}'} \vec{f}(\vec{r}') \, d\mathcal{q}' = \int_{\mathcal{V}'} \vec{f}(\vec{r}') \rho(\vec{r}') \, d\mathcal{V}' \, .
+    \vec{F} = \int_{\mathcal{V}'} \vec{f}(\vec{r}') \, dq' = \int_{\mathcal{V}'} \vec{f}(\vec{r}') \rho(\vec{r}') \, d\mathcal{V}' \, .
 \end{equation}
 Or, we could choose a force per unit volume, $\vec{f}' = \rho \vec{f} = \rho \qty(\vec{E} + \vec{v} \cross \vec{B}) = \rho \vec{E} + \vec{j} \cross \vec{B}$ and perform the analogous integral (the second equality in the above equation). In any case, then our job is done, since forces determine all physical interactions in Newtonian theory.
 
@@ -2182,7 +2191,7 @@ Or, we could choose a force per unit volume, $\vec{f}' = \rho \vec{f} = \rho \qt
 
             \paragraph{Boundary Conditions}
 Any time that the fields $\vec{E}, \vec{B}$ (or likewise $\vec{D}, \vec{H}$) cross a boundary between media a surface with charge density $\sigma$ and/or current density $\vec{K}$, we should expect them to be discontinuous (e.g., because of the field from the surface overlapping with the field from the source that initially created the fields). As before, the conditions on the fields when encountering such discontinuities can be inferred from the Maxwell equations, more specifically their integral versions Eqs.~\eqref{eq:maxwell_collection_int}, \eqref{eq:maxwell_collection_media_int}, by using the Gaussian pillbox technique:
-\begin{subequations}
+\begin{subequations}\label{eq:boudn_cond_edyn_media}
 \begin{align}
     D_{1, \perp} - D_{2, \perp} &= \sigma_f
     \\
@@ -2492,6 +2501,8 @@ The Poynting vector transports the entire density in its direction. (We can see 
     } \, .
 \end{equation}
 
+-> note that relation between $\vec{S}$ and $u$ is derived under assumption of monochromatic plane wave
+
 
 For most light sources of practical interest, their frequencies are on the order of $10^{15} \unit{\hertz}$. There is no photodiode that is capable of detecting such rapid changes, so what we observe in practice is the integral \todo{or average?} over many cycles. For this reason, it makes sense to work with quantities that are averaged over time. A particularly customary one is the average over one period of oscillation $T$ because the average of a sinusoidal wave over such a period is
 \begin{equation}
@@ -2503,24 +2514,25 @@ so that one can eliminate oscillatory behavior entirely. This defines the \Def{i
         I \coloneqq \expval{S} = \frac{c \epsilon_0}{2} E_0^2
     } \, .
 \end{equation}
+-> also contains assumption of monochromatic plane wave
 Similarly,
 \begin{equation}
     \eqbox{
-        \expval{u} = \frac{1}{2} \epsilon_0 E_0^2
+        \expval{u} = \frac{1}{2} \epsilon_0 E_0^2 = \frac{I}{c}
     } \quad , \quad
     \eqbox{
         \expval{\vec{g}} = \frac{1}{2} \frac{\epsilon_0}{c} E_0^2 \unitvec{z}
     } \, .
 \end{equation}
 
-As we have learned, EM fields carry a momentum along with energy. For EM fields, this momentum is called \Def{radiation pressure}. Assuming $\vec{k}$ is perpendicular to its surface $A$, the momentum exerted on a body over a time period $\Delta t$ is
+As we have learned, EM fields carry momentum along with energy. For EM fields, this momentum is called \Def{radiation pressure}. Assuming $\vec{k}$ is perpendicular to its surface $A$, the momentum exerted on a body over a time period $\Delta t$ is
 \begin{equation}
     \Delta \vec{p} = \expval{\vec{g}} A c \Delta t \, ,
 \end{equation}
 which corresponds to a radiation pressure (average force per unit area) of
 \begin{equation}
     \eqbox{
-        P = \frac{1}{A} \frac{\Delta p}{\Delta t} = \frac{\epsilon_0}{2} E_0^2 = \frac{I}{c}
+        P = \frac{1}{A} \frac{\Delta p}{\Delta t} = \frac{\epsilon_0}{2} E_0^2 = \frac{I}{c} = u
     } \, .
 \end{equation}
 (Note that this assumes the surface is a perfect absorber, i.e.~that all of the EM field passes through it. The other extreme is a perfect reflector, which would have double the radiation pressure imprinted on it by the same field; essentially from infalling field pushing on it and outgoing field pushing on it.)
@@ -2531,7 +2543,7 @@ which corresponds to a radiation pressure (average force per unit area) of
 
 
         \subsection{In Dielectrics}
-Having discussed vacuum solutions to the wave equation, it is time to study them in matter. Let us start with homogenous linear media first because they are so nice and simple (from a mathematical viewpoint).The Maxwell equations in a region free of charge or currents in those media read (special cases of Eq.~\eqref{eq:maxwell_collection_media_diff})
+Having discussed vacuum solutions to the wave equation, it is time to study them in matter. Let us start with homogenous linear media first because they are so nice and simple (from a mathematical viewpoint). The Maxwell equations in a region free of charge or currents in those media read (special cases of Eq.~\eqref{eq:maxwell_collection_media_diff})
 \begin{subequations}%\label{eq:}
 \begin{align}
     \div \vec{E} &= 0
@@ -2546,7 +2558,7 @@ Having discussed vacuum solutions to the wave equation, it is time to study them
 Through careful comparison with the vacuum equations (Eq.~\eqref{eq:maxwell_collection_diff}), one notices a simple rule of how they may be obtained: just replace $\epsilon_0 \rightarrow \epsilon, \mu_0 \rightarrow \mu$. As it turns out, this pattern continues for many derived quantities as well. The velocity of an EM wave, for instance, is
 \begin{equation}
     \eqbox{
-        v = \frac{1}{\sqrt{\epsilon \mu}} = \frac{1}{\sqrt{\epsilon_0 \mu_0}} \frac{1}{\epsilon_r \mu_r} = \frac{c}{n}
+        v = \frac{1}{\sqrt{\epsilon \mu}} = \frac{1}{\sqrt{\epsilon_0 \mu_0}} \frac{1}{\sqrt{\epsilon_r \mu_r}} = \frac{c}{n}
     }
 \end{equation}
 where
@@ -2563,7 +2575,28 @@ is the \Def{index of refraction} (also: \Def{refractive index}). In many materia
 \end{equation}
 Since the vast majority of media have $n > 1$, light travels slower in media. Note, however, that apart from the smaller velocity, nothing changes about the nature of EM waves; in particular, they are still able to propagate through the entire medium without loosing amplitude (through absorption, for example).\footnote{This should astonish you. We have seen that an electric field induces dipoles for every atom of a linear medium, creating many electric fields. While we have seen that the total field was considerably less complex, this referred to the field outside the medium -- inside is a whole different story. But here we see that EM waves traveling right through the medium likewise have a very simple mathematical description. And \emph{this} should really surprise you.} This phenomenon is responsible for the existence of \Def{transparent} media, such as glass or water.
 
-The same rule of simply replacing $\epsilon_0 \rightarrow \epsilon, \mu_0 \rightarrow \mu$ from our previous results is true for the energy density (should not really be surprising, was $\propto c$ before), and thus also the Poynting vector and intensity.
+The same rule of simply replacing $\epsilon_0 \rightarrow \epsilon, \mu_0 \rightarrow \mu$ from our previous results is true for the energy density (should not really be surprising, was $\propto c$ before), and thus also the Poynting vector and intensity. We must, however, remember that $c$ can be expressed in terms of $\epsilon_0, \mu_0$ as well; the replacements in there effectively mean we must also map $c \rightarrow c / n$.
+
+Let us check this more explicitly: $u = \frac{1}{2} (\vec{E} \cdot \vec{D} + \vec{B} \cdot \vec{H})$ \todo{I think we have to put $\Re$ in front, potentially factor $\frac{1}{4}$ instead of $\frac{1}{2}$, and add complex conjugates for $D, B$ (equivalent: add them to $E, H$)}, so in linear media, $u = \frac{1}{2} (\epsilon_0 \epsilon_r E^2 + \frac{1}{\mu_0 \mu} B^2) = \frac{\epsilon_0 \epsilon_r}{2} (E^2 + \frac{c^2}{n^2} B^2)$; ah, equality with $u$ might not necessarily carry over, but definition of Poynting as cross product does -> as before, this equality involves assumption of monochromatic plane waves, whence Maxwell equations tell us $B_0 = \frac{1}{v} E_0 = \frac{1}{c/n} E_0$; in that case, $u = \epsilon_0 \epsilon_r E_0^2$; this relation between $B_0$ and $E_0$ is also helpful with the intensity, since (again for monochromatic plane waves)
+\begin{equation}
+    \eqbox{I}
+    = \expval{S}
+    = \expval{\vec{E} \cross \vec{H}}
+    = \frac{1}{\mu} \expval{E B} \unitvec{z}
+    = \frac{1}{\mu} \frac{E_0^2}{2} \frac{1}{v} \unitvec{z}
+    = \frac{1}{2} \epsilon \frac{1}{\mu \epsilon v} E_0 \unitvec{z}
+    \eqbox{
+        = \frac{1}{2} \epsilon v E_0^2 \unitvec{z}
+        = \frac{1}{2} \sqrt{\frac{\epsilon}{\mu}} E_0^2 \unitvec{z}
+    }
+\end{equation}
+
+
+
+-> also, careful to carry over momentum density definition; this does not seem to be uniquely defined (in the words of \cite{Griffiths_2017}: \enquote{the momentum carried by an EM in matter is controversial})
+
+
+-> very interesting note (which I could not verify yet): $\sqrt{\epsilon} \expval{E} = \sqrt{\mu} \expval{H} = \frac{1}{\sqrt{\mu}} \expval{B}$ -> this is just consequence of $\expval{E} = \frac{1}{v} \expval{B}$
 
 
 
@@ -2571,7 +2604,161 @@ The same rule of simply replacing $\epsilon_0 \rightarrow \epsilon, \mu_0 \right
 Now we come to a seemingly trivial question: What happens at the boundary between two linear, homogeneous media with different permittivities? Well, just look at the boundary conditions, right? Yes, indeed, but you may remember that the total electric field suffers from a discontinuity at a boundary; what does this mean for an EM wave?
 
 
--> some part of wave is transmitted, some is reflected
+
+\begin{figure}
+    \centering
+
+    \includegraphics[width=0.4\textwidth]{pictures/snell_law.pdf}
+
+    \caption{Reflection and transmission at the interface of two media}
+    \label{fig:snell_law}
+\end{figure}
+
+
+
+Our starting point is Eq.~\eqref{eq:boudn_cond_edyn_media}. We know that part of the incident EM wave will be transmitted into the medium, while the rest is reflected (Fig.~\ref{fig:snell_law}; we will indicate and distinguish quantities for these three waves using subscripts $I, T, R$). In case of a monochromatic plane wave incident on the boundary spanning (part of) the $xy$-plane, all boundary conditions imply
+\begin{equation}\label{eq:refl_trans_wave_vectors}
+    \vec{k}_I \cdot \vec{r} = \vec{k}_R \cdot \vec{r} = \vec{k}_T \cdot \vec{r}
+    , \; \text{ at } \; z = 0 \, .
+\end{equation}
+(The reason is that all boundary equations are essentially relating exponential factors with constants in front of them, and for these equalities to be attained, we need equality of the exponential factors already. By evaluating them at the same time, the only comparison that makes sense, and at the boundary $z = 0$, this implies what we have above.) If we further choose $\vec{k}_I$ to lie in the $xz$-plane, the scalar products can be expressed as (still at $z = 0$)
+\begin{equation}
+    k_I \sin \theta_I = k_R \sin \theta_R = k_T \sin \theta_T \, .
+\end{equation}
+Moreover, since the frequency of the EM wave does not change in linear media, $\omega = k v$ implies the following relation between the different wave numbers:
+\begin{equation}
+    \omega = k_I v_1 = k_R v_1 = k_T v_2
+    \quad \Leftrightarrow \quad
+    k_I = n_1 \frac{\omega}{c} = k_R = \frac{n_1}{n_2} n_2 \frac{\omega}{c} = \frac{c / n_2}{c / n_1} k_T = \frac{v_2}{v_1} k_T \, .
+\end{equation}
+These two conditions can be reformulated into three laws, governing the direction and speed of propagation of the EM waves:
+\begin{enumerate}[1.]
+    \item The incident, reflected, and transmitted wave vectors form a plane (the \Def{plane of incidence}), which also includes the normal to the surface.
+    
+    
+    \item The angle of incidence is equal to the angle of reflection,
+    \begin{equation}
+        \eqbox{
+            \theta_R = \theta_I
+        } \, .
+    \end{equation}
+
+
+    \item The transmitted angle is related to the angle of incidence and reflection via \Def{Snell's law}
+    \begin{equation}\label{eq:snell_law}
+        \eqbox{
+            n_1 \sin \theta_1 = n_2 \sin \theta_2
+        } \quad \Leftrightarrow \quad
+        \eqbox{
+            \frac{\sin \theta_1}{\sin \theta_2} = \frac{n_2}{n_1} = \frac{c/n_1}{c/n_2} = \frac{v_1}{v_2}
+        }
+    \end{equation}
+\end{enumerate}
+These three laws underlie all of geometric optics.
+
+
+\begin{ex}[Snell's Law from Fermat's Principle]
+    A well-known, alternative derivation of Snell's law involves applying Fermat's principle, which states that the actual path taken by light between two points $A, B$ is the one minimizing the time taken by light on this path,
+    \begin{equation}
+        T = \int_A^B dt = \int_A^B \frac{ds}{v_r}
+    \end{equation}
+    where $v_r$ is the ray speed. This shows that it is not necessarily the path of shortest distance that is taken, which is precisely what we observe when looking at the beginning and end of the light ray in Fig.~\ref{fig:snell_law}. In isotropic media, the ray velocity is the same as the phase velocity, so the integral becomes
+    \begin{equation}
+        T = \int_A^B n \, \frac{ds}{c} = \frac{n}{c} \int_A^B ds \, .
+    \end{equation}
+
+    Let us now look very explicitly at the situation from Fig.~\ref{fig:snell_law}, where $A$ and $B$ are in different media. In that case,
+    \begin{equation}
+        T = \frac{n_1}{c} \int_A^O ds + \frac{n_2}{c} \int_O^B ds
+    \end{equation}
+    and choosing the $x$-axis parallel to the surface normal (dashed line in the figure), $y$-axis pointing up the medium intersection,
+    % \begin{equation}
+    %     % T = \frac{n_1}{c} \int_A^O \frac{dx}{\cos(\theta_I)} + \frac{n_2}{c} \int_O^B \frac{dx}{\cos(\theta_T)}
+    %     % = \frac{n_1}{c} \frac{O_x - A_x}{\cos(\theta_I)} + \frac{n_2}{c} \frac{B_x - O_x}{\cos(\theta_T)}
+    %     % 
+    %     T = \frac{n_1}{c} \int_A^O \frac{dy}{\sin(\theta_I)} + \frac{n_2}{c} \int_O^B \frac{dy}{\sin(\theta_T)}
+    %     = \frac{n_1}{c} \frac{O_y - A_y}{\sin(\theta_I)} + \frac{n_2}{c} \frac{B_y - O_y}{\sin(\theta_T)}
+    %     \, .
+    % \end{equation}
+    % Fermat's principle now demands that the actual $y$-coordinate $O_y$ on the point where the media meet is the one that minimizes $T$. (Note that $O_x$ is fixed in our chosen prescription, there is nothing to minimize here.) Therefore, we are looking for the roots of
+    % \begin{equation}
+    %     \delta T = \dv{T}{O_y} = \dv{O_y} \qty(\frac{n_1}{c} \frac{O_y - A_y}{\sin(\theta_I)} + \frac{n_2}{c} \frac{B_y - O_y}{\sin(\theta_T)}) = \frac{n_1}{c} \frac{1}{\sin(\theta_I)} + \frac{n_2}{c} \frac{- 1}{\sin(\theta_T)}
+    % \end{equation}
+    % \todo{the angles also depend on $O_y$!!}
+    % which is equivalent to
+    % \begin{equation}
+    %     \frac{n_1}{\sin(\theta_I)} = \frac{n_2}{\sin(\theta_T)}
+    % \end{equation}
+    % we can make our lives particularly easy be recognizing that these integral calculate the area of a triangle (since this is the shape of the area below the respective curve). Applying the standard formula for such an area, we obtain
+    % \begin{equation}
+    %     T = \frac{n_1}{c} (O_x - A_x) \frac{(O_y - B_y) \sin \theta_I}{2} + \frac{n_1}{c} (B_x - O_x) \frac{(B_y - O_y) \sin \theta_T}{2}
+    %     \, .
+    % \end{equation}
+    % Fermat's principle now demands that the actual $y$-coordinate $O_y$ on the point where the media meet is the one that minimizes $T$. (Note that $O_x$ is fixed in our chosen prescription, there is nothing to minimize here.) Therefore, we are looking for the roots of
+    % \begin{equation}
+    %     \delta T
+    %     = \dv{T}{O_y}
+    %     = \dv{O_y} \qty(\frac{n_1}{c} (O_x - A_x) \frac{(O_y - B_y) \sin \theta_I}{2} + \frac{n_1}{c} (B_x - O_x) \frac{(B_y - O_y) \sin \theta_T}{2})
+    %     = \frac{n_1}{c} (O_x - A_x) \frac{\sin \theta_I}{2} + \frac{n_1}{c} (B_x - O_x) \frac{- \sin \theta_T}{2}
+    % \end{equation}
+    the Pythagorean theorem yields
+    \begin{equation}
+        T = \frac{n_1}{c} \sqrt{(O_x - A_x)^2 + (O_y - A_y)^2} + \frac{n_2}{c} \sqrt{(B_x - O_x)^2 + (B_y - O_y)^2}
+        \, .
+    \end{equation}
+    Fermat's principle now demands that the actual $y$-coordinate $O_y$ on the point where the media meet is the one that minimizes $T$. (Note that $O_x$ is fixed in our chosen prescription, there is nothing to minimize here.) Therefore, we are looking for the roots of
+    \begin{equation}
+        \delta T = \dv{T}{O_y}
+        = \frac{n_1}{c} \frac{O_y - A_y}{\sqrt{(O_x - A_x)^2 + (O_y - A_y)^2}} + \frac{n_2}{c} \frac{B_y - O_y}{\sqrt{(B_x - O_x)^2 + (B_y - O_y)^2}}
+        = \frac{n_1}{c} \sin \theta_I + \frac{n_2}{c} \sin \theta_T
+        \, ,
+    \end{equation}
+    which is equivalent to
+    \begin{equation}
+        \frac{n_1}{\sin(\theta_I)} = \frac{n_2}{\sin(\theta_T)} \, .
+    \end{equation}
+    This is the same as Eq.~\eqref{eq:snell_law}.
+\end{ex}
+
+
+However, our task to find the transmitted and reflected field is not complete yet. We have no idea about their amplitudes yet. For this, we have to turn to the boundary conditions again, this time using that the exponential factors on each side cancel (due to Eq.~\eqref{eq:refl_trans_wave_vectors}). The remaining, non-oscillating parts then yield the \Def{Fresnel equations}
+\begin{equation}
+    \eqbox{
+        \tilde{E}_{0, R} = \frac{\alpha - \beta}{\alpha + \beta} \tilde{E}_{0, I}
+    } \qquad
+    \eqbox{
+        \tilde{E}_{0, T} = \frac{2}{\alpha + \beta} \tilde{E}_{0, I}
+    }
+\end{equation}
+where
+\begin{equation}
+    \eqbox{
+        \alpha \coloneqq \frac{\cos \theta_T}{\cos \theta_I}
+    } \qquad
+    \eqbox{
+        \beta \coloneqq \frac{\mu_1 v_1}{\mu_2 v_2} = \frac{\mu_1 n_2}{\mu_2 n_1}
+    } \, .
+\end{equation}
+More specifically, these are the Fresnel equations for linear polarization parallel to/in the plane of incidence. There is an analogous set for polarization perpendicular to it.
+
+
+An interesting physical consequence of these equations is that the transmitted wave is always in phase with the incident wave; for the reflected one, it can be in phase or out of phase by $180 \degree$, depending on the values of $\alpha, \beta$.
+
+-> we can have total reflection (if $\theta_I = 90 \degree$) or no reflection (if $\alpha = \beta$; this is incident angle is called \Def{Brewster angle} $\theta_b$ and reads $\tan \theta_b \simeq \frac{n_2}{n_1}$ for $\mu_1 \simeq \mu_2$)
+
+-> intensities inherit relations, commonly formulated using \Def{reflection coefficient}
+\begin{equation}
+    \eqbox{
+        R \coloneqq \frac{I_R}{I_I} = \qty(\frac{E_{0, R}}{E_{0, I}})^2 = \qty(\frac{\alpha - \beta}{\alpha + \beta})^2
+    }
+\end{equation}
+and \Def{transmission coefficient}
+\begin{equation}
+    \eqbox{
+        T \coloneqq \frac{I_T}{I_I} = \frac{\epsilon_2 v_2}{\epsilon_1 v_1} \frac{\cos \theta_T}{\cos \theta_I} \qty(\frac{E_{0, T}}{E_{0, I}})^2 = \alpha \beta \qty(\frac{2}{\alpha + \beta})^2
+    }
+\end{equation}
+which are related by $R + T = 1$ (reflects conservation of energy).
 
 
 

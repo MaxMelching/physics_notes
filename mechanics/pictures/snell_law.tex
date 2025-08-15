@@ -1,0 +1,102 @@
+% Author: Max Melching, 2025
+% With elements from https://tikz.net/dynamics_spring/
+\documentclass[border=3pt,tikz]{standalone}
+
+
+\usepackage{tikz}
+\usepackage{pgfplots} % for the axis environment
+\usepackage[outline]{contour}
+\usepackage{xcolor}
+\usepackage{newtxmath}  % Use Times in math mode
+\usepackage{tgpagella}  % Use Pagella in text
+
+\usepackage{physics}
+
+
+\colorlet{mydarkred}{red!70!black}
+\colorlet{mydarkgreen}{green!40!black}
+% \colorlet{lightcol}{black!10!yellow}
+\colorlet{lightcol}{red!96!black}
+
+
+\usetikzlibrary{arrows.meta, calc, decorations.markings}
+
+\tikzset{
+    >={Stealth[inset=0,angle'=27]},
+    light/.style={
+        thick,
+        lightcol,
+        opacity=#1,
+        % ->,
+        postaction=decorate,
+        decoration={
+            markings,
+            mark=at position 0.55 with \arrow{>}% V2
+        },
+    },
+    light/.default=1,
+    interface/.style={
+        thick,
+        black,
+    },
+    interface normal/.style={
+        dashed,
+        semithick,
+        gray,
+        opacity=0.6,
+    },
+    medium/.style={
+        fill,
+        draw=none,
+        % gray,
+        % 
+        % cyan!20!white,
+        % blue!20!cyan!30!white,
+        % 
+        outer color=blue!25!cyan!30!white,
+        % outer color=cyan!30!white,
+        inner color=white,
+    },
+    angle/.style={
+        thick,
+        mydarkgreen,
+        opacity=#1,
+    },
+    angle/.default=1,
+}
+
+
+
+\begin{document}
+
+
+\def\thetaone{42}
+\def\thetatwo{24}
+\def\raylen{4}
+\def\interfaceheight{0.75*\raylen}
+\def\arclen{1.5}
+
+% -- Specify percentages of reflected and transmitted light
+\def\R{0.4}
+\def\T{0.6}
+
+
+\begin{tikzpicture}
+    \draw[medium] (0,-\interfaceheight) rectangle (\raylen,\interfaceheight);
+    % \draw[interface] (0,\interfaceheight) -- (0,-\interfaceheight);
+    \draw[interface normal] (-\raylen,0) -- (\raylen,0);
+    
+    \draw[light] (\thetaone-180:\raylen) -- (0,0);
+    \draw[angle] (-\arclen,0) arc (-180:-180+\thetaone:\arclen) node[midway,left] {$\theta_I$};
+    \draw[light=\T] (0,0) -- (\thetatwo:\raylen);
+    \draw[angle=\T] (\arclen,0) arc (0:\thetatwo:\arclen) node[midway,right] {$\theta_T$};
+
+    \draw[light=\R] (0,0) -- (-180-\thetaone:\raylen);
+    \draw[angle=\R] (-\arclen,0) arc (-180:-180-\thetaone:\arclen) node[midway,left] {$\theta_R$};
+
+    \draw (-0.1\raylen,0.8*\interfaceheight) node[left] {$n_1, v_1$};
+    \draw (0.1\raylen,0.8*\interfaceheight) node[right] {$n_2, v_2$};
+\end{tikzpicture}
+
+
+\end{document}
