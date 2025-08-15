@@ -2206,10 +2206,36 @@ Any time that the fields $\vec{E}, \vec{B}$ (or likewise $\vec{D}, \vec{H}$) cro
 
 
         \subsection{Potentials}
+In electro-, magnetostatics, it was possible to solve the Maxwell equations for general charge and current distributions -- the solutions were given by Coulomb's law and the Biot-Savart law. When trying to do the same thing for the Maxwell equations from electrodynamics, it turns out to be advantageous to not deal with the fields directly, but their potentials instead. (This was possible in statics as well, we have discussed the Poisson equation in great detail.)
+% -> more common approach than solving Maxwell equations (kind of annoying, complicated): solve equivalent equations for potentials (so that Maxwell are automatically fulfilled), determine fields from potentials; in statics, this amounted to solving Poisson equations, and here ...
 
--> more common approach than solving Maxwell equations (kind of annoying, complicated): solve equivalent equations for potentials (so that Maxwell are automatically fulfilled), determine fields from potentials; in statics, this amounted to solving Poisson equations, and here ...
+To begin the work on this, we have to revisit the potentials themselves first. The vector potential $\vec{A}$ still exists because $\vec{B}$ remains divergence-free. The definition of the scalar potential $\varphi$ for $\vec{E}$, on the other hand, will have to be modified because $\vec{E}$ can now have non-zero curl. Fortunately, the modification is straightforward since
+\begin{equation}
+    \curl \vec{E} + \pdv{\vec{B}}{t} = \curl \vec{E} + \pdv{\curl \vec{A}}{t} = \curl \qty(\vec{E} + \pdv{\vec{A}}{t})
+\end{equation}
+yields a new quantity that has vanishing curl. Therefore,
+\begin{equation}
+    \vec{E} + \pdv{\vec{A}}{t} = - \grad \varphi
+    \quad \Leftrightarrow \quad
+    \eqbox{
+        \vec{E} = - \grad \varphi - \pdv{\vec{A}}{t}
+    } \, .
+\end{equation}
 
-for potentials in Lorenz gauge, generalization of Poisson reads
+
+general Poisson equations: Eq.~(10.4), (10.5) in \cite{Griffiths_2017}
+
+
+\todo{comment more explicitly on gauge freedom}
+
+
+We can choose Coulomb gauge here as well. But more useful is the \Def{Lorenz gauge}
+\begin{equation}
+    \eqbox{
+        \div \vec{A} = - \mu_0 \epsilon_0 \pdv{V}{t}
+    }
+\end{equation}
+because it allows to write the Poisson equations as
 \begin{equation}
     \eqbox{
         \square \varphi = - \frac{\rho}{\epsilon_0}
@@ -2219,6 +2245,85 @@ for potentials in Lorenz gauge, generalization of Poisson reads
         \square \vec{A} = - \mu_0 \vec{j}
     } \, .
 \end{equation}
+where
+\begin{equation}
+    \eqbox{
+        \square = \laplacian - \mu_0 \epsilon_0 \pdv[2]{t}
+    }
+\end{equation}
+is the \Def{d'Alembertian}.
+
+-> super nice because the two Poisson equations have a pleasing symmetry here (sam differential operator, equal to source of respective field times the corresponding vacuum constant)
+
+
+Henceforth, the Lorenz gauge will always be used, if not specified otherwise.
+
+
+
+            \paragraph{Retardation}
+goal in this section: add time-dependence to potential formulas; but when doing this, we must be careful: if the source is far away, we see a field that has been produced in the past; this sounds trivial and in accordance with our intuition, but is not necessarily easy to account for; more specifically, for position $\vec{r}$, time $t$ of reception and $\vec{r}'$ of emission, the \Def{retarded time} of emission is
+\begin{equation}\label{eq:retarded_time}
+    \eqbox{
+        t_r \coloneqq t - \frac{\norm{\vec{r} - \vec{r}'}}{c}
+    }
+\end{equation}
+
+-> we must account for retardation properly in the source integral for potentials, which results in the \Def{retarded potentials}
+\begin{equation}
+    \eqbox{
+        V(\vec{r}, t) = \fpeps \int \frac{\rho(\vec{r}', t_r)}{\norm{\vec{r} - \vec{r}'}} \, d\mathcal{V}'
+    } \qquad
+    \eqbox{
+        \vec{A}(\vec{r}, t) = \fpmu \int \frac{\vec{j}(\vec{r}, t_r)}{\norm{\vec{r} - \vec{r}'}} \, d\mathcal{V}'
+    }
+\end{equation}
+
+-> interestingly, there was not much to do: only important thing/subtlety was to add retarded time $t_r = t - \frac{\norm{\vec{r} - \vec{r}'}}{c}$; even more interesting about this: we cannot do same thing for fields (as can be verified via relation of potentials to fields; see later on)
+
+
+
+fields can be calculated from retarded potentials, results in \Def{Jefimenko's equations}:
+\begin{align}
+    &\eqbox{
+        \vec{E} = \fpeps \int \qty[\frac{\rho(\vec{r}', t_r)}{\norm{\vec{r} - \vec{r}'}^2} \unitvec{\vec{r} - \vec{r}'} + \frac{\dot{\rho}(\vec{r}', t_r)}{c \norm{\vec{r} - \vec{r}'}} \unitvec{\vec{r} - \vec{r}'} - \frac{\dot{\vec{j}}(\vec{r}', t_r)}{c^2 \norm{\vec{r} - \vec{r}'}}] \, d\mathcal{V}'
+    }
+    \\
+    &\eqbox{
+        \vec{B} = \fpmu \int \qty[\frac{\vec{j}(\vec{r}', t_r)}{\norm{\vec{r} - \vec{r}'}^2} + \frac{\dot{\vec{j}}(\vec{r}', t_r)}{c \norm{\vec{r} - \vec{r}'}}] \cross \unitvec{\vec{r} - \vec{r}'} \, d\mathcal{V}'
+    }
+\end{align}
+which are the generalizations of the Coulomb, Biot-Savart law to electrodynamics, i.e.~including proper time-dependence.
+
+
+
+            \paragraph{Point Charges}
+for point charges, the retarded potentials are called \Def{Lienard-Wiechert potentials}:
+\begin{equation}
+    \eqbox{
+        V(\vec{r}, t) = \fpeps \frac{q c}{(\norm{\vec{r} - \vec{r}'} c - (\vec{r} - \vec{r}') \cdot \vec{v})'}
+    } \qquad
+    \eqbox{
+        \vec{A}(\vec{r}, t) = \frac{v}{c^2} V(\vec{r}, t)
+    }
+\end{equation}
+
+
+interesting: relation between E-field and B-field now involves the retarded position,
+\begin{equation}
+    \eqbox{
+        \vec{B}(\vec{r}, t) = \frac{\vec{r} - \vec{r}'}{c} \cross \vec{E}(\vec{r}, t)
+    }
+\end{equation}
+-> magnetic field of point charge is perpendicular to electric field and to vector from retarded position
+-> for constant velocity, this turns into
+\begin{equation}
+    \eqbox{
+        \vec{B}(\vec{r}, t) = \frac{\vec{v}}{c^2} \cross \vec{E}(\vec{r}, t)
+    }
+\end{equation}
+
+
+-> interesting figure for B-field is Fig.~10.11 in \cite{Griffiths_2017}
 
 
 
