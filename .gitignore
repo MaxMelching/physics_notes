@@ -29,6 +29,8 @@
 
 *.xml
 
+*SAVE-ERROR
+
 
 # -- Only main pdf will be saved
 *.pdf
@@ -44,3 +46,8 @@ relativity/code/Calculations.nb
 gwheadline*
 
 *template.txt
+
+# -- gnuplot intermediate files
+*.gnuplot
+
+*.table
