@@ -56,8 +56,13 @@
     },
     ruler/.style={
         thick,
-        % mydarkblue,
         mydarkorange,
+    },
+    primed ruler/.style={
+        thick,
+        teal,
+        densely dotted,
+        % opacity=0.5,
     },
 }
 
@@ -153,6 +158,9 @@
         
         \FPeval{\tintersecthalf}{(\doppleronetwo*\doppleronetwo*\tintersect+\tintersect)/2}
         \coordinate (Pshift) at (0, \tval - \tintersecthalf);
+
+
+        \coordinate (I2) at (0, 4.65);  % Also found by hand. Though, again, there must be way to calculate hits
     \end{scope}
 
     \begin{scope}[
@@ -227,16 +235,13 @@
 
 
     % -- Rulers
+    \draw[ruler] (ABhalfl) -- (Fr);
+    \draw[primed ruler] (I) -- (Fr);
     \begin{scope}[
-        ruler,
+        opacity=0.5
     ]
-        \draw (ABhalfl) -- (Fr);
-        \draw[
-            densely dotted,
-            % dotted,
-            opacity=0.5,
-        % ] (CDhalfr) -- (El);
-        ] (Fl) -- (Fr);
+        \draw[ruler] (I2) -- (Fr);
+        \draw[primed ruler] (Fl) -- (Fr);
     \end{scope}
 
 
@@ -252,7 +257,8 @@
     \node[left] at (El) {\contour{white}{$\tau$}};
     \node[right] at (Fr) {\contour{white}{$\tau' = \tau$}};
 
-    \draw[fill, teal] (I) circle(0.08) node[below] {\contour{white}{$I$}};
+    \draw[primed ruler, fill, draw=none] (I) circle(0.08) node[below] {\contour{white}{$I$}};
+    \draw[ruler, fill, draw=none, opacity=0.75] (I2) circle(0.08) node[below] {\contour{white}{$I'$}};
 \end{tikzpicture}
 
 
