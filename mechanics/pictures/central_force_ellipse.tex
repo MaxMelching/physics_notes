@@ -23,6 +23,7 @@
     >={Stealth[inset=0,angle'=27]},
     mylabel/.style={
         midway,
+        fill=white,
     },
     mylabelarrow/.style={
         <->,
@@ -82,10 +83,10 @@
     \draw[orbit] (0,0) ellipse (\a cm and \b cm);
 
     \draw[innerline] (-\a, 0) -- (\a, 0);
-    \draw[mylabelarrow, shift={(0,-1.1*\b)}] (-\a, 0) -- (0, 0) node[mylabel, below] {$a$};
+    \draw[mylabelarrow, shift={(0,-1.1*\b)}] (-\a, 0) -- (0, 0) node[mylabel] {$a$};
 
     \draw[innerline] (0, -\b) -- (0, \b);
-    \draw[mylabelarrow, shift={(1.1*\a, 0)}] (0, \b) -- (0, 0) node[mylabel, right] {$b$};
+    \draw[mylabelarrow, shift={(1.1*\a, 0)}] (0, \b) -- (0, 0) node[mylabel] {$b$};
 
 
     % -- Focal points
@@ -93,14 +94,14 @@
     \coordinate (F2) at (\e, 0);
 
     \draw[foci] (F1) circle(0.08) node[focilabel, below] {$F_1 = O$};
-    \draw[mylabelarrow, shift={(0,-1.1*\b)}] (\e, 0) -- (0, 0) node[mylabel, below] {$e$};
+    \draw[mylabelarrow, shift={(0,-1.1*\b)}] (\e, 0) -- (0, 0) node[mylabel] {$e$};
     \draw[foci] (F2) circle(0.08) node[focilabel, below] {$F_2$};
 
     % -- Ellipse quantities
     % \draw[mylabelarrow] (F1) --++ (0, \b^2/\a) node[mylabel, right] {$p$};  % Semi-latus rectum
     \def\p{\b^2/\a}
     \coordinate (p) at ($ (F1) + (0, \p) $);
-    \draw[mylabelarrow] (F1) -- (p) node[mylabel, right] {$p$};  % Semi-latus rectum
+    \draw[mylabelarrow] (F1) -- (p) node[mylabel] {$p$};  % Semi-latus rectum
 
     % \coordinate (P) at ($ (\p / {(1 + \eps)}, 0) $);
     % \coordinate (A) at ($ - (p) / (1 - \eps) $);
@@ -123,8 +124,8 @@
     \def\relcordangle{42}
     \coordinate (relcoord) at ({\a*cos(\relcordangle)}, {\b*sin(\relcordangle)});
     
-    \draw[COMbody] (relcoord) circle (0.07) node[above, COMbodylabel] {$\mu$};
-    \draw[->, thick, COMbody] (F1) -- (relcoord) node[midway, below, COMbodylabel] {$\vec{r}$};
+    \draw[COMbody] (relcoord) circle (0.07) node[COMbodylabel, above] {$\mu$};
+    \draw[->, thick, COMbody] (F1) -- (relcoord) node[COMbodylabel, midway, fill=white,] {$\vec{r}$};
 \end{tikzpicture}
 
 \end{document}
