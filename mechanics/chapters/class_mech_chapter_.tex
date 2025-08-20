@@ -1225,7 +1225,12 @@ As promised, we now look at the analogs of Eq.~\eqref{eq:biot_savart_general}, w
 
 % \begin{ex}[Magnetic Field of a Filamentary Current]
 \begin{ex}[Line/Filamentary Current]
-    for filamentary current, the wall thickness/are $dS \rightarrow 0$, which means $j \rightarrow \infty$. However, $\int_\mathcal{V} \vec{j} d\mathcal{V} = \int_\mathcal{V} j \vec{n}_\mathcal{S} \, d\mathcal{S} \, dr = \int_\mathcal{C} \int_\mathcal{S} \dv{I}{\mathcal{S}} d\mathcal{S} \, \vec{n}_\mathcal{S} dr = \int_\mathcal{C} I d\vec{r}$ where $\mathcal{C}$ is the curve following the filamentary current and $d\vec{r}$ is the line element of $\mathcal{C}$. $I$ denotes the current at each point in the filament.
+\label{ex:bfield_fila_current}
+    for filamentary current, the wall thickness/are $dS \rightarrow 0$, which means $j \rightarrow \infty$. However,
+    \begin{equation}
+        \int_\mathcal{V} \vec{j} d\mathcal{V} = \int_\mathcal{V} j \vec{n}_\mathcal{S} \, d\mathcal{S} \, dr = \int_\mathcal{C} \int_\mathcal{S} \dv{I}{\mathcal{S}} d\mathcal{S} \, \vec{n}_\mathcal{S} dr = \int_\mathcal{C} I d\vec{r}
+    \end{equation}
+    where $\mathcal{C}$ is the curve following the filamentary current and $d\vec{r}$ is the line element of $\mathcal{C}$. $I$ denotes the current at each point in the filament.
 
     this is original Biot-Savart law; corresponding force is called Ampere force
 
@@ -1258,7 +1263,7 @@ As promised, we now look at the analogs of Eq.~\eqref{eq:biot_savart_general}, w
         = \int \vec{I} \cross \vec{B} \, d\mathcal{C}
         = \int I d\vec{\mathcal{C}} \cross \vec{B}
     \end{equation}
-    since $\vec{I} = I d\vec{\mathcal{C}}$; for uniform $I$, we can pull outside the integral
+    since $\vec{I} = I \unitvec{\mathcal{C}}$; for uniform $I$, we can pull outside the integral
 
 
     Griffiths 5.40
@@ -1366,6 +1371,17 @@ We need a closed curve here to be able to relate $\vec{B}$ to the total flux pas
 
         \subsection{Vector Potential}
 In Eq.~\eqref{eq:definition_vector_potential}, we had noticed something very interesting, but skipped over it to not get carried away: the magnetic field, just like the electric field, has a potential. The two potentials are, however, different in several aspects, some of them quite significant. For instance, $\vec{E}$ has a scalar potential $\varphi$, while $\vec{B}$ has a vector potential; moreover, the relation between the respective field and potential looks very different (gradient vs.~curl).
+
+
+\begin{ex}[Line/Filamentary Current]
+    By the same argument as in Example \ref{ex:bfield_fila_current}, vector potential for line current simplifies to
+    \begin{equation}\label{eq:vec_pot_fila_current}
+        \vec{A}(\vec{r})
+        = \fpmu \int_{\mathcal{V}'} \frac{\vec{j}(\vec{r}')}{\norm{\vec{r} - \vec{r}'}} \, d\mathcal{V}'
+        = \fpmu \int_{\mathcal{C}'} \frac{\vec{I}(\vec{r}')}{\norm{\vec{r} - \vec{r}'}} \, d\mathcal{C}'
+        = \fpmu \int_{\mathcal{C}'} \frac{I(\vec{r}')}{\norm{\vec{r} - \vec{r}'}} \, d\vec{\mathcal{C}'}
+    \end{equation}
+\end{ex}
 
 
 Let us now study another aspect of $\vec{A}$ and how (if at all) it resembles the behavior of $\varphi$, namely how it may be determined. For $\varphi$, we could insert its definition into one of the Maxwell equations and find the Poisson equation; similarly, inserting Eq.~\eqref{eq:definition_vector_potential} into Eq.~\eqref{eq:maxwell_magnstat_two_diff} yields
@@ -2287,10 +2303,12 @@ fields can be calculated from retarded potentials, results in \Def{Jefimenko's e
     &\eqbox{
         \vec{E} = \fpeps \int \qty[\frac{\rho(\vec{r}', t_r)}{\norm{\vec{r} - \vec{r}'}^2} \unitvec{\vec{r} - \vec{r}'} + \frac{\dot{\rho}(\vec{r}', t_r)}{c \norm{\vec{r} - \vec{r}'}} \unitvec{\vec{r} - \vec{r}'} - \frac{\dot{\vec{j}}(\vec{r}', t_r)}{c^2 \norm{\vec{r} - \vec{r}'}}] \, d\mathcal{V}'
     }
+    \label{eq:jefimenko_1}
     \\
     &\eqbox{
         \vec{B} = \fpmu \int \qty[\frac{\vec{j}(\vec{r}', t_r)}{\norm{\vec{r} - \vec{r}'}^2} + \frac{\dot{\vec{j}}(\vec{r}', t_r)}{c \norm{\vec{r} - \vec{r}'}}] \cross \unitvec{\vec{r} - \vec{r}'} \, d\mathcal{V}'
     }
+    \label{eq:jefimenko_2}
 \end{align}
 which are the generalizations of the Coulomb, Biot-Savart law to electrodynamics, i.e.~including proper time-dependence.
 
@@ -2432,28 +2450,10 @@ But the definition of $\tensor{T}$ in turn is really complicated; as we can see,
 I mean, we can write it down:
 \begin{equation}
     \eqbox{
-        \vec{l} = \vec{r} \cross \vec{g} = \epsilon_0 \vec{r} \cross \qty(\vec{E} \cross \vec{B})
+        \vec{l} = \vec{r} \cross \vec{g} = \epsilon_0 \, \vec{r} \cross \qty(\vec{E} \cross \vec{B})
     }
 \end{equation}
 -> does not just vanish in general, we should be aware of this
-
-
-
-        \subsection{Radiation}
-accelerated charges are special; we have energy that is transported away from them in a process called \Def{radiation} (we say that the energy is radiated away)
-
-
-common thing to study: radiation from a dipole (motivated by multipole expansion)
--> what comes out are electromagnetic waves
--> electric and magnetic fields again have super similar behavior
-
-
-also interesting: radiation of point charge (but this is more complicated)
-
-
-radiation reaction: accelerating charges radiate, which results in a decrease in energy -- \emph{kinetic} energy, to be more precise; direction implication: same force acting on charged particle vs.~neutral one results in different accelerations; formally (to be consistent with Newtonian notions), we can attribute this to a force from radiation back onto the charged particle; this whole process is called \Def{radiation reaction}
-
--> in a more realistic model, this is due to self-force: an extended charge distribution exerts a force on itself (each particle onto others in the configuration; these forces do not cancel anymore, in the body, i.e.~Newton's third law breaks down there)
 
 
 
@@ -2579,6 +2579,8 @@ $\vec{k}$ is the \Def{wave vector}, which is defined by demanding (i) its direct
 
 -> electric and magnetic field are in phase!
 
+-> also, both fields are perpendicular to direction of propagation, i.e.~to $\vec{k}$. We call such waves \Def{transverse}
+
 
 
             \paragraph{Energy, Momentum}
@@ -2630,7 +2632,7 @@ Similarly,
     } \, .
 \end{equation}
 
-As we have learned, EM fields carry momentum along with energy. For EM fields, this momentum is called \Def{radiation pressure}. Assuming $\vec{k}$ is perpendicular to its surface $A$, the momentum exerted on a body over a time period $\Delta t$ is
+As we have learned, EM fields carry momentum along with energy. For EM fields, this momentum is called \Def{radiation pressure}. Assuming $\vec{k}$ is perpendicular to its surface $A$, the momentum imprinted on a body over a time period $\Delta t$ is
 \begin{equation}
     \Delta \vec{p} = \expval{\vec{g}} A c \Delta t \, ,
 \end{equation}
@@ -3115,6 +3117,288 @@ We put something into the hollow pipe, namely a wire (need not fully fill the in
 
 -> they are also non-dispersive, i.e.~$k = \frac{\omega}{c}$
 
+
+
+        \subsection{Radiation}
+The crucial novelty in electrodynamics is time-dependence, which causes many new effects to show up. One of them is the modification of the Coulomb, Biot-Savart laws to Jefimenko's equations \eqref{eq:jefimenko_1}, \eqref{eq:jefimenko_2}. One of the main changes is that they now involve terms $\propto \dot{\vec{j}}$ and since $\vec{j} = \rho \vec{v}$, this is a term proportional to acceleration. A specialty of the corresponding term is that it is proportional to $\frac{1}{r}$ rather than the usual $\frac{1}{r^2}$. As we shall see now, this property is has a very interesting effect.
+
+
+As quite often, we begin by asking a simple question: if we have some charge, current distribution producing an EM field, what is the power emitted by it over a sphere of radius $r$? The answer is easy to write down, placing the source distribution in/close to the origin for simplicity:
+\begin{equation}
+    \eqbox{
+        P(r, t) = \oint \vec{S} \cdot d\vec{\mathcal{S}} = \frac{1}{\mu_0} \oint (\vec{E} \cross \vec{B}) \cdot d\vec{\mathcal{S}}
+    } \, .
+\end{equation}
+Now say $r$ is really large, in fact approaching $\infty$. Then the power over the entire sphere reads
+\begin{equation}\label{eq:power_radiation}
+    \eqbox{
+        P_\mathrm{rad}(t_0) = \lim_{r \rightarrow \infty} P(r, t_0 + \frac{r}{c})
+    }
+\end{equation}
+where we must now account for retardation effects, which effectively means we see the effect of fields from the time $t_0 = t - \frac{r}{c}$ and not $t$ itself. This power corresponds to an amount of energy per unit time that is carried away from the EM source field to $\infty$, which means it is important to quantify what contributes. We call this process \Def{radiation}\footnote{What we call radiation here is a special type of it, namely radiation to infinity. The name is still fine, it is just important to note that we do not look at more general types of radiation here.} and say that energy is \enquote{radiated away} (this is where the subscript ${}_\mathrm{rad}$ in Eq.~\eqref{eq:power_radiation} came from). But which parts of the EM field source do radiate? Since the area of our sphere is $4 \pi r^2$, and since the Poynting vector involves products of $\vec{E}, \vec{B}$, the only term that survives the $\lim_{r \rightarrow \infty}$ is the product of the terms for $\dot{\rho}, \dot{\vec{j}}$ from Eqs.~\eqref{eq:jefimenko_1}, \eqref{eq:jefimenko_2}. (We do not have to worry about infinities when carrying out this limit because there is no term of higher order than $\frac{1}{r^2}$ in the Poynting vector.) This is why the introduction to this subsection mentioned the special role of accelerated charges -- they are responsible for radiation; static sources do not radiate at all (which has the interesting consequence that they do not loose energy via this channel).
+
+
+% common thing to study: radiation from a dipole (motivated by multipole expansion)
+% -> what comes out are electromagnetic waves
+% -> electric and magnetic fields again have super similar behavior
+
+
+From our discussion, the path to discussing radiation from certain fields is clear: find the terms in $\vec{E}, \vec{B}$ that go $\propto \frac{1}{r}$, write down the $\propto \frac{1}{r^2}$ part of $\vec{S}$ from them, integrate $\vec{S}$ over a sphere, and finally carry out the limit $\lim_{r \rightarrow \infty}$.
+
+
+
+            \paragraph{Electric Dipole}
+Classic example for many things, radiation as well.
+
+
+-> talk about model for oscillating dipole that we use; laos placement/positions of the two charges
+
+
+The appropriate potential to use is just the usual dipole potential, but with retardation effects incorporated:
+\begin{equation}
+    V(\vec{r}, t)
+    = \fpeps \qty[\frac{q(t)}{\norm{\vec{r} - \vec{r}_+}} + \frac{- q(t)}{\norm{\vec{r} - \vec{r}_-}}]
+    = \fpeps q_0 \qty[\frac{\cos\qty[\omega (t - \norm{\vec{r} - \vec{r}_-} / c)]}{\norm{\vec{r} - \vec{r}_+}} - \frac{\cos\qty[\omega (t - \norm{\vec{r} - \vec{r}_-} / c)]}{\norm{\vec{r} - \vec{r}_-}}]
+    \, .
+\end{equation}
+Our first step is to extract the $\frac{1}{r}$ terms from this potential, which can be done by making the usual dipole approximation $d \ll r$. With that,
+\begin{align*}
+    \frac{1}{\norm{\vec{r} - \vec{r}_\pm}}
+    &= \frac{1}{\sqrt{r^2 \mp r d \cos \theta + (d/2)^2}}
+    \\
+    &\simeq \frac{1}{\sqrt{r^2 \mp r d \cos \theta}}
+    \\
+    &= \frac{1}{r} \frac{1}{\sqrt{1 \mp \frac{d}{r} \cos \theta}}
+    \\
+    &= \frac{1}{r} \frac{1}{1 \mp \frac{d}{2 r} \cos \theta}
+    \\
+    &\simeq \frac{1}{r} \qty(1 \pm \frac{d}{2 r} \cos \theta)
+    \, .
+\end{align*}
+Similarly,
+\begin{align*}
+    \cos\qty[\omega (t - \norm{\vec{r} - \vec{r}_\pm} / c)]
+    &\simeq \cos\qty[\omega (t - r / c) \pm \frac{\omega d}{2 c} \cos \theta]
+    \\
+    &= \cos\qty[\omega (t - r / c)] \cos\qty[\frac{\omega d}{2 c} \cos \theta] \mp \sin\qty[\omega (t - r / c)] \sin\qty[\frac{\omega d}{2 c} \cos \theta]
+    \, .
+\end{align*}
+The second approximation we invoke is $d \ll \frac{c}{\omega}$, which allows us to get rid of the second $\cos, \sin$ factors in each term:
+\begin{align*}
+    \cos\qty[\omega (t - r / c) \pm \frac{\omega d}{2 c} \cos \theta]
+    &= 
+    \cos\qty[\omega (t - r / c)] \cos\qty[\frac{\omega d}{2 c} \cos \theta] \mp \sin\qty[\omega (t - r / c)] \sin\qty[\frac{\omega d}{2 c} \cos \theta]
+    \\
+    &\simeq \cos\qty[\omega (t - r / c)] \mp \sin\qty[\omega (t - r / c)] \frac{\omega d}{2 c} \cos \theta
+    \, .
+\end{align*}
+Physically, this approximation means that the dipole is essentially a point source, its spatial extent has no impact on the phase of the EM field. The potential now becomes
+\begin{align}
+    \eqbox{V(\vec{r}, t)}
+    &= \fpeps q_0 \qty(\cos\qty[\omega (t - r / c)] - \sin\qty[\omega (t - r / c)] \frac{\omega d}{2 c} \cos \theta) \frac{1}{r} \qty(1 + \frac{d}{2 r} \cos \theta)
+    \notag\\
+    &\quad - \fpeps q_0 \qty(\cos\qty[\omega (t - r / c)] + \sin\qty[\omega (t - r / c)] \frac{\omega d}{2 c} \cos \theta) \frac{1}{r} \qty(1 - \frac{d}{2 r} \cos \theta)
+    \notag\\
+    &= \fpeps q_0 \qty[
+        - \sin\qty[\omega (t - r / c)] \frac{1}{r} \frac{\omega d}{c} \cos \theta
+        + \cos\qty[\omega (t - r / c)] \frac{1}{r} \frac{d}{r} \cos \theta
+    ]
+    \notag\\
+    &=\eqbox{
+        \fpeps \frac{p_0 \cos \theta}{r} \qty[- \frac{\omega}{c} \sin\qty[\omega (t - r / c)] + \frac{1}{r} \cos\qty[\omega (t - r / c)]]
+    }
+    \label{eq:osc_dipole_potential_simplified_v1}
+    \, .
+\end{align}
+(This result checks out, as it reduces to Eq.~\eqref{eq:el_dipole_potential} in case of a non-oscillating dipole, $\omega = 0$.) However, we are interested not only in radii with $d \ll r$, but ultimately in the limit where $r \rightarrow \infty$. In this limit, $r$ will grow larger than any other quantity, so in particular $r \gg \frac{c}{\omega}$ and Eq.~\eqref{eq:osc_dipole_potential_simplified_v1} becomes
+\begin{equation}\label{eq:osc_dipole_potential_simplified_v2}
+    \eqbox{
+        V(\vec{r}, t) = - \fpeps \frac{\omega p_0 \cos \theta}{r c} \sin\qty[\omega (t - r / c)]
+    } \, .
+\end{equation}
+We call this area of large $r$ the \Def{radiation zone}.
+
+
+% -> we need several approximations: first, that dipole is small compared to radius we evaluate radiation at, $d \ll r$ (given for limit to infinity, but this we only carry out at later stage, so we should demand now \todo{right});
+% % second, $d c \ll \omega$, i.e.~the oscillation of the dipole field is not so fast that it becomes relevant for internal distances of dipole \todo{nah, this is wrong};
+% second, $d \ll \frac{c}{\omega}$ which serves two purposes, (i) the phase of the emitted fields fluctuates only on scales much larger than extension of dipole, enabling us to simplify the corresponding expression and (ii) the dipole is effectively a point source when it comes to the emitted fields, its spatial extent does not introduce amplitude/phase variations into the emitted fields (these two points are not really independent, but it's worth emphasizing them separately);
+% third, $r \gg \frac{c}{\omega}$
+
+
+After $V$, we must now determine $\vec{A}$ because both fields involve it in electrodynamics. For that, we must translate our charge configuration $q$ into a current:
+\begin{equation}
+    I = \dv{q}{t} = - q_0 \omega \sin(\omega t) \, .
+\end{equation}
+It is directed parallel to the $z$-axis, by definition of our setup. Since we are also dealing with a line current, Eq.~\eqref{eq:vec_pot_fila_current} yields (again, accounting for retardation)
+\begin{equation}
+    \vec{A}(\vec{r}, t) = \fpmu \int_{-d/2}^{d/2} \frac{- q_0 \omega \sin(\omega (t - \norm{\vec{r} - \vec{r}'} / c))}{\norm{\vec{r} - \vec{r}'}} \, dz \, \unitvec{z}
+    \simeq \fpmu \frac{- q_0 \omega \sin(\omega (t - r / c))}{r} \, dz \, \unitvec{z}
+\end{equation}
+where some quick thinking turned this into a much more pleasant expression. The reason that no explicit integration is required, but evaluation of the integrand at its center is sufficient, is that integration would introduce a factor of $d$ due to the integration limits; $d \ll r$ would immediately kill this term, and we just immediately take what would be left over.
+
+(Quick reminder: we are still working in the Lorenz gauge here. \todo{well, at least the potentials satisfy it... Did we have to do something special to impose it, though?})
+
+
+-> calculate fields
+
+This EM field looks like an EM wave, smells like an EM wave -- it \emph{is} an EM wave. Electric dipoles radiated electromagnetic waves! Here are its most important properties: the wave is not planar, but spherical instead (so still locally planar; the spherical nature is reflected in the $\frac{1}{r}$ dropoff); the direction of propagation is $\unitvec{r}$; propagation speed is $c$; the wave is monochromatic; $\vec{E}, \vec{B}$ are in phase, perpendicular, transverse, and their amplitudes are related by $E_0 = c B_0$.
+
+(Another quick note: now that we know radiation = EM waves, we can write approximations concisely as $d \ll \lambda \ll r$.)
+
+
+Our initial goal was to calculate the power radiated by an electric dipole. We are now very close to this goal, and one of the last steps is calculating the Poynting vector:
+\begin{equation}
+    \eqbox{\vec{S}}
+    = \frac{1}{\mu_0} \vec{E} \cross \vec{B}
+    = \eqbox{\frac{\mu_0}{c} \qty[\frac{p_0 \omega^2}{4 \pi} \frac{\sin \theta}{r} \cos\qty[\omega (t - r / c)]]^2 \unitvec{r}}
+    \, .
+\end{equation}
+Although Eq.~\eqref{eq:power_radiation} did not involve time-averaged quantities, we had already seen that for the specific case of EM waves, it makes more sense to use them. The intensity of radiation is
+\begin{equation}
+    \eqbox{
+        \expval{\vec{S}} = \frac{\mu_0 p_0^2 \omega^4}{32 \pi^2 c} \frac{\sin^2 \theta}{r^2} \unitvec{r}
+    } \, .
+\end{equation}
+-> notable: $\omega^4$! Fourth power is rare, and quite a lot
+
+-> also notable: no radiation for $\theta = 0$! (Which is direction of oscillation)
+
+
+The radiated power incident on a sphere, also averaged over one cycle, thus is
+\begin{equation}
+    \eqbox{\expval{P}}
+    = \int \expval{\vec{S}} \cdot d\vec{\mathcal{S}}
+    = \frac{\mu_0 p_0^2 \omega^4}{32 \pi^2 c} \int \frac{\sin^2 \theta}{r^2} r^2\sin \theta \, d\theta d\phi
+    = \eqbox{\frac{\mu_0 p_0^2 \omega^4}{12 \pi c}}
+    \, .
+\end{equation}
+
+
+\begin{ex}[Color of the Sky]
+    blue light has highest frequency from visible spectrum, red lowest
+
+    -> blue is scattered and re-radiated much more than red due to $\omega^4$-proportionality; there is some interesting line-of-sight argument involved, we see only portion of the oscillating dipoles (since they do not radiate along axis of oscillation)
+\end{ex}
+
+-> explain radiation resistance? Problem 11.3 in \cite{Griffiths_2017} (bottom line: losses through radiation are negligible compared to heat losses. so radiation resistance much smaller than ordinary resistance.)
+
+
+
+            \paragraph{Magnetic Dipole}
+we model magnetic dipole by alternating current in a closed wire loop with
+\begin{equation}
+    I(t) = I_0 \cos(\omega t)
+\end{equation}
+which yields
+\begin{equation}
+    \vec{m}(t) = \pi b^2 I(t) \unitvec{z} = m_0 \cos(\omega t) \unitvec{z} \, .
+\end{equation}
+
+
+-> approximations are now very similar and so are the resulting calculations; $b \ll r, b \ll \frac{c}{\omega}, r \gg \frac{c}{\omega}$; results in
+\begin{equation}
+    \eqbox{
+        \vec{A}(\vec{r}, t) = - \fpmu \frac{m_0 \omega}{c} \frac{\sin \theta}{r} \sin\qty[\omega (t - r / c)] \unitvec{\phi}
+    }
+\end{equation}
+
+-> moreover, the loop carries no net charge density, so there is no electric field produced by it and we can choose $V = 0$
+
+
+-> also produces EM waves, with same properties as oscillating electric dipole; in fact, also Poynting vector and power of radiation look very similar, only difference is scaling -- magnetic dipole radiation is clearly subdominant to electric dipole radiation:
+\begin{equation}
+    \eqbox{
+        \frac{P_\mathrm{magnetic}}{P_\mathrm{electric}} = \qty(\frac{\omega b}{c})^2
+    }
+\end{equation}
+(this is small because we have assumed $b \ll \frac{c}{\omega} \Leftrightarrow \frac{\omega b}{c} \ll 1$)
+
+
+
+            \paragraph{Arbitrary Sources}
+Can we say something about radiation from an arbitrary potential? Let's try to do so, using the same methods as before.
+
+
+-> key findings: effectively, what we do is carry out a multipole expansion (to an order that is capable of producing radiation); hierarchy of terms is electric dipole, magnetic dipole, electric quadrupole, magnetic quadrupole, etc.; also, this motivates previous examples
+
+
+calculations are kind of cumbersome, so we only note down results here
+
+-> fields in radiation zone:
+\begin{align}
+    &\eqbox{
+        \vec{E}(\vec{r}, t)
+        \simeq \fpmu \frac{1}{r} \qty[(\unitvec{r} \cdot \ddot{\vec{p}}) \unitvec{r} - \ddot{\vec{p}}]
+        = \fpmu \frac{1}{r} \, \unitvec{r} \cross (\unitvec{r} \cross \ddot{\vec{p}})
+        = \fpmu \ddot{\vec{p}} \frac{\sin \theta}{r} \unitvec{\theta}
+    }
+    \\
+    &\eqbox{
+        \vec{B}(\vec{r}, t)
+        \simeq - \fpmu \frac{1}{r c} \, \unitvec{r} \cross \ddot{\vec{p}}
+        = \fpmu \frac{\ddot{\vec{p}}}{c} \frac{\sin \theta}{r} \unitvec{\phi}
+    }
+\end{align}
+where all $\ddot{\vec{p}}$ are evaluated in $t_0 = t - r / c$
+
+-> corresponding Poynting vector:
+\begin{equation}
+    \eqbox{
+        \vec{S}(\vec{r}, t) = \frac{1}{\mu_0} \, \vec{E} \cross \vec{B} \simeq \frac{\mu_0}{16 \pi^2 c} (\ddot{\vec{p}})^2 \frac{\sin^2 \theta}{r^2} \unitvec{r}
+    }
+\end{equation}
+and thus we have power passing through large sphere of
+\begin{equation}
+    \eqbox{
+        P(r, t) = \oint \vec{S}(\vec{r}, t) \cdot d\vec{\mathcal{S}} \simeq \frac{\mu_0}{6 \pi c} \qty[\ddot{\vec{p}}\qty(t - \frac{r}{c})]^2
+    }
+\end{equation}
+with total radiated power of
+\begin{equation}
+    \eqbox{
+        P_\mathrm{rad} \simeq \frac{\mu_0}{6 \pi c} [\ddot{\vec{p}}(t_0)]^2
+    }
+\end{equation}
+
+-> properties that Griffiths considers noteworthy: $\vec{E} \perp \vec{B}$ and both are also perpendicular to direction of propagation $\unitvec{r}$; $E / B = c$ (always for radiation fields)
+
+
+
+            \paragraph{Point Charge}
+also interesting: radiation of point charge (but this is more complicated)
+
+
+
+\Def{Larmor formula}
+\begin{equation}
+    \eqbox{
+        P = \frac{\mu_0 p^2 a^2}{6 \pi c}
+    }
+\end{equation}
+(with acceleration $a$) and Lienard's relativistic generalization thereof are important results
+
+
+interesting: \Def{bremsstrahlung} is explained by this; say a charged particle (e.g., electron) hits a metal target; then it decelerates rapidly, radiating in the process
+
+
+
+radiation reaction: accelerating charges radiate, which results in a decrease in energy -- \emph{kinetic} energy, to be more precise; direction implication: same force acting on charged particle vs.~neutral one results in different accelerations; formally (to be consistent with Newtonian notions), we can attribute this to a force from radiation back onto the charged particle; this whole process is called \Def{radiation reaction}
+
+-> in a more realistic model, this is due to self-force: an extended charge distribution exerts a force on itself (each particle onto others in the configuration; these forces do not cancel anymore, in the body, i.e.~Newton's third law breaks down there)
+
+
+\Def{Abraham-Lorentz formula} for radiation reaction force:
+\begin{equation}
+    \eqbox{
+        \vec{F}_\mathrm{rad} = \frac{\mu_0 q^2}{6 \pi c} \dot{a}
+    }
+\end{equation}
+-> this is force on moving point charge that produces some fields and potentially also radiation; the force is exerted by the produced fields! (For charge distribution, \cite{Griffiths_2017} has nice phrasing for that: \enquote{the net force exerted by teh fields generated by different parts of the charge distribution acting on one another}.)
+-> it does \emph{not} fulfil $P = - \vec{F}_\mathrm{rad} \cdot \vec{v}$ for power radiated by the particle (as given by Larmor formula); is because of difference $\dot{a}$ vs.~$a^2$, where does that come from though? Well, because force acts over short ranges, where velocity fields are also present, and Larmor formula is power on huge sphere, where velocity fields have died out
+
+-> \cite{Griffiths_2017}: should rather be called \enquote{field reaction force} because dependence on $\dot{a}$ allows force even if no acceleration is present, and thus no radiation emitted
+
+-> yeah, this formula seems to have some weird implications. See end of 11.2.2 in \cite{Griffiths_2017}
 
 
 
