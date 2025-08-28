@@ -1,0 +1,691 @@
+\RequirePackage{tikz}
+\RequirePackage{pgfkeys}
+\RequirePackage{fp}
+\RequirePackage{xcolor}
+\RequirePackage{ifthen}  % For ifthenelse
+\RequirePackage{etoolbox}  % For toggles
+
+
+\usetikzlibrary{
+  calc,
+  intersections,
+  through,
+  backgrounds,
+  arrows.meta,
+} % https://tex.stackexchange.com/questions/31398/tikz-intersection-of-two-lines
+
+
+
+% -- General Styles -----------------------------------------------------------
+\colorlet{lightyellow}{black!10!yellow}
+
+
+\tikzset{
+  % vlorentz/.style={
+  %   cm={1/((1-((#1)*(#1)))^.5,#1*1/((1-((#1)*(#1)))^.5,#1*1/((1-((#1)*(#1)))^.5,1/((1-((#1)*(#1)))^.5,(0,0)}
+  % },
+  vlorentz/.code={%
+    \FPeval{\MinkDiag@gamma}{1/((1-((#1)*(#1)))^.5)}%
+    % \FPeval{\MinkDiag@betagamma}{#1*\MinkDiag@gamma}%
+    % 
+    \tikzset{
+        % cm={\MinkDiag@gamma,\MinkDiag@betagamma,\MinkDiag@betagamma,\MinkDiag@gamma,(0,0)}
+        cm={\MinkDiag@gamma,#1*\MinkDiag@gamma,#1*\MinkDiag@gamma,\MinkDiag@gamma,(0,0)}
+      },
+  },
+  >={Stealth[inset=0,angle'=27]},
+}
+
+
+
+% -- Minkowski Diagram --------------------------------------------------------
+\tikzset{
+  MinkDiag@grid/.style={
+    % thin,
+    very thin,
+    opacity=0.5,
+  },
+  MinkDiag@axis/.style={
+    ->,
+    semithick,
+  },
+}
+
+
+\pgfkeys{
+	/minkowskidiagram/.is family, /minkowskidiagram,
+	default/.style = {
+    vlorentz=0,
+    xmin=-3,
+    xmax=3,
+    tmin=-3,
+    tmax=3,
+    grid = true,
+    step=1,
+    color=black,
+    xlabel=$x$,
+    ylabel=$ct$,
+  },
+  vlorentz/.estore in = \MinkDiag@vlorentz,
+  xmin/.estore in = \MinkDiag@xmin,
+  xmax/.estore in = \MinkDiag@xmax,
+  tmin/.estore in = \MinkDiag@tmin,
+  tmax/.estore in = \MinkDiag@tmax,
+	grid/.estore in = \MinkDiag@grid,  % Bool
+	% step/.estore in = \MinkDiag@step,  % Grid step size
+	step/.code = {
+    \def\MinkDiag@step{#1}
+    \def\MinkDiag@axis@extension{0.5*\MinkDiag@step}
+  },  % Grid step size
+  color/.estore in = \MinkDiag@color,
+	% xlabel/.estore in=\MinkDiag@xlabel,
+	% ylabel/.estore in=\MinkDiag@ylabel,
+  xlabel/.code={
+    \ifthenelse{\equal{#1}{false}}{
+      \def\MinkDiag@xlabel{}
+    }{
+      \def\MinkDiag@xlabel{#1}
+    }
+  },
+  ylabel/.code={
+    \ifthenelse{\equal{#1}{false}}{
+      \def\MinkDiag@ylabel{}
+    }{
+      \def\MinkDiag@ylabel{#1}
+    }
+  },
+}
+
+
+% \def\MinkDiag@axis@extension{0.5*\MinkDiag@step}  % Would not get updated along with step. Rather do directly when step is set
+
+
+\newcommand{\minkowskidiagram}[1][]{%
+	\pgfkeys{/minkowskidiagram, default, #1}
+  
+  \begin{scope}[
+    vlorentz=\MinkDiag@vlorentz,
+    color=\MinkDiag@color,
+  ]
+    \draw[MinkDiag@axis] (\MinkDiag@xmin-\MinkDiag@axis@extension,0) -- (\MinkDiag@xmax+\MinkDiag@axis@extension,0) node[right] {\MinkDiag@xlabel};  % TODO: pos=1.05?
+    \draw[MinkDiag@axis] (0,\MinkDiag@tmin-\MinkDiag@axis@extension) -- (0,\MinkDiag@tmax+\MinkDiag@axis@extension) node[above] {\MinkDiag@ylabel};
+
+    \ifthenelse{\equal{\MinkDiag@grid}{true}}{
+      \draw[MinkDiag@grid,step=\MinkDiag@step] (\MinkDiag@xmin,\MinkDiag@tmin) grid (\MinkDiag@xmax,\MinkDiag@tmax);
+    }{}
+  \end{scope}
+}
+
+
+
+% -- Lightcone ----------------------------------------------------------------
+\tikzset{
+  MinkDiag@lightcone/.style={
+    % draw=none,
+    fill,
+    fill opacity=0.4,
+    lightyellow,
+  },
+}
+
+
+\newtoggle{MinkDiag@lightcone@future}
+\toggletrue{MinkDiag@lightcone@future}
+
+\newtoggle{MinkDiag@lightcone@past}
+\toggletrue{MinkDiag@lightcone@past}
+
+
+\pgfkeys{
+	/lightcone/.is family, /lightcone,
+	default/.style = {
+    x=0,
+    t=0,
+    height=1,
+    future=true,
+    past=true,
+    vlorentz=0,
+  },
+  x/.estore in = \MinkDiag@lightcone@x,
+  t/.estore in = \MinkDiag@lightcone@t,
+  height/.estore in = \MinkDiag@lightcone@height,
+  vlorentz/.estore in = \MinkDiag@lightcone@vlorentz,
+  future/.code = {\settoggle{MinkDiag@lightcone@future}{#1}},
+  past/.code = {\settoggle{MinkDiag@lightcone@past}{#1}},
+}
+
+
+\newcommand{\lightcone}[1][]{
+	\pgfkeys{/lightcone, default, #1}
+  
+  % \begin{scope}[
+  %   vlorentz=\MinkDiag@lightcone@vlorentz,
+  % ]
+  % \iftoggle{MinkDiag@lightcone@future}{
+  %   % \draw[MinkDiag@lightcone] (\MinkDiag@lightcone@x,\MinkDiag@lightcone@t) --++ (-\MinkDiag@lightcone@height,\MinkDiag@lightcone@height) --++ (2*\MinkDiag@lightcone@height,0) -- cycle;
+  %   % 
+  %   % -- Above code gets distorted by Lorentz transform
+  %   % \draw[MinkDiag@lightcone] (\MinkDiag@lightcone@x,\MinkDiag@lightcone@t)
+  %   %   --++ (-\MinkDiag@lightcone@height,\MinkDiag@lightcone@height)
+  %   %   ++ (\MinkDiag@lightcone@height,-\MinkDiag@lightcone@height)
+  %   %   --++ (\MinkDiag@lightcone@height,\MinkDiag@lightcone@height);
+  %   % 
+  %   % \draw[MinkDiag@lightcone] (\MinkDiag@lightcone@x,\MinkDiag@lightcone@t)
+  %   %   --++ (-\MinkDiag@lightcone@height,\MinkDiag@lightcone@height)
+  %   %   (\MinkDiag@lightcone@x,\MinkDiag@lightcone@t)
+  %   %   --++ (\MinkDiag@lightcone@height,\MinkDiag@lightcone@height);
+  %   % 
+  %   % \draw[MinkDiag@lightcone] (\MinkDiag@lightcone@x,\MinkDiag@lightcone@t)
+  %   %   ++ (-\MinkDiag@lightcone@height,\MinkDiag@lightcone@height)
+  %   %   --++ (\MinkDiag@lightcone@height,-\MinkDiag@lightcone@height)
+  %   %   --++ (\MinkDiag@lightcone@height,\MinkDiag@lightcone@height);
+  %   \draw[MinkDiag@lightcone] (\MinkDiag@lightcone@x,\MinkDiag@lightcone@t)
+  %     ++ (\MinkDiag@lightcone@height,\MinkDiag@lightcone@height)
+  %     --++ (-\MinkDiag@lightcone@height,-\MinkDiag@lightcone@height)
+  %     --++ (-\MinkDiag@lightcone@height,\MinkDiag@lightcone@height);
+  %   }{}
+    
+  %   \iftoggle{MinkDiag@lightcone@past}{
+  %     % \draw[MinkDiag@lightcone] (\MinkDiag@lightcone@x,\MinkDiag@lightcone@t) --++ (-\MinkDiag@lightcone@height,-\MinkDiag@lightcone@height) -- ++ (2*\MinkDiag@lightcone@height,0) -- cycle;
+  %     % 
+  %     % \draw[MinkDiag@lightcone] (\MinkDiag@lightcone@x,\MinkDiag@lightcone@t)
+  %     % --++ (-\MinkDiag@lightcone@height,-\MinkDiag@lightcone@height)
+  %     % ++ (\MinkDiag@lightcone@height,\MinkDiag@lightcone@height)
+  %     % --++ (\MinkDiag@lightcone@height,-\MinkDiag@lightcone@height);
+  %     }{}
+  % \end{scope}
+
+
+  
+  
+  % \begin{scope}[
+  %   vlorentz=\MinkDiag@lightcone@vlorentz,
+  %   shift={(\MinkDiag@lightcone@x,\MinkDiag@lightcone@t)},
+  % ]
+  % \iftoggle{MinkDiag@lightcone@future}{
+  %   \draw[MinkDiag@lightcone] (0,0)
+  %     ++ (-\MinkDiag@lightcone@height,\MinkDiag@lightcone@height)
+  %     --++ (\MinkDiag@lightcone@height,-\MinkDiag@lightcone@height)
+  %     --++ (\MinkDiag@lightcone@height,\MinkDiag@lightcone@height);
+  %     % -- Plus operations to avoid distortion by Lorentz transform
+  %   }{}
+    
+  %   % \iftoggle{MinkDiag@lightcone@past}{
+  %   % }{}
+  % \end{scope}
+
+  % TODO: is distortion maybe and intended effect?
+  
+  \begin{scope}[
+    vlorentz=\MinkDiag@lightcone@vlorentz,
+    shift={(\MinkDiag@lightcone@x,\MinkDiag@lightcone@t)},
+  ]
+    \coordinate (lightconepos) at (0,0);
+  \end{scope}
+  \iftoggle{MinkDiag@lightcone@future}{
+    \draw[MinkDiag@lightcone] (lightconepos)
+      ++ (-\MinkDiag@lightcone@height,\MinkDiag@lightcone@height)
+      --++ (\MinkDiag@lightcone@height,-\MinkDiag@lightcone@height)
+      --++ (\MinkDiag@lightcone@height,\MinkDiag@lightcone@height);
+    }{}
+    
+    \iftoggle{MinkDiag@lightcone@past}{
+    \draw[MinkDiag@lightcone] (lightconepos)
+      ++ (-\MinkDiag@lightcone@height,-\MinkDiag@lightcone@height)
+      --++ (\MinkDiag@lightcone@height,\MinkDiag@lightcone@height)
+      --++ (\MinkDiag@lightcone@height,-\MinkDiag@lightcone@height);
+    }{}
+}
+
+
+
+% -- Accelerated Worldine -----------------------------------------------------
+
+\pgfkeys{
+	/addacceleratedworldline/.is family, /addacceleratedworldline,
+	default/.style = {tstart = 0, tend = 1, v = 0, color = red},
+	tstart/.estore in = \acceleratedworldlineTstart,
+	tend/.estore in = \acceleratedworldlineTend,
+	v/.estore in = \acceleratedworldlineVelocity,
+	color/.estore in = \acceleratedworldlineColor
+}
+
+% Mandatory argument: x position of first event, y position of first event, x position of second event, y position of second event
+% Optional arguments: relative velocity (important: if negative, must be given as (-1) * v where v is the absolute value, otherwise error), color
+% starting points in #2, #3 and then starting velocity in #4, acceleration in #5; optional v is for Lorentz transform of world line
+\newcommand{\addacceleratedworldline}[5][]{%
+	\pgfkeys{/addacceleratedworldline, default, #1}
+
+  % Evaluate the Lorentz transformation
+  \FPeval{\calcgamma}{1/((1-((\acceleratedworldlineVelocity)*(\acceleratedworldlineVelocity)))^.5)} % More robust, allows negative v
+  \FPeval{\calcbetagamma}{\calcgamma*\acceleratedworldlineVelocity}
+
+	\FPeval{\calcgammanod}{1/((1-((#4)*(#4)))^.5)}
+
+	% Draw event
+	\draw[variable=\t, domain=\acceleratedworldlineTstart:\acceleratedworldlineTend, thick, smooth, \acceleratedworldlineColor, cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(0,0)}] plot ({#2 + 1 * (#5)^(-1) * (sqrt(1 + (#5 * \t + #4 * \calcgammanod)^2) - \calcgammanod)}, {#3 + \t}); % Dividing by a (#5) yields error for negative a, this version not
+
+	%\draw[domain=-4:4, very thick, smooth, variable=\t, color=purple] plot ({sqrt(1 + \t * \t)}, {\t});
+}
+
+
+
+% \draw[variable=\t, domain=\acceleratedworldlineTstart:\acceleratedworldlineTend, thick, smooth, \acceleratedworldlineColor, cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(0,0)}] plot ({#2 + 1 * (#5)^(-1) * (sqrt(1 + (#5 * \t + #4 * \calcgammanod)^2) - \calcgammanod)}, {#3 + \t});
+
+% \draw[acceleratedworldline=1] (0, 0);
+
+
+\usetikzlibrary{shapes}
+
+
+\pgfkeys{
+	/addacceleratedworldline/.is family, /addacceleratedworldline,
+	default/.style = {
+    tmin = 0,
+    tmax = 1,
+  },
+	tmin/.estore in = \acceleratedworldlineTstart,
+	tmax/.estore in = \acceleratedworldlineTend,
+}
+
+
+\tikzset{
+  aworldline/.code={
+	  \pgfkeys{/addacceleratedworldline, default, #1}
+  },
+}
+
+
+% \pgfdeclareshape{accelerated worldline}
+% {
+%   \anchor{center}{\pgfpointorigin}
+
+%   \backgroundpath{%
+%     \pgfmathsetmacro\calcgamma{1/sqrt(1-0.5^2)}
+%     \pgfmathsetmacro\calcbetagamma{0.5 * \calcgamma}
+%     \pgfmathsetmacro\calcgammanod{1/sqrt(1-0^2)}
+
+%     \def\acceleratedworldlineTstart{-1}
+%     \def\acceleratedworldlineTend{1}
+    
+%     % \def\acceleratedworldlineColor{blue}
+
+%     % The core drawing command
+%     \draw[
+%       variable=\t,
+%       domain=\acceleratedworldlineTstart:\acceleratedworldlineTend,
+%       smooth,
+%       % thick,
+%       % \acceleratedworldlineColor,
+%       cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(0,0)}
+%     ] plot ({1 * (\calcgammanod)^(-1) * (sqrt(1 + (\calcgammanod * \t)^2) - \calcgammanod)}, {\t});
+%   }
+
+%   % Optionally add more anchors if needed
+%   \anchor{customanchor}{
+%     \pgfpoint{1cm}{0.5cm}
+%   }
+% }
+% -- Working
+
+
+% \pgfdeclareshape{accelerated worldline shape}
+% {
+%   \anchor{center}{\pgfpointorigin}
+
+%   \backgroundpath{%
+%     \pgfmathsetmacro\calcgamma{1/sqrt(1-0.5^2)}
+%     \pgfmathsetmacro\calcbetagamma{0.5 * \calcgamma}
+%     \pgfmathsetmacro\calcgammanod{1/sqrt(1-0^2)}
+
+%     \def\acceleratedworldlineTstart{-1}
+%     \def\acceleratedworldlineTend{1}
+    
+%     \def\acceleratedworldlineColor{blue}
+
+%     % The core drawing command
+%     \draw[variable=\t, domain=\acceleratedworldlineTstart:\acceleratedworldlineTend, thick, smooth, \acceleratedworldlineColor, cm={\calcgamma,\calcbetagamma,\calcbetagamma,\calcgamma,(0,0)}]
+%       plot ({1 * (\calcgammanod)^(-1) * (sqrt(1 + (\calcgammanod * \t)^2) - \calcgammanod)}, {\t});
+%   }
+% }
+
+
+% \tikzset{
+%   accelerated worldline/.code={
+%     \pgfkeys{/addacceleratedworldline, default, #1}
+%     \tikzset{
+%       accelerated worldline/.style={
+%         shape=accelerated worldline shape,
+%       },
+%     }
+%   },
+% }
+
+% \tikzset{
+%   acceleration style/.code={
+%     \pgfkeys{/addacceleratedworldline, default, #1}
+%   },
+% }
+
+
+% -- Customizing
+
+\pgfkeys{
+	/addacceleratedworldline/.is family, /addacceleratedworldline,
+	default/.style = {
+    a = 0,
+    vlorentz = 0,
+    tmin = 0,
+    tmax = 1,
+  },
+	a/.estore in = \MinkDiag@acceleratedworldline@a,
+	vlorentz/.estore in = \MinkDiag@acceleratedworldline@vlorentz,
+	tmin/.estore in = \MinkDiag@acceleratedworldline@tmin,
+	tmax/.estore in = \MinkDiag@acceleratedworldline@tmax,
+}
+
+
+\pgfdeclareshape{accelerated worldline}
+{
+  \anchor{center}{\pgfpointorigin}
+
+  % Or use these anchors:
+  % \inheritsavedanchors[from=rectangle]
+  % \inheritanchorborder[from=rectangle]
+  % \inheritanchor[from=rectangle]{center}
+
+
+  \backgroundpath{%
+    \pgfmathsetmacro\calcgammanod{1/sqrt(1-\MinkDiag@acceleratedworldline@a^2)}
+
+    % The core drawing command
+    \draw[
+      variable=\t,
+      domain=\MinkDiag@acceleratedworldline@tmin:\MinkDiag@acceleratedworldline@tmax,
+      smooth,
+      vlorentz=\MinkDiag@acceleratedworldline@vlorentz,
+    ] plot ({1 * (\calcgammanod)^(-1) * (sqrt(1 + (\calcgammanod * \t)^2) - \calcgammanod)}, {\t});
+  }
+}
+
+
+\pgfkeys{/addacceleratedworldline, default}  % Initialize in case no acceleration style is set in first usage
+
+% \tikzset{
+%   acceleration style/.code={
+%     \pgfkeys{/addacceleratedworldline, default, #1}
+%   },
+% }
+\tikzset{
+  acceleration style/.code={
+    \pgfkeys{/addacceleratedworldline, default, #1}
+    \tikzset{
+      % % accelerated worldline/.style={
+      % accelerated style/.style={
+      %   shape=accelerated worldline,
+      % },
+      shape=accelerated worldline,
+    }
+  },
+}
+% -- Still draws nothing. Not working -> FIXED IT WHOOOP WHOOOP
+
+
+
+% -- Final version
+\tikzset{
+  accelerated worldline/.code={
+    \pgfkeys{/addacceleratedworldline, default, #1}
+    \tikzset{
+      shape=accelerated worldline,
+    }
+  },
+}
+
+
+
+% -- Rocket Icon --------------------------------------------------------------
+\definecolor{innerwindowblue}{HTML}{1eb7d7}
+\definecolor{outerwindowblue}{HTML}{202d3a}
+\colorlet{wingcolor}{red!96!black}
+
+
+\tikzset{
+  wing/.style={
+    draw=none,
+    fill,
+    % wingcolor,
+    % left color=wingcolor!70,
+    % right color=wingcolor,
+    left color=wingcolor!75!white,
+    right color=wingcolor!90!black,
+  },
+}
+
+
+% -- Inspired by https://s2.qwant.com/thumbr/474x508/5/8/3ad731058a5951d6b9cdd22afc69634079d81f287dd65b2f19c6c46013429a/OIP.OSHer5uSTpKK9NgnmdeGOgHaH8.jpg?u=https%3A%2F%2Ftse.mm.bing.net%2Fth%2Fid%2FOIP.OSHer5uSTpKK9NgnmdeGOgHaH8%3Fr%3D0%26pid%3DApi&q=0&b=1&p=0&a=0
+\pgfdeclareshape{rocket}
+{
+  \anchor{center}{\pgfpointorigin}
+  \anchor{north}{
+    \pgfpointorigin
+    \pgf@x=0pt
+    \pgf@y=2cm
+  }
+  \anchor{east}{
+    \pgfpointorigin
+    \pgf@x=1.3cm
+    \pgf@y=0pt
+  }
+  \anchor{south}{
+    \pgfpointorigin
+    \pgf@x=0pt
+    \pgf@y=-3.5cm
+  }
+  \anchor{west}{
+    \pgfpointorigin
+    \pgf@x=-1.3cm
+    \pgf@y=0pt
+  }
+
+  % Or use these anchors:
+  % \inheritsavedanchors[from=rectangle]
+  % \inheritanchorborder[from=rectangle]
+  % \inheritanchor[from=rectangle]{center}
+
+  % \inheritsavedanchors[from=circle]
+  % \inheritanchor[from={circle}]{north}
+  % \inheritanchor[from={circle}]{south}
+  % \inheritanchor[from={circle}]{west}
+  % \inheritanchor[from={circle}]{east}
+
+  
+  % \begin{pgfscope}
+  % \begin{scope}[
+  %   transform canvas={scale=0.1},
+  % ]
+  \backgroundpath{%
+    % \useasboundingbox (-6.5,-5) rectangle (6.5,4);
+
+    \begin{scope}[
+      % scale=10,
+      % transform shape,
+      % transform canvas={scale=0.1},
+      % x=10cm,
+      % y=10cm,
+    ]
+    % \begin{pgfscope}
+    %   \pgftransformscale{0.1}
+    \begin{scope}[
+      % shift={(\pgfpointorigin)},
+      % x=0.1cm,
+      % y=0.1cm,
+      % -- Problem: we use pt below... -> also problem with scale. Shit
+      % scale=0.1,
+      % transform shape,
+      transform canvas={scale=0.1},
+      % transform canvas={scale=0.1,transform shape},
+      % transform canvas={shift={(\pgfpointorigin)},scale=0.1},
+      % transform canvas={shift={(0,0)},scale=0.1},
+      % transform canvas={shift={(1,1)},scale=0.1},
+      % 
+      % cm={0.1,0,0,0.1,(0,0)}
+      % 
+      % scale=10,
+      % transform shape,
+      % x=10cm,
+      % y=10cm,
+    ]
+  % \begin{pgflowlevelscope}{\pgftransformscale{0.1}}
+      % -- Outer Wings
+      % \draw[fill, red, rounded corners] (-0.5,-2.5)
+      %   --++ (-0.8,-1)
+      %   --++ (0,2)
+      %   --++ (1,1)
+      %   -- cycle;
+      
+      % \draw[fill, red, rounded corners] (0.5,-2.5)
+      %   --++ (0.8,-1)
+      %   --++ (0,2)
+      %   --++ (-1,1)
+      %   -- cycle;
+
+      % \draw[wing] (-0.5,-2.5)
+      %   [rounded corners=14pt] --++ (-0.8,-1)
+      %   [rounded corners=4pt] --++ (0.15,2)
+      %   [sharp corners] --++ (1,1)
+      %   -- cycle;
+        
+      % \draw[wing] (0.5,-2.5)
+      %   [rounded corners=14pt] --++ (0.8,-1)
+      %   [rounded corners=4pt] --++ (-0.15,2)
+      %   [sharp corners] --++ (-1,1)
+      %   -- cycle;
+      
+      \draw[wing] (-0.5,-2.5)
+        [rounded corners=14] --++ (-0.8,-1)
+        [rounded corners=4] --++ (0.15,2)
+        [sharp corners] --++ (1,1)
+        -- cycle;
+        
+      \draw[wing] (0.5,-2.5)
+        [rounded corners=14] --++ (0.8,-1)
+        [rounded corners=4] --++ (-0.15,2)
+        [sharp corners] --++ (-1,1)
+        -- cycle;
+      
+      % -- Thrust
+      \def\rocket@thrustangleone{-6}
+      \def\rocket@thrustangletwo{40}
+
+      \draw[
+        fill,
+        % draw=none,
+        orange!90!white,
+        top color=orange,
+        bottom color=orange!90!white,
+      ] (0.36,-2.64)
+        to[out=-90-\rocket@thrustangleone,in=-\rocket@thrustangletwo+90] (0,-3.8)
+        to[out=\rocket@thrustangletwo+90,in=-90+\rocket@thrustangleone] (-0.36,-2.64);
+      
+      \draw[
+        fill,
+        orange!44!yellow!80!white,
+        top color=orange!44!yellow,
+        bottom color=orange!44!yellow!80!white,
+      ] (0.26,-2.64)
+        to[out=-90,in=-\rocket@thrustangletwo+90] (0,-3.5)
+        to[out=\rocket@thrustangletwo+90,in=-90] (-0.26,-2.64);
+      
+      % -- Engine
+      \def\rocket@engineangle{15}
+
+      % \draw[fill, gray!50!black] (0.4,-2.5)
+      %   --++ (-0.1,-0.16)
+      %   --++ (-0.6,0)
+      %   --++ (-0.1,0.16)
+      %   -- cycle;
+      \draw[fill, gray!50!black] (0.45,-2.5)
+        -- (0.4,-2.64)
+        to[out=\rocket@engineangle-180,in=-\rocket@engineangle] (-0.4,-2.64)
+        -- (-0.45,-2.5)
+        -- cycle;
+      
+      % -- Main body
+      % \def\rocket@rocketheight{2.5}
+      \def\rocket@rocketheight{2}
+
+      \def\rocket@topangle{45}
+      \def\rocket@lowerangle{70}
+      \def\rocket@lowerangletwo{15}
+
+      % \draw[name path=body] (0,\rocket@rocketheight)
+      % \draw[gray, fill, fill opacity=0.1] (0,\rocket@rocketheight)
+      % \draw[gray!50, fill, fill opacity=0.2] (0,\rocket@rocketheight)
+      % \draw[gray!50, fill=white] (0,\rocket@rocketheight)
+      \draw[gray!50, fill, left color=white, right color=gray!50] (0,\rocket@rocketheight)
+        to[out=-\rocket@topangle,in=\rocket@lowerangle] (0.5,-2.5)
+        to[out=\rocket@lowerangletwo-180,in=-\rocket@lowerangletwo] (-0.5,-2.5)
+        to[out=-\rocket@lowerangle+180,in=-\rocket@topangle-90] cycle;
+
+      % \draw[black!80, fill] (0.5,-2.5)
+      %   to[out=\rocket@lowerangletwo-180,in=-\rocket@lowerangletwo] (-0.5,-2.5)
+      %   to[] (-0.4,-2.6)
+      %   to[out=\rocket@lowerangletwo-180,in=-\rocket@lowerangletwo] (0.4,-2.6);
+
+      % \draw (0,2.5)
+      %   to[out=-\rocket@topangle,in=\rocket@lowerangle] (0.5,2.5)
+      %   to[out=\rocket@lowerangletwo-180,in=-\rocket@lowerangletwo] (-0.5,-2.5)
+      %   to[out=-\rocket@lowerangle+180,in=-\rocket@topangle-90] (0,2.5);
+
+      \def\rocket@cockpitangle{20}
+
+      \begin{scope}
+        % \clip (use path=body);
+        \clip (0,\rocket@rocketheight)
+        to[out=-\rocket@topangle,in=\rocket@lowerangle] (0.5,-2.5)
+        to[out=\rocket@lowerangletwo-180,in=-\rocket@lowerangletwo] (-0.5,-2.5)
+        to[out=-\rocket@lowerangle+180,in=-\rocket@topangle-90] cycle;
+
+        \draw[wing] (-0.5,\rocket@rocketheight)
+          -- (0.5,\rocket@rocketheight)
+          -- (0.5,\rocket@rocketheight-0.5)
+          to[out=\rocket@cockpitangle-180,in=-\rocket@cockpitangle] (-0.5,\rocket@rocketheight-0.5)
+          -- cycle;
+      \end{scope}
+
+      % -- Window
+      \def\rocket@windowpos{\rocket@rocketheight/4}
+
+      \draw[
+        draw=none,
+        fill,
+        % black!70!blue,
+        % outerwindowblue,
+        left color=outerwindowblue!70!white,
+        right color=outerwindowblue!80!black,
+      ] (0,\rocket@windowpos) circle(0.5);
+
+      \draw[
+        draw=none,
+        fill,
+        % blue!40!cyan!20!white,
+        % innerwindowblue,
+        left color=innerwindowblue!55!white,
+        right color=innerwindowblue!80!black,
+      ] (0,\rocket@windowpos) circle(0.37);
+
+      % -- Front Wing
+      % \draw[fill, red, rounded corners] (-0.125,-1.5) rectangle (0.125,-3.2);
+      % \draw[fill, red, line width=0.2cm, rounded corners=10pt] (0,-1.5) -- (0,-3.2);
+
+      % \draw[wing, rounded corners=4pt] (-0.125,-1.4) rectangle (0.125,-3.1);
+      \draw[wing, rounded corners=4] (-0.125,-1.4) rectangle (0.125,-3.1);
+    % \end{pgflowlevelscope}
+    \end{scope}
+    % \end{pgfscope}
+    \end{scope}
+  }
+  % \end{scope}
+  % \end{pgfscope}
+}

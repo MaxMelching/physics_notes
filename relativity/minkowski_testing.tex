@@ -1,0 +1,157 @@
+\documentclass[tikz,border=3pt]{standalone}
+
+\usepackage{minkowski_diagram}
+
+
+
+\begin{document}
+
+\begin{tikzpicture}
+    \minkowskidiagram
+
+    \minkowskidiagram[%
+        vlorentz=0.2,
+        color=blue,
+        step=0.5,
+        xmin=-2,
+        tmin=0,
+    ]
+
+    \begin{scope}[
+        vlorentz=-0.1,
+    ]
+        \minkowskidiagram[%
+            color=purple,
+            step=1.5,
+            xlabel=false,
+            ylabel=false,
+        ]
+
+        % -- Draw other things here, like worldline
+        \draw[green!80!black, thick] (0,0) -- (-1,1.5) -- (0,3);
+
+
+        % -- Open another scope, has natural relativistic velocity addition
+        \begin{scope}[
+            vlorentz=-0.4,
+        ]
+            \minkowskidiagram[%
+                color=red,
+                xmax=0,
+                tmin=0,
+                grid=false,
+                xlabel=false,
+                ylabel=false,
+            ]
+        \end{scope}
+    \end{scope}
+
+    \minkowskidiagram[%
+        vlorentz=-0.5,
+        color=red,
+        xmax=0,
+        tmin=0,
+        xmin=-2,
+        tmax=2,
+        grid=false,
+        xlabel=false,
+        ylabel=false,
+    ]  % To verify that not perfectly on line of relativistic addition
+
+
+    \lightcone
+
+    % \lightcone[%
+    %     x=1,
+    %     t=1,
+    %     past=false,
+    % ]
+
+    \lightcone[%
+        x=1,
+        t=1,
+        past=false,
+        vlorentz=0.2,
+    ]
+
+
+    % -- Rocket Observers
+    \node[
+        rocket,
+        % scale=0.2,  % Do NOT use, does not rescale properly
+        transform canvas={scale=2},
+        rotate=-30,
+    ] at (0,0) {};
+
+    % \node[
+    %     rocket,
+    %     vlorentz=0.4,
+    %     % transform canvas={shift=(2,2), scale=2},
+    %     rotate=-30,
+    %     % anchor=center,
+    % ] at (2,2) {};
+    
+    % -- Placement at point other than origin must be done in scope via transform canvas
+    \begin{scope}[
+        transform canvas={
+            vlorentz=0.2,
+            shift={(1,1)},
+            rotate=-30,
+        },
+    ]
+    \node[
+        rocket,
+        % vlorentz=0.2,
+        % rotate=-30,
+        % transform canvas={shift={(1,1)}, scale=2},
+        % transform canvas={scale=2},
+        % anchor=center,
+        % anchor=west,
+    % ] at (1,1) {};
+    ] at (0,0) {};
+    \end{scope}
+\end{tikzpicture}
+
+
+
+\begin{tikzpicture}
+    % Using the custom shape with configurable options
+    \node[
+        % shape=accelerated worldline,
+        % accelerated worldline,
+        % -- Both of above work, now experimental
+        % accelerated worldline={tmin=-3,tmax=3},
+        % -- Cannot get working
+        acceleration style={tmin=-3,tmax=3},
+        % accelerated worldline,
+    ] at (0,0) {};
+
+    \node[
+        red,
+        vlorentz=0.3,
+        accelerated worldline,
+        acceleration style={a=0.8,tmin=0,tmax=2},
+    ] at (1,0) {};
+    % -- Order of shape and style does not matter
+
+    
+    \draw[
+        green,
+    ] (2,0) --++ (1,1);  % Make sure style is only set locally, not permanently
+
+
+    % -- With final version
+    \node[
+        % draw,  % So why is \draw not working?
+        purple,
+        accelerated worldline={
+            a=-0.5,
+            vlorentz=0.5,
+            tmin=-1,
+            tmax=4,
+        },
+    ] at (0,-1) {};
+\end{tikzpicture}
+
+
+\end{document}
