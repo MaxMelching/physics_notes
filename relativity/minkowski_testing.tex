@@ -78,37 +78,29 @@
     % -- Rocket Observers
     \node[
         rocket,
-        % scale=0.2,  % Do NOT use, does not rescale properly
-        transform canvas={scale=2},
+        scale=1.25,
         rotate=-30,
     ] at (0,0) {};
 
-    % \node[
-    %     rocket,
-    %     vlorentz=0.4,
-    %     % transform canvas={shift=(2,2), scale=2},
-    %     rotate=-30,
-    %     % anchor=center,
-    % ] at (2,2) {};
-    
-    % -- Placement at point other than origin must be done in scope via transform canvas
-    \begin{scope}[
-        transform canvas={
-            vlorentz=0.2,
-            shift={(1,1)},
-            rotate=-30,
-        },
-    ]
+
     \node[
+        vlorentz=0.2,  % Causes only shape contraction, position not affected
         rocket,
-        % vlorentz=0.2,
-        % rotate=-30,
-        % transform canvas={shift={(1,1)}, scale=2},
-        % transform canvas={scale=2},
-        % anchor=center,
-        % anchor=west,
-    % ] at (1,1) {};
-    ] at (0,0) {};
+        rocket size=0.5cm,
+        rotate=-30,
+    ] at (1,1) {};
+
+
+    \begin{scope}[
+        vlorentz=0.2,  % Causes correct placement, but no length contraction (I am not really sure why)
+    ]
+        \node[
+            rocket,
+            rocket size=0.5cm,
+            % rocket={size=0.1cm},
+            % rocket=0.1cm,
+            rotate=-30,
+        ] at (2,2) {};
     \end{scope}
 \end{tikzpicture}
 

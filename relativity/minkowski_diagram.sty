@@ -445,10 +445,14 @@
 
 
 % -- Rocket Icon --------------------------------------------------------------
+\def\rocket@size{1cm}
+\def\rocket@basesize{1cm/5.5}
+
 \definecolor{innerwindowblue}{HTML}{1eb7d7}
 \definecolor{outerwindowblue}{HTML}{202d3a}
 \colorlet{wingcolor}{red!96!black}
 
+\RequirePackage{calc}
 
 \tikzset{
   wing/.style={
@@ -460,232 +464,163 @@
     left color=wingcolor!75!white,
     right color=wingcolor!90!black,
   },
+  rocket/.style={
+    shape=rocket shape,
+    % size/.estore in=\rocket@basesize,
+    % size/.code={
+    %   % \def\rocket@basesize{#1/(2+3.5)}
+    %   % \def\rocket@basesize{1/5.5*#1}
+    %   % \def\rocket@basesize{0.2*#1}
+    %   % \setlength{\rocket@basesize}{#1/5.5 cm}
+    %   \setlength{\rocket@basesize}{#1}
+    % },
+    % size/.estore in=\rocket@size,
+  },
+  % rocket size/.estore in=\rocket@size,
+  rocket size/.code={
+    \def\rocket@basesize{#1/5.5}  % 5.5 = 2 - (-3.5), which are max, min height in rocket
+  },
+  % -- V2 -> not working nicely
+  % rocket/.code={
+  %   \def\rocket@basesize{#1/5.5}  % 5.5 = 2 - (-3.5), which are max, min height in rocket
+  %   \ifx#1\empty\else\def\rocket@basesize{#1/5.5}\fi  % 5.5 = 2 - (-3.5), which are max, min height in rocket
+  %   \tikzset{shape=rocket shape}
+  % }
 }
 
 
 % -- Inspired by https://s2.qwant.com/thumbr/474x508/5/8/3ad731058a5951d6b9cdd22afc69634079d81f287dd65b2f19c6c46013429a/OIP.OSHer5uSTpKK9NgnmdeGOgHaH8.jpg?u=https%3A%2F%2Ftse.mm.bing.net%2Fth%2Fid%2FOIP.OSHer5uSTpKK9NgnmdeGOgHaH8%3Fr%3D0%26pid%3DApi&q=0&b=1&p=0&a=0
-\pgfdeclareshape{rocket}
+\pgfdeclareshape{rocket shape}
 {
+  % \def\rocket@basesize{\rocket@size/5.5}
+  % \def\rocket@basesize{\rocket@size*0.2}
+  % \setlength{\rocket@basesize}{\rocket@size/5.5}
+
   \anchor{center}{\pgfpointorigin}
-  \anchor{north}{
-    \pgfpointorigin
-    \pgf@x=0pt
-    \pgf@y=2cm
-  }
-  \anchor{east}{
-    \pgfpointorigin
-    \pgf@x=1.3cm
-    \pgf@y=0pt
-  }
-  \anchor{south}{
-    \pgfpointorigin
-    \pgf@x=0pt
-    \pgf@y=-3.5cm
-  }
-  \anchor{west}{
-    \pgfpointorigin
-    \pgf@x=-1.3cm
-    \pgf@y=0pt
-  }
-
-  % Or use these anchors:
-  % \inheritsavedanchors[from=rectangle]
-  % \inheritanchorborder[from=rectangle]
-  % \inheritanchor[from=rectangle]{center}
-
-  % \inheritsavedanchors[from=circle]
-  % \inheritanchor[from={circle}]{north}
-  % \inheritanchor[from={circle}]{south}
-  % \inheritanchor[from={circle}]{west}
-  % \inheritanchor[from={circle}]{east}
+  % \anchor{north}{
+  %   \pgfpointorigin
+  %   \pgf@x=0pt
+  %   \pgf@y=2cm*\rocket@basesize
+  % }
+  % \anchor{east}{
+  %   \pgfpointorigin
+  %   \pgf@x=1.3cm*\rocket@basesize
+  %   \pgf@y=0pt
+  % }
+  % \anchor{south}{
+  %   \pgfpointorigin
+  %   \pgf@x=0pt
+  %   \pgf@y=-3.5cm*\rocket@basesize
+  % }
+  % \anchor{west}{
+  %   \pgfpointorigin
+  %   \pgf@x=-1.3cm*\rocket@basesize
+  %   \pgf@y=0pt
+  % }
+  % -- Anchors are weird now, not sure why. Maybe interplay with rotation
 
   
-  % \begin{pgfscope}
-  % \begin{scope}[
-  %   transform canvas={scale=0.1},
-  % ]
   \backgroundpath{%
-    % \useasboundingbox (-6.5,-5) rectangle (6.5,4);
-
-    \begin{scope}[
-      % scale=10,
-      % transform shape,
-      % transform canvas={scale=0.1},
-      % x=10cm,
-      % y=10cm,
-    ]
-    % \begin{pgfscope}
-    %   \pgftransformscale{0.1}
-    \begin{scope}[
-      % shift={(\pgfpointorigin)},
-      % x=0.1cm,
-      % y=0.1cm,
-      % -- Problem: we use pt below... -> also problem with scale. Shit
-      % scale=0.1,
-      % transform shape,
-      transform canvas={scale=0.1},
-      % transform canvas={scale=0.1,transform shape},
-      % transform canvas={shift={(\pgfpointorigin)},scale=0.1},
-      % transform canvas={shift={(0,0)},scale=0.1},
-      % transform canvas={shift={(1,1)},scale=0.1},
-      % 
-      % cm={0.1,0,0,0.1,(0,0)}
-      % 
-      % scale=10,
-      % transform shape,
-      % x=10cm,
-      % y=10cm,
-    ]
-  % \begin{pgflowlevelscope}{\pgftransformscale{0.1}}
-      % -- Outer Wings
-      % \draw[fill, red, rounded corners] (-0.5,-2.5)
-      %   --++ (-0.8,-1)
-      %   --++ (0,2)
-      %   --++ (1,1)
-      %   -- cycle;
+    % -- Outer Wings
+    \draw[wing] (-0.5*\rocket@basesize,-2.5*\rocket@basesize)
+      [rounded corners=0.5*\rocket@basesize] --++ (-0.8*\rocket@basesize,-1*\rocket@basesize)
+      [rounded corners=0.16*\rocket@basesize] --++ (0.15*\rocket@basesize,2*\rocket@basesize)
+      [sharp corners] --++ (1*\rocket@basesize,1*\rocket@basesize)
+      -- cycle;
       
-      % \draw[fill, red, rounded corners] (0.5,-2.5)
-      %   --++ (0.8,-1)
-      %   --++ (0,2)
-      %   --++ (-1,1)
-      %   -- cycle;
+    \draw[wing] (0.5*\rocket@basesize,-2.5*\rocket@basesize)
+      [rounded corners=0.5*\rocket@basesize] --++ (0.8*\rocket@basesize,-1*\rocket@basesize)
+      [rounded corners=0.16*\rocket@basesize] --++ (-0.15*\rocket@basesize,2*\rocket@basesize)
+      [sharp corners] --++ (-1*\rocket@basesize,1*\rocket@basesize)
+      -- cycle;
+    
+    % -- Thrust
+    \def\rocket@thrustangleone{-6}
+    \def\rocket@thrustangletwo{40}
 
-      % \draw[wing] (-0.5,-2.5)
-      %   [rounded corners=14pt] --++ (-0.8,-1)
-      %   [rounded corners=4pt] --++ (0.15,2)
-      %   [sharp corners] --++ (1,1)
-      %   -- cycle;
-        
-      % \draw[wing] (0.5,-2.5)
-      %   [rounded corners=14pt] --++ (0.8,-1)
-      %   [rounded corners=4pt] --++ (-0.15,2)
-      %   [sharp corners] --++ (-1,1)
-      %   -- cycle;
-      
-      \draw[wing] (-0.5,-2.5)
-        [rounded corners=14] --++ (-0.8,-1)
-        [rounded corners=4] --++ (0.15,2)
-        [sharp corners] --++ (1,1)
+    \draw[
+      fill,
+      % draw=none,
+      orange!90!white,
+      top color=orange,
+      bottom color=orange!90!white,
+    ] (0.36*\rocket@basesize,-2.64*\rocket@basesize)
+      to[out=-90-\rocket@thrustangleone,in=-\rocket@thrustangletwo+90] (0,-3.8*\rocket@basesize)
+      to[out=\rocket@thrustangletwo+90,in=-90+\rocket@thrustangleone] (-0.36*\rocket@basesize,-2.64*\rocket@basesize);
+    
+    \draw[
+      fill,
+      orange!44!yellow!80!white,
+      top color=orange!44!yellow,
+      bottom color=orange!44!yellow!80!white,
+    ] (0.26*\rocket@basesize,-2.64*\rocket@basesize)
+      to[out=-90,in=-\rocket@thrustangletwo+90] (0,-3.5*\rocket@basesize)
+      to[out=\rocket@thrustangletwo+90,in=-90] (-0.26*\rocket@basesize,-2.64*\rocket@basesize);
+    
+    % -- Engine
+    \def\rocket@engineangle{15}
+
+    \draw[fill, gray!50!black] (0.45*\rocket@basesize,-2.5*\rocket@basesize)
+      -- (0.4*\rocket@basesize,-2.64*\rocket@basesize)
+      to[out=\rocket@engineangle-180,in=-\rocket@engineangle] (-0.4*\rocket@basesize,-2.64*\rocket@basesize)
+      -- (-0.45*\rocket@basesize,-2.5*\rocket@basesize)
+      -- cycle;
+    
+    % -- Main body
+    % \def\rocket@rocketheight{2.5*\rocket@basesize}
+    \def\rocket@rocketheight{2*\rocket@basesize}
+
+    \def\rocket@topangle{45}
+    \def\rocket@lowerangle{70}
+    \def\rocket@lowerangletwo{15}
+
+    \draw[gray!50, fill, left color=white, right color=gray!50] (0,\rocket@rocketheight)
+      to[out=-\rocket@topangle,in=\rocket@lowerangle] (0.5*\rocket@basesize,-2.5*\rocket@basesize)
+      to[out=\rocket@lowerangletwo-180,in=-\rocket@lowerangletwo] (-0.5*\rocket@basesize,-2.5*\rocket@basesize)
+      to[out=-\rocket@lowerangle+180,in=-\rocket@topangle-90] cycle;
+
+
+    \def\rocket@cockpitangle{20}
+
+    \begin{scope}
+      \clip (0,\rocket@rocketheight)
+      to[out=-\rocket@topangle,in=\rocket@lowerangle] (0.5*\rocket@basesize,-2.5*\rocket@basesize)
+      to[out=\rocket@lowerangletwo-180,in=-\rocket@lowerangletwo] (-0.5*\rocket@basesize,-2.5*\rocket@basesize)
+      to[out=-\rocket@lowerangle+180,in=-\rocket@topangle-90] cycle;
+
+      \draw[wing] (-0.5*\rocket@basesize,\rocket@rocketheight)
+        -- (0.5*\rocket@basesize,\rocket@rocketheight)
+        -- (0.5*\rocket@basesize,\rocket@rocketheight-0.5*\rocket@basesize)
+        to[out=\rocket@cockpitangle-180,in=-\rocket@cockpitangle] (-0.5*\rocket@basesize,\rocket@rocketheight-0.5*\rocket@basesize)
         -- cycle;
-        
-      \draw[wing] (0.5,-2.5)
-        [rounded corners=14] --++ (0.8,-1)
-        [rounded corners=4] --++ (-0.15,2)
-        [sharp corners] --++ (-1,1)
-        -- cycle;
-      
-      % -- Thrust
-      \def\rocket@thrustangleone{-6}
-      \def\rocket@thrustangletwo{40}
-
-      \draw[
-        fill,
-        % draw=none,
-        orange!90!white,
-        top color=orange,
-        bottom color=orange!90!white,
-      ] (0.36,-2.64)
-        to[out=-90-\rocket@thrustangleone,in=-\rocket@thrustangletwo+90] (0,-3.8)
-        to[out=\rocket@thrustangletwo+90,in=-90+\rocket@thrustangleone] (-0.36,-2.64);
-      
-      \draw[
-        fill,
-        orange!44!yellow!80!white,
-        top color=orange!44!yellow,
-        bottom color=orange!44!yellow!80!white,
-      ] (0.26,-2.64)
-        to[out=-90,in=-\rocket@thrustangletwo+90] (0,-3.5)
-        to[out=\rocket@thrustangletwo+90,in=-90] (-0.26,-2.64);
-      
-      % -- Engine
-      \def\rocket@engineangle{15}
-
-      % \draw[fill, gray!50!black] (0.4,-2.5)
-      %   --++ (-0.1,-0.16)
-      %   --++ (-0.6,0)
-      %   --++ (-0.1,0.16)
-      %   -- cycle;
-      \draw[fill, gray!50!black] (0.45,-2.5)
-        -- (0.4,-2.64)
-        to[out=\rocket@engineangle-180,in=-\rocket@engineangle] (-0.4,-2.64)
-        -- (-0.45,-2.5)
-        -- cycle;
-      
-      % -- Main body
-      % \def\rocket@rocketheight{2.5}
-      \def\rocket@rocketheight{2}
-
-      \def\rocket@topangle{45}
-      \def\rocket@lowerangle{70}
-      \def\rocket@lowerangletwo{15}
-
-      % \draw[name path=body] (0,\rocket@rocketheight)
-      % \draw[gray, fill, fill opacity=0.1] (0,\rocket@rocketheight)
-      % \draw[gray!50, fill, fill opacity=0.2] (0,\rocket@rocketheight)
-      % \draw[gray!50, fill=white] (0,\rocket@rocketheight)
-      \draw[gray!50, fill, left color=white, right color=gray!50] (0,\rocket@rocketheight)
-        to[out=-\rocket@topangle,in=\rocket@lowerangle] (0.5,-2.5)
-        to[out=\rocket@lowerangletwo-180,in=-\rocket@lowerangletwo] (-0.5,-2.5)
-        to[out=-\rocket@lowerangle+180,in=-\rocket@topangle-90] cycle;
-
-      % \draw[black!80, fill] (0.5,-2.5)
-      %   to[out=\rocket@lowerangletwo-180,in=-\rocket@lowerangletwo] (-0.5,-2.5)
-      %   to[] (-0.4,-2.6)
-      %   to[out=\rocket@lowerangletwo-180,in=-\rocket@lowerangletwo] (0.4,-2.6);
-
-      % \draw (0,2.5)
-      %   to[out=-\rocket@topangle,in=\rocket@lowerangle] (0.5,2.5)
-      %   to[out=\rocket@lowerangletwo-180,in=-\rocket@lowerangletwo] (-0.5,-2.5)
-      %   to[out=-\rocket@lowerangle+180,in=-\rocket@topangle-90] (0,2.5);
-
-      \def\rocket@cockpitangle{20}
-
-      \begin{scope}
-        % \clip (use path=body);
-        \clip (0,\rocket@rocketheight)
-        to[out=-\rocket@topangle,in=\rocket@lowerangle] (0.5,-2.5)
-        to[out=\rocket@lowerangletwo-180,in=-\rocket@lowerangletwo] (-0.5,-2.5)
-        to[out=-\rocket@lowerangle+180,in=-\rocket@topangle-90] cycle;
-
-        \draw[wing] (-0.5,\rocket@rocketheight)
-          -- (0.5,\rocket@rocketheight)
-          -- (0.5,\rocket@rocketheight-0.5)
-          to[out=\rocket@cockpitangle-180,in=-\rocket@cockpitangle] (-0.5,\rocket@rocketheight-0.5)
-          -- cycle;
-      \end{scope}
-
-      % -- Window
-      \def\rocket@windowpos{\rocket@rocketheight/4}
-
-      \draw[
-        draw=none,
-        fill,
-        % black!70!blue,
-        % outerwindowblue,
-        left color=outerwindowblue!70!white,
-        right color=outerwindowblue!80!black,
-      ] (0,\rocket@windowpos) circle(0.5);
-
-      \draw[
-        draw=none,
-        fill,
-        % blue!40!cyan!20!white,
-        % innerwindowblue,
-        left color=innerwindowblue!55!white,
-        right color=innerwindowblue!80!black,
-      ] (0,\rocket@windowpos) circle(0.37);
-
-      % -- Front Wing
-      % \draw[fill, red, rounded corners] (-0.125,-1.5) rectangle (0.125,-3.2);
-      % \draw[fill, red, line width=0.2cm, rounded corners=10pt] (0,-1.5) -- (0,-3.2);
-
-      % \draw[wing, rounded corners=4pt] (-0.125,-1.4) rectangle (0.125,-3.1);
-      \draw[wing, rounded corners=4] (-0.125,-1.4) rectangle (0.125,-3.1);
-    % \end{pgflowlevelscope}
     \end{scope}
-    % \end{pgfscope}
-    \end{scope}
+
+    % -- Window
+    \def\rocket@windowpos{\rocket@rocketheight/4}
+
+    \draw[
+      draw=none,
+      fill,
+      % black!70!blue,
+      % outerwindowblue,
+      left color=outerwindowblue!70!white,
+      right color=outerwindowblue!80!black,
+    ] (0,\rocket@windowpos) circle(0.5*\rocket@basesize);
+
+    \draw[
+      draw=none,
+      fill,
+      % blue!40!cyan!20!white,
+      % innerwindowblue,
+      left color=innerwindowblue!55!white,
+      right color=innerwindowblue!80!black,
+    ] (0,\rocket@windowpos) circle(0.37*\rocket@basesize);
+
+    % -- Front Wing
+    % \draw[fill, red, rounded corners] (-0.125,-1.5) rectangle (0.125,-3.2);
+    % \draw[fill, red, line width=0.2cm, rounded corners=10pt] (0,-1.5) -- (0,-3.2);
+
+    % \draw[wing, rounded corners=4pt] (-0.125,-1.4) rectangle (0.125,-3.1);
+    \draw[wing, rounded corners=0.16*\rocket@basesize] (-0.125*\rocket@basesize,-1.4*\rocket@basesize) rectangle (0.125*\rocket@basesize,-3.1*\rocket@basesize);
   }
-  % \end{scope}
-  % \end{pgfscope}
 }
